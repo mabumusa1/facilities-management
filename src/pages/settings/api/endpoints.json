@@ -1,0 +1,33 @@
+{
+  "page": "/settings",
+  "title": "Atar - settings",
+  "tabs": [
+    {"tab": 0, "name": "Services Settings"},
+    {"tab": 1, "name": "Lease Settings"},
+    {"tab": 2, "name": "Visitor Settings"},
+    {"tab": 3, "name": "Invoice Settings"},
+    {"tab": 4, "name": "Offers Settings"},
+    {"tab": 5, "name": "Facilities Settings"},
+    {"tab": 6, "name": "Form Settings"},
+    {"tab": 7, "name": "Company Profile"},
+    {"tab": 8, "name": "Reset Account Data"},
+    {"tab": 9, "name": "Directory Settings"}
+  ],
+  "endpoints": [
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/requests/categories",
+      "description": "Get service request categories"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/countries",
+      "description": "Get list of countries"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/company_profile",
+      "description": "Get company profile data"
+    }
+  ]
+}

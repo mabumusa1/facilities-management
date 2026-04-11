@@ -1,0 +1,40 @@
+{
+  "page": "/transactions",
+  "title": "Atar - Transactions",
+  "tabs": [
+    {"name": "All", "filter_type": "all"},
+    {"name": "Money In", "filter_type": "money_in"},
+    {"name": "Money Out", "filter_type": "money_out"}
+  ],
+  "endpoints": [
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/transactions",
+      "description": "Get transactions list with date filtering",
+      "queryParams": {
+        "filter_type": "all|money_in|money_out",
+        "page": "Page number",
+        "from": "Start date (YYYY-MM-DD)",
+        "to": "End date (YYYY-MM-DD)",
+        "search": "Search query"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/transactions-graph/all-transactions",
+      "description": "Get transactions graph data (returns 404 - may be disabled)",
+      "queryParams": {
+        "from": "Start date",
+        "to": "End date"
+      },
+      "status": "404 - Not Found"
+    }
+  ],
+  "filters": {
+    "dateRange": {
+      "from": "2021-01-01",
+      "to": "current date"
+    }
+  },
+  "currency": "SAR (Saudi Riyal)"
+}

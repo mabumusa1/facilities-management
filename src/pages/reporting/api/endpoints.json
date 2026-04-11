@@ -1,0 +1,36 @@
+{
+  "page": "/dashboard/system-reports",
+  "title": "Atar - System Reports",
+  "subPages": [
+    {"name": "System Reports", "path": "/dashboard/system-reports"},
+    {"name": "Power BI Reports", "path": "/dashboard/power-bi-reports"}
+  ],
+  "reports": [
+    {
+      "name": "Lease Statement",
+      "description": "The report is generated as of date",
+      "features": [
+        "Contains information on active leases",
+        "Includes a list of tenants, liabilities held, rent and the balance owed"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/reports/lease-statement",
+      "description": "Generate lease statement report (inferred endpoint)"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/reports/tenant-statement",
+      "description": "Generate tenant statement report (inferred endpoint)"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/reports/financial",
+      "description": "Generate financial report (inferred endpoint)"
+    }
+  ],
+  "note": "Report endpoints are inferred - actual endpoints need verification through report generation"
+}

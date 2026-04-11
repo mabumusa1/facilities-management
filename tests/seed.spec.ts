@@ -12,17 +12,14 @@ test.describe('Atar Dashboard', () => {
     const localStoragePath = path.join(__dirname, 'localstorage.json');
     const localStorageData = JSON.parse(fs.readFileSync(localStoragePath, 'utf-8'));
 
-    // Go directly to dashboard
-    await page.goto(`${ATAR_CONFIG.baseUrl}/dashboard`);
-
-    // Set all localStorage values
-    await page.evaluate((data) => {
+    // Inject localStorage BEFORE page loads using addInitScript
+    await page.addInitScript((data) => {
       for (const [key, value] of Object.entries(data)) {
         localStorage.setItem(key, value as string);
       }
     }, localStorageData);
 
-    // Reload to apply auth
-    await page.reload();
+    // Now navigate to dashboard - localStorage will already be set
+    await page.goto(`${ATAR_CONFIG.baseUrl}/dashboard`);
   });
 });

@@ -1,0 +1,33 @@
+{
+  "page": "/properties-list/units",
+  "title": "Atar - List",
+  "tabs": [
+    {"name": "Communities", "count": 1},
+    {"name": "Buildings", "count": 4},
+    {"name": "Units", "count": 3}
+  ],
+  "endpoints": [
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/communities?is_paginate=1&page=1&sortBy=created_at&sortDirection=desc",
+      "description": "Get communities list with pagination"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/buildings?is_paginate=1&sortBy=created_at&sortDirection=desc&page=1",
+      "description": "Get buildings list with pagination"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/units?is_paginate=1&page=1&sortBy=created_at&sortDirection=desc",
+      "description": "Get units list with pagination"
+    }
+  ],
+  "queryParams": {
+    "is_paginate": "1 or 0 - Enable/disable pagination",
+    "page": "Page number",
+    "sortBy": "Field to sort by (e.g., created_at)",
+    "sortDirection": "asc or desc",
+    "search": "Search query string"
+  }
+}

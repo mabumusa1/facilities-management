@@ -1,0 +1,49 @@
+{
+  "page": "/contacts/Tenants",
+  "title": "Atar - Contact List",
+  "subPages": [
+    {"name": "Tenants", "path": "/contacts/Tenants"},
+    {"name": "Owners", "path": "/contacts/Owners"},
+    {"name": "Managers", "path": "/contacts/Managers"}
+  ],
+  "tabs": [
+    {"name": "Individuals", "filter_type": "individual"},
+    {"name": "Companies", "filter_type": "company"}
+  ],
+  "endpoints": [
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/tenants",
+      "description": "Get tenants list with pagination",
+      "queryParams": {
+        "not_has_family_member": "true/false",
+        "active": "1/0",
+        "page": "Page number",
+        "is_paginate": "1/0",
+        "query": "Search query"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/contacts/statistics",
+      "description": "Get contacts statistics"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/owners",
+      "description": "Get owners list (inferred endpoint)"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/managers",
+      "description": "Get managers list (inferred endpoint)"
+    }
+  ],
+  "tableColumns": [
+    "Name",
+    "Phone Number",
+    "Unit Number",
+    "Accept Invite"
+  ],
+  "detailsUrl": "/contacts/Tenants/details/{id}?type=individual"
+}

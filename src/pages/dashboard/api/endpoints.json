@@ -1,0 +1,35 @@
+{
+  "page": "/dashboard",
+  "title": "Atar - Dashboard",
+  "endpoints": [
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/notifications/unread-count",
+      "description": "Get unread notification count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/modules",
+      "description": "Get available modules"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/announcements?type=upcoming",
+      "description": "Get upcoming announcements"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/reports/performance/units?date=null",
+      "description": "Get unit performance report for dashboard"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/users/requests/categories?is_paginate=0",
+      "description": "Get user request categories"
+    }
+  ],
+  "staticAssets": [
+    "https://goatar.com/assets/locales/en/translation.json",
+    "https://goatar.com/assets/locales/ar/translation.json"
+  ]
+}

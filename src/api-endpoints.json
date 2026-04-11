@@ -1,0 +1,144 @@
+{
+  "baseUrl": "https://api.goatar.com/api-management",
+  "authentication": {
+    "type": "Bearer",
+    "header": "Authorization: Bearer {token}",
+    "tenantHeader": "X-Tenant: {tenant_id}",
+    "localeHeader": "X-App-Locale: en|ar"
+  },
+  "endpoints": {
+    "notifications": {
+      "unreadCount": {
+        "method": "GET",
+        "path": "/notifications/unread-count",
+        "description": "Get count of unread notifications"
+      }
+    },
+    "modules": {
+      "list": {
+        "method": "GET",
+        "path": "/rf/modules",
+        "description": "Get available modules for the tenant"
+      }
+    },
+    "announcements": {
+      "list": {
+        "method": "GET",
+        "path": "/rf/announcements",
+        "params": {"type": "upcoming"},
+        "description": "Get announcements"
+      }
+    },
+    "reports": {
+      "unitsPerformance": {
+        "method": "GET",
+        "path": "/reports/performance/units",
+        "params": {"date": "null|YYYY-MM-DD"},
+        "description": "Get units performance for dashboard"
+      }
+    },
+    "properties": {
+      "communities": {
+        "method": "GET",
+        "path": "/rf/communities",
+        "params": {
+          "is_paginate": "1|0",
+          "page": "number",
+          "sortBy": "created_at",
+          "sortDirection": "asc|desc",
+          "search": "string"
+        }
+      },
+      "buildings": {
+        "method": "GET",
+        "path": "/rf/buildings",
+        "params": {
+          "is_paginate": "1|0",
+          "page": "number",
+          "sortBy": "created_at",
+          "sortDirection": "asc|desc",
+          "search": "string"
+        }
+      },
+      "units": {
+        "method": "GET",
+        "path": "/rf/units",
+        "params": {
+          "is_paginate": "1|0",
+          "page": "number",
+          "sortBy": "created_at",
+          "sortDirection": "asc|desc",
+          "search": "string"
+        }
+      }
+    },
+    "leasing": {
+      "leases": {
+        "method": "GET",
+        "path": "/rf/leases",
+        "params": {
+          "status[]": "30|31|etc",
+          "sortBy": "created_at",
+          "sortDirection": "asc|desc",
+          "page": "number",
+          "is_paginate": "1|0",
+          "limit": "50"
+        }
+      },
+      "statistics": {
+        "method": "GET",
+        "path": "/rf/leases/statistics",
+        "description": "Get lease statistics"
+      }
+    },
+    "transactions": {
+      "list": {
+        "method": "GET",
+        "path": "/transactions",
+        "params": {
+          "filter_type": "all|money_in|money_out",
+          "page": "number",
+          "from": "YYYY-MM-DD",
+          "to": "YYYY-MM-DD",
+          "search": "string"
+        }
+      }
+    },
+    "contacts": {
+      "tenants": {
+        "method": "GET",
+        "path": "/rf/tenants",
+        "params": {
+          "not_has_family_member": "true|false",
+          "active": "1|0",
+          "page": "number",
+          "is_paginate": "1|0",
+          "query": "string"
+        }
+      },
+      "statistics": {
+        "method": "GET",
+        "path": "/rf/contacts/statistics"
+      }
+    },
+    "settings": {
+      "companyProfile": {
+        "method": "GET",
+        "path": "/rf/company_profile"
+      },
+      "requestCategories": {
+        "method": "GET",
+        "path": "/rf/requests/categories"
+      },
+      "countries": {
+        "method": "GET",
+        "path": "/countries"
+      },
+      "userRequestCategories": {
+        "method": "GET",
+        "path": "/rf/users/requests/categories",
+        "params": {"is_paginate": "0|1"}
+      }
+    }
+  }
+}

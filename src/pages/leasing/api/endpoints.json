@@ -1,0 +1,54 @@
+{
+  "page": "/leasing/leases",
+  "title": "Atar - Leases",
+  "subPages": [
+    {"name": "Visits", "path": "/leasing/visits"},
+    {"name": "Applications", "path": "/leasing/applications"},
+    {"name": "Quotes", "path": "/leasing/quotes"},
+    {"name": "Leases", "path": "/leasing/leases"}
+  ],
+  "statistics": {
+    "totalLeases": 1,
+    "newLeases": {"count": 1, "percentage": "100%"},
+    "activeLeases": {"count": 0, "percentage": "0%"},
+    "expiredLeases": {"count": 0, "percentage": "0%"},
+    "terminatedLeases": {"count": 0, "percentage": "0%"},
+    "activeCommercialLeases": 0,
+    "activeResidentialLeases": 0
+  },
+  "endpoints": [
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/leases/statistics",
+      "description": "Get lease statistics (total, active, expired, terminated)"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.goatar.com/api-management/rf/leases",
+      "description": "Get leases list with pagination and filtering",
+      "queryParams": {
+        "status[]": "Lease status codes (30=new, 31=active, etc.)",
+        "sortBy": "Field to sort (created_at)",
+        "sortDirection": "asc/desc",
+        "page": "Page number",
+        "is_paginate": "1/0",
+        "limit": "Items per page (default 50)",
+        "search": "Search query"
+      }
+    }
+  ],
+  "leaseStatuses": {
+    "30": "new",
+    "31": "active",
+    "comment": "Status codes need further investigation"
+  },
+  "tableColumns": [
+    "Lease Number",
+    "Tenant",
+    "Unit Name",
+    "Building Name",
+    "Community Name",
+    "Status",
+    "Days Remaining"
+  ]
+}
