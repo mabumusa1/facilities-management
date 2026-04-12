@@ -1,0 +1,261 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "marketplace/admin/communities/unlist/4",
+      "body": {}
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:41 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FC%2FbSpFiYxNBW5EPZtXkTPZ1jAHEUKKZNHoO9c9eQifJaRAB3rwWu3jDj5IW93NxvXpowPJmjRmW4djxIWLdbL%2F7suaucXwBGe5Ocdq4ySpCznBoogqc7dOrsXEXGCrznGA8mjVAO1%2Fq%2Fjdo\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb0ba353efff615-MXP"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "id": 4,
+          "name": "Updated Community 1775980921530",
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "no_interests": 0,
+          "no_listed_unit": 0,
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "status": {
+            "name": "قريباً",
+            "id": 1
+          },
+          "is_market_place": "0",
+          "is_off_plan_sale": "0",
+          "sales_commission_rate": "0.00",
+          "rental_commission_rate": "0.00",
+          "allow_cash_sale": 0,
+          "allow_bank_financing": 0,
+          "active_bookings_count": 0,
+          "voom_url": null
+        },
+        "meta": []
+      },
+      "timing": 315
+    },
+    "timestamp": "2026-04-12T08:05:40.930Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "marketplace/admin/units/prices-visibility/3",
+      "body": {
+        "show_price": true
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:42 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NOVFmNhvtC3FZGkMY5x5q7ohMF1AwQpafrDXEZPRgyJPhEVpKLo8fXCcO73fyN9DW9smiAIpvBuSCnuDEYtn%2BHpYlZgYq%2Ba4h5ZdHGi%2BEAHRtf6Vm6Uv7G%2Bm3rOadwqxPXm7s3mulr%2FqOhNl\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb0ba3ddd9bf615-MXP"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "id": 3,
+          "name": "Test Unit API v2",
+          "unit_size": 0,
+          "building": {
+            "id": 1,
+            "name": "Test Building 1"
+          },
+          "complex": {
+            "id": 1,
+            "name": "Test Community 1"
+          },
+          "status": {
+            "id": 1,
+            "name": "متاح"
+          },
+          "map": {
+            "latitude": 24.7103488,
+            "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+            "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+            "longitude": 46.6878464,
+            "districtName": "3287 ,RHSA7555",
+            "latitudeDelta": 0.02,
+            "longitudeDelta": 0.009244060475161988,
+            "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+          },
+          "category": {
+            "id": 2,
+            "name": "سكني"
+          },
+          "type": {
+            "id": 17,
+            "name": "شقة"
+          },
+          "is_market_place": "0",
+          "is_market_place_prices_visible": "0",
+          "is_off_plan_sale": "0",
+          "allow_cash_sale": false,
+          "allow_bank_financing": false,
+          "marketplace": {
+            "amount_type": null,
+            "net_unit_price": 0,
+            "meter_unit_price": 0,
+            "real_estate_transaction_tax": 0,
+            "commission_rate": 0,
+            "commission_excl_vat": 0,
+            "commission_vat": 0,
+            "commission_incl_vat": 0,
+            "commission_vat_amount": 0,
+            "total_amount": 0,
+            "tax_rate": 0,
+            "deposit": 0,
+            "amount_before_tax": 0
+          }
+        },
+        "meta": []
+      },
+      "timing": 339
+    },
+    "timestamp": "2026-04-12T08:05:42.327Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "marketplace/admin/units/prices-visibility/3",
+      "body": {
+        "show_price": false
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:44 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2UVEZB8GLpOMHKULnHTK6uwOVKA2pbC8gNH3mw7WY7WHdZ9TIIW4f3ll4cNBU3HHeDVG4ZJNzv9Krs6dsY9CG%2FztA8RlN6W7D1x2skD7gEpos9h7EDedJ7ioZ1jVKmPg7iSF1zu9uAn2yTWB\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb0ba477f88f615-MXP"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "id": 3,
+          "name": "Test Unit API v2",
+          "unit_size": 0,
+          "building": {
+            "id": 1,
+            "name": "Test Building 1"
+          },
+          "complex": {
+            "id": 1,
+            "name": "Test Community 1"
+          },
+          "status": {
+            "id": 1,
+            "name": "متاح"
+          },
+          "map": {
+            "latitude": 24.7103488,
+            "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+            "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+            "longitude": 46.6878464,
+            "districtName": "3287 ,RHSA7555",
+            "latitudeDelta": 0.02,
+            "longitudeDelta": 0.009244060475161988,
+            "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+          },
+          "category": {
+            "id": 2,
+            "name": "سكني"
+          },
+          "type": {
+            "id": 17,
+            "name": "شقة"
+          },
+          "is_market_place": "0",
+          "is_market_place_prices_visible": "1",
+          "is_off_plan_sale": "0",
+          "allow_cash_sale": false,
+          "allow_bank_financing": false,
+          "marketplace": {
+            "amount_type": null,
+            "net_unit_price": 0,
+            "meter_unit_price": 0,
+            "real_estate_transaction_tax": 0,
+            "commission_rate": 0,
+            "commission_excl_vat": 0,
+            "commission_vat": 0,
+            "commission_incl_vat": 0,
+            "commission_vat_amount": 0,
+            "total_amount": 0,
+            "tax_rate": 0,
+            "deposit": 0,
+            "amount_before_tax": 0
+          }
+        },
+        "meta": []
+      },
+      "timing": 291
+    },
+    "timestamp": "2026-04-12T08:05:43.826Z",
+    "success": true
+  }
+]

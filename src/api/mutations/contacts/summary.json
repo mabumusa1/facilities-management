@@ -1,0 +1,22 @@
+{
+  "module": "contacts",
+  "generatedAt": "2026-04-12T08:05:37.802Z",
+  "totalCaptures": 4,
+  "successCount": 1,
+  "errorCount": 3,
+  "successRate": "25.0%",
+  "endpoints": {
+    "PUT rf/owners/3": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 399
+    },
+    "POST rf/tenants": {
+      "method": "POST",
+      "success": 1,
+      "error": 2,
+      "avgTiming": 253.33333333333334
+    }
+  }
+}

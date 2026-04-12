@@ -1,0 +1,75 @@
+{
+  "name": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل الاسم مطلوب.",
+      "يجب أن لا يتجاوز طول نص الاسم 20 حروفٍ/حرفًا"
+    ]
+  },
+  "country_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل country id مطلوب."
+    ]
+  },
+  "currency_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل currency id مطلوب."
+    ]
+  },
+  "city_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل city id مطلوب."
+    ]
+  },
+  "district_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل district id مطلوب."
+    ]
+  },
+  "category_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل category id مطلوب."
+    ]
+  },
+  "type_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل type id مطلوب."
+    ]
+  },
+  "rf_community_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل rf community id مطلوب."
+    ]
+  }
+}

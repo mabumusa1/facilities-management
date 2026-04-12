@@ -1,0 +1,498 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Atar API - marketplace Module",
+    "version": "1.0.0",
+    "description": "API documentation for the marketplace module of the Atar property management platform."
+  },
+  "servers": [
+    {
+      "url": "https://api.goatar.com/api-management/",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "marketplace/admin/communities/unlist/4": {
+      "post": {
+        "operationId": "post_marketplace_admin_communities_unlist_4",
+        "summary": "POST marketplace/admin/communities/unlist/4",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "district": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "city": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "no_interests": {
+                          "type": "integer"
+                        },
+                        "no_listed_unit": {
+                          "type": "integer"
+                        },
+                        "is_buy": {
+                          "type": "integer"
+                        },
+                        "community_marketplace_type": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "is_market_place": {
+                          "type": "string"
+                        },
+                        "is_off_plan_sale": {
+                          "type": "string"
+                        },
+                        "sales_commission_rate": {
+                          "type": "string"
+                        },
+                        "rental_commission_rate": {
+                          "type": "string"
+                        },
+                        "allow_cash_sale": {
+                          "type": "integer"
+                        },
+                        "allow_bank_financing": {
+                          "type": "integer"
+                        },
+                        "active_bookings_count": {
+                          "type": "integer"
+                        },
+                        "voom_url": {
+                          "type": "null"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "",
+                      "data": {
+                        "id": 4,
+                        "name": "Updated Community 1775980921530",
+                        "district": {
+                          "id": 1,
+                          "name": "الدرعية"
+                        },
+                        "city": {
+                          "id": 1,
+                          "name": "الرياض"
+                        },
+                        "no_interests": 0,
+                        "no_listed_unit": 0,
+                        "is_buy": 0,
+                        "community_marketplace_type": "rent",
+                        "status": {
+                          "name": "قريباً",
+                          "id": 1
+                        },
+                        "is_market_place": "0",
+                        "is_off_plan_sale": "0",
+                        "sales_commission_rate": "0.00",
+                        "rental_commission_rate": "0.00",
+                        "allow_cash_sale": 0,
+                        "allow_bank_financing": 0,
+                        "active_bookings_count": 0,
+                        "voom_url": null
+                      },
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/units/prices-visibility/3": {
+      "post": {
+        "operationId": "post_marketplace_admin_units_prices_visibility_3",
+        "summary": "POST marketplace/admin/units/prices-visibility/3",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "unit_size": {
+                          "type": "integer"
+                        },
+                        "building": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "complex": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "status": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "map": {
+                          "type": "object",
+                          "properties": {
+                            "latitude": {
+                              "type": "number"
+                            },
+                            "mapsLink": {
+                              "type": "string"
+                            },
+                            "place_id": {
+                              "type": "string"
+                            },
+                            "longitude": {
+                              "type": "number"
+                            },
+                            "districtName": {
+                              "type": "string"
+                            },
+                            "latitudeDelta": {
+                              "type": "number"
+                            },
+                            "longitudeDelta": {
+                              "type": "number"
+                            },
+                            "formattedAddress": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "category": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "type": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "is_market_place": {
+                          "type": "string"
+                        },
+                        "is_market_place_prices_visible": {
+                          "type": "string"
+                        },
+                        "is_off_plan_sale": {
+                          "type": "string"
+                        },
+                        "allow_cash_sale": {
+                          "type": "boolean"
+                        },
+                        "allow_bank_financing": {
+                          "type": "boolean"
+                        },
+                        "marketplace": {
+                          "type": "object",
+                          "properties": {
+                            "amount_type": {
+                              "type": "null"
+                            },
+                            "net_unit_price": {
+                              "type": "integer"
+                            },
+                            "meter_unit_price": {
+                              "type": "integer"
+                            },
+                            "real_estate_transaction_tax": {
+                              "type": "integer"
+                            },
+                            "commission_rate": {
+                              "type": "integer"
+                            },
+                            "commission_excl_vat": {
+                              "type": "integer"
+                            },
+                            "commission_vat": {
+                              "type": "integer"
+                            },
+                            "commission_incl_vat": {
+                              "type": "integer"
+                            },
+                            "commission_vat_amount": {
+                              "type": "integer"
+                            },
+                            "total_amount": {
+                              "type": "integer"
+                            },
+                            "tax_rate": {
+                              "type": "integer"
+                            },
+                            "deposit": {
+                              "type": "integer"
+                            },
+                            "amount_before_tax": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "",
+                      "data": {
+                        "id": 3,
+                        "name": "Test Unit API v2",
+                        "unit_size": 0,
+                        "building": {
+                          "id": 1,
+                          "name": "Test Building 1"
+                        },
+                        "complex": {
+                          "id": 1,
+                          "name": "Test Community 1"
+                        },
+                        "status": {
+                          "id": 1,
+                          "name": "متاح"
+                        },
+                        "map": {
+                          "latitude": 24.7103488,
+                          "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+                          "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+                          "longitude": 46.6878464,
+                          "districtName": "3287 ,RHSA7555",
+                          "latitudeDelta": 0.02,
+                          "longitudeDelta": 0.009244060475161988,
+                          "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                        },
+                        "category": {
+                          "id": 2,
+                          "name": "سكني"
+                        },
+                        "type": {
+                          "id": 17,
+                          "name": "شقة"
+                        },
+                        "is_market_place": "0",
+                        "is_market_place_prices_visible": "0",
+                        "is_off_plan_sale": "0",
+                        "allow_cash_sale": false,
+                        "allow_bank_financing": false,
+                        "marketplace": {
+                          "amount_type": null,
+                          "net_unit_price": 0,
+                          "meter_unit_price": 0,
+                          "real_estate_transaction_tax": 0,
+                          "commission_rate": 0,
+                          "commission_excl_vat": 0,
+                          "commission_vat": 0,
+                          "commission_incl_vat": 0,
+                          "commission_vat_amount": 0,
+                          "total_amount": 0,
+                          "tax_rate": 0,
+                          "deposit": 0,
+                          "amount_before_tax": 0
+                        }
+                      },
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "show_price": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "show_price": true
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "tenantHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Tenant"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [],
+      "tenantHeader": []
+    }
+  ]
+}

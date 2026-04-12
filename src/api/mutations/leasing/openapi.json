@@ -1,0 +1,206 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Atar API - leasing Module",
+    "version": "1.0.0",
+    "description": "API documentation for the leasing module of the Atar property management platform."
+  },
+  "servers": [
+    {
+      "url": "https://api.goatar.com/api-management/",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "rf/leases/create": {
+      "post": {
+        "operationId": "post_rf_leases_create",
+        "summary": "POST rf/leases/create",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "start_date": {
+                    "type": "string"
+                  },
+                  "end_date": {
+                    "type": "string"
+                  },
+                  "handover_date": {
+                    "type": "string"
+                  },
+                  "number_of_years": {
+                    "type": "integer"
+                  },
+                  "number_of_months": {
+                    "type": "integer"
+                  },
+                  "lease_unit_type": {
+                    "type": "integer"
+                  },
+                  "tenant_type": {
+                    "type": "string"
+                  },
+                  "tenant_id": {
+                    "type": "string"
+                  },
+                  "tenant": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "autoGenerateLeaseNumber": {
+                    "type": "boolean"
+                  },
+                  "rental_type": {
+                    "type": "string"
+                  },
+                  "rental_contract_type_id": {
+                    "type": "integer"
+                  },
+                  "payment_schedule_id": {
+                    "type": "integer"
+                  },
+                  "lease_escalations_type": {
+                    "type": "string"
+                  },
+                  "rental_total_amount": {
+                    "type": "integer"
+                  },
+                  "rf_status_id": {
+                    "type": "integer"
+                  },
+                  "units": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "rental_annual_type": {
+                          "type": "string"
+                        },
+                        "annual_rental_amount": {
+                          "type": "integer"
+                        },
+                        "amount_type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "created_at": "2026-04-12",
+                    "start_date": "2026-04-19",
+                    "end_date": "2027-04-19",
+                    "handover_date": "2026-04-19",
+                    "number_of_years": 1,
+                    "number_of_months": 0,
+                    "lease_unit_type": 2,
+                    "tenant_type": "individual",
+                    "tenant_id": "6",
+                    "tenant": {
+                      "id": "6",
+                      "name": "Test Company9bd5k5",
+                      "phone_number": "+966593475494"
+                    },
+                    "autoGenerateLeaseNumber": true,
+                    "rental_type": "detailed",
+                    "rental_contract_type_id": 13,
+                    "payment_schedule_id": 7,
+                    "lease_escalations_type": "fixed",
+                    "rental_total_amount": 60000,
+                    "rf_status_id": 30,
+                    "units": [
+                      {
+                        "id": "3",
+                        "rental_annual_type": "total",
+                        "annual_rental_amount": 60000,
+                        "amount_type": "total"
+                      }
+                    ]
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "tenantHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Tenant"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [],
+      "tenantHeader": []
+    }
+  ]
+}

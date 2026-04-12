@@ -1,0 +1,75 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/requests",
+      "body": {
+        "category_id": 1,
+        "rf_unit_id": 3,
+        "description": "Test request 1775981146111",
+        "priority": "normal"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:46 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "1df3f785dff31b2f5bcb9a5d369bc92d",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wRlOwRNxAzH3MQ6V01pQYTMcRD6NkwnMl%2F0LIqO8ZfD8WJdy9uE1aOeVDkhORaTFjU4mss40LJ3H8qY%2BmKkdX2xHYmjfryXsdJIlWV4bnPeH5vjRkTtS2r6ERXpqEFfwnS5t%2FLQJhe7ryYac\"}]}",
+        "cf-ray": "9eb0ba579e71f615-MXP"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 252
+    },
+    "timestamp": "2026-04-12T08:05:46.365Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/requests",
+      "body": {}
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:47 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "03591a1d8c47d4345bcb9a5d369bc830",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1pcFymGjv8ogqlmal%2B5%2FjnoSOnjh79XN9BR9liHYRRxqkaabgkqt2OELxT04Dt%2F2NRVIkzP%2F%2Fbi1jy5jD5Cz9hnUGY3WhtAATkGtIB5YUKNBxBs8JHg4GHANsMsGQKALD9cUyA6r4YkiZWPm\"}]}",
+        "cf-ray": "9eb0ba597af0f615-MXP"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 274
+    },
+    "timestamp": "2026-04-12T08:05:46.683Z",
+    "success": false,
+    "validationErrors": []
+  }
+]

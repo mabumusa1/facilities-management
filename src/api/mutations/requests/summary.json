@@ -1,0 +1,16 @@
+{
+  "module": "requests",
+  "generatedAt": "2026-04-12T08:05:46.707Z",
+  "totalCaptures": 2,
+  "successCount": 0,
+  "errorCount": 2,
+  "successRate": "0.0%",
+  "endpoints": {
+    "POST rf/requests": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 263
+    }
+  }
+}

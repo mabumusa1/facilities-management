@@ -101,6 +101,39 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
+    // API Mutation Agents - Direct API testing
+    {
+      name: 'properties-mutation-agent',
+      testMatch: /properties\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'contacts-mutation-agent',
+      testMatch: /contacts\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'leasing-mutation-agent',
+      testMatch: /leasing\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'marketplace-mutation-agent',
+      testMatch: /marketplace\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'requests-mutation-agent',
+      testMatch: /requests\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    // Run all mutation agents together
+    {
+      name: 'all-mutation-agents',
+      testMatch: /\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+
     // Run all agents together
     {
       name: 'all-agents',

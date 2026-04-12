@@ -57,7 +57,7 @@ export interface ScanOptions {
 
 export const ATAR_CONFIG: AtarConfig = {
   baseUrl: 'https://goatar.com',
-  apiUrl: 'https://api.goatar.com/api-management',
+  apiUrl: 'https://api.goatar.com/api-management/',
 };
 
 export const API_DOMAIN = 'api.goatar.com';

@@ -1,0 +1,137 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/create",
+      "body": {
+        "created_at": "2026-04-12",
+        "start_date": "2026-04-19",
+        "end_date": "2027-04-19",
+        "handover_date": "2026-04-19",
+        "number_of_years": 1,
+        "number_of_months": 0,
+        "lease_unit_type": 2,
+        "tenant_type": "individual",
+        "tenant_id": "6",
+        "tenant": {
+          "id": "6",
+          "name": "Test Company9bd5k5",
+          "phone_number": "+966593475494"
+        },
+        "autoGenerateLeaseNumber": true,
+        "rental_type": "detailed",
+        "rental_contract_type_id": 13,
+        "payment_schedule_id": 7,
+        "lease_escalations_type": "fixed",
+        "rental_total_amount": 60000,
+        "rf_status_id": 30,
+        "units": [
+          {
+            "id": "3",
+            "rental_annual_type": "total",
+            "annual_rental_amount": 60000,
+            "amount_type": "total"
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:40 GMT",
+        "content-type": "application/json",
+        "content-length": "107",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, DELETE",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "9d8755e6ca27eaf57783f019774a2d02",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=yGwZBC1wcD4ie%2BjnzAWKLjtqHUn%2BM84Titxk7S9t09AWVoU%2FCnVEbbVRIjjbP%2B%2F%2Bbqd4zXKpq%2B8%2Bdgm1oteF5upiztyc3dx6dIh3sCSQHVUQwBAo2v5q9gXxPvaK%2BWHb8%2BCqKZrQG%2F5EJ%2Ff7\"}]}",
+        "cf-ray": "9eb0ba2ead7cd0db-SOF"
+      },
+      "body": {
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+      },
+      "timing": 274
+    },
+    "timestamp": "2026-04-12T08:05:39.833Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/create",
+      "body": {}
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:40 GMT",
+        "content-type": "application/json",
+        "content-length": "107",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, DELETE",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "859e5fe058e6c1b57590eb1f73674895",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7w5Ku7f%2B8EblA1E1GcqEd3k%2FtejCKRnvooZ26cHv1L2W2tMHTKDMIMt6L1q3uYseunKzfvB8Dz%2B3KT13wbew9u%2BHhc%2BlxRCr8q50J4JWTfYRMSYvK3vh6Ovj%2BKLJxCIUEP%2FfAcX4MhXskC9m\"}]}",
+        "cf-ray": "9eb0ba30dc77d0db-SOF"
+      },
+      "body": {
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+      },
+      "timing": 305
+    },
+    "timestamp": "2026-04-12T08:05:40.216Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/create",
+      "body": {
+        "rental_type": "yearly",
+        "rental_contract_type_id": 13
+      }
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:41 GMT",
+        "content-type": "application/json",
+        "content-length": "107",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, DELETE",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "f8c4cd68686458a599da4aafc5612665",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SUNLuSE9YWoliiqnvz6DL9mj7rmwM8tKAf0x8jWFJ0U3Pt10ITWAm8g8N4F5MZXAei9Qfs7Iaud5YLJPeJpQwk1Y87GsxBtVp%2Fq9RuKCQQdaMiu%2B7X4%2Brx5vwgLW3xmsThk6sp3pRCoIrA87\"}]}",
+        "cf-ray": "9eb0ba331bfcd0db-SOF"
+      },
+      "body": {
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+      },
+      "timing": 333
+    },
+    "timestamp": "2026-04-12T08:05:40.603Z",
+    "success": false,
+    "validationErrors": []
+  }
+]

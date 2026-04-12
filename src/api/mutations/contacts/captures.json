@@ -1,0 +1,255 @@
+[
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/owners/3",
+      "body": {
+        "first_name": "Updated",
+        "last_name": "Owner1775981135874"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:36 GMT",
+        "content-type": "application/json",
+        "content-length": "482",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-cloud-trace-context": "789f1eb6fec4d115f9080da8e2fa496d",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7lUetZJF24CohqU1spUaMT1EmhN2tUhqVjwKUKSL1vrzRYr9c6%2BFZti%2Fahp%2BGMGkw2KjBq3%2Fgcw%2BgoJ3ACJqZgbi4%2FZxJyd67ji4yAXQkCn8NXbxTjhZZdsGTtN4%2Bc1q6poZ1qV547dqe8PM\"}]}",
+        "cf-ray": "9eb0ba179c6e5fd0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "last_name": [
+            "صيغة الحقل اسم العائلة .غير صحيحة"
+          ],
+          "phone_country_code": [
+            "الحقل phone country code مطلوب."
+          ],
+          "phone_number": [
+            "الحقل رقم الجوال مطلوب."
+          ]
+        }
+      },
+      "timing": 399
+    },
+    "timestamp": "2026-04-12T08:05:36.274Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "last_name",
+        "message": "صيغة الحقل اسم العائلة .غير صحيحة"
+      },
+      {
+        "field": "phone_country_code",
+        "message": "الحقل phone country code مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "phone_number",
+        "message": "الحقل رقم الجوال مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/tenants",
+      "body": {
+        "first_name": "Test",
+        "last_name": "Tenant7l2mlg",
+        "phone_country_code": "SA",
+        "phone_number": "526924980",
+        "email": "tenant7l2mlg@example.com",
+        "national_id": "5122633192",
+        "type": "individual",
+        "name": "Test Tenant7l2mlg"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:37 GMT",
+        "content-type": "application/json",
+        "content-length": "386",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "ebb3f60b426199a851ac52f21d30d325",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BmYpjd4TR5judD0s%2B9qNnFRL%2BTJwIe0kY%2BOOM%2FQbvC8z1zZE3s2QudPqdSt9Cz8Qrxa11sg7BZoCneRp1MUMruFL8DTtDLj%2BHjMYIs4y%2B3naIAOXwRfJHlP76uxvWYEb0BmNRx5vcitbYJ8D\"}]}",
+        "cf-ray": "9eb0ba1aaad35fd0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "phone_number": [
+            "رقم رقم الجوال غير صحيح.",
+            "قيمة الحقل رقم الجوال مُستخدمة من قبل"
+          ]
+        }
+      },
+      "timing": 398
+    },
+    "timestamp": "2026-04-12T08:05:36.766Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "phone_number",
+        "message": "رقم رقم الجوال غير صحيح.",
+        "rule": "numeric"
+      },
+      {
+        "field": "phone_number",
+        "message": "قيمة الحقل رقم الجوال مُستخدمة من قبل",
+        "rule": "numeric"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/tenants",
+      "body": {
+        "first_name": "Test",
+        "last_name": "Company9bd5k5",
+        "phone_country_code": "SA",
+        "phone_number": "593475494",
+        "email": "company9bd5k5@example.com",
+        "type": "company",
+        "company_name": "Test Company 9bd5k5",
+        "commercial_registration_number": "8330441225"
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:37 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aq%2B2sif9TNcnFE6M3c130PkNOZQwg%2BVSf%2FyYRx9kStbiGH3TDBAjWXwDtHXvVAXqgp4cTpF5fF0KToRyBpZgkhB1Ipn2QsYBmjnBFx%2BZKPDrNd7%2Blfw9b6%2Fxh9h4E9ZBZOnNr6jQZoQJVNFH\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb0ba1d9f675fd0-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": {
+          "id": 6,
+          "name": "Test Company9bd5k5",
+          "image": null,
+          "phone_number": "+966593475494",
+          "invited": null,
+          "created_at": "2026-04-12T08:05:37.000000Z",
+          "units": [],
+          "accepted_invite": 0
+        },
+        "meta": []
+      },
+      "timing": 578
+    },
+    "timestamp": "2026-04-12T08:05:37.409Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/tenants",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 08:05:38 GMT",
+        "content-type": "application/json",
+        "content-length": "549",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "aba8b5f310b82c735358f79d576ca6e3",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=QUmnaHEfj8JZ1%2BBeaNEPkImn2QC1Vn1BDTxImsYLDgjMb9wdVfXO5cugTmh4%2FZxTiO4JG3%2BTt%2BTIGf6QvupjkdPdNOAthH1gqL71PQi%2BEYv3Bo0tojXKd3YOjHK6a2D4v1uq11b%2FWhCxJM%2Bn\"}]}",
+        "cf-ray": "9eb0ba21ae035fd0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "first_name": [
+            "الحقل الاسم مطلوب."
+          ],
+          "last_name": [
+            "الحقل اسم العائلة مطلوب."
+          ],
+          "phone_country_code": [
+            "الحقل phone country code مطلوب."
+          ],
+          "phone_number": [
+            "الحقل رقم الجوال مطلوب."
+          ]
+        }
+      },
+      "timing": 272
+    },
+    "timestamp": "2026-04-12T08:05:37.766Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "first_name",
+        "message": "الحقل الاسم مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "last_name",
+        "message": "الحقل اسم العائلة مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "phone_country_code",
+        "message": "الحقل phone country code مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "phone_number",
+        "message": "الحقل رقم الجوال مطلوب.",
+        "rule": "required"
+      }
+    ]
+  }
+]

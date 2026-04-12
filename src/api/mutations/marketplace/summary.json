@@ -1,0 +1,22 @@
+{
+  "module": "marketplace",
+  "generatedAt": "2026-04-12T08:05:44.829Z",
+  "totalCaptures": 3,
+  "successCount": 3,
+  "errorCount": 0,
+  "successRate": "100.0%",
+  "endpoints": {
+    "POST marketplace/admin/communities/unlist/4": {
+      "method": "POST",
+      "success": 1,
+      "error": 0,
+      "avgTiming": 315
+    },
+    "POST marketplace/admin/units/prices-visibility/3": {
+      "method": "POST",
+      "success": 2,
+      "error": 0,
+      "avgTiming": 315
+    }
+  }
+}

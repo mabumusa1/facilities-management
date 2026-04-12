@@ -1,0 +1,42 @@
+{
+  "last_name": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "صيغة الحقل اسم العائلة .غير صحيحة",
+      "الحقل اسم العائلة مطلوب."
+    ]
+  },
+  "phone_country_code": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل phone country code مطلوب."
+    ]
+  },
+  "phone_number": {
+    "required": true,
+    "rules": [
+      "required",
+      "numeric"
+    ],
+    "messages": [
+      "الحقل رقم الجوال مطلوب.",
+      "رقم رقم الجوال غير صحيح.",
+      "قيمة الحقل رقم الجوال مُستخدمة من قبل"
+    ]
+  },
+  "first_name": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل الاسم مطلوب."
+    ]
+  }
+}

@@ -1,0 +1,860 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Atar API - properties Module",
+    "version": "1.0.0",
+    "description": "API documentation for the properties module of the Atar property management platform."
+  },
+  "servers": [
+    {
+      "url": "https://api.goatar.com/api-management/",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "rf/communities": {
+      "post": {
+        "operationId": "post_rf_communities",
+        "summary": "POST rf/communities",
+        "tags": [
+          "properties"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "null"
+                        },
+                        "country": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "currency": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "city": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "district": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "amenities": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "map": {
+                          "type": "null"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "documents": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "buildings_count": {
+                          "type": "integer"
+                        },
+                        "units_count": {
+                          "type": "integer"
+                        },
+                        "requests_count": {
+                          "type": "integer"
+                        },
+                        "total_income": {
+                          "type": "integer"
+                        },
+                        "sales_commission_rate": {
+                          "type": "string"
+                        },
+                        "rental_commission_rate": {
+                          "type": "string"
+                        },
+                        "product_code": {
+                          "type": "null"
+                        },
+                        "license_number": {
+                          "type": "null"
+                        },
+                        "license_issue_date": {
+                          "type": "null"
+                        },
+                        "license_expiry_date": {
+                          "type": "null"
+                        },
+                        "record_payments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "additional_payments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "completion_percent": {
+                          "type": "integer"
+                        },
+                        "allow_cash_sale": {
+                          "type": "integer"
+                        },
+                        "allow_bank_financing": {
+                          "type": "integer"
+                        },
+                        "listed_percentage": {
+                          "type": "integer"
+                        },
+                        "is_market_place": {
+                          "type": "null"
+                        },
+                        "is_buy": {
+                          "type": "integer"
+                        },
+                        "community_marketplace_type": {
+                          "type": "string"
+                        },
+                        "is_off_plan_sale": {
+                          "type": "null"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "تم انشاء المشروع بنجاح",
+                      "data": {
+                        "id": 5,
+                        "name": "Test Community 1775981140687pg450",
+                        "description": null,
+                        "country": {
+                          "id": 1,
+                          "name": "المملكة العربية السعودية",
+                          "code": "SA"
+                        },
+                        "currency": {
+                          "id": 1,
+                          "name": "ريال سعودي",
+                          "code": "SAR"
+                        },
+                        "city": {
+                          "id": 1,
+                          "name": "الرياض"
+                        },
+                        "district": {
+                          "id": 1,
+                          "name": "الدرعية"
+                        },
+                        "amenities": [],
+                        "map": null,
+                        "images": [],
+                        "documents": [],
+                        "buildings_count": 0,
+                        "units_count": 0,
+                        "requests_count": 0,
+                        "total_income": 0,
+                        "sales_commission_rate": "0.00",
+                        "rental_commission_rate": "0.00",
+                        "product_code": null,
+                        "license_number": null,
+                        "license_issue_date": null,
+                        "license_expiry_date": null,
+                        "record_payments": [],
+                        "additional_payments": [],
+                        "completion_percent": 0,
+                        "allow_cash_sale": 0,
+                        "allow_bank_financing": 0,
+                        "listed_percentage": 0,
+                        "is_market_place": null,
+                        "is_buy": 0,
+                        "community_marketplace_type": "rent",
+                        "is_off_plan_sale": null
+                      },
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "country_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "currency_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "city_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "district_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "name": [
+                          "الحقل الاسم مطلوب."
+                        ],
+                        "country_id": [
+                          "الحقل country id مطلوب."
+                        ],
+                        "currency_id": [
+                          "الحقل currency id مطلوب."
+                        ],
+                        "city_id": [
+                          "الحقل city id مطلوب."
+                        ],
+                        "district_id": [
+                          "الحقل district id مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "country_id": {
+                    "type": "integer"
+                  },
+                  "currency_id": {
+                    "type": "integer"
+                  },
+                  "city_id": {
+                    "type": "integer"
+                  },
+                  "district_id": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "name": "Test Community 1775981140687pg450",
+                    "country_id": 1,
+                    "currency_id": 1,
+                    "city_id": 1,
+                    "district_id": 1
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/communities/5": {
+      "put": {
+        "operationId": "put_rf_communities_5",
+        "summary": "PUT rf/communities/5",
+        "tags": [
+          "properties"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "null"
+                        },
+                        "country": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "currency": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "city": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "district": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "amenities": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "map": {
+                          "type": "null"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "documents": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "buildings_count": {
+                          "type": "integer"
+                        },
+                        "units_count": {
+                          "type": "integer"
+                        },
+                        "requests_count": {
+                          "type": "integer"
+                        },
+                        "total_income": {
+                          "type": "integer"
+                        },
+                        "sales_commission_rate": {
+                          "type": "string"
+                        },
+                        "rental_commission_rate": {
+                          "type": "string"
+                        },
+                        "product_code": {
+                          "type": "null"
+                        },
+                        "license_number": {
+                          "type": "null"
+                        },
+                        "license_issue_date": {
+                          "type": "null"
+                        },
+                        "license_expiry_date": {
+                          "type": "null"
+                        },
+                        "record_payments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "additional_payments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        },
+                        "completion_percent": {
+                          "type": "integer"
+                        },
+                        "allow_cash_sale": {
+                          "type": "integer"
+                        },
+                        "allow_bank_financing": {
+                          "type": "integer"
+                        },
+                        "listed_percentage": {
+                          "type": "integer"
+                        },
+                        "is_market_place": {
+                          "type": "string"
+                        },
+                        "is_buy": {
+                          "type": "integer"
+                        },
+                        "community_marketplace_type": {
+                          "type": "string"
+                        },
+                        "is_off_plan_sale": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "تم تحديث المشروع بنجاح",
+                      "data": {
+                        "id": 5,
+                        "name": "Updated Community 1775981141944",
+                        "description": null,
+                        "country": {
+                          "id": 1,
+                          "name": "المملكة العربية السعودية",
+                          "code": "SA"
+                        },
+                        "currency": {
+                          "id": 1,
+                          "name": "ريال سعودي",
+                          "code": "SAR"
+                        },
+                        "city": {
+                          "id": 1,
+                          "name": "الرياض"
+                        },
+                        "district": {
+                          "id": 1,
+                          "name": "الدرعية"
+                        },
+                        "amenities": [],
+                        "map": null,
+                        "images": [],
+                        "documents": [],
+                        "buildings_count": 0,
+                        "units_count": 0,
+                        "requests_count": 0,
+                        "total_income": 0,
+                        "sales_commission_rate": "0.00",
+                        "rental_commission_rate": "0.00",
+                        "product_code": null,
+                        "license_number": null,
+                        "license_issue_date": null,
+                        "license_expiry_date": null,
+                        "record_payments": [],
+                        "additional_payments": [],
+                        "completion_percent": 0,
+                        "allow_cash_sale": 0,
+                        "allow_bank_financing": 0,
+                        "listed_percentage": 0,
+                        "is_market_place": "0",
+                        "is_buy": 0,
+                        "community_marketplace_type": "rent",
+                        "is_off_plan_sale": "0"
+                      },
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "name": "Updated Community 1775981141944"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/buildings": {
+      "post": {
+        "operationId": "post_rf_buildings",
+        "summary": "POST rf/buildings",
+        "tags": [
+          "properties"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "name": [
+                          "يجب أن لا يتجاوز طول نص الاسم 20 حروفٍ/حرفًا"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "rf_community_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "name": "Test Building 1775981142890rbc60",
+                    "rf_community_id": "5"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/units/3": {
+      "put": {
+        "operationId": "put_rf_units_3",
+        "summary": "PUT rf/units/3",
+        "tags": [
+          "properties"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "category_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "type_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "rf_community_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "name": [
+                          "الحقل الاسم مطلوب."
+                        ],
+                        "category_id": [
+                          "الحقل category id مطلوب."
+                        ],
+                        "type_id": [
+                          "الحقل type id مطلوب."
+                        ],
+                        "rf_community_id": [
+                          "الحقل rf community id مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rf_status_id": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "rf_status_id": 26
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "tenantHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Tenant"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [],
+      "tenantHeader": []
+    }
+  ]
+}
