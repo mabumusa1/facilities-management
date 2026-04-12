@@ -2,508 +2,297 @@
   {
     "request": {
       "method": "POST",
-      "endpoint": "rf/documents",
+      "endpoint": "rf/files",
       "body": {}
     },
     "response": {
-      "status": 404,
-      "statusText": "Not Found",
+      "status": 422,
+      "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:45 GMT",
+        "date": "Sun, 12 Apr 2026 16:48:36 GMT",
         "content-type": "application/json",
-        "content-length": "49",
+        "content-length": "133",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "2cd0fc658f924bd26ad1f3331c6c258c;o=1",
+        "x-cloud-trace-context": "8c25a73159d72b3a217b14f3ca026c35",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=29Oeu8hEuQlWj3PVneECtGPq4guaeQfoyBDz5zKOkt%2FgJ14NlTSocf5PN5We20nFOJSQP%2Fl64Np7qwb0621AF1106a6SJy6I7ShAUpckzxTE7ay6eNEWk1YXp1wjPzmLt7eR5%2FiNqPeHbyp7\"}]}",
-        "cf-ray": "9eb338fced152115-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GgJWD09VRDY8gC1H7FuQKRbzYBNjIXhmQXwaRQgSpgwiRzBRI%2FTwRlBDwMSyxmCMVA6tsIY5JIruUlpqEqjFdAQPHXWziL8S8S2LCjGIWnJGAqnbeXuDnnpFEIBh93R8L4P2j1OLkR3BYXfo\"}]}",
+        "cf-ray": "9eb3b833fd263d70-MRS"
       },
       "body": {
-        "success": false,
-        "message": "URL link not Found."
+        "message": "The given data was invalid.",
+        "errors": {
+          "image": [
+            "الحقل image مطلوب."
+          ]
+        }
       },
-      "timing": 652
+      "timing": 2242
     },
-    "timestamp": "2026-04-12T15:21:45.085Z",
+    "timestamp": "2026-04-12T16:48:36.753Z",
     "success": false,
-    "validationErrors": []
+    "validationErrors": [
+      {
+        "field": "image",
+        "message": "الحقل image مطلوب.",
+        "rule": "required"
+      }
+    ]
   },
   {
     "request": {
       "method": "POST",
-      "endpoint": "rf/documents",
+      "endpoint": "rf/files",
       "body": {
-        "name": "Test Document 1776007305807",
-        "type": "contract",
-        "description": "Test document description",
-        "documentable_type": "unit",
-        "documentable_id": 3
+        "name": "Test File 1776012517385",
+        "type": "document",
+        "description": "Test file description",
+        "fileable_type": "unit",
+        "fileable_id": 3
       }
     },
     "response": {
-      "status": 404,
-      "statusText": "Not Found",
+      "status": 422,
+      "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:47 GMT",
+        "date": "Sun, 12 Apr 2026 16:48:38 GMT",
         "content-type": "application/json",
-        "content-length": "49",
+        "content-length": "133",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "1bb0ced4bedae3ca6ad1f3331c6c248a",
+        "x-cloud-trace-context": "b483a238e1a942eb9a88d84a6033c223",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MVluyQBBG6qLNGFYs%2B224P8O3nAqBJ5q8T8rbo2if4%2F6iDqJHFG7WwaJCq8XMBec4iz7Qz77CkpYChRlzNvKpt4%2FjxZIQKr%2BdK3E7Gy9pBRebbCbNDPPQdsNU3o0kTi2g%2FD4lF5Rak3psnhI\"}]}",
-        "cf-ray": "9eb33903aee42115-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=4gq5gSWXhECO5Clg%2FUFXYtuRXp8lRkwSIZrWHSIf2B%2BDtni97hvAH94P%2BzwiH%2FsAFfyRIFIxV%2FqWNdt2VMM5ah1xSMFD2ZjEuNPnSi9vszcATUGd23MP2vJ8fkGt%2BLgFEIFhRDbFpVtTLxEv\"}]}",
+        "cf-ray": "9eb3b83d4bfa3d70-MRS"
       },
       "body": {
-        "success": false,
-        "message": "URL link not Found."
+        "message": "The given data was invalid.",
+        "errors": {
+          "image": [
+            "الحقل image مطلوب."
+          ]
+        }
       },
-      "timing": 341
+      "timing": 959
     },
-    "timestamp": "2026-04-12T15:21:46.149Z",
+    "timestamp": "2026-04-12T16:48:38.345Z",
     "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "PUT",
-      "endpoint": "rf/documents/1",
-      "body": {
-        "name": "Updated Document 1776007306240",
-        "description": "Updated description"
+    "validationErrors": [
+      {
+        "field": "image",
+        "message": "الحقل image مطلوب.",
+        "rule": "required"
       }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:47 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "c45c027bd6c7f9d36ad1f3331c6c2388",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6t5xWbpEG2oF6PZKYcvQm2hVSLWI%2B8b9hnho4XxDrlpEeXmYYK986mHKCPY43RY0xiRvRPmQxTV7%2BoBWBlKAWA5iRhWXhR13S%2FOfFqoWZtlbMyyak6qsW4xEGAOqIU8zkB%2BLdhIdVzDP%2FVw2\"}]}",
-        "cf-ray": "9eb339066e492115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 286
-    },
-    "timestamp": "2026-04-12T15:21:46.527Z",
-    "success": false,
-    "validationErrors": []
+    ]
   },
   {
     "request": {
       "method": "DELETE",
-      "endpoint": "rf/documents/999"
+      "endpoint": "rf/files/999"
     },
     "response": {
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:47 GMT",
+        "date": "Sun, 12 Apr 2026 16:48:38 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
         "vary": "Origin",
-        "x-cloud-trace-context": "c05ec9999307de7f6ad1f3331c6c2286",
+        "x-cloud-trace-context": "c29bfde7538d94ba217b14f3ca026cca",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Fh0XkHXoIoEsKqteMtDTCuTQJ6vDQYSgk6%2FJMCRRL4Ti9VEeZpCkMAo3qjHY%2BwWozPvCwW2jl4zSShWQIKNaTMm9nGp1x7Ky0gtNQGCYsOp8hq07aSeXAV0hq9zY0uKN7bbpbmhVbFhOTuXP\"}]}",
-        "cf-ray": "9eb339087baf2115-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=25dJb7Td9%2BEltusE6UrhikOjohm9GK%2Fk%2B8fMjIEMzb%2BqqyY9JXEGWm%2BL%2FROupABlQgAm4NPZ7ri30%2FGXl8dq%2BEI9Fp1cOSYNmq1Ixm2TLfx4RsrsBJEE9%2FQvTxA0ob38v1OH7KHy7ItOw356\"}]}",
+        "cf-ray": "9eb3b84278df3d70-MRS"
       },
       "body": {
         "success": false,
-        "message": "URL link not Found."
+        "message": "RfFile]  not Found."
       },
-      "timing": 292
+      "timing": 335
     },
-    "timestamp": "2026-04-12T15:21:46.882Z",
+    "timestamp": "2026-04-12T16:48:38.742Z",
     "success": false,
     "validationErrors": []
   },
   {
     "request": {
       "method": "POST",
-      "endpoint": "rf/leases/1/documents",
-      "body": {
-        "name": "Lease Document 1776007307468",
-        "type": "contract",
-        "description": "Lease document"
-      }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:48 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "8767ca17a16090acd6b059d8bccff8d8",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ZuOzR8ammNWuYtwkNNKgMkEm1na6ryHJOxc99XPN9bTqfBVl2AZHLo9TmO5PyNGsKibxnZU6myM13AC6q4%2F9l1uDtDbkPmSE4OvRWfvIfjSlU1tI4vDe7OHmzYT6OqoYfy%2BcVB79JCCD8Utt\"}]}",
-        "cf-ray": "9eb3390e0a8a2115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 282
-    },
-    "timestamp": "2026-04-12T15:21:47.753Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "rf/units/3/documents",
-      "body": {
-        "name": "Unit Document 1776007308446",
-        "type": "floor_plan",
-        "description": "Unit document"
-      }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:49 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "c3126a32849cced3d6b059d8bccff4e9",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=gCHxBcSGWte4oOw8%2BBq3UPYtgMGsE5zQR1sIDuyGoGCuVseoTkES140eFBuncGXnq%2BFEHSeE4aTqFsGx7%2Fd1Zd%2B%2FSGdw9Kfe7gE1eCMTfEd5yOqaNfOUF%2BOGvjBmulE3txy8GiaClDTUGZli\"}]}",
-        "cf-ray": "9eb339142b1d2115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 285
-    },
-    "timestamp": "2026-04-12T15:21:48.732Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "rf/units/3/images",
-      "body": {
-        "image_url": "https://example.com/unit-image.jpg",
-        "is_primary": false
-      }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:50 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "8bcbfa4af2f22b10c8f0f7d50a3f0e70",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=956%2FD9VQmYf2NjvlcnIHz6CTCOeOeVubqG9RdEw%2BY1kXnbZSs%2B7EJSODCWPqL4%2FTO764eOuHcUGMYzMxNedQZyQrPS6G23jIxtU5dYFs5vX2XLkdFZ8TcB1ylFWaT8BDLqd4MluhJR2wtG%2Ff\"}]}",
-        "cf-ray": "9eb33919ba132115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 342
-    },
-    "timestamp": "2026-04-12T15:21:49.630Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "DELETE",
-      "endpoint": "rf/units/images/1"
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:50 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "10ecd86c9148b917d6b059d8bccffa55",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qRUw%2BhR11anJZn7e3H64H27MgfVkRXAvxgiqQzAzmZn09I1iS%2BePgMy9sOX6LQDj3RIeaOZTVGfbD2plbRmychq5x5A27UwTww%2B%2BUUuTVPm6oGzeLdoyd5VyJpIuHKL%2BzYJoojDdNVviffWb\"}]}",
-        "cf-ray": "9eb3391c08aa2115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 278
-    },
-    "timestamp": "2026-04-12T15:21:49.968Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "rf/directory",
+      "endpoint": "rf/excel-sheets",
       "body": {}
     },
     "response": {
-      "status": 404,
-      "statusText": "Not Found",
+      "status": 422,
+      "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:51 GMT",
+        "date": "Sun, 12 Apr 2026 16:48:39 GMT",
         "content-type": "application/json",
-        "content-length": "49",
+        "content-length": "258",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "9bc402a90af69c15d6b059d8bccffd0b",
+        "x-cloud-trace-context": "fc82c1c52ac516ed217b14f3ca0267d8",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7LxWKcmuBz%2Brz7SdYezqRkuSfKPZbZakzIh9Fut%2FAEi6K7T5PPEY%2FM2Kl6Ye%2BbhGdig48IIsEtiVA%2F2HsYwDYG3BY4iui6cjvssv7nfzrGAm39087SO%2Fue%2F3N4dIlZHH9XLoWeMSAWE%2BgJRK\"}]}",
-        "cf-ray": "9eb3391e7ef32115-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=x%2BjVcRzGNH4HsCeRn9F5dtAhI%2Fq4S5Exzyi6EoM7w%2Ffg65vjUodGSbIkujJUITMK1xKjKVuW0zPZe%2FwLoouwRvkSFwlFI3n16mbLkw0BJN3VY7EqKo20gpj9sPt8A8grgpODBZfYyoKMABu%2B\"}]}",
+        "cf-ray": "9eb3b844de503d70-MRS"
       },
       "body": {
-        "success": false,
-        "message": "URL link not Found."
+        "message": "The given data was invalid.",
+        "errors": {
+          "file": [
+            "الحقل الملف مطلوب."
+          ],
+          "rf_community_id": [
+            "الحقل rf community id مطلوب."
+          ]
+        }
       },
-      "timing": 268
+      "timing": 353
     },
-    "timestamp": "2026-04-12T15:21:50.369Z",
+    "timestamp": "2026-04-12T16:48:39.154Z",
     "success": false,
-    "validationErrors": []
+    "validationErrors": [
+      {
+        "field": "file",
+        "message": "الحقل الملف مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "rf_community_id",
+        "message": "الحقل rf community id مطلوب.",
+        "rule": "required"
+      }
+    ]
   },
   {
     "request": {
       "method": "POST",
-      "endpoint": "rf/directory",
+      "endpoint": "rf/excel-sheets/land",
       "body": {
-        "name": "Test Directory 1776007310432",
-        "type": "folder",
-        "parent_id": null
+        "file": "test.xlsx",
+        "type": "land"
       }
     },
     "response": {
-      "status": 404,
-      "statusText": "Not Found",
+      "status": 422,
+      "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:51 GMT",
+        "date": "Sun, 12 Apr 2026 16:48:39 GMT",
         "content-type": "application/json",
-        "content-length": "49",
+        "content-length": "310",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "e6a1991e74dcdf076ad1f3331c6c2e7e",
+        "x-cloud-trace-context": "95db9619c5b7e4d5dcfce9d2b0341fa4",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BAwnJYNKsSjQCTtJ36ww%2BuW09Vpx%2BB0B3AEYuPmk0lGSCQWxXc%2BN1N0I8Qs0BrZ7GLZejWJyQFMvz6a%2F8GyiFYR6C0xVXN1ddvglIFSG5HgpTAwvmSLkaSNK17Wk1KJ27%2B9RFA%2Fk6w25EuHn\"}]}",
-        "cf-ray": "9eb339208c212115-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DFzXJybN%2BZ7Jhfvi9TD9K7pTt%2BonO3eSt54ybG%2FeJXeww0WM%2BwC967kccAKJA4v2%2FYxWlC4tEqO06T%2BYD6eDomMgJg9KakPuUdNJ%2FW3Dh628ToyzjfQDiOtKtedIOulg84G8vFDjcVKzkISH\"}]}",
+        "cf-ray": "9eb3b8477d4e3d70-MRS"
       },
       "body": {
-        "success": false,
-        "message": "URL link not Found."
+        "message": "The given data was invalid.",
+        "errors": {
+          "rf_community_id": [
+            "الحقل rf community id مطلوب."
+          ],
+          "file": [
+            "الـ الملف يجب أن يكون من ملفا."
+          ]
+        }
       },
-      "timing": 373
+      "timing": 956
     },
-    "timestamp": "2026-04-12T15:21:50.806Z",
+    "timestamp": "2026-04-12T16:48:40.184Z",
     "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "PUT",
-      "endpoint": "rf/directory/1",
-      "body": {
-        "name": "Updated Directory 1776007310862"
+    "validationErrors": [
+      {
+        "field": "rf_community_id",
+        "message": "الحقل rf community id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "file",
+        "message": "الـ الملف يجب أن يكون من ملفا."
       }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:52 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "fed5a438e5e5cf1ad6b059d8bccfffc1",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qyCLHWa6OBmlRe%2FyWTzk7f83BAoh1Lo8YSCrXDGYYqver0pMQPNn0be%2FxQD9jOiHhwZLmLvw2ailD6YxaR0CrvL3R75aJ%2BMBnUnGwcVBEfastlw8MJ5VRHym7QuM4DX5a4adCXjVCZqRAGBt\"}]}",
-        "cf-ray": "9eb339237b412115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 359
-    },
-    "timestamp": "2026-04-12T15:21:51.225Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "DELETE",
-      "endpoint": "rf/directory/999"
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:52 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "3617115c8b382f386691c2dcde100e48",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=VHRJEJvNQns2KOiz0AknLU1tQKL0iVSQHtuAUqaOu6Xt0%2FztUPiIHim2mRF10thavF0skxxfvmOHfCpvZyOXi2i79KIjzwddkHO3aHTlQWJ4%2BWQBeN4vb3qSqebB0uKUGPDeJ3ILmLb7xpEP\"}]}",
-        "cf-ray": "9eb339269b6b2115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 266
-    },
-    "timestamp": "2026-04-12T15:21:51.663Z",
-    "success": false,
-    "validationErrors": []
+    ]
   },
   {
     "request": {
       "method": "POST",
-      "endpoint": "rf/tenants/21/documents",
+      "endpoint": "rf/excel-sheets/leads",
       "body": {
-        "name": "Tenant ID Document 1776007312126",
-        "type": "id_document",
-        "description": "Tenant identification document"
+        "file": "test.xlsx",
+        "type": "leads"
       }
     },
     "response": {
-      "status": 404,
-      "statusText": "Not Found",
+      "status": 422,
+      "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:53 GMT",
+        "date": "Sun, 12 Apr 2026 16:48:40 GMT",
         "content-type": "application/json",
-        "content-length": "49",
+        "content-length": "385",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "c40550117dd775776691c2dcde10011c",
+        "x-cloud-trace-context": "e52b8130e9f6a43ddcfce9d2b0341521",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YhONVuJNSMpYiKP4nw9M6WAwN2AJQCNhBgEAgr2IM%2FI8styr2HfSgCB4gvq23ahR0WegLoP60mvMAsimo6ZmDBX%2Bek3KwnmYHbBZD7oaYefMjSlEtiLHOfqZq3p%2F%2BMljn6cukATYoaM%2FDJQi\"}]}",
-        "cf-ray": "9eb3392b2ebd2115-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5Nv1LyuK%2BCEDVwMuDcYyYQp8%2BBygfleVbFUsn3eF6yr%2B7GEUQxjEslOEQ9tVPPdg8XXQrTX0UHp43Mx%2FfXAYKwUJbVlgaEfZNACH5G0x4flPqIqpkwGInjDx%2BmGMoDg7ZN33jnaQCXwHJuuB\"}]}",
+        "cf-ray": "9eb3b84e1ee53d70-MRS"
       },
       "body": {
-        "success": false,
-        "message": "URL link not Found."
+        "message": "The given data was invalid.",
+        "errors": {
+          "file": [
+            "الـ الملف يجب أن يكون من ملفا.",
+            "يجب أن يكون الحقل ملفًا من نوع : csv, xls, xlsx, ods."
+          ]
+        }
       },
-      "timing": 308
+      "timing": 294
     },
-    "timestamp": "2026-04-12T15:21:52.437Z",
+    "timestamp": "2026-04-12T16:48:40.579Z",
     "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "rf/owners/3/documents",
-      "body": {
-        "name": "Owner Document 1776007312849",
-        "type": "contract",
-        "description": "Owner contract document"
+    "validationErrors": [
+      {
+        "field": "file",
+        "message": "الـ الملف يجب أن يكون من ملفا."
+      },
+      {
+        "field": "file",
+        "message": "يجب أن يكون الحقل ملفًا من نوع : csv, xls, xlsx, ods."
       }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:21:54 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "07eaf930cc1bf1f06ad1f3331c6c2d7c",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2WVAIzTUg50l3ZATRASWPjkdudMvuhez5QJgBHWL7JnQcaqc%2F565BP8xtkTZZFwpco8BT5bMTggaOuXp3aC3taW3IR6%2FuOZHmTpMYqTPD8RC%2BUfdx%2Bvtk3FCpq6xHswrOwjCXjHGS3hjAWwR\"}]}",
-        "cf-ray": "9eb3392fac1d2115-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 284
-    },
-    "timestamp": "2026-04-12T15:21:53.134Z",
-    "success": false,
-    "validationErrors": []
+    ]
   }
 ]

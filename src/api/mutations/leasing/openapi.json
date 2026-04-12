@@ -254,7 +254,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "notes": "Updated lease notes 1776007318976"
+                    "notes": "Updated lease notes 1776012524084"
                   },
                   "summary": "Example request body"
                 }
@@ -379,7 +379,7 @@
                 "default": {
                   "value": {
                     "type": "modification",
-                    "description": "Lease addendum 1776007322374",
+                    "description": "Lease addendum 1776012525794",
                     "effective_date": "2026-04-12"
                   },
                   "summary": "Example request body"

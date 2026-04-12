@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-excel-sheets-leads.schema.json",
+  "title": "POST rf/excel-sheets/leads",
+  "description": "Request body schema for POST rf/excel-sheets/leads",
+  "type": "object",
+  "properties": {
+    "file": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "الـ الملف يجب أن يكون من ملفا.; يجب أن يكون الحقل ملفًا من نوع : csv, xls, xlsx, ods.",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [],
+  "additionalProperties": true
+}

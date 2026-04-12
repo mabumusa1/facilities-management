@@ -1,106 +1,46 @@
 {
   "module": "settings",
-  "generatedAt": "2026-04-12T15:22:13.154Z",
-  "totalCaptures": 19,
-  "successCount": 0,
-  "errorCount": 19,
-  "successRate": "0.0%",
+  "generatedAt": "2026-04-12T16:49:03.065Z",
+  "totalCaptures": 10,
+  "successCount": 1,
+  "errorCount": 9,
+  "successRate": "10.0%",
   "endpoints": {
-    "PUT notifications": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 293
-    },
-    "POST notifications/settings": {
-      "method": "POST",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 378
-    },
-    "PUT notifications/mark-read": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 357
-    },
-    "DELETE notifications/1": {
-      "method": "DELETE",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 359
-    },
-    "POST rf/settings/company": {
-      "method": "POST",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 254
-    },
-    "PUT rf/settings/company": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 271
-    },
-    "POST rf/settings/logo": {
-      "method": "POST",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 361
-    },
-    "POST rf/roles": {
-      "method": "POST",
-      "success": 0,
-      "error": 2,
-      "avgTiming": 380
-    },
-    "POST rf/settings/email-templates": {
-      "method": "POST",
-      "success": 0,
-      "error": 2,
-      "avgTiming": 361.5
-    },
-    "PUT rf/settings/email-templates/1": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 306
-    },
-    "POST rf/settings/sms-templates": {
-      "method": "POST",
-      "success": 0,
-      "error": 2,
-      "avgTiming": 270
-    },
-    "PUT rf/settings/sms-templates/1": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 262
-    },
-    "PUT rf/settings": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 327
-    },
-    "POST rf/settings/preferences": {
-      "method": "POST",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 338
-    },
-    "POST rf/settings/mobile-notifications": {
-      "method": "POST",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 320
-    },
     "POST rf/announcements": {
       "method": "POST",
       "success": 0,
+      "error": 3,
+      "avgTiming": 473.3333333333333
+    },
+    "PUT rf/announcements/1": {
+      "method": "PUT",
+      "success": 0,
       "error": 1,
-      "avgTiming": 297
+      "avgTiming": 388
+    },
+    "DELETE rf/announcements/99999": {
+      "method": "DELETE",
+      "success": 1,
+      "error": 0,
+      "avgTiming": 378
+    },
+    "POST notifications/mark-all-as-read": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 277
+    },
+    "POST rf/facilities": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 356.5
+    },
+    "POST rf/requests/service-settings/updateOrCreate": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 326
     }
   }
 }

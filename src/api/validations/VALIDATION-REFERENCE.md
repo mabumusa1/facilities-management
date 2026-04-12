@@ -2,7 +2,7 @@
 
 > Auto-generated from API validation error captures
 
-Generated: 2026-04-12T15:23:00.076Z
+Generated: 2026-04-12T16:49:59.241Z
 
 ---
 
@@ -12,6 +12,8 @@ Generated: 2026-04-12T15:23:00.076Z
 - [tenants](#tenants)
 - [admins](#admins)
 - [professionals](#professionals)
+- [files](#files)
+- [excel-sheets](#excel-sheets)
 - [leases](#leases)
 - [sub-leases](#sub-leases)
 - [marketplace](#marketplace)
@@ -21,7 +23,7 @@ Generated: 2026-04-12T15:23:00.076Z
 - [facilities](#facilities)
 - [requests](#requests)
 - [announcements](#announcements)
-- [transactions](#transactions)
+- [invoice-settings](#invoice-settings)
 
 ---
 
@@ -94,7 +96,7 @@ Generated: 2026-04-12T15:23:00.076Z
 | first_name | string | `required` |
 | last_name | string | `invalid`, `required` |
 | phone_country_code | string | `required` |
-| phone_number | string | `invalid`, `unique`, `required` |
+| phone_number | string | `required` |
 | role | string | `required` |
 
 ---
@@ -129,6 +131,57 @@ Generated: 2026-04-12T15:23:00.076Z
 | last_name | string | `invalid`, `required` |
 | phone_country_code | string | `required` |
 | phone_number | string | `required` |
+
+---
+
+## files
+
+### POST `rf/files`
+
+**Required Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| image | string | `required` |
+
+---
+
+## excel-sheets
+
+### POST `rf/excel-sheets`
+
+**Required Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| file | string | `required` |
+| rf_community_id | string | `required` |
+
+---
+
+### POST `rf/excel-sheets/land`
+
+**Required Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| rf_community_id | string | `required` |
+
+**Optional Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| file | string | `unknown` |
+
+---
+
+### POST `rf/excel-sheets/leads`
+
+**Optional Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| file | string | `unknown`, `unknown` |
 
 ---
 
@@ -381,6 +434,22 @@ Generated: 2026-04-12T15:23:00.076Z
 
 ---
 
+### POST `rf/facilities`
+
+**Required Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| approved | string | `required` |
+| booking_type | string | `required` |
+| complex_id | string | `required` |
+| days | string | `required` |
+| gender | string | `required` |
+| name_ar | string | `required` |
+| name_en | string | `required` |
+
+---
+
 ## requests
 
 ### POST `rf/requests/service-settings/updateOrCreate`
@@ -459,6 +528,17 @@ Generated: 2026-04-12T15:23:00.076Z
 
 ---
 
+### POST `rf/requests/service-settings/updateOrCreate`
+
+**Required Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| permissions | string | `required` |
+| rf_category_id | string | `required` |
+
+---
+
 ## announcements
 
 ### POST `rf/announcements`
@@ -472,47 +552,38 @@ Generated: 2026-04-12T15:23:00.076Z
 | end_time | string | `required` |
 | is_visible | string | `required` |
 | notify_user_type | string | `required` |
+| start_date | string | `required` |
+| start_time | string | `required` |
+| title | string | `required` |
+
+---
+
+### PUT `rf/announcements/{id}`
+
+**Required Fields:**
+
+| Field | Type | Rules |
+|-------|------|-------|
+| description | string | `required` |
+| end_date | string | `required` |
+| end_time | string | `required` |
+| is_visible | string | `required` |
+| notify_user_type | string | `required` |
+| start_date | string | `required` |
 | start_time | string | `required` |
 
 ---
 
-## transactions
+## invoice-settings
 
-### POST `transactions`
-
-**Required Fields:**
-
-| Field | Type | Rules |
-|-------|------|-------|
-| amount | string | `required` |
-| category | string | `required` |
-| due_on | string | `required` |
-| unit.id | string | `required` |
-
-**Optional Fields:**
-
-| Field | Type | Rules |
-|-------|------|-------|
-| assignee.id | string | `invalid` |
-| type | boolean | `boolean` |
-
----
-
-### PUT `transactions/{id}`
+### POST `invoice-settings`
 
 **Required Fields:**
 
 | Field | Type | Rules |
 |-------|------|-------|
-| amount | string | `required` |
-| category | string | `required` |
-| due_on | string | `required` |
-| unit.id | string | `required` |
-
-**Optional Fields:**
-
-| Field | Type | Rules |
-|-------|------|-------|
-| assignee.id | string | `invalid` |
+| address | string | `required` |
+| company_name | string | `required` |
+| vat | string | `required` |
 
 ---

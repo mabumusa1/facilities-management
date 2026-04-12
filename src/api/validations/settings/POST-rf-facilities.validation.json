@@ -1,15 +1,15 @@
 {
-  "endpoint": "rf/announcements",
+  "endpoint": "rf/facilities",
   "method": "POST",
   "fields": {
-    "title": {
-      "field": "title",
+    "name_ar": {
+      "field": "name_ar",
       "required": true,
       "type": "string",
       "rules": [
         {
           "rule": "required",
-          "rawMessage": "الحقل العنوان مطلوب."
+          "rawMessage": "الحقل name ar مطلوب."
         }
       ],
       "examples": {
@@ -23,14 +23,14 @@
         ]
       }
     },
-    "description": {
-      "field": "description",
+    "name_en": {
+      "field": "name_en",
       "required": true,
       "type": "string",
       "rules": [
         {
           "rule": "required",
-          "rawMessage": "الحقل الوصف مطلوب."
+          "rawMessage": "الحقل name en مطلوب."
         }
       ],
       "examples": {
@@ -44,14 +44,14 @@
         ]
       }
     },
-    "is_visible": {
-      "field": "is_visible",
+    "days": {
+      "field": "days",
       "required": true,
       "type": "string",
       "rules": [
         {
           "rule": "required",
-          "rawMessage": "الحقل is visible مطلوب."
+          "rawMessage": "الحقل days مطلوب."
         }
       ],
       "examples": {
@@ -65,14 +65,14 @@
         ]
       }
     },
-    "start_date": {
-      "field": "start_date",
+    "booking_type": {
+      "field": "booking_type",
       "required": true,
       "type": "string",
       "rules": [
         {
           "rule": "required",
-          "rawMessage": "الحقل start date مطلوب."
+          "rawMessage": "الحقل booking type مطلوب."
         }
       ],
       "examples": {
@@ -86,14 +86,14 @@
         ]
       }
     },
-    "end_date": {
-      "field": "end_date",
+    "complex_id": {
+      "field": "complex_id",
       "required": true,
       "type": "string",
       "rules": [
         {
           "rule": "required",
-          "rawMessage": "الحقل end date مطلوب."
+          "rawMessage": "الحقل complex id مطلوب."
         }
       ],
       "examples": {
@@ -107,14 +107,14 @@
         ]
       }
     },
-    "start_time": {
-      "field": "start_time",
+    "gender": {
+      "field": "gender",
       "required": true,
       "type": "string",
       "rules": [
         {
           "rule": "required",
-          "rawMessage": "الحقل start time مطلوب."
+          "rawMessage": "الحقل النوع مطلوب."
         }
       ],
       "examples": {
@@ -128,35 +128,14 @@
         ]
       }
     },
-    "end_time": {
-      "field": "end_time",
+    "approved": {
+      "field": "approved",
       "required": true,
       "type": "string",
       "rules": [
         {
           "rule": "required",
-          "rawMessage": "الحقل end time مطلوب."
-        }
-      ],
-      "examples": {
-        "valid": [
-          "example"
-        ],
-        "invalid": [
-          "",
-          null,
-          null
-        ]
-      }
-    },
-    "notify_user_type": {
-      "field": "notify_user_type",
-      "required": true,
-      "type": "string",
-      "rules": [
-        {
-          "rule": "required",
-          "rawMessage": "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+          "rawMessage": "الحقل approved مطلوب."
         }
       ],
       "examples": {
@@ -172,14 +151,13 @@
     }
   },
   "requiredFields": [
-    "description",
-    "end_date",
-    "end_time",
-    "is_visible",
-    "notify_user_type",
-    "start_date",
-    "start_time",
-    "title"
+    "approved",
+    "booking_type",
+    "complex_id",
+    "days",
+    "gender",
+    "name_ar",
+    "name_en"
   ],
   "optionalFields": []
 }

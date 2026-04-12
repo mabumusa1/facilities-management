@@ -1,82 +1,40 @@
 {
   "module": "documents",
-  "generatedAt": "2026-04-12T15:21:54.074Z",
-  "totalCaptures": 14,
+  "generatedAt": "2026-04-12T16:48:40.924Z",
+  "totalCaptures": 6,
   "successCount": 0,
-  "errorCount": 14,
+  "errorCount": 6,
   "successRate": "0.0%",
   "endpoints": {
-    "POST rf/documents": {
+    "POST rf/files": {
       "method": "POST",
       "success": 0,
       "error": 2,
-      "avgTiming": 496.5
+      "avgTiming": 1600.5
     },
-    "PUT rf/documents/1": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 286
-    },
-    "DELETE rf/documents/999": {
+    "DELETE rf/files/999": {
       "method": "DELETE",
       "success": 0,
       "error": 1,
-      "avgTiming": 292
+      "avgTiming": 335
     },
-    "POST rf/leases/1/documents": {
+    "POST rf/excel-sheets": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 282
+      "avgTiming": 353
     },
-    "POST rf/units/3/documents": {
+    "POST rf/excel-sheets/land": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 285
+      "avgTiming": 956
     },
-    "POST rf/units/3/images": {
+    "POST rf/excel-sheets/leads": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 342
-    },
-    "DELETE rf/units/images/1": {
-      "method": "DELETE",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 278
-    },
-    "POST rf/directory": {
-      "method": "POST",
-      "success": 0,
-      "error": 2,
-      "avgTiming": 320.5
-    },
-    "PUT rf/directory/1": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 359
-    },
-    "DELETE rf/directory/999": {
-      "method": "DELETE",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 266
-    },
-    "POST rf/tenants/21/documents": {
-      "method": "POST",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 308
-    },
-    "POST rf/owners/3/documents": {
-      "method": "POST",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 284
+      "avgTiming": 294
     }
   }
 }

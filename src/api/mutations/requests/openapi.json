@@ -592,7 +592,7 @@
                   "value": {
                     "category_id": 1,
                     "rf_unit_id": 3,
-                    "description": "Test request 1776007323356",
+                    "description": "Test request 1776012540211",
                     "priority": "normal"
                   },
                   "summary": "Example request body"
@@ -660,7 +660,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "description": "Updated request 1776007324653"
+                    "description": "Updated request 1776012541076"
                   },
                   "summary": "Example request body"
                 }
@@ -1960,7 +1960,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "name": "Updated Category 1776007328261"
+                    "name": "Updated Category 1776012544789"
                   },
                   "summary": "Example request body"
                 }
@@ -2673,7 +2673,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "name": "Updated Type 1776007330152"
+                    "name": "Updated Type 1776012546710"
                   },
                   "summary": "Example request body"
                 }
@@ -2923,7 +2923,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "name": "Updated Sub-Category 1776007332152"
+                    "name": "Updated Sub-Category 1776012548866"
                   },
                   "summary": "Example request body"
                 }

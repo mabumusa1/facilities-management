@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-excel-sheets-land.schema.json",
+  "title": "POST rf/excel-sheets/land",
+  "description": "Request body schema for POST rf/excel-sheets/land",
+  "type": "object",
+  "properties": {
+    "rf_community_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "file": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "الـ الملف يجب أن يكون من ملفا.",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "rf_community_id"
+  ],
+  "additionalProperties": true
+}

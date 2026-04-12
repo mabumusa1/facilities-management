@@ -2,1185 +2,186 @@
   {
     "request": {
       "method": "POST",
-      "endpoint": "transactions",
+      "endpoint": "rf/transactions",
       "body": {}
     },
     "response": {
-      "status": 422,
-      "statusText": "Unprocessable Entity",
+      "status": 405,
+      "statusText": "Method Not Allowed",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:14 GMT",
+        "date": "Sun, 12 Apr 2026 16:49:01 GMT",
         "content-type": "application/json",
-        "content-length": "664",
+        "content-length": "99",
         "connection": "keep-alive",
+        "allow": "GET, HEAD",
         "cache-control": "no-cache, private",
-        "x-ratelimit-limit": "5",
-        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "efc0d7903f498b5283aec70458de59e3",
+        "x-cloud-trace-context": "046a2e2fab252877217b14f3ca0265cf",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DkgfiA5BVJQwkLMukWshDHxKOyg7Qtl7XWPJsGwWx4Mkdy7ZkOWqwr2TRwH8hisepX1t24WbRaZaQfjsfUlo0yd9SYX8%2FBOGmIud0h7EyPud8w0W7tmU%2FahBW4GU%2BVRQoCxEVQVWycWUpOPV\"}]}",
-        "cf-ray": "9eb339af0ee4e167-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LbmtSpgT%2BnN7qxUG9gt4oYLPaymgOJwtJxWAK854YW6pCdBLgL67l9%2BsHNY0vhynan7Q7XxDwMqU82%2B56lFYwvNrLpE8IBk1EIv%2BGCY9%2FCGrFGBWSRgBUkwoBfRL4xn2Be6iKYRoSBiGPtXL\"}]}",
+        "cf-ray": "9eb3b8cd8ec23d70-MRS"
       },
       "body": {
-        "message": "The given data was invalid.",
-        "errors": {
-          "amount": [
-            "الحقل amount مطلوب."
-          ],
-          "due_on": [
-            "الحقل due on مطلوب."
-          ],
-          "assignee.id": [
-            "الوحدة المختارة غير صالحة"
-          ],
-          "unit.id": [
-            "الرجاء اختيار الوحدة الخاصة بالدافع"
-          ],
-          "category": [
-            "الحقل category مطلوب."
-          ]
-        }
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD."
       },
-      "timing": 304
+      "timing": 245
     },
-    "timestamp": "2026-04-12T15:22:13.533Z",
+    "timestamp": "2026-04-12T16:49:01.332Z",
     "success": false,
-    "validationErrors": [
-      {
-        "field": "amount",
-        "message": "الحقل amount مطلوب.",
-        "rule": "required"
-      },
-      {
-        "field": "due_on",
-        "message": "الحقل due on مطلوب.",
-        "rule": "required"
-      },
-      {
-        "field": "assignee.id",
-        "message": "الوحدة المختارة غير صالحة"
-      },
-      {
-        "field": "unit.id",
-        "message": "الرجاء اختيار الوحدة الخاصة بالدافع"
-      },
-      {
-        "field": "category",
-        "message": "الحقل category مطلوب.",
-        "rule": "required"
-      }
-    ]
+    "validationErrors": []
   },
   {
     "request": {
       "method": "POST",
-      "endpoint": "transactions",
+      "endpoint": "rf/transactions",
       "body": {
         "type": "money_in",
         "amount": 5000,
         "date": "2026-04-12",
-        "description": "Test transaction 1776007334249",
+        "description": "Test transaction 1776012542274",
         "payment_method": "bank_transfer",
         "category_id": 10,
         "lease_id": 1
       }
     },
     "response": {
-      "status": 422,
-      "statusText": "Unprocessable Entity",
+      "status": 405,
+      "statusText": "Method Not Allowed",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:15 GMT",
+        "date": "Sun, 12 Apr 2026 16:49:02 GMT",
         "content-type": "application/json",
-        "content-length": "780",
+        "content-length": "99",
         "connection": "keep-alive",
+        "allow": "GET, HEAD",
         "cache-control": "no-cache, private",
-        "x-ratelimit-limit": "5",
-        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "a2655acfb7d3d98ab665fb6e189efd9e",
+        "x-cloud-trace-context": "55b6e3f68b55f41d330c14d71ff3e339",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CTJY78WxBWQYzYnduAHJ6wyhSy7F90%2F9kdL1icWC7N64BOsfBcZ%2FvgYuxiemSy6aRGhTAbW3uSd1KNG5%2BJbnreyRyz%2FiCNyRzN%2B3dhxrSAGvXiFeNE3zI8bDI%2BiynWhRmmdDk0434kFYN9Jk\"}]}",
-        "cf-ray": "9eb339b56dc3e167-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=yTC13onhR%2FxBcFDrfnr0jSBLssPAv5aY7z9FPFkd%2BFIufgWELJtU5kBKskRw93FM7ajIqr5f%2BrB7uXs2RtlL4DmMNnbWv9j9ugBlv8Lxvehw5gOl67ga6%2FqvY2bBPR%2BkyWcU5JUwdKg2qW%2F0\"}]}",
+        "cf-ray": "9eb3b8d519ab3d70-MRS"
       },
       "body": {
-        "message": "The given data was invalid.",
-        "errors": {
-          "due_on": [
-            "الحقل due on مطلوب."
-          ],
-          "assignee.id": [
-            "الوحدة المختارة غير صالحة"
-          ],
-          "unit.id": [
-            "الرجاء اختيار الوحدة الخاصة بالدافع"
-          ],
-          "type": [
-            "يجب أن تكون قيمة الحقل النوع إما true أو false "
-          ],
-          "category": [
-            "الحقل category مطلوب."
-          ]
-        }
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD."
       },
-      "timing": 354
+      "timing": 257
     },
-    "timestamp": "2026-04-12T15:22:14.604Z",
+    "timestamp": "2026-04-12T16:49:02.533Z",
     "success": false,
-    "validationErrors": [
-      {
-        "field": "due_on",
-        "message": "الحقل due on مطلوب.",
-        "rule": "required"
-      },
-      {
-        "field": "assignee.id",
-        "message": "الوحدة المختارة غير صالحة"
-      },
-      {
-        "field": "unit.id",
-        "message": "الرجاء اختيار الوحدة الخاصة بالدافع"
-      },
-      {
-        "field": "type",
-        "message": "يجب أن تكون قيمة الحقل النوع إما true أو false "
-      },
-      {
-        "field": "category",
-        "message": "الحقل category مطلوب.",
-        "rule": "required"
-      }
-    ]
+    "validationErrors": []
   },
   {
     "request": {
       "method": "POST",
-      "endpoint": "transactions",
+      "endpoint": "rf/transactions",
       "body": {
         "type": "money_out",
         "amount": 1500,
         "date": "2026-04-12",
-        "description": "Test expense 1776007334960",
+        "description": "Test expense 1776012542884",
         "payment_method": "cash",
         "category_id": 4
       }
     },
     "response": {
-      "status": 422,
-      "statusText": "Unprocessable Entity",
+      "status": 405,
+      "statusText": "Method Not Allowed",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:16 GMT",
+        "date": "Sun, 12 Apr 2026 16:49:02 GMT",
         "content-type": "application/json",
-        "content-length": "780",
+        "content-length": "99",
         "connection": "keep-alive",
+        "allow": "GET, HEAD",
         "cache-control": "no-cache, private",
-        "x-ratelimit-limit": "5",
-        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "8efb572c627a091ef0944444ee6d4bcf;o=1",
+        "x-cloud-trace-context": "145e3e6bd8bdcc20330c14d71ff3e55c",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=O2ykHw1IH2dzAR5k8TOoUsMfFp7nZ2Pw05xCh%2BJqZb4G9bQ5SdA6hIo4GkYAaSBZknLY9xNb1n%2BDZ3anq%2Fp6grybk89rcxEz95PaOSXOTNMF3E%2FMD6ac69W42BgjZaHcHsvE9Og6t2x%2FdYUz\"}]}",
-        "cf-ray": "9eb339ba0fbee167-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=voJ8pVc%2FNFSJuBNaCMZF65I5hsrS2DKRa8qdfCpSf0iWKG%2BLEjSLyboVko7jMC02u%2BaIckkTXJWebvn0QrU0ZkgZDojTLWAsqmzE7gdJxyy0uLAN%2BnJHqyA20MWIWMTssr0SXSdRPfwVEF7X\"}]}",
+        "cf-ray": "9eb3b8d8ec113d70-MRS"
       },
       "body": {
-        "message": "The given data was invalid.",
-        "errors": {
-          "due_on": [
-            "الحقل due on مطلوب."
-          ],
-          "assignee.id": [
-            "الوحدة المختارة غير صالحة"
-          ],
-          "unit.id": [
-            "الرجاء اختيار الوحدة الخاصة بالدافع"
-          ],
-          "type": [
-            "يجب أن تكون قيمة الحقل النوع إما true أو false "
-          ],
-          "category": [
-            "الحقل category مطلوب."
-          ]
-        }
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD."
       },
-      "timing": 339
+      "timing": 242
     },
-    "timestamp": "2026-04-12T15:22:15.299Z",
+    "timestamp": "2026-04-12T16:49:03.128Z",
     "success": false,
-    "validationErrors": [
-      {
-        "field": "due_on",
-        "message": "الحقل due on مطلوب.",
-        "rule": "required"
-      },
-      {
-        "field": "assignee.id",
-        "message": "الوحدة المختارة غير صالحة"
-      },
-      {
-        "field": "unit.id",
-        "message": "الرجاء اختيار الوحدة الخاصة بالدافع"
-      },
-      {
-        "field": "type",
-        "message": "يجب أن تكون قيمة الحقل النوع إما true أو false "
-      },
-      {
-        "field": "category",
-        "message": "الحقل category مطلوب.",
-        "rule": "required"
-      }
-    ]
+    "validationErrors": []
   },
   {
     "request": {
       "method": "PUT",
-      "endpoint": "transactions/1",
+      "endpoint": "rf/transactions/1",
       "body": {
-        "description": "Updated transaction 1776007335783"
+        "description": "Updated transaction 1776012543488"
       }
     },
     "response": {
-      "status": 422,
-      "statusText": "Unprocessable Entity",
+      "status": 404,
+      "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:16 GMT",
+        "date": "Sun, 12 Apr 2026 16:49:03 GMT",
         "content-type": "application/json",
-        "content-length": "664",
+        "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
-        "x-ratelimit-limit": "10",
-        "x-ratelimit-remaining": "9",
         "vary": "Origin",
-        "x-cloud-trace-context": "112ab81ce266c108f0944444ee6d4a6e",
+        "x-cloud-trace-context": "b3ee91a9cd19e0e13b081e0832972f76",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hJBER1fD5T33d%2BwCDWXyZb%2Bjm8AD7%2BAHIEQmfPD4Q0idTZftBWl2QcKjGcqFFSnwp40FDT3iw7lV8Hr5C16hY94rLkvMFyCmowxju%2B%2B9v3e5mzlxoYY8wlMMwmEVi1uSIXkjc2Uq4%2FIgdvPu\"}]}",
-        "cf-ray": "9eb339befa47e167-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=p876bIGwCDwgOKcwNcbDT4N6k2n9uy1szgGnAcwnwvv2xUp0iT%2B5vE1MOjFSiCBegrlrVK%2F5d%2B6rNJPLl%2BLRQ1a3YwGMYtgDIYYOn1xt43FqIOa2ucUYFxld6tyNaXej8%2BR4IVqgKLO%2FjvYh\"}]}",
+        "cf-ray": "9eb3b8dc9d943d70-MRS"
       },
       "body": {
-        "message": "The given data was invalid.",
-        "errors": {
-          "amount": [
-            "الحقل amount مطلوب."
-          ],
-          "due_on": [
-            "الحقل due on مطلوب."
-          ],
-          "assignee.id": [
-            "الوحدة المختارة غير صالحة"
-          ],
-          "unit.id": [
-            "الرجاء اختيار الوحدة الخاصة بالدافع"
-          ],
-          "category": [
-            "الحقل category مطلوب."
-          ]
-        }
+        "success": false,
+        "message": "URL link not Found."
       },
-      "timing": 338
+      "timing": 233
     },
-    "timestamp": "2026-04-12T15:22:16.122Z",
+    "timestamp": "2026-04-12T16:49:03.722Z",
     "success": false,
-    "validationErrors": [
-      {
-        "field": "amount",
-        "message": "الحقل amount مطلوب.",
-        "rule": "required"
-      },
-      {
-        "field": "due_on",
-        "message": "الحقل due on مطلوب.",
-        "rule": "required"
-      },
-      {
-        "field": "assignee.id",
-        "message": "الوحدة المختارة غير صالحة"
-      },
-      {
-        "field": "unit.id",
-        "message": "الرجاء اختيار الوحدة الخاصة بالدافع"
-      },
-      {
-        "field": "category",
-        "message": "الحقل category مطلوب.",
-        "rule": "required"
-      }
-    ]
+    "validationErrors": []
   },
   {
     "request": {
       "method": "DELETE",
-      "endpoint": "transactions/2"
+      "endpoint": "rf/transactions/2"
     },
     "response": {
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:17 GMT",
-        "content-type": "application/json",
-        "transfer-encoding": "chunked",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "x-ratelimit-limit": "10",
-        "x-ratelimit-remaining": "9",
-        "vary": "Origin",
-        "x-cloud-trace-context": "5f04fe80f895923cc8f0f7d50a3f073f",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=gr61IipVkq5ijsUsByOjcFyCH4HzdwJOn8CXNiXA%2FoyOmpQ5bHFrYnGmwtoO6v2H6FbRXSGvvXxzMPCwJlo105a0099ypYwNKPUKY5cWsNykwvDicOWeXO1iNeYqn1s3ZvJMpk5xm16%2FEuZ4\"}]}",
-        "content-encoding": "br",
-        "cf-ray": "9eb339c3fd03e167-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "Method not Found.",
-        "errors": {
-          "\u0000*\u0000message": "Method Tenant\\Http\\Controllers\\Management\\Transactions\\TransactionController::destroy does not exist.",
-          "\u0000Exception\u0000string": "BadMethodCallException: Method Tenant\\Http\\Controllers\\Management\\Transactions\\TransactionController::destroy does not exist. in /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:68\nStack trace:\n#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): Illuminate\\Routing\\Controller->__call()\n#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction()\n#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(262): Illuminate\\Routing\\ControllerDispatcher->dispatch()\n#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()\n#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(721): Illuminate\\Routing\\Route->run()\n#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(128): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()\n#6 /var/www/html/modules/RFTenant/Http/Middleware/RestrictLeadAccessMiddleware.php(31): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\RestrictLeadAccessMiddleware->handle()\n#8 /var/www/html/modules/RFTenant/Http/Middleware/AgreementPropertyValidationMiddleware.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\AgreementPropertyValidationMiddleware->handle()\n#10 /var/www/html/modules/RFTenant/Http/Middleware/SubscriptionValidationMiddleware.php(40): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\SubscriptionValidationMiddleware->handle()\n#12 /var/www/html/modules/RFTenant/Http/Middleware/UpdateUserLanguage.php(34): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\UpdateUserLanguage->handle()\n#14 /var/www/html/modules/core/Http/Middleware/SetLastLogin.php(31): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\SetLastLogin->handle()\n#16 /var/www/html/modules/core/Http/Middleware/SetPreferredLocale.php(28): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\SetPreferredLocale->handle()\n#18 /var/www/html/modules/core/Http/Middleware/LocalizeApiRequests.php(33): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\LocalizeApiRequests->handle()\n#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()\n#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(103): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()\n#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(55): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()\n#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()\n#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Auth\\Middleware\\Authenticate->handle()\n#28 /var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(33): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(128): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}()\n#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#31 /var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(34): Illuminate\\Pipeline\\Pipeline->then()\n#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle()\n#33 /var/www/html/vendor/stancl/tenancy/src/Middleware/IdentificationMiddleware.php(36): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#34 /var/www/html/vendor/stancl/tenancy/src/Middleware/InitializeTenancyByRequestData.php(45): Stancl\\Tenancy\\Middleware\\IdentificationMiddleware->initializeTenancy()\n#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Stancl\\Tenancy\\Middleware\\InitializeTenancyByRequestData->handle()\n#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(723): Illuminate\\Pipeline\\Pipeline->then()\n#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(698): Illuminate\\Routing\\Router->runRouteWithinStack()\n#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(662): Illuminate\\Routing\\Router->runRoute()\n#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(651): Illuminate\\Routing\\Router->dispatchToRoute()\n#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(167): Illuminate\\Routing\\Router->dispatch()\n#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(128): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()\n#43 /var/www/html/modules/core/Http/Middleware/MaintenanceModeMiddleware.php(30): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\MaintenanceModeMiddleware->handle()\n#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()\n#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()\n#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#52 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()\n#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#54 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()\n#55 /var/www/html/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#56 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Fideloper\\Proxy\\TrustProxies->handle()\n#57 /var/www/html/vendor/fruitcake/laravel-cors/src/HandleCors.php(52): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#58 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Fruitcake\\Cors\\HandleCors->handle()\n#59 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#60 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(142): Illuminate\\Pipeline\\Pipeline->then()\n#61 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(111): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()\n#62 /var/www/html/public/index.php(59): Illuminate\\Foundation\\Http\\Kernel->handle()\n#63 {main}",
-          "\u0000*\u0000code": 0,
-          "\u0000*\u0000file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php",
-          "\u0000*\u0000line": 68,
-          "\u0000Exception\u0000trace": [
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php",
-              "line": 54,
-              "function": "__call",
-              "class": "Illuminate\\Routing\\Controller",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php",
-              "line": 45,
-              "function": "callAction",
-              "class": "Illuminate\\Routing\\Controller",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php",
-              "line": 262,
-              "function": "dispatch",
-              "class": "Illuminate\\Routing\\ControllerDispatcher",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php",
-              "line": 205,
-              "function": "runController",
-              "class": "Illuminate\\Routing\\Route",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-              "line": 721,
-              "function": "run",
-              "class": "Illuminate\\Routing\\Route",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 128,
-              "function": "Illuminate\\Routing\\{closure}",
-              "class": "Illuminate\\Routing\\Router",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/RFTenant/Http/Middleware/RestrictLeadAccessMiddleware.php",
-              "line": 31,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "RFTenant\\Http\\Middleware\\RestrictLeadAccessMiddleware",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/RFTenant/Http/Middleware/AgreementPropertyValidationMiddleware.php",
-              "line": 37,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "RFTenant\\Http\\Middleware\\AgreementPropertyValidationMiddleware",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/RFTenant/Http/Middleware/SubscriptionValidationMiddleware.php",
-              "line": 40,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "RFTenant\\Http\\Middleware\\SubscriptionValidationMiddleware",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/RFTenant/Http/Middleware/UpdateUserLanguage.php",
-              "line": 34,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "RFTenant\\Http\\Middleware\\UpdateUserLanguage",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/core/Http/Middleware/SetLastLogin.php",
-              "line": 31,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "App\\Http\\Middleware\\SetLastLogin",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/core/Http/Middleware/SetPreferredLocale.php",
-              "line": 28,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "App\\Http\\Middleware\\SetPreferredLocale",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/core/Http/Middleware/LocalizeApiRequests.php",
-              "line": 33,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "App\\Http\\Middleware\\LocalizeApiRequests",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php",
-              "line": 50,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-              "line": 127,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-              "line": 103,
-              "function": "handleRequest",
-              "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
-              "line": 55,
-              "function": "handleRequestUsingNamedLimiter",
-              "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php",
-              "line": 44,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Illuminate\\Auth\\Middleware\\Authenticate",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php",
-              "line": 33,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 128,
-              "function": "Laravel\\Sanctum\\Http\\Middleware\\{closure}",
-              "class": "Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 103,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php",
-              "line": 34,
-              "function": "then",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/stancl/tenancy/src/Middleware/IdentificationMiddleware.php",
-              "line": 36,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/stancl/tenancy/src/Middleware/InitializeTenancyByRequestData.php",
-              "line": 45,
-              "function": "initializeTenancy",
-              "class": "Stancl\\Tenancy\\Middleware\\IdentificationMiddleware",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Stancl\\Tenancy\\Middleware\\InitializeTenancyByRequestData",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 103,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-              "line": 723,
-              "function": "then",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-              "line": 698,
-              "function": "runRouteWithinStack",
-              "class": "Illuminate\\Routing\\Router",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-              "line": 662,
-              "function": "runRoute",
-              "class": "Illuminate\\Routing\\Router",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
-              "line": 651,
-              "function": "dispatchToRoute",
-              "class": "Illuminate\\Routing\\Router",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-              "line": 167,
-              "function": "dispatch",
-              "class": "Illuminate\\Routing\\Router",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 128,
-              "function": "Illuminate\\Foundation\\Http\\{closure}",
-              "class": "Illuminate\\Foundation\\Http\\Kernel",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/modules/core/Http/Middleware/MaintenanceModeMiddleware.php",
-              "line": 30,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "App\\Http\\Middleware\\MaintenanceModeMiddleware",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
-              "line": 21,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php",
-              "line": 31,
-              "function": "handle",
-              "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
-              "line": 21,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php",
-              "line": 40,
-              "function": "handle",
-              "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php",
-              "line": 27,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php",
-              "line": 86,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/fideloper/proxy/src/TrustProxies.php",
-              "line": 57,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Fideloper\\Proxy\\TrustProxies",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/fruitcake/laravel-cors/src/HandleCors.php",
-              "line": 52,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 167,
-              "function": "handle",
-              "class": "Fruitcake\\Cors\\HandleCors",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
-              "line": 103,
-              "function": "Illuminate\\Pipeline\\{closure}",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-              "line": 142,
-              "function": "then",
-              "class": "Illuminate\\Pipeline\\Pipeline",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
-              "line": 111,
-              "function": "sendRequestThroughRouter",
-              "class": "Illuminate\\Foundation\\Http\\Kernel",
-              "type": "->"
-            },
-            {
-              "file": "/var/www/html/public/index.php",
-              "line": 59,
-              "function": "handle",
-              "class": "Illuminate\\Foundation\\Http\\Kernel",
-              "type": "->"
-            }
-          ],
-          "\u0000Exception\u0000previous": null
-        }
-      },
-      "timing": 444
-    },
-    "timestamp": "2026-04-12T15:22:17.032Z",
-    "success": false,
-    "validationErrors": [
-      {
-        "field": "\u0000*\u0000message",
-        "message": "Method Tenant\\Http\\Controllers\\Management\\Transactions\\TransactionController::destroy does not exist."
-      },
-      {
-        "field": "\u0000Exception\u0000string",
-        "message": "BadMethodCallException: Method Tenant\\Http\\Controllers\\Management\\Transactions\\TransactionController::destroy does not exist. in /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:68\nStack trace:\n#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): Illuminate\\Routing\\Controller->__call()\n#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction()\n#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(262): Illuminate\\Routing\\ControllerDispatcher->dispatch()\n#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()\n#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(721): Illuminate\\Routing\\Route->run()\n#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(128): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}()\n#6 /var/www/html/modules/RFTenant/Http/Middleware/RestrictLeadAccessMiddleware.php(31): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\RestrictLeadAccessMiddleware->handle()\n#8 /var/www/html/modules/RFTenant/Http/Middleware/AgreementPropertyValidationMiddleware.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\AgreementPropertyValidationMiddleware->handle()\n#10 /var/www/html/modules/RFTenant/Http/Middleware/SubscriptionValidationMiddleware.php(40): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\SubscriptionValidationMiddleware->handle()\n#12 /var/www/html/modules/RFTenant/Http/Middleware/UpdateUserLanguage.php(34): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): RFTenant\\Http\\Middleware\\UpdateUserLanguage->handle()\n#14 /var/www/html/modules/core/Http/Middleware/SetLastLogin.php(31): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\SetLastLogin->handle()\n#16 /var/www/html/modules/core/Http/Middleware/SetPreferredLocale.php(28): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\SetPreferredLocale->handle()\n#18 /var/www/html/modules/core/Http/Middleware/LocalizeApiRequests.php(33): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\LocalizeApiRequests->handle()\n#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle()\n#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(103): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest()\n#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(55): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter()\n#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle()\n#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(44): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Auth\\Middleware\\Authenticate->handle()\n#28 /var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(33): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(128): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->Laravel\\Sanctum\\Http\\Middleware\\{closure}()\n#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#31 /var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php(34): Illuminate\\Pipeline\\Pipeline->then()\n#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful->handle()\n#33 /var/www/html/vendor/stancl/tenancy/src/Middleware/IdentificationMiddleware.php(36): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#34 /var/www/html/vendor/stancl/tenancy/src/Middleware/InitializeTenancyByRequestData.php(45): Stancl\\Tenancy\\Middleware\\IdentificationMiddleware->initializeTenancy()\n#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Stancl\\Tenancy\\Middleware\\InitializeTenancyByRequestData->handle()\n#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(723): Illuminate\\Pipeline\\Pipeline->then()\n#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(698): Illuminate\\Routing\\Router->runRouteWithinStack()\n#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(662): Illuminate\\Routing\\Router->runRoute()\n#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(651): Illuminate\\Routing\\Router->dispatchToRoute()\n#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(167): Illuminate\\Routing\\Router->dispatch()\n#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(128): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()\n#43 /var/www/html/modules/core/Http/Middleware/MaintenanceModeMiddleware.php(30): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): App\\Http\\Middleware\\MaintenanceModeMiddleware->handle()\n#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()\n#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()\n#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()\n#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#52 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()\n#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#54 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()\n#55 /var/www/html/vendor/fideloper/proxy/src/TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#56 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Fideloper\\Proxy\\TrustProxies->handle()\n#57 /var/www/html/vendor/fruitcake/laravel-cors/src/HandleCors.php(52): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#58 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(167): Fruitcake\\Cors\\HandleCors->handle()\n#59 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()\n#60 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(142): Illuminate\\Pipeline\\Pipeline->then()\n#61 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(111): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()\n#62 /var/www/html/public/index.php(59): Illuminate\\Foundation\\Http\\Kernel->handle()\n#63 {main}",
-        "rule": "date"
-      },
-      {
-        "field": "\u0000*\u0000file",
-        "message": "/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Controller.php\",\"line\":54,\"function\":\"__call\",\"class\":\"Illuminate\\\\Routing\\\\Controller\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php\",\"line\":45,\"function\":\"callAction\",\"class\":\"Illuminate\\\\Routing\\\\Controller\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php\",\"line\":262,\"function\":\"dispatch\",\"class\":\"Illuminate\\\\Routing\\\\ControllerDispatcher\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php\",\"line\":205,\"function\":\"runController\",\"class\":\"Illuminate\\\\Routing\\\\Route\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php\",\"line\":721,\"function\":\"run\",\"class\":\"Illuminate\\\\Routing\\\\Route\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":128,\"function\":\"Illuminate\\\\Routing\\\\{closure}\",\"class\":\"Illuminate\\\\Routing\\\\Router\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/RFTenant/Http/Middleware/RestrictLeadAccessMiddleware.php\",\"line\":31,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"RFTenant\\\\Http\\\\Middleware\\\\RestrictLeadAccessMiddleware\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/RFTenant/Http/Middleware/AgreementPropertyValidationMiddleware.php\",\"line\":37,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"RFTenant\\\\Http\\\\Middleware\\\\AgreementPropertyValidationMiddleware\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/RFTenant/Http/Middleware/SubscriptionValidationMiddleware.php\",\"line\":40,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"RFTenant\\\\Http\\\\Middleware\\\\SubscriptionValidationMiddleware\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/RFTenant/Http/Middleware/UpdateUserLanguage.php\",\"line\":34,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"RFTenant\\\\Http\\\\Middleware\\\\UpdateUserLanguage\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/core/Http/Middleware/SetLastLogin.php\",\"line\":31,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"App\\\\Http\\\\Middleware\\\\SetLastLogin\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/core/Http/Middleware/SetPreferredLocale.php\",\"line\":28,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"App\\\\Http\\\\Middleware\\\\SetPreferredLocale\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/core/Http/Middleware/LocalizeApiRequests.php\",\"line\":33,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"App\\\\Http\\\\Middleware\\\\LocalizeApiRequests\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php\",\"line\":50,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Illuminate\\\\Routing\\\\Middleware\\\\SubstituteBindings\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php\",\"line\":127,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php\",\"line\":103,\"function\":\"handleRequest\",\"class\":\"Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php\",\"line\":55,\"function\":\"handleRequestUsingNamedLimiter\",\"class\":\"Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php\",\"line\":44,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Illuminate\\\\Auth\\\\Middleware\\\\Authenticate\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php\",\"line\":33,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":128,\"function\":\"Laravel\\\\Sanctum\\\\Http\\\\Middleware\\\\{closure}\",\"class\":\"Laravel\\\\Sanctum\\\\Http\\\\Middleware\\\\EnsureFrontendRequestsAreStateful\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":103,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php\",\"line\":34,\"function\":\"then\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Laravel\\\\Sanctum\\\\Http\\\\Middleware\\\\EnsureFrontendRequestsAreStateful\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/stancl/tenancy/src/Middleware/IdentificationMiddleware.php\",\"line\":36,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/stancl/tenancy/src/Middleware/InitializeTenancyByRequestData.php\",\"line\":45,\"function\":\"initializeTenancy\",\"class\":\"Stancl\\\\Tenancy\\\\Middleware\\\\IdentificationMiddleware\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Stancl\\\\Tenancy\\\\Middleware\\\\InitializeTenancyByRequestData\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":103,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php\",\"line\":723,\"function\":\"then\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php\",\"line\":698,\"function\":\"runRouteWithinStack\",\"class\":\"Illuminate\\\\Routing\\\\Router\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php\",\"line\":662,\"function\":\"runRoute\",\"class\":\"Illuminate\\\\Routing\\\\Router\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php\",\"line\":651,\"function\":\"dispatchToRoute\",\"class\":\"Illuminate\\\\Routing\\\\Router\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php\",\"line\":167,\"function\":\"dispatch\",\"class\":\"Illuminate\\\\Routing\\\\Router\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":128,\"function\":\"Illuminate\\\\Foundation\\\\Http\\\\{closure}\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/modules/core/Http/Middleware/MaintenanceModeMiddleware.php\",\"line\":30,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"App\\\\Http\\\\Middleware\\\\MaintenanceModeMiddleware\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php\",\"line\":21,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php\",\"line\":31,\"function\":\"handle\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php\",\"line\":21,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php\",\"line\":40,\"function\":\"handle\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php\",\"line\":27,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php\",\"line\":86,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/fideloper/proxy/src/TrustProxies.php\",\"line\":57,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Fideloper\\\\Proxy\\\\TrustProxies\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/fruitcake/laravel-cors/src/HandleCors.php\",\"line\":52,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":167,\"function\":\"handle\",\"class\":\"Fruitcake\\\\Cors\\\\HandleCors\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php\",\"line\":103,\"function\":\"Illuminate\\\\Pipeline\\\\{closure}\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php\",\"line\":142,\"function\":\"then\",\"class\":\"Illuminate\\\\Pipeline\\\\Pipeline\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php\",\"line\":111,\"function\":\"sendRequestThroughRouter\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\"type\":\"->\"}"
-      },
-      {
-        "field": "\u0000Exception\u0000trace",
-        "message": "{\"file\":\"/var/www/html/public/index.php\",\"line\":59,\"function\":\"handle\",\"class\":\"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\"type\":\"->\"}"
-      }
-    ]
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "invoices",
-      "body": {}
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:18 GMT",
+        "date": "Sun, 12 Apr 2026 16:49:04 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "8d9db3c6bb5bd8516691c2dcde100e8b",
+        "x-cloud-trace-context": "471c61d682eb07a8330c14d71ff3e2e0",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7XhI1CJ9vX0y9nvJZ7QQ2b8SipO70I3peu2EN2ZsokjAn4k5%2BWLuYEAdcN1OegTj4uCWXQkMqgCZ3amq6zXoJ8%2FI6QmitTHiptWHc23BZ1PcHBTchB1FD3PeiXsUB5P7KfDptzpequgyfJWZ\"}]}",
-        "cf-ray": "9eb339c79c91e167-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=E2GImQvtLY4ZCn6P8iqaSr%2BZlsYv7Vc8YPawZs9NB2okpsyhoueZUOIDlSyUVHvMD336y2arGJS%2FWJSiF2PYjiRpkcHxgEkuLgbqvcNtz4%2B5zrSoUTKmh9dmFr%2FVzxO4udX9zAK3mT%2F4WuED\"}]}",
+        "cf-ray": "9eb3b8e108fc3d70-MRS"
       },
       "body": {
         "success": false,
         "message": "URL link not Found."
       },
-      "timing": 277
+      "timing": 520
     },
-    "timestamp": "2026-04-12T15:22:17.424Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "invoices",
-      "body": {
-        "lease_id": 1,
-        "amount": 5000,
-        "issue_date": "2026-04-12",
-        "due_date": "2026-05-12",
-        "description": "Invoice for lease 1",
-        "type": "rent"
-      }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:19 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "f64a1e3c1777de1d7ed2febfbe7d63d6",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Gmfa%2B5%2BxvHzmDBl5p4lhis2HgMcjJaYGWi6%2BvHm4635MeCxHB%2FOVZmILirCVfJ93tvHI6jP6MF9W6QZTU2YPyIGON8rSxZHWh0npEsWp3Rac%2B4yxzC5TcBuntTRbIBF%2B82SGJu88MuVNnz1H\"}]}",
-        "cf-ray": "9eb339cc0e04e167-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 268
-    },
-    "timestamp": "2026-04-12T15:22:18.142Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "invoices/mark-paid",
-      "body": {
-        "invoice_id": 1,
-        "payment_date": "2026-04-12",
-        "payment_method": "bank_transfer"
-      }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:19 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "acc5b02b516cbf9a770fedcb037f616d",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=I8dLd4H2I8gtbup5rPvS%2F2NGtQ5Wp%2FYqiKiymrQRUgbyLYU%2Fsyzs3IySZkJ4RyKg0mF1ixEPCzTpUra8ws5qvKMK%2B64tIGytY1alihzhTIEvJS9FhfDlQS702Q%2FU659%2FEiDWerdL3m%2BARnW9\"}]}",
-        "cf-ray": "9eb339ce2b3ce167-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 369
-    },
-    "timestamp": "2026-04-12T15:22:18.585Z",
+    "timestamp": "2026-04-12T16:49:04.722Z",
     "success": false,
     "validationErrors": []
   },
@@ -1198,326 +199,90 @@
       "status": 405,
       "statusText": "Method Not Allowed",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:20 GMT",
+        "date": "Sun, 12 Apr 2026 16:49:05 GMT",
         "content-type": "application/json",
         "content-length": "104",
         "connection": "keep-alive",
         "allow": "GET, HEAD, POST",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "5b4744bc8a051f32b665fb6e189efac9",
+        "x-cloud-trace-context": "43d0a255e282bb27a8a2b95429d4db45",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NCTNROP%2FbQa3%2F77H1UYl9NTaShksmgHpxESclnjN60vPGNz19GQ%2F7%2BWfnmJBI%2FiJtcAHnZcVubsOxrWiaifNem%2FIiNQ0Nls3i0Pc9UCyWPIMalU0%2BIcM8tkjadhGiNmz1LnvGZyIaeaoGIp%2B\"}]}",
-        "cf-ray": "9eb339d2cda9e167-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=koUDBRCeNFcBwnnRq65OLCWREv0e%2F5cZW%2BWs%2BeFtazqA5Q9C%2FtkEBMrW9gHUwUnILxlvvZqLxBB7JYzGJeUUDKHYCJLCTuPWattaa%2B5JxMLcfk0lk28wruLkScbevqCBcdti4W0mQwvX43bf\"}]}",
+        "cf-ray": "9eb3b8e738843d70-MRS"
       },
       "body": {
         "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD, POST."
       },
-      "timing": 261
+      "timing": 343
     },
-    "timestamp": "2026-04-12T15:22:19.211Z",
+    "timestamp": "2026-04-12T16:49:05.527Z",
     "success": false,
     "validationErrors": []
   },
   {
     "request": {
       "method": "POST",
-      "endpoint": "transactions/journal-entries",
+      "endpoint": "invoice-settings",
       "body": {}
     },
     "response": {
-      "status": 405,
-      "statusText": "Method Not Allowed",
+      "status": 422,
+      "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:20 GMT",
+        "date": "Sun, 12 Apr 2026 16:49:05 GMT",
         "content-type": "application/json",
-        "content-length": "119",
+        "content-length": "344",
         "connection": "keep-alive",
-        "allow": "GET, HEAD, PUT, PATCH, DELETE",
         "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "7ce70f56f0aa3ffe770fedcb037f6f04",
+        "x-cloud-trace-context": "6ff320a35c65900f4c0c63f9f225bbb1",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0kZx78oPB%2B6NpX6Ivj9OtBEC42gNctdu9fq580HLr9G7zATv9BO0GYgWwXR1VAOJSGbki%2FHe%2BzKnzdo5IV3J3YJCX%2FfDJaHknE2lDetlfoli%2FnziN%2F91K0yn0D6xGBgi3ePp%2Brxt2006GVAR\"}]}",
-        "cf-ray": "9eb339d4a9c9e167-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NF5z3KSVNfFiyoTBki%2FzKM9jRH7CJK7bJIeDFAhXe%2BylU6%2BG7Hi502LPqM3FnnT75yQYoqiRdbLwG4jA%2BpNnRx1MNMo3Ojlc7V7wcbEiYxpPireue6Bw4%2FnM9IKYCMI4cPGBqrM0HUQD84Uw\"}]}",
+        "cf-ray": "9eb3b8ea38a13d70-MRS"
       },
       "body": {
-        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH, DELETE."
+        "message": "The given data was invalid.",
+        "errors": {
+          "company_name": [
+            "الحقل company name مطلوب."
+          ],
+          "address": [
+            "الحقل العنوان مطلوب."
+          ],
+          "vat": [
+            "الحقل vat مطلوب."
+          ]
+        }
       },
-      "timing": 312
+      "timing": 381
     },
-    "timestamp": "2026-04-12T15:22:19.568Z",
+    "timestamp": "2026-04-12T16:49:05.981Z",
     "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "transactions/journal-entries",
-      "body": {
-        "date": "2026-04-12",
-        "description": "Journal entry 1776007339685",
-        "entries": [
-          {
-            "account_id": 1,
-            "debit": 1000,
-            "credit": 0
-          },
-          {
-            "account_id": 2,
-            "debit": 0,
-            "credit": 1000
-          }
-        ]
+    "validationErrors": [
+      {
+        "field": "company_name",
+        "message": "الحقل company name مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "address",
+        "message": "الحقل العنوان مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "vat",
+        "message": "الحقل vat مطلوب.",
+        "rule": "required"
       }
-    },
-    "response": {
-      "status": 405,
-      "statusText": "Method Not Allowed",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:20 GMT",
-        "content-type": "application/json",
-        "content-length": "119",
-        "connection": "keep-alive",
-        "allow": "GET, HEAD, PUT, PATCH, DELETE",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "210471670012454f7ed2febfbe7d6c5a",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zG5UxZqpT%2B0Eqa2tcx%2BuSakv2ywCuGdylOUbmmbhr9C9TAa2u0aPFIdwui5c5HduKsJxKlWVrDfntgC%2FGSsT9zurIheZyKN1wsVY3LQmRrXfMIYZQepCOHLAfHlpA0iAKFFiGGNxWBY1%2Bz7J\"}]}",
-        "cf-ray": "9eb339d76824e167-MRS"
-      },
-      "body": {
-        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH, DELETE."
-      },
-      "timing": 318
-    },
-    "timestamp": "2026-04-12T15:22:20.004Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "transactions/chart-of-accounts",
-      "body": {}
-    },
-    "response": {
-      "status": 405,
-      "statusText": "Method Not Allowed",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:21 GMT",
-        "content-type": "application/json",
-        "content-length": "119",
-        "connection": "keep-alive",
-        "allow": "GET, HEAD, PUT, PATCH, DELETE",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "4e60b7e08b2e1e7a770fedcb037f6c9b",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zeg%2FbBAnKgjwvDHUrp5npEGsaWqldwRErlcTI4cbMHaoOdJPzkAN4BoVivDO9RvlM4MVVkvfZwdfg2WQd%2FF5%2FAah%2B4AkQ1wS3p4XlQ2tFYsyA%2FusKu0LQYf3eK3LkYhPdwbZdwgYi4FwZ5Ji\"}]}",
-        "cf-ray": "9eb339d9cd02e167-MRS"
-      },
-      "body": {
-        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH, DELETE."
-      },
-      "timing": 434
-    },
-    "timestamp": "2026-04-12T15:22:20.494Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "transactions/chart-of-accounts",
-      "body": {
-        "name": "Test Account 1776007340570",
-        "code": "2044",
-        "type": "asset",
-        "parent_id": null
-      }
-    },
-    "response": {
-      "status": 405,
-      "statusText": "Method Not Allowed",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:21 GMT",
-        "content-type": "application/json",
-        "content-length": "119",
-        "connection": "keep-alive",
-        "allow": "GET, HEAD, PUT, PATCH, DELETE",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "de94c80c757ce55f770fedcb037f6a32",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YHGudN5bdiOS%2FQ%2BT2CG8YMsCYFh%2BTcy0OTpKm7vZMGgQrzZG%2FJosxCQl23v3oi8Q4Kpat%2FwbUf35Ha1mjQFEspwleJxfRaULL7Dw2VOhTOpdtZYLD0XqtdHLqU0EQmj9gbA07Ng0c1jlgJiO\"}]}",
-        "cf-ray": "9eb339dd6e3ae167-MRS"
-      },
-      "body": {
-        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH, DELETE."
-      },
-      "timing": 539
-    },
-    "timestamp": "2026-04-12T15:22:21.114Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "PUT",
-      "endpoint": "transactions/chart-of-accounts/1",
-      "body": {
-        "name": "Updated Account 1776007341221"
-      }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:22 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "871039bf13b29b94770fedcb037f67c9",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8AlOl1i7Uj3fIUutSieLKZQMG3rImwxz9xVewMo8yKuHHyDv1d1PoiK6%2ByINuNapt25xRy16faQjNtix0iaAZD1RKNcB3Sz0cFgOZ6opIZYQXddyc%2BZnqFTPQYSJoaOVINt9%2FePrP4v0QrUD\"}]}",
-        "cf-ray": "9eb339e10e91e167-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 282
-    },
-    "timestamp": "2026-04-12T15:22:21.504Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "DELETE",
-      "endpoint": "transactions/chart-of-accounts/999"
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:22 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "6387f70e84295e416691c2dcde100f40",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=PJswZ5fWAzUZOPGAmDhp0KJFAJmLfLScvh1LNsECcAGHJ4lacGHgqhgN0N5oYzlHnuj6efvIgQM2v0keJ%2FYQuqRzOXJyo3meobVoU4aypdv3%2BIdMe%2FpTih4OuaFiKZucMiGPpIQK1EadjeV%2B\"}]}",
-        "cf-ray": "9eb339e31b31e167-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 376
-    },
-    "timestamp": "2026-04-12T15:22:21.930Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "POST",
-      "endpoint": "transactions/categories",
-      "body": {
-        "name": "Test Category 1776007342045",
-        "type": "in"
-      }
-    },
-    "response": {
-      "status": 405,
-      "statusText": "Method Not Allowed",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:23 GMT",
-        "content-type": "application/json",
-        "content-length": "119",
-        "connection": "keep-alive",
-        "allow": "GET, HEAD, PUT, PATCH, DELETE",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "eb34ec2368b201c1770fedcb037f6560",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=r1sKkJbyiuUwDm9iL9WEup5xbqQS%2Fs8CRPbBX1mLdlKIYogUHERq%2Frquiwfwtjydstgi5nVmXc%2Book48VyEKQiK9BZ%2FvHhIhZEudxkVs%2BI3nBxaadrHMMq9Fnv5gTI4AtsDah8chNUjMWZVC\"}]}",
-        "cf-ray": "9eb339e62a09e167-MRS"
-      },
-      "body": {
-        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH, DELETE."
-      },
-      "timing": 291
-    },
-    "timestamp": "2026-04-12T15:22:22.338Z",
-    "success": false,
-    "validationErrors": []
-  },
-  {
-    "request": {
-      "method": "PUT",
-      "endpoint": "transactions/categories/1",
-      "body": {
-        "name": "Updated Category 1776007342435"
-      }
-    },
-    "response": {
-      "status": 404,
-      "statusText": "Not Found",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 15:22:23 GMT",
-        "content-type": "application/json",
-        "content-length": "49",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "vary": "Origin",
-        "x-cloud-trace-context": "81d2a7db66348ad3770fedcb037f62f7",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GuJC73raRRrxqM7oMLhJ%2FVUa2WZEfTtLeyjV6ht6nFN3yNnAK7P0Hx1I1EEBfJFIMJerkpU0ziFYNQmrBQz5mwJK9UNXWN3mZNZhO7VM8C%2BMMa%2Bx%2FEl7i%2BPb23SrXq%2FWZy1u0No8NzzA6dJR\"}]}",
-        "cf-ray": "9eb339e89f80e167-MRS"
-      },
-      "body": {
-        "success": false,
-        "message": "URL link not Found."
-      },
-      "timing": 292
-    },
-    "timestamp": "2026-04-12T15:22:22.728Z",
-    "success": false,
-    "validationErrors": []
+    ]
   }
 ]

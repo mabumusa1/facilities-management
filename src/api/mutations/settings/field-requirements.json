@@ -1,4 +1,13 @@
 {
+  "title": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل العنوان مطلوب."
+    ]
+  },
   "description": {
     "required": true,
     "rules": [
@@ -15,6 +24,15 @@
     ],
     "messages": [
       "الحقل is visible مطلوب."
+    ]
+  },
+  "start_date": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل start date مطلوب."
     ]
   },
   "end_date": {
@@ -51,6 +69,87 @@
     ],
     "messages": [
       "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+    ]
+  },
+  "name_ar": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل name ar مطلوب."
+    ]
+  },
+  "name_en": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل name en مطلوب."
+    ]
+  },
+  "days": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل days مطلوب."
+    ]
+  },
+  "booking_type": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل booking type مطلوب."
+    ]
+  },
+  "complex_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل complex id مطلوب."
+    ]
+  },
+  "gender": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل النوع مطلوب."
+    ]
+  },
+  "approved": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل approved مطلوب."
+    ]
+  },
+  "rf_category_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل rf category id مطلوب."
+    ]
+  },
+  "permissions": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل permissions مطلوب."
     ]
   }
 }

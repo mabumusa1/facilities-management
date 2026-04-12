@@ -12,1009 +12,146 @@
     }
   ],
   "paths": {
-    "notifications": {
-      "put": {
-        "operationId": "put_notifications",
-        "summary": "PUT notifications",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "405": {
-            "description": "Method Not Allowed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email_notifications": {
-                    "type": "boolean"
-                  },
-                  "sms_notifications": {
-                    "type": "boolean"
-                  },
-                  "push_notifications": {
-                    "type": "boolean"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "email_notifications": true,
-                    "sms_notifications": true,
-                    "push_notifications": true
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "notifications/settings": {
-      "post": {
-        "operationId": "post_notifications_settings",
-        "summary": "POST notifications/settings",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "405": {
-            "description": "Method Not Allowed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "message": "The POST method is not supported for this route. Supported methods: GET, HEAD."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "lease_expiry": {
-                    "type": "boolean"
-                  },
-                  "payment_reminder": {
-                    "type": "boolean"
-                  },
-                  "maintenance_updates": {
-                    "type": "boolean"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "lease_expiry": true,
-                    "payment_reminder": true,
-                    "maintenance_updates": true
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "notifications/mark-read": {
-      "put": {
-        "operationId": "put_notifications_mark_read",
-        "summary": "PUT notifications/mark-read",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "405": {
-            "description": "Method Not Allowed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "notification_ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "notification_ids": [
-                      1,
-                      2,
-                      3
-                    ]
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "notifications/1": {
-      "delete": {
-        "operationId": "delete_notifications_1",
-        "summary": "DELETE notifications/1",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "405": {
-            "description": "Method Not Allowed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/company": {
-      "post": {
-        "operationId": "post_rf_settings_company",
-        "summary": "POST rf/settings/company",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "examples": {
-                "default": {
-                  "value": {},
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      },
-      "put": {
-        "operationId": "put_rf_settings_company",
-        "summary": "PUT rf/settings/company",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "phone": {
-                    "type": "string"
-                  },
-                  "address": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "name": "Test Company",
-                    "email": "company@test.com",
-                    "phone": "+966500000000",
-                    "address": "Test Address, Riyadh"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/logo": {
-      "post": {
-        "operationId": "post_rf_settings_logo",
-        "summary": "POST rf/settings/logo",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "logo_url": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "logo_url": "https://example.com/logo.png"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/roles": {
-      "post": {
-        "operationId": "post_rf_roles",
-        "summary": "POST rf/roles",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "examples": {
-                "default": {
-                  "value": {},
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/email-templates": {
-      "post": {
-        "operationId": "post_rf_settings_email_templates",
-        "summary": "POST rf/settings/email-templates",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "examples": {
-                "default": {
-                  "value": {},
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/email-templates/1": {
-      "put": {
-        "operationId": "put_rf_settings_email_templates_1",
-        "summary": "PUT rf/settings/email-templates/1",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "subject": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "subject": "Updated Subject 1776007328570"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/sms-templates": {
-      "post": {
-        "operationId": "post_rf_settings_sms_templates",
-        "summary": "POST rf/settings/sms-templates",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              },
-              "examples": {
-                "default": {
-                  "value": {},
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/sms-templates/1": {
-      "put": {
-        "operationId": "put_rf_settings_sms_templates_1",
-        "summary": "PUT rf/settings/sms-templates/1",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "body": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "body": "Updated SMS 1776007329659"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings": {
-      "put": {
-        "operationId": "put_rf_settings",
-        "summary": "PUT rf/settings",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "language": {
-                    "type": "string"
-                  },
-                  "timezone": {
-                    "type": "string"
-                  },
-                  "date_format": {
-                    "type": "string"
-                  },
-                  "currency": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "language": "en",
-                    "timezone": "Asia/Riyadh",
-                    "date_format": "YYYY-MM-DD",
-                    "currency": "SAR"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/preferences": {
-      "post": {
-        "operationId": "post_rf_settings_preferences",
-        "summary": "POST rf/settings/preferences",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "dashboard_layout": {
-                    "type": "string"
-                  },
-                  "items_per_page": {
-                    "type": "integer"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "dashboard_layout": "grid",
-                    "items_per_page": 25
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/settings/mobile-notifications": {
-      "post": {
-        "operationId": "post_rf_settings_mobile_notifications",
-        "summary": "POST rf/settings/mobile-notifications",
-        "tags": [
-          "settings"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean"
-                  },
-                  "sound": {
-                    "type": "boolean"
-                  },
-                  "vibrate": {
-                    "type": "boolean"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "enabled": true,
-                    "sound": true,
-                    "vibrate": true
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
     "rf/announcements": {
       "post": {
         "operationId": "post_rf_announcements",
         "summary": "POST rf/announcements",
+        "tags": [
+          "settings"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "description": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "is_visible": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "start_date": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "end_date": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "start_time": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "end_time": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "notify_user_type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "title": [
+                          "الحقل العنوان مطلوب."
+                        ],
+                        "description": [
+                          "الحقل الوصف مطلوب."
+                        ],
+                        "is_visible": [
+                          "الحقل is visible مطلوب."
+                        ],
+                        "start_date": [
+                          "الحقل start date مطلوب."
+                        ],
+                        "end_date": [
+                          "الحقل end date مطلوب."
+                        ],
+                        "start_time": [
+                          "الحقل start time مطلوب."
+                        ],
+                        "end_time": [
+                          "الحقل end time مطلوب."
+                        ],
+                        "notify_user_type": [
+                          "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/announcements/1": {
+      "put": {
+        "operationId": "put_rf_announcements_1",
+        "summary": "PUT rf/announcements/1",
         "tags": [
           "settings"
         ],
@@ -1039,6 +176,12 @@
                           }
                         },
                         "is_visible": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "start_date": {
                           "type": "array",
                           "items": {
                             "type": "string"
@@ -1083,6 +226,9 @@
                         "is_visible": [
                           "الحقل is visible مطلوب."
                         ],
+                        "start_date": [
+                          "الحقل start date مطلوب."
+                        ],
                         "end_date": [
                           "الحقل end date مطلوب."
                         ],
@@ -1113,26 +259,338 @@
                 "properties": {
                   "title": {
                     "type": "string"
-                  },
-                  "content": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "start_date": {
-                    "type": "string"
                   }
                 }
               },
               "examples": {
                 "default": {
                   "value": {
-                    "title": "Test Announcement 1776007331219",
-                    "content": "This is a test announcement",
-                    "type": "general",
-                    "start_date": "2026-04-12"
+                    "title": "Updated Announcement 1776012538472"
                   },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/announcements/99999": {
+      "delete": {
+        "operationId": "delete_rf_announcements_99999",
+        "summary": "DELETE rf/announcements/99999",
+        "tags": [
+          "settings"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "تم مسح المطلوب بنجاح.",
+                      "data": [],
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "notifications/mark-all-as-read": {
+      "post": {
+        "operationId": "post_notifications_mark_all_as_read",
+        "summary": "POST notifications/mark-all-as-read",
+        "tags": [
+          "settings"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/facilities": {
+      "post": {
+        "operationId": "post_rf_facilities",
+        "summary": "POST rf/facilities",
+        "tags": [
+          "settings"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "name_ar": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "name_en": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "booking_type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "complex_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "gender": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "approved": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "name_ar": [
+                          "الحقل name ar مطلوب."
+                        ],
+                        "name_en": [
+                          "الحقل name en مطلوب."
+                        ],
+                        "days": [
+                          "الحقل days مطلوب."
+                        ],
+                        "booking_type": [
+                          "الحقل booking type مطلوب."
+                        ],
+                        "complex_id": [
+                          "الحقل complex id مطلوب."
+                        ],
+                        "gender": [
+                          "الحقل النوع مطلوب."
+                        ],
+                        "approved": [
+                          "الحقل approved مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/requests/service-settings/updateOrCreate": {
+      "post": {
+        "operationId": "post_rf_requests_service_settings_updateOrCreate",
+        "summary": "POST rf/requests/service-settings/updateOrCreate",
+        "tags": [
+          "settings"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "rf_category_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "rf_category_id": [
+                          "الحقل rf category id مطلوب."
+                        ],
+                        "permissions": [
+                          "الحقل permissions مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
                   "summary": "Example request body"
                 }
               }

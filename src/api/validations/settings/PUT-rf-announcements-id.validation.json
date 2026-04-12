@@ -1,28 +1,7 @@
 {
-  "endpoint": "rf/announcements",
-  "method": "POST",
+  "endpoint": "rf/announcements/{id}",
+  "method": "PUT",
   "fields": {
-    "title": {
-      "field": "title",
-      "required": true,
-      "type": "string",
-      "rules": [
-        {
-          "rule": "required",
-          "rawMessage": "الحقل العنوان مطلوب."
-        }
-      ],
-      "examples": {
-        "valid": [
-          "example"
-        ],
-        "invalid": [
-          "",
-          null,
-          null
-        ]
-      }
-    },
     "description": {
       "field": "description",
       "required": true,
@@ -178,8 +157,7 @@
     "is_visible",
     "notify_user_type",
     "start_date",
-    "start_time",
-    "title"
+    "start_time"
   ],
   "optionalFields": []
 }

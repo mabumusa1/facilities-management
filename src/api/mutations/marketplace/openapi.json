@@ -245,7 +245,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "beneficiary_name": "Updated Beneficiary 1776007306407"
+                    "beneficiary_name": "Updated Beneficiary 1776012518665"
                   },
                   "summary": "Example request body"
                 }
@@ -628,10 +628,10 @@
         ]
       }
     },
-    "marketplace/admin/communities/list/13": {
+    "marketplace/admin/communities/list/15": {
       "post": {
-        "operationId": "post_marketplace_admin_communities_list_13",
-        "summary": "POST marketplace/admin/communities/list/13",
+        "operationId": "post_marketplace_admin_communities_list_15",
+        "summary": "POST marketplace/admin/communities/list/15",
         "tags": [
           "marketplace"
         ],
@@ -701,10 +701,10 @@
         ]
       }
     },
-    "marketplace/admin/communities/unlist/13": {
+    "marketplace/admin/communities/unlist/15": {
       "post": {
-        "operationId": "post_marketplace_admin_communities_unlist_13",
-        "summary": "POST marketplace/admin/communities/unlist/13",
+        "operationId": "post_marketplace_admin_communities_unlist_15",
+        "summary": "POST marketplace/admin/communities/unlist/15",
         "tags": [
           "marketplace"
         ],
@@ -816,8 +816,8 @@
                       "code": 200,
                       "message": "",
                       "data": {
-                        "id": 13,
-                        "name": "Updated Community 1775992807546",
+                        "id": 15,
+                        "name": "Updated Community 1776012522795",
                         "district": {
                           "id": 1,
                           "name": "الدرعية"
@@ -1345,7 +1345,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "title": "Updated Offer 1776007319021",
+                    "title": "Updated Offer 1776012530914",
                     "discount_value": 15
                   },
                   "summary": "Example request body"
@@ -1521,7 +1521,7 @@
               "examples": {
                 "default": {
                   "value": {
-                    "title": "Updated Listing 1776007321640",
+                    "title": "Updated Listing 1776012533928",
                     "price": 55000
                   },
                   "summary": "Example request body"

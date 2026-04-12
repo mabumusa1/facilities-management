@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-invoice-settings.schema.json",
+  "title": "POST invoice-settings",
+  "description": "Request body schema for POST invoice-settings",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "address": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "vat": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "address",
+    "company_name",
+    "vat"
+  ],
+  "additionalProperties": true
+}

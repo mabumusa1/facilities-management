@@ -1,8 +1,8 @@
 /**
- * Request body for POST rf/announcements
+ * Request body for PUT rf/announcements/{id}
  * Auto-generated from API validation errors
  */
-export interface PostRfAnnouncementsRequest {
+export interface PutRfAnnouncementsRequest {
   /** Rules: required */
   description: string;
   /** Rules: required */
@@ -17,6 +17,4 @@ export interface PostRfAnnouncementsRequest {
   start_date: string;
   /** Rules: required */
   start_time: string;
-  /** Rules: required */
-  title: string;
 }

@@ -1,0 +1,53 @@
+{
+  "endpoint": "rf/excel-sheets/land",
+  "method": "POST",
+  "fields": {
+    "rf_community_id": {
+      "field": "rf_community_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل rf community id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "file": {
+      "field": "file",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "unknown",
+          "rawMessage": "الـ الملف يجب أن يكون من ملفا."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "rf_community_id"
+  ],
+  "optionalFields": [
+    "file"
+  ]
+}

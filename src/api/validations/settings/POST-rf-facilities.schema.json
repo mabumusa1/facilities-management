@@ -1,36 +1,47 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "atar-api/post-rf-admins.schema.json",
-  "title": "POST rf/admins",
-  "description": "Request body schema for POST rf/admins",
+  "$id": "atar-api/post-rf-facilities.schema.json",
+  "title": "POST rf/facilities",
+  "description": "Request body schema for POST rf/facilities",
   "type": "object",
   "properties": {
-    "last_name": {
-      "type": "string",
-      "description": "صيغة الحقل اسم العائلة .غير صحيحة",
-      "examples": [
-        "example"
-      ]
-    },
-    "role": {
+    "name_ar": {
       "type": "string",
       "examples": [
         "example"
       ]
     },
-    "first_name": {
+    "name_en": {
       "type": "string",
       "examples": [
         "example"
       ]
     },
-    "phone_country_code": {
+    "days": {
       "type": "string",
       "examples": [
         "example"
       ]
     },
-    "phone_number": {
+    "booking_type": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "complex_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "gender": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "approved": {
       "type": "string",
       "examples": [
         "example"
@@ -38,11 +49,13 @@
     }
   },
   "required": [
-    "first_name",
-    "last_name",
-    "phone_country_code",
-    "phone_number",
-    "role"
+    "approved",
+    "booking_type",
+    "complex_id",
+    "days",
+    "gender",
+    "name_ar",
+    "name_en"
   ],
   "additionalProperties": true
 }

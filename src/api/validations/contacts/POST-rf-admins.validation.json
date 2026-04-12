@@ -27,35 +27,6 @@
         ]
       }
     },
-    "phone_number": {
-      "field": "phone_number",
-      "required": true,
-      "type": "string",
-      "rules": [
-        {
-          "rule": "invalid",
-          "rawMessage": "رقم رقم الجوال غير صحيح."
-        },
-        {
-          "rule": "unique",
-          "rawMessage": "قيمة الحقل رقم الجوال مُستخدمة من قبل"
-        },
-        {
-          "rule": "required",
-          "rawMessage": "الحقل رقم الجوال مطلوب."
-        }
-      ],
-      "examples": {
-        "valid": [
-          "example"
-        ],
-        "invalid": [
-          "",
-          null,
-          null
-        ]
-      }
-    },
     "role": {
       "field": "role",
       "required": true,
@@ -106,6 +77,27 @@
         {
           "rule": "required",
           "rawMessage": "الحقل phone country code مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "phone_number": {
+      "field": "phone_number",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل رقم الجوال مطلوب."
         }
       ],
       "examples": {

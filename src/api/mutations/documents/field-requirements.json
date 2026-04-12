@@ -1,1 +1,31 @@
-{}
+{
+  "image": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل image مطلوب."
+    ]
+  },
+  "file": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل الملف مطلوب.",
+      "الـ الملف يجب أن يكون من ملفا.",
+      "يجب أن يكون الحقل ملفًا من نوع : csv, xls, xlsx, ods."
+    ]
+  },
+  "rf_community_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل rf community id مطلوب."
+    ]
+  }
+}

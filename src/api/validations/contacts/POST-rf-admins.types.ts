@@ -9,7 +9,7 @@ export interface PostRfAdminsRequest {
   last_name: string;
   /** Rules: required */
   phone_country_code: string;
-  /** Rules: invalid, unique, required */
+  /** Rules: required */
   phone_number: string;
   /** Rules: required */
   role: string;

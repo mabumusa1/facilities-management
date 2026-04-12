@@ -1,6 +1,6 @@
 {
   "module": "properties",
-  "generatedAt": "2026-04-12T15:22:14.157Z",
+  "generatedAt": "2026-04-12T16:49:01.045Z",
   "totalCaptures": 22,
   "successCount": 3,
   "errorCount": 19,
@@ -10,85 +10,85 @@
       "method": "POST",
       "success": 1,
       "error": 1,
-      "avgTiming": 421
+      "avgTiming": 605
     },
-    "PUT rf/communities/14": {
+    "PUT rf/communities/15": {
       "method": "PUT",
       "success": 1,
       "error": 0,
-      "avgTiming": 421
+      "avgTiming": 384
     },
     "DELETE rf/communities/1": {
       "method": "DELETE",
       "success": 0,
       "error": 1,
-      "avgTiming": 253
+      "avgTiming": 247
     },
     "POST rf/buildings": {
       "method": "POST",
       "success": 0,
       "error": 3,
-      "avgTiming": 237.16666666666666
+      "avgTiming": 255.66666666666666
     },
     "PUT rf/buildings/4": {
       "method": "PUT",
       "success": 1,
       "error": 0,
-      "avgTiming": 396
+      "avgTiming": 341
     },
     "DELETE rf/buildings/1": {
       "method": "DELETE",
       "success": 0,
       "error": 1,
-      "avgTiming": 247
+      "avgTiming": 253
     },
     "POST rf/units": {
       "method": "POST",
       "success": 0,
       "error": 4,
-      "avgTiming": 169.41666666666666
+      "avgTiming": 154.125
     },
     "PUT rf/units/3": {
       "method": "PUT",
       "success": 0,
       "error": 2,
-      "avgTiming": 358
+      "avgTiming": 432
     },
     "DELETE rf/units/1": {
       "method": "DELETE",
       "success": 0,
       "error": 1,
-      "avgTiming": 302
+      "avgTiming": 268
     },
     "POST rf/units/bulk-update": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 255
+      "avgTiming": 830
     },
     "POST rf/units/bulk-delete": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 275
+      "avgTiming": 784
     },
     "POST rf/facilities": {
       "method": "POST",
       "success": 0,
       "error": 2,
-      "avgTiming": 362.5
+      "avgTiming": 362
     },
     "PUT rf/facilities/1": {
       "method": "PUT",
       "success": 0,
       "error": 1,
-      "avgTiming": 280
+      "avgTiming": 378
     },
     "DELETE rf/facilities/999": {
       "method": "DELETE",
       "success": 0,
       "error": 1,
-      "avgTiming": 304
+      "avgTiming": 302
     }
   }
 }

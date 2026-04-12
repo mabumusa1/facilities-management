@@ -1,16 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "atar-api/post-rf-announcements.schema.json",
-  "title": "POST rf/announcements",
-  "description": "Request body schema for POST rf/announcements",
+  "$id": "atar-api/put-rf-announcements-{id}.schema.json",
+  "title": "PUT rf/announcements/{id}",
+  "description": "Request body schema for PUT rf/announcements/{id}",
   "type": "object",
   "properties": {
-    "title": {
-      "type": "string",
-      "examples": [
-        "example"
-      ]
-    },
     "description": {
       "type": "string",
       "examples": [
@@ -61,8 +55,7 @@
     "is_visible",
     "notify_user_type",
     "start_date",
-    "start_time",
-    "title"
+    "start_time"
   ],
   "additionalProperties": true
 }

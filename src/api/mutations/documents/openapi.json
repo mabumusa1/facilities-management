@@ -12,34 +12,46 @@
     }
   ],
   "paths": {
-    "rf/documents": {
+    "rf/files": {
       "post": {
-        "operationId": "post_rf_documents",
-        "summary": "POST rf/documents",
+        "operationId": "post_rf_files",
+        "summary": "POST rf/files",
         "tags": [
           "documents"
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "422": {
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
                     "message": {
                       "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "image": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     }
                   }
                 },
                 "examples": {
                   "error": {
                     "value": {
-                      "success": false,
-                      "message": "URL link not Found."
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "image": [
+                          "الحقل image مطلوب."
+                        ]
+                      }
                     },
                     "summary": "Error response with validation errors"
                   }
@@ -73,81 +85,10 @@
         ]
       }
     },
-    "rf/documents/1": {
-      "put": {
-        "operationId": "put_rf_documents_1",
-        "summary": "PUT rf/documents/1",
-        "tags": [
-          "documents"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "name": "Updated Document 1776007306240",
-                    "description": "Updated description"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/documents/999": {
+    "rf/files/999": {
       "delete": {
-        "operationId": "delete_rf_documents_999",
-        "summary": "DELETE rf/documents/999",
+        "operationId": "delete_rf_files_999",
+        "summary": "DELETE rf/files/999",
         "tags": [
           "documents"
         ],
@@ -171,7 +112,7 @@
                   "error": {
                     "value": {
                       "success": false,
-                      "message": "URL link not Found."
+                      "message": "RfFile]  not Found."
                     },
                     "summary": "Error response with validation errors"
                   }
@@ -188,299 +129,55 @@
         ]
       }
     },
-    "rf/leases/1/documents": {
+    "rf/excel-sheets": {
       "post": {
-        "operationId": "post_rf_leases_1_documents",
-        "summary": "POST rf/leases/1/documents",
+        "operationId": "post_rf_excel_sheets",
+        "summary": "POST rf/excel-sheets",
         "tags": [
           "documents"
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "422": {
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
                     "message": {
                       "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "file": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "rf_community_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     }
                   }
                 },
                 "examples": {
                   "error": {
                     "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "name": "Lease Document 1776007307468",
-                    "type": "contract",
-                    "description": "Lease document"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/units/3/documents": {
-      "post": {
-        "operationId": "post_rf_units_3_documents",
-        "summary": "POST rf/units/3/documents",
-        "tags": [
-          "documents"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "name": "Unit Document 1776007308446",
-                    "type": "floor_plan",
-                    "description": "Unit document"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/units/3/images": {
-      "post": {
-        "operationId": "post_rf_units_3_images",
-        "summary": "POST rf/units/3/images",
-        "tags": [
-          "documents"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "image_url": {
-                    "type": "string"
-                  },
-                  "is_primary": {
-                    "type": "boolean"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "image_url": "https://example.com/unit-image.jpg",
-                    "is_primary": false
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/units/images/1": {
-      "delete": {
-        "operationId": "delete_rf_units_images_1",
-        "summary": "DELETE rf/units/images/1",
-        "tags": [
-          "documents"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/directory": {
-      "post": {
-        "operationId": "post_rf_directory",
-        "summary": "POST rf/directory",
-        "tags": [
-          "documents"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "file": [
+                          "الحقل الملف مطلوب."
+                        ],
+                        "rf_community_id": [
+                          "الحقل rf community id مطلوب."
+                        ]
+                      }
                     },
                     "summary": "Error response with validation errors"
                   }
@@ -514,34 +211,55 @@
         ]
       }
     },
-    "rf/directory/1": {
-      "put": {
-        "operationId": "put_rf_directory_1",
-        "summary": "PUT rf/directory/1",
+    "rf/excel-sheets/land": {
+      "post": {
+        "operationId": "post_rf_excel_sheets_land",
+        "summary": "POST rf/excel-sheets/land",
         "tags": [
           "documents"
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "422": {
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
                     "message": {
                       "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "rf_community_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "file": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     }
                   }
                 },
                 "examples": {
                   "error": {
                     "value": {
-                      "success": false,
-                      "message": "URL link not Found."
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "rf_community_id": [
+                          "الحقل rf community id مطلوب."
+                        ],
+                        "file": [
+                          "الـ الملف يجب أن يكون من ملفا."
+                        ]
+                      }
                     },
                     "summary": "Error response with validation errors"
                   }
@@ -557,7 +275,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "type": {
                     "type": "string"
                   }
                 }
@@ -565,7 +286,8 @@
               "examples": {
                 "default": {
                   "value": {
-                    "name": "Updated Directory 1776007310862"
+                    "file": "test.xlsx",
+                    "type": "land"
                   },
                   "summary": "Example request body"
                 }
@@ -581,78 +303,47 @@
         ]
       }
     },
-    "rf/directory/999": {
-      "delete": {
-        "operationId": "delete_rf_directory_999",
-        "summary": "DELETE rf/directory/999",
-        "tags": [
-          "documents"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/tenants/21/documents": {
+    "rf/excel-sheets/leads": {
       "post": {
-        "operationId": "post_rf_tenants_21_documents",
-        "summary": "POST rf/tenants/21/documents",
+        "operationId": "post_rf_excel_sheets_leads",
+        "summary": "POST rf/excel-sheets/leads",
         "tags": [
           "documents"
         ],
         "responses": {
-          "404": {
-            "description": "Not Found",
+          "422": {
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
                     "message": {
                       "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "file": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     }
                   }
                 },
                 "examples": {
                   "error": {
                     "value": {
-                      "success": false,
-                      "message": "URL link not Found."
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "file": [
+                          "الـ الملف يجب أن يكون من ملفا.",
+                          "يجب أن يكون الحقل ملفًا من نوع : csv, xls, xlsx, ods."
+                        ]
+                      }
                     },
                     "summary": "Error response with validation errors"
                   }
@@ -668,13 +359,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
+                  "file": {
                     "type": "string"
                   },
                   "type": {
-                    "type": "string"
-                  },
-                  "description": {
                     "type": "string"
                   }
                 }
@@ -682,84 +370,8 @@
               "examples": {
                 "default": {
                   "value": {
-                    "name": "Tenant ID Document 1776007312126",
-                    "type": "id_document",
-                    "description": "Tenant identification document"
-                  },
-                  "summary": "Example request body"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": [],
-            "tenantHeader": []
-          }
-        ]
-      }
-    },
-    "rf/owners/3/documents": {
-      "post": {
-        "operationId": "post_rf_owners_3_documents",
-        "summary": "POST rf/owners/3/documents",
-        "tags": [
-          "documents"
-        ],
-        "responses": {
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "examples": {
-                  "error": {
-                    "value": {
-                      "success": false,
-                      "message": "URL link not Found."
-                    },
-                    "summary": "Error response with validation errors"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "default": {
-                  "value": {
-                    "name": "Owner Document 1776007312849",
-                    "type": "contract",
-                    "description": "Owner contract document"
+                    "file": "test.xlsx",
+                    "type": "leads"
                   },
                   "summary": "Example request body"
                 }
