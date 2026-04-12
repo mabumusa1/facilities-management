@@ -1,0 +1,78 @@
+- generic [active] [ref=e1]:
+  - main [ref=e143]:
+    - generic [ref=e144]:
+      - generic [ref=e147]:
+        - generic [ref=e150]:
+          - heading "12 days remaining in your trial" [level=6] [ref=e151]:
+            - img [ref=e152]
+            - text: 12 days remaining in your trial
+          - link "Contact Us" [ref=e156] [cursor=pointer]:
+            - /url: https://meetings.hubspot.com/haseeb-mohammad/demo
+            - text: Contact Us
+        - generic [ref=e157]:
+          - button "العربية" [ref=e159] [cursor=pointer]:
+            - paragraph [ref=e160]: العربية
+          - generic [ref=e162] [cursor=pointer]:
+            - img [ref=e163]
+            - generic [ref=e165]: "1"
+          - button [ref=e168] [cursor=pointer]:
+            - img [ref=e170]
+      - generic [ref=e173]:
+        - img "The house from the offer." [ref=e174] [cursor=pointer]
+        - list [ref=e175]:
+          - button "Dashboard" [ref=e176] [cursor=pointer]:
+            - img [ref=e178]
+            - paragraph [ref=e182]: Dashboard
+          - button "Properties" [ref=e183] [cursor=pointer]:
+            - img [ref=e185]
+            - paragraph [ref=e189]: Properties
+            - img [ref=e190]
+          - button "Leasing" [ref=e192] [cursor=pointer]:
+            - img [ref=e194]
+            - paragraph [ref=e198]: Leasing
+            - img [ref=e199]
+          - button "Accounting" [ref=e201] [cursor=pointer]:
+            - img [ref=e203]
+            - paragraph [ref=e207]: Accounting
+          - button "Contacts" [ref=e208] [cursor=pointer]:
+            - img [ref=e210]
+            - paragraph [ref=e214]: Contacts
+            - img [ref=e215]
+          - button "Reporting" [ref=e217] [cursor=pointer]:
+            - img [ref=e219]
+            - paragraph [ref=e231]: Reporting
+            - img [ref=e232]
+          - separator [ref=e234]
+          - button "Support" [ref=e235] [cursor=pointer]:
+            - img [ref=e237]
+            - paragraph [ref=e240]: Support
+      - main [ref=e241]:
+        - paragraph [ref=e244]: Dashboard
+        - generic [ref=e249]:
+          - generic [ref=e252]:
+            - generic [ref=e254]:
+              - heading "Units" [level=6] [ref=e255]
+              - text: All Units
+            - separator [ref=e256]
+          - generic [ref=e259]:
+            - img [ref=e261]
+            - generic [ref=e262]:
+              - generic [ref=e265]:
+                - generic [ref=e266]: Vacant
+                - generic [ref=e267]: "2"
+              - generic [ref=e270]:
+                - generic [ref=e271]: Leased
+                - generic [ref=e272]: "1"
+              - generic [ref=e275]:
+                - generic [ref=e276]: Sold
+                - generic [ref=e277]: "0"
+              - generic [ref=e280]:
+                - generic [ref=e281]: Sold and lease
+                - generic [ref=e282]: "0"
+    - region "Notifications Alt+T"
+  - iframe [ref=e283]:
+    
+  - button "Open Intercom Messenger" [ref=e284] [cursor=pointer]:
+    - img [ref=e286]
+    - generic:
+      - img

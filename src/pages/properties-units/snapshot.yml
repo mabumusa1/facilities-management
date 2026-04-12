@@ -1,0 +1,169 @@
+- generic [ref=e1]:
+  - main [ref=e127]:
+    - generic [ref=e128]:
+      - generic [ref=e131]:
+        - generic [ref=e134]:
+          - heading "12 days remaining in your trial" [level=6] [ref=e135]:
+            - img [ref=e136]
+            - text: 12 days remaining in your trial
+          - link "Contact Us" [ref=e140] [cursor=pointer]:
+            - /url: https://meetings.hubspot.com/haseeb-mohammad/demo
+            - text: Contact Us
+        - generic [ref=e141]:
+          - button "العربية" [ref=e143] [cursor=pointer]:
+            - paragraph [ref=e144]: العربية
+          - generic [ref=e146] [cursor=pointer]:
+            - img [ref=e147]
+            - generic [ref=e149]: "1"
+          - button [ref=e152] [cursor=pointer]:
+            - img [ref=e154]
+      - generic [ref=e157]:
+        - img "The house from the offer." [ref=e158] [cursor=pointer]
+        - list [ref=e159]:
+          - button "Dashboard" [ref=e160] [cursor=pointer]:
+            - img [ref=e162]
+            - paragraph [ref=e166]: Dashboard
+          - button "Properties" [ref=e167] [cursor=pointer]:
+            - img [ref=e169]
+            - paragraph [ref=e173]: Properties
+            - img [ref=e174]
+          - generic [ref=e178]:
+            - button "Communities" [ref=e180] [cursor=pointer]:
+              - paragraph [ref=e182]: Communities
+            - button "Buildings" [ref=e184] [cursor=pointer]:
+              - paragraph [ref=e186]: Buildings
+            - button "Units" [ref=e188] [cursor=pointer]:
+              - paragraph [ref=e190]: Units
+          - button "Leasing" [ref=e191] [cursor=pointer]:
+            - img [ref=e193]
+            - paragraph [ref=e197]: Leasing
+            - img [ref=e198]
+          - button "Accounting" [ref=e200] [cursor=pointer]:
+            - img [ref=e202]
+            - paragraph [ref=e206]: Accounting
+          - button "Contacts" [ref=e207] [cursor=pointer]:
+            - img [ref=e209]
+            - paragraph [ref=e213]: Contacts
+            - img [ref=e214]
+          - button "Reporting" [ref=e216] [cursor=pointer]:
+            - img [ref=e218]
+            - paragraph [ref=e230]: Reporting
+            - img [ref=e231]
+          - separator [ref=e233]
+          - button "Support" [ref=e234] [cursor=pointer]:
+            - img [ref=e236]
+            - paragraph [ref=e239]: Support
+      - main [ref=e240]:
+        - generic [ref=e241]:
+          - button "Properties" [ref=e243] [cursor=pointer]: Properties
+          - generic [ref=e244]:
+            - img [ref=e245]
+            - paragraph [ref=e247]: List
+        - generic [ref=e249]:
+          - tablist "Atar properties tabs" [ref=e253]:
+            - tab "Communities (1)" [ref=e254] [cursor=pointer]
+            - tab "Buildings (4)" [ref=e255] [cursor=pointer]
+            - tab "Units (3)" [selected] [ref=e256] [cursor=pointer]
+          - generic [ref=e259]:
+            - generic [ref=e261]:
+              - generic [ref=e263]:
+                - generic [ref=e267]:
+                  - img [ref=e269] [cursor=pointer]
+                  - textbox "search" [active] [ref=e271]:
+                    - /placeholder: Search
+                  - group
+                - button "Sort" [ref=e272] [cursor=pointer]:
+                  - generic [ref=e273]:
+                    - img [ref=e274]
+                    - generic [ref=e276]: Sort
+                    - img [ref=e277]
+                - button "Filter by" [ref=e281] [cursor=pointer]:
+                  - generic [ref=e282]:
+                    - img [ref=e283]
+                    - generic [ref=e285]: Filter by
+                    - img [ref=e286]
+              - button "Add Unit" [ref=e290] [cursor=pointer]:
+                - generic [ref=e291]: Add Unit
+            - table "customized table" [ref=e293]:
+              - rowgroup [ref=e294]:
+                - row "Unit Name Type Community Building Owner Tenant Status" [ref=e295]:
+                  - columnheader "Unit Name" [ref=e296]:
+                    - generic [ref=e297]: Unit Name
+                  - columnheader "Type" [ref=e298]:
+                    - generic [ref=e299]: Type
+                  - columnheader "Community" [ref=e300]:
+                    - generic [ref=e301]: Community
+                  - columnheader "Building" [ref=e302]:
+                    - generic [ref=e303]: Building
+                  - columnheader "Owner" [ref=e304]:
+                    - generic [ref=e305]: Owner
+                  - columnheader "Tenant" [ref=e306]:
+                    - generic [ref=e307]: Tenant
+                  - columnheader "Status" [ref=e308]:
+                    - generic [ref=e309]: Status
+                  - columnheader [ref=e310]
+              - rowgroup [ref=e311]:
+                - row "Test Unit API v2 Apartment Residential Test Community 1 Test Building 1 Add Khalid Test Leased Details" [ref=e312]:
+                  - cell "Test Unit API v2" [ref=e313]:
+                    - paragraph [ref=e316]: Test Unit API v2
+                  - cell "Apartment Residential" [ref=e317]:
+                    - generic [ref=e319]:
+                      - paragraph [ref=e320]: Apartment
+                      - paragraph [ref=e321]: Residential
+                  - cell "Test Community 1" [ref=e322]:
+                    - paragraph [ref=e325]: Test Community 1
+                  - cell "Test Building 1" [ref=e326]:
+                    - paragraph [ref=e329]: Test Building 1
+                  - cell "Add" [ref=e330]:
+                    - button "Add" [ref=e332] [cursor=pointer]: Add
+                  - cell "Khalid Test" [ref=e333]:
+                    - paragraph [ref=e336]: Khalid Test
+                  - cell "Leased" [ref=e337]:
+                    - generic [ref=e339]: Leased
+                  - cell "Details" [ref=e340]:
+                    - button "Details" [ref=e342] [cursor=pointer]: Details
+                - row "Penthouse Suite 501 Penthouse Residential Test Community 1 Building A Add N/A Vacant Details" [ref=e343]:
+                  - cell "Penthouse Suite 501" [ref=e344]:
+                    - paragraph [ref=e347]: Penthouse Suite 501
+                  - cell "Penthouse Residential" [ref=e348]:
+                    - generic [ref=e350]:
+                      - paragraph [ref=e351]: Penthouse
+                      - paragraph [ref=e352]: Residential
+                  - cell "Test Community 1" [ref=e353]:
+                    - paragraph [ref=e356]: Test Community 1
+                  - cell "Building A" [ref=e357]:
+                    - paragraph [ref=e360]: Building A
+                  - cell "Add" [ref=e361]:
+                    - button "Add" [ref=e363] [cursor=pointer]: Add
+                  - cell "N/A" [ref=e364]:
+                    - generic [ref=e365]: N/A
+                  - cell "Vacant" [ref=e366]:
+                    - generic [ref=e368]: Vacant
+                  - cell "Details" [ref=e369]:
+                    - button "Details" [ref=e371] [cursor=pointer]: Details
+                - row "Unit 101 Apartment Residential Test Community 1 Test Building 1 Add N/A Vacant Details" [ref=e372]:
+                  - cell "Unit 101" [ref=e373]:
+                    - paragraph [ref=e376]: Unit 101
+                  - cell "Apartment Residential" [ref=e377]:
+                    - generic [ref=e379]:
+                      - paragraph [ref=e380]: Apartment
+                      - paragraph [ref=e381]: Residential
+                  - cell "Test Community 1" [ref=e382]:
+                    - paragraph [ref=e385]: Test Community 1
+                  - cell "Test Building 1" [ref=e386]:
+                    - paragraph [ref=e389]: Test Building 1
+                  - cell "Add" [ref=e390]:
+                    - button "Add" [ref=e392] [cursor=pointer]: Add
+                  - cell "N/A" [ref=e393]:
+                    - generic [ref=e394]: N/A
+                  - cell "Vacant" [ref=e395]:
+                    - generic [ref=e397]: Vacant
+                  - cell "Details" [ref=e398]:
+                    - button "Details" [ref=e400] [cursor=pointer]: Details
+    - region "Notifications Alt+T"
+  - iframe [ref=e403]:
+    
+  - button "Open Intercom Messenger" [ref=e404] [cursor=pointer]:
+    - img [ref=e406]
+    - generic:
+      - img

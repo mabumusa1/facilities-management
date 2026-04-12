@@ -1,0 +1,143 @@
+- generic [ref=e6]:
+  - main [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e12]:
+        - generic [ref=e15]:
+          - heading "12 days remaining in your trial" [level=6] [ref=e16]:
+            - img [ref=e17]
+            - text: 12 days remaining in your trial
+          - link "Contact Us" [ref=e21] [cursor=pointer]:
+            - /url: https://meetings.hubspot.com/haseeb-mohammad/demo
+            - text: Contact Us
+        - generic [ref=e22]:
+          - button "العربية" [ref=e24] [cursor=pointer]:
+            - paragraph [ref=e25]: العربية
+          - generic [ref=e27] [cursor=pointer]:
+            - img [ref=e28]
+            - generic [ref=e30]: "1"
+          - button [ref=e33] [cursor=pointer]:
+            - img [ref=e35]
+      - generic [ref=e38]:
+        - img "The house from the offer." [ref=e39] [cursor=pointer]
+        - list [ref=e40]:
+          - button "Dashboard" [ref=e41] [cursor=pointer]:
+            - img [ref=e43]
+            - paragraph [ref=e47]: Dashboard
+          - button "Properties" [ref=e48] [cursor=pointer]:
+            - img [ref=e50]
+            - paragraph [ref=e54]: Properties
+            - img [ref=e55]
+          - generic [ref=e59]:
+            - button "Communities" [ref=e61] [cursor=pointer]:
+              - paragraph [ref=e63]: Communities
+            - button "Buildings" [ref=e65] [cursor=pointer]:
+              - paragraph [ref=e67]: Buildings
+            - button "Units" [ref=e69] [cursor=pointer]:
+              - paragraph [ref=e71]: Units
+          - button "Leasing" [ref=e72] [cursor=pointer]:
+            - img [ref=e74]
+            - paragraph [ref=e78]: Leasing
+            - img [ref=e79]
+          - button "Accounting" [ref=e81] [cursor=pointer]:
+            - img [ref=e83]
+            - paragraph [ref=e87]: Accounting
+          - button "Contacts" [ref=e88] [cursor=pointer]:
+            - img [ref=e90]
+            - paragraph [ref=e94]: Contacts
+            - img [ref=e95]
+          - button "Reporting" [ref=e97] [cursor=pointer]:
+            - img [ref=e99]
+            - paragraph [ref=e111]: Reporting
+            - img [ref=e112]
+          - separator [ref=e114]
+          - button "Support" [ref=e115] [cursor=pointer]:
+            - img [ref=e117]
+            - paragraph [ref=e120]: Support
+      - main [ref=e121]:
+        - generic [ref=e122]:
+          - button "Properties" [ref=e124] [cursor=pointer]: Properties
+          - generic [ref=e125]:
+            - img [ref=e126]
+            - paragraph [ref=e128]: List
+        - generic [ref=e130]:
+          - tablist "Atar properties tabs" [ref=e134]:
+            - tab "Communities (1)" [ref=e135] [cursor=pointer]
+            - tab "Buildings (4)" [selected] [ref=e136] [cursor=pointer]
+            - tab "Units (3)" [ref=e137] [cursor=pointer]
+          - generic [ref=e140]:
+            - generic [ref=e142]:
+              - generic [ref=e144]:
+                - generic [ref=e148]:
+                  - img [ref=e150] [cursor=pointer]
+                  - textbox "search" [active] [ref=e152]:
+                    - /placeholder: Search
+                  - group
+                - button "Sort" [ref=e153] [cursor=pointer]:
+                  - generic [ref=e154]:
+                    - img [ref=e155]
+                    - generic [ref=e157]: Sort
+                    - img [ref=e158]
+              - button "Add Building" [ref=e162] [cursor=pointer]:
+                - generic [ref=e163]: Add Building
+            - table "customized table" [ref=e165]:
+              - rowgroup [ref=e166]:
+                - row "Building Name Community Name City District Units" [ref=e167]:
+                  - columnheader "Building Name" [ref=e168]:
+                    - generic [ref=e169]: Building Name
+                  - columnheader "Community Name" [ref=e170]:
+                    - generic [ref=e171]: Community Name
+                  - columnheader "City" [ref=e172]:
+                    - generic [ref=e173]: City
+                  - columnheader "District" [ref=e174]:
+                    - generic [ref=e175]: District
+                  - columnheader "Units" [ref=e176]:
+                    - generic [ref=e177]: Units
+                  - columnheader [ref=e178]
+              - rowgroup [ref=e179]:
+                - row "Building C Test Community 1 Riyadh Al Diriyah 0 Properties Details" [ref=e180]:
+                  - cell "Building C" [ref=e181]
+                  - cell "Test Community 1" [ref=e182]
+                  - cell "Riyadh" [ref=e183]
+                  - cell "Al Diriyah" [ref=e184]
+                  - cell "0" [ref=e185]
+                  - cell "Properties Details" [ref=e186]:
+                    - generic [ref=e187]:
+                      - button "Properties" [ref=e188] [cursor=pointer]: Properties
+                      - button "Details" [ref=e189] [cursor=pointer]: Details
+                - row "Building B Test Community 1 Riyadh Al Diriyah 0 Properties Details" [ref=e190]:
+                  - cell "Building B" [ref=e191]
+                  - cell "Test Community 1" [ref=e192]
+                  - cell "Riyadh" [ref=e193]
+                  - cell "Al Diriyah" [ref=e194]
+                  - cell "0" [ref=e195]
+                  - cell "Properties Details" [ref=e196]:
+                    - generic [ref=e197]:
+                      - button "Properties" [ref=e198] [cursor=pointer]: Properties
+                      - button "Details" [ref=e199] [cursor=pointer]: Details
+                - row "Building A Test Community 1 Riyadh Al Diriyah 1 Properties Details" [ref=e200]:
+                  - cell "Building A" [ref=e201]
+                  - cell "Test Community 1" [ref=e202]
+                  - cell "Riyadh" [ref=e203]
+                  - cell "Al Diriyah" [ref=e204]
+                  - cell "1" [ref=e205]
+                  - cell "Properties Details" [ref=e206]:
+                    - generic [ref=e207]:
+                      - button "Properties" [ref=e208] [cursor=pointer]: Properties
+                      - button "Details" [ref=e209] [cursor=pointer]: Details
+                - row "Test Building 1 Test Community 1 Riyadh Al Diriyah 2 Properties Details" [ref=e210]:
+                  - cell "Test Building 1" [ref=e211]
+                  - cell "Test Community 1" [ref=e212]
+                  - cell "Riyadh" [ref=e213]
+                  - cell "Al Diriyah" [ref=e214]
+                  - cell "2" [ref=e215]
+                  - cell "Properties Details" [ref=e216]:
+                    - generic [ref=e217]:
+                      - button "Properties" [ref=e218] [cursor=pointer]: Properties
+                      - button "Details" [ref=e219] [cursor=pointer]: Details
+    - region "Notifications Alt+T"
+  - iframe [ref=e1]:
+    
+  - button "Open Intercom Messenger" [ref=e2] [cursor=pointer]:
+    - img [ref=e4]
+    - generic:
+      - img

@@ -1,0 +1,74 @@
+{
+  "capturedAt": "2026-04-12T00:25:32.358282",
+  "browserName": "chromium",
+  "playwrightVersion": "1.59.1",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "duration_ms": 90108,
+  "frameSnapshots": [
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    },
+    {
+      "timestamp": null,
+      "name": null
+    }
+  ],
+  "totalScreencastFrames": 125,
+  "keyMoments": [
+    3596.872,
+    43689.528,
+    45722.272,
+    48594.796,
+    51064.201,
+    53108.132,
+    56037.039,
+    58141.108,
+    60331.741,
+    63258.881,
+    65560.44,
+    67905.488,
+    70766.981,
+    73784.279,
+    76354.977,
+    78398.091,
+    80561.935,
+    82772.979,
+    91931.971
+  ]
+}
