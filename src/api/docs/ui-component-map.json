@@ -1,0 +1,1167 @@
+{
+  "meta": {
+    "generatedAt": "2026-04-12T17:40:09.959Z",
+    "sourceFile": "pretty-js.split/signals.json",
+    "totalRoutes": 43,
+    "totalEndpoints": 136,
+    "totalBindings": 32
+  },
+  "modules": {
+    "dashboard": {
+      "basePath": "/dashboard",
+      "name": "Dashboard",
+      "icon": "DashboardLine",
+      "permission": "Dashboard"
+    },
+    "properties": {
+      "basePath": "/properties-list",
+      "name": "Properties",
+      "icon": "CommunityLine",
+      "permission": "Properties",
+      "subModules": [
+        "communities",
+        "buildings",
+        "units"
+      ]
+    },
+    "marketplace": {
+      "basePath": "/marketplace",
+      "name": "Marketplace",
+      "icon": "HomeLine",
+      "permission": "MarketPlaces",
+      "subModules": [
+        "customers",
+        "listing"
+      ]
+    },
+    "leasing": {
+      "basePath": "/leasing",
+      "name": "Leasing",
+      "icon": "DraftLine",
+      "permission": "Leases",
+      "subModules": [
+        "visits",
+        "apps",
+        "quotes",
+        "leases"
+      ]
+    },
+    "requests": {
+      "basePath": "/requests",
+      "name": "Requests",
+      "icon": "HammerLine",
+      "permission": "HomeServices"
+    },
+    "transactions": {
+      "basePath": "/transactions",
+      "name": "Transactions",
+      "icon": "CalculatorLine",
+      "permission": "Transactions"
+    },
+    "contacts": {
+      "basePath": "/contacts",
+      "name": "Contacts",
+      "icon": "ContactsBook2Line",
+      "permission": "Contacts",
+      "subModules": [
+        "Tenant",
+        "Owner",
+        "Manager",
+        "ServiceProfessional"
+      ]
+    },
+    "visitorAccess": {
+      "basePath": "/visitor-access",
+      "name": "Visitor Access",
+      "icon": "ContactsBookLine",
+      "permission": "VisitorAccess"
+    }
+  },
+  "permissions": {
+    "actions": {
+      "View": "VIEW",
+      "Create": "CREATE",
+      "Update": "UPDATE",
+      "Delete": "DELETE"
+    },
+    "subjects": {
+      "Dashboard": "Dashboard",
+      "Properties": "Properties",
+      "MarketPlaces": "MarketPlaces",
+      "Customers": "Customers",
+      "Listings": "Listings",
+      "Visits": "Visits",
+      "BookingAndContracts": "BookingAndContracts",
+      "Quotes": "Quotes",
+      "Applications": "Applications",
+      "Leases": "Leases",
+      "HomeServices": "HomeServices",
+      "NeighbourhoodServices": "NeighbourhoodServices",
+      "VisitorAccess": "VisitorAccess",
+      "Bookings": "Bookings",
+      "Transactions": "Transactions",
+      "Offers": "Offers",
+      "Directories": "Directories",
+      "Suggestions": "Suggestions",
+      "Tenants": "Tenants",
+      "Owners": "Owners",
+      "Managers": "Managers",
+      "ServiceProfessionals": "ServiceProfessionals",
+      "Reports": "Reports",
+      "SystemReports": "SystemReports",
+      "PowerBiReports": "PowerBiReports"
+    }
+  },
+  "featureFlags": [
+    "ENABLE_REQUESTS",
+    "ENABLE_BOOKING_REQUESTS",
+    "ENABLE_OFFERS",
+    "ENABLE_DIRECTORY",
+    "ENABLE_SUGGESTION",
+    "ENABLE_TENANTS",
+    "ENABLE_OWNERS",
+    "ENABLE_MANGERS",
+    "ENABLE_PROFESSIONALS"
+  ],
+  "moduleIds": {
+    "VISITOR": "VISITOR",
+    "FACILITIES": "FACILITIES",
+    "OFFERS": "OFFERS",
+    "DIRECTORY": "DIRECTORY"
+  },
+  "routeMappings": [
+    {
+      "path": "/contacts",
+      "module": "contacts",
+      "apiEndpoints": [
+        "/api-management/notifications?per_page=${t}&page=${e}",
+        "/api-management/notifications/mark-all-as-read",
+        "/api-management/notifications/unread-count",
+        "/api-management/rf/common-lists",
+        "/api-management/rf/requests/change-status/canceled",
+        "/api-management/rf/users/requests/professionals?rf_request_id=${e}"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L293 (srcL58293) [to]",
+        "chunks/chunk-0087-L086001-L087000-S041.js:L895 (srcL86895) [to]"
+      ]
+    },
+    {
+      "path": "/contacts/:param/form",
+      "module": "contacts",
+      "apiEndpoints": [
+        "/api-management/new/complaints/${e}/assign",
+        "/api-management/new/complaints/${e}/cancel"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0079-L078001-L079000-S023.js:L195 (srcL78195) [to]",
+        "chunks/chunk-0079-L078001-L079000-S023.js:L321 (srcL78321) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0083-L082001-L083000-S255.js:L365 (srcL82365) [to]",
+        "chunks/chunk-0059-L058001-L059000-S045.js:L144 (srcL58144) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/booking-contracts",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/leases/${e}",
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0124-L123001-L124000-S236.js:L450 (srcL123450) [path]",
+        "chunks/chunk-0059-L058001-L059000-S045.js:L198 (srcL58198) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/directory",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L280 (srcL58280) [path]",
+        "chunks/chunk-0059-L058001-L059000-S045.js:L281 (srcL58281) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/offers",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L269 (srcL58269) [to]",
+        "chunks/chunk-0059-L058001-L059000-S045.js:L274 (srcL58274) [to]"
+      ]
+    },
+    {
+      "path": "/leasing",
+      "module": "leasing",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0102-L101001-L102000-S176.js:L15 (srcL101015) [path]",
+        "chunks/chunk-0059-L058001-L059000-S045.js:L205 (srcL58205) [to]"
+      ]
+    },
+    {
+      "path": "/contacts/:param",
+      "module": "contacts",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L305 (srcL58305) [to]"
+      ]
+    },
+    {
+      "path": "/contacts/:param/form",
+      "module": "contacts",
+      "apiEndpoints": [
+        "/api-management/new/complaints/${e}/assign",
+        "/api-management/new/complaints/${e}/cancel"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0079-L078001-L079000-S023.js:L131 (srcL78131) [to]"
+      ]
+    },
+    {
+      "path": "/contacts/:param",
+      "module": "contacts",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L301 (srcL58301) [to]"
+      ]
+    },
+    {
+      "path": "/contacts/:param",
+      "module": "contacts",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L309 (srcL58309) [to]"
+      ]
+    },
+    {
+      "path": "/contacts/:param",
+      "module": "contacts",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L297 (srcL58297) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/bookings",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L259 (srcL58259) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/issues",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/new/complaints?search=${e}&page=${t}&status",
+        "/api-management/new/complaints/${e}/resolve"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0080-L079001-L080000-S065.js:L919 (srcL79919) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/power-bi-reports",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L324 (srcL58324) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/reports",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L315 (srcL58315) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/suggestions",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L286 (srcL58286) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/system-reports",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L320 (srcL58320) [to]"
+      ]
+    },
+    {
+      "path": "/dashboard/system-reports/Lease",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/rf/announcements",
+        "/api-management/dashboard/requires-attention",
+        "/api-management/rf/announcements/${e?.id}",
+        "/api-management/rf/announcements/${e}",
+        "/api-management/rf/announcements/${t}"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0085-L084001-L085000-S055.js:L999 (srcL84999) [path]"
+      ]
+    },
+    {
+      "path": "/dashboard/system-reports/maintenance",
+      "module": "dashboard",
+      "apiEndpoints": [],
+      "chunkRefs": [
+        "chunks/chunk-0086-L085001-L086000-S019.js:L9 (srcL85009) [path]"
+      ]
+    },
+    {
+      "path": "/dashboard/visits",
+      "module": "dashboard",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L193 (srcL58193) [to]"
+      ]
+    },
+    {
+      "path": "/leasing/apps",
+      "module": "leasing",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L216 (srcL58216) [to]"
+      ]
+    },
+    {
+      "path": "/leasing/leases",
+      "module": "leasing",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L226 (srcL58226) [to]"
+      ]
+    },
+    {
+      "path": "/leasing/quotes",
+      "module": "leasing",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L221 (srcL58221) [to]"
+      ]
+    },
+    {
+      "path": "/leasing/visits",
+      "module": "leasing",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L211 (srcL58211) [to]"
+      ]
+    },
+    {
+      "path": "/marketplace",
+      "module": "marketplace",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L171 (srcL58171) [to]"
+      ]
+    },
+    {
+      "path": "/marketplace/customers",
+      "module": "marketplace",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L176 (srcL58176) [to]"
+      ]
+    },
+    {
+      "path": "/marketplace/listing",
+      "module": "marketplace",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L181 (srcL58181) [to]"
+      ]
+    },
+    {
+      "path": "/more",
+      "module": "other",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L364 (srcL58364) [to]"
+      ]
+    },
+    {
+      "path": "/pricing",
+      "module": "other",
+      "apiEndpoints": [
+        "/api-management/contacts/${e}/accept-privacy-policy"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0084-L083001-L084000-S039.js:L139 (srcL83139) [to]"
+      ]
+    },
+    {
+      "path": "/properties-list",
+      "module": "properties",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L149 (srcL58149) [to]"
+      ]
+    },
+    {
+      "path": "/properties-list/buildings",
+      "module": "properties",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L159 (srcL58159) [to]"
+      ]
+    },
+    {
+      "path": "/properties-list/communities",
+      "module": "properties",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L154 (srcL58154) [to]"
+      ]
+    },
+    {
+      "path": "/properties-list/units",
+      "module": "properties",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L164 (srcL58164) [to]"
+      ]
+    },
+    {
+      "path": "/requests",
+      "module": "requests",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L232 (srcL58232) [to]"
+      ]
+    },
+    {
+      "path": "/requests?type=:param",
+      "module": "requests",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L237 (srcL58237) [to]"
+      ]
+    },
+    {
+      "path": "/requests?type=:param",
+      "module": "requests",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L245 (srcL58245) [to]"
+      ]
+    },
+    {
+      "path": "/requests/:param?type=:param",
+      "module": "requests",
+      "apiEndpoints": [
+        "/api-management/rf/communities/${e}",
+        "/api-management/rf/communities?is_paginate=1",
+        "/api-management/rf/users/requests/sub-categories?has_types=true&category_id="
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0089-L088001-L089000-S048.js:L159 (srcL88159) [to]"
+      ]
+    },
+    {
+      "path": "/requests/create?type=:param",
+      "module": "requests",
+      "apiEndpoints": [
+        "/api-management/rf/communities/${e}",
+        "/api-management/rf/communities?is_paginate=1",
+        "/api-management/rf/users/requests/sub-categories?has_types=true&category_id="
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0089-L088001-L089000-S048.js:L632 (srcL88632) [to]"
+      ]
+    },
+    {
+      "path": "/requests/history?type=:param",
+      "module": "requests",
+      "apiEndpoints": [
+        "/api-management/rf/communities/${e}",
+        "/api-management/rf/communities?is_paginate=1",
+        "/api-management/rf/users/requests/sub-categories?has_types=true&category_id="
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0089-L088001-L089000-S048.js:L622 (srcL88622) [path]"
+      ]
+    },
+    {
+      "path": "/transactions",
+      "module": "transactions",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L262 (srcL58262) [to]"
+      ]
+    },
+    {
+      "path": "/visitor-access",
+      "module": "visitorAccess",
+      "apiEndpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0059-L058001-L059000-S045.js:L252 (srcL58252) [to]"
+      ]
+    },
+    {
+      "path": "/visitor-access/visitor-details/:param",
+      "module": "visitorAccess",
+      "apiEndpoints": [
+        "/api-management/marketplace/admin/visits",
+        "/api-management/marketplace/admin/visits/${e}",
+        "/api-management/rf/users/visitor-access",
+        "/api-management/rf/users/visitor-access/${e}",
+        "/api-management/rf/users/visitor-access/${e}/approve",
+        "/api-management/rf/users/visitor-access/${e}/reject"
+      ],
+      "chunkRefs": [
+        "chunks/chunk-0099-L098001-L099000-S064.js:L595 (srcL98595) [to]"
+      ]
+    }
+  ],
+  "moduleSummaries": [
+    {
+      "name": "contacts",
+      "routes": [
+        "/contacts",
+        "/contacts/:param/form",
+        "/contacts/:param",
+        "/contacts/:param/form",
+        "/contacts/:param",
+        "/contacts/:param",
+        "/contacts/:param"
+      ],
+      "endpoints": [
+        "/api-management/notifications?per_page=${t}&page=${e}",
+        "/api-management/notifications/mark-all-as-read",
+        "/api-management/notifications/unread-count",
+        "/api-management/rf/common-lists",
+        "/api-management/rf/requests/change-status/canceled",
+        "/api-management/rf/users/requests/professionals?rf_request_id=${e}",
+        "/api-management/new/complaints/${e}/assign",
+        "/api-management/new/complaints/${e}/cancel"
+      ],
+      "components": [
+        "ContactsPage",
+        "ContactsFormPage"
+      ]
+    },
+    {
+      "name": "dashboard",
+      "routes": [
+        "/dashboard",
+        "/dashboard/booking-contracts",
+        "/dashboard/directory",
+        "/dashboard/offers",
+        "/dashboard/bookings",
+        "/dashboard/issues",
+        "/dashboard/power-bi-reports",
+        "/dashboard/reports",
+        "/dashboard/suggestions",
+        "/dashboard/system-reports",
+        "/dashboard/system-reports/Lease",
+        "/dashboard/system-reports/maintenance",
+        "/dashboard/visits"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count",
+        "/api-management/leases/${e}",
+        "/api-management/new/complaints?search=${e}&page=${t}&status",
+        "/api-management/new/complaints/${e}/resolve",
+        "/api-management/rf/announcements",
+        "/api-management/dashboard/requires-attention",
+        "/api-management/rf/announcements/${e?.id}",
+        "/api-management/rf/announcements/${e}",
+        "/api-management/rf/announcements/${t}"
+      ],
+      "components": [
+        "DashboardPage",
+        "DashboardBookingcontractsPage",
+        "DashboardDirectoryPage",
+        "DashboardOffersPage",
+        "DashboardBookingsPage",
+        "DashboardIssuesPage",
+        "DashboardPowerbireportsPage",
+        "DashboardReportsPage",
+        "DashboardSuggestionsPage",
+        "DashboardSystemreportsPage",
+        "DashboardSystemreportsLeasePage",
+        "DashboardSystemreportsMaintenancePage",
+        "DashboardVisitsPage"
+      ]
+    },
+    {
+      "name": "leasing",
+      "routes": [
+        "/leasing",
+        "/leasing/apps",
+        "/leasing/leases",
+        "/leasing/quotes",
+        "/leasing/visits"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "components": [
+        "LeasingPage",
+        "LeasingAppsPage",
+        "LeasingLeasesPage",
+        "LeasingQuotesPage",
+        "LeasingVisitsPage"
+      ]
+    },
+    {
+      "name": "marketplace",
+      "routes": [
+        "/marketplace",
+        "/marketplace/customers",
+        "/marketplace/listing"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "components": [
+        "MarketplacePage",
+        "MarketplaceCustomersPage",
+        "MarketplaceListingPage"
+      ]
+    },
+    {
+      "name": "other",
+      "routes": [
+        "/more",
+        "/pricing"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count",
+        "/api-management/contacts/${e}/accept-privacy-policy"
+      ],
+      "components": [
+        "MorePage",
+        "PricingPage"
+      ]
+    },
+    {
+      "name": "properties",
+      "routes": [
+        "/properties-list",
+        "/properties-list/buildings",
+        "/properties-list/communities",
+        "/properties-list/units"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "components": [
+        "PropertieslistPage",
+        "PropertieslistBuildingsPage",
+        "PropertieslistCommunitiesPage",
+        "PropertieslistUnitsPage"
+      ]
+    },
+    {
+      "name": "requests",
+      "routes": [
+        "/requests",
+        "/requests?type=:param",
+        "/requests?type=:param",
+        "/requests/:param?type=:param",
+        "/requests/create?type=:param",
+        "/requests/history?type=:param"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count",
+        "/api-management/rf/communities/${e}",
+        "/api-management/rf/communities?is_paginate=1",
+        "/api-management/rf/users/requests/sub-categories?has_types=true&category_id="
+      ],
+      "components": [
+        "RequestsPage",
+        "Requests?type=:paramPage",
+        "RequestsCreate?type=:paramPage",
+        "RequestsHistory?type=:paramPage"
+      ]
+    },
+    {
+      "name": "transactions",
+      "routes": [
+        "/transactions"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count"
+      ],
+      "components": [
+        "TransactionsPage"
+      ]
+    },
+    {
+      "name": "visitorAccess",
+      "routes": [
+        "/visitor-access",
+        "/visitor-access/visitor-details/:param"
+      ],
+      "endpoints": [
+        "/api-management/notifications/unread-count",
+        "/api-management/marketplace/admin/visits",
+        "/api-management/marketplace/admin/visits/${e}",
+        "/api-management/rf/users/visitor-access",
+        "/api-management/rf/users/visitor-access/${e}",
+        "/api-management/rf/users/visitor-access/${e}/approve",
+        "/api-management/rf/users/visitor-access/${e}/reject"
+      ],
+      "components": [
+        "VisitoraccessPage",
+        "VisitoraccessVisitordetailsPage"
+      ]
+    }
+  ],
+  "apiBindings": [
+    {
+      "binding": "_$ -> co /api-management/rf/${t}",
+      "endpoint": "/api-management/rf/${t}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "b$ -> co /api-management/rf/${e}/attach/property/${t}",
+      "endpoint": "/api-management/rf/${e}/attach/property/${t}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "C$ -> co /api-management/rf/companies/change-status/${t}",
+      "endpoint": "/api-management/rf/companies/change-status/${t}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "c3 -> co /api-management/rf/requests/categories/change-status/${e}",
+      "endpoint": "/api-management/rf/requests/categories/change-status/${e}",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "d3 -> lo /api-management/rf/requests/categories",
+      "endpoint": "/api-management/rf/requests/categories",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "DU -> uo /api-management/request-category",
+      "endpoint": "/api-management/request-category",
+      "refs": [
+        "chunks/chunk-0058-L057001-L058000-S076.js:L961 (srcL57961)"
+      ]
+    },
+    {
+      "binding": "e -> co /api-management/rf/requests/change-status/canceled",
+      "endpoint": "/api-management/rf/requests/change-status/canceled",
+      "refs": [
+        "chunks/chunk-0087-L086001-L087000-S041.js:L944 (srcL86944)"
+      ]
+    },
+    {
+      "binding": "E6 -> uo /api-management/rf/facilities/${t}",
+      "endpoint": "/api-management/rf/facilities/${t}",
+      "refs": [
+        "chunks/chunk-0092-L091001-L092000-S050.js:L581 (srcL91581)"
+      ]
+    },
+    {
+      "binding": "EU -> co /api-management/request-category",
+      "endpoint": "/api-management/request-category",
+      "refs": [
+        "chunks/chunk-0058-L057001-L058000-S076.js:L961 (srcL57961)"
+      ]
+    },
+    {
+      "binding": "GJ -> co /api-management/marketplace/admin/settings/sales/store",
+      "endpoint": "/api-management/marketplace/admin/settings/sales/store",
+      "refs": [
+        "chunks/chunk-0081-L080001-L081000-S150.js:L52 (srcL80052)"
+      ]
+    },
+    {
+      "binding": "h3 -> co /api-management/rf/requests/service-settings/updateOrCreate",
+      "endpoint": "/api-management/rf/requests/service-settings/updateOrCreate",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "i3 -> lo /api-management/rf/requests/types/${e}",
+      "endpoint": "/api-management/rf/requests/types/${e}",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "J -> lo /api-management/marketplace/admin/settings/visits",
+      "endpoint": "/api-management/marketplace/admin/settings/visits",
+      "refs": [
+        "chunks/chunk-0081-L080001-L081000-S150.js:L52 (srcL80052)"
+      ]
+    },
+    {
+      "binding": "j6 -> co /api-management/rf/facilities",
+      "endpoint": "/api-management/rf/facilities",
+      "refs": [
+        "chunks/chunk-0092-L091001-L092000-S050.js:L581 (srcL91581)"
+      ]
+    },
+    {
+      "binding": "k$ -> lo /api-management/rf/users/rates/${e}",
+      "endpoint": "/api-management/rf/users/rates/${e}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "KJ -> lo /api-management/marketplace/admin/settings/sales",
+      "endpoint": "/api-management/marketplace/admin/settings/sales",
+      "refs": [
+        "chunks/chunk-0081-L080001-L081000-S150.js:L52 (srcL80052)"
+      ]
+    },
+    {
+      "binding": "L$ -> lo /api-management/rf/attach/community/${e}?is_paginate=1&query=${n}&page=${t}",
+      "endpoint": "/api-management/rf/attach/community/${e}?is_paginate=1&query=${n}&page=${t}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "l3 -> po /api-management/rf/requests/types/${e}",
+      "endpoint": "/api-management/rf/requests/types/${e}",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "M$ -> lo /api-management/rf/${e}/${t}",
+      "endpoint": "/api-management/rf/${e}/${t}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "o3 -> co /api-management/rf/requests/sub-categories/change-status/${e}",
+      "endpoint": "/api-management/rf/requests/sub-categories/change-status/${e}",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "OU -> lo /api-management/rf/requests/download/${t}/${e}",
+      "endpoint": "/api-management/rf/requests/download/${t}/${e}",
+      "refs": [
+        "chunks/chunk-0058-L057001-L058000-S076.js:L971 (srcL57971)"
+      ]
+    },
+    {
+      "binding": "P$ -> lo /api-management/rf/${t}/${e}",
+      "endpoint": "/api-management/rf/${t}/${e}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L972 (srcL75972)"
+      ]
+    },
+    {
+      "binding": "p2 -> po /api-management/rf/announcements/${e?.id}",
+      "endpoint": "/api-management/rf/announcements/${e?.id}",
+      "refs": [
+        "chunks/chunk-0085-L084001-L085000-S055.js:L571 (srcL84571)"
+      ]
+    },
+    {
+      "binding": "p3 -> lo /api-management/rf/requests/service-settings/${e}",
+      "endpoint": "/api-management/rf/requests/service-settings/${e}",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "qJ -> co /api-management/marketplace/admin/settings/banks/store",
+      "endpoint": "/api-management/marketplace/admin/settings/banks/store",
+      "refs": [
+        "chunks/chunk-0081-L080001-L081000-S150.js:L52 (srcL80052)"
+      ]
+    },
+    {
+      "binding": "S$ -> lo /api-management/rf/attach/building/${e}?is_paginate=1&query=${n}&page=${t}&is_active=1",
+      "endpoint": "/api-management/rf/attach/building/${e}?is_paginate=1&query=${n}&page=${t}&is_active=1",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "s3 -> co /api-management/rf/requests/types/change-status/${e}",
+      "endpoint": "/api-management/rf/requests/types/change-status/${e}",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "T$ -> co /api-management/rf/professionals/attach/category/${t}",
+      "endpoint": "/api-management/rf/professionals/attach/category/${t}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "u3 -> lo /api-management/rf/users/requests/available-slots?rf_sub_category_id=${e}&start_date=${t}",
+      "endpoint": "/api-management/rf/users/requests/available-slots?rf_sub_category_id=${e}&start_date=${t}",
+      "refs": [
+        "chunks/chunk-0088-L087001-L088000-S082.js:L174 (srcL87174)"
+      ]
+    },
+    {
+      "binding": "v$ -> uo /api-management/rf/${t}/${e?.id}",
+      "endpoint": "/api-management/rf/${t}/${e?.id}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "w$ -> co /api-management/rf/${e}/change-status/${t}",
+      "endpoint": "/api-management/rf/${e}/change-status/${t}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    },
+    {
+      "binding": "x$ -> uo /api-management/rf/${t}/${e?.id}",
+      "endpoint": "/api-management/rf/${t}/${e?.id}",
+      "refs": [
+        "chunks/chunk-0076-L075001-L076000-S116.js:L901 (srcL75901)"
+      ]
+    }
+  ],
+  "apiEndpointsByModule": {
+    "rf": [
+      "/api-management/rf/leads/${e}",
+      "/api-management/rf/leases",
+      "/api-management/rf/admins",
+      "/api-management/rf/communities/${e}",
+      "/api-management/rf/leads",
+      "/api-management/rf/leases/${e}",
+      "/api-management/rf/requests/categories",
+      "/api-management/rf/${t}/${e?.id}",
+      "/api-management/rf/announcements",
+      "/api-management/rf/communities?is_paginate=1",
+      "/api-management/rf/companies/${e}",
+      "/api-management/rf/facilities/${e}",
+      "/api-management/rf/requests/types/${e}",
+      "/api-management/rf/sub-leases/${e}",
+      "/api-management/rf/${e}",
+      "/api-management/rf/${e}/${t}",
+      "/api-management/rf/${e}/attach/property/${t}",
+      "/api-management/rf/${e}/change-status/${t}",
+      "/api-management/rf/${t}",
+      "/api-management/rf/${t}/${e}",
+      "/api-management/rf/admins?query=${e}&sort_dir=latest&page=${t}&is_paginate=1&active=1",
+      "/api-management/rf/admins/check-validate",
+      "/api-management/rf/admins/manager-roles",
+      "/api-management/rf/announcements/${e?.id}",
+      "/api-management/rf/announcements/${e}",
+      "/api-management/rf/announcements/${t}",
+      "/api-management/rf/attach/building/${e}?is_paginate=1&query=${n}&page=${t}&is_active=1",
+      "/api-management/rf/attach/community/${e}?is_paginate=1&query=${n}&page=${t}",
+      "/api-management/rf/buildings",
+      "/api-management/rf/buildings?is_active=1&",
+      "/api-management/rf/buildings?is_paginate=1&page=${n}&search=${t}${e?",
+      "/api-management/rf/buildings?rf_community_id=${e}",
+      "/api-management/rf/buildings/${e}",
+      "/api-management/rf/common-lists",
+      "/api-management/rf/communities?is_active=1&",
+      "/api-management/rf/communities?is_paginate=1&has_facility=1&search=${e}&page=${t}",
+      "/api-management/rf/communities?is_paginate=1&page=${n}&search=${t}${e?",
+      "/api-management/rf/communities/${e}/off-plan-sale/license",
+      "/api-management/rf/communities/${e}/off-plan-sale/payments/${t}/complete",
+      "/api-management/rf/communities/edaat/product-codes",
+      "/api-management/rf/communities/off-plan-sale",
+      "/api-management/rf/companies?is_paginate=1&page=${t}&search=${e}&is_active=${n}",
+      "/api-management/rf/companies?search=${e}&sort_dir=latest&page=${t}&is_paginate=1&is_active=1",
+      "/api-management/rf/companies/change-status/${t}",
+      "/api-management/rf/contacts/statistics",
+      "/api-management/rf/facilities",
+      "/api-management/rf/facilities?query=${e}&community_id=${t}",
+      "/api-management/rf/facilities/${t}",
+      "/api-management/rf/family-members?parent_id=${e}",
+      "/api-management/rf/leads/${e}/convert",
+      "/api-management/rf/leases/change-status/move-out",
+      "/api-management/rf/leases/change-status/terminate",
+      "/api-management/rf/leases/create",
+      "/api-management/rf/leases/renew/step-${t}",
+      "/api-management/rf/leases/renew/store",
+      "/api-management/rf/leases/statistics",
+      "/api-management/rf/leases/step-${t}",
+      "/api-management/rf/modules",
+      "/api-management/rf/professionals/attach/category/${t}",
+      "/api-management/rf/related-companies?company_id=${e}",
+      "/api-management/rf/requests/categories/change-status/${e}",
+      "/api-management/rf/requests/change-status/${e}",
+      "/api-management/rf/requests/change-status/canceled",
+      "/api-management/rf/requests/download/${t}/${e}",
+      "/api-management/rf/requests/service-settings/${e}",
+      "/api-management/rf/requests/service-settings/updateOrCreate",
+      "/api-management/rf/requests/sub-categories?category_id=${e}${n}",
+      "/api-management/rf/requests/sub-categories/change-status/${e}",
+      "/api-management/rf/requests/types/change-status/${e}",
+      "/api-management/rf/requests/types/list/${e}${n}",
+      "/api-management/rf/statuses",
+      "/api-management/rf/sub-leases",
+      "/api-management/rf/tenants",
+      "/api-management/rf/tenants?query=${e}&sort_dir=latest&page=${t}&is_paginate=1&active=1&not_has_family_member=1",
+      "/api-management/rf/transactions/",
+      "/api-management/rf/users/rates/${e}",
+      "/api-management/rf/users/requests",
+      "/api-management/rf/users/requests/${e}",
+      "/api-management/rf/users/requests/${t}",
+      "/api-management/rf/users/requests/available-slots?rf_sub_category_id=${e}&start_date=${t}",
+      "/api-management/rf/users/requests/categories?is_paginate=0",
+      "/api-management/rf/users/requests/professionals?rf_request_id=${e}",
+      "/api-management/rf/users/requests/sub-categories?has_types=true&category_id=",
+      "/api-management/rf/users/requests/types",
+      "/api-management/rf/users/visitor-access",
+      "/api-management/rf/users/visitor-access/${e}",
+      "/api-management/rf/users/visitor-access/${e}/approve",
+      "/api-management/rf/users/visitor-access/${e}/reject"
+    ],
+    "marketplace": [
+      "/api-management/marketplace/admin/visits",
+      "/api-management/marketplace/admin/bookings/change-status/send-contract/${e}",
+      "/api-management/marketplace/admin/communities?is_paginate=1&is_market_place=0",
+      "/api-management/marketplace/admin/communities?is_paginate=1&is_market_place=0&is_off_plan_sale=0",
+      "/api-management/marketplace/admin/communities?is_paginate=1&is_market_place=1",
+      "/api-management/marketplace/admin/communities/list/${e}",
+      "/api-management/marketplace/admin/communities/resend/bulk-payments/${e}",
+      "/api-management/marketplace/admin/communities/resend/bulk-reminder/${e}",
+      "/api-management/marketplace/admin/communities/resend/payment-schedules/failed/${e}",
+      "/api-management/marketplace/admin/communities/unlist/${e}",
+      "/api-management/marketplace/admin/communities/update-sales-information/${e}",
+      "/api-management/marketplace/admin/settings/banks",
+      "/api-management/marketplace/admin/settings/banks/store",
+      "/api-management/marketplace/admin/settings/sales",
+      "/api-management/marketplace/admin/settings/sales/store",
+      "/api-management/marketplace/admin/settings/visits",
+      "/api-management/marketplace/admin/settings/visits/store",
+      "/api-management/marketplace/admin/units",
+      "/api-management/marketplace/admin/units/${e}",
+      "/api-management/marketplace/admin/units/change-status/${s?",
+      "/api-management/marketplace/admin/units/missing/${a}",
+      "/api-management/marketplace/admin/units/prices-visibility/${e}",
+      "/api-management/marketplace/admin/units/prices-visibility/all/${e}",
+      "/api-management/marketplace/admin/units/statistic/${e}",
+      "/api-management/marketplace/admin/visits/${e}",
+      "/api-management/marketplace/admin/visits/assign/owner-visit/${e}",
+      "/api-management/marketplace/admin/visits/completed/${e}",
+      "/api-management/marketplace/admin/visits/rejected/${e}",
+      "/api-management/marketplace/favorites/communities/${e}"
+    ],
+    "dashboard": [
+      "/api-management/dashboard/require-attentions/expiringLeases?type=${e}&page=${t}",
+      "/api-management/dashboard/requires-attention"
+    ],
+    "contacts": [
+      "/api-management/contacts?role=${t}&search=${e}&sort_dir=latest&page=${n}&active=1",
+      "/api-management/contacts/${e}/accept-privacy-policy"
+    ],
+    "notifications": [
+      "/api-management/notifications?per_page=${t}&page=${e}",
+      "/api-management/notifications/${e}/mark-as-read",
+      "/api-management/notifications/mark-all-as-read",
+      "/api-management/notifications/unread-count"
+    ],
+    "integrations": [
+      "/api-management/integrations/powerbi/reports?powerbi_report_type_id=${e}",
+      "/api-management/integrations/powerbi/types"
+    ],
+    "other": [
+      "/api-management/request-category",
+      "/api-management/countries",
+      "/api-management/leases/${e}",
+      "/api-management/new/complaints?search=${e}&page=${t}&status",
+      "/api-management/new/complaints/${e}/assign",
+      "/api-management/new/complaints/${e}/cancel",
+      "/api-management/new/complaints/${e}/resolve",
+      "/api-management/request-category/${e}",
+      "/api-management/request-sub-category/${e}"
+    ]
+  }
+}
