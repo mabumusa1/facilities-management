@@ -80,6 +80,26 @@ export default defineConfig({
       testMatch: /contacts\.agent\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'auth-agent',
+      testMatch: /auth-pages\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'legal-agent',
+      testMatch: /legal-pages\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'mutation-agent',
+      testMatch: /mutation-capture\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'marketplace-mutations-agent',
+      testMatch: /marketplace-mutations\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
 
     // Run all agents together
     {
