@@ -127,6 +127,21 @@ export default defineConfig({
       testMatch: /requests\.mutation\.agent\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'transactions-mutation-agent',
+      testMatch: /transactions\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'settings-mutation-agent',
+      testMatch: /settings\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'documents-mutation-agent',
+      testMatch: /documents\.mutation\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
     // Run all mutation agents together
     {
       name: 'all-mutation-agents',

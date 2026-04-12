@@ -1,0 +1,22 @@
+{
+  "module": "documents",
+  "generatedAt": "2026-04-12T09:45:37.268Z",
+  "totalCaptures": 2,
+  "successCount": 0,
+  "errorCount": 2,
+  "successRate": "0.0%",
+  "endpoints": {
+    "POST rf/tenants/15/documents": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 307
+    },
+    "POST rf/owners/3/documents": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 538
+    }
+  }
+}

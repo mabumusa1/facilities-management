@@ -153,6 +153,56 @@ test.describe('Leasing Mutation Agent', () => {
     });
   });
 
+  test.describe('Lease Updates', () => {
+    test('PUT /rf/leases/{id} - update lease details', async ({ api }) => {
+      const leasesData = await api.fetchReferenceData('rf/leases?is_paginate=0');
+      const leases = (leasesData as any)?.data || [];
+
+      if (leases.length > 0) {
+        const leaseId = leases[0].id;
+        const capture = await api.put(`rf/leases/${leaseId}`, {
+          notes: `Updated lease notes ${Date.now()}`,
+        });
+        captures.push(capture);
+        console.log(`PUT /rf/leases/${leaseId} => ${capture.response.status}`);
+      } else {
+        console.log('Skipped: No lease available for update');
+      }
+    });
+
+    test('DELETE /rf/leases/{id} - delete lease', async ({ api }) => {
+      const leasesData = await api.fetchReferenceData('rf/leases?is_paginate=0');
+      const leases = (leasesData as any)?.data || [];
+
+      if (leases.length > 1) {
+        const leaseId = leases[leases.length - 1].id;
+        const capture = await api.delete(`rf/leases/${leaseId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/leases/${leaseId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/leases/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/leases/99999 => ${capture.response.status}`);
+      }
+    });
+
+    test('POST /rf/leases/{id}/addendum - create lease addendum', async ({ api }) => {
+      const leasesData = await api.fetchReferenceData('rf/leases?is_paginate=0');
+      const leases = (leasesData as any)?.data || [];
+
+      if (leases.length > 0) {
+        const leaseId = leases[0].id;
+        const capture = await api.post(`rf/leases/${leaseId}/addendum`, {
+          type: 'modification',
+          description: `Lease addendum ${Date.now()}`,
+          effective_date: new Date().toISOString().split('T')[0],
+        });
+        captures.push(capture);
+        console.log(`POST /rf/leases/${leaseId}/addendum => ${capture.response.status}`);
+      }
+    });
+  });
+
   test.describe('Lease Status Changes', () => {
     test('POST /rf/leases/change-status/move-out - validation errors', async ({ api }) => {
       // Test with empty body first to capture required fields
@@ -206,6 +256,74 @@ test.describe('Leasing Mutation Agent', () => {
 
         console.log(`POST /rf/leases/change-status/terminate => ${capture.response.status}`);
       }
+    });
+
+    test('POST /rf/leases/change-status/suspend - suspend lease', async ({ api }) => {
+      const leasesData = await api.fetchReferenceData('rf/leases?is_paginate=0');
+      const leases = (leasesData as any)?.data || [];
+
+      if (leases.length > 0) {
+        const leaseId = leases[0].id;
+        const capture = await api.post('rf/leases/change-status/suspend', {
+          lease_id: leaseId,
+          reason: 'Test suspension',
+          date: new Date().toISOString().split('T')[0],
+        });
+        captures.push(capture);
+        console.log(`POST /rf/leases/change-status/suspend => ${capture.response.status}`);
+      }
+    });
+
+    test('POST /rf/leases/change-status/reactivate - reactivate lease', async ({ api }) => {
+      const leasesData = await api.fetchReferenceData('rf/leases?is_paginate=0');
+      const leases = (leasesData as any)?.data || [];
+
+      if (leases.length > 0) {
+        const leaseId = leases[0].id;
+        const capture = await api.post('rf/leases/change-status/reactivate', {
+          lease_id: leaseId,
+          date: new Date().toISOString().split('T')[0],
+        });
+        captures.push(capture);
+        console.log(`POST /rf/leases/change-status/reactivate => ${capture.response.status}`);
+      }
+    });
+  });
+
+  test.describe('Sub-Leases', () => {
+    test('POST /rf/sub-leases - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('rf/sub-leases', EMPTY_DATA);
+      captures.push(capture);
+      console.log(`POST /rf/sub-leases (empty) => ${capture.response.status}`);
+    });
+
+    test('POST /rf/sub-leases - create sub-lease', async ({ api }) => {
+      const leasesData = await api.fetchReferenceData('rf/leases?is_paginate=0');
+      const leases = (leasesData as any)?.data || [];
+
+      if (leases.length > 0) {
+        const leaseId = leases[0].id;
+        const startDate = new Date();
+        const endDate = new Date();
+        endDate.setMonth(endDate.getMonth() + 6);
+
+        const capture = await api.post('rf/sub-leases', {
+          parent_lease_id: leaseId,
+          sub_tenant_name: `Sub Tenant ${Date.now()}`,
+          sub_tenant_phone: '+966500000001',
+          start_date: startDate.toISOString().split('T')[0],
+          end_date: endDate.toISOString().split('T')[0],
+          rental_amount: 30000,
+        });
+        captures.push(capture);
+        console.log(`POST /rf/sub-leases => ${capture.response.status}`);
+      }
+    });
+
+    test('DELETE /rf/sub-leases/{id} - delete sub-lease', async ({ api }) => {
+      const capture = await api.delete('rf/sub-leases/999');
+      captures.push(capture);
+      console.log(`DELETE /rf/sub-leases/999 => ${capture.response.status}`);
     });
   });
 

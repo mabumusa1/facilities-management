@@ -1,88 +1,24 @@
 [
   {
     "request": {
-      "method": "PUT",
-      "endpoint": "rf/owners/3",
-      "body": {
-        "first_name": "Updated",
-        "last_name": "Owner1775981135874"
-      }
-    },
-    "response": {
-      "status": 422,
-      "statusText": "Unprocessable Entity",
-      "headers": {
-        "date": "Sun, 12 Apr 2026 08:05:36 GMT",
-        "content-type": "application/json",
-        "content-length": "482",
-        "connection": "keep-alive",
-        "cache-control": "no-cache, private",
-        "x-ratelimit-limit": "10",
-        "x-ratelimit-remaining": "9",
-        "vary": "Origin",
-        "x-cloud-trace-context": "789f1eb6fec4d115f9080da8e2fa496d",
-        "server": "cloudflare",
-        "via": "1.1 google",
-        "cf-cache-status": "DYNAMIC",
-        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7lUetZJF24CohqU1spUaMT1EmhN2tUhqVjwKUKSL1vrzRYr9c6%2BFZti%2Fahp%2BGMGkw2KjBq3%2Fgcw%2BgoJ3ACJqZgbi4%2FZxJyd67ji4yAXQkCn8NXbxTjhZZdsGTtN4%2Bc1q6poZ1qV547dqe8PM\"}]}",
-        "cf-ray": "9eb0ba179c6e5fd0-MRS"
-      },
-      "body": {
-        "message": "The given data was invalid.",
-        "errors": {
-          "last_name": [
-            "صيغة الحقل اسم العائلة .غير صحيحة"
-          ],
-          "phone_country_code": [
-            "الحقل phone country code مطلوب."
-          ],
-          "phone_number": [
-            "الحقل رقم الجوال مطلوب."
-          ]
-        }
-      },
-      "timing": 399
-    },
-    "timestamp": "2026-04-12T08:05:36.274Z",
-    "success": false,
-    "validationErrors": [
-      {
-        "field": "last_name",
-        "message": "صيغة الحقل اسم العائلة .غير صحيحة"
-      },
-      {
-        "field": "phone_country_code",
-        "message": "الحقل phone country code مطلوب.",
-        "rule": "required"
-      },
-      {
-        "field": "phone_number",
-        "message": "الحقل رقم الجوال مطلوب.",
-        "rule": "required"
-      }
-    ]
-  },
-  {
-    "request": {
       "method": "POST",
       "endpoint": "rf/tenants",
       "body": {
         "first_name": "Test",
-        "last_name": "Tenant7l2mlg",
+        "last_name": "Tenant3r235u",
         "phone_country_code": "SA",
-        "phone_number": "526924980",
-        "email": "tenant7l2mlg@example.com",
-        "national_id": "5122633192",
+        "phone_number": "529466320",
+        "email": "tenant3r235u@example.com",
+        "national_id": "1937958374",
         "type": "individual",
-        "name": "Test Tenant7l2mlg"
+        "name": "Test Tenant3r235u"
       }
     },
     "response": {
       "status": 422,
       "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 08:05:37 GMT",
+        "date": "Sun, 12 Apr 2026 09:45:30 GMT",
         "content-type": "application/json",
         "content-length": "386",
         "connection": "keep-alive",
@@ -90,13 +26,13 @@
         "x-ratelimit-limit": "5",
         "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "ebb3f60b426199a851ac52f21d30d325",
+        "x-cloud-trace-context": "c24234230d9f421e376cce68392e7694",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BmYpjd4TR5judD0s%2B9qNnFRL%2BTJwIe0kY%2BOOM%2FQbvC8z1zZE3s2QudPqdSt9Cz8Qrxa11sg7BZoCneRp1MUMruFL8DTtDLj%2BHjMYIs4y%2B3naIAOXwRfJHlP76uxvWYEb0BmNRx5vcitbYJ8D\"}]}",
-        "cf-ray": "9eb0ba1aaad35fd0-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0m03t%2BJx%2BdnBzG%2BTUw6rDU4UD%2BLyKG8iHkdB4UeyqayXl1bWmjlfZzr8FyBcUdXJoqZkCUiUx8Xw1GovTEfW%2FyYBWGJPuqbS9H%2BREK0M8aO9n2KRB3Y7KnNHlEel1%2BE3UGrnySXnNT8m5lrk\"}]}",
+        "cf-ray": "9eb14c698d65dccc-FRA"
       },
       "body": {
         "message": "The given data was invalid.",
@@ -107,9 +43,9 @@
           ]
         }
       },
-      "timing": 398
+      "timing": 1480
     },
-    "timestamp": "2026-04-12T08:05:36.766Z",
+    "timestamp": "2026-04-12T09:45:30.518Z",
     "success": false,
     "validationErrors": [
       {
@@ -130,20 +66,20 @@
       "endpoint": "rf/tenants",
       "body": {
         "first_name": "Test",
-        "last_name": "Company9bd5k5",
+        "last_name": "Company85w1i8",
         "phone_country_code": "SA",
-        "phone_number": "593475494",
-        "email": "company9bd5k5@example.com",
+        "phone_number": "591003666",
+        "email": "company85w1i8@example.com",
         "type": "company",
-        "company_name": "Test Company 9bd5k5",
-        "commercial_registration_number": "8330441225"
+        "company_name": "Test Company 85w1i8",
+        "commercial_registration_number": "9811433446"
       }
     },
     "response": {
       "status": 200,
       "statusText": "OK",
       "headers": {
-        "date": "Sun, 12 Apr 2026 08:05:37 GMT",
+        "date": "Sun, 12 Apr 2026 09:45:31 GMT",
         "content-type": "application/json",
         "transfer-encoding": "chunked",
         "connection": "keep-alive",
@@ -158,28 +94,28 @@
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aq%2B2sif9TNcnFE6M3c130PkNOZQwg%2BVSf%2FyYRx9kStbiGH3TDBAjWXwDtHXvVAXqgp4cTpF5fF0KToRyBpZgkhB1Ipn2QsYBmjnBFx%2BZKPDrNd7%2Blfw9b6%2Fxh9h4E9ZBZOnNr6jQZoQJVNFH\"}]}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CNcdpf7YwNRpu1npaKfT5LHO6s9RcbpMRnA1J6VhM%2Bu74YzSRBP7NIvyCPPkkC7KJQxR1cAlYGoQAJNJaRmcZV9feOe0sMj4Jgc02hEQDCuP%2F5dw%2FeY0hT%2BPvhF5QSpQslM2oev7FCxB8T%2F2\"}]}",
         "content-encoding": "br",
-        "cf-ray": "9eb0ba1d9f675fd0-MRS"
+        "cf-ray": "9eb14c7019b4dccc-FRA"
       },
       "body": {
         "code": 200,
         "message": "تم انشاء المطلوب بنجاح.",
         "data": {
-          "id": 6,
-          "name": "Test Company9bd5k5",
+          "id": 15,
+          "name": "Test Company85w1i8",
           "image": null,
-          "phone_number": "+966593475494",
+          "phone_number": "+966591003666",
           "invited": null,
-          "created_at": "2026-04-12T08:05:37.000000Z",
+          "created_at": "2026-04-12T09:45:31.000000Z",
           "units": [],
           "accepted_invite": 0
         },
         "meta": []
       },
-      "timing": 578
+      "timing": 502
     },
-    "timestamp": "2026-04-12T08:05:37.409Z",
+    "timestamp": "2026-04-12T09:45:31.171Z",
     "success": true
   },
   {
@@ -192,7 +128,7 @@
       "status": 422,
       "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 08:05:38 GMT",
+        "date": "Sun, 12 Apr 2026 09:45:31 GMT",
         "content-type": "application/json",
         "content-length": "549",
         "connection": "keep-alive",
@@ -200,13 +136,13 @@
         "x-ratelimit-limit": "5",
         "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "aba8b5f310b82c735358f79d576ca6e3",
+        "x-cloud-trace-context": "f697a29b3656fe17d8f34df69f337eb7",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=QUmnaHEfj8JZ1%2BBeaNEPkImn2QC1Vn1BDTxImsYLDgjMb9wdVfXO5cugTmh4%2FZxTiO4JG3%2BTt%2BTIGf6QvupjkdPdNOAthH1gqL71PQi%2BEYv3Bo0tojXKd3YOjHK6a2D4v1uq11b%2FWhCxJM%2Bn\"}]}",
-        "cf-ray": "9eb0ba21ae035fd0-MRS"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ZoQI9W1X2Lxml4CvqDYD7faawclTuRsr7ZsK8u6oDqcRvtLW3NHGK5ZguZgiQOmO0PUijUuCUoOSfLM2LYJIoob7add1cJb0DfA1nIrVaIft1xriu%2BpP42NhkDVA3NLJ9ycOw9h%2FAYrDoLbu\"}]}",
+        "cf-ray": "9eb14c748ee0dccc-FRA"
       },
       "body": {
         "message": "The given data was invalid.",
@@ -225,9 +161,9 @@
           ]
         }
       },
-      "timing": 272
+      "timing": 507
     },
-    "timestamp": "2026-04-12T08:05:37.766Z",
+    "timestamp": "2026-04-12T09:45:31.745Z",
     "success": false,
     "validationErrors": [
       {
@@ -251,5 +187,152 @@
         "rule": "required"
       }
     ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/tenants",
+      "body": {
+        "phone_country_code": "SA",
+        "phone_number": "500000000"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:32 GMT",
+        "content-type": "application/json",
+        "content-length": "304",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "1e6e97bdaa03e01bd8f34df69f337404",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=83RP3fYPySSdGnHPBOpTexFazosbuvoHlgD9kg6lwvRuJ8uVNOiupicppTnTppwJenSu1ixK3L06ZTeKhclmJOzaA0oJu%2BVvkr66bkcFR4iHSbOOASccstXz6oqcVcAwLbae8gQFU5ZR0Yig\"}]}",
+        "cf-ray": "9eb14c775f17dccc-FRA"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "first_name": [
+            "الحقل الاسم مطلوب."
+          ],
+          "last_name": [
+            "الحقل اسم العائلة مطلوب."
+          ]
+        }
+      },
+      "timing": 334
+    },
+    "timestamp": "2026-04-12T09:45:32.180Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "first_name",
+        "message": "الحقل الاسم مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "last_name",
+        "message": "الحقل اسم العائلة مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/tenants/15",
+      "body": {
+        "first_name": "Updated",
+        "last_name": "Tenant1775987132817"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:33 GMT",
+        "content-type": "application/json",
+        "content-length": "297",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-cloud-trace-context": "fc1db4d052c04f7c22638b5723ab1d3d",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sQ7ZvIL1Y0AwRq4uRiaF5XecLnVIu9iLW%2BimhsOAAJjbnfQXfS%2Bi7uAJcqs8riLeG1%2F05iQrYe3AbJu1SVQwRLknIosnj1o%2BxErsGWKYC5P356IHiZdsE8i9v72X%2Fx4jENgOAxHwxeVbOAmx\"}]}",
+        "cf-ray": "9eb14c7d8ffadccc-FRA"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "phone_country_code": [
+            "الحقل phone country code مطلوب."
+          ],
+          "phone_number": [
+            "الحقل رقم الجوال مطلوب."
+          ]
+        }
+      },
+      "timing": 728
+    },
+    "timestamp": "2026-04-12T09:45:33.545Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "phone_country_code",
+        "message": "الحقل phone country code مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "phone_number",
+        "message": "الحقل رقم الجوال مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "rf/tenants/4"
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:34 GMT",
+        "content-type": "application/json",
+        "content-length": "106",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, PUT",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "e825af84d85add5b6a2370901b7dbed2",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=fi4oDGWpv3mCgX6ByKV2Xzc1NDIa46dfxA7VN4%2FJZIYHywslIF%2BBeJ6sIJxquvk46JRYUksU%2F7LcVCc3bZSWAFREoRdTbrmptXgxAldUbc7iSLjKOj2hxLS9FvVpHstThGFwQClcWkIQWfDE\"}]}",
+        "cf-ray": "9eb14c864edbdccc-FRA"
+      },
+      "body": {
+        "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD, PUT."
+      },
+      "timing": 371
+    },
+    "timestamp": "2026-04-12T09:45:34.579Z",
+    "success": false,
+    "validationErrors": []
   }
 ]

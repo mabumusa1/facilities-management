@@ -1,0 +1,56 @@
+{
+  "description": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل الوصف مطلوب."
+    ]
+  },
+  "is_visible": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل is visible مطلوب."
+    ]
+  },
+  "end_date": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل end date مطلوب."
+    ]
+  },
+  "start_time": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل start time مطلوب."
+    ]
+  },
+  "end_time": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل end time مطلوب."
+    ]
+  },
+  "notify_user_type": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+    ]
+  }
+}

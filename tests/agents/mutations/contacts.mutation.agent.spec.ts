@@ -112,6 +112,23 @@ test.describe('Contacts Mutation Agent', () => {
         console.log('Skipped: No owner available for update');
       }
     });
+
+    test('DELETE /rf/owners/{id} - delete owner', async ({ api }) => {
+      // Fetch owners to find one to delete (use last one)
+      const ownersData = await api.fetchReferenceData('rf/owners?is_paginate=0');
+      const owners = (ownersData as any)?.data || [];
+
+      if (owners.length > 1) {
+        const ownerId = owners[owners.length - 1].id;
+        const capture = await api.delete(`rf/owners/${ownerId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/owners/${ownerId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/owners/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/owners/99999 => ${capture.response.status}`);
+      }
+    });
   });
 
   test.describe('Tenants', () => {
@@ -179,6 +196,46 @@ test.describe('Contacts Mutation Agent', () => {
         console.log('Skipped: No tenant available for update');
       }
     });
+
+    test('DELETE /rf/tenants/{id} - delete tenant', async ({ api }) => {
+      // Fetch tenants to find one to delete
+      const tenantsData = await api.fetchReferenceData('rf/tenants?is_paginate=0');
+      const tenants = (tenantsData as any)?.data || [];
+
+      if (tenants.length > 1) {
+        const tenantId = tenants[tenants.length - 1].id;
+        const capture = await api.delete(`rf/tenants/${tenantId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/tenants/${tenantId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/tenants/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/tenants/99999 => ${capture.response.status}`);
+      }
+    });
+
+    test('POST /rf/tenants/{id}/family-members - add family member', async ({ api }) => {
+      await resolver.resolve('tenant');
+      const tenantId = resolver.getResolvedId('tenant');
+
+      if (tenantId) {
+        const capture = await api.post(`rf/tenants/${tenantId}/family-members`, {
+          first_name: `Family${Date.now()}`,
+          last_name: 'Member',
+          relationship: 'spouse',
+          phone_country_code: 'SA',
+          phone_number: `5${Math.floor(Math.random() * 100000000).toString().padStart(8, '0')}`,
+        });
+        captures.push(capture);
+        console.log(`POST /rf/tenants/${tenantId}/family-members => ${capture.response.status}`);
+      }
+    });
+
+    test('DELETE /rf/tenants/{id}/family-members/{memberId} - remove family member', async ({ api }) => {
+      const capture = await api.delete('rf/tenants/1/family-members/1');
+      captures.push(capture);
+      console.log(`DELETE /rf/tenants/1/family-members/1 => ${capture.response.status}`);
+    });
   });
 
   test.describe('Managers', () => {
@@ -224,6 +281,37 @@ test.describe('Contacts Mutation Agent', () => {
 
       console.log(`POST /rf/admins/check-validate => ${capture.response.status}`);
     });
+
+    test('PUT /rf/admins/{id} - update admin', async ({ api }) => {
+      const adminsData = await api.fetchReferenceData('rf/admins?is_paginate=0');
+      const admins = (adminsData as any)?.data || [];
+
+      if (admins.length > 0) {
+        const adminId = admins[0].id;
+        const capture = await api.put(`rf/admins/${adminId}`, {
+          first_name: 'Updated',
+          last_name: `Admin${Date.now()}`,
+        });
+        captures.push(capture);
+        console.log(`PUT /rf/admins/${adminId} => ${capture.response.status}`);
+      }
+    });
+
+    test('DELETE /rf/admins/{id} - delete admin', async ({ api }) => {
+      const adminsData = await api.fetchReferenceData('rf/admins?is_paginate=0');
+      const admins = (adminsData as any)?.data || [];
+
+      if (admins.length > 1) {
+        const adminId = admins[admins.length - 1].id;
+        const capture = await api.delete(`rf/admins/${adminId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/admins/${adminId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/admins/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/admins/99999 => ${capture.response.status}`);
+      }
+    });
   });
 
   test.describe('Professionals', () => {
@@ -253,6 +341,37 @@ test.describe('Contacts Mutation Agent', () => {
 
       expect(capture.response.status).toBeGreaterThanOrEqual(400);
       console.log(`POST /rf/professionals (empty) => ${capture.response.status}`);
+    });
+
+    test('PUT /rf/professionals/{id} - update professional', async ({ api }) => {
+      const professionalsData = await api.fetchReferenceData('rf/professionals?is_paginate=0');
+      const professionals = (professionalsData as any)?.data || [];
+
+      if (professionals.length > 0) {
+        const professionalId = professionals[0].id;
+        const capture = await api.put(`rf/professionals/${professionalId}`, {
+          first_name: 'Updated',
+          last_name: `Professional${Date.now()}`,
+        });
+        captures.push(capture);
+        console.log(`PUT /rf/professionals/${professionalId} => ${capture.response.status}`);
+      }
+    });
+
+    test('DELETE /rf/professionals/{id} - delete professional', async ({ api }) => {
+      const professionalsData = await api.fetchReferenceData('rf/professionals?is_paginate=0');
+      const professionals = (professionalsData as any)?.data || [];
+
+      if (professionals.length > 1) {
+        const professionalId = professionals[professionals.length - 1].id;
+        const capture = await api.delete(`rf/professionals/${professionalId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/professionals/${professionalId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/professionals/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/professionals/99999 => ${capture.response.status}`);
+      }
     });
   });
 });

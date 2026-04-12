@@ -1,16 +1,76 @@
 {
   "module": "requests",
-  "generatedAt": "2026-04-12T08:05:46.707Z",
-  "totalCaptures": 2,
+  "generatedAt": "2026-04-12T09:45:56.700Z",
+  "totalCaptures": 12,
   "successCount": 0,
-  "errorCount": 2,
+  "errorCount": 12,
   "successRate": "0.0%",
   "endpoints": {
-    "POST rf/requests": {
+    "POST rf/requests/service-settings/updateOrCreate": {
       "method": "POST",
       "success": 0,
       "error": 2,
-      "avgTiming": 263
+      "avgTiming": 320.5
+    },
+    "DELETE rf/requests/service-settings/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 327
+    },
+    "POST rf/requests/change-status/pending": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 272
+    },
+    "POST rf/requests/change-status/in-progress": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 297
+    },
+    "POST rf/requests/change-status/completed": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 275
+    },
+    "POST rf/requests": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 276
+    },
+    "PUT rf/requests/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 281
+    },
+    "DELETE rf/requests/99999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 380
+    },
+    "POST rf/requests/1/assign": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 299
+    },
+    "POST rf/requests/1/reassign": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 308
+    },
+    "POST rf/request-categories": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 295
     }
   }
 }

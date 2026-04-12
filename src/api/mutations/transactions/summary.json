@@ -1,0 +1,28 @@
+{
+  "module": "transactions",
+  "generatedAt": "2026-04-12T09:46:01.618Z",
+  "totalCaptures": 5,
+  "successCount": 0,
+  "errorCount": 5,
+  "successRate": "0.0%",
+  "endpoints": {
+    "POST transactions": {
+      "method": "POST",
+      "success": 0,
+      "error": 3,
+      "avgTiming": 237.66666666666666
+    },
+    "PUT transactions/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 360
+    },
+    "DELETE transactions/2": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 387
+    }
+  }
+}

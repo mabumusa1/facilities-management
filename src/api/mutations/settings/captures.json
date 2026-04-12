@@ -1,0 +1,315 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/sms-templates",
+      "body": {}
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:56 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "030dbc622a75bfa870bbba5db7fa7612",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=H0yqf7%2BFESJ24S0D9Z6sKWpJo4qnPrzdgsQIp6eAIfkXK3fhYpqcZkNSA7JDvHbzaKtv0Yv6kNn5jI14tGcd9A9bg6zMA0%2F0PYE3hRDlpy4PC%2Fj2LnYBk9TU9pNgf23JgIrEk1XvGA7LK9km\"}]}",
+        "cf-ray": "9eb14d0ddd5437c8-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 306
+    },
+    "timestamp": "2026-04-12T09:45:56.242Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/sms-templates",
+      "body": {
+        "name": "SMS Template 1775987156273",
+        "body": "Test SMS message",
+        "type": "payment_reminder"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:56 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "15d8b7d421c04df35427f9d961c10d4a",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cT%2B0hMWDPFubSYMKe0Ki%2FvYvwMMxlaGRXbuQK4yedQtN7FZIiJJEuCTWYA93bfDtaj%2BmO%2B1OzJTQ5%2BIIJqyAnwGIoA%2BcGOzRbhG%2BJYCacxi94GdYCiqczik%2FvCoYl%2FiWIlCsLYYKPh3AagsR\"}]}",
+        "cf-ray": "9eb14d107f6937c8-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 342
+    },
+    "timestamp": "2026-04-12T09:45:56.618Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/settings/sms-templates/1",
+      "body": {
+        "body": "Updated SMS 1775987156741"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:57 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "837c20fe55a06ed022638b5723ab1c0b",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FgjuWQC3QeKWhxHqkcNvRVzi%2FWUwW0lsd3rUlu2iU7fzSLfZ4UaPClV%2BjNzutEqhmxppoOKx0bk88C9TWVs1zW0huMYccPYR4enqjdwb3aD0xuAzk1UzmZk3Rz00T2ydUOYrIKuaioysL1kB\"}]}",
+        "cf-ray": "9eb14d12f96437c8-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 287
+    },
+    "timestamp": "2026-04-12T09:45:57.030Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/settings",
+      "body": {
+        "language": "en",
+        "timezone": "Asia/Riyadh",
+        "date_format": "YYYY-MM-DD",
+        "currency": "SAR"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:57 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "cf214f8c37175e962634facd38a630a4",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NgBjd40kysUU4hyKwUYQnhzRS2NmcpU%2FRyOsBvPktH1vWBcfRzR4iB4vCDd5WOWEStHhjKUOv3c2wigPlklVg%2BeMLjYmCuY9%2BILQInUahf1KmGzkNG2zjwDol6%2B4RYqzf3fvzTeisTpMLpzv\"}]}",
+        "cf-ray": "9eb14d155b9a37c8-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 438
+    },
+    "timestamp": "2026-04-12T09:45:57.556Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/preferences",
+      "body": {
+        "dashboard_layout": "grid",
+        "items_per_page": 25
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:58 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "212128d4062111b7b4b1e20ec1472623",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=iaZSwSkO5m6GRWrROib5JboNZ5u2ZRBD7FEmO6USzKInNxElcq6I%2FS80lgQCdU8lcxwq3AeH%2BNFFqLFwGwXhFxxarcBkUdZjIlWJ5UihJrM%2Ferwulw14HE3YjooZ5ay0HqhPIzZcgU35w8qi\"}]}",
+        "cf-ray": "9eb14d183e7b37c8-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 365
+    },
+    "timestamp": "2026-04-12T09:45:57.943Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/mobile-notifications",
+      "body": {
+        "enabled": true,
+        "sound": true,
+        "vibrate": true
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:58 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "4326d717db6ba86e334a870a26be772f",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=31pDH0WA%2BFiOcRsFQNURKUb5Of6LmmxC3ee9JbYFDsJ66FV0pPwU6TDgc2GyAYDAuLNtf7RabJNNOWqwl43p0sZSwnv7kCLzzV77vIBFc2lZDJb6bRoUuuW7IqzP7D7TcVCMW4t7q67R25tQ\"}]}",
+        "cf-ray": "9eb14d1a993637c8-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 312
+    },
+    "timestamp": "2026-04-12T09:45:58.278Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/announcements",
+      "body": {
+        "title": "Test Announcement 1775987158312",
+        "content": "This is a test announcement",
+        "type": "general",
+        "start_date": "2026-04-12"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:58 GMT",
+        "content-type": "application/json",
+        "content-length": "706",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "06c91ef9ff0821ab70bbba5db7fa7c58",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=HwVSQGkJSmr4t1WB9Hft1U8%2BhRRQZD9QunDjjjRf6m5W4yNb238AsYFIWp8XEndWJFEXbRsYDNLCfUrDthyQ7O5iQYLKYCP2e64xpVpwDgCHujHL6z%2Br3BASj7IHmuYsJAu3PVJ7O2kS1lsH\"}]}",
+        "cf-ray": "9eb14d1ccbb737c8-FRA"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "description": [
+            "الحقل الوصف مطلوب."
+          ],
+          "is_visible": [
+            "الحقل is visible مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "start_time": [
+            "الحقل start time مطلوب."
+          ],
+          "end_time": [
+            "الحقل end time مطلوب."
+          ],
+          "notify_user_type": [
+            "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+          ]
+        }
+      },
+      "timing": 390
+    },
+    "timestamp": "2026-04-12T09:45:58.707Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "description",
+        "message": "الحقل الوصف مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "is_visible",
+        "message": "الحقل is visible مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_time",
+        "message": "الحقل start time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_time",
+        "message": "الحقل end time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "notify_user_type",
+        "message": "الحقل notify user type مطلوب إذا لم يتوفّر available for.",
+        "rule": "required"
+      }
+    ]
+  }
+]

@@ -12,10 +12,255 @@
     }
   ],
   "paths": {
-    "marketplace/admin/communities/unlist/4": {
+    "marketplace/admin/settings/visits/store": {
       "post": {
-        "operationId": "post_marketplace_admin_communities_unlist_4",
-        "summary": "POST marketplace/admin/communities/unlist/4",
+        "operationId": "post_marketplace_admin_settings_visits_store",
+        "summary": "POST marketplace/admin/settings/visits/store",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "days.0": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.1": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.2": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.3": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.4": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "days.0": [
+                          "يجب أن يكون الحقل days.0 نصآ.",
+                          "الحقل days.0 غير صحيح"
+                        ],
+                        "days.1": [
+                          "يجب أن يكون الحقل days.1 نصآ.",
+                          "الحقل days.1 غير صحيح"
+                        ],
+                        "days.2": [
+                          "يجب أن يكون الحقل days.2 نصآ.",
+                          "الحقل days.2 غير صحيح"
+                        ],
+                        "days.3": [
+                          "يجب أن يكون الحقل days.3 نصآ.",
+                          "الحقل days.3 غير صحيح"
+                        ],
+                        "days.4": [
+                          "يجب أن يكون الحقل days.4 نصآ.",
+                          "الحقل days.4 غير صحيح"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_all_day": {
+                    "type": "boolean"
+                  },
+                  "days": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "day": {
+                          "type": "string"
+                        },
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "start_time": {
+                          "type": "string"
+                        },
+                        "end_time": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "is_all_day": false,
+                    "days": [
+                      {
+                        "day": "sunday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "monday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "tuesday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "wednesday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "thursday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      }
+                    ]
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/communities/list/9": {
+      "post": {
+        "operationId": "post_marketplace_admin_communities_list_9",
+        "summary": "POST marketplace/admin/communities/list/9",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "allow_cash_sale": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "allow_cash_sale": [
+                          "يجب اختيار طريقة شراء واحدة على الأقل"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/communities/unlist/9": {
+      "post": {
+        "operationId": "post_marketplace_admin_communities_unlist_9",
+        "summary": "POST marketplace/admin/communities/unlist/9",
         "tags": [
           "marketplace"
         ],
@@ -127,8 +372,8 @@
                       "code": 200,
                       "message": "",
                       "data": {
-                        "id": 4,
-                        "name": "Updated Community 1775980921530",
+                        "id": 9,
+                        "name": "Updated Community 1775984545700",
                         "district": {
                           "id": 1,
                           "name": "الدرعية"

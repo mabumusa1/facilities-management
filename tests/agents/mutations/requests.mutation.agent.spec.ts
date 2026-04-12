@@ -69,6 +69,12 @@ test.describe('Requests Mutation Agent', () => {
         capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
       }
     });
+
+    test('DELETE /rf/requests/service-settings/{id} - delete service settings', async ({ api }) => {
+      const capture = await api.delete('rf/requests/service-settings/999');
+      captures.push(capture);
+      console.log(`DELETE /rf/requests/service-settings/999 => ${capture.response.status}`);
+    });
   });
 
   test.describe('Request Status Changes', () => {
@@ -155,6 +161,127 @@ test.describe('Requests Mutation Agent', () => {
       if (capture.validationErrors?.length) {
         capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
       }
+    });
+
+    test('PUT /rf/requests/{id} - update request details', async ({ api }) => {
+      const requestsData = await api.fetchReferenceData('rf/requests?is_paginate=0');
+      const requests = (requestsData as any)?.data || [];
+
+      if (requests.length > 0) {
+        const requestId = requests[0].id;
+        const capture = await api.put(`rf/requests/${requestId}`, {
+          description: `Updated request ${Date.now()}`,
+          priority: 'high',
+        });
+        captures.push(capture);
+        console.log(`PUT /rf/requests/${requestId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.put('rf/requests/1', {
+          description: `Updated request ${Date.now()}`,
+        });
+        captures.push(capture);
+        console.log(`PUT /rf/requests/1 => ${capture.response.status}`);
+      }
+    });
+
+    test('DELETE /rf/requests/{id} - delete request', async ({ api }) => {
+      const requestsData = await api.fetchReferenceData('rf/requests?is_paginate=0');
+      const requests = (requestsData as any)?.data || [];
+
+      if (requests.length > 1) {
+        const requestId = requests[requests.length - 1].id;
+        const capture = await api.delete(`rf/requests/${requestId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/requests/${requestId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/requests/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/requests/99999 => ${capture.response.status}`);
+      }
+    });
+  });
+
+  test.describe('Request Assignment', () => {
+    test('POST /rf/requests/{id}/assign - assign request to professional', async ({ api }) => {
+      const requestsData = await api.fetchReferenceData('rf/requests?is_paginate=0');
+      const requests = (requestsData as any)?.data || [];
+
+      const professionalsData = await api.fetchReferenceData('rf/professionals?is_paginate=0');
+      const professionals = (professionalsData as any)?.data || [];
+
+      if (requests.length > 0) {
+        const requestId = requests[0].id;
+        const professionalId = professionals.length > 0 ? professionals[0].id : 1;
+
+        const capture = await api.post(`rf/requests/${requestId}/assign`, {
+          professional_id: professionalId,
+          notes: 'Assigned for handling',
+        });
+        captures.push(capture);
+        console.log(`POST /rf/requests/${requestId}/assign => ${capture.response.status}`);
+      } else {
+        const capture = await api.post('rf/requests/1/assign', {
+          professional_id: 1,
+        });
+        captures.push(capture);
+        console.log(`POST /rf/requests/1/assign => ${capture.response.status}`);
+      }
+    });
+
+    test('POST /rf/requests/{id}/reassign - reassign request', async ({ api }) => {
+      const requestsData = await api.fetchReferenceData('rf/requests?is_paginate=0');
+      const requests = (requestsData as any)?.data || [];
+
+      if (requests.length > 0) {
+        const requestId = requests[0].id;
+        const capture = await api.post(`rf/requests/${requestId}/reassign`, {
+          professional_id: 2,
+          reason: 'Reassigning to different professional',
+        });
+        captures.push(capture);
+        console.log(`POST /rf/requests/${requestId}/reassign => ${capture.response.status}`);
+      } else {
+        const capture = await api.post('rf/requests/1/reassign', {
+          professional_id: 2,
+        });
+        captures.push(capture);
+        console.log(`POST /rf/requests/1/reassign => ${capture.response.status}`);
+      }
+    });
+  });
+
+  test.describe('Request Categories', () => {
+    test('POST /rf/request-categories - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('rf/request-categories', EMPTY_DATA);
+      captures.push(capture);
+      console.log(`POST /rf/request-categories (empty) => ${capture.response.status}`);
+      if (capture.validationErrors?.length) {
+        capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
+      }
+    });
+
+    test('POST /rf/request-categories - create category', async ({ api }) => {
+      const capture = await api.post('rf/request-categories', {
+        name: `Test Category ${Date.now()}`,
+        description: 'Test category description',
+        type: 'maintenance',
+      });
+      captures.push(capture);
+      console.log(`POST /rf/request-categories => ${capture.response.status}`);
+    });
+
+    test('PUT /rf/request-categories/{id} - update category', async ({ api }) => {
+      const capture = await api.put('rf/request-categories/1', {
+        name: `Updated Category ${Date.now()}`,
+      });
+      captures.push(capture);
+      console.log(`PUT /rf/request-categories/1 => ${capture.response.status}`);
+    });
+
+    test('DELETE /rf/request-categories/{id} - delete category', async ({ api }) => {
+      const capture = await api.delete('rf/request-categories/999');
+      captures.push(capture);
+      console.log(`DELETE /rf/request-categories/999 => ${capture.response.status}`);
     });
   });
 

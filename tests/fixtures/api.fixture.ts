@@ -62,17 +62,24 @@ function parseValidationErrors(body: unknown): ValidationError[] {
   const responseBody = body as Record<string, unknown>;
 
   // Handle Laravel-style validation errors
-  const errObj = responseBody.errors as Record<string, string[]> | undefined;
+  const errObj = responseBody.errors as Record<string, unknown> | undefined;
   if (errObj && typeof errObj === 'object') {
     for (const [field, messages] of Object.entries(errObj)) {
       if (Array.isArray(messages)) {
         for (const message of messages) {
+          const messageStr = typeof message === 'string' ? message : JSON.stringify(message);
           errors.push({
             field,
-            message,
+            message: messageStr,
             rule: extractRule(message),
           });
         }
+      } else if (typeof messages === 'string') {
+        errors.push({
+          field,
+          message: messages,
+          rule: extractRule(messages),
+        });
       }
     }
   }
@@ -81,7 +88,14 @@ function parseValidationErrors(body: unknown): ValidationError[] {
 }
 
 // Extract validation rule from message
-function extractRule(message: string): string | undefined {
+function extractRule(message: unknown): string | undefined {
+  // Handle case where message might not be a string
+  if (typeof message !== 'string') {
+    if (Array.isArray(message)) {
+      return extractRule(message[0]);
+    }
+    return undefined;
+  }
   const lowerMessage = message.toLowerCase();
   if (lowerMessage.includes('required') || lowerMessage.includes('مطلوب')) return 'required';
   if (lowerMessage.includes('min:') || lowerMessage.includes('minimum')) return 'min';

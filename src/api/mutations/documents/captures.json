@@ -1,0 +1,78 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/tenants/15/documents",
+      "body": {
+        "name": "Tenant ID Document 1775987135196",
+        "type": "id_document",
+        "description": "Tenant identification document"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:35 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "05a7a0ead89bc57d93c8339a9c525cb4",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8y6qnGzI8Mm5eJ1NwcXyCOWP7Q%2BIV5tcfRFuTnUorlCohmfxHXWZVo3To%2FEWbzo25SVLKhaHIHcSrW9tKEBhEe%2FL63kjBTZWiLePaeUOIq66tlAc4r%2Flvn%2FtUhATHFxTn6UyV8exYdiL02Lx\"}]}",
+        "cf-ray": "9eb14c8c8f81dccc-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 307
+    },
+    "timestamp": "2026-04-12T09:45:35.504Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/owners/3/documents",
+      "body": {
+        "name": "Owner Document 1775987135952",
+        "type": "contract",
+        "description": "Owner contract document"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:36 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "fab7422b678e80662634facd38a63e51",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cOzLd2K9mFKfjKv4OYMKeFHlcBBER%2B%2FpOaeLjM2ZiKEmVEmfGSQ1ssgpR6u6g8Q7pJAIXC2GHWN%2B1kNF26w07oM%2BfUuRaC2TbZcpN1HxnqefZnANgtkqcK16upVZKShrsYwMxyRww0CX2r%2Bo\"}]}",
+        "cf-ray": "9eb14c91bed1dccc-FRA"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 538
+    },
+    "timestamp": "2026-04-12T09:45:36.491Z",
+    "success": false,
+    "validationErrors": []
+  }
+]

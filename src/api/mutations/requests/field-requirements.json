@@ -1,1 +1,20 @@
-{}
+{
+  "rf_category_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل rf category id مطلوب."
+    ]
+  },
+  "permissions": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل permissions مطلوب."
+    ]
+  }
+}

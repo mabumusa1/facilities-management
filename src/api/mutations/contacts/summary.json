@@ -1,22 +1,28 @@
 {
   "module": "contacts",
-  "generatedAt": "2026-04-12T08:05:37.802Z",
-  "totalCaptures": 4,
+  "generatedAt": "2026-04-12T09:45:34.613Z",
+  "totalCaptures": 6,
   "successCount": 1,
-  "errorCount": 3,
-  "successRate": "25.0%",
+  "errorCount": 5,
+  "successRate": "16.7%",
   "endpoints": {
-    "PUT rf/owners/3": {
-      "method": "PUT",
-      "success": 0,
-      "error": 1,
-      "avgTiming": 399
-    },
     "POST rf/tenants": {
       "method": "POST",
       "success": 1,
-      "error": 2,
-      "avgTiming": 253.33333333333334
+      "error": 3,
+      "avgTiming": 208.33333333333331
+    },
+    "PUT rf/tenants/15": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 728
+    },
+    "DELETE rf/tenants/4": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 371
     }
   }
 }

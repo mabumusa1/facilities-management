@@ -1,16 +1,22 @@
 {
   "module": "leasing",
-  "generatedAt": "2026-04-12T08:05:40.642Z",
-  "totalCaptures": 3,
+  "generatedAt": "2026-04-12T09:45:41.662Z",
+  "totalCaptures": 5,
   "successCount": 0,
-  "errorCount": 3,
+  "errorCount": 5,
   "successRate": "0.0%",
   "endpoints": {
     "POST rf/leases/create": {
       "method": "POST",
       "success": 0,
-      "error": 3,
-      "avgTiming": 207.5
+      "error": 4,
+      "avgTiming": 145.5
+    },
+    "PUT rf/leases/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 329
     }
   }
 }

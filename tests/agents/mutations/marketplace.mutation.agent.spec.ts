@@ -73,7 +73,7 @@ test.describe('Marketplace Mutation Agent', () => {
     }) => {
       // Account number must be at least 14 digits
       const capture = await api.post(
-        '/marketplace/admin/settings/banks/store',
+        'marketplace/admin/settings/banks/store',
         INVALID_BANK_SETTINGS
       );
       captures.push(capture);
@@ -83,6 +83,20 @@ test.describe('Marketplace Mutation Agent', () => {
         `POST /marketplace/admin/settings/banks/store (short account) => ${capture.response.status}`
       );
       console.log(`  CRITICAL: account_number must be at least 14 digits`);
+    });
+
+    test('PUT /marketplace/admin/settings/banks/{id} - update bank setting', async ({ api }) => {
+      const capture = await api.put('marketplace/admin/settings/banks/1', {
+        beneficiary_name: `Updated Beneficiary ${Date.now()}`,
+      });
+      captures.push(capture);
+      console.log(`PUT /marketplace/admin/settings/banks/1 => ${capture.response.status}`);
+    });
+
+    test('DELETE /marketplace/admin/settings/banks/{id} - delete bank setting', async ({ api }) => {
+      const capture = await api.delete('marketplace/admin/settings/banks/999');
+      captures.push(capture);
+      console.log(`DELETE /marketplace/admin/settings/banks/999 => ${capture.response.status}`);
     });
   });
 
@@ -249,6 +263,133 @@ test.describe('Marketplace Mutation Agent', () => {
         console.log(
           `POST /marketplace/admin/visits/rejected/${visitId} => ${capture.response.status}`
         );
+      }
+    });
+
+    test('POST /marketplace/admin/visits/cancel/{id} - cancel visit', async ({ api }) => {
+      const visitsData = await api.fetchReferenceData('marketplace/admin/visits?is_paginate=0');
+      const visits = (visitsData as any)?.data || [];
+
+      if (visits.length > 0) {
+        const visitId = visits[visits.length - 1].id;
+        const capture = await api.post(`marketplace/admin/visits/cancel/${visitId}`, {
+          reason: 'Test cancellation',
+        });
+        captures.push(capture);
+        console.log(`POST /marketplace/admin/visits/cancel/${visitId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.post('marketplace/admin/visits/cancel/999', {
+          reason: 'Test cancellation',
+        });
+        captures.push(capture);
+        console.log(`POST /marketplace/admin/visits/cancel/999 => ${capture.response.status}`);
+      }
+    });
+  });
+
+  test.describe('Offers Management', () => {
+    test('POST /marketplace/admin/offers - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('marketplace/admin/offers', EMPTY_DATA);
+      captures.push(capture);
+      console.log(`POST /marketplace/admin/offers (empty) => ${capture.response.status}`);
+      if (capture.validationErrors?.length) {
+        capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
+      }
+    });
+
+    test('POST /marketplace/admin/offers - create offer', async ({ api }) => {
+      await resolver.resolve('unit');
+      const unitId = resolver.getResolvedId('unit');
+
+      const capture = await api.post('marketplace/admin/offers', {
+        unit_id: unitId,
+        title: `Test Offer ${Date.now()}`,
+        description: 'Test offer description',
+        discount_type: 'percentage',
+        discount_value: 10,
+        start_date: new Date().toISOString().split('T')[0],
+        end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      });
+      captures.push(capture);
+      console.log(`POST /marketplace/admin/offers => ${capture.response.status}`);
+    });
+
+    test('PUT /marketplace/admin/offers/{id} - update offer', async ({ api }) => {
+      const capture = await api.put('marketplace/admin/offers/1', {
+        title: `Updated Offer ${Date.now()}`,
+        discount_value: 15,
+      });
+      captures.push(capture);
+      console.log(`PUT /marketplace/admin/offers/1 => ${capture.response.status}`);
+    });
+
+    test('DELETE /marketplace/admin/offers/{id} - delete offer', async ({ api }) => {
+      const capture = await api.delete('marketplace/admin/offers/999');
+      captures.push(capture);
+      console.log(`DELETE /marketplace/admin/offers/999 => ${capture.response.status}`);
+    });
+  });
+
+  test.describe('Listings Management', () => {
+    test('POST /marketplace/admin/listings - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('marketplace/admin/listings', EMPTY_DATA);
+      captures.push(capture);
+      console.log(`POST /marketplace/admin/listings (empty) => ${capture.response.status}`);
+      if (capture.validationErrors?.length) {
+        capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
+      }
+    });
+
+    test('POST /marketplace/admin/listings - create listing', async ({ api }) => {
+      await resolver.resolve('unit');
+      const unitId = resolver.getResolvedId('unit');
+
+      const capture = await api.post('marketplace/admin/listings', {
+        unit_id: unitId,
+        title: `Test Listing ${Date.now()}`,
+        description: 'Test listing description',
+        listing_type: 'rent',
+        price: 50000,
+        is_featured: false,
+      });
+      captures.push(capture);
+      console.log(`POST /marketplace/admin/listings => ${capture.response.status}`);
+    });
+
+    test('PUT /marketplace/admin/listings/{id} - update listing', async ({ api }) => {
+      const capture = await api.put('marketplace/admin/listings/1', {
+        title: `Updated Listing ${Date.now()}`,
+        price: 55000,
+      });
+      captures.push(capture);
+      console.log(`PUT /marketplace/admin/listings/1 => ${capture.response.status}`);
+    });
+
+    test('DELETE /marketplace/admin/listings/{id} - delete listing', async ({ api }) => {
+      const capture = await api.delete('marketplace/admin/listings/999');
+      captures.push(capture);
+      console.log(`DELETE /marketplace/admin/listings/999 => ${capture.response.status}`);
+    });
+  });
+
+  test.describe('Reference Data', () => {
+    test('GET /marketplace/admin/visits - list visits', async ({ api }) => {
+      try {
+        const data = await api.get('marketplace/admin/visits?is_paginate=0');
+        const visits = (data as any)?.data || [];
+        console.log(`GET /marketplace/admin/visits => ${visits.length} visits found`);
+      } catch (error) {
+        console.log(`GET /marketplace/admin/visits => Failed`);
+      }
+    });
+
+    test('GET /marketplace/admin/offers - list offers', async ({ api }) => {
+      try {
+        const data = await api.get('marketplace/admin/offers?is_paginate=0');
+        const offers = (data as any)?.data || [];
+        console.log(`GET /marketplace/admin/offers => ${offers.length} offers found`);
+      } catch (error) {
+        console.log(`GET /marketplace/admin/offers => Failed`);
       }
     });
   });

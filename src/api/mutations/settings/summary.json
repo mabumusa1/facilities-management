@@ -1,0 +1,46 @@
+{
+  "module": "settings",
+  "generatedAt": "2026-04-12T09:45:58.757Z",
+  "totalCaptures": 7,
+  "successCount": 0,
+  "errorCount": 7,
+  "successRate": "0.0%",
+  "endpoints": {
+    "POST rf/settings/sms-templates": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 324
+    },
+    "PUT rf/settings/sms-templates/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 287
+    },
+    "PUT rf/settings": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 438
+    },
+    "POST rf/settings/preferences": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 365
+    },
+    "POST rf/settings/mobile-notifications": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 312
+    },
+    "POST rf/announcements": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 390
+    }
+  }
+}

@@ -78,6 +78,24 @@ test.describe('Properties Mutation Agent', () => {
         console.log('Skipped: No community available for update');
       }
     });
+
+    test('DELETE /rf/communities/{id} - delete community', async ({ api }) => {
+      // Fetch communities to find one to delete (use last one to avoid critical data)
+      const communitiesData = await api.fetchReferenceData('rf/communities?is_paginate=0');
+      const communities = (communitiesData as any)?.data || [];
+
+      if (communities.length > 1) {
+        const communityId = communities[communities.length - 1].id;
+        const capture = await api.delete(`rf/communities/${communityId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/communities/${communityId} => ${capture.response.status}`);
+      } else {
+        // Try with a non-existent ID to capture the error response pattern
+        const capture = await api.delete('rf/communities/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/communities/99999 => ${capture.response.status}`);
+      }
+    });
   });
 
   test.describe('Buildings', () => {
@@ -134,6 +152,23 @@ test.describe('Properties Mutation Agent', () => {
         console.log(`PUT /rf/buildings/${buildingId} => ${capture.response.status}`);
       } else {
         console.log('Skipped: No building available for update');
+      }
+    });
+
+    test('DELETE /rf/buildings/{id} - delete building', async ({ api }) => {
+      // Fetch buildings to find one to delete
+      const buildingsData = await api.fetchReferenceData('rf/buildings?is_paginate=0');
+      const buildings = (buildingsData as any)?.data || [];
+
+      if (buildings.length > 1) {
+        const buildingId = buildings[buildings.length - 1].id;
+        const capture = await api.delete(`rf/buildings/${buildingId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/buildings/${buildingId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/buildings/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/buildings/99999 => ${capture.response.status}`);
       }
     });
   });
@@ -226,6 +261,93 @@ test.describe('Properties Mutation Agent', () => {
         captures.push(capture);
         console.log(`PUT /rf/units/${unitId} (status change) => ${capture.response.status}`);
       }
+    });
+
+    test('DELETE /rf/units/{id} - delete unit', async ({ api }) => {
+      // Fetch units to find one to delete
+      const unitsData = await api.fetchReferenceData('rf/units?is_paginate=0');
+      const units = (unitsData as any)?.data || [];
+
+      if (units.length > 1) {
+        const unitId = units[units.length - 1].id;
+        const capture = await api.delete(`rf/units/${unitId}`);
+        captures.push(capture);
+        console.log(`DELETE /rf/units/${unitId} => ${capture.response.status}`);
+      } else {
+        const capture = await api.delete('rf/units/99999');
+        captures.push(capture);
+        console.log(`DELETE /rf/units/99999 => ${capture.response.status}`);
+      }
+    });
+
+    test('POST /rf/units/bulk-update - bulk update units', async ({ api }) => {
+      const unitsData = await api.fetchReferenceData('rf/units?is_paginate=0');
+      const units = (unitsData as any)?.data || [];
+
+      if (units.length > 0) {
+        const unitIds = units.slice(0, 2).map((u: any) => u.id);
+        const capture = await api.post('rf/units/bulk-update', {
+          ids: unitIds,
+          rf_status_id: 26, // Set to Available
+        });
+        captures.push(capture);
+        console.log(`POST /rf/units/bulk-update => ${capture.response.status}`);
+      } else {
+        const capture = await api.post('rf/units/bulk-update', {
+          ids: [],
+          rf_status_id: 26,
+        });
+        captures.push(capture);
+        console.log(`POST /rf/units/bulk-update (empty) => ${capture.response.status}`);
+      }
+    });
+
+    test('POST /rf/units/bulk-delete - bulk delete units', async ({ api }) => {
+      // Test with non-existent IDs to capture error pattern
+      const capture = await api.post('rf/units/bulk-delete', {
+        ids: [99997, 99998, 99999],
+      });
+      captures.push(capture);
+      console.log(`POST /rf/units/bulk-delete => ${capture.response.status}`);
+    });
+  });
+
+  test.describe('Facilities', () => {
+    test('POST /rf/facilities - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('rf/facilities', EMPTY_DATA);
+      captures.push(capture);
+      console.log(`POST /rf/facilities (empty) => ${capture.response.status}`);
+    });
+
+    test('POST /rf/facilities - create facility', async ({ api }) => {
+      await resolver.resolve('community');
+      const communityId = resolver.getResolvedId('community');
+
+      const capture = await api.post('rf/facilities', {
+        name: `Test Facility ${Date.now()}`,
+        type: 'gym',
+        rf_community_id: communityId,
+        description: 'Test facility description',
+      });
+      captures.push(capture);
+      console.log(`POST /rf/facilities => ${capture.response.status}`);
+      if (capture.success) {
+        console.log(`  Created facility ID: ${api.extractFirstId(capture.response.body)}`);
+      }
+    });
+
+    test('PUT /rf/facilities/{id} - update facility', async ({ api }) => {
+      const capture = await api.put('rf/facilities/1', {
+        name: `Updated Facility ${Date.now()}`,
+      });
+      captures.push(capture);
+      console.log(`PUT /rf/facilities/1 => ${capture.response.status}`);
+    });
+
+    test('DELETE /rf/facilities/{id} - delete facility', async ({ api }) => {
+      const capture = await api.delete('rf/facilities/999');
+      captures.push(capture);
+      console.log(`DELETE /rf/facilities/999 => ${capture.response.status}`);
     });
   });
 

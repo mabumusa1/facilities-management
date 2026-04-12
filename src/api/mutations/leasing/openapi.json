@@ -146,11 +146,11 @@
                     "number_of_months": 0,
                     "lease_unit_type": 2,
                     "tenant_type": "individual",
-                    "tenant_id": "6",
+                    "tenant_id": "15",
                     "tenant": {
-                      "id": "6",
-                      "name": "Test Company9bd5k5",
-                      "phone_number": "+966593475494"
+                      "id": "15",
+                      "name": "Test Company85w1i8",
+                      "phone_number": "+966591003666"
                     },
                     "autoGenerateLeaseNumber": true,
                     "rental_type": "detailed",
@@ -167,6 +167,69 @@
                         "amount_type": "total"
                       }
                     ]
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/1": {
+      "put": {
+        "operationId": "put_rf_leases_1",
+        "summary": "PUT rf/leases/1",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "notes": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "notes": "Updated lease notes 1775987141315"
                   },
                   "summary": "Example request body"
                 }

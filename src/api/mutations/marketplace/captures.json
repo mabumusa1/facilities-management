@@ -2,14 +2,245 @@
   {
     "request": {
       "method": "POST",
-      "endpoint": "marketplace/admin/communities/unlist/4",
+      "endpoint": "marketplace/admin/settings/visits/store",
+      "body": {
+        "is_all_day": false,
+        "days": [
+          {
+            "day": "sunday",
+            "enabled": true,
+            "start_time": "09:00",
+            "end_time": "17:00"
+          },
+          {
+            "day": "monday",
+            "enabled": true,
+            "start_time": "09:00",
+            "end_time": "17:00"
+          },
+          {
+            "day": "tuesday",
+            "enabled": true,
+            "start_time": "09:00",
+            "end_time": "17:00"
+          },
+          {
+            "day": "wednesday",
+            "enabled": true,
+            "start_time": "09:00",
+            "end_time": "17:00"
+          },
+          {
+            "day": "thursday",
+            "enabled": true,
+            "start_time": "09:00",
+            "end_time": "17:00"
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:40 GMT",
+        "content-type": "application/json",
+        "content-length": "1112",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "61033983ccde2d7270bbba5db7fa7e63",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8Jugb%2BcjYdg6vNcGztkqT9ahtQ9ikcJaOkxWfMsdYLHVb9vObp18XSOMS5bsCfA1KGa%2B4CmLuy7LZ%2B8Y1ISPAIO3HCglB1WPKbAx1IkFDKQ9EXKnPWpNMgWeF65u9okSAdr1Uf0fqSrL2eyi\"}]}",
+        "cf-ray": "9eb14caa7854e229-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "days.0": [
+            "يجب أن يكون الحقل days.0 نصآ.",
+            "الحقل days.0 غير صحيح"
+          ],
+          "days.1": [
+            "يجب أن يكون الحقل days.1 نصآ.",
+            "الحقل days.1 غير صحيح"
+          ],
+          "days.2": [
+            "يجب أن يكون الحقل days.2 نصآ.",
+            "الحقل days.2 غير صحيح"
+          ],
+          "days.3": [
+            "يجب أن يكون الحقل days.3 نصآ.",
+            "الحقل days.3 غير صحيح"
+          ],
+          "days.4": [
+            "يجب أن يكون الحقل days.4 نصآ.",
+            "الحقل days.4 غير صحيح"
+          ]
+        }
+      },
+      "timing": 309
+    },
+    "timestamp": "2026-04-12T09:45:40.324Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "days.0",
+        "message": "يجب أن يكون الحقل days.0 نصآ."
+      },
+      {
+        "field": "days.0",
+        "message": "الحقل days.0 غير صحيح"
+      },
+      {
+        "field": "days.1",
+        "message": "يجب أن يكون الحقل days.1 نصآ."
+      },
+      {
+        "field": "days.1",
+        "message": "الحقل days.1 غير صحيح"
+      },
+      {
+        "field": "days.2",
+        "message": "يجب أن يكون الحقل days.2 نصآ."
+      },
+      {
+        "field": "days.2",
+        "message": "الحقل days.2 غير صحيح"
+      },
+      {
+        "field": "days.3",
+        "message": "يجب أن يكون الحقل days.3 نصآ."
+      },
+      {
+        "field": "days.3",
+        "message": "الحقل days.3 غير صحيح"
+      },
+      {
+        "field": "days.4",
+        "message": "يجب أن يكون الحقل days.4 نصآ."
+      },
+      {
+        "field": "days.4",
+        "message": "الحقل days.4 غير صحيح"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "marketplace/admin/settings/visits/store",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:40 GMT",
+        "content-type": "application/json",
+        "content-length": "222",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "d8fb701d21745baed8f34df69f3373a0",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2qaD6BWL%2FZp7eKmPXrz9x33azfQJe9sSxheTw27e%2FLyQJvJL%2BlgjkRV6vK09Th9jKbn9htJOU%2BUaJAywC3qzTQUBn8xhsui3kb1N3aYakbzih04CxNqpD0nL3BiGRonocYIkmIYWkmKNuXVa\"}]}",
+        "cf-ray": "9eb14cac7cb9e229-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "is_all_day": [
+            "الحقل is all day مطلوب."
+          ],
+          "days": [
+            "الحقل days مطلوب."
+          ]
+        }
+      },
+      "timing": 294
+    },
+    "timestamp": "2026-04-12T09:45:40.658Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "is_all_day",
+        "message": "الحقل is all day مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "days",
+        "message": "الحقل days مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "marketplace/admin/communities/list/9",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 09:45:41 GMT",
+        "content-type": "application/json",
+        "content-length": "267",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "0bf759069d4b16f070bbba5db7fa7986",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=eHx2A4IfaWRJSRsGRfwpzgWbeuxzSqoGGkIJyxnGs0kqmTL5XXbMPrKVm7FeTkZQreQnuu6fPAyWjMZGtkL1i%2FTFDOvPqPWRRIolY%2BSZDVitjXuKUX8Kwt%2BocP0ucYlIKOKwU24ivP2cn0ug\"}]}",
+        "cf-ray": "9eb14cb2ba38e229-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "allow_cash_sale": [
+            "يجب اختيار طريقة شراء واحدة على الأقل"
+          ]
+        }
+      },
+      "timing": 354
+    },
+    "timestamp": "2026-04-12T09:45:41.694Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "allow_cash_sale",
+        "message": "يجب اختيار طريقة شراء واحدة على الأقل"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "marketplace/admin/communities/unlist/9",
       "body": {}
     },
     "response": {
       "status": 200,
       "statusText": "OK",
       "headers": {
-        "date": "Sun, 12 Apr 2026 08:05:41 GMT",
+        "date": "Sun, 12 Apr 2026 09:45:42 GMT",
         "content-type": "application/json",
         "transfer-encoding": "chunked",
         "connection": "keep-alive",
@@ -24,16 +255,16 @@
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FC%2FbSpFiYxNBW5EPZtXkTPZ1jAHEUKKZNHoO9c9eQifJaRAB3rwWu3jDj5IW93NxvXpowPJmjRmW4djxIWLdbL%2F7suaucXwBGe5Ocdq4ySpCznBoogqc7dOrsXEXGCrznGA8mjVAO1%2Fq%2Fjdo\"}]}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DFnOkXpFHy9bOnno5yfQCakOqm0RGB6c0W5vyYJyvRCXLvihjqn8wCMELABN%2BO2%2BM6nDjXbPoV%2FVfr9FIMNeY6Kca3w5W2T2fr4eY7oqe%2FInReU3%2BOT7V1TcvNJEorZsIm3%2BCLli8ZcnJyDS\"}]}",
         "content-encoding": "br",
-        "cf-ray": "9eb0ba353efff615-MXP"
+        "cf-ray": "9eb14cb9488fe229-MRS"
       },
       "body": {
         "code": 200,
         "message": "",
         "data": {
-          "id": 4,
-          "name": "Updated Community 1775980921530",
+          "id": 9,
+          "name": "Updated Community 1775984545700",
           "district": {
             "id": 1,
             "name": "الدرعية"
@@ -61,9 +292,9 @@
         },
         "meta": []
       },
-      "timing": 315
+      "timing": 349
     },
-    "timestamp": "2026-04-12T08:05:40.930Z",
+    "timestamp": "2026-04-12T09:45:42.735Z",
     "success": true
   },
   {
@@ -78,7 +309,7 @@
       "status": 200,
       "statusText": "OK",
       "headers": {
-        "date": "Sun, 12 Apr 2026 08:05:42 GMT",
+        "date": "Sun, 12 Apr 2026 09:45:44 GMT",
         "content-type": "application/json",
         "transfer-encoding": "chunked",
         "connection": "keep-alive",
@@ -93,9 +324,9 @@
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NOVFmNhvtC3FZGkMY5x5q7ohMF1AwQpafrDXEZPRgyJPhEVpKLo8fXCcO73fyN9DW9smiAIpvBuSCnuDEYtn%2BHpYlZgYq%2Ba4h5ZdHGi%2BEAHRtf6Vm6Uv7G%2Bm3rOadwqxPXm7s3mulr%2FqOhNl\"}]}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=F%2B%2B%2BvOni5dcqVZW5crBu1aI6O%2FwvDTSLlxYqta%2BbclO7%2FOk4xekmW6QOsTInfLdpj5N9aaG5EiR229T3JKzunvU7iGzo7hWDDWN9J941i4QUTQUwft%2BZCKdyHe7vytAIxj75OOCVRPdVYphj\"}]}",
         "content-encoding": "br",
-        "cf-ray": "9eb0ba3ddd9bf615-MXP"
+        "cf-ray": "9eb14cc62b1ee229-MRS"
       },
       "body": {
         "code": 200,
@@ -157,9 +388,9 @@
         },
         "meta": []
       },
-      "timing": 339
+      "timing": 467
     },
-    "timestamp": "2026-04-12T08:05:42.327Z",
+    "timestamp": "2026-04-12T09:45:44.833Z",
     "success": true
   },
   {
@@ -174,7 +405,7 @@
       "status": 200,
       "statusText": "OK",
       "headers": {
-        "date": "Sun, 12 Apr 2026 08:05:44 GMT",
+        "date": "Sun, 12 Apr 2026 09:45:46 GMT",
         "content-type": "application/json",
         "transfer-encoding": "chunked",
         "connection": "keep-alive",
@@ -189,9 +420,9 @@
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2UVEZB8GLpOMHKULnHTK6uwOVKA2pbC8gNH3mw7WY7WHdZ9TIIW4f3ll4cNBU3HHeDVG4ZJNzv9Krs6dsY9CG%2FztA8RlN6W7D1x2skD7gEpos9h7EDedJ7ioZ1jVKmPg7iSF1zu9uAn2yTWB\"}]}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jefQNKrpSwNi8uYaBW2AwD0w0yErqkO5qV9qpc6u12YwXVbAFeyDuUfULOHgja%2BfLjGwqKNOxaYxgSnq6gKhgzkrPD1HjHg%2BrOeyh2dYqOJ9WfvYnNnqb4Q7KrREHPpAZewFe%2F1q5hNU4pku\"}]}",
         "content-encoding": "br",
-        "cf-ray": "9eb0ba477f88f615-MXP"
+        "cf-ray": "9eb14cd0c935e229-MRS"
       },
       "body": {
         "code": 200,
@@ -253,9 +484,9 @@
         },
         "meta": []
       },
-      "timing": 291
+      "timing": 283
     },
-    "timestamp": "2026-04-12T08:05:43.826Z",
+    "timestamp": "2026-04-12T09:45:46.462Z",
     "success": true
   }
 ]
