@@ -6,7 +6,7 @@ This document tracks progress for reverse engineering the Atar property manageme
 
 **Last Updated:** 2026-04-12 (COMPLETE!)
 
-**Status: 180 pages captured (100% of identified routes)**
+**Status: 205 pages captured (100% of identified routes)**
 
 ---
 
@@ -247,8 +247,8 @@ This document tracks progress for reverse engineering the Atar property manageme
 ## Phase 4: React Component Analysis
 
 ### Source File: `index-BqM3yZMa.js`
-- [x] Route structure extracted to `src/routes.json` (280+ routes)
-- [x] API calls mapped to components in `src/api/endpoints-from-react.json`
+- [x] Route structure extracted to `src/routes.json` (124 routes)
+- [x] API calls mapped to components in `src/api/endpoints-from-react.json` (60 endpoints)
 - [x] 42 routes identified in signals.md
 - [x] 29 API variable bindings documented
 - [x] 129 API endpoints extracted
@@ -259,18 +259,19 @@ This document tracks progress for reverse engineering the Atar property manageme
 
 | Category | Captured Pages |
 |----------|----------------|
-| Dashboard | 34 |
-| Leasing | 15 |
-| Marketplace | 15 |
+| Dashboard | 39 |
+| Leasing | 20 |
+| Marketplace | 25 |
 | Properties | 22 |
 | Transactions | 12 |
-| Contacts | 16 |
-| Settings | 32 |
-| Requests/Visitor | 10 |
+| Contacts | 17 |
+| Settings | 26 |
+| Requests/Visitor | 11 |
 | Directory | 8 |
-| Admin | 3 |
-| Other | 8 |
-| **Total Pages** | **180** |
+| Admin | 2 |
+| Auth/Legal | 6 |
+| Other | 17 |
+| **Total Pages** | **205** |
 
 | API Documentation | Status |
 |-------------------|--------|
@@ -292,47 +293,58 @@ This document tracks progress for reverse engineering the Atar property manageme
 - [x] All marketplace admin pages captured
 - [x] All directory sub-pages captured
 - [x] 129 API endpoints documented
-- [x] 180 page captures with screenshots + network traffic
+- [x] 205 page captures with screenshots + network traffic
 
-### Scanner Agents Created
-- dashboard.agent.spec.ts
-- properties.agent.spec.ts
-- leasing.agent.spec.ts
-- contacts.agent.spec.ts
-- transactions.agent.spec.ts
-- settings.agent.spec.ts
-- marketplace.agent.spec.ts
-- directory-pages.agent.spec.ts
-- settings-forms.agent.spec.ts
-- remaining-static.agent.spec.ts
-- dynamic-routes.agent.spec.ts
-- more-static.agent.spec.ts
-- final-batch.agent.spec.ts
-- extra-routes.agent.spec.ts
-- deep-routes.agent.spec.ts
-- service-settings.agent.spec.ts
-- contacts-forms.agent.spec.ts
-- leasing-details.agent.spec.ts
-- marketplace-details.agent.spec.ts
+### Scanner Agents Created (33 total)
+- auth-pages.agent.spec.ts
 - complaints.agent.spec.ts
+- contacts.agent.spec.ts
+- contacts-forms.agent.spec.ts
+- dashboard.agent.spec.ts
+- dashboard-full.agent.spec.ts
+- deep-routes.agent.spec.ts
+- directory-pages.agent.spec.ts
+- dynamic-routes.agent.spec.ts
+- extra-routes.agent.spec.ts
+- final-batch.agent.spec.ts
 - final-cleanup.agent.spec.ts
+- leasing.agent.spec.ts
+- leasing-details.agent.spec.ts
+- leasing-full.agent.spec.ts
+- legal-pages.agent.spec.ts
+- marketplace.agent.spec.ts
+- marketplace-details.agent.spec.ts
+- marketplace-full.agent.spec.ts
+- marketplace-mutations.agent.spec.ts
+- more-static.agent.spec.ts
+- mutation-capture.agent.spec.ts
+- other-pages.agent.spec.ts
+- properties.agent.spec.ts
+- properties-full.agent.spec.ts
+- remaining-static.agent.spec.ts
 - retry-failed.agent.spec.ts
+- service-settings.agent.spec.ts
+- settings.agent.spec.ts
+- settings-forms.agent.spec.ts
+- settings-full.agent.spec.ts
+- transactions.agent.spec.ts
+- transactions-retry.agent.spec.ts
 
 ---
 
-## Phase 5: Remaining Gaps (NEW)
+## Phase 5: Auth & Legal Pages - COMPLETE
 
 ### Auth Pages (Unauthenticated Session Required)
-- [ ] `/login` - Login page
-- [ ] `/verify` - Email verification
-- [ ] `/no-access` - Permission denied
-- [ ] `/403` - Forbidden page
+- [x] `/login` - Login page
+- [x] `/verify` - Email verification
+- [x] `/no-access` - Permission denied
+- [x] `/403` - Forbidden page
 
 **Agent:** `tests/agents/auth-pages.agent.spec.ts`
 
 ### Legal Pages (Static)
-- [ ] `/privacy_policy` - Privacy policy
-- [ ] `/terms_and_conditions` - Terms and conditions
+- [x] `/privacy_policy` - Privacy policy
+- [x] `/terms_and_conditions` - Terms and conditions
 
 **Agent:** `tests/agents/legal-pages.agent.spec.ts`
 
@@ -441,18 +453,18 @@ pretty-js.split/
 └── signals.md                 # Human-readable summary (48KB)
 
 src/
-├── pages/                     # 181 captured pages
+├── pages/                     # 205 captured pages
 │   └── {page-name}/
 │       ├── api/endpoints.json
 │       └── screenshot.png
-├── routes.json                # 277 route definitions
+├── routes.json                # 124 route definitions
 └── api/                       # Consolidated API docs
     ├── endpoints-from-browser.json
     ├── endpoints-from-logs.json
     └── endpoints-from-react.json
 
 tests/
-├── agents/                    # 31 scanner agents
+├── agents/                    # 33 scanner agents
 │   ├── auth-pages.agent.spec.ts      # NEW
 │   ├── legal-pages.agent.spec.ts     # NEW
 │   └── *.agent.spec.ts
@@ -487,7 +499,7 @@ npx playwright show-report
 
 | Metric | Before | After | Status |
 |--------|--------|-------|--------|
-| Pages Captured | 181 | **204** | **+23 NEW** |
+| Pages Captured | 181 | **205** | **+24 NEW** |
 | Route Coverage | 85% | **100%** | **COMPLETE** |
 | API Documented | 129 | 129 | **CONFIRMED** |
 | API Live Captured | 97 | **114** | **+17 NEW (88%)** |
