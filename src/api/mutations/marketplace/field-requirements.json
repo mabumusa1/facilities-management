@@ -1,4 +1,71 @@
 {
+  "beneficiary_name": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل beneficiary name مطلوب."
+    ]
+  },
+  "bank_name": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل bank name مطلوب."
+    ]
+  },
+  "account_number": {
+    "required": true,
+    "rules": [
+      "required",
+      "numeric"
+    ],
+    "messages": [
+      "الحقل account number مطلوب.",
+      "يجب ان يحتوي رقم الحساب على ارقام فقط",
+      "يجب ان يكون رقم الحساب اكثر من 14 رقم",
+      "صيغة الحقل account number .غير صحيحة"
+    ]
+  },
+  "iban": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل iban مطلوب."
+    ]
+  },
+  "deposit_time_limit_days": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "مدة التوقيع مطلوبة."
+    ]
+  },
+  "cash_contract_signing_days": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "validation.marketplace_sales.cash_signing.required"
+    ]
+  },
+  "bank_contract_signing_days": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "validation.marketplace_sales.bank_signing.required"
+    ]
+  },
   "days.0": {
     "required": false,
     "rules": [],

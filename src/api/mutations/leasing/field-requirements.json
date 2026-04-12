@@ -1,1 +1,188 @@
-{}
+{
+  "tenant.national_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+    ]
+  },
+  "units.0.rental_amount": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "المبلغ السنوي للإيجار مطلوب"
+    ]
+  },
+  "rental_contract_type_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل rental contract type id مطلوب."
+    ]
+  },
+  "created_at": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل created at مطلوب."
+    ]
+  },
+  "start_date": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل start date مطلوب."
+    ]
+  },
+  "end_date": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل end date مطلوب."
+    ]
+  },
+  "handover_date": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل handover date مطلوب."
+    ]
+  },
+  "lease_unit_type": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل lease unit type مطلوب."
+    ]
+  },
+  "number_of_years": {
+    "required": false,
+    "rules": [],
+    "messages": [
+      "يرجى إضافة مدة الإيجار بالسنوات."
+    ]
+  },
+  "number_of_months": {
+    "required": false,
+    "rules": [],
+    "messages": [
+      "يرجى إضافة مدة الإيجار بالشهور."
+    ]
+  },
+  "units": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل units مطلوب."
+    ]
+  },
+  "tenant_type": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل نوع المستأجر مطلوب."
+    ]
+  },
+  "autoGenerateLeaseNumber": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل auto generate lease number مطلوب."
+    ]
+  },
+  "contract_number": {
+    "required": false,
+    "rules": [
+      "unique"
+    ],
+    "messages": [
+      "يرجى إدخال رقم إيجار فريد."
+    ]
+  },
+  "rental_type": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل rental type مطلوب.",
+      "الحقل rental type غير صحيح"
+    ]
+  },
+  "payment_schedule_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل payment schedule id مطلوب."
+    ]
+  },
+  "tenant": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+    ]
+  },
+  "units.0.amount_type": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      " نوع المبلغ مطلوب."
+    ]
+  },
+  "rf_lease_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل rf lease id مطلوب."
+    ]
+  },
+  "end_at": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل end at مطلوب."
+    ]
+  },
+  "lease_id": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل lease id مطلوب."
+    ]
+  }
+}

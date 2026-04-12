@@ -18,6 +18,8 @@ const captures: MutationCapture[] = [];
 const REQUEST_STATUSES = ['pending', 'in-progress', 'completed', 'canceled', 'approved', 'rejected'];
 
 test.describe('Requests Mutation Agent', () => {
+  // Run all tests in serial mode to ensure captures are collected properly
+  test.describe.configure({ mode: 'serial' });
   test.afterAll(async () => {
     await writeMutationCaptures('requests', captures);
     console.log(`\n=== Requests Agent Complete ===`);
@@ -251,37 +253,117 @@ test.describe('Requests Mutation Agent', () => {
   });
 
   test.describe('Request Categories', () => {
-    test('POST /rf/request-categories - validation errors (empty)', async ({ api }) => {
-      const capture = await api.post('rf/request-categories', EMPTY_DATA);
+    test('POST /rf/requests/categories - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('rf/requests/categories', EMPTY_DATA);
       captures.push(capture);
-      console.log(`POST /rf/request-categories (empty) => ${capture.response.status}`);
+      console.log(`POST /rf/requests/categories (empty) => ${capture.response.status}`);
       if (capture.validationErrors?.length) {
         capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
       }
     });
 
-    test('POST /rf/request-categories - create category', async ({ api }) => {
-      const capture = await api.post('rf/request-categories', {
+    test('POST /rf/requests/categories - create category', async ({ api }) => {
+      const capture = await api.post('rf/requests/categories', {
         name: `Test Category ${Date.now()}`,
         description: 'Test category description',
         type: 'maintenance',
       });
       captures.push(capture);
-      console.log(`POST /rf/request-categories => ${capture.response.status}`);
+      console.log(`POST /rf/requests/categories => ${capture.response.status}`);
     });
 
-    test('PUT /rf/request-categories/{id} - update category', async ({ api }) => {
-      const capture = await api.put('rf/request-categories/1', {
+    test('PUT /rf/requests/categories/{id} - update category', async ({ api }) => {
+      const capture = await api.put('rf/requests/categories/1', {
         name: `Updated Category ${Date.now()}`,
       });
       captures.push(capture);
-      console.log(`PUT /rf/request-categories/1 => ${capture.response.status}`);
+      console.log(`PUT /rf/requests/categories/1 => ${capture.response.status}`);
     });
 
-    test('DELETE /rf/request-categories/{id} - delete category', async ({ api }) => {
-      const capture = await api.delete('rf/request-categories/999');
+    test('DELETE /rf/requests/categories/{id} - delete category', async ({ api }) => {
+      const capture = await api.delete('rf/requests/categories/999');
       captures.push(capture);
-      console.log(`DELETE /rf/request-categories/999 => ${capture.response.status}`);
+      console.log(`DELETE /rf/requests/categories/999 => ${capture.response.status}`);
+    });
+  });
+
+  test.describe('Request Types', () => {
+    test('POST /rf/requests/types/create - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('rf/requests/types/create', EMPTY_DATA);
+      captures.push(capture);
+      console.log(`POST /rf/requests/types/create (empty) => ${capture.response.status}`);
+      if (capture.validationErrors?.length) {
+        capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
+      }
+    });
+
+    test('POST /rf/requests/types/create - create request type', async ({ api }) => {
+      const categoriesData = await api.fetchReferenceData('rf/requests/categories?is_paginate=0');
+      const categories = (categoriesData as any)?.data || [];
+
+      const data: Record<string, unknown> = {
+        name: `Test Type ${Date.now()}`,
+        description: 'Test type description',
+      };
+
+      if (categories.length > 0) {
+        data.category_id = categories[0].id;
+      }
+
+      const capture = await api.post('rf/requests/types/create', data);
+      captures.push(capture);
+      console.log(`POST /rf/requests/types/create => ${capture.response.status}`);
+    });
+
+    test('PUT /rf/requests/types/{id} - update request type', async ({ api }) => {
+      const capture = await api.put('rf/requests/types/1', {
+        name: `Updated Type ${Date.now()}`,
+      });
+      captures.push(capture);
+      console.log(`PUT /rf/requests/types/1 => ${capture.response.status}`);
+    });
+
+    test('DELETE /rf/requests/types/{id} - delete request type', async ({ api }) => {
+      const capture = await api.delete('rf/requests/types/999');
+      captures.push(capture);
+      console.log(`DELETE /rf/requests/types/999 => ${capture.response.status}`);
+    });
+  });
+
+  test.describe('Request Sub-Categories', () => {
+    test('POST /rf/requests/sub-categories - validation errors (empty)', async ({ api }) => {
+      const capture = await api.post('rf/requests/sub-categories', EMPTY_DATA);
+      captures.push(capture);
+      console.log(`POST /rf/requests/sub-categories (empty) => ${capture.response.status}`);
+      if (capture.validationErrors?.length) {
+        capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
+      }
+    });
+
+    test('POST /rf/requests/sub-categories - create sub-category', async ({ api }) => {
+      const categoriesData = await api.fetchReferenceData('rf/requests/categories?is_paginate=0');
+      const categories = (categoriesData as any)?.data || [];
+
+      const data: Record<string, unknown> = {
+        name: `Test Sub-Category ${Date.now()}`,
+        description: 'Test sub-category description',
+      };
+
+      if (categories.length > 0) {
+        data.category_id = categories[0].id;
+      }
+
+      const capture = await api.post('rf/requests/sub-categories', data);
+      captures.push(capture);
+      console.log(`POST /rf/requests/sub-categories => ${capture.response.status}`);
+    });
+
+    test('PUT /rf/requests/sub-categories/{id} - update sub-category', async ({ api }) => {
+      const capture = await api.put('rf/requests/sub-categories/1', {
+        name: `Updated Sub-Category ${Date.now()}`,
+      });
+      captures.push(capture);
+      console.log(`PUT /rf/requests/sub-categories/1 => ${capture.response.status}`);
     });
   });
 

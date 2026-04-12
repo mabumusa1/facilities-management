@@ -32,6 +32,8 @@ import {
 const captures: MutationCapture[] = [];
 
 test.describe('Leasing Mutation Agent', () => {
+  // Run all tests in serial mode to ensure captures are collected properly
+  test.describe.configure({ mode: 'serial' });
   let resolver: DependencyResolver;
 
   test.beforeEach(async ({ api }) => {
@@ -47,7 +49,7 @@ test.describe('Leasing Mutation Agent', () => {
   });
 
   test.describe('Lease Creation', () => {
-    test('POST /rf/leases/create - create lease with valid data', async ({ api }) => {
+    test('POST /rf/leases - create lease with valid data', async ({ api }) => {
       // Ensure we have unit and tenant
       await resolver.resolve('unit');
       await resolver.resolve('tenant');
@@ -67,10 +69,10 @@ test.describe('Leasing Mutation Agent', () => {
         };
 
         const data = createLeaseSampleData(unitId, tenantId, tenantInfo);
-        const capture = await api.post('rf/leases/create', data);
+        const capture = await api.post('rf/leases', data);
         captures.push(capture);
 
-        console.log(`POST /rf/leases/create => ${capture.response.status}`);
+        console.log(`POST /rf/leases => ${capture.response.status}`);
         if (capture.success) {
           console.log(`  Created lease ID: ${api.extractFirstId(capture.response.body)}`);
         } else {
@@ -84,29 +86,29 @@ test.describe('Leasing Mutation Agent', () => {
       }
     });
 
-    test('POST /rf/leases/create - validation errors (empty body)', async ({ api }) => {
-      const capture = await api.post('rf/leases/create', EMPTY_DATA);
+    test('POST /rf/leases - validation errors (empty body)', async ({ api }) => {
+      const capture = await api.post('rf/leases', EMPTY_DATA);
       captures.push(capture);
 
       expect(capture.response.status).toBeGreaterThanOrEqual(400);
-      console.log(`POST /rf/leases/create (empty) => ${capture.response.status}`);
+      console.log(`POST /rf/leases (empty) => ${capture.response.status}`);
       if (capture.validationErrors?.length) {
         console.log(`  Validation errors: ${capture.validationErrors.length}`);
         capture.validationErrors.forEach((e) => console.log(`    - ${e.field}: ${e.rule}`));
       }
     });
 
-    test('POST /rf/leases/create - validation errors (wrong rental_type)', async ({ api }) => {
+    test('POST /rf/leases - validation errors (wrong rental_type)', async ({ api }) => {
       // This tests the critical learning: rental_type must be "detailed"
-      const capture = await api.post('rf/leases/create', INVALID_LEASE_DATA);
+      const capture = await api.post('rf/leases', INVALID_LEASE_DATA);
       captures.push(capture);
 
       expect(capture.response.status).toBeGreaterThanOrEqual(400);
-      console.log(`POST /rf/leases/create (wrong rental_type) => ${capture.response.status}`);
+      console.log(`POST /rf/leases (wrong rental_type) => ${capture.response.status}`);
       console.log(`  CRITICAL: rental_type must be "detailed", not "yearly"`);
     });
 
-    test('POST /rf/leases/create - validation errors (missing amount_type)', async ({ api }) => {
+    test('POST /rf/leases - validation errors (missing amount_type)', async ({ api }) => {
       await resolver.resolve('unit');
       await resolver.resolve('tenant');
 
@@ -120,7 +122,7 @@ test.describe('Leasing Mutation Agent', () => {
         const endDate = new Date(startDate);
         endDate.setFullYear(endDate.getFullYear() + 1);
 
-        const capture = await api.post('rf/leases/create', {
+        const capture = await api.post('rf/leases', {
           created_at: today.toISOString().split('T')[0],
           start_date: startDate.toISOString().split('T')[0],
           end_date: endDate.toISOString().split('T')[0],
@@ -145,7 +147,7 @@ test.describe('Leasing Mutation Agent', () => {
         });
         captures.push(capture);
 
-        console.log(`POST /rf/leases/create (no amount_type) => ${capture.response.status}`);
+        console.log(`POST /rf/leases (no amount_type) => ${capture.response.status}`);
         if (!capture.success) {
           console.log(`  CRITICAL: units[].amount_type is required`);
         }

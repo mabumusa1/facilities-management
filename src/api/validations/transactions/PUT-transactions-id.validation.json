@@ -1,0 +1,119 @@
+{
+  "endpoint": "transactions/{id}",
+  "method": "PUT",
+  "fields": {
+    "amount": {
+      "field": "amount",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل amount مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "due_on": {
+      "field": "due_on",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل due on مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "assignee.id": {
+      "field": "assignee.id",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "invalid",
+          "rawMessage": "الوحدة المختارة غير صالحة"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "unit.id": {
+      "field": "unit.id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الرجاء اختيار الوحدة الخاصة بالدافع"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "category": {
+      "field": "category",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل category مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "amount",
+    "category",
+    "due_on",
+    "unit.id"
+  ],
+  "optionalFields": [
+    "assignee.id"
+  ]
+}

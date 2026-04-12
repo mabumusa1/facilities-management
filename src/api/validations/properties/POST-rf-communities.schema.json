@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-communities.schema.json",
+  "title": "POST rf/communities",
+  "description": "Request body schema for POST rf/communities",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "country_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "currency_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "city_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "district_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "city_id",
+    "country_id",
+    "currency_id",
+    "district_id",
+    "name"
+  ],
+  "additionalProperties": true
+}

@@ -21,6 +21,8 @@ const captures: MutationCapture[] = [];
 const TRANSACTION_TYPES = ['money_in', 'money_out'];
 
 test.describe('Transactions Mutation Agent', () => {
+  // Run all tests in serial mode to ensure captures are collected properly
+  test.describe.configure({ mode: 'serial' });
   test.afterAll(async () => {
     await writeMutationCaptures('transactions', captures);
     console.log(`\n=== Transactions Agent Complete ===`);

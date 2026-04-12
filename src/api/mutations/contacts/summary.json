@@ -1,28 +1,94 @@
 {
   "module": "contacts",
-  "generatedAt": "2026-04-12T09:45:34.613Z",
-  "totalCaptures": 6,
-  "successCount": 1,
-  "errorCount": 5,
-  "successRate": "16.7%",
+  "generatedAt": "2026-04-12T15:21:57.999Z",
+  "totalCaptures": 22,
+  "successCount": 3,
+  "errorCount": 19,
+  "successRate": "13.6%",
   "endpoints": {
-    "POST rf/tenants": {
+    "POST rf/owners": {
       "method": "POST",
-      "success": 1,
-      "error": 3,
-      "avgTiming": 208.33333333333331
+      "success": 0,
+      "error": 4,
+      "avgTiming": 166.25
     },
-    "PUT rf/tenants/15": {
+    "PUT rf/owners/3": {
       "method": "PUT",
       "success": 0,
       "error": 1,
-      "avgTiming": 728
+      "avgTiming": 343
+    },
+    "DELETE rf/owners/99999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 311
+    },
+    "POST rf/tenants": {
+      "method": "POST",
+      "success": 2,
+      "error": 2,
+      "avgTiming": 144.625
+    },
+    "PUT rf/tenants/21": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 443
     },
     "DELETE rf/tenants/4": {
       "method": "DELETE",
       "success": 0,
       "error": 1,
-      "avgTiming": 371
+      "avgTiming": 262
+    },
+    "POST rf/tenants/21/family-members": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 295
+    },
+    "DELETE rf/tenants/1/family-members/1": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 266
+    },
+    "POST rf/admins": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 331
+    },
+    "POST rf/admins/check-validate": {
+      "method": "POST",
+      "success": 1,
+      "error": 0,
+      "avgTiming": 385
+    },
+    "PUT rf/admins/2": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 344
+    },
+    "DELETE rf/admins/1": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 249
+    },
+    "POST rf/professionals": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 341
+    },
+    "DELETE rf/professionals/99999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 261
     }
   }
 }

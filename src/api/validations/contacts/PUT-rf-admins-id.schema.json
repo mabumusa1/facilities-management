@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/put-rf-admins-{id}.schema.json",
+  "title": "PUT rf/admins/{id}",
+  "description": "Request body schema for PUT rf/admins/{id}",
+  "type": "object",
+  "properties": {
+    "last_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "صيغة الحقل اسم العائلة .غير صحيحة",
+      "examples": [
+        "example"
+      ]
+    },
+    "phone_country_code": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "phone_number": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "role": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "phone_country_code",
+    "phone_number",
+    "role"
+  ],
+  "additionalProperties": true
+}

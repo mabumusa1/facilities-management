@@ -1,0 +1,184 @@
+{
+  "endpoint": "marketplace/admin/settings/visits/store",
+  "method": "POST",
+  "fields": {
+    "days.0": {
+      "field": "days.0",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "string",
+          "rawMessage": "يجب أن يكون الحقل days.0 نصآ.",
+          "type": "string"
+        },
+        {
+          "rule": "invalid",
+          "rawMessage": "الحقل days.0 غير صحيح"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "days.1": {
+      "field": "days.1",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "string",
+          "rawMessage": "يجب أن يكون الحقل days.1 نصآ.",
+          "type": "string"
+        },
+        {
+          "rule": "invalid",
+          "rawMessage": "الحقل days.1 غير صحيح"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "days.2": {
+      "field": "days.2",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "string",
+          "rawMessage": "يجب أن يكون الحقل days.2 نصآ.",
+          "type": "string"
+        },
+        {
+          "rule": "invalid",
+          "rawMessage": "الحقل days.2 غير صحيح"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "days.3": {
+      "field": "days.3",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "string",
+          "rawMessage": "يجب أن يكون الحقل days.3 نصآ.",
+          "type": "string"
+        },
+        {
+          "rule": "invalid",
+          "rawMessage": "الحقل days.3 غير صحيح"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "days.4": {
+      "field": "days.4",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "string",
+          "rawMessage": "يجب أن يكون الحقل days.4 نصآ.",
+          "type": "string"
+        },
+        {
+          "rule": "invalid",
+          "rawMessage": "الحقل days.4 غير صحيح"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "is_all_day": {
+      "field": "is_all_day",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل is all day مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "days": {
+      "field": "days",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل days مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "days",
+    "is_all_day"
+  ],
+  "optionalFields": [
+    "days.0",
+    "days.1",
+    "days.2",
+    "days.3",
+    "days.4"
+  ]
+}

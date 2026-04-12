@@ -1,34 +1,100 @@
 {
   "module": "marketplace",
-  "generatedAt": "2026-04-12T09:45:47.091Z",
-  "totalCaptures": 6,
-  "successCount": 3,
-  "errorCount": 3,
-  "successRate": "50.0%",
+  "generatedAt": "2026-04-12T15:22:03.156Z",
+  "totalCaptures": 22,
+  "successCount": 5,
+  "errorCount": 17,
+  "successRate": "22.7%",
   "endpoints": {
+    "POST marketplace/admin/settings/banks/store": {
+      "method": "POST",
+      "success": 1,
+      "error": 2,
+      "avgTiming": 325.5
+    },
+    "PUT marketplace/admin/settings/banks/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 326
+    },
+    "DELETE marketplace/admin/settings/banks/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 306
+    },
+    "POST marketplace/admin/settings/sales/store": {
+      "method": "POST",
+      "success": 1,
+      "error": 1,
+      "avgTiming": 365.5
+    },
     "POST marketplace/admin/settings/visits/store": {
       "method": "POST",
       "success": 0,
       "error": 2,
-      "avgTiming": 301.5
+      "avgTiming": 471
     },
-    "POST marketplace/admin/communities/list/9": {
+    "POST marketplace/admin/communities/list/13": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 354
+      "avgTiming": 323
     },
-    "POST marketplace/admin/communities/unlist/9": {
+    "POST marketplace/admin/communities/unlist/13": {
       "method": "POST",
       "success": 1,
       "error": 0,
-      "avgTiming": 349
+      "avgTiming": 481
     },
     "POST marketplace/admin/units/prices-visibility/3": {
       "method": "POST",
       "success": 2,
       "error": 0,
-      "avgTiming": 375
+      "avgTiming": 392.5
+    },
+    "POST marketplace/admin/visits/cancel/999": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 269
+    },
+    "POST marketplace/admin/offers": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 277.5
+    },
+    "PUT marketplace/admin/offers/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 284
+    },
+    "DELETE marketplace/admin/offers/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 263
+    },
+    "POST marketplace/admin/listings": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 280.5
+    },
+    "PUT marketplace/admin/listings/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 318
+    },
+    "DELETE marketplace/admin/listings/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 304
     }
   }
 }

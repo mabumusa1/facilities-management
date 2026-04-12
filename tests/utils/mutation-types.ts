@@ -3,6 +3,19 @@
  * Defines types for capturing POST, PUT, PATCH, DELETE requests
  */
 
+// Re-export validation types from the validation extractor
+export type {
+  ExtractedRule,
+  FieldValidation,
+  EndpointValidation,
+} from './validation-rules-extractor';
+
+// Re-export JSON Schema types from the validation schema generator
+export type {
+  JSONSchema,
+  JSONSchemaProperty,
+} from './validation-schema-generator';
+
 // HTTP Methods for mutations
 export type HttpMethod = 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 

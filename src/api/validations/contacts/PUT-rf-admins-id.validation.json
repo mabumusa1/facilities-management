@@ -1,0 +1,97 @@
+{
+  "endpoint": "rf/admins/{id}",
+  "method": "PUT",
+  "fields": {
+    "last_name": {
+      "field": "last_name",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "invalid",
+          "rawMessage": "صيغة الحقل اسم العائلة .غير صحيحة"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "phone_country_code": {
+      "field": "phone_country_code",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل phone country code مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "phone_number": {
+      "field": "phone_number",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل رقم الجوال مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "role": {
+      "field": "role",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل role مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "phone_country_code",
+    "phone_number",
+    "role"
+  ],
+  "optionalFields": [
+    "last_name"
+  ]
+}

@@ -1,6 +1,447 @@
 [
   {
     "request": {
+      "method": "PUT",
+      "endpoint": "notifications",
+      "body": {
+        "email_notifications": true,
+        "sms_notifications": true,
+        "push_notifications": true
+      }
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:04 GMT",
+        "content-type": "application/json",
+        "content-length": "98",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "4957521b2cc0d7c16691c2dcde100b02",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TzmvMcX3xpz7KCe1vhdLwW971a0LI%2BU2YpQ%2BmQNT%2FLuNTFexAS6zEkhpBWEJlGE%2F%2Ba3LdEoZ3s1Sb%2BawpqimS7soxNzQkYpBpOEGQgoJJGYsFb6oB%2FQD6zJKttg9kU5h3APfFSg%2F2QYpu8wf\"}]}",
+        "cf-ray": "9eb339709bf3e167-MRS"
+      },
+      "body": {
+        "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD."
+      },
+      "timing": 293
+    },
+    "timestamp": "2026-04-12T15:22:03.529Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "notifications/settings",
+      "body": {
+        "lease_expiry": true,
+        "payment_reminder": true,
+        "maintenance_updates": true
+      }
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:04 GMT",
+        "content-type": "application/json",
+        "content-length": "99",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "1447d9c477d8488bcbae7ac466f47383",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LNALzE0qhDtrNfZ4hJqKfJzUUgHVeOWoCP%2BdAvzrypJJFJxPGjqodnN%2B4US3ojKL6xx%2FIcDsbYwaJmoD3iq6OohqCxt3fjiN0RTPWCx8m71i6PYf7G01cJpcw%2FDXdJrtO2F5QhDbs55r3D2E\"}]}",
+        "cf-ray": "9eb33972a8a8e167-MRS"
+      },
+      "body": {
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD."
+      },
+      "timing": 378
+    },
+    "timestamp": "2026-04-12T15:22:03.961Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "notifications/mark-read",
+      "body": {
+        "notification_ids": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:05 GMT",
+        "content-type": "application/json",
+        "content-length": "98",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "1b96905e585c1903cbae7ac466f47224",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cFx%2B54849qqPGY3ePetYKqt%2Fdxy8WDg8n4x6nfYdrsyCPvb7nX%2BsJp1gAozqg%2F1VdOne%2BwGZsOwSS57FrTKDne%2BreJKjSIasQJiVhQm%2BP67QGSvIiQF%2F%2Fp6jTlC%2F1EV8l%2BpPjClL1%2Bw%2FebuY\"}]}",
+        "cf-ray": "9eb33975bf93e167-MRS"
+      },
+      "body": {
+        "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD."
+      },
+      "timing": 357
+    },
+    "timestamp": "2026-04-12T15:22:04.385Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "notifications/1"
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:05 GMT",
+        "content-type": "application/json",
+        "content-length": "101",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "c8b61b0b0da9fe1ced63448e86a10087",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BexCRod2pd0Or0wJ4ZTtQBYjS%2B6ri%2F8ZgWVXDqnpw6fZBaB1BAmr49VTjcMOHbKI9rzZ1Kcmx%2FubVHBu%2FbtTBC8mou6UmHVz1nlFECPqFJfFA7jsWslXud0A0WKXJPbeKUVDZaL0SwZexg3s\"}]}",
+        "cf-ray": "9eb339781c9ae167-MRS"
+      },
+      "body": {
+        "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD."
+      },
+      "timing": 359
+    },
+    "timestamp": "2026-04-12T15:22:04.801Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/company",
+      "body": {}
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:06 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "5ef737ecd4ada853a4d430b242eb86a0;o=1",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SmWdXXzM68cvpNWY%2BZMjDMVy2I%2FhrSK%2BntnDapWEtDwZpbHThut4EnL3C3n0jgl0c%2BbINg%2BZyDXOp5c0q2s0Rd%2FL8DzTw%2FUlZn6XMb3jg%2BDzqQ1QmVkbdXiFx5HGBuPOTne73tjUzRR%2Bb9%2B3\"}]}",
+        "cf-ray": "9eb3397aaa12e167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 254
+    },
+    "timestamp": "2026-04-12T15:22:05.111Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/settings/company",
+      "body": {
+        "name": "Test Company",
+        "email": "company@test.com",
+        "phone": "+966500000000",
+        "address": "Test Address, Riyadh"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:06 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "c4531f4987ec818ed6b059d8bccff571",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FHssiaypvG6MUwrO%2FXirlWTovPGtk2R718ubeMN2i2w3O%2BBhJbqUGlNH3RDdA0l6Aweup71d9mINn1dANiqOXF0kXOYmJUqQVyIDAwqzlW%2FZ0jxoe2%2FKm3MKIA3qo1%2BNI%2F0YyeWzKxbcgtIo\"}]}",
+        "cf-ray": "9eb3397cefa0e167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 271
+    },
+    "timestamp": "2026-04-12T15:22:05.469Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/logo",
+      "body": {
+        "logo_url": "https://example.com/logo.png"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:06 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "994cb33c4cc41c13d6b059d8bccff827",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mGOeykBszra76EuUmD5hTJLP3DLrRudxGWfhXfUyfuGqEYHCWZy99pOJ32P7UQpkvgVH%2BTp0ZJlN6vi3YJmhprNgtsloCK40zmPM2%2FNcS1VizY0fyQSaElulECuydQeJ8lfjbu3czQaZmyIc\"}]}",
+        "cf-ray": "9eb3397f0c49e167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 361
+    },
+    "timestamp": "2026-04-12T15:22:05.895Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/roles",
+      "body": {}
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:07 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "2847f8e07caa13a6a4d430b242eb8ad1",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=fa0nQk8ZNYpxJekssHCb7jhoh3%2B5Ui%2F2TD6R2heYKmI7RJkg83H5N%2FhQKNgS7gVpJ717cJYkEVzlJOTAFN8XikEHLkcIbKvl1clsKY7v0j3dq9QmpLlI3ZkDbvxID8l98oW0WRrQTYQ4LKFo\"}]}",
+        "cf-ray": "9eb33981aa02e167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 302
+    },
+    "timestamp": "2026-04-12T15:22:06.262Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/roles",
+      "body": {
+        "name": "Test Role 1776007326314",
+        "permissions": [
+          "view_dashboard",
+          "view_properties"
+        ]
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:07 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "e01ee009a026beaa6ad1f3331c6c246a",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hpeOVCg9mWo3UX7ORE7Yr6a%2FbdIZUbjlUvyUNKYSjeyvECJOAuxXNqpSWC0%2FAKNj2PGcagc76T9cSpuycSx37ED4mcFYtGwP6vAlcqtXREeWSNELTLkB1R0qGn3f6InIHf%2B%2Bi0aXY8VfV2hr\"}]}",
+        "cf-ray": "9eb33983ce94e167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 458
+    },
+    "timestamp": "2026-04-12T15:22:06.774Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/email-templates",
+      "body": {}
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:08 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "daa12295cd0b68446ad1f3331c6c21e5",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KN490mr7RG%2BaR44e9juvGAMu5HaMBHWIk8nElKOQ4ePPvwES%2BfzyohB59ystip%2B86YLyIu2Y2%2BE5CwwoOog8X%2F4XkxjeMFxW3lxwXwWMlO3teckxPOIA3s2bGlPCCiFzdgiTFtZ%2FbUAcdzHk\"}]}",
+        "cf-ray": "9eb3398c288de167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 351
+    },
+    "timestamp": "2026-04-12T15:22:08.006Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/settings/email-templates",
+      "body": {
+        "name": "Test Template 1776007328066",
+        "subject": "Test Subject",
+        "body": "<p>Test email body</p>",
+        "type": "lease_reminder"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:09 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "50c762ce9fcb3549d6b059d8bccffc5a",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=QZeTFXV5SrbXpIDIMTbF2YRSpFC%2Ft0A40ZLVUAbDTErl4PaO0UkBuRwqMXXPXcioXLIxY4HHH8mVjUCYrWzQIeeI5%2F87GqU8Kg2uHk0wECH0nqK%2BPakTg34m1lSs3CCH%2FKeBqmQWjOjZIqOt\"}]}",
+        "cf-ray": "9eb3398eded9e167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 372
+    },
+    "timestamp": "2026-04-12T15:22:08.441Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/settings/email-templates/1",
+      "body": {
+        "subject": "Updated Subject 1776007328570"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:09 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "b354c5af1d9bed33d6b059d8bccfff10",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FPzL8gqKuy2lrfbywjqNOEp9ohDZbVO4j34uvjGpkPEl9w4hjADs9t7ZVN4Lg0OxYfr1VDvhskm0zg68Pw%2B4suMqCMvSdmMvMydJlKN29BErMKQysqyyfBnXBHr6r8DC3J7LSr9r96vHiXw8\"}]}",
+        "cf-ray": "9eb33991ee6ce167-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 306
+    },
+    "timestamp": "2026-04-12T15:22:08.878Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
       "method": "POST",
       "endpoint": "rf/settings/sms-templates",
       "body": {}
@@ -9,27 +450,27 @@
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:56 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:10 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "030dbc622a75bfa870bbba5db7fa7612",
+        "x-cloud-trace-context": "4060a386f2aedfa8b665fb6e189ef61d",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=H0yqf7%2BFESJ24S0D9Z6sKWpJo4qnPrzdgsQIp6eAIfkXK3fhYpqcZkNSA7JDvHbzaKtv0Yv6kNn5jI14tGcd9A9bg6zMA0%2F0PYE3hRDlpy4PC%2Fj2LnYBk9TU9pNgf23JgIrEk1XvGA7LK9km\"}]}",
-        "cf-ray": "9eb14d0ddd5437c8-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=kRPPQl2hoL7jgor3%2F56irpxfs2mJJsqQXwj%2BHq0DJlu2KLf0nr0cK7mlBEh9sUb8EOQ9iJqWoV0K1fmOXxzbhzWRv9xdfpNwi57d9sCEAuXVfqB8S1e%2B92StowO2YlDqpizBeKwO4j%2BWkhjD\"}]}",
+        "cf-ray": "9eb339947c43e167-MRS"
       },
       "body": {
         "success": false,
         "message": "URL link not Found."
       },
-      "timing": 306
+      "timing": 267
     },
-    "timestamp": "2026-04-12T09:45:56.242Z",
+    "timestamp": "2026-04-12T15:22:09.251Z",
     "success": false,
     "validationErrors": []
   },
@@ -38,7 +479,7 @@
       "method": "POST",
       "endpoint": "rf/settings/sms-templates",
       "body": {
-        "name": "SMS Template 1775987156273",
+        "name": "SMS Template 1776007329312",
         "body": "Test SMS message",
         "type": "payment_reminder"
       }
@@ -47,27 +488,27 @@
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:56 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:10 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "15d8b7d421c04df35427f9d961c10d4a",
+        "x-cloud-trace-context": "959753858990a2bc6ad1f3331c6c20e3",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cT%2B0hMWDPFubSYMKe0Ki%2FvYvwMMxlaGRXbuQK4yedQtN7FZIiJJEuCTWYA93bfDtaj%2BmO%2B1OzJTQ5%2BIIJqyAnwGIoA%2BcGOzRbhG%2BJYCacxi94GdYCiqczik%2FvCoYl%2FiWIlCsLYYKPh3AagsR\"}]}",
-        "cf-ray": "9eb14d107f6937c8-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7OXKvPps4kRUgqaVrpOjjWKrZIS3BTPpBfc8lt8ldN3FscU2WRA3nkTWcLFjpkAzQEPOtXrYOx8hI20KcGFq9AnqAXZS%2BjYNRmztB1FZ%2F1dQCP7NrVvO7QlFkHdoy3asXrWQhkd9HVvOEOqP\"}]}",
+        "cf-ray": "9eb339969904e167-MRS"
       },
       "body": {
         "success": false,
         "message": "URL link not Found."
       },
-      "timing": 342
+      "timing": 273
     },
-    "timestamp": "2026-04-12T09:45:56.618Z",
+    "timestamp": "2026-04-12T15:22:09.587Z",
     "success": false,
     "validationErrors": []
   },
@@ -76,34 +517,34 @@
       "method": "PUT",
       "endpoint": "rf/settings/sms-templates/1",
       "body": {
-        "body": "Updated SMS 1775987156741"
+        "body": "Updated SMS 1776007329659"
       }
     },
     "response": {
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:57 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:10 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "837c20fe55a06ed022638b5723ab1c0b",
+        "x-cloud-trace-context": "afed1e28eceb00bced63448e86a10453",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2FgjuWQC3QeKWhxHqkcNvRVzi%2FWUwW0lsd3rUlu2iU7fzSLfZ4UaPClV%2BjNzutEqhmxppoOKx0bk88C9TWVs1zW0huMYccPYR4enqjdwb3aD0xuAzk1UzmZk3Rz00T2ydUOYrIKuaioysL1kB\"}]}",
-        "cf-ray": "9eb14d12f96437c8-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Q70KKkWFJOv9PcNTFC3G6M5sHMOQNqNJYLV7IytkOUyfkGmC181yBAN1f%2FSwjNqyBmCTMNy9d7GJPwlVtWXMcdl8A3FTvNilgGrgG%2BMvm6qqIEr%2F9TDZroK9BqMOskgzMoBtj%2F01JAmxjGRp\"}]}",
+        "cf-ray": "9eb33998bd9be167-MRS"
       },
       "body": {
         "success": false,
         "message": "URL link not Found."
       },
-      "timing": 287
+      "timing": 262
     },
-    "timestamp": "2026-04-12T09:45:57.030Z",
+    "timestamp": "2026-04-12T15:22:09.926Z",
     "success": false,
     "validationErrors": []
   },
@@ -122,27 +563,27 @@
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:57 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:11 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "cf214f8c37175e962634facd38a630a4",
+        "x-cloud-trace-context": "bcf7d3282df5f1ffcbae7ac466f475cd",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NgBjd40kysUU4hyKwUYQnhzRS2NmcpU%2FRyOsBvPktH1vWBcfRzR4iB4vCDd5WOWEStHhjKUOv3c2wigPlklVg%2BeMLjYmCuY9%2BILQInUahf1KmGzkNG2zjwDol6%2B4RYqzf3fvzTeisTpMLpzv\"}]}",
-        "cf-ray": "9eb14d155b9a37c8-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Wr5uudmMezvK28UXvdNRDNJZp4tzoyeRioVJIs2NbQckU%2Fw7KRTvkPfHUcJU6s8sDvT%2B43kFhsm4PDhtHfFos7ruAbPLjtzvSFMGa%2FlToTjptl%2Bw36RCDvfajXllf2lzr0eXrbKEGBsBBvjZ\"}]}",
+        "cf-ray": "9eb3399b0a68e167-MRS"
       },
       "body": {
         "success": false,
         "message": "URL link not Found."
       },
-      "timing": 438
+      "timing": 327
     },
-    "timestamp": "2026-04-12T09:45:57.556Z",
+    "timestamp": "2026-04-12T15:22:10.356Z",
     "success": false,
     "validationErrors": []
   },
@@ -159,27 +600,27 @@
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:58 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:11 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "212128d4062111b7b4b1e20ec1472623",
+        "x-cloud-trace-context": "dc554f9b434c17adb665fb6e189effd6",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=iaZSwSkO5m6GRWrROib5JboNZ5u2ZRBD7FEmO6USzKInNxElcq6I%2FS80lgQCdU8lcxwq3AeH%2BNFFqLFwGwXhFxxarcBkUdZjIlWJ5UihJrM%2Ferwulw14HE3YjooZ5ay0HqhPIzZcgU35w8qi\"}]}",
-        "cf-ray": "9eb14d183e7b37c8-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wWZhksVXahuli9PJND8bzv8YIGYYG4e0TiX6KWTaGd5IjrS%2FdYkj3ynQ9TtWI1nAVd6NvLfMQ%2BSVQz9mvODlp3Ufl%2B%2BZYj%2BM1kdKgJ%2FcAAZPexUCl%2FQbuMPO0TWiboru2drraG1S8C0pUXrB\"}]}",
+        "cf-ray": "9eb3399d4f9de167-MRS"
       },
       "body": {
         "success": false,
         "message": "URL link not Found."
       },
-      "timing": 365
+      "timing": 338
     },
-    "timestamp": "2026-04-12T09:45:57.943Z",
+    "timestamp": "2026-04-12T15:22:10.741Z",
     "success": false,
     "validationErrors": []
   },
@@ -197,27 +638,27 @@
       "status": 404,
       "statusText": "Not Found",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:58 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:12 GMT",
         "content-type": "application/json",
         "content-length": "49",
         "connection": "keep-alive",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "4326d717db6ba86e334a870a26be772f",
+        "x-cloud-trace-context": "222a7cf5ea710c0bcbae7ac466f4730f",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=31pDH0WA%2BFiOcRsFQNURKUb5Of6LmmxC3ee9JbYFDsJ66FV0pPwU6TDgc2GyAYDAuLNtf7RabJNNOWqwl43p0sZSwnv7kCLzzV77vIBFc2lZDJb6bRoUuuW7IqzP7D7TcVCMW4t7q67R25tQ\"}]}",
-        "cf-ray": "9eb14d1a993637c8-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Wv%2BZimIqDK%2F0l8O0Orazll4Q3utVZr5%2FEwttFBv6YoZW3R4P9MvThmh5LVo4IP4FgXc0ZakZqqLFh9YP5%2BJXM4CU22uz05PREJUYiVz7W%2BIBPi%2FQ5Ch31S3l6V0rc5biC74BDe720jtk1kvh\"}]}",
+        "cf-ray": "9eb339a03db3e167-MRS"
       },
       "body": {
         "success": false,
         "message": "URL link not Found."
       },
-      "timing": 312
+      "timing": 320
     },
-    "timestamp": "2026-04-12T09:45:58.278Z",
+    "timestamp": "2026-04-12T15:22:11.176Z",
     "success": false,
     "validationErrors": []
   },
@@ -226,7 +667,7 @@
       "method": "POST",
       "endpoint": "rf/announcements",
       "body": {
-        "title": "Test Announcement 1775987158312",
+        "title": "Test Announcement 1776007331219",
         "content": "This is a test announcement",
         "type": "general",
         "start_date": "2026-04-12"
@@ -236,7 +677,7 @@
       "status": 422,
       "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:58 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:12 GMT",
         "content-type": "application/json",
         "content-length": "706",
         "connection": "keep-alive",
@@ -244,13 +685,13 @@
         "x-ratelimit-limit": "5",
         "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "06c91ef9ff0821ab70bbba5db7fa7c58",
+        "x-cloud-trace-context": "52e67aa29b678c4db665fb6e189ef6ba",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=HwVSQGkJSmr4t1WB9Hft1U8%2BhRRQZD9QunDjjjRf6m5W4yNb238AsYFIWp8XEndWJFEXbRsYDNLCfUrDthyQ7O5iQYLKYCP2e64xpVpwDgCHujHL6z%2Br3BASj7IHmuYsJAu3PVJ7O2kS1lsH\"}]}",
-        "cf-ray": "9eb14d1ccbb737c8-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=P%2Btz0SDfjInV%2FhdHKHG9MmIddyal2gJ6piYykxXkoCQKCec6E6gWA%2BevlwOOaa%2BN%2BKnt8nZPe%2FpTLxv%2F802G43lViDNjhbFDCLQgUYoeCtikXKjgt0Z5CIUBprZFp09z128mYkdfnndvHW9t\"}]}",
+        "cf-ray": "9eb339a26acbe167-MRS"
       },
       "body": {
         "message": "The given data was invalid.",
@@ -275,9 +716,9 @@
           ]
         }
       },
-      "timing": 390
+      "timing": 297
     },
-    "timestamp": "2026-04-12T09:45:58.707Z",
+    "timestamp": "2026-04-12T15:22:11.517Z",
     "success": false,
     "validationErrors": [
       {

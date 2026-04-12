@@ -2,19 +2,592 @@
   {
     "request": {
       "method": "POST",
+      "endpoint": "rf/communities",
+      "body": {
+        "name": "Test Community 17760073141418wlhz",
+        "country_id": 1,
+        "currency_id": 1,
+        "city_id": 1,
+        "district_id": 1
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:21:55 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NI%2FdDDQCw%2BBVvRU3DjLxf5ti36EFJRXJiQfKN0%2FrpSAYN8Qu1grl%2FvhJIK8G5qO1LyVxnmJWHm4%2FBQU9PUHLII1qIqLhx3NHhS4Is6hf5USSvgOYKnm0mohZiHxU4U3RNg8NdNmQSL%2FC6wDy\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb33937c9cf2115-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم انشاء المشروع بنجاح",
+        "data": {
+          "id": 14,
+          "name": "Test Community 17760073141418wlhz",
+          "description": null,
+          "country": {
+            "id": 1,
+            "name": "المملكة العربية السعودية",
+            "code": "SA"
+          },
+          "currency": {
+            "id": 1,
+            "name": "ريال سعودي",
+            "code": "SAR"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "amenities": [],
+          "map": null,
+          "images": [],
+          "documents": [],
+          "buildings_count": 0,
+          "units_count": 0,
+          "requests_count": 0,
+          "total_income": 0,
+          "sales_commission_rate": "0.00",
+          "rental_commission_rate": "0.00",
+          "product_code": null,
+          "license_number": null,
+          "license_issue_date": null,
+          "license_expiry_date": null,
+          "record_payments": [],
+          "additional_payments": [],
+          "completion_percent": 0,
+          "allow_cash_sale": 0,
+          "allow_bank_financing": 0,
+          "listed_percentage": 0,
+          "is_market_place": null,
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "is_off_plan_sale": null
+        },
+        "meta": []
+      },
+      "timing": 534
+    },
+    "timestamp": "2026-04-12T15:21:54.677Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/communities",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:21:55 GMT",
+        "content-type": "application/json",
+        "content-length": "519",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "248407b1c70eb34e23040e37c9042401;o=1",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BU07YL2TZRoOrzi%2FB02JZjmjF9IZ5ZiKQdbpRp8dmSZJMtdl3IiBUMGnsg0vklnvjvIoXf9x4MsUK7vIyyLpIrmR5qL5KI93LAMaqeut4kCxHwwZ1L3Y2KWUL0uSmg2dA4V%2FFqzKl87tVD6e\"}]}",
+        "cf-ray": "9eb3393bbc9b2115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name": [
+            "الحقل الاسم مطلوب."
+          ],
+          "country_id": [
+            "الحقل country id مطلوب."
+          ],
+          "currency_id": [
+            "الحقل currency id مطلوب."
+          ],
+          "city_id": [
+            "الحقل city id مطلوب."
+          ],
+          "district_id": [
+            "الحقل district id مطلوب."
+          ]
+        }
+      },
+      "timing": 308
+    },
+    "timestamp": "2026-04-12T15:21:55.090Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name",
+        "message": "الحقل الاسم مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "country_id",
+        "message": "الحقل country id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "currency_id",
+        "message": "الحقل currency id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "city_id",
+        "message": "الحقل city id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "district_id",
+        "message": "الحقل district id مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/communities/14",
+      "body": {
+        "name": "Updated Community 1776007315589"
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:21:56 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xzlHI6G8%2BP%2F2NED1wOadgb%2FWO5Q9j3Cq3PrPQwBGMnlthxnHt%2BoByXziBs8LPqztwkfM0fk59sigc%2B4Wjglbd68OwVd3uXQeGXMyJdlygKDzuHOY6d25q%2BBwJ9gNFBZTLuSHJjJcLF7nB%2Bpp\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb33940b9c02115-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم تحديث المشروع بنجاح",
+        "data": {
+          "id": 14,
+          "name": "Updated Community 1776007315589",
+          "description": null,
+          "country": {
+            "id": 1,
+            "name": "المملكة العربية السعودية",
+            "code": "SA"
+          },
+          "currency": {
+            "id": 1,
+            "name": "ريال سعودي",
+            "code": "SAR"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "amenities": [],
+          "map": null,
+          "images": [],
+          "documents": [],
+          "buildings_count": 0,
+          "units_count": 0,
+          "requests_count": 0,
+          "total_income": 0,
+          "sales_commission_rate": "0.00",
+          "rental_commission_rate": "0.00",
+          "product_code": null,
+          "license_number": null,
+          "license_issue_date": null,
+          "license_expiry_date": null,
+          "record_payments": [],
+          "additional_payments": [],
+          "completion_percent": 0,
+          "allow_cash_sale": 0,
+          "allow_bank_financing": 0,
+          "listed_percentage": 0,
+          "is_market_place": "0",
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "is_off_plan_sale": "0"
+        },
+        "meta": []
+      },
+      "timing": 421
+    },
+    "timestamp": "2026-04-12T15:21:56.014Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "rf/communities/1"
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:21:57 GMT",
+        "content-type": "application/json",
+        "content-length": "113",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, PUT, PATCH",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "6f7f93b31f3fa5fbbd0b2360aba62de6",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5hdcRKRoAiD32tjEaShSPNiGM4jnz647Q38CvbjF5D4VhkPoZkhGfBXoPwj8bafuGDIjJ8iyxaz2S78SSs0H%2B9TWP%2Bx4ZxXMSL101vnrr6qxWpQESKjR9YpbtTEOF2CaYGs7Z7hSHErQflNG\"}]}",
+        "cf-ray": "9eb33946c93e2115-MRS"
+      },
+      "body": {
+        "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH."
+      },
+      "timing": 253
+    },
+    "timestamp": "2026-04-12T15:21:56.801Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/buildings",
+      "body": {
+        "name": "Test Building 1776007317461npstw",
+        "rf_community_id": "14"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:21:58 GMT",
+        "content-type": "application/json",
+        "content-length": "274",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "2f60237abe526cba6ad1f3331c6c28f3",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=OuxceKP82kKSX33sRFcbz0eMe%2BEXDD6DKEra%2ByEnsf3R3oNMD6ScvAm4oBQilVR2UAXPgWzpt0%2F56dd%2BC%2BkuXefrZUW1vwnYKCZvmQqqAe3%2F5qv%2FXcJkuF3fpS5PAQCmAuRZFtK%2FeRz5cZZ7\"}]}",
+        "cf-ray": "9eb3394c7fae2115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name": [
+            "يجب أن لا يتجاوز طول نص الاسم 20 حروفٍ/حرفًا"
+          ]
+        }
+      },
+      "timing": 283
+    },
+    "timestamp": "2026-04-12T15:21:57.746Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name",
+        "message": "يجب أن لا يتجاوز طول نص الاسم 20 حروفٍ/حرفًا"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/buildings",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:21:59 GMT",
+        "content-type": "application/json",
+        "content-length": "258",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "3b391ab91051e79a6ad1f3331c6c2872",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MMDyB8%2FfkBk5W2s2Dpq5XuhfLUQKajKfcAVVHgUQvex3tZdt4pVZGsyViUSlaHnVDeCATdUGqkp6RDMCtqufOGlF7t5FIYCj2ohDvizAcnivspaCzccgyMN6yRg6N18cN11tqgM2%2BgNWhX03\"}]}",
+        "cf-ray": "9eb3394eee0d2115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name": [
+            "الحقل الاسم مطلوب."
+          ],
+          "rf_community_id": [
+            "الحقل rf community id مطلوب."
+          ]
+        }
+      },
+      "timing": 336
+    },
+    "timestamp": "2026-04-12T15:21:58.171Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name",
+        "message": "الحقل الاسم مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "rf_community_id",
+        "message": "الحقل rf community id مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/buildings",
+      "body": {
+        "name": "Test Building"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:21:59 GMT",
+        "content-type": "application/json",
+        "content-length": "153",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "a6f3bb4c7c930833bd0b2360aba62cf7",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=JeP3UnQz4jgqvBBkXNBMF5tnLPSbzpbP1sgsEr%2FVnXgkKOaeVeTjO1NG9lasL8H2OFn7W0LnzEpjuQhYZ9jGkzNc%2F%2Fk5fQEy8NNQdPQKPcwSPg01eM2VEI%2BakPPJo2osJUQAaZJDPRJlPWjf\"}]}",
+        "cf-ray": "9eb339516cd92115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rf_community_id": [
+            "الحقل rf community id مطلوب."
+          ]
+        }
+      },
+      "timing": 402
+    },
+    "timestamp": "2026-04-12T15:21:58.649Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "rf_community_id",
+        "message": "الحقل rf community id مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/buildings/4",
+      "body": {
+        "name": "Updated Building 1776007319623"
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:00 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qLT%2B8BuVwoy7FGKrzg2G463Bm0yhsPVZ9%2BT5bfALMYzy78uHoUY9ahyKtf5acjZBI3w0nynPbIjq%2BUhsqEo7XxQQk0EyvJRvveqc3UErbQQ0Re%2FkKt7gthNLgRyMq74KOnJwZQy867ZPEn3t\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3395a0ad92115-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم تحديث المبنى بنجاح",
+        "data": {
+          "id": 4,
+          "name": "Updated Building 1776007319623",
+          "community": {
+            "id": 1,
+            "name": "Test Community 1",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": 0,
+            "units_count": 0,
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": null,
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "no_floors": "0",
+          "year_build": null,
+          "map": null,
+          "images": [],
+          "documents": [],
+          "units": 0
+        },
+        "meta": []
+      },
+      "timing": 396
+    },
+    "timestamp": "2026-04-12T15:22:00.020Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "rf/buildings/1"
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:01 GMT",
+        "content-type": "application/json",
+        "content-length": "113",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, PUT, PATCH",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "d3eb4f3d88de313a5d17ae5acea63a8c",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YOjm5E%2F%2Boop25o3rWpf8kFSZ0%2BggV0gR2hP%2FWBLxeDLUkkuPROz4eFIUt0q7Z1RQbyVmGMeoS7fVdzXAg%2F4OX1u8oPlx6yPDRtxOEvHtS2cVJ2Z36BbIyKUYJK8WNhjuXgbxkC7jxxTzi1zE\"}]}",
+        "cf-ray": "9eb3395f49562115-MRS"
+      },
+      "body": {
+        "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH."
+      },
+      "timing": 247
+    },
+    "timestamp": "2026-04-12T15:22:00.713Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
       "endpoint": "rf/units",
       "body": {
-        "name": "Test Unit No Map",
+        "name": "Test Unit 1776007321602rddx8",
         "category_id": 2,
         "type_id": 17,
-        "rf_community_id": "10"
+        "rf_community_id": "14",
+        "rf_building_id": "4",
+        "rf_status_id": 26,
+        "map": {
+          "latitude": 24.7103488,
+          "longitude": 46.6878464,
+          "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+          "districtName": "RHSA7555, 3287",
+          "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, Riyadh 12245, Saudi Arabia",
+          "latitudeDelta": 0.02,
+          "longitudeDelta": 0.009244060475161988,
+          "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+        },
+        "specifications": [],
+        "features": []
       }
     },
     "response": {
       "status": 400,
       "statusText": "Bad Request",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:47 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:02 GMT",
         "content-type": "application/json",
         "content-length": "66",
         "connection": "keep-alive",
@@ -22,22 +595,180 @@
         "x-ratelimit-limit": "5",
         "x-ratelimit-remaining": "4",
         "vary": "Origin",
-        "x-cloud-trace-context": "ef3bf23b3af2b37d22638b5723ab138c",
+        "x-cloud-trace-context": "7c87029423c648c5f0944444ee6d4576",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=PKrcDVRNNcSShfS27BL2hZ437%2B2WX7ihVNFq%2Bv8rlKAUyvOHZWvvMY5G54sZxuouFwsyEqEPGQUOKGTvn4sw%2BMhy%2F5Q9R4F0Ye6ofxTQPL4aizC4K5tAW5OArwm7BEyfluBkmv%2B88SA7BdE9\"}]}",
-        "cf-ray": "9eb14cd4085ddccc-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=FzGtyxQPNIOxkFRjSn%2BGInHyxTeTluAnmSoKFGQcdf%2Bj6oW9wZ7TuLpGfc6UlPBJaJY4FHfw8BpKbzICw1l1AXlcim0FL18nXCjU85peqpE%2Bw9NrHz5%2BIEAV8giRQYXnGWyWAvxmfACD2TMG\"}]}",
+        "cf-ray": "9eb339665d212115-MRS"
       },
       "body": {
         "code": 400,
         "message": "messages.unit_creation_failed",
         "errors": []
       },
-      "timing": 370
+      "timing": 377
     },
-    "timestamp": "2026-04-12T09:45:47.029Z",
+    "timestamp": "2026-04-12T15:22:01.981Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/units",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:03 GMT",
+        "content-type": "application/json",
+        "content-length": "436",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "412f57f355fb4479f0944444ee6d4153",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8YJMuB%2Fb4AyZouqbdLkoZrHsvoJ8JX7DqS4e79Mnn3Hu5ftFUeasO9oInlNTwoTImFEBPEi%2FqKUCiT9NbF%2FSAs%2BrbYB0aqc9p8ZPGRGrCxuDNmnOVxEdHer3bzTGcw00UPdXs%2F3bF4e74LIm\"}]}",
+        "cf-ray": "9eb339696cd72115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name": [
+            "الحقل الاسم مطلوب."
+          ],
+          "category_id": [
+            "الحقل category id مطلوب."
+          ],
+          "type_id": [
+            "الحقل type id مطلوب."
+          ],
+          "rf_community_id": [
+            "الحقل rf community id مطلوب."
+          ]
+        }
+      },
+      "timing": 323
+    },
+    "timestamp": "2026-04-12T15:22:02.412Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name",
+        "message": "الحقل الاسم مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "category_id",
+        "message": "الحقل category id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "type_id",
+        "message": "الحقل type id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "rf_community_id",
+        "message": "الحقل rf community id مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/units",
+      "body": {
+        "name": "Test Unit",
+        "category_id": 2,
+        "type_id": 17,
+        "rf_community_id": 1,
+        "map": {
+          "latitude": 24.7103488,
+          "longitude": 46.6878464
+        }
+      }
+    },
+    "response": {
+      "status": 400,
+      "statusText": "Bad Request",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:03 GMT",
+        "content-type": "application/json",
+        "content-length": "66",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "e6c6c164640c779acbae7ac466f474e2",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9Qyt5TIGGmQPhhOt2KsLI6uf0qhtn2yOm6JgMV1MSm3RmQ4A9nKcKWSczzDdRr4CR0bx4PoMZRey277QTTkD7QzdXt8Bve5NTn%2F%2BBsafsmk5NIWtnqHhq4CIxWFfDn%2BSSM%2FQugeUhcl3tOxH\"}]}",
+        "cf-ray": "9eb3396c8df82115-MRS"
+      },
+      "body": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      },
+      "timing": 342
+    },
+    "timestamp": "2026-04-12T15:22:02.927Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/units",
+      "body": {
+        "name": "Test Unit No Map",
+        "category_id": 2,
+        "type_id": 17,
+        "rf_community_id": "14"
+      }
+    },
+    "response": {
+      "status": 400,
+      "statusText": "Bad Request",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:04 GMT",
+        "content-type": "application/json",
+        "content-length": "66",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "9b2c8a4d79f5dfdba4d430b242eb826f",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IGpxIQhkG5SX0u4WJvhqUkZCNM%2B5DTxOzraRf4mgUBG6e6oS%2BvpseJGhzLorLoM6PNjAdbj%2B%2FNsTaUwRxaBHWj1MR8u%2BiQHd%2B8G%2BEj48yUjJdK89r9PG136ywapba%2FLBQwuCWcIX2hTta83I\"}]}",
+        "cf-ray": "9eb33971bca22115-MRS"
+      },
+      "body": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      },
+      "timing": 447
+    },
+    "timestamp": "2026-04-12T15:22:03.867Z",
     "success": false,
     "validationErrors": []
   },
@@ -46,14 +777,14 @@
       "method": "PUT",
       "endpoint": "rf/units/3",
       "body": {
-        "name": "Updated Unit 1775987151580"
+        "name": "Updated Unit 1776007325752"
       }
     },
     "response": {
       "status": 422,
       "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:51 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:07 GMT",
         "content-type": "application/json",
         "content-length": "331",
         "connection": "keep-alive",
@@ -61,13 +792,13 @@
         "x-ratelimit-limit": "10",
         "x-ratelimit-remaining": "9",
         "vary": "Origin",
-        "x-cloud-trace-context": "a068e8dd3d6c5b69334a870a26be7287",
+        "x-cloud-trace-context": "97dad6d1b34c1d7dd6b059d8bccff182",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=j1NOcD4tR3PVvvnyuMYQJvYHfDMVWGhJOeLDyl2gJYKD%2Fkbwm5y2KvyXh6sYmjb7uFzNeSoN%2B6pE6t99zaz6ic5qBU5LfU5gsWPOOx3FfgJV%2FkGfCean1L7tM8gTWQMW2z1phb169NUmKHQB\"}]}",
-        "cf-ray": "9eb14cf2c9e1dccc-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5aZhV%2FYta3afZcQcrW%2Fvyq%2BVkUAcZbY3I%2Fwe73dKw318%2FiVHhZ7UhkNspswvkVGxvroNEXWMvhqY8nau3PqG5hGqR8z7xAuh6km8SLxzVscZiMM6ogEMRRP%2FbJbDU04NRqTNh61w%2B5JAY%2FRn\"}]}",
+        "cf-ray": "9eb339804ab52115-MRS"
       },
       "body": {
         "message": "The given data was invalid.",
@@ -83,9 +814,9 @@
           ]
         }
       },
-      "timing": 332
+      "timing": 397
     },
-    "timestamp": "2026-04-12T09:45:51.913Z",
+    "timestamp": "2026-04-12T15:22:06.150Z",
     "success": false,
     "validationErrors": [
       {
@@ -117,7 +848,7 @@
       "status": 422,
       "statusText": "Unprocessable Entity",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:53 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:08 GMT",
         "content-type": "application/json",
         "content-length": "436",
         "connection": "keep-alive",
@@ -125,13 +856,13 @@
         "x-ratelimit-limit": "10",
         "x-ratelimit-remaining": "9",
         "vary": "Origin",
-        "x-cloud-trace-context": "2ca2a9b852c0d87822638b5723ab1274",
+        "x-cloud-trace-context": "a4bda964d568294ed6b059d8bccff9a4",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7%2F0iMY1wv6iIbQXLA4BbBThn2Jb%2BPvwD0RYTtvNwIZDA3%2BTF9CI0EZlq2uiN2VaFR95TPMwdEboy7GcHPOh7zubyz9PMZ2hLKUx0j4ZnAprI4kRM122ozc7mgGNqRybsbgZT1EwRvZ3rMd8t\"}]}",
-        "cf-ray": "9eb14cfd0e5edccc-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ibP09YP3Mv6nHyAuTZDdiRA1Jqwjvt5wPq6s9tfp5SnQYpeWX8MIZnB5UV1ia6vDBmD0AYrK43UmufAopgvSu9bJFXV8G7Pf8WNavZmToBKhSWDGuMRRv%2BBkTO875c8cwQZZhCAAZyGqbK1C\"}]}",
+        "cf-ray": "9eb3398c8c882115-MRS"
       },
       "body": {
         "message": "The given data was invalid.",
@@ -150,9 +881,9 @@
           ]
         }
       },
-      "timing": 320
+      "timing": 319
     },
-    "timestamp": "2026-04-12T09:45:53.564Z",
+    "timestamp": "2026-04-12T15:22:08.025Z",
     "success": false,
     "validationErrors": [
       {
@@ -186,27 +917,27 @@
       "status": 405,
       "statusText": "Method Not Allowed",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:54 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:09 GMT",
         "content-type": "application/json",
         "content-length": "113",
         "connection": "keep-alive",
         "allow": "GET, HEAD, PUT, PATCH",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "47a33de95702c9c070bbba5db7fa7c8e",
+        "x-cloud-trace-context": "84ab5d9bf62bf407f0944444ee6d4ff2",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2JSxfYbBWxxpk5jQTIPazEenAtuvb8UJYNwLLV88ZGi2gq6beaXgSaxd410YkmqLdwV%2BpZlDD5B1KRuJLKR76v2XDdZD6Wr%2FTi9l1delqrcQ1FrqGdINfrrq6I1H7iC5oti042mShdyHuV2T\"}]}",
-        "cf-ray": "9eb14d028fdcdccc-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=oZBz1CeQ2i3Jdio9sZ%2BjWFS262MLYOQ2B%2FS2Jk7SuKLPU1qFLlyUMI8xC9PNLRZAyO8KRHYFzcA3SqbP8vCA6CLVVX3P%2BVf7uKvcVUDh5K8f%2Fr35tYVglWVcg%2Bu8W%2F8IAXSumu69FXCOroep\"}]}",
+        "cf-ray": "9eb33991a9d92115-MRS"
       },
       "body": {
         "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH."
       },
-      "timing": 356
+      "timing": 302
     },
-    "timestamp": "2026-04-12T09:45:54.450Z",
+    "timestamp": "2026-04-12T15:22:08.834Z",
     "success": false,
     "validationErrors": []
   },
@@ -226,27 +957,27 @@
       "status": 405,
       "statusText": "Method Not Allowed",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:55 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:10 GMT",
         "content-type": "application/json",
         "content-length": "111",
         "connection": "keep-alive",
         "allow": "GET, HEAD, PUT, PATCH",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "7d8986127785f2b4b4b1e20ec1472359",
+        "x-cloud-trace-context": "996e5b188b6f6002ed63448e86a1026d",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=racEvuTwlS60pevT54gKhQcflLVz3Ca8VMdD%2FeI65xU026uTK1aHaPOH%2BmgxlitGYYifc%2BhKFgqDpUQNsT%2Fs%2FIFZo88RhidkvSZzNVLRHYJI6%2FPTwPHZkeOa5qUUG48I5LW42MZiFWwFUH%2Bg\"}]}",
-        "cf-ray": "9eb14d070cc5dccc-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Hh1zmFThUXpzOpHdDmy0PBSu8%2FygyUmxMhn9GR5TmVkswfem09ovlSXlAfQpmJ88DvdMqMS0mhFoYP%2FngejdmOVP%2FM6vMJVtCh%2FYXuZpH4U%2FAgrdbT0yycE6H5TK4BvpAZsAg0efU6uzUajN\"}]}",
+        "cf-ray": "9eb339969ee52115-MRS"
       },
       "body": {
         "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH."
       },
-      "timing": 263
+      "timing": 255
     },
-    "timestamp": "2026-04-12T09:45:55.105Z",
+    "timestamp": "2026-04-12T15:22:09.583Z",
     "success": false,
     "validationErrors": []
   },
@@ -266,27 +997,352 @@
       "status": 405,
       "statusText": "Method Not Allowed",
       "headers": {
-        "date": "Sun, 12 Apr 2026 09:45:55 GMT",
+        "date": "Sun, 12 Apr 2026 15:22:10 GMT",
         "content-type": "application/json",
         "content-length": "111",
         "connection": "keep-alive",
         "allow": "GET, HEAD, PUT, PATCH",
         "cache-control": "no-cache, private",
         "vary": "Origin",
-        "x-cloud-trace-context": "e8f3bd88f18daf59b4b1e20ec1472447",
+        "x-cloud-trace-context": "3a7a75325b9c1271cbae7ac466f4788b",
         "server": "cloudflare",
         "via": "1.1 google",
         "cf-cache-status": "DYNAMIC",
         "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SfWhqZy%2BPbqEmgzBDB8fzrU6cp4abagbbncp8uSJoMaPQTnPptHC4l1wbgwIn4MpoeIAP4vR4fqBcCBTPAdH5wjM%2B6mpDJr%2FrifcULCeWDIacKc%2F0SnGBsleI%2BqdEqbHnZFjtb0a26KLn4cc\"}]}",
-        "cf-ray": "9eb14d08fa1ddccc-FRA"
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=OMr6JwqbILlvj1pcWrr2ta8pa5VciaFGDvKbP%2BLEyNz13tyzz2lV9ECxhYG725cRAdYKTSN2QOtd6XB9JC2ux4%2FpAS4sf3JYPoE25G4Y3fhaqyAO3rZDZr19rk65CrCURPGlXWf8Zg7S80VE\"}]}",
+        "cf-ray": "9eb33998dc922115-MRS"
       },
       "body": {
         "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH."
       },
-      "timing": 290
+      "timing": 275
     },
-    "timestamp": "2026-04-12T09:45:55.427Z",
+    "timestamp": "2026-04-12T15:22:09.938Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/facilities",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:11 GMT",
+        "content-type": "application/json",
+        "content-length": "681",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "45e0db6415bb90e16ad1f3331c6c2fe1",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jBi5pWKlW0ViQn0ZptokBSy3hNh3AtHmOry%2FIPYDruSOYMzQlVrN%2BiIdQOngXnR3zK3wIqVfhotC78NjZeMqynKjQpc4GdCiL2V2QGcJC3WPNQ9tGOfAGi6WXRaJMBa5sOkTAWCLbUTY1azy\"}]}",
+        "cf-ray": "9eb3399b1a7a2115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name_ar": [
+            "الحقل name ar مطلوب."
+          ],
+          "name_en": [
+            "الحقل name en مطلوب."
+          ],
+          "days": [
+            "الحقل days مطلوب."
+          ],
+          "booking_type": [
+            "الحقل booking type مطلوب."
+          ],
+          "complex_id": [
+            "الحقل complex id مطلوب."
+          ],
+          "gender": [
+            "الحقل النوع مطلوب."
+          ],
+          "approved": [
+            "الحقل approved مطلوب."
+          ]
+        }
+      },
+      "timing": 425
+    },
+    "timestamp": "2026-04-12T15:22:10.454Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name_ar",
+        "message": "الحقل name ar مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "name_en",
+        "message": "الحقل name en مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "days",
+        "message": "الحقل days مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "booking_type",
+        "message": "الحقل booking type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "complex_id",
+        "message": "الحقل complex id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "gender",
+        "message": "الحقل النوع مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "approved",
+        "message": "الحقل approved مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/facilities",
+      "body": {
+        "name": "Test Facility 1776007330959",
+        "type": "gym",
+        "rf_community_id": "14",
+        "description": "Test facility description"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:12 GMT",
+        "content-type": "application/json",
+        "content-length": "681",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "92ffba9758e83916cbae7ac466f471b0",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nIIjAQljjSIhzPZpb%2FKvckjLXOjUaunXoUhBQ89KH2HTVOrDDen1JKZB5uEU9lpWevKGwQ%2BquA9YN5RFDBDPZiaHq0x2x2zvLAO9hyKbp%2BdyHJIfVdXY1eQg8A1iBeml3CZ3VVP1MJGGIoyv\"}]}",
+        "cf-ray": "9eb339a0d9622115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name_ar": [
+            "الحقل name ar مطلوب."
+          ],
+          "name_en": [
+            "الحقل name en مطلوب."
+          ],
+          "days": [
+            "الحقل days مطلوب."
+          ],
+          "booking_type": [
+            "الحقل booking type مطلوب."
+          ],
+          "complex_id": [
+            "الحقل complex id مطلوب."
+          ],
+          "gender": [
+            "الحقل النوع مطلوب."
+          ],
+          "approved": [
+            "الحقل approved مطلوب."
+          ]
+        }
+      },
+      "timing": 300
+    },
+    "timestamp": "2026-04-12T15:22:11.261Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name_ar",
+        "message": "الحقل name ar مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "name_en",
+        "message": "الحقل name en مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "days",
+        "message": "الحقل days مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "booking_type",
+        "message": "الحقل booking type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "complex_id",
+        "message": "الحقل complex id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "gender",
+        "message": "الحقل النوع مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "approved",
+        "message": "الحقل approved مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/facilities/1",
+      "body": {
+        "name": "Updated Facility 1776007331478"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:12 GMT",
+        "content-type": "application/json",
+        "content-length": "681",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-cloud-trace-context": "364d10e2116dbafab665fb6e189ef073",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ccsD8esyiemYlrziWbDTsVWyBMe7XeQxmv0WPPI5gMxAcOrso9lR9PZoBRsNrg2m8oHB5Ale7MZYX60KGsHYlCpABT4qejbkjFHGTdsT%2F2aFS1ZrL80TzTprqB0etOdBlaZzmod5opsHwL1%2F\"}]}",
+        "cf-ray": "9eb339a42a0b2115-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name_ar": [
+            "الحقل name ar مطلوب."
+          ],
+          "name_en": [
+            "الحقل name en مطلوب."
+          ],
+          "days": [
+            "الحقل days مطلوب."
+          ],
+          "booking_type": [
+            "الحقل booking type مطلوب."
+          ],
+          "complex_id": [
+            "الحقل complex id مطلوب."
+          ],
+          "gender": [
+            "الحقل النوع مطلوب."
+          ],
+          "approved": [
+            "الحقل approved مطلوب."
+          ]
+        }
+      },
+      "timing": 280
+    },
+    "timestamp": "2026-04-12T15:22:11.759Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name_ar",
+        "message": "الحقل name ar مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "name_en",
+        "message": "الحقل name en مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "days",
+        "message": "الحقل days مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "booking_type",
+        "message": "الحقل booking type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "complex_id",
+        "message": "الحقل complex id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "gender",
+        "message": "الحقل النوع مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "approved",
+        "message": "الحقل approved مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "rf/facilities/999"
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 15:22:13 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-cloud-trace-context": "ec0ced9888289b99cbae7ac466f47ef2",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=D493qHE%2BQuxksAA%2BlAJgrv1v32XIuMISaRfaSnsIJwocNLft%2BRkuOA57c0c4jkCfgwfeTjd3NJs8AMARoNCNbs8rUOGjW%2FBBx7ZP7b3oBRqUxUAHafsYhhqGg2zLkF%2BLuCwpWeGafkRuN%2B8I\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb339a64ff52115-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "RfFacilit not Found."
+      },
+      "timing": 304
+    },
+    "timestamp": "2026-04-12T15:22:12.123Z",
     "success": false,
     "validationErrors": []
   }

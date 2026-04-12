@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-sub-leases.schema.json",
+  "title": "POST rf/sub-leases",
+  "description": "Request body schema for POST rf/sub-leases",
+  "type": "object",
+  "properties": {
+    "lease_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "tenant_type": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "lease_id",
+    "tenant_type"
+  ],
+  "additionalProperties": true
+}

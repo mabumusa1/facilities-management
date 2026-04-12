@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-marketplace-admin-settings-banks-store.schema.json",
+  "title": "POST marketplace/admin/settings/banks/store",
+  "description": "Request body schema for POST marketplace/admin/settings/banks/store",
+  "type": "object",
+  "properties": {
+    "beneficiary_name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "bank_name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "account_number": {
+      "type": "string",
+      "description": "يجب ان يحتوي رقم الحساب على ارقام فقط; يجب ان يكون رقم الحساب اكثر من 14 رقم; صيغة الحقل account number .غير صحيحة",
+      "examples": [
+        "example"
+      ]
+    },
+    "iban": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "account_number",
+    "bank_name",
+    "beneficiary_name",
+    "iban"
+  ],
+  "additionalProperties": true
+}

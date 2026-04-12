@@ -17,6 +17,8 @@ import { EMPTY_DATA } from '../../utils/sample-data';
 const captures: MutationCapture[] = [];
 
 test.describe('Documents Mutation Agent', () => {
+  // Run all tests in serial mode to ensure captures are collected properly
+  test.describe.configure({ mode: 'serial' });
   test.afterAll(async () => {
     await writeMutationCaptures('documents', captures);
     console.log(`\n=== Documents Agent Complete ===`);

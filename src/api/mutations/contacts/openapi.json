@@ -12,6 +12,246 @@
     }
   ],
   "paths": {
+    "rf/owners": {
+      "post": {
+        "operationId": "post_rf_owners",
+        "summary": "POST rf/owners",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "last_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "last_name": [
+                          "صيغة الحقل اسم العائلة .غير صحيحة"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "phone_country_code": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "national_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "first_name": "Test",
+                    "last_name": "Owner30b13m",
+                    "phone_country_code": "SA",
+                    "phone_number": "539139700",
+                    "email": "owner1776007304443vwf9z@example.com",
+                    "national_id": "1446997149"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/owners/3": {
+      "put": {
+        "operationId": "put_rf_owners_3",
+        "summary": "PUT rf/owners/3",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "last_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "phone_country_code": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "phone_number": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "last_name": [
+                          "صيغة الحقل اسم العائلة .غير صحيحة"
+                        ],
+                        "phone_country_code": [
+                          "الحقل phone country code مطلوب."
+                        ],
+                        "phone_number": [
+                          "الحقل رقم الجوال مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "first_name": "Updated",
+                    "last_name": "Owner1776007307352"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/owners/99999": {
+      "delete": {
+        "operationId": "delete_rf_owners_99999",
+        "summary": "DELETE rf/owners/99999",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD, PUT."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
     "rf/tenants": {
       "post": {
         "operationId": "post_rf_tenants",
@@ -79,12 +319,12 @@
                       "code": 200,
                       "message": "تم انشاء المطلوب بنجاح.",
                       "data": {
-                        "id": 15,
-                        "name": "Test Company85w1i8",
+                        "id": 20,
+                        "name": "Test Tenant4ovw8r",
                         "image": null,
-                        "phone_number": "+966591003666",
+                        "phone_number": "+966581882487",
                         "invited": null,
-                        "created_at": "2026-04-12T09:45:31.000000Z",
+                        "created_at": "2026-04-12T15:21:49.000000Z",
                         "units": [],
                         "accepted_invite": 0
                       },
@@ -109,6 +349,24 @@
                     "errors": {
                       "type": "object",
                       "properties": {
+                        "first_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "last_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "phone_country_code": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
                         "phone_number": {
                           "type": "array",
                           "items": {
@@ -124,9 +382,17 @@
                     "value": {
                       "message": "The given data was invalid.",
                       "errors": {
+                        "first_name": [
+                          "الحقل الاسم مطلوب."
+                        ],
+                        "last_name": [
+                          "الحقل اسم العائلة مطلوب."
+                        ],
+                        "phone_country_code": [
+                          "الحقل phone country code مطلوب."
+                        ],
                         "phone_number": [
-                          "رقم رقم الجوال غير صحيح.",
-                          "قيمة الحقل رقم الجوال مُستخدمة من قبل"
+                          "الحقل رقم الجوال مطلوب."
                         ]
                       }
                     },
@@ -174,13 +440,13 @@
                 "default": {
                   "value": {
                     "first_name": "Test",
-                    "last_name": "Tenant3r235u",
+                    "last_name": "Tenant4ovw8r",
                     "phone_country_code": "SA",
-                    "phone_number": "529466320",
-                    "email": "tenant3r235u@example.com",
-                    "national_id": "1937958374",
+                    "phone_number": "581882487",
+                    "email": "tenant4ovw8r@example.com",
+                    "national_id": "2027800485",
                     "type": "individual",
-                    "name": "Test Tenant3r235u"
+                    "name": "Test Tenant4ovw8r"
                   },
                   "summary": "Example request body"
                 }
@@ -196,10 +462,10 @@
         ]
       }
     },
-    "rf/tenants/15": {
+    "rf/tenants/21": {
       "put": {
-        "operationId": "put_rf_tenants_15",
-        "summary": "PUT rf/tenants/15",
+        "operationId": "put_rf_tenants_21",
+        "summary": "PUT rf/tenants/21",
         "tags": [
           "contacts"
         ],
@@ -272,7 +538,7 @@
                 "default": {
                   "value": {
                     "first_name": "Updated",
-                    "last_name": "Tenant1775987132817"
+                    "last_name": "Tenant1776007310846"
                   },
                   "summary": "Example request body"
                 }
@@ -292,6 +558,633 @@
       "delete": {
         "operationId": "delete_rf_tenants_4",
         "summary": "DELETE rf/tenants/4",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD, PUT."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/tenants/21/family-members": {
+      "post": {
+        "operationId": "post_rf_tenants_21_family_members",
+        "summary": "POST rf/tenants/21/family-members",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "relationship": {
+                    "type": "string"
+                  },
+                  "phone_country_code": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "first_name": "Family1776007312690",
+                    "last_name": "Member",
+                    "relationship": "spouse",
+                    "phone_country_code": "SA",
+                    "phone_number": "516742013"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/tenants/1/family-members/1": {
+      "delete": {
+        "operationId": "delete_rf_tenants_1_family_members_1",
+        "summary": "DELETE rf/tenants/1/family-members/1",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/admins": {
+      "post": {
+        "operationId": "post_rf_admins",
+        "summary": "POST rf/admins",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "last_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "phone_number": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "role": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "last_name": [
+                          "صيغة الحقل اسم العائلة .غير صحيحة"
+                        ],
+                        "phone_number": [
+                          "رقم رقم الجوال غير صحيح.",
+                          "قيمة الحقل رقم الجوال مُستخدمة من قبل"
+                        ],
+                        "role": [
+                          "الحقل role مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "phone_country_code": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "role_id": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "first_name": "Test",
+                    "last_name": "Manager1776007313359",
+                    "phone_country_code": "SA",
+                    "phone_number": "528431066",
+                    "email": "manager1776007313360@example.com",
+                    "role_id": 1
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/admins/check-validate": {
+      "post": {
+        "operationId": "post_rf_admins_check_validate",
+        "summary": "POST rf/admins/check-validate",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "تمت العمليه بنجاح.",
+                      "data": [],
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "phone_country_code": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "first_name": "Test",
+                    "last_name": "Admin",
+                    "phone_country_code": "SA",
+                    "phone_number": "500000000"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/admins/2": {
+      "put": {
+        "operationId": "put_rf_admins_2",
+        "summary": "PUT rf/admins/2",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "last_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "phone_country_code": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "phone_number": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "role": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "last_name": [
+                          "صيغة الحقل اسم العائلة .غير صحيحة"
+                        ],
+                        "phone_country_code": [
+                          "الحقل phone country code مطلوب."
+                        ],
+                        "phone_number": [
+                          "الحقل رقم الجوال مطلوب."
+                        ],
+                        "role": [
+                          "الحقل role مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "first_name": "Updated",
+                    "last_name": "Admin1776007314933"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/admins/1": {
+      "delete": {
+        "operationId": "delete_rf_admins_1",
+        "summary": "DELETE rf/admins/1",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The DELETE method is not supported for this route. Supported methods: GET, HEAD, PUT."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/professionals": {
+      "post": {
+        "operationId": "post_rf_professionals",
+        "summary": "POST rf/professionals",
+        "tags": [
+          "contacts"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "last_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "last_name": [
+                          "صيغة الحقل اسم العائلة .غير صحيحة"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "phone_country_code": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "profession": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "first_name": "Test",
+                    "last_name": "Professional1776007315994",
+                    "phone_country_code": "SA",
+                    "phone_number": "549543715",
+                    "email": "professional1776007315994@example.com",
+                    "profession": "plumber"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/professionals/99999": {
+      "delete": {
+        "operationId": "delete_rf_professionals_99999",
+        "summary": "DELETE rf/professionals/99999",
         "tags": [
           "contacts"
         ],

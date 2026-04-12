@@ -1,22 +1,82 @@
 {
   "module": "documents",
-  "generatedAt": "2026-04-12T09:45:37.268Z",
-  "totalCaptures": 2,
+  "generatedAt": "2026-04-12T15:21:54.074Z",
+  "totalCaptures": 14,
   "successCount": 0,
-  "errorCount": 2,
+  "errorCount": 14,
   "successRate": "0.0%",
   "endpoints": {
-    "POST rf/tenants/15/documents": {
+    "POST rf/documents": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 496.5
+    },
+    "PUT rf/documents/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 286
+    },
+    "DELETE rf/documents/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 292
+    },
+    "POST rf/leases/1/documents": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 307
+      "avgTiming": 282
+    },
+    "POST rf/units/3/documents": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 285
+    },
+    "POST rf/units/3/images": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 342
+    },
+    "DELETE rf/units/images/1": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 278
+    },
+    "POST rf/directory": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 320.5
+    },
+    "PUT rf/directory/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 359
+    },
+    "DELETE rf/directory/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 266
+    },
+    "POST rf/tenants/21/documents": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 308
     },
     "POST rf/owners/3/documents": {
       "method": "POST",
       "success": 0,
       "error": 1,
-      "avgTiming": 538
+      "avgTiming": 284
     }
   }
 }

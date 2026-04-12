@@ -25,6 +25,8 @@ import {
 const captures: MutationCapture[] = [];
 
 test.describe('Contacts Mutation Agent', () => {
+  // Run all tests in serial mode to ensure captures are collected properly
+  test.describe.configure({ mode: 'serial' });
   let resolver: DependencyResolver;
 
   test.beforeEach(async ({ api }) => {

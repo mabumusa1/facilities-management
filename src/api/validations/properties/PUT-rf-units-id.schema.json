@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/put-rf-units-{id}.schema.json",
+  "title": "PUT rf/units/{id}",
+  "description": "Request body schema for PUT rf/units/{id}",
+  "type": "object",
+  "properties": {
+    "category_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "type_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "rf_community_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "category_id",
+    "name",
+    "rf_community_id",
+    "type_id"
+  ],
+  "additionalProperties": true
+}

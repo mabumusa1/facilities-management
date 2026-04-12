@@ -1,28 +1,82 @@
 {
   "module": "transactions",
-  "generatedAt": "2026-04-12T09:46:01.618Z",
-  "totalCaptures": 5,
+  "generatedAt": "2026-04-12T15:22:24.258Z",
+  "totalCaptures": 17,
   "successCount": 0,
-  "errorCount": 5,
+  "errorCount": 17,
   "successRate": "0.0%",
   "endpoints": {
     "POST transactions": {
       "method": "POST",
       "success": 0,
       "error": 3,
-      "avgTiming": 237.66666666666666
+      "avgTiming": 222.66666666666666
     },
     "PUT transactions/1": {
       "method": "PUT",
       "success": 0,
       "error": 1,
-      "avgTiming": 360
+      "avgTiming": 338
     },
     "DELETE transactions/2": {
       "method": "DELETE",
       "success": 0,
       "error": 1,
-      "avgTiming": 387
+      "avgTiming": 444
+    },
+    "POST invoices": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 272.5
+    },
+    "POST invoices/mark-paid": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 369
+    },
+    "PUT invoice-settings": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 261
+    },
+    "POST transactions/journal-entries": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 315
+    },
+    "POST transactions/chart-of-accounts": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 486.5
+    },
+    "PUT transactions/chart-of-accounts/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 282
+    },
+    "DELETE transactions/chart-of-accounts/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 376
+    },
+    "POST transactions/categories": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 291
+    },
+    "PUT transactions/categories/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 292
     }
   }
 }

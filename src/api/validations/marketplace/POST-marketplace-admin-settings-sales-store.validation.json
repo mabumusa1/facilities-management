@@ -1,0 +1,75 @@
+{
+  "endpoint": "marketplace/admin/settings/sales/store",
+  "method": "POST",
+  "fields": {
+    "deposit_time_limit_days": {
+      "field": "deposit_time_limit_days",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "مدة التوقيع مطلوبة."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "cash_contract_signing_days": {
+      "field": "cash_contract_signing_days",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "validation.marketplace_sales.cash_signing.required"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "bank_contract_signing_days": {
+      "field": "bank_contract_signing_days",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "validation.marketplace_sales.bank_signing.required"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "bank_contract_signing_days",
+    "cash_contract_signing_days",
+    "deposit_time_limit_days"
+  ],
+  "optionalFields": []
+}
