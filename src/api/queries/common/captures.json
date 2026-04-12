@@ -1,0 +1,3120 @@
+[
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "me"
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:46 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "d7a90f49212fd65c5506f693e8b31d5e",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qcezPD%2FQDJ9vOUSK9zICk3wcVM9Pq2myJmnomBn47cz9bTogGScGNbmiQufJ%2Bim83fn8uaK6bS0pg9pwG%2B0Tl3PLkDdakMNubETYFOGnxAP9KH7gAhJ5H3RlZZlGcucDtlJiEpOp06V%2BVXD4\"}]}",
+        "cf-ray": "9eb3d15aaf3318a9-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 3612
+    },
+    "timestamp": "2026-04-12T17:05:46.860Z",
+    "success": false
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "dashboard/requires-attention"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:48 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=StTMA4MIvOPL%2FiUbuvOCMH1FGuaAYt9vpjVt9yPOGkmpNrNKQY6Xcjn9O3bI5MVTinhwb1Sa3kiZrLlZ1lfgFzL5xRER91KMVL2CMDJJEkF26TWXFsRr4SEDQ5aWGzfjV3LyPnH%2BTjAM8Pyd\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d1666b0e18a9-MRS"
+      },
+      "body": {
+        "data": {
+          "requests_approval": 0,
+          "pending_complaints": 0,
+          "expiring_leases": 0,
+          "overdue_recipes": 0
+        }
+      },
+      "timing": 1720
+    },
+    "timestamp": "2026-04-12T17:05:48.786Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "requests_approval": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "pending_complaints": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "expiring_leases": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "overdue_recipes": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            }
+          }
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "dashboard/statistics"
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:50 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "ab4e88694bc54440d3360dd8f76d41a0",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=tLY%2FRbeYnr%2BzNU4aQjfNPO4bADIqVGmVV2TQW97NLjpwNaKlA1%2Bu9Vr6DS%2F0%2Boy4naOYcGMI7lHLyv04QZtcRQOX%2FyZCKq5PfT1Auw6kbnt9cMoJ49KPOvJgK%2FBVFuhkRhxA319%2ByffMCG0A\"}]}",
+        "cf-ray": "9eb3d1710d1218a9-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 1538
+    },
+    "timestamp": "2026-04-12T17:05:50.426Z",
+    "success": false
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "notifications"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:50 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=J8mFwnbS%2FUasU%2FVa9GSYFmnC2IvD%2FR%2FRnX7luwP6mFytSQFLuoFib%2FQt3au6ipKNjcEc8JzUYaFoccue%2BbtiPkwfxjptkm6dd8DzG18cZwUCcf5Z6FM2kHeZCe89raWHxPp6BJUJ%2FWHnRatt\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d1731f2418a9-MRS"
+      },
+      "body": {
+        "data": [
+          {
+            "id": "b77c8700-cf7f-4a19-b36d-691fa794e970",
+            "text": "New Lease added 2026000001RL",
+            "data": {
+              "id": 1,
+              "title": "New Lease",
+              "notify_type": "lease",
+              "contract_number": "2026000001RL",
+              "tenant": {
+                "id": 4,
+                "age": null,
+                "data": null,
+                "name": "Khalid Test",
+                "email": "khalid.test@example.com",
+                "image": null,
+                "active": "1",
+                "gender": null,
+                "source": null,
+                "address": null,
+                "invited": "0",
+                "password": null,
+                "last_name": "Test",
+                "created_at": "2026-04-10T23:32:52.000000Z",
+                "deleted_at": null,
+                "first_name": "Khalid",
+                "interested": null,
+                "is_company": "0",
+                "updated_at": "2026-04-10T23:57:31.000000Z",
+                "father_name": null,
+                "lead_source": null,
+                "lead_status": null,
+                "national_id": "2233445566",
+                "app_language": "en",
+                "country_code": "+966",
+                "created_from": "manual",
+                "otp_attempts": "0",
+                "phone_number": "+966512345678",
+                "last_login_at": null,
+                "lead_owner_id": null,
+                "lead_priority": null,
+                "remember_token": null,
+                "grandfather_name": null,
+                "otp_last_attempt": null,
+                "email_verified_at": null,
+                "interested_reason": null,
+                "georgian_birthdate": null,
+                "phone_country_code": "SA",
+                "lead_last_contact_at": null,
+                "privacy_policy_accepted_at": null
+              }
+            },
+            "type": "NewLeaseNotification",
+            "read": "2026-04-12T06:02:55.000000Z",
+            "created_at": "2026-04-11 02:57:33"
+          }
+        ],
+        "links": {
+          "first": "http://api.goatar.com/api-management/notifications?page=1",
+          "last": "http://api.goatar.com/api-management/notifications?page=1",
+          "prev": null,
+          "next": null
+        },
+        "meta": {
+          "current_page": 1,
+          "from": 1,
+          "last_page": 1,
+          "links": [
+            {
+              "url": null,
+              "label": "&laquo; Previous",
+              "active": false
+            },
+            {
+              "url": "http://api.goatar.com/api-management/notifications?page=1",
+              "label": "1",
+              "active": true
+            },
+            {
+              "url": null,
+              "label": "Next &raquo;",
+              "active": false
+            }
+          ],
+          "path": "http://api.goatar.com/api-management/notifications",
+          "per_page": 15,
+          "to": 1,
+          "total": 1
+        }
+      },
+      "timing": 317
+    },
+    "timestamp": "2026-04-12T17:05:50.792Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "nullable": false,
+                "example": "b77c8700-cf7f-4a19-b36d-691fa794e970"
+              },
+              "text": {
+                "type": "string",
+                "nullable": false,
+                "example": "New Lease added 2026000001RL"
+              },
+              "data": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "New Lease"
+                  },
+                  "notify_type": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "lease"
+                  },
+                  "contract_number": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "2026000001RL"
+                  },
+                  "tenant": {
+                    "type": "object",
+                    "nullable": false,
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "nullable": false,
+                        "example": 4
+                      },
+                      "age": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "Khalid Test"
+                      },
+                      "email": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "khalid.test@example.com"
+                      },
+                      "image": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "active": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "1"
+                      },
+                      "gender": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "source": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "address": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "invited": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "0"
+                      },
+                      "password": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "last_name": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "Test"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "2026-04-10T23:32:52.000000Z"
+                      },
+                      "deleted_at": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "first_name": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "Khalid"
+                      },
+                      "interested": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "is_company": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "0"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "2026-04-10T23:57:31.000000Z"
+                      },
+                      "father_name": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "lead_source": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "lead_status": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "national_id": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "2233445566"
+                      },
+                      "app_language": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "en"
+                      },
+                      "country_code": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "+966"
+                      },
+                      "created_from": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "manual"
+                      },
+                      "otp_attempts": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "0"
+                      },
+                      "phone_number": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "+966512345678"
+                      },
+                      "last_login_at": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "lead_owner_id": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "lead_priority": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "remember_token": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "grandfather_name": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "otp_last_attempt": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "email_verified_at": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "interested_reason": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "georgian_birthdate": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "phone_country_code": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "SA"
+                      },
+                      "lead_last_contact_at": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "privacy_policy_accepted_at": {
+                        "type": "null",
+                        "nullable": true
+                      }
+                    }
+                  }
+                }
+              },
+              "type": {
+                "type": "string",
+                "nullable": false,
+                "example": "NewLeaseNotification"
+              },
+              "read": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-12T06:02:55.000000Z"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-11 02:57:33"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "current_page": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "from": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "last_page": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "links": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "url": {
+                    "type": "null",
+                    "nullable": true
+                  },
+                  "label": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "&laquo; Previous"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "nullable": false,
+                    "example": false
+                  }
+                }
+              },
+              "example": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "active": false
+                },
+                {
+                  "url": "http://api.goatar.com/api-management/notifications?page=1",
+                  "label": "1",
+                  "active": true
+                }
+              ]
+            },
+            "path": {
+              "type": "string",
+              "nullable": false,
+              "example": "http://api.goatar.com/api-management/notifications"
+            },
+            "per_page": {
+              "type": "number",
+              "nullable": false,
+              "example": 15
+            },
+            "to": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "total": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            }
+          }
+        },
+        "links": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "first": {
+              "type": "string",
+              "nullable": false,
+              "example": "http://api.goatar.com/api-management/notifications?page=1"
+            },
+            "last": {
+              "type": "string",
+              "nullable": false,
+              "example": "http://api.goatar.com/api-management/notifications?page=1"
+            },
+            "prev": {
+              "type": "null",
+              "nullable": true
+            },
+            "next": {
+              "type": "null",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "meta": {
+        "hasPagination": true,
+        "paginationFields": [
+          "current_page",
+          "from",
+          "last_page",
+          "links",
+          "path",
+          "per_page",
+          "to",
+          "total"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "notifications/unread-count"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:51 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=dn5JL0F7UOnoy%2BUdj6aWlNe5zbgTIu6lgJxtvoZLrmA5LkACI3PqwLP03cWQ%2BupZs0Co3Yr6T%2FjNTPiEA9QBx5AlNLSGVQQCVaHQK00AKDcCy%2Fk12skLMI6sdZQyQC%2B09nUwkeIG%2BQ9Rq8%2Bv\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d175d99a18a9-MRS"
+      },
+      "body": {
+        "data": {
+          "count": 0
+        }
+      },
+      "timing": 374
+    },
+    "timestamp": "2026-04-12T17:05:51.234Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "count": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            }
+          }
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/modules"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:51 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BP5RcGuuzEsWNGqpZClNNvsj5OlMyS%2FDIlVnLYJv0qxcGl3dvo1L70AlHwqfr%2BJJwQd0iXtWNg6xvIfaGURejWruFoYVMJa%2BqTmvWk9ufR%2Fb6bf%2FP%2FtMnIgJBPJeJvVFGCf6u2Yxd0p7Ffpp\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d1782bdf18a9-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 1,
+            "title": "العروض",
+            "is_active": "1"
+          },
+          {
+            "id": 2,
+            "title": "طلبات الحجوزات للمرافق",
+            "is_active": "1"
+          },
+          {
+            "id": 3,
+            "title": "طلبات تصاريح الزوار",
+            "is_active": "1"
+          },
+          {
+            "id": 4,
+            "title": "الدليل",
+            "is_active": "1"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 343
+    },
+    "timestamp": "2026-04-12T17:05:51.630Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "title": {
+                "type": "string",
+                "nullable": false,
+                "example": "العروض"
+              },
+              "is_active": {
+                "type": "string",
+                "nullable": false,
+                "example": "1"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/statuses"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:52 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2pdP2tI2FEfwFYuCzB%2FEN03TA%2FYn9oz%2BrRo40zA4P%2FJMcemSISEtKsCFOcE9J%2FvRqMaVyUUd6KUvoqds1EyTBbKWD1E9rfyI%2Fmobay873i5%2FDBxuuFSpdTncnPwJTWmnT%2FXpwcoZZibmcvrr\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d17a7dca18a9-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 1,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 11,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 12,
+            "name": "في الانتظار",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 13,
+            "name": "موافق عليه",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 14,
+            "name": "مرفوض",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 15,
+            "name": "ألغي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 16,
+            "name": "تم تسجيل الدخول",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 17,
+            "name": "تم تسجيل الخروج",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 19,
+            "name": "في انتظار الموافقة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 20,
+            "name": "تم الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 21,
+            "name": "تم رفض الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 22,
+            "name": "تم الألغاء",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 23,
+            "name": "مباعة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 24,
+            "name": "\tمباعة و مؤجرة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 26,
+            "name": "متاحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 27,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 28,
+            "name": "تم الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 29,
+            "name": "تم الألغاء",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 30,
+            "name": "عقد جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 31,
+            "name": " عقد ساري",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 32,
+            "name": "عقد منتهي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 33,
+            "name": "عقد ملغي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 34,
+            "name": "عقد مغلق",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 35,
+            "name": "مجدول",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 36,
+            "name": "مكتمل",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 37,
+            "name": "ملغى",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 38,
+            "name": "مرفوض",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 39,
+            "name": "تم انشاء الحجز الأولي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 40,
+            "name": "تمت الموافقة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 41,
+            "name": "الغاء قبل العربون",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 42,
+            "name": "تم رفض الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 43,
+            "name": "الغاء بعد العربون",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 44,
+            "name": "تم دفع العربون",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 45,
+            "name": "تم إرسال العقد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 46,
+            "name": "اكتمل الدفع",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 47,
+            "name": "تم توقيع العقد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 48,
+            "name": "تم نقل الملكية",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 49,
+            "name": "تم الغاء العقد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 52,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 62,
+            "name": "مراجعة البيانات المالية",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 63,
+            "name": "جدول دفع الوحدة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 64,
+            "name": "دفع عمولة ضريبة القيمة المضافة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 65,
+            "name": "في انتظار الارسال",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 66,
+            "name": "تم الدفع",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 67,
+            "name": "تم الارسال",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 68,
+            "name": "في الانتظار",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 69,
+            "name": "تم اكتمال",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 2,
+            "name": "تم التعيين",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 53,
+            "name": "تمت الموافقة",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 6,
+            "name": "تم قبول الطلب",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 54,
+            "name": "مرفوض",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 55,
+            "name": "تم إرسال عرض السعر",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 56,
+            "name": "تم الرفض من العميل",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 57,
+            "name": "تم القبول من العميل",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 58,
+            "name": "تم الإلغاء من المسؤول",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 10,
+            "name": "تم رفض الطلب",
+            "created_at": null,
+            "priority": "4"
+          },
+          {
+            "id": 5,
+            "name": "جاري العمل",
+            "created_at": null,
+            "priority": "5"
+          },
+          {
+            "id": 7,
+            "name": "تم انشاء الفاتوره",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 25,
+            "name": "مؤجرة",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 8,
+            "name": "تم قبول الفاتوره",
+            "created_at": null,
+            "priority": "7"
+          },
+          {
+            "id": 9,
+            "name": "تم رفض الفاتوره",
+            "created_at": null,
+            "priority": "8"
+          },
+          {
+            "id": 3,
+            "name": "تم الحل",
+            "created_at": null,
+            "priority": "9"
+          },
+          {
+            "id": 4,
+            "name": "تم الألغاء",
+            "created_at": null,
+            "priority": "10"
+          },
+          {
+            "id": 50,
+            "name": "اعادة جدولة",
+            "created_at": null,
+            "priority": "11"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 477
+    },
+    "timestamp": "2026-04-12T17:05:52.143Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "جديد"
+              },
+              "created_at": {
+                "type": "null",
+                "nullable": true
+              },
+              "priority": {
+                "type": "string",
+                "nullable": false,
+                "example": "1"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "countries"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:52 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ampeONkrtdltL8FUN5GJktJSDdtkSdQaNPu36QQOwQAP5zkY3f13DP9dyYbdqXHv0YFiNl3m7409BsIfWLz0q8UfNtVWeB8JghwkxBrU63K4vlxXUaGljf636ER11S%2BrmUHfHZrTbCmYG6OY\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d17e49a718a9-MRS"
+      },
+      "body": {
+        "success": true,
+        "data": "Countries Data",
+        "message": [
+          {
+            "Iso2": "SA",
+            "Name": "المملكة العربية السعودية",
+            "Iso3": "SAU",
+            "Excel": "SA (966)",
+            "Unicode": "🇸🇦",
+            "Dial": "966",
+            "Currency": "SAR",
+            "Capital": "الرياض",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "QA",
+            "Name": "قطر",
+            "Iso3": "QAT",
+            "Excel": "QA (974)",
+            "Unicode": "🇶🇦",
+            "Dial": "974",
+            "Currency": "QAR",
+            "Capital": "الدوحة",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "KW",
+            "Name": "الكويت",
+            "Iso3": "KWT",
+            "Excel": "KW (965)",
+            "Unicode": "🇰🇼",
+            "Dial": "965",
+            "Currency": "KWD",
+            "Capital": "مدينة الكويت",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "BH",
+            "Name": "البحرين",
+            "Iso3": "BHR",
+            "Excel": "BH (973)",
+            "Unicode": "🇧🇭",
+            "Dial": "973",
+            "Currency": "BHD",
+            "Capital": "المنامة",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "OM",
+            "Name": "عمان",
+            "Iso3": "OMN",
+            "Excel": "OM (968)",
+            "Unicode": "🇴🇲",
+            "Dial": "968",
+            "Currency": "OMR",
+            "Capital": "مسقط",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "AE",
+            "Name": "الإمارات العربية المتحدة",
+            "Iso3": "ARE",
+            "Excel": "AE (971)",
+            "Unicode": "🇦🇪",
+            "Dial": "971",
+            "Currency": "AED",
+            "Capital": "أبو ظبي",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "AU",
+            "Name": "أستراليا",
+            "Iso3": "AUS",
+            "Excel": "AU (61)",
+            "Unicode": "🇦🇺",
+            "Dial": "61",
+            "Currency": "AUD",
+            "Capital": "کانبرا",
+            "Continent": "OC"
+          },
+          {
+            "Iso2": "AF",
+            "Name": "أفغانستان",
+            "Iso3": "AFG",
+            "Excel": "AF (93)",
+            "Unicode": "🇦🇫",
+            "Dial": "93",
+            "Currency": "AFN",
+            "Capital": "كابول",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "DE",
+            "Name": "ألمانيا",
+            "Iso3": "DEU",
+            "Excel": "DE (+49)",
+            "Unicode": "DE",
+            "Dial": "49",
+            "Currency": "EUR",
+            "Capital": "برلين",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "IE",
+            "Name": "أيرلندا",
+            "Iso3": "IRL",
+            "Excel": "IE (+353)",
+            "Unicode": "IE",
+            "Dial": "353",
+            "Currency": "EUR",
+            "Capital": "دبلن",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "ID",
+            "Name": "إندونيسيا",
+            "Iso3": "IDN",
+            "Excel": "ID (62)",
+            "Unicode": "🇮🇩",
+            "Dial": "62",
+            "Currency": "IDR",
+            "Capital": "جاكرتا",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "IT",
+            "Name": "إيطاليا",
+            "Iso3": "ITA",
+            "Excel": "IT (+39)",
+            "Unicode": "IT",
+            "Dial": "39",
+            "Currency": "EUR",
+            "Capital": "روما",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "JO",
+            "Name": "الأردن",
+            "Iso3": "JOR",
+            "Excel": "JO (962)",
+            "Unicode": "🇯🇴",
+            "Dial": "962",
+            "Currency": "JOD",
+            "Capital": "عمان",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "BR",
+            "Name": "البرازيل",
+            "Iso3": "BRA",
+            "Excel": "BR (+55)",
+            "Unicode": "BR",
+            "Dial": "55",
+            "Currency": "BRL",
+            "Capital": "برازيليا",
+            "Continent": "SA"
+          },
+          {
+            "Iso2": "PT",
+            "Name": "البرتغال",
+            "Iso3": "PRT",
+            "Excel": "PT (+351)",
+            "Unicode": "PT",
+            "Dial": "351",
+            "Currency": "EUR",
+            "Capital": "لشبونة",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "DZ",
+            "Name": "الجزائر",
+            "Iso3": "DZA",
+            "Excel": "DZ (213)",
+            "Unicode": "🇩🇿",
+            "Dial": "213",
+            "Currency": "DZD",
+            "Capital": "الجزائر",
+            "Continent": "AF"
+          },
+          {
+            "Iso2": "SD",
+            "Name": "السودان",
+            "Iso3": "SDN",
+            "Excel": "SD (249)",
+            "Unicode": "🇸🇩",
+            "Dial": "249",
+            "Currency": "SDG",
+            "Capital": "الخرطوم",
+            "Continent": "AF"
+          },
+          {
+            "Iso2": "CN",
+            "Name": "الصين",
+            "Iso3": "CHN",
+            "Excel": "CN (86)",
+            "Unicode": "🇨🇳",
+            "Dial": "86",
+            "Currency": "CNY",
+            "Capital": "بكين",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "IQ",
+            "Name": "العراق",
+            "Iso3": "IRQ",
+            "Excel": "IQ (964)",
+            "Unicode": "🇮🇶",
+            "Dial": "964",
+            "Currency": "IQD",
+            "Capital": "بغداد",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "PH",
+            "Name": "الفلبين",
+            "Iso3": "PHL",
+            "Excel": "PH (63)",
+            "Unicode": "🇵🇭",
+            "Dial": "63",
+            "Currency": "PHP",
+            "Capital": "مانيلا",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "MA",
+            "Name": "المغرب",
+            "Iso3": "MAR",
+            "Excel": "MA (212)",
+            "Unicode": "🇲🇦",
+            "Dial": "212",
+            "Currency": "MAD",
+            "Capital": "الرِباط",
+            "Continent": "AF"
+          },
+          {
+            "Iso2": "MX",
+            "Name": "المكسيك",
+            "Iso3": "MEX",
+            "Excel": "MX (+52)",
+            "Unicode": "MX",
+            "Dial": "52",
+            "Currency": "MXN",
+            "Capital": "مكسيكو سيتي",
+            "Continent": "NA"
+          },
+          {
+            "Iso2": "GB",
+            "Name": "المملكة المتحدة",
+            "Iso3": "GBR",
+            "Excel": "GB (44)",
+            "Unicode": "🇬🇧",
+            "Dial": "44",
+            "Currency": "GBP",
+            "Capital": "لندن",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "IN",
+            "Name": "الهند",
+            "Iso3": "IND",
+            "Excel": "IN (91)",
+            "Unicode": "🇮🇳",
+            "Dial": "91",
+            "Currency": "INR",
+            "Capital": "نيودلهي",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "US",
+            "Name": "الولايات المتحدة الأمريكية",
+            "Iso3": "USA",
+            "Excel": "US (1)",
+            "Unicode": "🇺🇸",
+            "Dial": "1",
+            "Currency": "USD",
+            "Capital": "واشنطن العاصمة",
+            "Continent": "NA"
+          },
+          {
+            "Iso2": "JP",
+            "Name": "اليابان",
+            "Iso3": "JPN",
+            "Excel": "JP (+81)",
+            "Unicode": "JP",
+            "Dial": "81",
+            "Currency": "JPY",
+            "Capital": "طوكيو",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "YE",
+            "Name": "اليمن",
+            "Iso3": "YEM",
+            "Excel": "YE (967)",
+            "Unicode": "🇾🇪",
+            "Dial": "967",
+            "Currency": "YER",
+            "Capital": "صنعاء",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "GR",
+            "Name": "اليونان",
+            "Iso3": "GRC",
+            "Excel": "GR (+30)",
+            "Unicode": "GR",
+            "Dial": "30",
+            "Currency": "EUR",
+            "Capital": "أثينا",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "PK",
+            "Name": "باكستان",
+            "Iso3": "PAK",
+            "Excel": "PK (92)",
+            "Unicode": "🇵🇰",
+            "Dial": "92",
+            "Currency": "PKR",
+            "Capital": "إسلام آباد",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "BD",
+            "Name": "بنجلاديش",
+            "Iso3": "BGD",
+            "Excel": "BD (880)",
+            "Unicode": "🇧🇩",
+            "Dial": "880",
+            "Currency": "BDT",
+            "Capital": "دكا",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "PE",
+            "Name": "بيرو",
+            "Iso3": "PER",
+            "Excel": "PE (+51)",
+            "Unicode": "PE",
+            "Dial": "51",
+            "Currency": "PEN",
+            "Capital": "ليما",
+            "Continent": "SA"
+          },
+          {
+            "Iso2": "TR",
+            "Name": "تركيا",
+            "Iso3": "TUR",
+            "Excel": "TR (90)",
+            "Unicode": "🇹🇷",
+            "Dial": "90",
+            "Currency": "TRY",
+            "Capital": "انقرة",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "TN",
+            "Name": "تونس",
+            "Iso3": "TUN",
+            "Excel": "TN (216)",
+            "Unicode": "🇹🇳",
+            "Dial": "216",
+            "Currency": "TND",
+            "Capital": "تونس",
+            "Continent": "AF"
+          },
+          {
+            "Iso2": "ZA",
+            "Name": "جنوب أفريقيا",
+            "Iso3": "ZAF",
+            "Excel": "ZA (+27)",
+            "Unicode": "ZA",
+            "Dial": "27",
+            "Currency": "ZAR",
+            "Capital": "بريتوريا",
+            "Continent": "AF"
+          },
+          {
+            "Iso2": "RU",
+            "Name": "روسيا",
+            "Iso3": "RUS",
+            "Excel": "RU (+7)",
+            "Unicode": "RU",
+            "Dial": "7",
+            "Currency": "RUB",
+            "Capital": "موسكو",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "RO",
+            "Name": "رومانيا",
+            "Iso3": "ROU",
+            "Excel": "RO (+40)",
+            "Unicode": "RO",
+            "Dial": "40",
+            "Currency": "RON",
+            "Capital": "بوخارست",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "SY",
+            "Name": "سوريا",
+            "Iso3": "SYR",
+            "Excel": "SY (963)",
+            "Unicode": "🇸🇾",
+            "Dial": "963",
+            "Currency": "SYP",
+            "Capital": "دمشق",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "FR",
+            "Name": "فرنسا",
+            "Iso3": "FRA",
+            "Excel": "FR (+33)",
+            "Unicode": "FR",
+            "Dial": "33",
+            "Currency": "EUR",
+            "Capital": "باريس",
+            "Continent": "EU"
+          },
+          {
+            "Iso2": "PS",
+            "Name": "فلسطين",
+            "Iso3": "PSE",
+            "Excel": "PS (970)",
+            "Unicode": "🇵🇸",
+            "Dial": "970",
+            "Currency": "ILS",
+            "Capital": "القدس",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "CA",
+            "Name": "كندا",
+            "Iso3": "CAN",
+            "Excel": "CA (1)",
+            "Unicode": "🇨🇦",
+            "Dial": "1",
+            "Currency": "CAD",
+            "Capital": "أوتاوا",
+            "Continent": "NA"
+          },
+          {
+            "Iso2": "KR",
+            "Name": "كوريا الجنوبية",
+            "Iso3": "KOR",
+            "Excel": "KR (+82)",
+            "Unicode": "KR",
+            "Dial": "82",
+            "Currency": "KRW",
+            "Capital": "سيول",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "LB",
+            "Name": "لبنان",
+            "Iso3": "LBN",
+            "Excel": "LB (961)",
+            "Unicode": "🇱🇧",
+            "Dial": "961",
+            "Currency": "LBP",
+            "Capital": "بيروت",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "LY",
+            "Name": "ليبيا",
+            "Iso3": "LBY",
+            "Excel": "LY (218)",
+            "Unicode": "🇱🇾",
+            "Dial": "218",
+            "Currency": "LYD",
+            "Capital": "طرابلس",
+            "Continent": "AF"
+          },
+          {
+            "Iso2": "MY",
+            "Name": "ماليزيا",
+            "Iso3": "MYS",
+            "Excel": "MY (+60)",
+            "Unicode": "MY",
+            "Dial": "60",
+            "Currency": "MYR",
+            "Capital": "كوالالمبور",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "EG",
+            "Name": "مصر",
+            "Iso3": "EGY",
+            "Excel": "EG  (20)",
+            "Unicode": "🇪🇬",
+            "Dial": "20",
+            "Currency": "EGP",
+            "Capital": "القاهرة",
+            "Continent": "AF"
+          }
+        ]
+      },
+      "timing": 322
+    },
+    "timestamp": "2026-04-12T17:05:52.533Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "nullable": false,
+          "example": true
+        },
+        "data": {
+          "type": "string",
+          "nullable": false,
+          "example": "Countries Data"
+        },
+        "message": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "Iso2": {
+                "type": "string",
+                "nullable": false,
+                "example": "SA"
+              },
+              "Name": {
+                "type": "string",
+                "nullable": false,
+                "example": "المملكة العربية السعودية"
+              },
+              "Iso3": {
+                "type": "string",
+                "nullable": false,
+                "example": "SAU"
+              },
+              "Excel": {
+                "type": "string",
+                "nullable": false,
+                "example": "SA (966)"
+              },
+              "Unicode": {
+                "type": "string",
+                "nullable": false,
+                "example": "🇸🇦"
+              },
+              "Dial": {
+                "type": "string",
+                "nullable": false,
+                "example": "966"
+              },
+              "Currency": {
+                "type": "string",
+                "nullable": false,
+                "example": "SAR"
+              },
+              "Capital": {
+                "type": "string",
+                "nullable": false,
+                "example": "الرياض"
+              },
+              "Continent": {
+                "type": "string",
+                "nullable": false,
+                "example": "AS"
+              }
+            }
+          },
+          "example": [
+            {
+              "Iso2": "SA",
+              "Name": "المملكة العربية السعودية",
+              "Iso3": "SAU",
+              "Excel": "SA (966)",
+              "Unicode": "🇸🇦",
+              "Dial": "966",
+              "Currency": "SAR",
+              "Capital": "الرياض",
+              "Continent": "AS"
+            },
+            {
+              "Iso2": "QA",
+              "Name": "قطر",
+              "Iso3": "QAT",
+              "Excel": "QA (974)",
+              "Unicode": "🇶🇦",
+              "Dial": "974",
+              "Currency": "QAR",
+              "Capital": "الدوحة",
+              "Continent": "AS"
+            }
+          ]
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "tenancy/api/cities/all"
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:52 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "45fdc9ec932a892bdfef26f4e1e387ca",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=s4HljtuwTvwNeQjTYZrwRhC%2B7do8hsz85k1tS4PsAH7hwJ6U389YbaVhkxAaRsw3DAaYsVYcagp%2BfSRcNCpzUsgqtFYwRoE4deyuLH1n1XsLltPtii9jbvOlzAIS%2FUiJkUaf9duHs5k1%2FVsa\"}]}",
+        "cf-ray": "9eb3d1802b3a18a9-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 301
+    },
+    "timestamp": "2026-04-12T17:05:52.871Z",
+    "success": false
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "tenancy/api/districts/all"
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:53 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "772ddde264f3e419103b835bd0a55dd5",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GFAoFoCkwo1dV32Zw%2Fqw8Yqve2aYo6q8knd2gZNWfbRHn4p5iKyUTieR36lmunJU6ltBfzgq8QFW2SnD632AJadBpvmQO1OMbLZYblU%2B51ZimcGVZxQ5izkgevO2bOtub52IKfcbA8rHh6rt\"}]}",
+        "cf-ray": "9eb3d1827d2c18a9-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 492
+    },
+    "timestamp": "2026-04-12T17:05:53.425Z",
+    "success": false
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/common-lists"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:53 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=l%2B9Ev2%2BNR0GKjhSHtzJkBReNq%2FOL84oVO9CLn0JQet74zqcneT%2BhcYI5%2B%2BI2kUfXBMK9xkiZdt52FSnfMxvniY9YIY2ttA%2FLVGB%2FqZ6veWfsIaqojMngQiJt6a1dFJcLeVR5lsyZiIn9hPWx\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d185b88118a9-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 1,
+            "name": "معلومات الطلب غير صحيحة",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 2,
+            "name": "تم إلغاءه بناءً على طلب الساكن",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 3,
+            "name": "الساكن غير متوفر",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 4,
+            "name": "خارج نطاق الضمان",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 5,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 6,
+            "name": "ليس ضمن نطاق خدمتي",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 7,
+            "name": "لست متاح",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 8,
+            "name": "طلب مكرر",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 9,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 10,
+            "name": "تجزئة",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 11,
+            "name": "الخدمات اللوجستية والتخزين",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 12,
+            "name": "الأغذية والمشروبات (مطعم / مقهى)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 13,
+            "name": "الرعاية الصحية / العيادات / الصيدليات",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 14,
+            "name": "الجمال والعناية الشخصية (صالون / منتجع صحي)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 15,
+            "name": "العقارات وخدمات الممتلكات",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 16,
+            "name": "الأزياء والملابس",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 17,
+            "name": "الخدمات المهنية (قانونية / استشارات / تسويق)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 18,
+            "name": "مراكز التعليم والتدريب",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 19,
+            "name": "خدمات الصيانة والإصلاح (تكييف، سباكة، كهرباء)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 20,
+            "name": "شركة تقنية / برمجيات",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 21,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 22,
+            "name": "معلومات الطلب غير صحيحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 29,
+            "name": "معلومات الطلب غير صحيحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 23,
+            "name": "طلب مكرر",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 30,
+            "name": "طلب مكرر",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 24,
+            "name": "الطلب خارج نطاق خدمات المناطق المشتركة",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 31,
+            "name": "الطلب خارج نطاق خدمات المناطق المشتركة",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 25,
+            "name": "المشكلة محلولة مسبقًا",
+            "created_at": null,
+            "priority": "4"
+          },
+          {
+            "id": 32,
+            "name": "المشكلة محلولة مسبقًا",
+            "created_at": null,
+            "priority": "4"
+          },
+          {
+            "id": 26,
+            "name": "تم الإلغاء بناءً على قرار إداري",
+            "created_at": null,
+            "priority": "5"
+          },
+          {
+            "id": 33,
+            "name": "تم الإلغاء بناءً على قرار إداري",
+            "created_at": null,
+            "priority": "5"
+          },
+          {
+            "id": 27,
+            "name": "الطلب مخالف لسياسة الخدمة",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 34,
+            "name": "الطلب مخالف لسياسة الخدمة",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 28,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "7"
+          },
+          {
+            "id": 35,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "7"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 813
+    },
+    "timestamp": "2026-04-12T17:05:54.271Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "معلومات الطلب غير صحيحة"
+              },
+              "created_at": {
+                "type": "null",
+                "nullable": true
+              },
+              "priority": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/announcements"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:54 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=UF2AJdhC2aehcOlStI0fpOfguUjlOAi2vEzgJH%2FhSdcfwmz3%2BrfpU6h4XsZy1eYLR1RlFYeD77aJt4ss3ca8YtPbvBVO0O6o1SnkFwG7l4BYZ%2BZzP1QGffQqAMpexuVf4C94qWIgPCJuxIQp\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d18b2d9418a9-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      },
+      "timing": 391
+    },
+    "timestamp": "2026-04-12T17:05:54.713Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": true,
+            "properties": {}
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/leads"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:55 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LSUqF0vfKdSPVMouIVM48okOdrapVjkwPKszUCrnL3bN1tl9GQdFTwjy2bKEaGLkc608J2HIZqXsZkrTzGRZsCBdXmgTK1tkVzN6ndV9S823Reg6AmkIaKnAVr27VCDfqf7TI6905QlOCjUn\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d1904ac718a9-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 23,
+            "name": "Test Company2gno84",
+            "phone_number": "+966542870128",
+            "email": "company2gno84@example.com",
+            "created_at": "2026-04-12T16:48:49.000000Z",
+            "updated_at": "2026-04-12T16:48:49.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 22,
+            "name": "Test Tenant1jeq4n",
+            "phone_number": "+966572882294",
+            "email": "tenant1jeq4n@example.com",
+            "created_at": "2026-04-12T16:48:48.000000Z",
+            "updated_at": "2026-04-12T16:48:48.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 21,
+            "name": "Test Company4owwc4",
+            "phone_number": "+966508827826",
+            "email": "company4owwc4@example.com",
+            "created_at": "2026-04-12T15:21:50.000000Z",
+            "updated_at": "2026-04-12T15:21:50.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 20,
+            "name": "Test Tenant4ovw8r",
+            "phone_number": "+966581882487",
+            "email": "tenant4ovw8r@example.com",
+            "created_at": "2026-04-12T15:21:49.000000Z",
+            "updated_at": "2026-04-12T15:21:49.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 19,
+            "name": "Test Company28ovdw",
+            "phone_number": "+966541818341",
+            "email": "company28ovdw@example.com",
+            "created_at": "2026-04-12T11:19:55.000000Z",
+            "updated_at": "2026-04-12T11:19:55.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 18,
+            "name": "Test Tenant1gvpjx",
+            "phone_number": "+966530186894",
+            "email": "tenant1gvpjx@example.com",
+            "created_at": "2026-04-12T11:19:54.000000Z",
+            "updated_at": "2026-04-12T11:19:54.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 16,
+            "name": "Test Tenant42n8q7",
+            "phone_number": "+966502076827",
+            "email": "tenant42n8q7@example.com",
+            "created_at": "2026-04-12T11:10:28.000000Z",
+            "updated_at": "2026-04-12T11:10:28.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 17,
+            "name": "Test Company0cnb92",
+            "phone_number": "+966585373500",
+            "email": "company0cnb92@example.com",
+            "created_at": "2026-04-12T11:10:28.000000Z",
+            "updated_at": "2026-04-12T11:10:28.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 15,
+            "name": "Test Company85w1i8",
+            "phone_number": "+966591003666",
+            "email": "company85w1i8@example.com",
+            "created_at": "2026-04-12T09:45:31.000000Z",
+            "updated_at": "2026-04-12T09:45:31.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 14,
+            "name": "Test Company2o0wu6",
+            "phone_number": "+966554545343",
+            "email": "company2o0wu6@example.com",
+            "created_at": "2026-04-12T09:02:10.000000Z",
+            "updated_at": "2026-04-12T09:02:10.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 13,
+            "name": "Test Tenant22t0ql",
+            "phone_number": "+966509402218",
+            "email": "tenant22t0ql@example.com",
+            "created_at": "2026-04-12T09:02:09.000000Z",
+            "updated_at": "2026-04-12T09:02:09.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 11,
+            "name": "Test Tenant4ke3n2",
+            "phone_number": "+966504090394",
+            "email": "tenant4ke3n2@example.com",
+            "created_at": "2026-04-12T09:01:46.000000Z",
+            "updated_at": "2026-04-12T09:01:46.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 12,
+            "name": "Test Company68chfi",
+            "phone_number": "+966566423387",
+            "email": "company68chfi@example.com",
+            "created_at": "2026-04-12T09:01:46.000000Z",
+            "updated_at": "2026-04-12T09:01:46.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 10,
+            "name": "Test Tenant1cv4w8",
+            "phone_number": "+966536148801",
+            "email": "tenant1cv4w8@example.com",
+            "created_at": "2026-04-12T09:01:45.000000Z",
+            "updated_at": "2026-04-12T09:01:45.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 9,
+            "name": "Test Company6wh137",
+            "phone_number": "+966563326235",
+            "email": "company6wh137@example.com",
+            "created_at": "2026-04-12T09:01:02.000000Z",
+            "updated_at": "2026-04-12T09:01:02.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 8,
+            "name": "Test Company3fa2tb",
+            "phone_number": "+966588009072",
+            "email": "company3fa2tb@example.com",
+            "created_at": "2026-04-12T08:32:13.000000Z",
+            "updated_at": "2026-04-12T08:32:13.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 7,
+            "name": "Test Tenant5ol4dr",
+            "phone_number": "+966533977107",
+            "email": "tenant5ol4dr@example.com",
+            "created_at": "2026-04-12T08:31:01.000000Z",
+            "updated_at": "2026-04-12T08:31:01.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 6,
+            "name": "Test Company9bd5k5",
+            "phone_number": "+966593475494",
+            "email": "company9bd5k5@example.com",
+            "created_at": "2026-04-12T08:05:37.000000Z",
+            "updated_at": "2026-04-12T08:05:37.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 5,
+            "name": "Test Company4byxnc",
+            "phone_number": "+966538084496",
+            "email": "company4byxnc@example.com",
+            "created_at": "2026-04-12T08:01:56.000000Z",
+            "updated_at": "2026-04-12T08:01:56.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 4,
+            "name": "Khalid Test",
+            "phone_number": "+966512345678",
+            "email": "khalid.test@example.com",
+            "created_at": "2026-04-10T23:32:52.000000Z",
+            "updated_at": "2026-04-10T23:57:31.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مستأجر",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          },
+          {
+            "id": 3,
+            "name": "Mohammed Al-Saud",
+            "phone_number": "+966500000002",
+            "email": "owner1@example.com",
+            "created_at": "2026-04-10T22:45:51.000000Z",
+            "updated_at": "2026-04-10T22:45:51.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مالك",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          }
+        ],
+        "meta": []
+      },
+      "timing": 498
+    },
+    "timestamp": "2026-04-12T17:05:55.649Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 23
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Company2gno84"
+              },
+              "phone_number": {
+                "type": "string",
+                "nullable": false,
+                "example": "+966542870128"
+              },
+              "email": {
+                "type": "string",
+                "nullable": false,
+                "example": "company2gno84@example.com"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-12T16:48:49.000000Z"
+              },
+              "updated_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-12T16:48:49.000000Z"
+              },
+              "lead_last_contact_at": {
+                "type": "null",
+                "nullable": true
+              },
+              "interested": {
+                "type": "null",
+                "nullable": true
+              },
+              "role": {
+                "type": "string",
+                "nullable": false,
+                "example": "مستأجر"
+              },
+              "status": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "null",
+                    "nullable": true
+                  },
+                  "value": {
+                    "type": "null",
+                    "nullable": true
+                  }
+                }
+              },
+              "source": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "null",
+                    "nullable": true
+                  },
+                  "value": {
+                    "type": "null",
+                    "nullable": true
+                  }
+                }
+              },
+              "priority": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "null",
+                    "nullable": true
+                  },
+                  "value": {
+                    "type": "null",
+                    "nullable": true
+                  }
+                }
+              },
+              "lead_owner": {
+                "type": "null",
+                "nullable": true
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "integrations/powerbi/types"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:55 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xUx1qMGM1WECJvkaTeQ1hyyRXAvSVz6xC%2Bcc1GvPDS0gMUxtHptlL7gms6McWGSs%2BHq9JZdYMWB1q6zuZHQbq2lJJrM%2FEJOEhr7jdZexwsn5gw63RB48%2BbTiqTOJSRH%2BW6P0Py9eHB1cXSLP\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d1938db318a9-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 5,
+            "title": "التقارير المالية",
+            "comming_soon": "1",
+            "is_active": "1"
+          },
+          {
+            "id": 2,
+            "title": "تقارير التأجير",
+            "comming_soon": "1",
+            "is_active": "1"
+          },
+          {
+            "id": 4,
+            "title": "تقارير العقارات",
+            "comming_soon": "1",
+            "is_active": "1"
+          },
+          {
+            "id": 3,
+            "title": "تقارير المبيعات",
+            "comming_soon": "1",
+            "is_active": "1"
+          },
+          {
+            "id": 1,
+            "title": "تقارير الطلبات",
+            "comming_soon": "1",
+            "is_active": "1"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 853
+    },
+    "timestamp": "2026-04-12T17:05:56.541Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 5
+              },
+              "title": {
+                "type": "string",
+                "nullable": false,
+                "example": "التقارير المالية"
+              },
+              "comming_soon": {
+                "type": "string",
+                "nullable": false,
+                "example": "1"
+              },
+              "is_active": {
+                "type": "string",
+                "nullable": false,
+                "example": "1"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/excel-sheets"
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:05:56 GMT",
+        "content-type": "application/json",
+        "content-length": "93",
+        "connection": "keep-alive",
+        "allow": "POST",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "d2942d011073cd84daa90a319ec1d837",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Nlt5xgo%2FlvWuQeYclqqCqJRXqKCeMAUGi%2F44PSNnA9LTySKB3tIgoRnDECt%2Fcc9CuWHs%2BUXbetVx7Demw1TxKSA87Ng0lfG%2BwRZwsmJLWJTKBUioC37tdCz50GX8cYkfPMsW4lnv%2FA9MRoY5\"}]}",
+        "cf-ray": "9eb3d1993b3918a9-MRS"
+      },
+      "body": {
+        "message": "The GET method is not supported for this route. Supported methods: POST."
+      },
+      "timing": 553
+    },
+    "timestamp": "2026-04-12T17:05:57.126Z",
+    "success": false
+  }
+]

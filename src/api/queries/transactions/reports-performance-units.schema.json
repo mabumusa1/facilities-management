@@ -1,0 +1,54 @@
+{
+  "endpoint": "reports/performance/units",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object",
+        "nullable": false,
+        "properties": {
+          "vacant": {
+            "type": "number",
+            "nullable": false,
+            "example": 3
+          },
+          "sold": {
+            "type": "number",
+            "nullable": false,
+            "example": 0
+          },
+          "leased": {
+            "type": "number",
+            "nullable": false,
+            "example": 0
+          },
+          "soldAndLeased": {
+            "type": "number",
+            "nullable": false,
+            "example": 0
+          }
+        }
+      },
+      "success": {
+        "type": "boolean",
+        "nullable": false,
+        "example": true
+      },
+      "message": {
+        "type": "string",
+        "nullable": false,
+        "example": "تمت العمليه بنجاح."
+      }
+    },
+    "meta": {
+      "hasPagination": false
+    }
+  },
+  "sample": {
+    "vacant": 3,
+    "sold": 0,
+    "leased": 0,
+    "soldAndLeased": 0
+  }
+}

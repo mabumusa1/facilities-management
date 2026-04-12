@@ -1,0 +1,68 @@
+{
+  "endpoint": "rf/modules",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "title": {
+              "type": "string",
+              "nullable": false,
+              "example": "العروض"
+            },
+            "is_active": {
+              "type": "string",
+              "nullable": false,
+              "example": "1"
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "mixed",
+          "nullable": true
+        },
+        "example": []
+      }
+    },
+    "meta": {
+      "hasPagination": true
+    }
+  },
+  "sample": [
+    {
+      "id": 1,
+      "title": "العروض",
+      "is_active": "1"
+    },
+    {
+      "id": 2,
+      "title": "طلبات الحجوزات للمرافق",
+      "is_active": "1"
+    },
+    {
+      "id": 3,
+      "title": "طلبات تصاريح الزوار",
+      "is_active": "1"
+    },
+    {
+      "id": 4,
+      "title": "الدليل",
+      "is_active": "1"
+    }
+  ]
+}

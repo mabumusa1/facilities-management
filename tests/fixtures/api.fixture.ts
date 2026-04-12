@@ -19,6 +19,12 @@ import {
   HttpMethod,
   RequestOptions,
 } from '../utils/mutation-types';
+import {
+  QueryCapture,
+  QueryOptions,
+  ResponseSchema,
+  FieldSchema,
+} from '../utils/query-types';
 
 // API Context interface
 export interface ApiContext {
@@ -35,6 +41,9 @@ export interface ApiContext {
   get: (endpoint: string, options?: RequestOptions) => Promise<unknown>;
   fetchReferenceData: (endpoint: string) => Promise<unknown>;
 
+  // GET with full capture (for response schema extraction)
+  getCapture: (endpoint: string, options?: QueryOptions) => Promise<QueryCapture>;
+
   // ID extraction helpers
   extractIds: (data: unknown, idField?: string) => string[];
   extractFirstId: (data: unknown, idField?: string) => string | undefined;
@@ -44,7 +53,9 @@ export interface ApiContext {
 
   // Batch operations
   captureAll: MutationCapture[];
+  queryCaptures: QueryCapture[];
   clearCaptures: () => void;
+  clearQueryCaptures: () => void;
 }
 
 // Load auth from localstorage.json
@@ -109,6 +120,126 @@ function extractRule(message: unknown): string | undefined {
   return undefined;
 }
 
+// Infer field schema from a value
+function inferFieldSchema(value: unknown): FieldSchema {
+  if (value === null) {
+    return { type: 'null', nullable: true };
+  }
+
+  if (Array.isArray(value)) {
+    const itemSchema = value.length > 0 ? inferFieldSchema(value[0]) : { type: 'mixed' as const, nullable: true };
+    return {
+      type: 'array',
+      nullable: false,
+      items: itemSchema,
+      example: value.slice(0, 2), // Keep first 2 items as example
+    };
+  }
+
+  if (typeof value === 'object') {
+    const properties: Record<string, FieldSchema> = {};
+    for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
+      properties[key] = inferFieldSchema(val);
+    }
+    return {
+      type: 'object',
+      nullable: false,
+      properties,
+    };
+  }
+
+  if (typeof value === 'string') {
+    return { type: 'string', nullable: false, example: value.length > 100 ? value.slice(0, 100) + '...' : value };
+  }
+
+  if (typeof value === 'number') {
+    return { type: 'number', nullable: false, example: value };
+  }
+
+  if (typeof value === 'boolean') {
+    return { type: 'boolean', nullable: false, example: value };
+  }
+
+  return { type: 'mixed', nullable: true };
+}
+
+// Infer response schema from response body
+function inferResponseSchema(body: unknown): ResponseSchema | undefined {
+  if (!body || typeof body !== 'object') return undefined;
+
+  const responseBody = body as Record<string, unknown>;
+
+  // Check if it's a paginated list response
+  if (responseBody.data && Array.isArray(responseBody.data)) {
+    const itemSchema = responseBody.data.length > 0
+      ? inferFieldSchema(responseBody.data[0])
+      : { type: 'object' as const, nullable: true, properties: {} };
+
+    const hasPagination = !!(responseBody.meta || responseBody.links || responseBody.current_page);
+    const paginationFields: string[] = [];
+
+    if (responseBody.meta && typeof responseBody.meta === 'object') {
+      paginationFields.push(...Object.keys(responseBody.meta as object));
+    }
+    if (responseBody.current_page) paginationFields.push('current_page');
+    if (responseBody.last_page) paginationFields.push('last_page');
+    if (responseBody.per_page) paginationFields.push('per_page');
+    if (responseBody.total) paginationFields.push('total');
+
+    return {
+      type: 'object',
+      properties: {
+        data: {
+          type: 'array',
+          nullable: false,
+          items: itemSchema,
+        },
+        ...(responseBody.meta ? { meta: inferFieldSchema(responseBody.meta) } : {}),
+        ...(responseBody.links ? { links: inferFieldSchema(responseBody.links) } : {}),
+      },
+      meta: {
+        hasPagination,
+        paginationFields: paginationFields.length > 0 ? paginationFields : undefined,
+      },
+    };
+  }
+
+  // Check if it's a single object response with data wrapper
+  if (responseBody.data && typeof responseBody.data === 'object' && !Array.isArray(responseBody.data)) {
+    return {
+      type: 'object',
+      properties: {
+        data: inferFieldSchema(responseBody.data),
+        ...(responseBody.success !== undefined ? { success: inferFieldSchema(responseBody.success) } : {}),
+        ...(responseBody.message ? { message: inferFieldSchema(responseBody.message) } : {}),
+      },
+      meta: { hasPagination: false },
+    };
+  }
+
+  // Direct array response
+  if (Array.isArray(body)) {
+    const itemSchema = body.length > 0
+      ? inferFieldSchema(body[0])
+      : { type: 'object' as const, nullable: true, properties: {} };
+
+    return {
+      type: 'array',
+      items: itemSchema,
+      meta: { hasPagination: false },
+    };
+  }
+
+  // Direct object response
+  return {
+    type: 'object',
+    properties: Object.fromEntries(
+      Object.entries(responseBody).map(([key, value]) => [key, inferFieldSchema(value)])
+    ),
+    meta: { hasPagination: false },
+  };
+}
+
 // Analyze validation errors across multiple captures
 function analyzeValidationErrors(captures: MutationCapture[]): FieldRequirements {
   const requirements: FieldRequirements = {};
@@ -162,6 +293,7 @@ export const test = base.extend<{ api: ApiContext }>({
 
     // Store all captures for batch processing
     const captureAll: MutationCapture[] = [];
+    const queryCaptures: QueryCapture[] = [];
 
     // Execute mutation and capture full request/response
     const executeMutation = async (
@@ -269,6 +401,77 @@ export const test = base.extend<{ api: ApiContext }>({
       }
     };
 
+    // GET with full capture for response schema extraction
+    const executeGetCapture = async (endpoint: string, options?: QueryOptions): Promise<QueryCapture> => {
+      const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
+      const startTime = Date.now();
+
+      // Build URL with query params if provided
+      let url = cleanEndpoint;
+      if (options?.params) {
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(options.params)) {
+          params.append(key, String(value));
+        }
+        url = `${cleanEndpoint}?${params.toString()}`;
+      }
+
+      const response = await apiContext.get(url, {
+        timeout: options?.timeout || 30000,
+        headers: options?.headers,
+      });
+
+      const timing = Date.now() - startTime;
+
+      // Parse response body
+      let responseBody: unknown;
+      try {
+        responseBody = await response.json();
+      } catch {
+        try {
+          responseBody = await response.text();
+        } catch {
+          responseBody = null;
+        }
+      }
+
+      // Build capture object
+      const capture: QueryCapture = {
+        request: {
+          method: 'GET',
+          endpoint,
+          params: options?.params,
+        },
+        response: {
+          status: response.status(),
+          statusText: response.statusText(),
+          headers: response.headers(),
+          body: responseBody,
+          timing,
+        },
+        timestamp: new Date().toISOString(),
+        success: response.status() >= 200 && response.status() < 300,
+      };
+
+      // Infer schema if requested and response was successful
+      if ((options?.includeSchema !== false) && capture.success) {
+        capture.schema = inferResponseSchema(responseBody);
+      }
+
+      // Store in query captures
+      queryCaptures.push(capture);
+
+      // Log the capture
+      const dataInfo = capture.schema?.type === 'object' && capture.schema?.properties?.data
+        ? ` [${Object.keys(capture.schema.properties.data.properties || {}).length} fields]`
+        : '';
+      console.log(
+        `[GET] ${endpoint} => ${response.status()} (${timing}ms)${dataInfo}`
+      );
+
+      return capture;
+    };
+
     // Extract IDs from response data
     const extractIds = (data: unknown, idField = 'id'): string[] => {
       if (!data) return [];
@@ -321,6 +524,7 @@ export const test = base.extend<{ api: ApiContext }>({
 
       get: executeGet,
       fetchReferenceData: executeGet,
+      getCapture: executeGetCapture,
 
       extractIds,
       extractFirstId,
@@ -328,8 +532,12 @@ export const test = base.extend<{ api: ApiContext }>({
       analyzeValidationErrors,
 
       captureAll,
+      queryCaptures,
       clearCaptures: () => {
         captureAll.length = 0;
+      },
+      clearQueryCaptures: () => {
+        queryCaptures.length = 0;
       },
     });
 

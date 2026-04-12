@@ -1,0 +1,102 @@
+{
+  "endpoint": "countries",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean",
+        "nullable": false,
+        "example": true
+      },
+      "data": {
+        "type": "string",
+        "nullable": false,
+        "example": "Countries Data"
+      },
+      "message": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "Iso2": {
+              "type": "string",
+              "nullable": false,
+              "example": "SA"
+            },
+            "Name": {
+              "type": "string",
+              "nullable": false,
+              "example": "المملكة العربية السعودية"
+            },
+            "Iso3": {
+              "type": "string",
+              "nullable": false,
+              "example": "SAU"
+            },
+            "Excel": {
+              "type": "string",
+              "nullable": false,
+              "example": "SA (966)"
+            },
+            "Unicode": {
+              "type": "string",
+              "nullable": false,
+              "example": "🇸🇦"
+            },
+            "Dial": {
+              "type": "string",
+              "nullable": false,
+              "example": "966"
+            },
+            "Currency": {
+              "type": "string",
+              "nullable": false,
+              "example": "SAR"
+            },
+            "Capital": {
+              "type": "string",
+              "nullable": false,
+              "example": "الرياض"
+            },
+            "Continent": {
+              "type": "string",
+              "nullable": false,
+              "example": "AS"
+            }
+          }
+        },
+        "example": [
+          {
+            "Iso2": "SA",
+            "Name": "المملكة العربية السعودية",
+            "Iso3": "SAU",
+            "Excel": "SA (966)",
+            "Unicode": "🇸🇦",
+            "Dial": "966",
+            "Currency": "SAR",
+            "Capital": "الرياض",
+            "Continent": "AS"
+          },
+          {
+            "Iso2": "QA",
+            "Name": "قطر",
+            "Iso3": "QAT",
+            "Excel": "QA (974)",
+            "Unicode": "🇶🇦",
+            "Dial": "974",
+            "Currency": "QAR",
+            "Capital": "الدوحة",
+            "Continent": "AS"
+          }
+        ]
+      }
+    },
+    "meta": {
+      "hasPagination": false
+    }
+  },
+  "sample": "Countries Data"
+}

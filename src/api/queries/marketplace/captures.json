@@ -1,0 +1,564 @@
+[
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/settings/banks"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:53 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DZ%2Fxcpj9IRnMr0OE4icdOUU%2BnW1lo439Gjife49cCnK%2Fnbi0GO5t6n%2BDU7CIq5%2F3LMyCmvRpJqqqta3ITR%2BH07qqwnrWXd7%2BQHGuqc%2F%2FadKrF7rt7w%2FbVHshNTOP0PZzUF%2Bk57feGjIBuqDR\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d474f96511b8-MRS"
+      },
+      "body": {
+        "success": true,
+        "data": {
+          "beneficiary_name": "Test Beneficiary",
+          "bank_name": "Test Bank",
+          "account_number": "12345678901234567890",
+          "iban": "SA0380000000608010167519"
+        },
+        "message": "تم استرجاع الاعدادات بنجاح"
+      },
+      "timing": 1076
+    },
+    "timestamp": "2026-04-12T17:07:54.017Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "beneficiary_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Test Beneficiary"
+            },
+            "bank_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Test Bank"
+            },
+            "account_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "12345678901234567890"
+            },
+            "iban": {
+              "type": "string",
+              "nullable": false,
+              "example": "SA0380000000608010167519"
+            }
+          }
+        },
+        "success": {
+          "type": "boolean",
+          "nullable": false,
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "nullable": false,
+          "example": "تم استرجاع الاعدادات بنجاح"
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/settings/sales"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:54 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xlk7qsYoWAjPQn4eO6oi%2Bi6j2P0GoYe4YtMB1Mz78d6hV3pCguBMemdvaW2rh%2B5yBHTpCSkj18vV0NLy5q%2BRBbrX0NZSCQ1dmoONoR5geyXdrejSX7lOoJe48jNTxkJrfLsgPWEdnA46oDLr\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d4779bde11b8-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "deposit_time_limit_days": 7,
+          "cash_contract_signing_days": 14,
+          "bank_contract_signing_days": 30
+        }
+      },
+      "timing": 300
+    },
+    "timestamp": "2026-04-12T17:07:54.421Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "deposit_time_limit_days": {
+              "type": "number",
+              "nullable": false,
+              "example": 7
+            },
+            "cash_contract_signing_days": {
+              "type": "number",
+              "nullable": false,
+              "example": 14
+            },
+            "bank_contract_signing_days": {
+              "type": "number",
+              "nullable": false,
+              "example": 30
+            }
+          }
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/settings/visits"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:54 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2Fo6ZDELJ1aLPfOFF1wyxTP4%2BJPu3utrOGsp027BP%2F55x%2B6NGeJgJqu3JjX6k%2BW6vTBd9dAo5IYE0ztbld%2FwnKktPSmKROxliE%2BN7UlCFoi8%2F53lHlQfzhehdOdg2ezxxVoohueyqeqZ0st3K\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d47a0e3c11b8-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "id": 1,
+          "days": [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "start_time": null,
+          "end_time": null,
+          "is_all_day": "1",
+          "created_at": "2026-04-10 04:09"
+        },
+        "meta": []
+      },
+      "timing": 314
+    },
+    "timestamp": "2026-04-12T17:07:54.792Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "days": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "string",
+                "nullable": false,
+                "example": "Saturday"
+              },
+              "example": [
+                "Saturday",
+                "Sunday"
+              ]
+            },
+            "start_time": {
+              "type": "null",
+              "nullable": true
+            },
+            "end_time": {
+              "type": "null",
+              "nullable": true
+            },
+            "is_all_day": {
+              "type": "string",
+              "nullable": false,
+              "example": "1"
+            },
+            "created_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-10 04:09"
+            }
+          }
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/units"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:55 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2aI1HM6sL6f68oW9p%2FB5dxGPKuDsefxsJzGwggTMERqRPnhua6h84f3p2Ms1I9jxdjDxZfHQhHIs4b4Fk7Qk2M14STanPuULd45%2Bao0vsBjQuMg2HllOXx2izOqWOPcjVdXIIwSHewLkF485\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d47c181411b8-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      },
+      "timing": 404
+    },
+    "timestamp": "2026-04-12T17:07:55.253Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": true,
+            "properties": {}
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/units",
+      "params": {
+        "page": 1,
+        "per_page": 10
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:55 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nJN%2BS7%2BZ3Hp2fbDGPG6d5dlPRfBFmd7dPIlqgGYSkvxEP8M%2BrBSYjhZS5erHPqOkaWeekEVfvVPiSifwD6Q%2F2Ly3Bx0V2P%2BlHic0tt%2BOPhXYomth6ISDXRctUGkeiFOm5TLx6sf0MKI7CFz%2F\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d47feb8c11b8-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      },
+      "timing": 727
+    },
+    "timestamp": "2026-04-12T17:07:56.048Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": true,
+            "properties": {}
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/visits"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:56 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1oBIHcsINJ%2Fyqitxc010Km%2FHLGwpyQskYCI9%2BxOJ%2F2d0di8%2F4NDXUJGdGy0FM%2FduHo26S1NOEqMy%2FS8%2FjjeTtnRd50OAMGvovxM0lS4w6i8J%2Bn6KfK1aEN1nyE5aHw2zG5uNJAwA0Rm7CMlK\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d483df6511b8-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": [],
+        "meta": []
+      },
+      "timing": 286
+    },
+    "timestamp": "2026-04-12T17:07:56.384Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": true,
+            "properties": {}
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/visits",
+      "params": {
+        "page": 1,
+        "per_page": 10
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:56 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7Z0Xu0pZTfPtV8PizxzW5Z9WYSa10bBQgqMDYuRtIktrUjaR2qGJTLX8E8hsuVyv3oJHXbwbkjyMH8AMldAlB8M3phONSUHv%2FwXhXizRdyueTj5uSDOJHZZ8b83Ll%2FIGvCqFWwfUE%2FfxS3TH\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d486293411b8-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": [],
+        "meta": []
+      },
+      "timing": 291
+    },
+    "timestamp": "2026-04-12T17:07:56.726Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": true,
+            "properties": {}
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "marketplace/admin/communities/list"
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:56 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "444cb44f8becee032f2f75dbe28d3d6f",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vqfyW16qt0XF00XWCoaivIACS9S40ZABDBE5DmUlE4BqdwiE8rFdFC9lMVHgq4P3sWAwr3DneMOIb8FSRprt8X1mJbxIOXNffXGoSzNIhSW0O0zvQ6zLkmaWA4MpID8Y5xpR3f5h%2BtJbVCCB\"}]}",
+        "cf-ray": "9eb3d4884b4811b8-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 264
+    },
+    "timestamp": "2026-04-12T17:07:57.060Z",
+    "success": false
+  }
+]

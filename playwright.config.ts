@@ -149,6 +149,49 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
+    // API Query Agents - GET response capture
+    {
+      name: 'properties-query-agent',
+      testMatch: /properties\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'contacts-query-agent',
+      testMatch: /contacts\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'leasing-query-agent',
+      testMatch: /leasing\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'transactions-query-agent',
+      testMatch: /transactions\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'marketplace-query-agent',
+      testMatch: /marketplace\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'requests-query-agent',
+      testMatch: /requests\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'common-query-agent',
+      testMatch: /common\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    // Run all query agents together
+    {
+      name: 'all-query-agents',
+      testMatch: /\.query\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+
     // Run all agents together
     {
       name: 'all-agents',

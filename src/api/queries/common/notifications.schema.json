@@ -1,0 +1,424 @@
+{
+  "endpoint": "notifications",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "nullable": false,
+              "example": "b77c8700-cf7f-4a19-b36d-691fa794e970"
+            },
+            "text": {
+              "type": "string",
+              "nullable": false,
+              "example": "New Lease added 2026000001RL"
+            },
+            "data": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "title": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "New Lease"
+                },
+                "notify_type": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "lease"
+                },
+                "contract_number": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "2026000001RL"
+                },
+                "tenant": {
+                  "type": "object",
+                  "nullable": false,
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "nullable": false,
+                      "example": 4
+                    },
+                    "age": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "data": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "Khalid Test"
+                    },
+                    "email": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "khalid.test@example.com"
+                    },
+                    "image": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "active": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "1"
+                    },
+                    "gender": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "source": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "address": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "invited": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "0"
+                    },
+                    "password": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "last_name": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "Test"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "2026-04-10T23:32:52.000000Z"
+                    },
+                    "deleted_at": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "first_name": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "Khalid"
+                    },
+                    "interested": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "is_company": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "0"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "2026-04-10T23:57:31.000000Z"
+                    },
+                    "father_name": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "lead_source": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "lead_status": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "national_id": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "2233445566"
+                    },
+                    "app_language": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "en"
+                    },
+                    "country_code": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "+966"
+                    },
+                    "created_from": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "manual"
+                    },
+                    "otp_attempts": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "0"
+                    },
+                    "phone_number": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "+966512345678"
+                    },
+                    "last_login_at": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "lead_owner_id": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "lead_priority": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "remember_token": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "grandfather_name": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "otp_last_attempt": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "email_verified_at": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "interested_reason": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "georgian_birthdate": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "phone_country_code": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "SA"
+                    },
+                    "lead_last_contact_at": {
+                      "type": "null",
+                      "nullable": true
+                    },
+                    "privacy_policy_accepted_at": {
+                      "type": "null",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            },
+            "type": {
+              "type": "string",
+              "nullable": false,
+              "example": "NewLeaseNotification"
+            },
+            "read": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-12T06:02:55.000000Z"
+            },
+            "created_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-11 02:57:33"
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "object",
+        "nullable": false,
+        "properties": {
+          "current_page": {
+            "type": "number",
+            "nullable": false,
+            "example": 1
+          },
+          "from": {
+            "type": "number",
+            "nullable": false,
+            "example": 1
+          },
+          "last_page": {
+            "type": "number",
+            "nullable": false,
+            "example": 1
+          },
+          "links": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "url": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "label": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "&laquo; Previous"
+                },
+                "active": {
+                  "type": "boolean",
+                  "nullable": false,
+                  "example": false
+                }
+              }
+            },
+            "example": [
+              {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+              },
+              {
+                "url": "http://api.goatar.com/api-management/notifications?page=1",
+                "label": "1",
+                "active": true
+              }
+            ]
+          },
+          "path": {
+            "type": "string",
+            "nullable": false,
+            "example": "http://api.goatar.com/api-management/notifications"
+          },
+          "per_page": {
+            "type": "number",
+            "nullable": false,
+            "example": 15
+          },
+          "to": {
+            "type": "number",
+            "nullable": false,
+            "example": 1
+          },
+          "total": {
+            "type": "number",
+            "nullable": false,
+            "example": 1
+          }
+        }
+      },
+      "links": {
+        "type": "object",
+        "nullable": false,
+        "properties": {
+          "first": {
+            "type": "string",
+            "nullable": false,
+            "example": "http://api.goatar.com/api-management/notifications?page=1"
+          },
+          "last": {
+            "type": "string",
+            "nullable": false,
+            "example": "http://api.goatar.com/api-management/notifications?page=1"
+          },
+          "prev": {
+            "type": "null",
+            "nullable": true
+          },
+          "next": {
+            "type": "null",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "meta": {
+      "hasPagination": true,
+      "paginationFields": [
+        "current_page",
+        "from",
+        "last_page",
+        "links",
+        "path",
+        "per_page",
+        "to",
+        "total"
+      ]
+    }
+  },
+  "sample": [
+    {
+      "id": "b77c8700-cf7f-4a19-b36d-691fa794e970",
+      "text": "New Lease added 2026000001RL",
+      "data": {
+        "id": 1,
+        "title": "New Lease",
+        "notify_type": "lease",
+        "contract_number": "2026000001RL",
+        "tenant": {
+          "id": 4,
+          "age": null,
+          "data": null,
+          "name": "Khalid Test",
+          "email": "khalid.test@example.com",
+          "image": null,
+          "active": "1",
+          "gender": null,
+          "source": null,
+          "address": null,
+          "invited": "0",
+          "password": null,
+          "last_name": "Test",
+          "created_at": "2026-04-10T23:32:52.000000Z",
+          "deleted_at": null,
+          "first_name": "Khalid",
+          "interested": null,
+          "is_company": "0",
+          "updated_at": "2026-04-10T23:57:31.000000Z",
+          "father_name": null,
+          "lead_source": null,
+          "lead_status": null,
+          "national_id": "2233445566",
+          "app_language": "en",
+          "country_code": "+966",
+          "created_from": "manual",
+          "otp_attempts": "0",
+          "phone_number": "+966512345678",
+          "last_login_at": null,
+          "lead_owner_id": null,
+          "lead_priority": null,
+          "remember_token": null,
+          "grandfather_name": null,
+          "otp_last_attempt": null,
+          "email_verified_at": null,
+          "interested_reason": null,
+          "georgian_birthdate": null,
+          "phone_country_code": "SA",
+          "lead_last_contact_at": null,
+          "privacy_policy_accepted_at": null
+        }
+      },
+      "type": "NewLeaseNotification",
+      "read": "2026-04-12T06:02:55.000000Z",
+      "created_at": "2026-04-11 02:57:33"
+    }
+  ]
+}
