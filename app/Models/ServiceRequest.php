@@ -2,10 +2,17 @@
 
 namespace App\Models;
 
+use App\Events\ServiceRequest\ServiceRequestAccepted;
+use App\Events\ServiceRequest\ServiceRequestAssigned;
+use App\Events\ServiceRequest\ServiceRequestCanceled;
+use App\Events\ServiceRequest\ServiceRequestCompleted;
+use App\Events\ServiceRequest\ServiceRequestInProgress;
+use App\Events\ServiceRequest\ServiceRequestRejected;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServiceRequest extends Model
@@ -111,6 +118,11 @@ class ServiceRequest extends Model
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(Contact::class, 'created_by');
+    }
+
+    public function stateHistory(): HasMany
+    {
+        return $this->hasMany(ServiceRequestStateHistory::class);
     }
 
     // Query Scopes
@@ -262,67 +274,109 @@ class ServiceRequest extends Model
         return $this->rating !== null;
     }
 
+    protected function recordStateChange(int $toStatusId, int $fromStatusId, ?int $changedBy = null, ?string $notes = null, ?array $metadata = null): void
+    {
+        ServiceRequestStateHistory::create([
+            'service_request_id' => $this->id,
+            'from_status_id' => $fromStatusId,
+            'to_status_id' => $toStatusId,
+            'changed_by' => $changedBy,
+            'notes' => $notes,
+            'metadata' => $metadata,
+        ]);
+    }
+
     public function markAsAssigned(int $professionalId, ?int $assignedBy = null): void
     {
         $status = Status::where('domain', 'request')->where('slug', 'request_assigned')->first();
+        $newStatusId = $status?->id ?? $this->status_id;
+        $oldStatusId = $this->status_id;
 
         $this->update([
             'professional_id' => $professionalId,
             'assigned_by' => $assignedBy,
-            'status_id' => $status?->id ?? $this->status_id,
+            'status_id' => $newStatusId,
         ]);
+
+        $this->recordStateChange($newStatusId, $oldStatusId, $assignedBy, 'Request assigned to professional');
+        ServiceRequestAssigned::dispatch($this);
     }
 
     public function markAsAccepted(): void
     {
         $status = Status::where('domain', 'request')->where('slug', 'request_accepted')->first();
+        $newStatusId = $status?->id ?? $this->status_id;
+        $oldStatusId = $this->status_id;
 
         $this->update([
-            'status_id' => $status?->id ?? $this->status_id,
+            'status_id' => $newStatusId,
             'accepted_at' => now(),
         ]);
+
+        $this->recordStateChange($newStatusId, $oldStatusId, $this->professional_id, 'Request accepted by professional');
+        ServiceRequestAccepted::dispatch($this);
     }
 
     public function markAsInProgress(): void
     {
         $status = Status::where('domain', 'request')->where('slug', 'request_in_progress')->first();
+        $newStatusId = $status?->id ?? $this->status_id;
+        $oldStatusId = $this->status_id;
 
         $this->update([
-            'status_id' => $status?->id ?? $this->status_id,
+            'status_id' => $newStatusId,
             'started_at' => now(),
         ]);
+
+        $this->recordStateChange($newStatusId, $oldStatusId, $this->professional_id, 'Work started on request');
+        ServiceRequestInProgress::dispatch($this);
     }
 
     public function markAsCompleted(?float $actualCost = null): void
     {
         $status = Status::where('domain', 'request')->where('slug', 'request_completed')->first();
+        $newStatusId = $status?->id ?? $this->status_id;
+        $oldStatusId = $this->status_id;
 
         $this->update([
-            'status_id' => $status?->id ?? $this->status_id,
+            'status_id' => $newStatusId,
             'completed_at' => now(),
             'actual_cost' => $actualCost ?? $this->actual_cost,
         ]);
+
+        $this->recordStateChange($newStatusId, $oldStatusId, $this->professional_id, 'Request completed', ['actual_cost' => $actualCost]);
+        ServiceRequestCompleted::dispatch($this);
     }
 
     public function markAsCanceled(string $reason): void
     {
         $status = Status::where('domain', 'request')->where('slug', 'request_canceled')->first();
+        $newStatusId = $status?->id ?? $this->status_id;
+        $oldStatusId = $this->status_id;
 
         $this->update([
-            'status_id' => $status?->id ?? $this->status_id,
+            'status_id' => $newStatusId,
             'canceled_at' => now(),
             'cancellation_reason' => $reason,
         ]);
+
+        $this->recordStateChange($newStatusId, $oldStatusId, null, $reason);
+        ServiceRequestCanceled::dispatch($this);
     }
 
     public function markAsRejected(string $reason): void
     {
         $status = Status::where('domain', 'request')->where('slug', 'request_rejected')->first();
+        $newStatusId = $status?->id ?? $this->status_id;
+        $oldStatusId = $this->status_id;
 
         $this->update([
-            'status_id' => $status?->id ?? $this->status_id,
+            'status_id' => $newStatusId,
             'rejection_reason' => $reason,
         ]);
+
+        $this->recordStateChange($newStatusId, $oldStatusId, $this->professional_id, $reason);
+        ServiceRequestRejected::dispatch($this);
     }
 
     public function addRating(int $rating, ?string $feedback = null): void
