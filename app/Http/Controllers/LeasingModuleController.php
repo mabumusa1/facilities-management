@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Lease;
+use App\Models\LeaseApplication;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
+
+class LeasingModuleController extends Controller
+{
+    public function index(Request $request): Response
+    {
+        $tenantId = $request->user()->tenant_id;
+
+        $baseLeases = Lease::whereHas('tenant', fn ($q) => $q->where('tenant_id', $tenantId));
+
+        $stats = [
+            'leases' => [
+                'total' => (clone $baseLeases)->where('is_sub_lease', false)->count(),
+                'active' => (clone $baseLeases)->where('is_sub_lease', false)->where('status_id', 31)->count(),
+                'expiring_soon' => (clone $baseLeases)->where('is_sub_lease', false)
+                    ->where('status_id', 31)
+                    ->whereDate('end_date', '>=', now())
+                    ->whereDate('end_date', '<=', now()->addDays(30))
+                    ->count(),
+            ],
+            'sub_leases' => [
+                'total' => (clone $baseLeases)->where('is_sub_lease', true)->count(),
+                'active' => (clone $baseLeases)->where('is_sub_lease', true)->where('status_id', 31)->count(),
+            ],
+            'applications' => [
+                'total' => LeaseApplication::whereHas('tenant', fn ($q) => $q->where('tenant_id', $tenantId))->count(),
+                'pending' => LeaseApplication::whereHas('tenant', fn ($q) => $q->where('tenant_id', $tenantId))
+                    ->whereIn('status', ['draft', 'submitted', 'under_review'])
+                    ->count(),
+            ],
+            'renewals' => [
+                'total' => (clone $baseLeases)->where('is_renew', true)->count(),
+            ],
+        ];
+
+        $recentLeases = (clone $baseLeases)
+            ->where('is_sub_lease', false)
+            ->with(['tenant', 'status', 'units'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        $expiringLeases = (clone $baseLeases)
+            ->where('is_sub_lease', false)
+            ->where('status_id', 31)
+            ->whereDate('end_date', '>=', now())
+            ->whereDate('end_date', '<=', now()->addDays(30))
+            ->with(['tenant', 'units'])
+            ->orderBy('end_date')
+            ->limit(5)
+            ->get();
+
+        return Inertia::render('leasing/index', [
+            'stats' => $stats,
+            'recentLeases' => $recentLeases,
+            'expiringLeases' => $expiringLeases,
+        ]);
+    }
+}
