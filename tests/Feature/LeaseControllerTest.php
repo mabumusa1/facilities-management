@@ -484,4 +484,150 @@ class LeaseControllerTest extends TestCase
 
         $response->assertRedirect('/login');
     }
+
+    public function test_renew_form_displays_for_active_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+            'is_renew' => false,
+            'is_move_out' => false,
+        ]);
+
+        $response = $this->actingAs($this->user)->get("/leases/{$lease->id}/renew");
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('leases/renew')
+            ->has('originalLease')
+            ->has('renewalDefaults')
+            ->has('communities')
+            ->has('buildings')
+            ->has('units')
+            ->has('tenants')
+        );
+    }
+
+    public function test_renew_creates_new_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+            'is_renew' => false,
+            'is_move_out' => false,
+            'rental_total_amount' => 50000,
+        ]);
+        $lease->units()->attach($this->unit->id, [
+            'rental_annual_type' => 'total',
+            'annual_rental_amount' => 50000,
+            'net_area' => 100,
+            'meter_cost' => 500,
+        ]);
+
+        $renewalData = [
+            'start_date' => now()->addYear()->format('Y-m-d'),
+            'end_date' => now()->addYears(2)->format('Y-m-d'),
+            'rental_total_amount' => 55000,
+            'rental_type' => 'detailed',
+            'units' => [
+                [
+                    'id' => $this->unit->id,
+                    'rental_annual_type' => 'total',
+                    'annual_rental_amount' => 55000,
+                    'net_area' => 100,
+                    'meter_cost' => 550,
+                ],
+            ],
+        ];
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/renew", $renewalData);
+
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
+
+        // Check original lease is marked as renewed
+        $lease->refresh();
+        $this->assertTrue($lease->is_renew);
+
+        // Check new lease was created
+        $this->assertDatabaseHas('leases', [
+            'parent_lease_id' => $lease->id,
+            'rental_total_amount' => 55000,
+            'tenant_id' => $this->tenantContact->id,
+        ]);
+    }
+
+    public function test_renew_fails_for_already_renewed_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+            'is_renew' => true, // Already renewed
+        ]);
+
+        $renewalData = [
+            'start_date' => now()->addYear()->format('Y-m-d'),
+            'end_date' => now()->addYears(2)->format('Y-m-d'),
+            'rental_total_amount' => 55000,
+        ];
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/renew", $renewalData);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+    }
+
+    public function test_renew_fails_for_moved_out_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+            'is_move_out' => true, // Already moved out
+        ]);
+
+        $renewalData = [
+            'start_date' => now()->addYear()->format('Y-m-d'),
+            'end_date' => now()->addYears(2)->format('Y-m-d'),
+            'rental_total_amount' => 55000,
+        ];
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/renew", $renewalData);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+    }
+
+    public function test_api_renewal_history_returns_lease_chain(): void
+    {
+        $parentLease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+            'is_renew' => true,
+        ]);
+
+        $childLease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusNew->id,
+            'parent_lease_id' => $parentLease->id,
+        ]);
+
+        $response = $this->actingAs($this->user)->getJson("/api/leases/{$childLease->id}/renewal-history");
+
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'history',
+        ]);
+    }
 }

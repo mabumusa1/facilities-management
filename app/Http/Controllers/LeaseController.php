@@ -209,6 +209,72 @@ class LeaseController extends Controller
             ->with('success', 'Move-out completed successfully.');
     }
 
+    /**
+     * Show the lease renewal form.
+     */
+    public function renewForm(Request $request, Lease $lease): Response
+    {
+        $user = $request->user();
+
+        if (! $this->leaseService->canRenew($lease)) {
+            return redirect()
+                ->route('leases.show', $lease)
+                ->with('error', 'This lease cannot be renewed.');
+        }
+
+        $lease->load(['units', 'tenant', 'community', 'building']);
+
+        return Inertia::render('leases/renew', [
+            'originalLease' => $lease,
+            'renewalDefaults' => $this->leaseService->getRenewalDefaults($lease),
+            'communities' => Community::where('tenant_id', $user->tenant_id)
+                ->select('id', 'name')
+                ->get(),
+            'buildings' => Building::where('tenant_id', $user->tenant_id)
+                ->select('id', 'name', 'community_id')
+                ->get(),
+            'units' => Unit::where('tenant_id', $user->tenant_id)
+                ->select('id', 'name', 'building_id')
+                ->get(),
+            'tenants' => Contact::where('tenant_id', $user->tenant_id)
+                ->where('contact_type_id', 2)
+                ->select('id', 'name', 'email', 'phone')
+                ->get(),
+            'statuses' => Status::whereIn('id', [30, 31])->get(),
+        ]);
+    }
+
+    /**
+     * Process lease renewal.
+     */
+    public function renew(Request $request, Lease $lease): RedirectResponse
+    {
+        $validated = $request->validate([
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date', 'after:start_date'],
+            'rental_total_amount' => ['required', 'numeric', 'min:0'],
+            'rental_type' => ['nullable', 'string', 'in:summary,detailed'],
+            'units' => ['sometimes', 'array'],
+            'units.*.id' => ['required', 'integer', 'exists:units,id'],
+            'units.*.rental_annual_type' => ['nullable', 'string'],
+            'units.*.annual_rental_amount' => ['nullable', 'numeric', 'min:0'],
+            'units.*.net_area' => ['nullable', 'numeric', 'min:0'],
+            'units.*.meter_cost' => ['nullable', 'numeric', 'min:0'],
+        ]);
+
+        try {
+            $newLease = $this->leaseService->renewLease($lease, $validated, $request->user());
+
+            return redirect()
+                ->route('leases.show', $newLease)
+                ->with('success', 'Lease renewed successfully. A new lease has been created.');
+        } catch (\RuntimeException $e) {
+            return redirect()
+                ->back()
+                ->with('error', $e->getMessage());
+        }
+    }
+
     // API Methods
 
     /**
@@ -262,6 +328,16 @@ class LeaseController extends Controller
 
         return response()->json([
             'units' => $this->leaseService->getAvailableUnits($user->tenant_id),
+        ]);
+    }
+
+    /**
+     * Get renewal history for a lease.
+     */
+    public function renewalHistory(Lease $lease): JsonResponse
+    {
+        return response()->json([
+            'history' => $this->leaseService->getRenewalHistory($lease),
         ]);
     }
 }

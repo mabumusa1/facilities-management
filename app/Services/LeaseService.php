@@ -309,6 +309,142 @@ class LeaseService
     }
 
     /**
+     * Renew a lease by creating a new lease linked to the original.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function renewLease(Lease $originalLease, array $data, User $creator): Lease
+    {
+        if (! $this->canRenew($originalLease)) {
+            throw new \RuntimeException('This lease cannot be renewed.');
+        }
+
+        // Extract units data, default to original lease units if not provided
+        $units = $data['units'] ?? $this->getUnitsDataFromLease($originalLease);
+        unset($data['units']);
+
+        // Build renewal data from original lease + overrides
+        $renewalData = [
+            'tenant_id' => $originalLease->tenant_id,
+            'community_id' => $originalLease->community_id,
+            'building_id' => $originalLease->building_id,
+            'tenant_type' => $originalLease->tenant_type,
+            'rental_type' => $originalLease->rental_type,
+            'payment_schedule_id' => $originalLease->payment_schedule_id,
+            'rental_contract_type_id' => $originalLease->rental_contract_type_id,
+            'lease_unit_type_id' => $originalLease->lease_unit_type_id,
+            'deal_owner_id' => $originalLease->deal_owner_id,
+            'parent_lease_id' => $originalLease->id,
+            'status_id' => self::STATUS_NEW,
+            'created_by_id' => $creator->contact_id ?? $creator->id,
+        ];
+
+        // Override with provided data
+        $renewalData = array_merge($renewalData, $data);
+
+        // Calculate duration if not provided
+        if (isset($renewalData['start_date'], $renewalData['end_date']) && ! isset($renewalData['number_of_years'])) {
+            $duration = $this->calculateDuration($renewalData['start_date'], $renewalData['end_date']);
+            $renewalData = array_merge($renewalData, $duration);
+        }
+
+        // Generate new contract number
+        $renewalData['contract_number'] = $this->generateContractNumber();
+
+        // Create the new lease
+        $newLease = Lease::create($renewalData);
+
+        // Attach units (same as original or overridden)
+        if (! empty($units)) {
+            $unitData = [];
+            foreach ($units as $unit) {
+                $unitData[$unit['id']] = [
+                    'rental_annual_type' => $unit['rental_annual_type'] ?? null,
+                    'annual_rental_amount' => $unit['annual_rental_amount'] ?? null,
+                    'net_area' => $unit['net_area'] ?? null,
+                    'meter_cost' => $unit['meter_cost'] ?? null,
+                ];
+            }
+            $newLease->units()->attach($unitData);
+        }
+
+        // Mark original lease as renewed
+        $originalLease->markAsRenewed($newLease);
+
+        return $newLease->fresh(['tenant', 'units', 'community', 'building', 'status', 'parentLease']);
+    }
+
+    /**
+     * Get renewal data pre-filled from original lease for the form.
+     *
+     * @return array<string, mixed>
+     */
+    public function getRenewalDefaults(Lease $lease): array
+    {
+        return [
+            'original_lease_id' => $lease->id,
+            'tenant_id' => $lease->tenant_id,
+            'community_id' => $lease->community_id,
+            'building_id' => $lease->building_id,
+            'tenant_type' => $lease->tenant_type,
+            'rental_type' => $lease->rental_type,
+            'payment_schedule_id' => $lease->payment_schedule_id,
+            'rental_contract_type_id' => $lease->rental_contract_type_id,
+            'lease_unit_type_id' => $lease->lease_unit_type_id,
+            'rental_total_amount' => $lease->rental_total_amount,
+            'security_deposit_amount' => $lease->security_deposit_amount,
+            'units' => $this->getUnitsDataFromLease($lease),
+            // Suggest new dates: start from day after original ends
+            'start_date' => $lease->end_date->addDay()->format('Y-m-d'),
+            'end_date' => $lease->end_date->addDay()->addYear()->format('Y-m-d'),
+        ];
+    }
+
+    /**
+     * Get renewal history for a lease.
+     */
+    public function getRenewalHistory(Lease $lease): Collection
+    {
+        // Get all leases in the chain (parent and children)
+        $leaseIds = collect([$lease->id]);
+
+        // Get parent leases (renewals from)
+        $parent = $lease->parentLease;
+        while ($parent) {
+            $leaseIds->prepend($parent->id);
+            $parent = $parent->parentLease;
+        }
+
+        // Get child leases (renewed to)
+        $renewalIds = Lease::where('parent_lease_id', $lease->id)->pluck('id');
+        $leaseIds = $leaseIds->merge($renewalIds);
+
+        // Fetch all leases with relationships
+        return Lease::whereIn('id', $leaseIds)
+            ->with(['status', 'tenant'])
+            ->orderBy('created_at')
+            ->get();
+    }
+
+    /**
+     * Extract units data from an existing lease.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    protected function getUnitsDataFromLease(Lease $lease): array
+    {
+        return $lease->units->map(function ($unit) {
+            return [
+                'id' => $unit->id,
+                'rental_annual_type' => $unit->pivot->rental_annual_type,
+                'annual_rental_amount' => $unit->pivot->annual_rental_amount,
+                'net_area' => $unit->pivot->net_area,
+                'meter_cost' => $unit->pivot->meter_cost,
+            ];
+        })->toArray();
+    }
+
+    /**
      * Calculate lease duration from dates.
      *
      * @return array<string, int>

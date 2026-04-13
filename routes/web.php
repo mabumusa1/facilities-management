@@ -45,6 +45,8 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::post('leases/{lease}/activate', [LeaseController::class, 'activate'])->name('leases.activate');
     Route::post('leases/{lease}/terminate', [LeaseController::class, 'terminate'])->name('leases.terminate');
     Route::post('leases/{lease}/move-out', [LeaseController::class, 'moveOut'])->name('leases.move-out');
+    Route::get('leases/{lease}/renew', [LeaseController::class, 'renewForm'])->name('leases.renew');
+    Route::post('leases/{lease}/renew', [LeaseController::class, 'renew'])->name('leases.renew.store');
 
     // Reports module routes
     Route::prefix('reports')->name('reports.')->group(function () {
