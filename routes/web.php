@@ -5,6 +5,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeaseApplicationController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
@@ -49,6 +50,19 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::post('leases/{lease}/move-out', [LeaseController::class, 'moveOut'])->name('leases.move-out');
     Route::get('leases/{lease}/renew', [LeaseController::class, 'renewForm'])->name('leases.renew');
     Route::post('leases/{lease}/renew', [LeaseController::class, 'renew'])->name('leases.renew.store');
+
+    // Lease Applications routes
+    Route::resource('lease-applications', LeaseApplicationController::class);
+    Route::post('lease-applications/{leaseApplication}/transition', [LeaseApplicationController::class, 'transition'])->name('lease-applications.transition');
+    Route::post('lease-applications/{leaseApplication}/submit-for-review', [LeaseApplicationController::class, 'submitForReview'])->name('lease-applications.submit-for-review');
+    Route::post('lease-applications/{leaseApplication}/approve', [LeaseApplicationController::class, 'approve'])->name('lease-applications.approve');
+    Route::post('lease-applications/{leaseApplication}/reject', [LeaseApplicationController::class, 'reject'])->name('lease-applications.reject');
+    Route::post('lease-applications/{leaseApplication}/cancel', [LeaseApplicationController::class, 'cancel'])->name('lease-applications.cancel');
+    Route::post('lease-applications/{leaseApplication}/hold', [LeaseApplicationController::class, 'hold'])->name('lease-applications.hold');
+    Route::post('lease-applications/{leaseApplication}/resume', [LeaseApplicationController::class, 'resume'])->name('lease-applications.resume');
+    Route::post('lease-applications/{leaseApplication}/send-quote', [LeaseApplicationController::class, 'sendQuote'])->name('lease-applications.send-quote');
+    Route::post('lease-applications/{leaseApplication}/convert-to-lease', [LeaseApplicationController::class, 'convertToLease'])->name('lease-applications.convert-to-lease');
+    Route::get('lease-applications/{leaseApplication}/history', [LeaseApplicationController::class, 'history'])->name('lease-applications.history');
 
     // Reports module routes
     Route::prefix('reports')->name('reports.')->group(function () {
