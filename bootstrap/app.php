@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\CheckCapability;
+use App\Http\Middleware\CheckPermission;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
@@ -20,6 +22,12 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
+        ]);
+
+        // Register RBAC middleware aliases
+        $middleware->alias([
+            'permission' => CheckPermission::class,
+            'capability' => CheckCapability::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
