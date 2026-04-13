@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
@@ -60,5 +61,12 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/preferences', [NotificationController::class, 'preferences'])->name('preferences');
         Route::put('/preferences', [NotificationController::class, 'updatePreferences'])->name('update-preferences');
         Route::get('/statistics', [NotificationController::class, 'statistics'])->name('statistics');
+    });
+
+    // Announcements API routes
+    Route::prefix('announcements')->name('api.announcements.')->group(function () {
+        Route::get('/', [AnnouncementController::class, 'list'])->name('list');
+        Route::get('/active', [AnnouncementController::class, 'active'])->name('active');
+        Route::get('/statistics', [AnnouncementController::class, 'statistics'])->name('statistics');
     });
 });
