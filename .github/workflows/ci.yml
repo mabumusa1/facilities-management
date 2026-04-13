@@ -78,20 +78,35 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Lint (ESLint)
-        run: npm run lint:check
+        run: pnpm run lint:check
 
       - name: Format (Prettier)
-        run: npm run format:check
+        run: pnpm run format:check
 
       - name: Type check (TypeScript)
-        run: npm run types:check
+        run: pnpm run types:check
 
       - name: Build assets
-        run: npm run build
+        run: pnpm run build
 
