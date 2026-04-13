@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -24,6 +25,9 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::resource('communities', CommunityController::class);
     Route::resource('buildings', BuildingController::class);
     Route::resource('units', UnitController::class);
+
+    // Contacts module routes
+    Route::resource('contacts', ContactController::class);
 });
 
 // Test routes for RBAC middleware (only in testing environment)
