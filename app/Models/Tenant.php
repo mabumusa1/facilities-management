@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -93,5 +94,65 @@ class Tenant extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * Get feature flags configured for this tenant.
+     */
+    public function featureFlags(): BelongsToMany
+    {
+        return $this->belongsToMany(FeatureFlag::class, 'tenant_feature_flags')
+            ->withPivot('is_enabled')
+            ->withTimestamps();
+    }
+
+    /**
+     * Check if a feature is enabled for this tenant.
+     */
+    public function hasFeature(string $featureKey): bool
+    {
+        $feature = FeatureFlag::findByKey($featureKey);
+
+        if (! $feature) {
+            return false;
+        }
+
+        return $feature->isEnabledForTenant($this);
+    }
+
+    /**
+     * Enable a feature flag for this tenant.
+     */
+    public function enableFeature(string $featureKey): bool
+    {
+        $feature = FeatureFlag::findByKey($featureKey);
+
+        if (! $feature) {
+            return false;
+        }
+
+        $this->featureFlags()->syncWithoutDetaching([
+            $feature->id => ['is_enabled' => true],
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Disable a feature flag for this tenant.
+     */
+    public function disableFeature(string $featureKey): bool
+    {
+        $feature = FeatureFlag::findByKey($featureKey);
+
+        if (! $feature) {
+            return false;
+        }
+
+        $this->featureFlags()->syncWithoutDetaching([
+            $feature->id => ['is_enabled' => false],
+        ]);
+
+        return true;
     }
 }
