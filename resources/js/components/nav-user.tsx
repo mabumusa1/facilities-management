@@ -17,7 +17,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import type { Auth } from "@/types/auth";
 
 export function NavUser() {
-    const { auth } = usePage<{ auth: Auth }>().props;
+    const auth = usePage().props.auth as Auth;
     const { state } = useSidebar();
     const isMobile = useIsMobile();
 

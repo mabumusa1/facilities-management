@@ -7,7 +7,7 @@ export default function Welcome({
 }: {
     canRegister?: boolean;
 }) {
-    const { auth } = usePage<{ auth: Auth }>().props;
+    const auth = usePage().props.auth as Auth;
 
     return (
         <>

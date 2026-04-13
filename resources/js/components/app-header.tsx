@@ -65,7 +65,7 @@ const activeItemStyles =
     "text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
 
 export function AppHeader({ breadcrumbs = [] }: Props) {
-    const { auth } = usePage<{ auth: Auth }>().props;
+    const auth = usePage().props.auth as Auth;
     const getInitials = useInitials();
     const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 
