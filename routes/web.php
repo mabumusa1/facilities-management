@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -13,9 +16,14 @@ Route::middleware(['auth'])->group(function () {
     Route::inertia('forbidden', 'auth/forbidden')->name('forbidden');
 });
 
-// Protected dashboard with verification check
+// Protected routes with verification check
 Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    // Properties module routes
+    Route::resource('communities', CommunityController::class);
+    Route::resource('buildings', BuildingController::class);
+    Route::resource('units', UnitController::class);
 });
 
 // Test routes for RBAC middleware (only in testing environment)
