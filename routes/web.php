@@ -3,6 +3,8 @@
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +22,8 @@ Route::middleware(['auth'])->group(function () {
 
 // Protected routes with verification check
 Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    // Dashboard routes
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Properties module routes
     Route::resource('communities', CommunityController::class);
@@ -32,6 +35,13 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
 
     // Service Requests module routes
     Route::resource('service-requests', ServiceRequestController::class);
+
+    // Reports module routes
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::get('/leases', [ReportController::class, 'leases'])->name('leases');
+        Route::get('/maintenance', [ReportController::class, 'maintenance'])->name('maintenance');
+    });
 });
 
 // Test routes for RBAC middleware (only in testing environment)
