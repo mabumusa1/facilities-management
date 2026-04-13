@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
@@ -48,6 +49,14 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::prefix('notifications')->name('notifications.')->group(function () {
         Route::get('/', [NotificationController::class, 'index'])->name('index');
     });
+
+    // Announcements module routes
+    Route::resource('announcements', AnnouncementController::class);
+    Route::post('announcements/{announcement}/publish', [AnnouncementController::class, 'publish'])->name('announcements.publish');
+    Route::post('announcements/{announcement}/cancel', [AnnouncementController::class, 'cancel'])->name('announcements.cancel');
+
+    // Directory module routes
+    Route::get('directory', [AnnouncementController::class, 'directory'])->name('directory.index');
 });
 
 // Test routes for RBAC middleware (only in testing environment)
