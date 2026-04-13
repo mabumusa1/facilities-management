@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Middleware\CheckCapability;
+use App\Http\Middleware\CheckContactType;
 use App\Http\Middleware\CheckPermission;
+use App\Http\Middleware\EnsureUserIsVerified;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
@@ -24,10 +26,12 @@ return Application::configure(basePath: dirname(__DIR__))
             AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        // Register RBAC middleware aliases
+        // Register RBAC and auth middleware aliases
         $middleware->alias([
             'permission' => CheckPermission::class,
             'capability' => CheckCapability::class,
+            'contact.type' => CheckContactType::class,
+            'verified.user' => EnsureUserIsVerified::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
