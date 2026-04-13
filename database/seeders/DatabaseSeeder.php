@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             UnitTypeSeeder::class,
             FacilityCategorySeeder::class,
             AmenitySeeder::class,
+            StatusSeeder::class,
         ]);
 
         // Create admin user
