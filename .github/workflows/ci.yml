@@ -98,6 +98,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build assets (generates Wayfinder types)
+        run: pnpm run build
+
       - name: Lint (ESLint)
         run: pnpm run lint:check
 
@@ -106,7 +109,4 @@ jobs:
 
       - name: Type check (TypeScript)
         run: pnpm run types:check
-
-      - name: Build assets
-        run: pnpm run build
 
