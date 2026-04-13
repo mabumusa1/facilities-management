@@ -1,6 +1,7 @@
 {
   "name": "facilities-management-docs",
   "version": "1.0.0",
+  "type": "module",
   "description": "User documentation for the Facilities Management System",
   "scripts": {
     "docs:dev": "vitepress dev",
