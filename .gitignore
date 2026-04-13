@@ -62,3 +62,4 @@ docs/exploration/atar-cloner/node_modules/
 
 # Agents
 agents/*/node_modules/
+.pnpm-store/

@@ -177,6 +177,7 @@ return allUnits;
         setSelectedUnits(newSelected);
         setData('units', newSelected.map(id => {
             const existing = data.units.find(u => u.id === id);
+
             return existing || { id, proposed_rental_amount: undefined, net_area: undefined, meter_cost: undefined };
         }));
     };
