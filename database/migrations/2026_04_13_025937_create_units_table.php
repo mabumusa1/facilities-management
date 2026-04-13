@@ -8,9 +8,6 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * Note: This is a minimal schema stub to support Building relationship tests.
-     * Full Unit entity will be implemented in Issue #12.
      */
     public function up(): void
     {
@@ -18,15 +15,42 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('community_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('building_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('building_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('unit_category_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('unit_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('status_id')->nullable()->constrained('statuses')->nullOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('district_id')->nullable()->constrained()->nullOnDelete();
+
+            // Basic unit information
             $table->string('name', 100);
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->unsignedSmallInteger('floor_no')->nullable();
+            $table->decimal('net_area', 12, 2)->nullable();
+            $table->year('year_built')->nullable();
+            $table->decimal('market_rent', 12, 2)->nullable();
+            $table->text('about')->nullable();
+
+            // Location data
+            $table->json('map')->nullable();
+
+            // Media (stored as JSON arrays of URLs/paths)
+            $table->json('photos')->nullable();
+
+            // Marketplace flags
+            $table->boolean('is_marketplace')->default(false);
+            $table->boolean('is_off_plan_sale')->default(false);
+
             $table->timestamps();
             $table->softDeletes();
 
-            // Indexes
+            // Indexes for efficient tenant-scoped queries
+            $table->index(['tenant_id', 'community_id']);
             $table->index(['tenant_id', 'building_id']);
-            $table->index(['building_id', 'status']);
+            $table->index(['tenant_id', 'status_id']);
+            $table->index(['community_id', 'building_id']);
+            $table->index(['building_id', 'status_id']);
+            $table->index(['unit_category_id', 'unit_type_id']);
+            $table->index('is_marketplace');
         });
     }
 

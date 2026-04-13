@@ -17,10 +17,10 @@ class UnitCategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $categories = ['Residential', 'Commercial', 'Industrial', 'Mixed Use', 'Retail', 'Office'];
+        $categories = ['Residential', 'Commercial', 'Industrial', 'Mixed Use', 'Retail', 'Office', 'Warehouse', 'Storage', 'Hospitality', 'Healthcare'];
 
         return [
-            'name' => fake()->unique()->randomElement($categories),
+            'name' => fake()->randomElement($categories).' '.fake()->numberBetween(1, 9999),
             'name_ar' => null,
             'description' => fake()->sentence(),
             'is_active' => true,

@@ -18,11 +18,11 @@ class UnitTypeFactory extends Factory
      */
     public function definition(): array
     {
-        $types = ['Studio', 'Apartment', 'Villa', 'Townhouse', 'Penthouse', 'Duplex', 'Loft'];
+        $types = ['Studio', 'Apartment', 'Villa', 'Townhouse', 'Penthouse', 'Duplex', 'Loft', 'Maisonette', 'Flat', 'Suite'];
 
         return [
             'unit_category_id' => UnitCategory::factory(),
-            'name' => fake()->unique()->randomElement($types),
+            'name' => fake()->randomElement($types).' '.fake()->numberBetween(1, 9999),
             'name_ar' => null,
             'description' => fake()->sentence(),
             'is_active' => true,
