@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Building2, FolderGit2, Home, LayoutGrid, MapPin } from 'lucide-react';
+import { BookOpen, Building2, FolderGit2, Home, LayoutGrid, MapPin, Users } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/sidebar';
 import { index as buildingsIndex } from '@/routes/buildings';
 import { index as communitiesIndex } from '@/routes/communities';
+import { index as contactsIndex } from '@/routes/contacts';
 import { index as unitsIndex } from '@/routes/units';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
@@ -39,6 +40,11 @@ const mainNavItems: NavItem[] = [
         title: 'Units',
         href: unitsIndex(),
         icon: Home,
+    },
+    {
+        title: 'Contacts',
+        href: contactsIndex(),
+        icon: Users,
     },
 ];
 
