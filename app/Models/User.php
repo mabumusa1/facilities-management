@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'contact_type', 'manager_role', 'service_manager_type'])]
+#[Fillable(['name', 'email', 'password', 'contact_type', 'manager_role', 'service_manager_type', 'is_all_communities', 'is_all_buildings'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -36,6 +36,8 @@ class User extends Authenticatable
             'contact_type' => ContactType::class,
             'manager_role' => ManagerRole::class,
             'service_manager_type' => ServiceManagerType::class,
+            'is_all_communities' => 'boolean',
+            'is_all_buildings' => 'boolean',
         ];
     }
 
@@ -94,5 +96,123 @@ class User extends Authenticatable
     {
         return $this->manager_role === ManagerRole::ServiceManager
             && $this->service_manager_type === $type;
+    }
+
+    /**
+     * Check if the user has full access to all communities.
+     */
+    public function hasAllCommunitiesAccess(): bool
+    {
+        return $this->is_all_communities === true;
+    }
+
+    /**
+     * Check if the user has full access to all buildings.
+     */
+    public function hasAllBuildingsAccess(): bool
+    {
+        return $this->is_all_buildings === true;
+    }
+
+    /**
+     * Check if the user has unrestricted scope access.
+     */
+    public function hasUnrestrictedAccess(): bool
+    {
+        return $this->hasAllCommunitiesAccess() && $this->hasAllBuildingsAccess();
+    }
+
+    /**
+     * Get the capabilities for this user based on their manager role.
+     *
+     * @return array<string>
+     */
+    public function getCapabilities(): array
+    {
+        if ($this->manager_role === null) {
+            return [];
+        }
+
+        return $this->manager_role->capabilities();
+    }
+
+    /**
+     * Check if the user has a specific capability.
+     */
+    public function hasCapability(string $capability): bool
+    {
+        return in_array($capability, $this->getCapabilities(), true);
+    }
+
+    /**
+     * Check if the user can manage properties.
+     */
+    public function canManageProperties(): bool
+    {
+        return $this->hasCapability('manage-properties');
+    }
+
+    /**
+     * Check if the user can manage leases.
+     */
+    public function canManageLeases(): bool
+    {
+        return $this->hasCapability('manage-leases');
+    }
+
+    /**
+     * Check if the user can manage transactions.
+     */
+    public function canManageTransactions(): bool
+    {
+        return $this->hasCapability('manage-transactions');
+    }
+
+    /**
+     * Check if the user can view financial reports.
+     */
+    public function canViewFinancialReports(): bool
+    {
+        return $this->hasCapability('view-financial-reports');
+    }
+
+    /**
+     * Check if the user can manage service requests.
+     */
+    public function canManageServiceRequests(): bool
+    {
+        return $this->hasCapability('manage-service-requests');
+    }
+
+    /**
+     * Check if the user can manage announcements.
+     */
+    public function canManageAnnouncements(): bool
+    {
+        return $this->hasCapability('manage-announcements');
+    }
+
+    /**
+     * Check if the user can manage marketplace.
+     */
+    public function canManageMarketplace(): bool
+    {
+        return $this->hasCapability('manage-marketplace');
+    }
+
+    /**
+     * Check if the user can manage settings.
+     */
+    public function canManageSettings(): bool
+    {
+        return $this->hasCapability('manage-settings');
+    }
+
+    /**
+     * Check if the user can manage users.
+     */
+    public function canManageUsers(): bool
+    {
+        return $this->hasCapability('manage-users');
     }
 }
