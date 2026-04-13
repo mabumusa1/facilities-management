@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link } from "@inertiajs/react";
 import {
     FileText,
     Wrench,
@@ -8,10 +8,16 @@ import {
     ArrowRight,
     DollarSign,
     Home,
-} from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 
 interface LeaseStatistics {
     total_leases: number;
@@ -59,9 +65,9 @@ interface ReportsIndexProps {
 }
 
 function formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     }).format(amount);
@@ -79,7 +85,7 @@ function StatCard({
     value: string | number;
     subValue?: string;
     icon: React.ComponentType<{ className?: string }>;
-    trend?: 'up' | 'down';
+    trend?: "up" | "down";
     href?: string;
 }) {
     const content = (
@@ -93,12 +99,18 @@ function StatCard({
                     <div className="text-2xl font-bold">{value}</div>
                     {trend && (
                         <>
-                            {trend === 'up' && <TrendingUp className="h-4 w-4 text-green-500" />}
-                            {trend === 'down' && <TrendingDown className="h-4 w-4 text-red-500" />}
+                            {trend === "up" && (
+                                <TrendingUp className="h-4 w-4 text-green-500" />
+                            )}
+                            {trend === "down" && (
+                                <TrendingDown className="h-4 w-4 text-red-500" />
+                            )}
                         </>
                     )}
                 </div>
-                {subValue && <p className="text-xs text-muted-foreground">{subValue}</p>}
+                {subValue && (
+                    <p className="text-xs text-muted-foreground">{subValue}</p>
+                )}
             </CardContent>
         </Card>
     );
@@ -110,15 +122,23 @@ function StatCard({
     return content;
 }
 
-export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, occupancyReport }: ReportsIndexProps) {
+export default function ReportsIndex({
+    leaseStatistics,
+    maintenanceStatistics,
+    occupancyReport,
+}: ReportsIndexProps) {
     return (
         <>
             <Head title="Reports" />
             <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto p-4 md:p-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Reports</h1>
-                        <p className="text-muted-foreground">System reports and analytics overview</p>
+                        <h1 className="text-2xl font-bold tracking-tight">
+                            Reports
+                        </h1>
+                        <p className="text-muted-foreground">
+                            System reports and analytics overview
+                        </p>
                     </div>
                 </div>
 
@@ -141,11 +161,15 @@ export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, o
                         value={`${occupancyReport.occupancy_rate}%`}
                         subValue={`${occupancyReport.occupied_units} of ${occupancyReport.total_units} units`}
                         icon={Home}
-                        trend={occupancyReport.occupancy_rate >= 80 ? 'up' : 'down'}
+                        trend={
+                            occupancyReport.occupancy_rate >= 80 ? "up" : "down"
+                        }
                     />
                     <StatCard
                         title="Monthly Collection"
-                        value={formatCurrency(leaseStatistics.current_month_collection)}
+                        value={formatCurrency(
+                            leaseStatistics.current_month_collection,
+                        )}
                         subValue={`${formatCurrency(leaseStatistics.paid_collection_current_month)} collected`}
                         icon={DollarSign}
                     />
@@ -168,7 +192,9 @@ export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, o
                                     </Button>
                                 </Link>
                             </div>
-                            <CardDescription>Lease status, expirations, and rent collection</CardDescription>
+                            <CardDescription>
+                                Lease status, expirations, and rent collection
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
@@ -177,23 +203,35 @@ export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, o
                                         <div className="text-xl font-bold text-green-600">
                                             {leaseStatistics.active_leases}
                                         </div>
-                                        <div className="text-xs text-muted-foreground">Active Leases</div>
+                                        <div className="text-xs text-muted-foreground">
+                                            Active Leases
+                                        </div>
                                     </div>
                                     <div className="rounded-lg border p-3">
                                         <div className="text-xl font-bold text-orange-600">
                                             {leaseStatistics.expired_leases}
                                         </div>
-                                        <div className="text-xs text-muted-foreground">Expired</div>
+                                        <div className="text-xs text-muted-foreground">
+                                            Expired
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between text-sm">
                                         <span>Commercial</span>
-                                        <Badge variant="secondary">{leaseStatistics.active_commercial_leases}</Badge>
+                                        <Badge variant="secondary">
+                                            {
+                                                leaseStatistics.active_commercial_leases
+                                            }
+                                        </Badge>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
                                         <span>Residential</span>
-                                        <Badge variant="secondary">{leaseStatistics.active_residential_leases}</Badge>
+                                        <Badge variant="secondary">
+                                            {
+                                                leaseStatistics.active_residential_leases
+                                            }
+                                        </Badge>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
                                         <span>New This Month</span>
@@ -221,38 +259,59 @@ export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, o
                                     </Button>
                                 </Link>
                             </div>
-                            <CardDescription>Service requests, categories, and trends</CardDescription>
+                            <CardDescription>
+                                Service requests, categories, and trends
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="rounded-lg border p-3">
                                         <div className="text-xl font-bold text-blue-600">
-                                            {maintenanceStatistics.open_requests}
+                                            {
+                                                maintenanceStatistics.open_requests
+                                            }
                                         </div>
-                                        <div className="text-xs text-muted-foreground">Open Requests</div>
+                                        <div className="text-xs text-muted-foreground">
+                                            Open Requests
+                                        </div>
                                     </div>
                                     <div className="rounded-lg border p-3">
                                         <div className="text-xl font-bold text-yellow-600">
-                                            {maintenanceStatistics.in_progress_requests}
+                                            {
+                                                maintenanceStatistics.in_progress_requests
+                                            }
                                         </div>
-                                        <div className="text-xs text-muted-foreground">In Progress</div>
+                                        <div className="text-xs text-muted-foreground">
+                                            In Progress
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between text-sm">
                                         <span>High Priority</span>
-                                        <Badge variant="destructive">{maintenanceStatistics.high_priority_count}</Badge>
+                                        <Badge variant="destructive">
+                                            {
+                                                maintenanceStatistics.high_priority_count
+                                            }
+                                        </Badge>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
                                         <span>Completed</span>
                                         <Badge className="bg-green-100 text-green-800">
-                                            {maintenanceStatistics.completed_requests}
+                                            {
+                                                maintenanceStatistics.completed_requests
+                                            }
                                         </Badge>
                                     </div>
                                     <div className="flex items-center justify-between text-sm">
                                         <span>Avg Resolution</span>
-                                        <Badge variant="outline">{maintenanceStatistics.average_resolution_days} days</Badge>
+                                        <Badge variant="outline">
+                                            {
+                                                maintenanceStatistics.average_resolution_days
+                                            }{" "}
+                                            days
+                                        </Badge>
                                     </div>
                                 </div>
                             </div>
@@ -267,22 +326,33 @@ export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, o
                             <Building2 className="h-5 w-5 text-purple-500" />
                             <CardTitle>Occupancy Overview</CardTitle>
                         </div>
-                        <CardDescription>Unit occupancy status and rates</CardDescription>
+                        <CardDescription>
+                            Unit occupancy status and rates
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="grid gap-6 md:grid-cols-4">
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium">Total Units</span>
-                                    <span className="text-2xl font-bold">{occupancyReport.total_units}</span>
+                                    <span className="text-sm font-medium">
+                                        Total Units
+                                    </span>
+                                    <span className="text-2xl font-bold">
+                                        {occupancyReport.total_units}
+                                    </span>
                                 </div>
                                 <div className="h-2 w-full rounded-full bg-muted">
-                                    <div className="h-2 rounded-full bg-primary" style={{ width: '100%' }} />
+                                    <div
+                                        className="h-2 rounded-full bg-primary"
+                                        style={{ width: "100%" }}
+                                    />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium text-green-600">Occupied</span>
+                                    <span className="text-sm font-medium text-green-600">
+                                        Occupied
+                                    </span>
                                     <span className="text-2xl font-bold text-green-600">
                                         {occupancyReport.occupied_units}
                                     </span>
@@ -290,25 +360,35 @@ export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, o
                                 <div className="h-2 w-full rounded-full bg-muted">
                                     <div
                                         className="h-2 rounded-full bg-green-500"
-                                        style={{ width: `${occupancyReport.occupancy_rate}%` }}
+                                        style={{
+                                            width: `${occupancyReport.occupancy_rate}%`,
+                                        }}
                                     />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium text-blue-600">Vacant</span>
-                                    <span className="text-2xl font-bold text-blue-600">{occupancyReport.vacant_units}</span>
+                                    <span className="text-sm font-medium text-blue-600">
+                                        Vacant
+                                    </span>
+                                    <span className="text-2xl font-bold text-blue-600">
+                                        {occupancyReport.vacant_units}
+                                    </span>
                                 </div>
                                 <div className="h-2 w-full rounded-full bg-muted">
                                     <div
                                         className="h-2 rounded-full bg-blue-500"
-                                        style={{ width: `${occupancyReport.vacancy_rate}%` }}
+                                        style={{
+                                            width: `${occupancyReport.vacancy_rate}%`,
+                                        }}
                                     />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium text-orange-600">Maintenance</span>
+                                    <span className="text-sm font-medium text-orange-600">
+                                        Maintenance
+                                    </span>
                                     <span className="text-2xl font-bold text-orange-600">
                                         {occupancyReport.maintenance_units}
                                     </span>
@@ -333,8 +413,8 @@ export default function ReportsIndex({ leaseStatistics, maintenanceStatistics, o
 ReportsIndex.layout = {
     breadcrumbs: [
         {
-            title: 'Reports',
-            href: '/reports',
+            title: "Reports",
+            href: "/reports",
         },
     ],
 };

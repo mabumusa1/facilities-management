@@ -1,7 +1,7 @@
 // Components
-import { Head, Link } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { logout } from '@/routes';
+import { Head, Link } from "@inertiajs/react";
+import { Button } from "@/components/ui/button";
+import { logout } from "@/routes";
 
 export default function NoAccess() {
     return (
@@ -39,7 +39,7 @@ export default function NoAccess() {
 }
 
 NoAccess.layout = {
-    title: 'Access Pending',
+    title: "Access Pending",
     description:
-        'Your account requires verification before you can access the system.',
+        "Your account requires verification before you can access the system.",
 };

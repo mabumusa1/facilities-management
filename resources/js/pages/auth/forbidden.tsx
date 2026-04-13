@@ -1,6 +1,6 @@
 // Components
-import { Head, Link } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
+import { Head, Link } from "@inertiajs/react";
+import { Button } from "@/components/ui/button";
 
 export default function Forbidden() {
     return (
@@ -45,6 +45,6 @@ export default function Forbidden() {
 }
 
 Forbidden.layout = {
-    title: '403 - Forbidden',
-    description: 'You do not have permission to access this resource.',
+    title: "403 - Forbidden",
+    description: "You do not have permission to access this resource.",
 };

@@ -1,8 +1,8 @@
-import { Head, Link } from '@inertiajs/react';
-import { Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import AppLayout from '@/layouts/app-layout';
-import { create } from '@/routes/service-requests';
+import { Head, Link } from "@inertiajs/react";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import AppLayout from "@/layouts/app-layout";
+import { create } from "@/routes/service-requests";
 
 interface ServiceRequest {
     id: number;
@@ -31,7 +31,11 @@ interface Props {
     categories: any[];
 }
 
-export default function Index({ requests, filters: _filters, categories: _categories }: Props) {
+export default function Index({
+    requests,
+    filters: _filters,
+    categories: _categories,
+}: Props) {
     return (
         <AppLayout>
             <Head title="Service Requests" />
@@ -40,7 +44,9 @@ export default function Index({ requests, filters: _filters, categories: _catego
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl font-bold">Service Requests</h1>
-                        <p className="text-muted-foreground">Manage service and maintenance requests</p>
+                        <p className="text-muted-foreground">
+                            Manage service and maintenance requests
+                        </p>
                     </div>
                     <Link href={create()}>
                         <Button>
@@ -56,7 +62,9 @@ export default function Index({ requests, filters: _filters, categories: _catego
                         <div className="space-y-4">
                             {requests.data.length === 0 ? (
                                 <div className="text-center py-12">
-                                    <p className="text-muted-foreground">No service requests found</p>
+                                    <p className="text-muted-foreground">
+                                        No service requests found
+                                    </p>
                                 </div>
                             ) : (
                                 <div className="space-y-2">
@@ -66,14 +74,22 @@ export default function Index({ requests, filters: _filters, categories: _catego
                                             className="flex items-center justify-between rounded-lg border p-4"
                                         >
                                             <div>
-                                                <h3 className="font-medium">{request.title}</h3>
+                                                <h3 className="font-medium">
+                                                    {request.title}
+                                                </h3>
                                                 <p className="text-sm text-muted-foreground">
-                                                    #{request.request_number} · {request.status.name} ·
+                                                    #{request.request_number} ·{" "}
+                                                    {request.status.name} ·
                                                     Priority: {request.priority}
                                                 </p>
                                             </div>
-                                            <Link href={`/service-requests/${request.id}`}>
-                                                <Button variant="outline" size="sm">
+                                            <Link
+                                                href={`/service-requests/${request.id}`}
+                                            >
+                                                <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                >
                                                     View
                                                 </Button>
                                             </Link>

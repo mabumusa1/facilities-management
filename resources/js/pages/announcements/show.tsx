@@ -1,4 +1,4 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router } from "@inertiajs/react";
 import {
     ArrowLeft,
     Calendar,
@@ -13,10 +13,16 @@ import {
     Info,
     User,
     Bell,
-} from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 
 interface Announcement {
     id: number;
@@ -27,8 +33,8 @@ interface Announcement {
     end_date: string;
     end_time: string;
     is_visible: boolean;
-    priority: 'low' | 'normal' | 'high' | 'urgent';
-    status: 'draft' | 'scheduled' | 'active' | 'expired' | 'cancelled';
+    priority: "low" | "normal" | "high" | "urgent";
+    status: "draft" | "scheduled" | "active" | "expired" | "cancelled";
     notify_user_types: string[] | null;
     community_ids: number[] | null;
     building_ids: number[] | null;
@@ -45,12 +51,30 @@ interface AnnouncementShowProps {
 }
 
 function getStatusBadge(status: string) {
-    const statusConfig: Record<string, { variant: 'default' | 'secondary' | 'destructive' | 'outline'; className: string }> = {
-        draft: { variant: 'secondary', className: 'bg-gray-100 text-gray-800' },
-        scheduled: { variant: 'outline', className: 'border-blue-500 text-blue-600' },
-        active: { variant: 'default', className: 'bg-green-100 text-green-800' },
-        expired: { variant: 'secondary', className: 'bg-orange-100 text-orange-800' },
-        cancelled: { variant: 'destructive', className: 'bg-red-100 text-red-800' },
+    const statusConfig: Record<
+        string,
+        {
+            variant: "default" | "secondary" | "destructive" | "outline";
+            className: string;
+        }
+    > = {
+        draft: { variant: "secondary", className: "bg-gray-100 text-gray-800" },
+        scheduled: {
+            variant: "outline",
+            className: "border-blue-500 text-blue-600",
+        },
+        active: {
+            variant: "default",
+            className: "bg-green-100 text-green-800",
+        },
+        expired: {
+            variant: "secondary",
+            className: "bg-orange-100 text-orange-800",
+        },
+        cancelled: {
+            variant: "destructive",
+            className: "bg-red-100 text-red-800",
+        },
     };
 
     const config = statusConfig[status] || statusConfig.draft;
@@ -63,11 +87,26 @@ function getStatusBadge(status: string) {
 }
 
 function getPriorityBadge(priority: string) {
-    const priorityConfig: Record<string, { icon: React.ReactNode; className: string }> = {
-        low: { icon: <Info className="h-3 w-3" />, className: 'bg-gray-100 text-gray-600' },
-        normal: { icon: <Info className="h-3 w-3" />, className: 'bg-blue-100 text-blue-600' },
-        high: { icon: <AlertTriangle className="h-3 w-3" />, className: 'bg-orange-100 text-orange-600' },
-        urgent: { icon: <AlertTriangle className="h-3 w-3" />, className: 'bg-red-100 text-red-600' },
+    const priorityConfig: Record<
+        string,
+        { icon: React.ReactNode; className: string }
+    > = {
+        low: {
+            icon: <Info className="h-3 w-3" />,
+            className: "bg-gray-100 text-gray-600",
+        },
+        normal: {
+            icon: <Info className="h-3 w-3" />,
+            className: "bg-blue-100 text-blue-600",
+        },
+        high: {
+            icon: <AlertTriangle className="h-3 w-3" />,
+            className: "bg-orange-100 text-orange-600",
+        },
+        urgent: {
+            icon: <AlertTriangle className="h-3 w-3" />,
+            className: "bg-red-100 text-red-600",
+        },
     };
 
     const config = priorityConfig[priority] || priorityConfig.normal;
@@ -75,24 +114,28 @@ function getPriorityBadge(priority: string) {
     return (
         <Badge variant="outline" className={config.className}>
             {config.icon}
-            <span className="ml-1">{priority.charAt(0).toUpperCase() + priority.slice(1)}</span>
+            <span className="ml-1">
+                {priority.charAt(0).toUpperCase() + priority.slice(1)}
+            </span>
         </Badge>
     );
 }
 
-export default function AnnouncementShow({ announcement }: AnnouncementShowProps) {
+export default function AnnouncementShow({
+    announcement,
+}: AnnouncementShowProps) {
     const handlePublish = () => {
         router.post(`/announcements/${announcement.id}/publish`);
     };
 
     const handleCancel = () => {
-        if (confirm('Are you sure you want to cancel this announcement?')) {
+        if (confirm("Are you sure you want to cancel this announcement?")) {
             router.post(`/announcements/${announcement.id}/cancel`);
         }
     };
 
     const handleDelete = () => {
-        if (confirm('Are you sure you want to delete this announcement?')) {
+        if (confirm("Are you sure you want to delete this announcement?")) {
             router.delete(`/announcements/${announcement.id}`);
         }
     };
@@ -113,28 +156,37 @@ export default function AnnouncementShow({ announcement }: AnnouncementShowProps
                                 {getStatusBadge(announcement.status)}
                                 {getPriorityBadge(announcement.priority)}
                                 {announcement.is_visible ? (
-                                    <Badge variant="outline" className="border-green-500 text-green-600">
+                                    <Badge
+                                        variant="outline"
+                                        className="border-green-500 text-green-600"
+                                    >
                                         <Eye className="mr-1 h-3 w-3" />
                                         Visible
                                     </Badge>
                                 ) : (
-                                    <Badge variant="outline" className="border-gray-400 text-gray-500">
+                                    <Badge
+                                        variant="outline"
+                                        className="border-gray-400 text-gray-500"
+                                    >
                                         <EyeOff className="mr-1 h-3 w-3" />
                                         Hidden
                                     </Badge>
                                 )}
                             </div>
-                            <h1 className="text-2xl font-bold tracking-tight">{announcement.title}</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                {announcement.title}
+                            </h1>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        {announcement.status === 'draft' && (
+                        {announcement.status === "draft" && (
                             <Button variant="outline" onClick={handlePublish}>
                                 <Send className="mr-2 h-4 w-4" />
                                 Publish
                             </Button>
                         )}
-                        {(announcement.status === 'active' || announcement.status === 'scheduled') && (
+                        {(announcement.status === "active" ||
+                            announcement.status === "scheduled") && (
                             <Button variant="outline" onClick={handleCancel}>
                                 <XCircle className="mr-2 h-4 w-4" />
                                 Cancel
@@ -160,40 +212,60 @@ export default function AnnouncementShow({ announcement }: AnnouncementShowProps
                                 <CardTitle>Description</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="whitespace-pre-wrap">{announcement.description}</p>
+                                <p className="whitespace-pre-wrap">
+                                    {announcement.description}
+                                </p>
                             </CardContent>
                         </Card>
 
                         <Card>
                             <CardHeader>
                                 <CardTitle>Schedule</CardTitle>
-                                <CardDescription>Display period for this announcement</CardDescription>
+                                <CardDescription>
+                                    Display period for this announcement
+                                </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <div className="space-y-2">
-                                        <div className="text-sm font-medium text-muted-foreground">Start</div>
+                                        <div className="text-sm font-medium text-muted-foreground">
+                                            Start
+                                        </div>
                                         <div className="flex items-center gap-4">
                                             <div className="flex items-center gap-2">
                                                 <Calendar className="h-4 w-4 text-muted-foreground" />
-                                                <span>{new Date(announcement.start_date).toLocaleDateString()}</span>
+                                                <span>
+                                                    {new Date(
+                                                        announcement.start_date,
+                                                    ).toLocaleDateString()}
+                                                </span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <Clock className="h-4 w-4 text-muted-foreground" />
-                                                <span>{announcement.start_time}</span>
+                                                <span>
+                                                    {announcement.start_time}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <div className="text-sm font-medium text-muted-foreground">End</div>
+                                        <div className="text-sm font-medium text-muted-foreground">
+                                            End
+                                        </div>
                                         <div className="flex items-center gap-4">
                                             <div className="flex items-center gap-2">
                                                 <Calendar className="h-4 w-4 text-muted-foreground" />
-                                                <span>{new Date(announcement.end_date).toLocaleDateString()}</span>
+                                                <span>
+                                                    {new Date(
+                                                        announcement.end_date,
+                                                    ).toLocaleDateString()}
+                                                </span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <Clock className="h-4 w-4 text-muted-foreground" />
-                                                <span>{announcement.end_time}</span>
+                                                <span>
+                                                    {announcement.end_time}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -212,46 +284,65 @@ export default function AnnouncementShow({ announcement }: AnnouncementShowProps
                                     <div className="flex items-center gap-2">
                                         <User className="h-4 w-4 text-muted-foreground" />
                                         <span className="text-sm">
-                                            Created by <span className="font-medium">{announcement.creator.name}</span>
+                                            Created by{" "}
+                                            <span className="font-medium">
+                                                {announcement.creator.name}
+                                            </span>
                                         </span>
                                     </div>
                                 )}
                                 <div className="flex items-center gap-2">
                                     <Calendar className="h-4 w-4 text-muted-foreground" />
                                     <span className="text-sm">
-                                        Created on {new Date(announcement.created_at).toLocaleDateString()}
+                                        Created on{" "}
+                                        {new Date(
+                                            announcement.created_at,
+                                        ).toLocaleDateString()}
                                     </span>
                                 </div>
-                                {announcement.updated_at !== announcement.created_at && (
+                                {announcement.updated_at !==
+                                    announcement.created_at && (
                                     <div className="flex items-center gap-2">
                                         <Clock className="h-4 w-4 text-muted-foreground" />
                                         <span className="text-sm">
-                                            Last updated {new Date(announcement.updated_at).toLocaleDateString()}
+                                            Last updated{" "}
+                                            {new Date(
+                                                announcement.updated_at,
+                                            ).toLocaleDateString()}
                                         </span>
                                     </div>
                                 )}
                             </CardContent>
                         </Card>
 
-                        {announcement.notify_user_types && announcement.notify_user_types.length > 0 && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <Bell className="h-4 w-4" />
-                                        Notifications
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="flex flex-wrap gap-2">
-                                        {announcement.notify_user_types.map((type) => (
-                                            <Badge key={type} variant="outline">
-                                                {type.charAt(0).toUpperCase() + type.slice(1)}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
+                        {announcement.notify_user_types &&
+                            announcement.notify_user_types.length > 0 && (
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle className="flex items-center gap-2">
+                                            <Bell className="h-4 w-4" />
+                                            Notifications
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="flex flex-wrap gap-2">
+                                            {announcement.notify_user_types.map(
+                                                (type) => (
+                                                    <Badge
+                                                        key={type}
+                                                        variant="outline"
+                                                    >
+                                                        {type
+                                                            .charAt(0)
+                                                            .toUpperCase() +
+                                                            type.slice(1)}
+                                                    </Badge>
+                                                ),
+                                            )}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
                     </div>
                 </div>
             </div>
@@ -262,12 +353,12 @@ export default function AnnouncementShow({ announcement }: AnnouncementShowProps
 AnnouncementShow.layout = {
     breadcrumbs: [
         {
-            title: 'Announcements',
-            href: '/announcements',
+            title: "Announcements",
+            href: "/announcements",
         },
         {
-            title: 'View',
-            href: '#',
+            title: "View",
+            href: "#",
         },
     ],
 };

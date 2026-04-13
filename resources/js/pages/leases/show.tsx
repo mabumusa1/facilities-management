@@ -1,4 +1,4 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router } from "@inertiajs/react";
 import {
     FileText,
     Edit,
@@ -15,8 +15,8 @@ import {
     Home,
     Ban,
     LogOut,
-} from 'lucide-react';
-import { useState } from 'react';
+} from "lucide-react";
+import { useState } from "react";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -27,11 +27,17 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
     Table,
     TableBody,
@@ -39,7 +45,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 
 interface Unit {
     id: number;
@@ -124,18 +130,49 @@ interface LeaseShowProps {
 
 function getStatusBadge(status: Status | null) {
     if (!status) {
-return <Badge variant="secondary">Unknown</Badge>;
-}
+        return <Badge variant="secondary">Unknown</Badge>;
+    }
 
-    const statusConfig: Record<number, { variant: 'default' | 'secondary' | 'destructive' | 'outline'; className: string; icon: React.ReactNode }> = {
-        30: { variant: 'outline', className: 'border-blue-500 text-blue-600', icon: <Clock className="h-3 w-3" /> },
-        31: { variant: 'default', className: 'bg-green-100 text-green-800', icon: <CheckCircle className="h-3 w-3" /> },
-        32: { variant: 'secondary', className: 'bg-orange-100 text-orange-800', icon: <AlertCircle className="h-3 w-3" /> },
-        33: { variant: 'destructive', className: 'bg-red-100 text-red-800', icon: <XCircle className="h-3 w-3" /> },
-        34: { variant: 'secondary', className: 'bg-gray-100 text-gray-800', icon: <FileText className="h-3 w-3" /> },
+    const statusConfig: Record<
+        number,
+        {
+            variant: "default" | "secondary" | "destructive" | "outline";
+            className: string;
+            icon: React.ReactNode;
+        }
+    > = {
+        30: {
+            variant: "outline",
+            className: "border-blue-500 text-blue-600",
+            icon: <Clock className="h-3 w-3" />,
+        },
+        31: {
+            variant: "default",
+            className: "bg-green-100 text-green-800",
+            icon: <CheckCircle className="h-3 w-3" />,
+        },
+        32: {
+            variant: "secondary",
+            className: "bg-orange-100 text-orange-800",
+            icon: <AlertCircle className="h-3 w-3" />,
+        },
+        33: {
+            variant: "destructive",
+            className: "bg-red-100 text-red-800",
+            icon: <XCircle className="h-3 w-3" />,
+        },
+        34: {
+            variant: "secondary",
+            className: "bg-gray-100 text-gray-800",
+            icon: <FileText className="h-3 w-3" />,
+        },
     };
 
-    const config = statusConfig[status.id] || { variant: 'secondary' as const, className: '', icon: null };
+    const config = statusConfig[status.id] || {
+        variant: "secondary" as const,
+        className: "",
+        icon: null,
+    };
 
     return (
         <Badge variant={config.variant} className={config.className}>
@@ -146,27 +183,35 @@ return <Badge variant="secondary">Unknown</Badge>;
 }
 
 function formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
+    return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
     });
 }
 
 function formatCurrency(amount: string | number): string {
-    const num = typeof amount === 'string' ? parseFloat(amount) : amount;
+    const num = typeof amount === "string" ? parseFloat(amount) : amount;
 
     return `$${num.toLocaleString()}`;
 }
 
-export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowProps) {
+export default function LeaseShow({
+    lease,
+    canRenew,
+    canTerminate,
+}: LeaseShowProps) {
     const [isActivating, setIsActivating] = useState(false);
 
     const handleActivate = () => {
         setIsActivating(true);
-        router.post(`/leases/${lease.id}/activate`, {}, {
-            onFinish: () => setIsActivating(false),
-        });
+        router.post(
+            `/leases/${lease.id}/activate`,
+            {},
+            {
+                onFinish: () => setIsActivating(false),
+            },
+        );
     };
 
     const isNew = lease.status?.id === 30;
@@ -189,11 +234,15 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                         <div>
                             <div className="flex items-center gap-3">
                                 <h1 className="text-2xl font-bold tracking-tight">
-                                    {lease.contract_number || `Lease #${lease.id}`}
+                                    {lease.contract_number ||
+                                        `Lease #${lease.id}`}
                                 </h1>
                                 {getStatusBadge(lease.status)}
                                 {lease.is_renew && (
-                                    <Badge variant="outline" className="border-purple-500 text-purple-600">
+                                    <Badge
+                                        variant="outline"
+                                        className="border-purple-500 text-purple-600"
+                                    >
                                         <RefreshCw className="mr-1 h-3 w-3" />
                                         Renewed
                                     </Badge>
@@ -215,16 +264,26 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
-                                        <AlertDialogTitle>Activate Lease</AlertDialogTitle>
+                                        <AlertDialogTitle>
+                                            Activate Lease
+                                        </AlertDialogTitle>
                                         <AlertDialogDescription>
-                                            This will activate the lease and mark the units as rented.
-                                            Are you sure you want to proceed?
+                                            This will activate the lease and
+                                            mark the units as rented. Are you
+                                            sure you want to proceed?
                                         </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
-                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction onClick={handleActivate} disabled={isActivating}>
-                                            {isActivating ? 'Activating...' : 'Activate'}
+                                        <AlertDialogCancel>
+                                            Cancel
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction
+                                            onClick={handleActivate}
+                                            disabled={isActivating}
+                                        >
+                                            {isActivating
+                                                ? "Activating..."
+                                                : "Activate"}
                                         </AlertDialogAction>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
@@ -281,23 +340,40 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                             <CardContent className="space-y-4">
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Contract Number</p>
-                                        <p className="font-medium">{lease.contract_number || '-'}</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-muted-foreground">Tenant Type</p>
-                                        <p className="font-medium capitalize">{lease.tenant_type}</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-muted-foreground">Rental Type</p>
-                                        <p className="font-medium capitalize">{lease.rental_type}</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-muted-foreground">Duration</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Contract Number
+                                        </p>
                                         <p className="font-medium">
-                                            {lease.number_of_years > 0 && `${lease.number_of_years} year${lease.number_of_years > 1 ? 's' : ''}`}
-                                            {lease.number_of_months > 0 && ` ${lease.number_of_months} month${lease.number_of_months > 1 ? 's' : ''}`}
-                                            {lease.number_of_days > 0 && ` ${lease.number_of_days} day${lease.number_of_days > 1 ? 's' : ''}`}
+                                            {lease.contract_number || "-"}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">
+                                            Tenant Type
+                                        </p>
+                                        <p className="font-medium capitalize">
+                                            {lease.tenant_type}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">
+                                            Rental Type
+                                        </p>
+                                        <p className="font-medium capitalize">
+                                            {lease.rental_type}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">
+                                            Duration
+                                        </p>
+                                        <p className="font-medium">
+                                            {lease.number_of_years > 0 &&
+                                                `${lease.number_of_years} year${lease.number_of_years > 1 ? "s" : ""}`}
+                                            {lease.number_of_months > 0 &&
+                                                ` ${lease.number_of_months} month${lease.number_of_months > 1 ? "s" : ""}`}
+                                            {lease.number_of_days > 0 &&
+                                                ` ${lease.number_of_days} day${lease.number_of_days > 1 ? "s" : ""}`}
                                         </p>
                                     </div>
                                 </div>
@@ -306,17 +382,31 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
 
                                 <div className="grid gap-4 sm:grid-cols-3">
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Start Date</p>
-                                        <p className="font-medium">{formatDate(lease.start_date)}</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Start Date
+                                        </p>
+                                        <p className="font-medium">
+                                            {formatDate(lease.start_date)}
+                                        </p>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-muted-foreground">End Date</p>
-                                        <p className="font-medium">{formatDate(lease.end_date)}</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            End Date
+                                        </p>
+                                        <p className="font-medium">
+                                            {formatDate(lease.end_date)}
+                                        </p>
                                     </div>
                                     {lease.handover_date && (
                                         <div>
-                                            <p className="text-sm text-muted-foreground">Handover Date</p>
-                                            <p className="font-medium">{formatDate(lease.handover_date)}</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                Handover Date
+                                            </p>
+                                            <p className="font-medium">
+                                                {formatDate(
+                                                    lease.handover_date,
+                                                )}
+                                            </p>
                                         </div>
                                     )}
                                 </div>
@@ -325,8 +415,12 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                                     <>
                                         <Separator />
                                         <div>
-                                            <p className="text-sm text-muted-foreground">Free Period</p>
-                                            <p className="font-medium">{lease.free_period} days</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                Free Period
+                                            </p>
+                                            <p className="font-medium">
+                                                {lease.free_period} days
+                                            </p>
                                         </div>
                                     </>
                                 )}
@@ -341,7 +435,9 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                                     Leased Units
                                 </CardTitle>
                                 <CardDescription>
-                                    {lease.units.length} unit{lease.units.length !== 1 ? 's' : ''} included in this lease
+                                    {lease.units.length} unit
+                                    {lease.units.length !== 1 ? "s" : ""}{" "}
+                                    included in this lease
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -351,21 +447,33 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                                             <TableHead>Unit</TableHead>
                                             <TableHead>Building</TableHead>
                                             <TableHead>Area</TableHead>
-                                            <TableHead className="text-right">Annual Rent</TableHead>
+                                            <TableHead className="text-right">
+                                                Annual Rent
+                                            </TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
                                         {lease.units.map((unit) => (
                                             <TableRow key={unit.id}>
-                                                <TableCell className="font-medium">{unit.name}</TableCell>
-                                                <TableCell>{unit.building?.name || '-'}</TableCell>
+                                                <TableCell className="font-medium">
+                                                    {unit.name}
+                                                </TableCell>
                                                 <TableCell>
-                                                    {unit.pivot?.net_area ? `${unit.pivot.net_area} sqm` : '-'}
+                                                    {unit.building?.name || "-"}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {unit.pivot?.net_area
+                                                        ? `${unit.pivot.net_area} sqm`
+                                                        : "-"}
                                                 </TableCell>
                                                 <TableCell className="text-right">
-                                                    {unit.pivot?.annual_rental_amount
-                                                        ? formatCurrency(unit.pivot.annual_rental_amount)
-                                                        : '-'}
+                                                    {unit.pivot
+                                                        ?.annual_rental_amount
+                                                        ? formatCurrency(
+                                                              unit.pivot
+                                                                  .annual_rental_amount,
+                                                          )
+                                                        : "-"}
                                                 </TableCell>
                                             </TableRow>
                                         ))}
@@ -381,54 +489,92 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                                     <CardTitle>Terms & Conditions</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="whitespace-pre-wrap text-sm">{lease.terms_conditions}</p>
+                                    <p className="whitespace-pre-wrap text-sm">
+                                        {lease.terms_conditions}
+                                    </p>
                                 </CardContent>
                             </Card>
                         )}
 
                         {/* Transactions */}
-                        {lease.transactions && lease.transactions.length > 0 && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <DollarSign className="h-5 w-5" />
-                                        Transactions
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead>Type</TableHead>
-                                                <TableHead>Due Date</TableHead>
-                                                <TableHead>Paid Date</TableHead>
-                                                <TableHead>Status</TableHead>
-                                                <TableHead className="text-right">Amount</TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {lease.transactions.map((transaction) => (
-                                                <TableRow key={transaction.id}>
-                                                    <TableCell className="capitalize">{transaction.type}</TableCell>
-                                                    <TableCell>{formatDate(transaction.due_date)}</TableCell>
-                                                    <TableCell>
-                                                        {transaction.paid_date ? formatDate(transaction.paid_date) : '-'}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Badge variant={transaction.status === 'paid' ? 'default' : 'secondary'}>
-                                                            {transaction.status}
-                                                        </Badge>
-                                                    </TableCell>
-                                                    <TableCell className="text-right">
-                                                        {formatCurrency(transaction.amount)}
-                                                    </TableCell>
+                        {lease.transactions &&
+                            lease.transactions.length > 0 && (
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle className="flex items-center gap-2">
+                                            <DollarSign className="h-5 w-5" />
+                                            Transactions
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <Table>
+                                            <TableHeader>
+                                                <TableRow>
+                                                    <TableHead>Type</TableHead>
+                                                    <TableHead>
+                                                        Due Date
+                                                    </TableHead>
+                                                    <TableHead>
+                                                        Paid Date
+                                                    </TableHead>
+                                                    <TableHead>
+                                                        Status
+                                                    </TableHead>
+                                                    <TableHead className="text-right">
+                                                        Amount
+                                                    </TableHead>
                                                 </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </CardContent>
-                            </Card>
-                        )}
+                                            </TableHeader>
+                                            <TableBody>
+                                                {lease.transactions.map(
+                                                    (transaction) => (
+                                                        <TableRow
+                                                            key={transaction.id}
+                                                        >
+                                                            <TableCell className="capitalize">
+                                                                {
+                                                                    transaction.type
+                                                                }
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {formatDate(
+                                                                    transaction.due_date,
+                                                                )}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                {transaction.paid_date
+                                                                    ? formatDate(
+                                                                          transaction.paid_date,
+                                                                      )
+                                                                    : "-"}
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Badge
+                                                                    variant={
+                                                                        transaction.status ===
+                                                                        "paid"
+                                                                            ? "default"
+                                                                            : "secondary"
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        transaction.status
+                                                                    }
+                                                                </Badge>
+                                                            </TableCell>
+                                                            <TableCell className="text-right">
+                                                                {formatCurrency(
+                                                                    transaction.amount,
+                                                                )}
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ),
+                                                )}
+                                            </TableBody>
+                                        </Table>
+                                    </CardContent>
+                                </Card>
+                            )}
                     </div>
 
                     {/* Sidebar */}
@@ -443,18 +589,33 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Total Rental Amount</p>
-                                    <p className="text-2xl font-bold">{formatCurrency(lease.rental_total_amount)}</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Total Rental Amount
+                                    </p>
+                                    <p className="text-2xl font-bold">
+                                        {formatCurrency(
+                                            lease.rental_total_amount,
+                                        )}
+                                    </p>
                                 </div>
                                 {lease.security_deposit_amount && (
                                     <>
                                         <Separator />
                                         <div>
-                                            <p className="text-sm text-muted-foreground">Security Deposit</p>
-                                            <p className="text-lg font-semibold">{formatCurrency(lease.security_deposit_amount)}</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                Security Deposit
+                                            </p>
+                                            <p className="text-lg font-semibold">
+                                                {formatCurrency(
+                                                    lease.security_deposit_amount,
+                                                )}
+                                            </p>
                                             {lease.security_deposit_due_date && (
                                                 <p className="text-xs text-muted-foreground">
-                                                    Due: {formatDate(lease.security_deposit_due_date)}
+                                                    Due:{" "}
+                                                    {formatDate(
+                                                        lease.security_deposit_due_date,
+                                                    )}
                                                 </p>
                                             )}
                                         </div>
@@ -474,21 +635,35 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                             <CardContent>
                                 {lease.tenant ? (
                                     <div className="space-y-2">
-                                        <p className="font-medium">{lease.tenant.name}</p>
+                                        <p className="font-medium">
+                                            {lease.tenant.name}
+                                        </p>
                                         {lease.tenant.email && (
-                                            <p className="text-sm text-muted-foreground">{lease.tenant.email}</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                {lease.tenant.email}
+                                            </p>
                                         )}
                                         {lease.tenant.phone && (
-                                            <p className="text-sm text-muted-foreground">{lease.tenant.phone}</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                {lease.tenant.phone}
+                                            </p>
                                         )}
-                                        <Link href={`/contacts/${lease.tenant.id}`}>
-                                            <Button variant="outline" size="sm" className="mt-2">
+                                        <Link
+                                            href={`/contacts/${lease.tenant.id}`}
+                                        >
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="mt-2"
+                                            >
                                                 View Profile
                                             </Button>
                                         </Link>
                                     </div>
                                 ) : (
-                                    <p className="text-muted-foreground">No tenant assigned</p>
+                                    <p className="text-muted-foreground">
+                                        No tenant assigned
+                                    </p>
                                 )}
                             </CardContent>
                         </Card>
@@ -504,14 +679,22 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                             <CardContent className="space-y-2">
                                 {lease.community && (
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Community</p>
-                                        <p className="font-medium">{lease.community.name}</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Community
+                                        </p>
+                                        <p className="font-medium">
+                                            {lease.community.name}
+                                        </p>
                                     </div>
                                 )}
                                 {lease.building && (
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Building</p>
-                                        <p className="font-medium">{lease.building.name}</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Building
+                                        </p>
+                                        <p className="font-medium">
+                                            {lease.building.name}
+                                        </p>
                                     </div>
                                 )}
                             </CardContent>
@@ -528,19 +711,31 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                             <CardContent className="space-y-3 text-sm">
                                 {lease.deal_owner && (
                                     <div>
-                                        <p className="text-muted-foreground">Deal Owner</p>
-                                        <p className="font-medium">{lease.deal_owner.name}</p>
+                                        <p className="text-muted-foreground">
+                                            Deal Owner
+                                        </p>
+                                        <p className="font-medium">
+                                            {lease.deal_owner.name}
+                                        </p>
                                     </div>
                                 )}
                                 {lease.created_by && (
                                     <div>
-                                        <p className="text-muted-foreground">Created By</p>
-                                        <p className="font-medium">{lease.created_by.name}</p>
+                                        <p className="text-muted-foreground">
+                                            Created By
+                                        </p>
+                                        <p className="font-medium">
+                                            {lease.created_by.name}
+                                        </p>
                                     </div>
                                 )}
                                 <div>
-                                    <p className="text-muted-foreground">Last Updated</p>
-                                    <p className="font-medium">{formatDate(lease.updated_at)}</p>
+                                    <p className="text-muted-foreground">
+                                        Last Updated
+                                    </p>
+                                    <p className="font-medium">
+                                        {formatDate(lease.updated_at)}
+                                    </p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -553,7 +748,7 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
 
 LeaseShow.layout = {
     breadcrumbs: [
-        { title: 'Leases', href: '/leases' },
-        { title: 'Details', href: '' },
+        { title: "Leases", href: "/leases" },
+        { title: "Details", href: "" },
     ],
 };

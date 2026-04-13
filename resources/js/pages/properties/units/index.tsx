@@ -1,18 +1,22 @@
-import { Head, Link, router } from '@inertiajs/react';
-import { Home, Plus, Search } from 'lucide-react';
-import { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Head, Link, router } from "@inertiajs/react";
+import { Home, Plus, Search } from "lucide-react";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
-import { index as unitsIndex, create as unitsCreate, show as unitsShow } from '@/routes/units';
+} from "@/components/ui/select";
+import {
+    index as unitsIndex,
+    create as unitsCreate,
+    show as unitsShow,
+} from "@/routes/units";
 
 interface Community {
     id: number;
@@ -32,7 +36,7 @@ interface UnitCategory {
 interface Unit {
     id: number;
     name: string;
-    status: 'active' | 'inactive';
+    status: "active" | "inactive";
     floor_no?: number;
     net_area?: number;
     market_rent?: number;
@@ -65,21 +69,31 @@ interface Props {
     };
 }
 
-export default function UnitsIndex({ units, communities, buildings, categories, filters }: Props) {
-    const [search, setSearch] = useState(filters.search ?? '');
-    const [status, setStatus] = useState(filters.status ?? '');
-    const [communityId, setCommunityId] = useState(filters.community_id ?? '');
-    const [buildingId, setBuildingId] = useState(filters.building_id ?? '');
-    const [categoryId, setCategoryId] = useState(filters.category_id ?? '');
+export default function UnitsIndex({
+    units,
+    communities,
+    buildings,
+    categories,
+    filters,
+}: Props) {
+    const [search, setSearch] = useState(filters.search ?? "");
+    const [status, setStatus] = useState(filters.status ?? "");
+    const [communityId, setCommunityId] = useState(filters.community_id ?? "");
+    const [buildingId, setBuildingId] = useState(filters.building_id ?? "");
+    const [categoryId, setCategoryId] = useState(filters.category_id ?? "");
 
     const handleSearch = () => {
-        router.get(unitsIndex(), {
-            search,
-            status,
-            community_id: communityId,
-            building_id: buildingId,
-            category_id: categoryId,
-        }, { preserveState: true });
+        router.get(
+            unitsIndex(),
+            {
+                search,
+                status,
+                community_id: communityId,
+                building_id: buildingId,
+                category_id: categoryId,
+            },
+            { preserveState: true },
+        );
     };
 
     const handleFilterChange = (key: string, value: string) => {
@@ -92,21 +106,21 @@ export default function UnitsIndex({ units, communities, buildings, categories, 
             [key]: value,
         };
 
-        if (key === 'status') {
-setStatus(value);
-}
+        if (key === "status") {
+            setStatus(value);
+        }
 
-        if (key === 'community_id') {
-setCommunityId(value);
-}
+        if (key === "community_id") {
+            setCommunityId(value);
+        }
 
-        if (key === 'building_id') {
-setBuildingId(value);
-}
+        if (key === "building_id") {
+            setBuildingId(value);
+        }
 
-        if (key === 'category_id') {
-setCategoryId(value);
-}
+        if (key === "category_id") {
+            setCategoryId(value);
+        }
 
         router.get(unitsIndex(), newFilters, { preserveState: true });
     };
@@ -120,7 +134,9 @@ setCategoryId(value);
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-bold">Units</h1>
-                        <p className="text-muted-foreground">Manage your property units</p>
+                        <p className="text-muted-foreground">
+                            Manage your property units
+                        </p>
                     </div>
                     <Button asChild>
                         <Link href={unitsCreate()}>
@@ -140,51 +156,100 @@ setCategoryId(value);
                                     placeholder="Search units..."
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                                    onKeyDown={(e) =>
+                                        e.key === "Enter" && handleSearch()
+                                    }
                                     className="pl-8"
                                 />
                             </div>
-                            <Select value={communityId} onValueChange={(v) => handleFilterChange('community_id', v)}>
+                            <Select
+                                value={communityId}
+                                onValueChange={(v) =>
+                                    handleFilterChange("community_id", v)
+                                }
+                            >
                                 <SelectTrigger className="w-40">
                                     <SelectValue placeholder="Community" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="">All communities</SelectItem>
+                                    <SelectItem value="">
+                                        All communities
+                                    </SelectItem>
                                     {communities.map((c) => (
-                                        <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
+                                        <SelectItem
+                                            key={c.id}
+                                            value={String(c.id)}
+                                        >
+                                            {c.name}
+                                        </SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
-                            <Select value={buildingId} onValueChange={(v) => handleFilterChange('building_id', v)}>
+                            <Select
+                                value={buildingId}
+                                onValueChange={(v) =>
+                                    handleFilterChange("building_id", v)
+                                }
+                            >
                                 <SelectTrigger className="w-40">
                                     <SelectValue placeholder="Building" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="">All buildings</SelectItem>
+                                    <SelectItem value="">
+                                        All buildings
+                                    </SelectItem>
                                     {buildings.map((b) => (
-                                        <SelectItem key={b.id} value={String(b.id)}>{b.name}</SelectItem>
+                                        <SelectItem
+                                            key={b.id}
+                                            value={String(b.id)}
+                                        >
+                                            {b.name}
+                                        </SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
-                            <Select value={categoryId} onValueChange={(v) => handleFilterChange('category_id', v)}>
+                            <Select
+                                value={categoryId}
+                                onValueChange={(v) =>
+                                    handleFilterChange("category_id", v)
+                                }
+                            >
                                 <SelectTrigger className="w-40">
                                     <SelectValue placeholder="Category" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="">All categories</SelectItem>
+                                    <SelectItem value="">
+                                        All categories
+                                    </SelectItem>
                                     {categories.map((cat) => (
-                                        <SelectItem key={cat.id} value={String(cat.id)}>{cat.name}</SelectItem>
+                                        <SelectItem
+                                            key={cat.id}
+                                            value={String(cat.id)}
+                                        >
+                                            {cat.name}
+                                        </SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
-                            <Select value={status} onValueChange={(v) => handleFilterChange('status', v)}>
+                            <Select
+                                value={status}
+                                onValueChange={(v) =>
+                                    handleFilterChange("status", v)
+                                }
+                            >
                                 <SelectTrigger className="w-32">
                                     <SelectValue placeholder="Status" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="">All statuses</SelectItem>
-                                    <SelectItem value="active">Active</SelectItem>
-                                    <SelectItem value="inactive">Inactive</SelectItem>
+                                    <SelectItem value="">
+                                        All statuses
+                                    </SelectItem>
+                                    <SelectItem value="active">
+                                        Active
+                                    </SelectItem>
+                                    <SelectItem value="inactive">
+                                        Inactive
+                                    </SelectItem>
                                 </SelectContent>
                             </Select>
                             <Button onClick={handleSearch}>Search</Button>
@@ -196,13 +261,14 @@ setCategoryId(value);
                 <Card>
                     <CardHeader>
                         <CardTitle>
-                            {units.total} {units.total === 1 ? 'Unit' : 'Units'}
+                            {units.total} {units.total === 1 ? "Unit" : "Units"}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
                         {units.data.length === 0 ? (
                             <div className="text-muted-foreground py-8 text-center">
-                                No units found. Create your first unit to get started.
+                                No units found. Create your first unit to get
+                                started.
                             </div>
                         ) : (
                             <div className="divide-y">
@@ -217,24 +283,41 @@ setCategoryId(value);
                                                 <Home className="text-primary h-5 w-5" />
                                             </div>
                                             <div>
-                                                <div className="font-medium">{unit.name}</div>
+                                                <div className="font-medium">
+                                                    {unit.name}
+                                                </div>
                                                 <div className="text-muted-foreground text-sm">
-                                                    {unit.building?.name ?? unit.community?.name ?? 'No location'}
-                                                    {unit.floor_no !== undefined && ` • Floor ${unit.floor_no}`}
-                                                    {unit.net_area && ` • ${unit.net_area} sqm`}
+                                                    {unit.building?.name ??
+                                                        unit.community?.name ??
+                                                        "No location"}
+                                                    {unit.floor_no !==
+                                                        undefined &&
+                                                        ` • Floor ${unit.floor_no}`}
+                                                    {unit.net_area &&
+                                                        ` • ${unit.net_area} sqm`}
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-4">
                                             {unit.category && (
-                                                <Badge variant="outline">{unit.category.name}</Badge>
+                                                <Badge variant="outline">
+                                                    {unit.category.name}
+                                                </Badge>
                                             )}
                                             {unit.market_rent && (
                                                 <div className="text-muted-foreground text-sm">
-                                                    ${unit.market_rent.toLocaleString()}/mo
+                                                    $
+                                                    {unit.market_rent.toLocaleString()}
+                                                    /mo
                                                 </div>
                                             )}
-                                            <Badge variant={unit.status === 'active' ? 'default' : 'secondary'}>
+                                            <Badge
+                                                variant={
+                                                    unit.status === "active"
+                                                        ? "default"
+                                                        : "secondary"
+                                                }
+                                            >
                                                 {unit.status}
                                             </Badge>
                                         </div>
@@ -249,11 +332,17 @@ setCategoryId(value);
                                 {units.links.map((link, index) => (
                                     <Button
                                         key={index}
-                                        variant={link.active ? 'default' : 'outline'}
+                                        variant={
+                                            link.active ? "default" : "outline"
+                                        }
                                         size="sm"
                                         disabled={!link.url}
-                                        onClick={() => link.url && router.get(link.url)}
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        onClick={() =>
+                                            link.url && router.get(link.url)
+                                        }
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                     />
                                 ))}
                             </div>
@@ -267,7 +356,7 @@ setCategoryId(value);
 
 UnitsIndex.layout = {
     breadcrumbs: [
-        { title: 'Properties', href: unitsIndex() },
-        { title: 'Units', href: unitsIndex() },
+        { title: "Properties", href: unitsIndex() },
+        { title: "Units", href: unitsIndex() },
     ],
 };

@@ -1,8 +1,14 @@
-import { Head, Link, router } from '@inertiajs/react';
-import { Building2, Edit, Home, MapPin, Trash2 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Head, Link, router } from "@inertiajs/react";
+import { Building2, Edit, Home, MapPin, Trash2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 import {
     Dialog,
     DialogContent,
@@ -11,10 +17,14 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '@/components/ui/dialog';
-import { show as buildingsShow } from '@/routes/buildings';
-import { show as communitiesShow } from '@/routes/communities';
-import { index as unitsIndex, edit as unitsEdit, destroy as unitsDestroy } from '@/routes/units';
+} from "@/components/ui/dialog";
+import { show as buildingsShow } from "@/routes/buildings";
+import { show as communitiesShow } from "@/routes/communities";
+import {
+    index as unitsIndex,
+    edit as unitsEdit,
+    destroy as unitsDestroy,
+} from "@/routes/units";
 
 interface Community {
     id: number;
@@ -45,7 +55,7 @@ interface Status {
 interface Unit {
     id: number;
     name: string;
-    status: 'active' | 'inactive';
+    status: "active" | "inactive";
     floor_no?: number;
     net_area?: number;
     year_built?: number;
@@ -87,7 +97,9 @@ export default function UnitShow({ unit }: Props) {
                                 <>
                                     <Building2 className="h-4 w-4" />
                                     <Link
-                                        href={buildingsShow({ building: unit.building.id })}
+                                        href={buildingsShow({
+                                            building: unit.building.id,
+                                        })}
                                         className="hover:underline"
                                     >
                                         {unit.building.name}
@@ -97,7 +109,9 @@ export default function UnitShow({ unit }: Props) {
                                 <>
                                     <MapPin className="h-4 w-4" />
                                     <Link
-                                        href={communitiesShow({ community: unit.community.id })}
+                                        href={communitiesShow({
+                                            community: unit.community.id,
+                                        })}
                                         className="hover:underline"
                                     >
                                         {unit.community.name}
@@ -129,12 +143,18 @@ export default function UnitShow({ unit }: Props) {
                                 <DialogHeader>
                                     <DialogTitle>Delete Unit</DialogTitle>
                                     <DialogDescription>
-                                        Are you sure you want to delete this unit? This action cannot be undone.
+                                        Are you sure you want to delete this
+                                        unit? This action cannot be undone.
                                     </DialogDescription>
                                 </DialogHeader>
                                 <DialogFooter>
                                     <Button variant="outline">Cancel</Button>
-                                    <Button variant="destructive" onClick={handleDelete}>Delete</Button>
+                                    <Button
+                                        variant="destructive"
+                                        onClick={handleDelete}
+                                    >
+                                        Delete
+                                    </Button>
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
@@ -148,7 +168,13 @@ export default function UnitShow({ unit }: Props) {
                             <CardDescription>Status</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <Badge variant={unit.status === 'active' ? 'default' : 'secondary'}>
+                            <Badge
+                                variant={
+                                    unit.status === "active"
+                                        ? "default"
+                                        : "secondary"
+                                }
+                            >
                                 {unit.status}
                             </Badge>
                         </CardContent>
@@ -158,7 +184,9 @@ export default function UnitShow({ unit }: Props) {
                             <CardDescription>Category</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-lg font-medium">{unit.category?.name ?? 'N/A'}</div>
+                            <div className="text-lg font-medium">
+                                {unit.category?.name ?? "N/A"}
+                            </div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -166,7 +194,9 @@ export default function UnitShow({ unit }: Props) {
                             <CardDescription>Type</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-lg font-medium">{unit.type?.name ?? 'N/A'}</div>
+                            <div className="text-lg font-medium">
+                                {unit.type?.name ?? "N/A"}
+                            </div>
                         </CardContent>
                     </Card>
                     <Card>
@@ -175,7 +205,9 @@ export default function UnitShow({ unit }: Props) {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">
-                                {unit.market_rent ? `$${unit.market_rent.toLocaleString()}` : 'N/A'}
+                                {unit.market_rent
+                                    ? `$${unit.market_rent.toLocaleString()}`
+                                    : "N/A"}
                             </div>
                         </CardContent>
                     </Card>
@@ -189,16 +221,30 @@ export default function UnitShow({ unit }: Props) {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Floor</span>
-                                <span className="font-medium">{unit.floor_no ?? 'N/A'}</span>
+                                <span className="text-muted-foreground">
+                                    Floor
+                                </span>
+                                <span className="font-medium">
+                                    {unit.floor_no ?? "N/A"}
+                                </span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Net Area</span>
-                                <span className="font-medium">{unit.net_area ? `${unit.net_area} sqm` : 'N/A'}</span>
+                                <span className="text-muted-foreground">
+                                    Net Area
+                                </span>
+                                <span className="font-medium">
+                                    {unit.net_area
+                                        ? `${unit.net_area} sqm`
+                                        : "N/A"}
+                                </span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Year Built</span>
-                                <span className="font-medium">{unit.year_built ?? 'N/A'}</span>
+                                <span className="text-muted-foreground">
+                                    Year Built
+                                </span>
+                                <span className="font-medium">
+                                    {unit.year_built ?? "N/A"}
+                                </span>
                             </div>
                         </CardContent>
                     </Card>
@@ -209,15 +255,31 @@ export default function UnitShow({ unit }: Props) {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Listed on Marketplace</span>
-                                <Badge variant={unit.is_marketplace ? 'default' : 'secondary'}>
-                                    {unit.is_marketplace ? 'Yes' : 'No'}
+                                <span className="text-muted-foreground">
+                                    Listed on Marketplace
+                                </span>
+                                <Badge
+                                    variant={
+                                        unit.is_marketplace
+                                            ? "default"
+                                            : "secondary"
+                                    }
+                                >
+                                    {unit.is_marketplace ? "Yes" : "No"}
                                 </Badge>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Off-Plan Sale</span>
-                                <Badge variant={unit.is_off_plan_sale ? 'default' : 'secondary'}>
-                                    {unit.is_off_plan_sale ? 'Yes' : 'No'}
+                                <span className="text-muted-foreground">
+                                    Off-Plan Sale
+                                </span>
+                                <Badge
+                                    variant={
+                                        unit.is_off_plan_sale
+                                            ? "default"
+                                            : "secondary"
+                                    }
+                                >
+                                    {unit.is_off_plan_sale ? "Yes" : "No"}
                                 </Badge>
                             </div>
                         </CardContent>
@@ -231,7 +293,9 @@ export default function UnitShow({ unit }: Props) {
                             <CardTitle>About</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-muted-foreground">{unit.about}</p>
+                            <p className="text-muted-foreground">
+                                {unit.about}
+                            </p>
                         </CardContent>
                     </Card>
                 )}
@@ -241,12 +305,17 @@ export default function UnitShow({ unit }: Props) {
                     <Card>
                         <CardHeader>
                             <CardTitle>Photos</CardTitle>
-                            <CardDescription>{unit.photos.length} photo(s)</CardDescription>
+                            <CardDescription>
+                                {unit.photos.length} photo(s)
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-4 md:grid-cols-4">
                                 {unit.photos.map((photo, index) => (
-                                    <div key={index} className="bg-muted aspect-square rounded-lg">
+                                    <div
+                                        key={index}
+                                        className="bg-muted aspect-square rounded-lg"
+                                    >
                                         <img
                                             src={photo}
                                             alt={`Unit photo ${index + 1}`}
@@ -265,12 +334,15 @@ export default function UnitShow({ unit }: Props) {
                         <CardHeader>
                             <CardTitle>Location</CardTitle>
                             <CardDescription>
-                                Coordinates: {unit.map.latitude}, {unit.map.longitude}
+                                Coordinates: {unit.map.latitude},{" "}
+                                {unit.map.longitude}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="bg-muted flex h-64 items-center justify-center rounded-lg">
-                                <span className="text-muted-foreground">Map placeholder</span>
+                                <span className="text-muted-foreground">
+                                    Map placeholder
+                                </span>
                             </div>
                         </CardContent>
                     </Card>
@@ -282,7 +354,7 @@ export default function UnitShow({ unit }: Props) {
 
 UnitShow.layout = {
     breadcrumbs: [
-        { title: 'Properties', href: unitsIndex() },
-        { title: 'Units', href: unitsIndex() },
+        { title: "Properties", href: unitsIndex() },
+        { title: "Units", href: unitsIndex() },
     ],
 };

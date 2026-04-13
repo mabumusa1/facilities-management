@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head } from "@inertiajs/react";
 import {
     Building2,
     Home,
@@ -13,10 +13,16 @@ import {
     Clock,
     TrendingUp,
     TrendingDown,
-} from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { dashboard } from '@/routes';
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { dashboard } from "@/routes";
 
 interface UnitStatistics {
     vacant: number;
@@ -101,13 +107,13 @@ function StatCard({
     description,
     icon: Icon,
     trend,
-    className = '',
+    className = "",
 }: {
     title: string;
     value: number | string;
     description?: string;
     icon: React.ComponentType<{ className?: string }>;
-    trend?: 'up' | 'down' | 'neutral';
+    trend?: "up" | "down" | "neutral";
     className?: string;
 }) {
     return (
@@ -120,8 +126,12 @@ function StatCard({
                 <div className="text-2xl font-bold">{value}</div>
                 {description && (
                     <p className="text-xs text-muted-foreground flex items-center gap-1">
-                        {trend === 'up' && <TrendingUp className="h-3 w-3 text-green-500" />}
-                        {trend === 'down' && <TrendingDown className="h-3 w-3 text-red-500" />}
+                        {trend === "up" && (
+                            <TrendingUp className="h-3 w-3 text-green-500" />
+                        )}
+                        {trend === "down" && (
+                            <TrendingDown className="h-3 w-3 text-red-500" />
+                        )}
                         {description}
                     </p>
                 )}
@@ -133,17 +143,22 @@ function StatCard({
 function AttentionItem({
     label,
     count,
-    variant = 'default',
+    variant = "default",
 }: {
     label: string;
     count: number;
-    variant?: 'default' | 'warning' | 'destructive';
+    variant?: "default" | "warning" | "destructive";
 }) {
     if (count === 0) {
-return null;
-}
+        return null;
+    }
 
-    const badgeVariant = variant === 'warning' ? 'secondary' : variant === 'destructive' ? 'destructive' : 'default';
+    const badgeVariant =
+        variant === "warning"
+            ? "secondary"
+            : variant === "destructive"
+              ? "destructive"
+              : "default";
 
     return (
         <div className="flex items-center justify-between py-2">
@@ -154,17 +169,25 @@ return null;
 }
 
 function formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     }).format(amount);
 }
 
 export default function Dashboard({ statistics }: DashboardProps) {
-    const { units, requires_attention, leases, service_requests, marketplace, financials, facilities, visitors } =
-        statistics;
+    const {
+        units,
+        requires_attention,
+        leases,
+        service_requests,
+        marketplace,
+        financials,
+        facilities,
+        visitors,
+    } = statistics;
 
     const totalAttentionItems =
         requires_attention.requests_approval +
@@ -199,7 +222,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                 />
                                 <AttentionItem
                                     label="Pending Complaints"
-                                    count={requires_attention.pending_complaints}
+                                    count={
+                                        requires_attention.pending_complaints
+                                    }
                                     variant="destructive"
                                 />
                                 <AttentionItem
@@ -219,11 +244,23 @@ export default function Dashboard({ statistics }: DashboardProps) {
 
                 {/* Main Stats Grid */}
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    <StatCard title="Total Units" value={units.total} icon={Building2} description="All properties" />
-                    <StatCard title="Active Leases" value={leases.active} icon={FileText} description="Currently active" />
+                    <StatCard
+                        title="Total Units"
+                        value={units.total}
+                        icon={Building2}
+                        description="All properties"
+                    />
+                    <StatCard
+                        title="Active Leases"
+                        value={leases.active}
+                        icon={FileText}
+                        description="Currently active"
+                    />
                     <StatCard
                         title="Open Service Requests"
-                        value={service_requests.open + service_requests.in_progress}
+                        value={
+                            service_requests.open + service_requests.in_progress
+                        }
                         icon={Wrench}
                         description={`${service_requests.pending_approval} pending approval`}
                     />
@@ -231,7 +268,7 @@ export default function Dashboard({ statistics }: DashboardProps) {
                         title="Net Income (MTD)"
                         value={formatCurrency(financials.net_income)}
                         icon={DollarSign}
-                        trend={financials.net_income >= 0 ? 'up' : 'down'}
+                        trend={financials.net_income >= 0 ? "up" : "down"}
                         description="This month"
                     />
                 </div>
@@ -245,7 +282,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                 <Home className="h-5 w-5" />
                                 Unit Status
                             </CardTitle>
-                            <CardDescription>Distribution by status</CardDescription>
+                            <CardDescription>
+                                Distribution by status
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-3">
@@ -260,7 +299,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                                 }}
                                             />
                                         </div>
-                                        <span className="text-sm font-medium w-8 text-right">{units.vacant}</span>
+                                        <span className="text-sm font-medium w-8 text-right">
+                                            {units.vacant}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between">
@@ -274,7 +315,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                                 }}
                                             />
                                         </div>
-                                        <span className="text-sm font-medium w-8 text-right">{units.leased}</span>
+                                        <span className="text-sm font-medium w-8 text-right">
+                                            {units.leased}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between">
@@ -288,7 +331,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                                 }}
                                             />
                                         </div>
-                                        <span className="text-sm font-medium w-8 text-right">{units.sold}</span>
+                                        <span className="text-sm font-medium w-8 text-right">
+                                            {units.sold}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between">
@@ -302,7 +347,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                                 }}
                                             />
                                         </div>
-                                        <span className="text-sm font-medium w-8 text-right">{units.maintenance}</span>
+                                        <span className="text-sm font-medium w-8 text-right">
+                                            {units.maintenance}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between">
@@ -316,7 +363,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                                 }}
                                             />
                                         </div>
-                                        <span className="text-sm font-medium w-8 text-right">{units.reserved}</span>
+                                        <span className="text-sm font-medium w-8 text-right">
+                                            {units.reserved}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -330,26 +379,44 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                 <FileText className="h-5 w-5" />
                                 Lease Overview
                             </CardTitle>
-                            <CardDescription>Current lease status</CardDescription>
+                            <CardDescription>
+                                Current lease status
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="rounded-lg border p-3">
-                                        <div className="text-2xl font-bold text-green-600">{leases.active}</div>
-                                        <div className="text-xs text-muted-foreground">Active</div>
+                                        <div className="text-2xl font-bold text-green-600">
+                                            {leases.active}
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">
+                                            Active
+                                        </div>
                                     </div>
                                     <div className="rounded-lg border p-3">
-                                        <div className="text-2xl font-bold text-orange-600">{leases.expiring_soon}</div>
-                                        <div className="text-xs text-muted-foreground">Expiring Soon</div>
+                                        <div className="text-2xl font-bold text-orange-600">
+                                            {leases.expiring_soon}
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">
+                                            Expiring Soon
+                                        </div>
                                     </div>
                                     <div className="rounded-lg border p-3">
-                                        <div className="text-2xl font-bold text-red-600">{leases.expired}</div>
-                                        <div className="text-xs text-muted-foreground">Expired</div>
+                                        <div className="text-2xl font-bold text-red-600">
+                                            {leases.expired}
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">
+                                            Expired
+                                        </div>
                                     </div>
                                     <div className="rounded-lg border p-3">
-                                        <div className="text-2xl font-bold">{leases.total}</div>
-                                        <div className="text-xs text-muted-foreground">Total</div>
+                                        <div className="text-2xl font-bold">
+                                            {leases.total}
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">
+                                            Total
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -366,7 +433,9 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                 <Wrench className="h-5 w-5" />
                                 Service Requests
                             </CardTitle>
-                            <CardDescription>Request status breakdown</CardDescription>
+                            <CardDescription>
+                                Request status breakdown
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-3">
@@ -375,35 +444,51 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                         <div className="h-3 w-3 rounded-full bg-blue-500" />
                                         <span className="text-sm">Open</span>
                                     </div>
-                                    <span className="font-medium">{service_requests.open}</span>
+                                    <span className="font-medium">
+                                        {service_requests.open}
+                                    </span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <div className="h-3 w-3 rounded-full bg-yellow-500" />
-                                        <span className="text-sm">In Progress</span>
+                                        <span className="text-sm">
+                                            In Progress
+                                        </span>
                                     </div>
-                                    <span className="font-medium">{service_requests.in_progress}</span>
+                                    <span className="font-medium">
+                                        {service_requests.in_progress}
+                                    </span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <div className="h-3 w-3 rounded-full bg-orange-500" />
-                                        <span className="text-sm">Pending Approval</span>
+                                        <span className="text-sm">
+                                            Pending Approval
+                                        </span>
                                     </div>
-                                    <span className="font-medium">{service_requests.pending_approval}</span>
+                                    <span className="font-medium">
+                                        {service_requests.pending_approval}
+                                    </span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <div className="h-3 w-3 rounded-full bg-green-500" />
-                                        <span className="text-sm">Completed</span>
+                                        <span className="text-sm">
+                                            Completed
+                                        </span>
                                     </div>
-                                    <span className="font-medium">{service_requests.completed}</span>
+                                    <span className="font-medium">
+                                        {service_requests.completed}
+                                    </span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <div className="h-3 w-3 rounded-full bg-gray-500" />
                                         <span className="text-sm">Closed</span>
                                     </div>
-                                    <span className="font-medium">{service_requests.closed}</span>
+                                    <span className="font-medium">
+                                        {service_requests.closed}
+                                    </span>
                                 </div>
                             </div>
                         </CardContent>
@@ -416,40 +501,60 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                 <DollarSign className="h-5 w-5" />
                                 Financial Overview
                             </CardTitle>
-                            <CardDescription>This month's summary</CardDescription>
+                            <CardDescription>
+                                This month's summary
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between border-b pb-2">
-                                    <span className="text-sm">Monthly Income</span>
+                                    <span className="text-sm">
+                                        Monthly Income
+                                    </span>
                                     <span className="font-medium text-green-600">
-                                        {formatCurrency(financials.monthly_income)}
+                                        {formatCurrency(
+                                            financials.monthly_income,
+                                        )}
                                     </span>
                                 </div>
                                 <div className="flex items-center justify-between border-b pb-2">
-                                    <span className="text-sm">Monthly Expenses</span>
+                                    <span className="text-sm">
+                                        Monthly Expenses
+                                    </span>
                                     <span className="font-medium text-red-600">
-                                        {formatCurrency(financials.monthly_expenses)}
+                                        {formatCurrency(
+                                            financials.monthly_expenses,
+                                        )}
                                     </span>
                                 </div>
                                 <div className="flex items-center justify-between border-b pb-2">
-                                    <span className="text-sm font-medium">Net Income</span>
+                                    <span className="text-sm font-medium">
+                                        Net Income
+                                    </span>
                                     <span
-                                        className={`font-bold ${financials.net_income >= 0 ? 'text-green-600' : 'text-red-600'}`}
+                                        className={`font-bold ${financials.net_income >= 0 ? "text-green-600" : "text-red-600"}`}
                                     >
                                         {formatCurrency(financials.net_income)}
                                     </span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm">Pending Payments</span>
+                                    <span className="text-sm">
+                                        Pending Payments
+                                    </span>
                                     <span className="font-medium text-orange-600">
-                                        {formatCurrency(financials.pending_payments)}
+                                        {formatCurrency(
+                                            financials.pending_payments,
+                                        )}
                                     </span>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm">Overdue Payments</span>
+                                    <span className="text-sm">
+                                        Overdue Payments
+                                    </span>
                                     <span className="font-medium text-red-600">
-                                        {formatCurrency(financials.overdue_payments)}
+                                        {formatCurrency(
+                                            financials.overdue_payments,
+                                        )}
                                     </span>
                                 </div>
                             </div>
@@ -471,20 +576,36 @@ export default function Dashboard({ statistics }: DashboardProps) {
                         <CardContent>
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm">Active Listings</span>
-                                    <Badge variant="secondary">{marketplace.active_listings}</Badge>
+                                    <span className="text-sm">
+                                        Active Listings
+                                    </span>
+                                    <Badge variant="secondary">
+                                        {marketplace.active_listings}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm">Scheduled Visits</span>
-                                    <Badge variant="secondary">{marketplace.scheduled_visits}</Badge>
+                                    <span className="text-sm">
+                                        Scheduled Visits
+                                    </span>
+                                    <Badge variant="secondary">
+                                        {marketplace.scheduled_visits}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm">Pending Offers</span>
-                                    <Badge variant="secondary">{marketplace.pending_offers}</Badge>
+                                    <span className="text-sm">
+                                        Pending Offers
+                                    </span>
+                                    <Badge variant="secondary">
+                                        {marketplace.pending_offers}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm">Completed Sales</span>
-                                    <Badge className="bg-green-100 text-green-800">{marketplace.completed_sales}</Badge>
+                                    <span className="text-sm">
+                                        Completed Sales
+                                    </span>
+                                    <Badge className="bg-green-100 text-green-800">
+                                        {marketplace.completed_sales}
+                                    </Badge>
                                 </div>
                             </div>
                         </CardContent>
@@ -503,15 +624,23 @@ export default function Dashboard({ statistics }: DashboardProps) {
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm">Today</span>
-                                    <Badge variant="secondary">{facilities.today_bookings}</Badge>
+                                    <Badge variant="secondary">
+                                        {facilities.today_bookings}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm">Upcoming</span>
-                                    <Badge variant="secondary">{facilities.upcoming_bookings}</Badge>
+                                    <Badge variant="secondary">
+                                        {facilities.upcoming_bookings}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm">Pending Approval</span>
-                                    <Badge variant="outline">{facilities.pending_approval}</Badge>
+                                    <span className="text-sm">
+                                        Pending Approval
+                                    </span>
+                                    <Badge variant="outline">
+                                        {facilities.pending_approval}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm">Total</span>
@@ -535,23 +664,35 @@ export default function Dashboard({ statistics }: DashboardProps) {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Clock className="h-4 w-4 text-muted-foreground" />
-                                        <span className="text-sm">Expected Today</span>
+                                        <span className="text-sm">
+                                            Expected Today
+                                        </span>
                                     </div>
-                                    <Badge variant="secondary">{visitors.expected_today}</Badge>
+                                    <Badge variant="secondary">
+                                        {visitors.expected_today}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <CheckCircle className="h-4 w-4 text-green-500" />
-                                        <span className="text-sm">Checked In</span>
+                                        <span className="text-sm">
+                                            Checked In
+                                        </span>
                                     </div>
-                                    <Badge className="bg-green-100 text-green-800">{visitors.checked_in_today}</Badge>
+                                    <Badge className="bg-green-100 text-green-800">
+                                        {visitors.checked_in_today}
+                                    </Badge>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <AlertTriangle className="h-4 w-4 text-orange-500" />
-                                        <span className="text-sm">Pending Approval</span>
+                                        <span className="text-sm">
+                                            Pending Approval
+                                        </span>
                                     </div>
-                                    <Badge variant="outline">{visitors.pending_approval}</Badge>
+                                    <Badge variant="outline">
+                                        {visitors.pending_approval}
+                                    </Badge>
                                 </div>
                             </div>
                         </CardContent>
@@ -565,7 +706,7 @@ export default function Dashboard({ statistics }: DashboardProps) {
 Dashboard.layout = {
     breadcrumbs: [
         {
-            title: 'Dashboard',
+            title: "Dashboard",
             href: dashboard(),
         },
     ],

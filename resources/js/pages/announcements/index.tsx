@@ -1,4 +1,4 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router } from "@inertiajs/react";
 import {
     Megaphone,
     Plus,
@@ -13,17 +13,17 @@ import {
     AlertTriangle,
     Info,
     CheckCircle,
-} from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface Announcement {
     id: number;
@@ -34,8 +34,8 @@ interface Announcement {
     end_date: string;
     end_time: string;
     is_visible: boolean;
-    priority: 'low' | 'normal' | 'high' | 'urgent';
-    status: 'draft' | 'scheduled' | 'active' | 'expired' | 'cancelled';
+    priority: "low" | "normal" | "high" | "urgent";
+    status: "draft" | "scheduled" | "active" | "expired" | "cancelled";
     notify_user_types: string[] | null;
     created_at: string;
     creator?: {
@@ -70,12 +70,30 @@ interface AnnouncementsIndexProps {
 }
 
 function getStatusBadge(status: string) {
-    const statusConfig: Record<string, { variant: 'default' | 'secondary' | 'destructive' | 'outline'; className: string }> = {
-        draft: { variant: 'secondary', className: 'bg-gray-100 text-gray-800' },
-        scheduled: { variant: 'outline', className: 'border-blue-500 text-blue-600' },
-        active: { variant: 'default', className: 'bg-green-100 text-green-800' },
-        expired: { variant: 'secondary', className: 'bg-orange-100 text-orange-800' },
-        cancelled: { variant: 'destructive', className: 'bg-red-100 text-red-800' },
+    const statusConfig: Record<
+        string,
+        {
+            variant: "default" | "secondary" | "destructive" | "outline";
+            className: string;
+        }
+    > = {
+        draft: { variant: "secondary", className: "bg-gray-100 text-gray-800" },
+        scheduled: {
+            variant: "outline",
+            className: "border-blue-500 text-blue-600",
+        },
+        active: {
+            variant: "default",
+            className: "bg-green-100 text-green-800",
+        },
+        expired: {
+            variant: "secondary",
+            className: "bg-orange-100 text-orange-800",
+        },
+        cancelled: {
+            variant: "destructive",
+            className: "bg-red-100 text-red-800",
+        },
     };
 
     const config = statusConfig[status] || statusConfig.draft;
@@ -88,11 +106,26 @@ function getStatusBadge(status: string) {
 }
 
 function getPriorityBadge(priority: string) {
-    const priorityConfig: Record<string, { icon: React.ReactNode; className: string }> = {
-        low: { icon: <Info className="h-3 w-3" />, className: 'bg-gray-100 text-gray-600' },
-        normal: { icon: <Info className="h-3 w-3" />, className: 'bg-blue-100 text-blue-600' },
-        high: { icon: <AlertTriangle className="h-3 w-3" />, className: 'bg-orange-100 text-orange-600' },
-        urgent: { icon: <AlertTriangle className="h-3 w-3" />, className: 'bg-red-100 text-red-600' },
+    const priorityConfig: Record<
+        string,
+        { icon: React.ReactNode; className: string }
+    > = {
+        low: {
+            icon: <Info className="h-3 w-3" />,
+            className: "bg-gray-100 text-gray-600",
+        },
+        normal: {
+            icon: <Info className="h-3 w-3" />,
+            className: "bg-blue-100 text-blue-600",
+        },
+        high: {
+            icon: <AlertTriangle className="h-3 w-3" />,
+            className: "bg-orange-100 text-orange-600",
+        },
+        urgent: {
+            icon: <AlertTriangle className="h-3 w-3" />,
+            className: "bg-red-100 text-red-600",
+        },
     };
 
     const config = priorityConfig[priority] || priorityConfig.normal;
@@ -100,7 +133,9 @@ function getPriorityBadge(priority: string) {
     return (
         <Badge variant="outline" className={config.className}>
             {config.icon}
-            <span className="ml-1">{priority.charAt(0).toUpperCase() + priority.slice(1)}</span>
+            <span className="ml-1">
+                {priority.charAt(0).toUpperCase() + priority.slice(1)}
+            </span>
         </Badge>
     );
 }
@@ -111,13 +146,13 @@ function AnnouncementCard({ announcement }: { announcement: Announcement }) {
     };
 
     const handleCancel = () => {
-        if (confirm('Are you sure you want to cancel this announcement?')) {
+        if (confirm("Are you sure you want to cancel this announcement?")) {
             router.post(`/announcements/${announcement.id}/cancel`);
         }
     };
 
     const handleDelete = () => {
-        if (confirm('Are you sure you want to delete this announcement?')) {
+        if (confirm("Are you sure you want to delete this announcement?")) {
             router.delete(`/announcements/${announcement.id}`);
         }
     };
@@ -137,17 +172,30 @@ function AnnouncementCard({ announcement }: { announcement: Announcement }) {
                             )}
                         </div>
                         <Link href={`/announcements/${announcement.id}`}>
-                            <CardTitle className="text-lg hover:text-primary">{announcement.title}</CardTitle>
+                            <CardTitle className="text-lg hover:text-primary">
+                                {announcement.title}
+                            </CardTitle>
                         </Link>
                     </div>
                     <div className="flex items-center gap-1">
-                        {announcement.status === 'draft' && (
-                            <Button variant="ghost" size="icon" onClick={handlePublish} title="Publish">
+                        {announcement.status === "draft" && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={handlePublish}
+                                title="Publish"
+                            >
                                 <Send className="h-4 w-4 text-green-600" />
                             </Button>
                         )}
-                        {(announcement.status === 'active' || announcement.status === 'scheduled') && (
-                            <Button variant="ghost" size="icon" onClick={handleCancel} title="Cancel">
+                        {(announcement.status === "active" ||
+                            announcement.status === "scheduled") && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={handleCancel}
+                                title="Cancel"
+                            >
                                 <XCircle className="h-4 w-4 text-orange-600" />
                             </Button>
                         )}
@@ -156,20 +204,32 @@ function AnnouncementCard({ announcement }: { announcement: Announcement }) {
                                 <Edit className="h-4 w-4" />
                             </Button>
                         </Link>
-                        <Button variant="ghost" size="icon" onClick={handleDelete} title="Delete">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={handleDelete}
+                            title="Delete"
+                        >
                             <Trash2 className="h-4 w-4 text-destructive" />
                         </Button>
                     </div>
                 </div>
             </CardHeader>
             <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{announcement.description}</p>
+                <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                    {announcement.description}
+                </p>
                 <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
                         <span>
-                            {new Date(announcement.start_date).toLocaleDateString()} -{' '}
-                            {new Date(announcement.end_date).toLocaleDateString()}
+                            {new Date(
+                                announcement.start_date,
+                            ).toLocaleDateString()}{" "}
+                            -{" "}
+                            {new Date(
+                                announcement.end_date,
+                            ).toLocaleDateString()}
                         </span>
                     </div>
                     <div className="flex items-center gap-1">
@@ -187,9 +247,17 @@ function AnnouncementCard({ announcement }: { announcement: Announcement }) {
     );
 }
 
-export default function AnnouncementsIndex({ announcements, statistics, filters }: AnnouncementsIndexProps) {
+export default function AnnouncementsIndex({
+    announcements,
+    statistics,
+    filters,
+}: AnnouncementsIndexProps) {
     const handleStatusFilter = (status: string) => {
-        router.get('/announcements', { status: status === 'all' ? null : status }, { preserveState: true });
+        router.get(
+            "/announcements",
+            { status: status === "all" ? null : status },
+            { preserveState: true },
+        );
     };
 
     return (
@@ -198,8 +266,12 @@ export default function AnnouncementsIndex({ announcements, statistics, filters 
             <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto p-4 md:p-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Announcements</h1>
-                        <p className="text-muted-foreground">Manage announcements for your properties</p>
+                        <h1 className="text-2xl font-bold tracking-tight">
+                            Announcements
+                        </h1>
+                        <p className="text-muted-foreground">
+                            Manage announcements for your properties
+                        </p>
                     </div>
                     <Link href="/announcements/create">
                         <Button>
@@ -213,54 +285,77 @@ export default function AnnouncementsIndex({ announcements, statistics, filters 
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total</CardTitle>
+                            <CardTitle className="text-sm font-medium">
+                                Total
+                            </CardTitle>
                             <Megaphone className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{statistics.total}</div>
+                            <div className="text-2xl font-bold">
+                                {statistics.total}
+                            </div>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Active</CardTitle>
+                            <CardTitle className="text-sm font-medium">
+                                Active
+                            </CardTitle>
                             <CheckCircle className="h-4 w-4 text-green-500" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-green-600">{statistics.active}</div>
+                            <div className="text-2xl font-bold text-green-600">
+                                {statistics.active}
+                            </div>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Draft</CardTitle>
+                            <CardTitle className="text-sm font-medium">
+                                Draft
+                            </CardTitle>
                             <Edit className="h-4 w-4 text-gray-500" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-gray-600">{statistics.draft}</div>
+                            <div className="text-2xl font-bold text-gray-600">
+                                {statistics.draft}
+                            </div>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Scheduled</CardTitle>
+                            <CardTitle className="text-sm font-medium">
+                                Scheduled
+                            </CardTitle>
                             <Clock className="h-4 w-4 text-blue-500" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-blue-600">{statistics.scheduled}</div>
+                            <div className="text-2xl font-bold text-blue-600">
+                                {statistics.scheduled}
+                            </div>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Expired</CardTitle>
+                            <CardTitle className="text-sm font-medium">
+                                Expired
+                            </CardTitle>
                             <Calendar className="h-4 w-4 text-orange-500" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-orange-600">{statistics.expired}</div>
+                            <div className="text-2xl font-bold text-orange-600">
+                                {statistics.expired}
+                            </div>
                         </CardContent>
                     </Card>
                 </div>
 
                 {/* Filter */}
                 <div className="flex items-center gap-4">
-                    <Select value={filters.status || 'all'} onValueChange={handleStatusFilter}>
+                    <Select
+                        value={filters.status || "all"}
+                        onValueChange={handleStatusFilter}
+                    >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Filter by status" />
                         </SelectTrigger>
@@ -280,7 +375,9 @@ export default function AnnouncementsIndex({ announcements, statistics, filters 
                     <Card>
                         <CardContent className="flex flex-col items-center justify-center py-12">
                             <Megaphone className="h-12 w-12 text-muted-foreground/50" />
-                            <h3 className="mt-4 text-lg font-medium">No announcements</h3>
+                            <h3 className="mt-4 text-lg font-medium">
+                                No announcements
+                            </h3>
                             <p className="mt-2 text-sm text-muted-foreground">
                                 Get started by creating your first announcement.
                             </p>
@@ -295,7 +392,10 @@ export default function AnnouncementsIndex({ announcements, statistics, filters 
                 ) : (
                     <div className="grid gap-4 md:grid-cols-2">
                         {announcements.data.map((announcement) => (
-                            <AnnouncementCard key={announcement.id} announcement={announcement} />
+                            <AnnouncementCard
+                                key={announcement.id}
+                                announcement={announcement}
+                            />
                         ))}
                     </div>
                 )}
@@ -303,12 +403,24 @@ export default function AnnouncementsIndex({ announcements, statistics, filters 
                 {/* Pagination */}
                 {announcements.last_page > 1 && (
                     <div className="flex items-center justify-center gap-2">
-                        {Array.from({ length: announcements.last_page }, (_, i) => i + 1).map((page) => (
+                        {Array.from(
+                            { length: announcements.last_page },
+                            (_, i) => i + 1,
+                        ).map((page) => (
                             <Button
                                 key={page}
-                                variant={page === announcements.current_page ? 'default' : 'outline'}
+                                variant={
+                                    page === announcements.current_page
+                                        ? "default"
+                                        : "outline"
+                                }
                                 size="sm"
-                                onClick={() => router.get('/announcements', { page, status: filters.status })}
+                                onClick={() =>
+                                    router.get("/announcements", {
+                                        page,
+                                        status: filters.status,
+                                    })
+                                }
                             >
                                 {page}
                             </Button>
@@ -323,8 +435,8 @@ export default function AnnouncementsIndex({ announcements, statistics, filters 
 AnnouncementsIndex.layout = {
     breadcrumbs: [
         {
-            title: 'Announcements',
-            href: '/announcements',
+            title: "Announcements",
+            href: "/announcements",
         },
     ],
 };

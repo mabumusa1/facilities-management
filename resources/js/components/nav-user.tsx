@@ -1,20 +1,20 @@
-import { usePage } from '@inertiajs/react';
-import { ChevronsUpDown } from 'lucide-react';
+import { usePage } from "@inertiajs/react";
+import { ChevronsUpDown } from "lucide-react";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from '@/components/ui/sidebar';
-import { UserInfo } from '@/components/user-info';
-import { UserMenuContent } from '@/components/user-menu-content';
-import { useIsMobile } from '@/hooks/use-mobile';
-import type { Auth } from '@/types/auth';
+} from "@/components/ui/sidebar";
+import { UserInfo } from "@/components/user-info";
+import { UserMenuContent } from "@/components/user-menu-content";
+import { useIsMobile } from "@/hooks/use-mobile";
+import type { Auth } from "@/types/auth";
 
 export function NavUser() {
     const { auth } = usePage<{ auth: Auth }>().props;
@@ -44,10 +44,10 @@ export function NavUser() {
                         align="end"
                         side={
                             isMobile
-                                ? 'bottom'
-                                : state === 'collapsed'
-                                  ? 'left'
-                                  : 'bottom'
+                                ? "bottom"
+                                : state === "collapsed"
+                                  ? "left"
+                                  : "bottom"
                         }
                     >
                         <UserMenuContent user={auth.user} />

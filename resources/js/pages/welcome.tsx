@@ -1,6 +1,6 @@
-import { Head, Link, usePage } from '@inertiajs/react';
-import { dashboard, login, register } from '@/routes';
-import type { Auth } from '@/types/auth';
+import { Head, Link, usePage } from "@inertiajs/react";
+import { dashboard, login, register } from "@/routes";
+import type { Auth } from "@/types/auth";
 
 export default function Welcome({
     canRegister = true,

@@ -1,16 +1,22 @@
-import { Head, useForm } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Head, useForm } from "@inertiajs/react";
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
-import { index as unitsIndex, store as unitsStore } from '@/routes/units';
+} from "@/components/ui/select";
+import { index as unitsIndex, store as unitsStore } from "@/routes/units";
 
 interface Community {
     id: number;
@@ -51,16 +57,18 @@ export default function UnitCreate({
     preselectedCommunityId,
 }: Props) {
     const { data, setData, post, processing, errors } = useForm({
-        name: '',
-        community_id: preselectedCommunityId ? String(preselectedCommunityId) : '',
-        building_id: preselectedBuildingId ? String(preselectedBuildingId) : '',
-        unit_category_id: '',
-        unit_type_id: '',
-        floor_no: '',
-        net_area: '',
-        year_built: '',
-        market_rent: '',
-        about: '',
+        name: "",
+        community_id: preselectedCommunityId
+            ? String(preselectedCommunityId)
+            : "",
+        building_id: preselectedBuildingId ? String(preselectedBuildingId) : "",
+        unit_category_id: "",
+        unit_type_id: "",
+        floor_no: "",
+        net_area: "",
+        year_built: "",
+        market_rent: "",
+        about: "",
         is_marketplace: false,
         is_off_plan_sale: false,
     });
@@ -82,13 +90,17 @@ export default function UnitCreate({
             <div className="flex h-full flex-1 flex-col gap-4 p-4">
                 <div>
                     <h1 className="text-2xl font-bold">Create Unit</h1>
-                    <p className="text-muted-foreground">Add a new unit to your properties</p>
+                    <p className="text-muted-foreground">
+                        Add a new unit to your properties
+                    </p>
                 </div>
 
                 <Card className="max-w-2xl">
                     <CardHeader>
                         <CardTitle>Unit Details</CardTitle>
-                        <CardDescription>Enter the basic information for the new unit</CardDescription>
+                        <CardDescription>
+                            Enter the basic information for the new unit
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
@@ -97,132 +109,213 @@ export default function UnitCreate({
                                 <Input
                                     id="name"
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData("name", e.target.value)
+                                    }
                                     placeholder="Enter unit name (e.g., Unit 101)"
                                 />
                                 {errors.name && (
-                                    <p className="text-destructive text-sm">{errors.name}</p>
+                                    <p className="text-destructive text-sm">
+                                        {errors.name}
+                                    </p>
                                 )}
                             </div>
 
                             <div className="grid gap-4 md:grid-cols-2">
                                 <div className="space-y-2">
-                                    <Label htmlFor="community_id">Community</Label>
-                                    <Select value={data.community_id} onValueChange={(v) => setData('community_id', v)}>
+                                    <Label htmlFor="community_id">
+                                        Community
+                                    </Label>
+                                    <Select
+                                        value={data.community_id}
+                                        onValueChange={(v) =>
+                                            setData("community_id", v)
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select community" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {communities.map((c) => (
-                                                <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
+                                                <SelectItem
+                                                    key={c.id}
+                                                    value={String(c.id)}
+                                                >
+                                                    {c.name}
+                                                </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                     {errors.community_id && (
-                                        <p className="text-destructive text-sm">{errors.community_id}</p>
+                                        <p className="text-destructive text-sm">
+                                            {errors.community_id}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="building_id">Building (Optional)</Label>
-                                    <Select value={data.building_id} onValueChange={(v) => setData('building_id', v)}>
+                                    <Label htmlFor="building_id">
+                                        Building (Optional)
+                                    </Label>
+                                    <Select
+                                        value={data.building_id}
+                                        onValueChange={(v) =>
+                                            setData("building_id", v)
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select building" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="">No building</SelectItem>
+                                            <SelectItem value="">
+                                                No building
+                                            </SelectItem>
                                             {filteredBuildings.map((b) => (
-                                                <SelectItem key={b.id} value={String(b.id)}>{b.name}</SelectItem>
+                                                <SelectItem
+                                                    key={b.id}
+                                                    value={String(b.id)}
+                                                >
+                                                    {b.name}
+                                                </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                     {errors.building_id && (
-                                        <p className="text-destructive text-sm">{errors.building_id}</p>
+                                        <p className="text-destructive text-sm">
+                                            {errors.building_id}
+                                        </p>
                                     )}
                                 </div>
                             </div>
 
                             <div className="grid gap-4 md:grid-cols-2">
                                 <div className="space-y-2">
-                                    <Label htmlFor="unit_category_id">Category</Label>
-                                    <Select value={data.unit_category_id} onValueChange={(v) => setData('unit_category_id', v)}>
+                                    <Label htmlFor="unit_category_id">
+                                        Category
+                                    </Label>
+                                    <Select
+                                        value={data.unit_category_id}
+                                        onValueChange={(v) =>
+                                            setData("unit_category_id", v)
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select category" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {categories.map((cat) => (
-                                                <SelectItem key={cat.id} value={String(cat.id)}>{cat.name}</SelectItem>
+                                                <SelectItem
+                                                    key={cat.id}
+                                                    value={String(cat.id)}
+                                                >
+                                                    {cat.name}
+                                                </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                     {errors.unit_category_id && (
-                                        <p className="text-destructive text-sm">{errors.unit_category_id}</p>
+                                        <p className="text-destructive text-sm">
+                                            {errors.unit_category_id}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="unit_type_id">Type</Label>
-                                    <Select value={data.unit_type_id} onValueChange={(v) => setData('unit_type_id', v)}>
+                                    <Select
+                                        value={data.unit_type_id}
+                                        onValueChange={(v) =>
+                                            setData("unit_type_id", v)
+                                        }
+                                    >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select type" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {types.map((type) => (
-                                                <SelectItem key={type.id} value={String(type.id)}>{type.name}</SelectItem>
+                                                <SelectItem
+                                                    key={type.id}
+                                                    value={String(type.id)}
+                                                >
+                                                    {type.name}
+                                                </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                     {errors.unit_type_id && (
-                                        <p className="text-destructive text-sm">{errors.unit_type_id}</p>
+                                        <p className="text-destructive text-sm">
+                                            {errors.unit_type_id}
+                                        </p>
                                     )}
                                 </div>
                             </div>
 
                             <div className="grid gap-4 md:grid-cols-3">
                                 <div className="space-y-2">
-                                    <Label htmlFor="floor_no">Floor Number</Label>
+                                    <Label htmlFor="floor_no">
+                                        Floor Number
+                                    </Label>
                                     <Input
                                         id="floor_no"
                                         type="number"
                                         min="0"
                                         value={data.floor_no}
-                                        onChange={(e) => setData('floor_no', e.target.value)}
+                                        onChange={(e) =>
+                                            setData("floor_no", e.target.value)
+                                        }
                                         placeholder="e.g., 1"
                                     />
                                     {errors.floor_no && (
-                                        <p className="text-destructive text-sm">{errors.floor_no}</p>
+                                        <p className="text-destructive text-sm">
+                                            {errors.floor_no}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="net_area">Net Area (sqm)</Label>
+                                    <Label htmlFor="net_area">
+                                        Net Area (sqm)
+                                    </Label>
                                     <Input
                                         id="net_area"
                                         type="number"
                                         min="0"
                                         step="0.01"
                                         value={data.net_area}
-                                        onChange={(e) => setData('net_area', e.target.value)}
+                                        onChange={(e) =>
+                                            setData("net_area", e.target.value)
+                                        }
                                         placeholder="e.g., 75.5"
                                     />
                                     {errors.net_area && (
-                                        <p className="text-destructive text-sm">{errors.net_area}</p>
+                                        <p className="text-destructive text-sm">
+                                            {errors.net_area}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="year_built">Year Built</Label>
+                                    <Label htmlFor="year_built">
+                                        Year Built
+                                    </Label>
                                     <Input
                                         id="year_built"
                                         type="number"
                                         min="1900"
                                         max={new Date().getFullYear()}
                                         value={data.year_built}
-                                        onChange={(e) => setData('year_built', e.target.value)}
+                                        onChange={(e) =>
+                                            setData(
+                                                "year_built",
+                                                e.target.value,
+                                            )
+                                        }
                                         placeholder="e.g., 2020"
                                     />
                                     {errors.year_built && (
-                                        <p className="text-destructive text-sm">{errors.year_built}</p>
+                                        <p className="text-destructive text-sm">
+                                            {errors.year_built}
+                                        </p>
                                     )}
                                 </div>
                             </div>
@@ -235,11 +328,15 @@ export default function UnitCreate({
                                     min="0"
                                     step="0.01"
                                     value={data.market_rent}
-                                    onChange={(e) => setData('market_rent', e.target.value)}
+                                    onChange={(e) =>
+                                        setData("market_rent", e.target.value)
+                                    }
                                     placeholder="e.g., 1500.00"
                                 />
                                 {errors.market_rent && (
-                                    <p className="text-destructive text-sm">{errors.market_rent}</p>
+                                    <p className="text-destructive text-sm">
+                                        {errors.market_rent}
+                                    </p>
                                 )}
                             </div>
 
@@ -248,20 +345,28 @@ export default function UnitCreate({
                                 <textarea
                                     id="about"
                                     value={data.about}
-                                    onChange={(e) => setData('about', e.target.value)}
+                                    onChange={(e) =>
+                                        setData("about", e.target.value)
+                                    }
                                     placeholder="Enter unit description (optional)"
                                     className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-24 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                                 />
                                 {errors.about && (
-                                    <p className="text-destructive text-sm">{errors.about}</p>
+                                    <p className="text-destructive text-sm">
+                                        {errors.about}
+                                    </p>
                                 )}
                             </div>
 
                             <div className="flex gap-4">
                                 <Button type="submit" disabled={processing}>
-                                    {processing ? 'Creating...' : 'Create Unit'}
+                                    {processing ? "Creating..." : "Create Unit"}
                                 </Button>
-                                <Button type="button" variant="outline" onClick={() => window.history.back()}>
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => window.history.back()}
+                                >
                                     Cancel
                                 </Button>
                             </div>
@@ -275,8 +380,8 @@ export default function UnitCreate({
 
 UnitCreate.layout = {
     breadcrumbs: [
-        { title: 'Properties', href: unitsIndex() },
-        { title: 'Units', href: unitsIndex() },
-        { title: 'Create', href: '#' },
+        { title: "Properties", href: unitsIndex() },
+        { title: "Units", href: unitsIndex() },
+        { title: "Create", href: "#" },
     ],
 };

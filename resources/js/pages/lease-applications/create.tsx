@@ -1,19 +1,33 @@
-import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft, Save, User, Building2, DollarSign, Calendar, FileText } from 'lucide-react';
-import { useState, useMemo } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Head, Link, useForm } from "@inertiajs/react";
+import {
+    ArrowLeft,
+    Save,
+    User,
+    Building2,
+    DollarSign,
+    Calendar,
+    FileText,
+} from "lucide-react";
+import { useState, useMemo } from "react";
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Community {
     id: number;
@@ -71,68 +85,82 @@ export default function ApplicationCreate({
     const [selectedUnits, setSelectedUnits] = useState<number[]>([]);
 
     const { data, setData, post, processing, errors } = useForm({
-        applicant_id: '',
-        applicant_name: '',
-        applicant_email: '',
-        applicant_phone: '',
-        applicant_type: 'individual',
-        company_name: '',
-        national_id: '',
-        commercial_registration: '',
-        community_id: '',
-        building_id: '',
-        units: [] as { id: number; proposed_rental_amount?: number; net_area?: number; meter_cost?: number }[],
-        quoted_rental_amount: '',
-        security_deposit: '',
-        proposed_start_date: '',
-        proposed_end_date: '',
-        proposed_duration_months: '',
-        special_terms: '',
-        notes: '',
-        source: '',
-        assigned_to_id: '',
+        applicant_id: "",
+        applicant_name: "",
+        applicant_email: "",
+        applicant_phone: "",
+        applicant_type: "individual",
+        company_name: "",
+        national_id: "",
+        commercial_registration: "",
+        community_id: "",
+        building_id: "",
+        units: [] as {
+            id: number;
+            proposed_rental_amount?: number;
+            net_area?: number;
+            meter_cost?: number;
+        }[],
+        quoted_rental_amount: "",
+        security_deposit: "",
+        proposed_start_date: "",
+        proposed_end_date: "",
+        proposed_duration_months: "",
+        special_terms: "",
+        notes: "",
+        source: "",
+        assigned_to_id: "",
     });
 
     // Filter buildings based on selected community
     const filteredBuildings = useMemo(() => {
         if (!data.community_id) {
-return buildings;
-}
+            return buildings;
+        }
 
-        return buildings.filter(b => b.community_id === parseInt(data.community_id));
+        return buildings.filter(
+            (b) => b.community_id === parseInt(data.community_id),
+        );
     }, [data.community_id, buildings]);
 
     // Filter units based on selected building
     const filteredUnits = useMemo(() => {
         if (!data.building_id) {
-return availableUnits;
-}
+            return availableUnits;
+        }
 
-        return availableUnits.filter(u => u.building_id === parseInt(data.building_id) || u.building?.id === parseInt(data.building_id));
+        return availableUnits.filter(
+            (u) =>
+                u.building_id === parseInt(data.building_id) ||
+                u.building?.id === parseInt(data.building_id),
+        );
     }, [data.building_id, availableUnits]);
 
     const handleUnitToggle = (unitId: number) => {
         const newSelected = selectedUnits.includes(unitId)
-            ? selectedUnits.filter(id => id !== unitId)
+            ? selectedUnits.filter((id) => id !== unitId)
             : [...selectedUnits, unitId];
 
         setSelectedUnits(newSelected);
-        setData('units', newSelected.map(id => ({ id })));
+        setData(
+            "units",
+            newSelected.map((id) => ({ id })),
+        );
     };
 
     const handleContactSelect = (contactId: string) => {
-        setData('applicant_id', contactId);
+        setData("applicant_id", contactId);
 
         if (contactId) {
-            const contact = contacts.find(c => c.id === parseInt(contactId));
+            const contact = contacts.find((c) => c.id === parseInt(contactId));
 
             if (contact) {
-                setData(prev => ({
+                setData((prev) => ({
                     ...prev,
                     applicant_id: contactId,
                     applicant_name: contact.name,
                     applicant_email: contact.email,
-                    applicant_phone: contact.phone || '',
+                    applicant_phone: contact.phone || "",
                 }));
             }
         }
@@ -140,7 +168,7 @@ return availableUnits;
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/lease-applications');
+        post("/lease-applications");
     };
 
     return (
@@ -156,8 +184,12 @@ return availableUnits;
                             </Button>
                         </Link>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">New Lease Application</h1>
-                            <p className="text-muted-foreground">Create a new lease application</p>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                New Lease Application
+                            </h1>
+                            <p className="text-muted-foreground">
+                                Create a new lease application
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -173,21 +205,36 @@ return availableUnits;
                                         <User className="h-5 w-5" />
                                         Applicant Information
                                     </CardTitle>
-                                    <CardDescription>Enter the applicant's details</CardDescription>
+                                    <CardDescription>
+                                        Enter the applicant's details
+                                    </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="grid gap-4 sm:grid-cols-2">
                                         <div className="sm:col-span-2">
-                                            <Label htmlFor="applicant_id">Select Existing Contact</Label>
-                                            <Select value={data.applicant_id} onValueChange={handleContactSelect}>
+                                            <Label htmlFor="applicant_id">
+                                                Select Existing Contact
+                                            </Label>
+                                            <Select
+                                                value={data.applicant_id}
+                                                onValueChange={
+                                                    handleContactSelect
+                                                }
+                                            >
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select a contact or enter new details" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="">New Applicant</SelectItem>
-                                                    {contacts.map(contact => (
-                                                        <SelectItem key={contact.id} value={contact.id.toString()}>
-                                                            {contact.name} ({contact.email})
+                                                    <SelectItem value="">
+                                                        New Applicant
+                                                    </SelectItem>
+                                                    {contacts.map((contact) => (
+                                                        <SelectItem
+                                                            key={contact.id}
+                                                            value={contact.id.toString()}
+                                                        >
+                                                            {contact.name} (
+                                                            {contact.email})
                                                         </SelectItem>
                                                     ))}
                                                 </SelectContent>
@@ -195,80 +242,163 @@ return availableUnits;
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="applicant_type">Applicant Type</Label>
-                                            <Select value={data.applicant_type} onValueChange={(value) => setData('applicant_type', value)}>
+                                            <Label htmlFor="applicant_type">
+                                                Applicant Type
+                                            </Label>
+                                            <Select
+                                                value={data.applicant_type}
+                                                onValueChange={(value) =>
+                                                    setData(
+                                                        "applicant_type",
+                                                        value,
+                                                    )
+                                                }
+                                            >
                                                 <SelectTrigger>
                                                     <SelectValue />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="individual">Individual</SelectItem>
-                                                    <SelectItem value="company">Company</SelectItem>
+                                                    <SelectItem value="individual">
+                                                        Individual
+                                                    </SelectItem>
+                                                    <SelectItem value="company">
+                                                        Company
+                                                    </SelectItem>
                                                 </SelectContent>
                                             </Select>
-                                            {errors.applicant_type && <p className="text-sm text-red-500 mt-1">{errors.applicant_type}</p>}
+                                            {errors.applicant_type && (
+                                                <p className="text-sm text-red-500 mt-1">
+                                                    {errors.applicant_type}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="applicant_name">Full Name *</Label>
+                                            <Label htmlFor="applicant_name">
+                                                Full Name *
+                                            </Label>
                                             <Input
                                                 id="applicant_name"
                                                 value={data.applicant_name}
-                                                onChange={(e) => setData('applicant_name', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "applicant_name",
+                                                        e.target.value,
+                                                    )
+                                                }
                                             />
-                                            {errors.applicant_name && <p className="text-sm text-red-500 mt-1">{errors.applicant_name}</p>}
+                                            {errors.applicant_name && (
+                                                <p className="text-sm text-red-500 mt-1">
+                                                    {errors.applicant_name}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="applicant_email">Email *</Label>
+                                            <Label htmlFor="applicant_email">
+                                                Email *
+                                            </Label>
                                             <Input
                                                 id="applicant_email"
                                                 type="email"
                                                 value={data.applicant_email}
-                                                onChange={(e) => setData('applicant_email', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "applicant_email",
+                                                        e.target.value,
+                                                    )
+                                                }
                                             />
-                                            {errors.applicant_email && <p className="text-sm text-red-500 mt-1">{errors.applicant_email}</p>}
+                                            {errors.applicant_email && (
+                                                <p className="text-sm text-red-500 mt-1">
+                                                    {errors.applicant_email}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="applicant_phone">Phone</Label>
+                                            <Label htmlFor="applicant_phone">
+                                                Phone
+                                            </Label>
                                             <Input
                                                 id="applicant_phone"
                                                 value={data.applicant_phone}
-                                                onChange={(e) => setData('applicant_phone', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "applicant_phone",
+                                                        e.target.value,
+                                                    )
+                                                }
                                             />
-                                            {errors.applicant_phone && <p className="text-sm text-red-500 mt-1">{errors.applicant_phone}</p>}
+                                            {errors.applicant_phone && (
+                                                <p className="text-sm text-red-500 mt-1">
+                                                    {errors.applicant_phone}
+                                                </p>
+                                            )}
                                         </div>
 
-                                        {data.applicant_type === 'company' && (
+                                        {data.applicant_type === "company" && (
                                             <>
                                                 <div>
-                                                    <Label htmlFor="company_name">Company Name *</Label>
+                                                    <Label htmlFor="company_name">
+                                                        Company Name *
+                                                    </Label>
                                                     <Input
                                                         id="company_name"
-                                                        value={data.company_name}
-                                                        onChange={(e) => setData('company_name', e.target.value)}
+                                                        value={
+                                                            data.company_name
+                                                        }
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "company_name",
+                                                                e.target.value,
+                                                            )
+                                                        }
                                                     />
-                                                    {errors.company_name && <p className="text-sm text-red-500 mt-1">{errors.company_name}</p>}
+                                                    {errors.company_name && (
+                                                        <p className="text-sm text-red-500 mt-1">
+                                                            {
+                                                                errors.company_name
+                                                            }
+                                                        </p>
+                                                    )}
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="commercial_registration">Commercial Registration</Label>
+                                                    <Label htmlFor="commercial_registration">
+                                                        Commercial Registration
+                                                    </Label>
                                                     <Input
                                                         id="commercial_registration"
-                                                        value={data.commercial_registration}
-                                                        onChange={(e) => setData('commercial_registration', e.target.value)}
+                                                        value={
+                                                            data.commercial_registration
+                                                        }
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "commercial_registration",
+                                                                e.target.value,
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                             </>
                                         )}
 
-                                        {data.applicant_type === 'individual' && (
+                                        {data.applicant_type ===
+                                            "individual" && (
                                             <div>
-                                                <Label htmlFor="national_id">National ID</Label>
+                                                <Label htmlFor="national_id">
+                                                    National ID
+                                                </Label>
                                                 <Input
                                                     id="national_id"
                                                     value={data.national_id}
-                                                    onChange={(e) => setData('national_id', e.target.value)}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "national_id",
+                                                            e.target.value,
+                                                        )
+                                                    }
                                                 />
                                             </div>
                                         )}
@@ -283,42 +413,82 @@ return availableUnits;
                                         <Building2 className="h-5 w-5" />
                                         Property Selection
                                     </CardTitle>
-                                    <CardDescription>Select the property and units for the application</CardDescription>
+                                    <CardDescription>
+                                        Select the property and units for the
+                                        application
+                                    </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="grid gap-4 sm:grid-cols-2">
                                         <div>
-                                            <Label htmlFor="community_id">Community</Label>
-                                            <Select value={data.community_id} onValueChange={(value) => {
-                                                setData(prev => ({ ...prev, community_id: value, building_id: '' }));
-                                            }}>
+                                            <Label htmlFor="community_id">
+                                                Community
+                                            </Label>
+                                            <Select
+                                                value={data.community_id}
+                                                onValueChange={(value) => {
+                                                    setData((prev) => ({
+                                                        ...prev,
+                                                        community_id: value,
+                                                        building_id: "",
+                                                    }));
+                                                }}
+                                            >
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select a community" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="">All Communities</SelectItem>
-                                                    {communities.map(community => (
-                                                        <SelectItem key={community.id} value={community.id.toString()}>
-                                                            {community.name}
-                                                        </SelectItem>
-                                                    ))}
+                                                    <SelectItem value="">
+                                                        All Communities
+                                                    </SelectItem>
+                                                    {communities.map(
+                                                        (community) => (
+                                                            <SelectItem
+                                                                key={
+                                                                    community.id
+                                                                }
+                                                                value={community.id.toString()}
+                                                            >
+                                                                {community.name}
+                                                            </SelectItem>
+                                                        ),
+                                                    )}
                                                 </SelectContent>
                                             </Select>
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="building_id">Building</Label>
-                                            <Select value={data.building_id} onValueChange={(value) => setData('building_id', value)}>
+                                            <Label htmlFor="building_id">
+                                                Building
+                                            </Label>
+                                            <Select
+                                                value={data.building_id}
+                                                onValueChange={(value) =>
+                                                    setData(
+                                                        "building_id",
+                                                        value,
+                                                    )
+                                                }
+                                            >
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select a building" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="">All Buildings</SelectItem>
-                                                    {filteredBuildings.map(building => (
-                                                        <SelectItem key={building.id} value={building.id.toString()}>
-                                                            {building.name}
-                                                        </SelectItem>
-                                                    ))}
+                                                    <SelectItem value="">
+                                                        All Buildings
+                                                    </SelectItem>
+                                                    {filteredBuildings.map(
+                                                        (building) => (
+                                                            <SelectItem
+                                                                key={
+                                                                    building.id
+                                                                }
+                                                                value={building.id.toString()}
+                                                            >
+                                                                {building.name}
+                                                            </SelectItem>
+                                                        ),
+                                                    )}
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -329,29 +499,56 @@ return availableUnits;
                                         <Label>Available Units</Label>
                                         <div className="mt-2 border rounded-lg p-4 max-h-60 overflow-y-auto">
                                             {filteredUnits.length === 0 ? (
-                                                <p className="text-sm text-muted-foreground">No available units found</p>
+                                                <p className="text-sm text-muted-foreground">
+                                                    No available units found
+                                                </p>
                                             ) : (
                                                 <div className="grid gap-2 sm:grid-cols-2">
-                                                    {filteredUnits.map(unit => (
-                                                        <div key={unit.id} className="flex items-center space-x-2">
-                                                            <Checkbox
-                                                                id={`unit-${unit.id}`}
-                                                                checked={selectedUnits.includes(unit.id)}
-                                                                onCheckedChange={() => handleUnitToggle(unit.id)}
-                                                            />
-                                                            <label
-                                                                htmlFor={`unit-${unit.id}`}
-                                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                                                    {filteredUnits.map(
+                                                        (unit) => (
+                                                            <div
+                                                                key={unit.id}
+                                                                className="flex items-center space-x-2"
                                                             >
-                                                                {unit.name}
-                                                                {unit.building && <span className="text-muted-foreground ml-1">({unit.building.name})</span>}
-                                                            </label>
-                                                        </div>
-                                                    ))}
+                                                                <Checkbox
+                                                                    id={`unit-${unit.id}`}
+                                                                    checked={selectedUnits.includes(
+                                                                        unit.id,
+                                                                    )}
+                                                                    onCheckedChange={() =>
+                                                                        handleUnitToggle(
+                                                                            unit.id,
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <label
+                                                                    htmlFor={`unit-${unit.id}`}
+                                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                                                                >
+                                                                    {unit.name}
+                                                                    {unit.building && (
+                                                                        <span className="text-muted-foreground ml-1">
+                                                                            (
+                                                                            {
+                                                                                unit
+                                                                                    .building
+                                                                                    .name
+                                                                            }
+                                                                            )
+                                                                        </span>
+                                                                    )}
+                                                                </label>
+                                                            </div>
+                                                        ),
+                                                    )}
                                                 </div>
                                             )}
                                         </div>
-                                        {errors.units && <p className="text-sm text-red-500 mt-1">{errors.units}</p>}
+                                        {errors.units && (
+                                            <p className="text-sm text-red-500 mt-1">
+                                                {errors.units}
+                                            </p>
+                                        )}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -363,42 +560,81 @@ return availableUnits;
                                         <Calendar className="h-5 w-5" />
                                         Lease Terms
                                     </CardTitle>
-                                    <CardDescription>Define the proposed lease terms</CardDescription>
+                                    <CardDescription>
+                                        Define the proposed lease terms
+                                    </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="grid gap-4 sm:grid-cols-2">
                                         <div>
-                                            <Label htmlFor="proposed_start_date">Proposed Start Date</Label>
+                                            <Label htmlFor="proposed_start_date">
+                                                Proposed Start Date
+                                            </Label>
                                             <Input
                                                 id="proposed_start_date"
                                                 type="date"
                                                 value={data.proposed_start_date}
-                                                onChange={(e) => setData('proposed_start_date', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "proposed_start_date",
+                                                        e.target.value,
+                                                    )
+                                                }
                                             />
-                                            {errors.proposed_start_date && <p className="text-sm text-red-500 mt-1">{errors.proposed_start_date}</p>}
+                                            {errors.proposed_start_date && (
+                                                <p className="text-sm text-red-500 mt-1">
+                                                    {errors.proposed_start_date}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="proposed_end_date">Proposed End Date</Label>
+                                            <Label htmlFor="proposed_end_date">
+                                                Proposed End Date
+                                            </Label>
                                             <Input
                                                 id="proposed_end_date"
                                                 type="date"
                                                 value={data.proposed_end_date}
-                                                onChange={(e) => setData('proposed_end_date', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "proposed_end_date",
+                                                        e.target.value,
+                                                    )
+                                                }
                                             />
-                                            {errors.proposed_end_date && <p className="text-sm text-red-500 mt-1">{errors.proposed_end_date}</p>}
+                                            {errors.proposed_end_date && (
+                                                <p className="text-sm text-red-500 mt-1">
+                                                    {errors.proposed_end_date}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <Label htmlFor="proposed_duration_months">Duration (Months)</Label>
+                                            <Label htmlFor="proposed_duration_months">
+                                                Duration (Months)
+                                            </Label>
                                             <Input
                                                 id="proposed_duration_months"
                                                 type="number"
-                                                value={data.proposed_duration_months}
-                                                onChange={(e) => setData('proposed_duration_months', e.target.value)}
+                                                value={
+                                                    data.proposed_duration_months
+                                                }
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "proposed_duration_months",
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 min="1"
                                             />
-                                            {errors.proposed_duration_months && <p className="text-sm text-red-500 mt-1">{errors.proposed_duration_months}</p>}
+                                            {errors.proposed_duration_months && (
+                                                <p className="text-sm text-red-500 mt-1">
+                                                    {
+                                                        errors.proposed_duration_months
+                                                    }
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                 </CardContent>
@@ -414,22 +650,33 @@ return availableUnits;
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div>
-                                        <Label htmlFor="special_terms">Special Terms & Conditions</Label>
+                                        <Label htmlFor="special_terms">
+                                            Special Terms & Conditions
+                                        </Label>
                                         <Textarea
                                             id="special_terms"
                                             value={data.special_terms}
-                                            onChange={(e) => setData('special_terms', e.target.value)}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "special_terms",
+                                                    e.target.value,
+                                                )
+                                            }
                                             rows={4}
                                             placeholder="Enter any special terms or conditions..."
                                         />
                                     </div>
 
                                     <div>
-                                        <Label htmlFor="notes">Internal Notes</Label>
+                                        <Label htmlFor="notes">
+                                            Internal Notes
+                                        </Label>
                                         <Textarea
                                             id="notes"
                                             value={data.notes}
-                                            onChange={(e) => setData('notes', e.target.value)}
+                                            onChange={(e) =>
+                                                setData("notes", e.target.value)
+                                            }
                                             rows={3}
                                             placeholder="Enter any internal notes..."
                                         />
@@ -450,29 +697,51 @@ return availableUnits;
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div>
-                                        <Label htmlFor="quoted_rental_amount">Quoted Rental Amount</Label>
+                                        <Label htmlFor="quoted_rental_amount">
+                                            Quoted Rental Amount
+                                        </Label>
                                         <Input
                                             id="quoted_rental_amount"
                                             type="number"
                                             value={data.quoted_rental_amount}
-                                            onChange={(e) => setData('quoted_rental_amount', e.target.value)}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "quoted_rental_amount",
+                                                    e.target.value,
+                                                )
+                                            }
                                             min="0"
                                             step="0.01"
                                         />
-                                        {errors.quoted_rental_amount && <p className="text-sm text-red-500 mt-1">{errors.quoted_rental_amount}</p>}
+                                        {errors.quoted_rental_amount && (
+                                            <p className="text-sm text-red-500 mt-1">
+                                                {errors.quoted_rental_amount}
+                                            </p>
+                                        )}
                                     </div>
 
                                     <div>
-                                        <Label htmlFor="security_deposit">Security Deposit</Label>
+                                        <Label htmlFor="security_deposit">
+                                            Security Deposit
+                                        </Label>
                                         <Input
                                             id="security_deposit"
                                             type="number"
                                             value={data.security_deposit}
-                                            onChange={(e) => setData('security_deposit', e.target.value)}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "security_deposit",
+                                                    e.target.value,
+                                                )
+                                            }
                                             min="0"
                                             step="0.01"
                                         />
-                                        {errors.security_deposit && <p className="text-sm text-red-500 mt-1">{errors.security_deposit}</p>}
+                                        {errors.security_deposit && (
+                                            <p className="text-sm text-red-500 mt-1">
+                                                {errors.security_deposit}
+                                            </p>
+                                        )}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -485,13 +754,21 @@ return availableUnits;
                                 <CardContent className="space-y-4">
                                     <div>
                                         <Label htmlFor="source">Source</Label>
-                                        <Select value={data.source} onValueChange={(value) => setData('source', value)}>
+                                        <Select
+                                            value={data.source}
+                                            onValueChange={(value) =>
+                                                setData("source", value)
+                                            }
+                                        >
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select source" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {sources.map(source => (
-                                                    <SelectItem key={source.value} value={source.value}>
+                                                {sources.map((source) => (
+                                                    <SelectItem
+                                                        key={source.value}
+                                                        value={source.value}
+                                                    >
                                                         {source.label}
                                                     </SelectItem>
                                                 ))}
@@ -500,15 +777,27 @@ return availableUnits;
                                     </div>
 
                                     <div>
-                                        <Label htmlFor="assigned_to_id">Assigned To</Label>
-                                        <Select value={data.assigned_to_id} onValueChange={(value) => setData('assigned_to_id', value)}>
+                                        <Label htmlFor="assigned_to_id">
+                                            Assigned To
+                                        </Label>
+                                        <Select
+                                            value={data.assigned_to_id}
+                                            onValueChange={(value) =>
+                                                setData("assigned_to_id", value)
+                                            }
+                                        >
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select assignee" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="">Unassigned</SelectItem>
-                                                {contacts.map(contact => (
-                                                    <SelectItem key={contact.id} value={contact.id.toString()}>
+                                                <SelectItem value="">
+                                                    Unassigned
+                                                </SelectItem>
+                                                {contacts.map((contact) => (
+                                                    <SelectItem
+                                                        key={contact.id}
+                                                        value={contact.id.toString()}
+                                                    >
                                                         {contact.name}
                                                     </SelectItem>
                                                 ))}
@@ -521,9 +810,15 @@ return availableUnits;
                             {/* Actions */}
                             <Card>
                                 <CardContent className="pt-6">
-                                    <Button type="submit" className="w-full" disabled={processing}>
+                                    <Button
+                                        type="submit"
+                                        className="w-full"
+                                        disabled={processing}
+                                    >
                                         <Save className="mr-2 h-4 w-4" />
-                                        {processing ? 'Creating...' : 'Create Application'}
+                                        {processing
+                                            ? "Creating..."
+                                            : "Create Application"}
                                     </Button>
                                 </CardContent>
                             </Card>
@@ -537,7 +832,7 @@ return availableUnits;
 
 ApplicationCreate.layout = {
     breadcrumbs: [
-        { title: 'Lease Applications', href: '/lease-applications' },
-        { title: 'New Application', href: '' },
+        { title: "Lease Applications", href: "/lease-applications" },
+        { title: "New Application", href: "" },
     ],
 };
