@@ -158,27 +158,11 @@ function formatCurrency(amount: string | number): string {
 
 export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowProps) {
     const [isActivating, setIsActivating] = useState(false);
-    const [isTerminating, setIsTerminating] = useState(false);
-    const [isMovingOut, setIsMovingOut] = useState(false);
 
     const handleActivate = () => {
         setIsActivating(true);
         router.post(`/leases/${lease.id}/activate`, {}, {
             onFinish: () => setIsActivating(false),
-        });
-    };
-
-    const handleTerminate = () => {
-        setIsTerminating(true);
-        router.post(`/leases/${lease.id}/terminate`, {}, {
-            onFinish: () => setIsTerminating(false),
-        });
-    };
-
-    const handleMoveOut = () => {
-        setIsMovingOut(true);
-        router.post(`/leases/${lease.id}/move-out`, {}, {
-            onFinish: () => setIsMovingOut(false),
         });
     };
 
@@ -245,55 +229,21 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                         )}
 
                         {canTerminate && (
-                            <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                    <Button variant="destructive">
-                                        <Ban className="mr-2 h-4 w-4" />
-                                        Terminate
-                                    </Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        <AlertDialogTitle>Terminate Lease</AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                            This will terminate the lease early. This action cannot be undone.
-                                            Are you sure you want to proceed?
-                                        </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction onClick={handleTerminate} disabled={isTerminating} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                                            {isTerminating ? 'Terminating...' : 'Terminate'}
-                                        </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialog>
+                            <Link href={`/leases/${lease.id}/terminate`}>
+                                <Button variant="destructive">
+                                    <Ban className="mr-2 h-4 w-4" />
+                                    Terminate
+                                </Button>
+                            </Link>
                         )}
 
                         {(isActive || isExpired) && (
-                            <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                    <Button variant="outline">
-                                        <LogOut className="mr-2 h-4 w-4" />
-                                        Move Out
-                                    </Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        <AlertDialogTitle>Process Move Out</AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                            This will close the lease and mark the units as available.
-                                            Are you sure you want to proceed?
-                                        </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction onClick={handleMoveOut} disabled={isMovingOut}>
-                                            {isMovingOut ? 'Processing...' : 'Confirm Move Out'}
-                                        </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialog>
+                            <Link href={`/leases/${lease.id}/move-out`}>
+                                <Button variant="outline">
+                                    <LogOut className="mr-2 h-4 w-4" />
+                                    Move Out
+                                </Button>
+                            </Link>
                         )}
 
                         {canRenew && (

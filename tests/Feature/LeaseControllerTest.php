@@ -378,8 +378,11 @@ class LeaseControllerTest extends TestCase
             'building_id' => $this->building->id,
             'status_id' => $this->statusActive->id,
         ]);
+        $lease->units()->attach($this->unit->id);
 
-        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/terminate");
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/terminate", [
+            'termination_date' => now()->format('Y-m-d'),
+        ]);
 
         $response->assertRedirect();
         $this->assertDatabaseHas('leases', [
@@ -396,8 +399,11 @@ class LeaseControllerTest extends TestCase
             'building_id' => $this->building->id,
             'status_id' => $this->statusActive->id,
         ]);
+        $lease->units()->attach($this->unit->id);
 
-        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/move-out");
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/move-out", [
+            'move_out_date' => now()->format('Y-m-d'),
+        ]);
 
         $response->assertRedirect();
         $lease->refresh();
@@ -629,5 +635,219 @@ class LeaseControllerTest extends TestCase
         $response->assertJsonStructure([
             'history',
         ]);
+    }
+
+    public function test_terminate_form_displays_for_active_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+        ]);
+
+        $response = $this->actingAs($this->user)->get("/leases/{$lease->id}/terminate");
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('leases/terminate')
+            ->has('lease')
+            ->has('terminationSummary')
+            ->where('terminationSummary.lease_id', $lease->id)
+        );
+    }
+
+    public function test_terminate_form_redirects_for_non_terminable_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusNew->id, // New leases cannot be terminated
+        ]);
+
+        $response = $this->actingAs($this->user)->get("/leases/{$lease->id}/terminate");
+
+        $response->assertRedirect("/leases/{$lease->id}");
+    }
+
+    public function test_terminate_with_reason_stores_termination_details(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+        ]);
+        $lease->units()->attach($this->unit->id);
+
+        $terminationData = [
+            'termination_date' => now()->format('Y-m-d'),
+            'termination_reason' => 'Tenant request - relocating to another city',
+        ];
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/terminate", $terminationData);
+
+        $response->assertRedirect("/leases/{$lease->id}");
+        $response->assertSessionHas('success');
+
+        $lease->refresh();
+        $this->assertEquals(33, $lease->status_id); // Cancelled
+        $this->assertStringContains('Tenant request - relocating to another city', $lease->terms_conditions);
+    }
+
+    public function test_terminate_validates_required_termination_date(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+        ]);
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/terminate", [
+            'termination_reason' => 'Some reason',
+        ]);
+
+        $response->assertSessionHasErrors(['termination_date']);
+    }
+
+    public function test_move_out_form_displays_for_active_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+            'security_deposit_amount' => 5000,
+        ]);
+
+        $response = $this->actingAs($this->user)->get("/leases/{$lease->id}/move-out");
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('leases/move-out')
+            ->has('lease')
+            ->has('moveOutSummary')
+            ->where('moveOutSummary.lease_id', $lease->id)
+            ->where('moveOutSummary.security_deposit', 5000)
+        );
+    }
+
+    public function test_move_out_form_displays_for_expired_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => 32, // Expired
+        ]);
+
+        $response = $this->actingAs($this->user)->get("/leases/{$lease->id}/move-out");
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('leases/move-out')
+            ->has('lease')
+            ->has('moveOutSummary')
+        );
+    }
+
+    public function test_move_out_form_redirects_for_closed_lease(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => 34, // Closed
+        ]);
+
+        $response = $this->actingAs($this->user)->get("/leases/{$lease->id}/move-out");
+
+        $response->assertRedirect("/leases/{$lease->id}");
+    }
+
+    public function test_move_out_with_full_details_stores_all_data(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+            'security_deposit_amount' => 10000,
+        ]);
+        $lease->units()->attach($this->unit->id);
+
+        $moveOutData = [
+            'move_out_date' => now()->format('Y-m-d'),
+            'inspection_notes' => 'Unit in good condition. Minor wear on carpet.',
+            'deposit_deductions' => 'Carpet cleaning: 500 SAR',
+            'deposit_refund_amount' => 9500,
+        ];
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/move-out", $moveOutData);
+
+        $response->assertRedirect("/leases/{$lease->id}");
+        $response->assertSessionHas('success');
+
+        $lease->refresh();
+        $this->assertTrue($lease->is_move_out);
+        $this->assertNotNull($lease->actual_end_at);
+        $this->assertStringContains('Unit in good condition', $lease->terms_conditions);
+        $this->assertStringContains('Carpet cleaning: 500 SAR', $lease->terms_conditions);
+    }
+
+    public function test_move_out_validates_required_move_out_date(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+        ]);
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/move-out", [
+            'inspection_notes' => 'Some notes',
+        ]);
+
+        $response->assertSessionHasErrors(['move_out_date']);
+    }
+
+    public function test_move_out_releases_attached_units(): void
+    {
+        $lease = Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+        ]);
+        $lease->units()->attach($this->unit->id);
+
+        // Set unit status to rented
+        $this->unit->update(['status_id' => 25]);
+
+        $moveOutData = [
+            'move_out_date' => now()->format('Y-m-d'),
+        ];
+
+        $response = $this->actingAs($this->user)->post("/leases/{$lease->id}/move-out", $moveOutData);
+
+        $response->assertRedirect("/leases/{$lease->id}");
+
+        // Check unit status is now available
+        $this->unit->refresh();
+        $this->assertEquals(26, $this->unit->status_id); // Available
+    }
+
+    /**
+     * Helper method to check if a string contains another string.
+     */
+    protected function assertStringContains(string $needle, ?string $haystack): void
+    {
+        $this->assertNotNull($haystack, "Expected non-null string containing '{$needle}'");
+        $this->assertTrue(
+            str_contains($haystack, $needle),
+            "Expected string to contain '{$needle}', got: {$haystack}"
+        );
     }
 }

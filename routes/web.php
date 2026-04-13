@@ -43,7 +43,9 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::resource('leases', LeaseController::class);
     Route::post('leases/wizard/save-step', [LeaseController::class, 'saveStep'])->name('leases.wizard.save-step');
     Route::post('leases/{lease}/activate', [LeaseController::class, 'activate'])->name('leases.activate');
+    Route::get('leases/{lease}/terminate', [LeaseController::class, 'terminateForm'])->name('leases.terminate.form');
     Route::post('leases/{lease}/terminate', [LeaseController::class, 'terminate'])->name('leases.terminate');
+    Route::get('leases/{lease}/move-out', [LeaseController::class, 'moveOutForm'])->name('leases.move-out.form');
     Route::post('leases/{lease}/move-out', [LeaseController::class, 'moveOut'])->name('leases.move-out');
     Route::get('leases/{lease}/renew', [LeaseController::class, 'renewForm'])->name('leases.renew');
     Route::post('leases/{lease}/renew', [LeaseController::class, 'renew'])->name('leases.renew.store');

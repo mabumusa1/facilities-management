@@ -186,15 +186,64 @@ class LeaseController extends Controller
     }
 
     /**
+     * Show the termination form.
+     */
+    public function terminateForm(Lease $lease): Response|RedirectResponse
+    {
+        if (! $this->leaseService->canTerminate($lease)) {
+            return redirect()
+                ->route('leases.show', $lease)
+                ->with('error', 'This lease cannot be terminated.');
+        }
+
+        $lease->load(['units', 'tenant', 'community', 'building', 'status']);
+
+        return Inertia::render('leases/terminate', [
+            'lease' => $lease,
+            'terminationSummary' => $this->leaseService->getTerminationSummary($lease),
+        ]);
+    }
+
+    /**
      * Terminate a lease (Active -> Cancelled).
      */
-    public function terminate(Lease $lease): RedirectResponse
+    public function terminate(Request $request, Lease $lease): RedirectResponse
     {
-        $this->leaseService->terminateLease($lease);
+        $validated = $request->validate([
+            'termination_date' => ['required', 'date'],
+            'termination_reason' => ['nullable', 'string', 'max:500'],
+        ]);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Lease terminated successfully.');
+        try {
+            $this->leaseService->terminateLease($lease, $validated);
+
+            return redirect()
+                ->route('leases.show', $lease)
+                ->with('success', 'Lease terminated successfully.');
+        } catch (\RuntimeException $e) {
+            return redirect()
+                ->back()
+                ->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Show the move-out form.
+     */
+    public function moveOutForm(Lease $lease): Response|RedirectResponse
+    {
+        if (! $this->leaseService->canMoveOut($lease)) {
+            return redirect()
+                ->route('leases.show', $lease)
+                ->with('error', 'This lease cannot be moved out.');
+        }
+
+        $lease->load(['units', 'tenant', 'community', 'building', 'status', 'transactions']);
+
+        return Inertia::render('leases/move-out', [
+            'lease' => $lease,
+            'moveOutSummary' => $this->leaseService->getMoveOutSummary($lease),
+        ]);
     }
 
     /**
@@ -202,11 +251,24 @@ class LeaseController extends Controller
      */
     public function moveOut(Request $request, Lease $lease): RedirectResponse
     {
-        $this->leaseService->moveOut($lease, $request->input('actual_end_date'));
+        $validated = $request->validate([
+            'move_out_date' => ['required', 'date'],
+            'inspection_notes' => ['nullable', 'string', 'max:1000'],
+            'deposit_deductions' => ['nullable', 'string', 'max:500'],
+            'deposit_refund_amount' => ['nullable', 'numeric', 'min:0'],
+        ]);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Move-out completed successfully.');
+        try {
+            $this->leaseService->moveOut($lease, $validated);
+
+            return redirect()
+                ->route('leases.show', $lease)
+                ->with('success', 'Move-out completed successfully.');
+        } catch (\RuntimeException $e) {
+            return redirect()
+                ->back()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
