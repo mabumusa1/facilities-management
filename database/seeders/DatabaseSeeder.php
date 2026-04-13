@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             FacilityCategorySeeder::class,
             AmenitySeeder::class,
             StatusSeeder::class,
+            FeatureFlagSeeder::class,
         ]);
 
         // Create admin user
