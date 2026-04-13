@@ -36,11 +36,10 @@ class MarketplaceUnitFactory extends Factory
         return [
             'tenant_id' => Tenant::factory(),
             'unit_id' => Unit::factory(),
-            'status_id' => fn () => Status::factory()->create([
-                'domain' => 'marketplace',
-                'slug' => 'marketplace_available',
-                'name' => 'Available',
-            ])->id,
+            'status_id' => fn () => Status::firstOrCreate(
+                ['slug' => 'marketplace_available'],
+                ['domain' => 'marketplace', 'name' => 'Available']
+            )->id,
             'listing_title_en' => $listing['en'],
             'listing_title_ar' => $listing['ar'],
             'listing_description_en' => fake()->paragraph(3),
