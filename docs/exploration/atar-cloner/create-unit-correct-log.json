@@ -1,0 +1,245 @@
+[
+  {
+    "timestamp": "2026-04-10T23:13:30.541Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "body": {
+      "name": "Test Unit API v2",
+      "category_id": 2,
+      "type_id": 17,
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "rf_status_id": 26,
+      "map": {
+        "latitude": 24.7103488,
+        "longitude": 46.6878464,
+        "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+        "districtName": "3287 ,RHSA7555",
+        "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia",
+        "latitudeDelta": 0.02,
+        "longitudeDelta": 0.009244060475161988,
+        "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+      },
+      "specifications": [],
+      "features": [],
+      "photos": [],
+      "documents": [],
+      "floor_plans": [],
+      "rooms": [],
+      "areas": []
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "messages.unit_created",
+        "data": {
+          "id": 3,
+          "name": "Test Unit API v2",
+          "category": {
+            "id": 2,
+            "name": "سكني",
+            "icon": "residential"
+          },
+          "type": {
+            "id": 17,
+            "name": "شقة",
+            "icon": "residential"
+          },
+          "status": {
+            "id": 26,
+            "name": "متاحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          "rf_community": {
+            "id": 1,
+            "name": "Test Community 1",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": 0,
+            "units_count": 0,
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": null,
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          "rf_building": {
+            "id": 1,
+            "name": "Test Building 1"
+          },
+          "year_build": "2020",
+          "map": {
+            "latitude": 24.7103488,
+            "longitude": 46.6878464,
+            "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+            "districtName": "3287 ,RHSA7555",
+            "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia",
+            "latitudeDelta": 0.02,
+            "longitudeDelta": 0.009244060475161988,
+            "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+          },
+          "photos": [],
+          "floor_plans": [],
+          "documents": [],
+          "specifications": [],
+          "net_area": null,
+          "marketplace": {
+            "sale": null,
+            "rent": null
+          },
+          "rooms": [],
+          "areas": [],
+          "owner": null,
+          "tenant": null,
+          "merge_document": [],
+          "lease": [],
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "features": [],
+          "is_market_place": null,
+          "renewal_status": false,
+          "marketplace_booking_unit_id": null,
+          "about": null,
+          "is_off_plan_sale": "0"
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:13:31.182Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "body": {
+      "name": "Test Unit Minimal",
+      "category_id": 2,
+      "type_id": 17,
+      "rf_community_id": 1,
+      "map": {
+        "latitude": 24.7103488,
+        "longitude": 46.6878464,
+        "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+        "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, Riyadh, Saudi Arabia"
+      }
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:13:31.988Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "body": {
+      "name": "Test Unit Objects",
+      "category": {
+        "id": 2
+      },
+      "type": {
+        "id": 17
+      },
+      "rf_community": {
+        "id": 1
+      },
+      "rf_building": {
+        "id": 1
+      },
+      "map": {
+        "latitude": 24.7103488,
+        "longitude": 46.6878464,
+        "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+        "formattedAddress": "RHSA7555, Riyadh, Saudi Arabia"
+      }
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "category_id": [
+            "الحقل category id مطلوب."
+          ],
+          "type_id": [
+            "الحقل type id مطلوب."
+          ],
+          "rf_community_id": [
+            "الحقل rf community id مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:13:32.816Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "body": {
+      "name": "Test Unit Alt Fields",
+      "category_id": 2,
+      "type_id": 17,
+      "community_id": 1,
+      "building_id": 1,
+      "status_id": 26,
+      "map": {
+        "latitude": 24.7103488,
+        "longitude": 46.6878464,
+        "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+        "formattedAddress": "RHSA7555, Riyadh, Saudi Arabia"
+      }
+    },
+    "response": {
+      "error": "read ECONNRESET"
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:13:32.996Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "body": {
+      "name": "Test Unit Location",
+      "category_id": 2,
+      "type_id": 17,
+      "rf_community_id": 1,
+      "location": {
+        "latitude": 24.7103488,
+        "longitude": 46.6878464,
+        "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+        "formattedAddress": "RHSA7555, Riyadh, Saudi Arabia"
+      }
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "name": "atar-crawler",
+  "version": "1.0.0",
+  "description": "Playwright crawler for Atar application - captures sitemap, screenshots, and API requests",
+  "main": "crawler.js",
+  "scripts": {
+    "crawl": "node crawler.js",
+    "install-browsers": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}

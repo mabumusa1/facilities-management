@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/rf/leases/change-status/move-out",
+    "path": "/rf/leases/change-status/move-out",
+    "base": "management",
+    "body": {},
+    "description": "Move out validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 359,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:18 GMT",
+      "content-type": "application/json",
+      "content-length": "228",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "b1eed7d25a8e5e2e0cc7490f581e31a1",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2FYKMKCqCcw38p8SRVIYTRbDd7ICSsi%2Fnx5nwqkSmcIxlfZrpKRi8idyoh%2FELVEgHHYlI1QqgM8NLS0yNCTq9bF2uthpOJ8Ph2lRfHOgNEUCAS5Wd8RfLDM3C%2BS4lDAGJqmAm8RqkDrkkOl4\"}]}",
+      "cf-ray": "9ea50be5d9406534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "rf_lease_id": [
+          "الحقل rf lease id مطلوب."
+        ],
+        "end_at": [
+          "الحقل end at مطلوب."
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:18.456Z"
+}

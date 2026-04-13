@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/announcements",
+    "path": "/rf/announcements",
+    "base": "management",
+    "body": null,
+    "description": "List announcements",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 520,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:07 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xJAoA7BIDjw3DWpn6eIVoI0K83gmFhbHnNPHg%2BGWw00teWA9Oh1KAwzYqrhl%2FF%2Ff%2BleutwIEEXKqo8E%2Bx2DGvj0%2Bnl%2FCsxxTltGzpoeiRbXboUPDjXuOczDEEEz9h8KuGDY9mOTJEjKZwg7g\"}]}",
+      "cf-ray": "9ea50ba18a4a6534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": [],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:07.667Z"
+}

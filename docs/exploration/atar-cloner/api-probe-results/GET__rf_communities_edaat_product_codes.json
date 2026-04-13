@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities/edaat/product-codes",
+    "path": "/rf/communities/edaat/product-codes",
+    "base": "management",
+    "body": null,
+    "description": "Edaat product codes",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 400,
+    "success": false,
+    "duration": 520,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:59 GMT",
+      "content-type": "application/json",
+      "content-length": "200",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-cloud-trace-context": "70806a5756f085f7baf2da0a85de7891",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ybKrpSkZpZZQSXUAEMEq0MstCLh2mDdRlkYHyHwEkz1PYTA6Vp1%2F%2B%2FajzSLw5xjyvXUl9PHEQojaGrqcx5mXLBFpC1sBexeUcw61Dy41sQKEjm5u7nRwOx1muh5voJjDW4AGyy9gKWxo%2FN55\"}]}",
+      "cf-ray": "9ea50b6f79cd6534-LHR"
+    },
+    "body": {
+      "code": 400,
+      "message": "حدث خطأ ما, برجاء المحاوله لاحقا.",
+      "errors": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:59.677Z"
+}

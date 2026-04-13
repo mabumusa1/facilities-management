@@ -1,0 +1,242 @@
+{
+  "extractedFrom": "index-BqM3yZMa.js",
+  "extractedAt": "2026-04-10",
+  "totalRoutes": 85,
+  "routes": {
+    "dashboard": {
+      "main": "/dashboard",
+      "children": [
+        "/dashboard/bookings",
+        "/dashboard/booking-contracts",
+        "/dashboard/directory",
+        "/dashboard/issues",
+        "/dashboard/offers",
+        "/dashboard/suggestions",
+        "/dashboard/visits",
+        "/dashboard/reports",
+        "/dashboard/system-reports",
+        "/dashboard/system-reports/Lease",
+        "/dashboard/system-reports/maintenance",
+        "/dashboard/power-bi-reports",
+        "/dashboard/move-out-tenants",
+        "/dashboard/announcements",
+        "/dashboard/payment"
+      ]
+    },
+    "leasing": {
+      "main": "/leasing",
+      "children": [
+        "/leasing/visits",
+        "/leasing/apps",
+        "/leasing/quotes",
+        "/leasing/quotes/addQuotes",
+        "/leasing/leases",
+        "/leasing/leases/:id",
+        "/leasing/details/:id"
+      ]
+    },
+    "properties": {
+      "main": "/properties-list",
+      "children": [
+        "/properties-list/communities",
+        "/properties-list/community/details/:id",
+        "/properties-list/buildings",
+        "/properties-list/building/details/:id",
+        "/properties-list/units",
+        "/properties-list/unit/details/:id",
+        "/properties-list/new-unit"
+      ]
+    },
+    "contacts": {
+      "main": "/contacts",
+      "children": [
+        "/contacts/tenants",
+        "/contacts/owners",
+        "/contacts/managers",
+        "/contacts/professionals",
+        "/contacts/:type",
+        "/contacts/:type/details/:id",
+        "/contacts/:type/form"
+      ]
+    },
+    "transactions": {
+      "main": "/transactions",
+      "children": [
+        "/transactions/money-in",
+        "/transactions/money-out",
+        "/transactions/overdues",
+        "/transactions/record-transaction",
+        "/transactions/:id",
+        "/transactions/tenant/:assignee_id"
+      ]
+    },
+    "requests": {
+      "main": "/requests",
+      "children": [
+        "/requests/:id",
+        "/requests/active-requests"
+      ]
+    },
+    "visitor-access": {
+      "main": "/visitor-access",
+      "children": [
+        "/visitor-access/visitor-details/:id"
+      ]
+    },
+    "marketplace": {
+      "main": "/marketplace",
+      "children": [
+        "/marketplace/customers",
+        "/marketplace/customers/upload-leads",
+        "/marketplace/customers/upload-leads/errors",
+        "/marketplace/listing",
+        "/marketplace/listing/off-plan-sale-form"
+      ]
+    },
+    "settings": {
+      "main": "/settings",
+      "children": [
+        "/settings/profile",
+        "/settings/account",
+        "/settings/bank-details",
+        "/settings/invoice",
+        "/settings/sales-details",
+        "/settings/visits-details",
+        "/settings/visitor-request",
+        "/settings/service-request",
+        "/settings/service-request/:type/:catCode/:catId",
+        "/settings/facility/:id",
+        "/settings/forms",
+        "/settings/forms/preview/:id"
+      ]
+    },
+    "directory": {
+      "main": "/directory",
+      "children": [
+        "/directory/create",
+        "/directory/update",
+        "/directory/:id"
+      ]
+    },
+    "notifications": {
+      "main": "/notifications"
+    },
+    "announcements": {
+      "main": "/announcements",
+      "children": [
+        "/announcements/:id"
+      ]
+    },
+    "suggestions": {
+      "main": "/suggestions",
+      "children": [
+        "/suggestions/:id"
+      ]
+    },
+    "issues": {
+      "main": "/issues",
+      "children": [
+        "/issues/create",
+        "/issues/:id/view",
+        "/issues/:id/assign"
+      ]
+    },
+    "offers": {
+      "main": "/offers",
+      "children": [
+        "/offers/create",
+        "/offers/:id/view"
+      ]
+    },
+    "more": {
+      "main": "/more"
+    },
+    "auth": {
+      "routes": [
+        "/login",
+        "/signup",
+        "/verify",
+        "/verifycode",
+        "/create-business-username",
+        "/resetAccount"
+      ]
+    },
+    "public": {
+      "routes": [
+        "/pricing",
+        "/about",
+        "/contact",
+        "/privacy_policy",
+        "/terms_and_conditions"
+      ]
+    },
+    "errors": {
+      "routes": [
+        "/401",
+        "/403",
+        "/429",
+        "/no-access"
+      ]
+    }
+  },
+  "flatRoutes": [
+    "/dashboard",
+    "/dashboard/bookings",
+    "/dashboard/booking-contracts",
+    "/dashboard/directory",
+    "/dashboard/issues",
+    "/dashboard/offers",
+    "/dashboard/suggestions",
+    "/dashboard/visits",
+    "/dashboard/reports",
+    "/dashboard/system-reports",
+    "/dashboard/power-bi-reports",
+    "/dashboard/move-out-tenants",
+    "/dashboard/announcements",
+    "/dashboard/payment",
+    "/leasing",
+    "/leasing/visits",
+    "/leasing/apps",
+    "/leasing/quotes",
+    "/leasing/leases",
+    "/properties-list",
+    "/properties-list/communities",
+    "/properties-list/buildings",
+    "/properties-list/units",
+    "/contacts",
+    "/contacts/tenants",
+    "/contacts/owners",
+    "/contacts/managers",
+    "/contacts/professionals",
+    "/transactions",
+    "/transactions/money-in",
+    "/transactions/money-out",
+    "/transactions/overdues",
+    "/transactions/record-transaction",
+    "/requests",
+    "/visitor-access",
+    "/marketplace",
+    "/marketplace/customers",
+    "/marketplace/listing",
+    "/settings",
+    "/settings/profile",
+    "/settings/account",
+    "/settings/bank-details",
+    "/settings/invoice",
+    "/settings/sales-details",
+    "/settings/visits-details",
+    "/settings/visitor-request",
+    "/settings/service-request",
+    "/settings/forms",
+    "/directory",
+    "/directory/create",
+    "/notifications",
+    "/announcements",
+    "/suggestions",
+    "/issues",
+    "/issues/create",
+    "/offers",
+    "/offers/create",
+    "/more"
+  ]
+}

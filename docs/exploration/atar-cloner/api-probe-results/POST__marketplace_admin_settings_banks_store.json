@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/settings/banks/store",
+    "path": "/marketplace/admin/settings/banks/store",
+    "base": "management",
+    "body": {},
+    "description": "Store bank settings validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 515,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:22 GMT",
+      "content-type": "application/json",
+      "content-length": "787",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "7c9b5e0a4aef9991bb81a6ab27b0d9a7",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=RnzFiaN9YwPQI0rsB%2Fgc2nQpGkzYmevfqe7NAeM%2FF%2F0KyAtxdu5PleGkQpKLfeQWptd36eooIOtFDrqUzHrnFIfZRs8%2BorYCSzscLoDSXoZbZCDVCrkqLNDcDayD%2Fu9yULmMX6KAU2D0QP1w\"}]}",
+      "cf-ray": "9ea50bfd8baa6534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "beneficiary_name": [
+          "الحقل beneficiary name مطلوب."
+        ],
+        "bank_name": [
+          "الحقل bank name مطلوب."
+        ],
+        "account_number": [
+          "الحقل account number مطلوب.",
+          "يجب ان يحتوي رقم الحساب على ارقام فقط",
+          "يجب ان يكون رقم الحساب اكثر من 14 رقم"
+        ],
+        "iban": [
+          "الحقل iban مطلوب."
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:22.405Z"
+}

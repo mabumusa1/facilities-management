@@ -1,0 +1,101 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/admins/manager-roles",
+    "path": "/rf/admins/manager-roles",
+    "base": "management",
+    "body": null,
+    "description": "Manager roles",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 435,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:45 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=QOKsL8PrCAmrWWnpkmoQ2qOt9hTTC2i3mRUl9375ux9iERxptiwG5G8BVTEanO1mm%2B3oPKd6fmBQZPZcSM6BTz6IdFiTLWOsyLyIuj6AfZMSV29FfyTS0ia%2Bq%2B6%2BXhCUjAwqLSty5HSMocg8\"}]}",
+      "cf-ray": "9ea50b14fc396534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": [
+        {
+          "id": 1,
+          "role": "Admins",
+          "name_ar": "مدير",
+          "name_en": "Admin",
+          "types": null
+        },
+        {
+          "id": 2,
+          "role": "accountingManagers",
+          "name_ar": "مسؤول المالي",
+          "name_en": "Accounting Manager",
+          "types": null
+        },
+        {
+          "id": 3,
+          "role": "serviceManagers",
+          "name_ar": "مسؤول الخدمات",
+          "name_en": "Service Manager",
+          "types": [
+            {
+              "id": 1,
+              "name": "طلبات خدمات المنازل"
+            },
+            {
+              "id": 2,
+              "name": "طلبات خدمات المناطق المشتركة"
+            },
+            {
+              "id": 3,
+              "name": "طلبات دخول الزوار"
+            },
+            {
+              "id": 5,
+              "name": "طلبات الحجوزات للمرافق"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "role": "marketingManagers",
+          "name_ar": "مسؤول التسويق",
+          "name_en": "Marketing Manager",
+          "types": null
+        },
+        {
+          "id": 5,
+          "role": "salesAndLeasingManagers",
+          "name_ar": "مسؤول المبيعات والتأجير",
+          "name_en": "Sales & Leasing Manager",
+          "types": null
+        }
+      ],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:45.098Z"
+}

@@ -1,0 +1,206 @@
+{
+  "code": 200,
+  "message": "",
+  "data": {
+    "id": 1,
+    "contract_number": "2026000001RL",
+    "tenant": {
+      "id": 4,
+      "name": "Khalid Test",
+      "rate": null,
+      "role": "Tenant",
+      "email": "khalid.test@example.com",
+      "image": null,
+      "active": "1",
+      "gender": null,
+      "company": null,
+      "birthdate": null,
+      "national_id": "2233445566",
+      "nationality": null,
+      "phone_number": "+966512345678",
+      "primary_user_name": "Khalid Test"
+    },
+    "units": [
+      {
+        "rental_annual_type": "total",
+        "annual_rental_amount": "50000",
+        "unit": {
+          "id": 3,
+          "name": "Test Unit API v2",
+          "category": {
+            "id": 2,
+            "name": "سكني",
+            "name_ar": "سكني",
+            "name_en": "Residential"
+          },
+          "type": {
+            "id": 17,
+            "name": "شقة",
+            "name_ar": "شقة",
+            "name_en": "Apartment"
+          },
+          "status": {
+            "id": 25,
+            "name": "مؤجرة",
+            "name_ar": "مؤجرة",
+            "name_en": "Leased"
+          },
+          "rf_community": {
+            "id": 1,
+            "name": "Test Community 1"
+          },
+          "rf_building": {
+            "id": 1,
+            "name": "Test Building 1"
+          },
+          "year_build": "2020",
+          "net_area": null,
+          "rooms": [],
+          "areas": [],
+          "city": {
+            "id": 1,
+            "name": "الرياض",
+            "name_ar": "الرياض",
+            "name_en": "Riyadh"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية",
+            "name_ar": "الدرعية",
+            "name_en": "Al Diriyah"
+          },
+          "is_market_place": "0",
+          "is_buy": "0",
+          "market_rent": null,
+          "floor_no": null
+        },
+        "net_area": null,
+        "meter_cost": null
+      }
+    ],
+    "status": {
+      "id": 30,
+      "name": "عقد جديد",
+      "created_at": null,
+      "priority": "1"
+    },
+    "security_deposit_amount": null,
+    "security_deposit_due_date": null,
+    "lease_unit_type": {
+      "id": 2,
+      "name": "سكني",
+      "icon": "residential"
+    },
+    "start_date": "2026-04-16",
+    "end_date": "2027-04-16",
+    "handover_date": "2026-04-16",
+    "tenant_type": "individual",
+    "user": {
+      "id": 4,
+      "name": "Khalid Test"
+    },
+    "created_by": {
+      "id": 1,
+      "name": "Test User",
+      "primary_user_name": "Test User",
+      "image": null,
+      "phone_number": "+966555123456",
+      "role": "مدير الحساب",
+      "rate": null,
+      "email": "test@example.com",
+      "nationality": null,
+      "gender": null,
+      "birthdate": null,
+      "national_id": "1234567890",
+      "company": null,
+      "active": "1"
+    },
+    "deal_owner": null,
+    "rental_type": "detailed",
+    "rental_total_amount": "50000.00",
+    "rental_contract_type": {
+      "id": 13,
+      "name": "ايجار سنوي",
+      "type": "rental_contract_type",
+      "name_ar": "ايجار سنوي",
+      "name_en": "Yearly Rental",
+      "parent_id": null
+    },
+    "legal_representative": null,
+    "fit_out_status": null,
+    "payment_schedule": {
+      "id": 7,
+      "name": "سنوي",
+      "type": "payment_schedule",
+      "name_ar": "سنوي",
+      "name_en": "Annual",
+      "parent_id": "13"
+    },
+    "lease_escalations_type": "fixed",
+    "additional_fees_lease": [],
+    "lease_escalations": [],
+    "terms_conditions": null,
+    "is_terms": "0",
+    "transactions": [
+      {
+        "id": 1,
+        "images": null,
+        "payments": [],
+        "unit": null,
+        "amount": 50000,
+        "tax_amount": "0.00",
+        "rental_amount": "50000.00",
+        "additional_fees_amount": "0.00",
+        "vat": "0",
+        "lease_number": "2026000001RL",
+        "additional_fees": [],
+        "amount_fmt": "50,000.00",
+        "category": {
+          "id": "1",
+          "name": "الإيجارات"
+        },
+        "subcategory": {
+          "id": null,
+          "name": ""
+        },
+        "due_on": "2026-04-16",
+        "assignee": "Khalid Test",
+        "assignee_id": 4,
+        "assignee_active": "1",
+        "details": null,
+        "payments_sum": "0.00",
+        "paid_fmt": "0.00",
+        "left_fmt": "50,000.00",
+        "paid": 0,
+        "left": 50000,
+        "type": {
+          "id": 2,
+          "name": "مستحقة"
+        },
+        "status": {
+          "id": 2,
+          "name": "مستحقة"
+        },
+        "is_paid": false,
+        "created_at": "2026-04-11",
+        "is_old": "0"
+      }
+    ],
+    "subleases": [],
+    "is_sub_lease": "0",
+    "actual_end_at": null,
+    "created_at": "2026-04-11 00:00:00",
+    "free_period": 0,
+    "number_of_years": "1",
+    "number_of_months": "0",
+    "number_of_days": null,
+    "lease_id": null,
+    "is_renew": false,
+    "is_move_out": false,
+    "pdf_url": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf",
+    "total_unpaid_amount": "50000.00",
+    "unpaid_transactions_count": 1,
+    "is_old": "0"
+  },
+  "meta": []
+}

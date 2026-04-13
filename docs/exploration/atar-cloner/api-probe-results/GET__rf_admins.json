@@ -1,0 +1,73 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/admins",
+    "path": "/rf/admins",
+    "base": "management",
+    "body": null,
+    "description": "List admins",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 370,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:44 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5s561npXs2%2FSNuSJ0NjimaqvRTdjQDHz7IXV7Ibjo8FYv7chu4wGK0NS8UqunOlf7M4JsgNnW4q3zPRCJ2e9GCa0zTFZoBCSYvPA9Da0ZYkd7kGauuNoteefSfWTNPG8ZpukXKZJnuTN8CZR\"}]}",
+      "cf-ray": "9ea50b0f8fb26534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": [
+        {
+          "id": 2,
+          "name": "Atar Support",
+          "image": null,
+          "phone_number": "+966502879676",
+          "phone_country_code": "SA",
+          "national_id": null,
+          "email": "info@goatar.com",
+          "role": "Admins",
+          "created_at": "2026-04-10T06:09:54.000000Z",
+          "types": []
+        },
+        {
+          "id": 1,
+          "name": "Test User",
+          "image": null,
+          "phone_number": "+966555123456",
+          "phone_country_code": "SA",
+          "national_id": "1234567890",
+          "email": "test@example.com",
+          "role": "accountAdmins",
+          "created_at": "2026-04-10T06:09:27.000000Z",
+          "types": []
+        }
+      ],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:44.161Z"
+}

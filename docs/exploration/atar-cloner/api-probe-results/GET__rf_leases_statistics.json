@@ -1,0 +1,64 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/leases/statistics",
+    "path": "/rf/leases/statistics",
+    "base": "management",
+    "body": null,
+    "description": "Lease statistics",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 524,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:47 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=q2bIU1N6ek6Y6uHNsveqZwIx%2Ftg9kAeLA3Wm0pnmJHJXDK6qoJ1WN2qZS3IRoFgjrz4VkGXmeIOivnLT6RJOEKSbX6IWrD4YFH9LuobPJ7HnFdUR1NURrPlhAP6eZ7BHBIny56sm8zACSp6d\"}]}",
+      "cf-ray": "9ea50b216ebb6534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": {
+        "totalLeases": 0,
+        "newLeases": 0,
+        "activeLeases": 0,
+        "expiredLeases": 0,
+        "terminatedLeases": 0,
+        "percentNewLeases": 0,
+        "percentActiveLeases": 0,
+        "percentExpiredLeases": 0,
+        "percentTerminatedLeases": 0,
+        "activeCommercialLeases": 0,
+        "activeResidentialLeases": 0,
+        "currentMonthCollection": 0,
+        "currentYearCollection": 0,
+        "calculatePaidCollectionForCurrentMonth": 0,
+        "calculatePaidCollectionForCurrentYear": 0
+      },
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:47.190Z"
+}

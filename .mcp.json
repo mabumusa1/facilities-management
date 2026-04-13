@@ -1,11 +1,18 @@
 {
-  "mcpServers": {
-    "playwright-test": {
-      "command": "npx",
-      "args": [
-        "playwright",
-        "run-test-mcp-server"
-      ]
+    "mcpServers": {
+        "playwright-test": {
+            "command": "npx",
+            "args": [
+                "playwright",
+                "run-test-mcp-server"
+            ]
+        },
+        "laravel-boost": {
+            "command": "php",
+            "args": [
+                "artisan",
+                "boost:mcp"
+            ]
+        }
     }
-  }
 }

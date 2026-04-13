@@ -1,0 +1,205 @@
+[
+  {
+    "timestamp": "2026-04-10T22:44:59.296Z",
+    "method": "GET",
+    "endpoint": "/rf/owners/create",
+    "url": "https://api.goatar.com/api-management/rf/owners/create",
+    "body": null,
+    "response": {
+      "status": 500,
+      "data": {
+        "message": "Server Error"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:00.196Z",
+    "method": "POST",
+    "endpoint": "/rf/owners",
+    "url": "https://api.goatar.com/api-management/rf/owners",
+    "body": {
+      "name": "Test Owner",
+      "email": "testowner@example.com",
+      "phone_number": "+966500000001"
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "first_name": [
+            "الحقل الاسم مطلوب."
+          ],
+          "last_name": [
+            "الحقل اسم العائلة مطلوب."
+          ],
+          "phone_country_code": [
+            "الحقل phone country code مطلوب."
+          ],
+          "phone_number": [
+            "يجب أن يحتوي رقم الجوال على حروفٍ وأرقامٍ فقط",
+            "رقم رقم الجوال غير صحيح."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:00.506Z",
+    "method": "POST",
+    "endpoint": "/rf/owners",
+    "url": "https://api.goatar.com/api-management/rf/owners",
+    "body": {
+      "name": "Test Owner",
+      "email": "testowner@example.com",
+      "phone_number": "+966500000001",
+      "phone_country_code": "SA",
+      "national_id": "1234567890",
+      "type": "individual"
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "first_name": [
+            "الحقل الاسم مطلوب."
+          ],
+          "last_name": [
+            "الحقل اسم العائلة مطلوب."
+          ],
+          "national_id": [
+            "قيمة الحقل رقم الهوية مُستخدمة من قبل"
+          ],
+          "phone_number": [
+            "يجب أن يحتوي رقم الجوال على حروفٍ وأرقامٍ فقط"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:00.765Z",
+    "method": "GET",
+    "endpoint": "/api/rf/units",
+    "url": "https://api.goatar.com/api-management/api/rf/units",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:01.224Z",
+    "method": "GET",
+    "endpoint": "/v1/rf/units",
+    "url": "https://api.goatar.com/api-management/v1/rf/units",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:01.678Z",
+    "method": "GET",
+    "endpoint": "/v2/rf/units",
+    "url": "https://api.goatar.com/api-management/v2/rf/units",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:01.928Z",
+    "method": "POST",
+    "endpoint": "/api/units",
+    "url": "https://api.goatar.com/api-management/api/units",
+    "body": {
+      "name": "Alt Path Test",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:02.218Z",
+    "method": "POST",
+    "endpoint": "/units",
+    "url": "https://api.goatar.com/api-management/units",
+    "body": {
+      "name": "Alt Path Test",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:07.829Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "After Wait Test",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:08.977Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Form Test",
+      "rf_community_id": "1",
+      "rf_building_id": "1",
+      "category_id": "2",
+      "type_id": "17"
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  }
+]

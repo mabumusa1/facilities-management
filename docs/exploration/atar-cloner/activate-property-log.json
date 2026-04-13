@@ -1,0 +1,433 @@
+[
+  {
+    "timestamp": "2026-04-10T22:47:16.787Z",
+    "method": "GET",
+    "endpoint": "/rf/communities/1/activate",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/activate",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:17.582Z",
+    "method": "POST",
+    "endpoint": "/rf/communities/1/activate",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/activate",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:17.830Z",
+    "method": "GET",
+    "endpoint": "/rf/communities/1/publish",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/publish",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:18.083Z",
+    "method": "POST",
+    "endpoint": "/rf/communities/1/publish",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/publish",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:18.332Z",
+    "method": "GET",
+    "endpoint": "/rf/communities/1/enable",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/enable",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:18.593Z",
+    "method": "POST",
+    "endpoint": "/rf/communities/1/enable",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/enable",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:18.981Z",
+    "method": "GET",
+    "endpoint": "/rf/buildings/1/activate",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/activate",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:19.224Z",
+    "method": "POST",
+    "endpoint": "/rf/buildings/1/activate",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/activate",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:19.462Z",
+    "method": "GET",
+    "endpoint": "/rf/buildings/1/publish",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/publish",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:19.705Z",
+    "method": "POST",
+    "endpoint": "/rf/buildings/1/publish",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/publish",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:19.956Z",
+    "method": "GET",
+    "endpoint": "/rf/buildings/1/enable",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/enable",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:20.204Z",
+    "method": "POST",
+    "endpoint": "/rf/buildings/1/enable",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/enable",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:20.461Z",
+    "method": "GET",
+    "endpoint": "/rf/communities/1/status",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/status",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:20.694Z",
+    "method": "POST",
+    "endpoint": "/rf/communities/1/status",
+    "url": "https://api.goatar.com/api-management/rf/communities/1/status",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:20.939Z",
+    "method": "GET",
+    "endpoint": "/rf/buildings/1/status",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/status",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:21.175Z",
+    "method": "POST",
+    "endpoint": "/rf/buildings/1/status",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/status",
+    "body": {},
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:21.436Z",
+    "method": "PUT",
+    "endpoint": "/rf/communities/1",
+    "url": "https://api.goatar.com/api-management/rf/communities/1",
+    "body": {
+      "name": "Test Community 1",
+      "description": "A test community for development",
+      "country_id": 1,
+      "currency_id": 1,
+      "city_id": 1,
+      "district_id": 1,
+      "is_active": true,
+      "status": "active",
+      "completion_percent": 100,
+      "is_market_place": "1",
+      "community_marketplace_type": "rent",
+      "is_buy": 1,
+      "allow_cash_sale": 1,
+      "allow_bank_financing": 1
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم تحديث المشروع بنجاح",
+        "data": {
+          "id": 1,
+          "name": "Test Community 1",
+          "description": "A test community for development",
+          "country": {
+            "id": 1,
+            "name": "المملكة العربية السعودية",
+            "code": "SA"
+          },
+          "currency": {
+            "id": 1,
+            "name": "ريال سعودي",
+            "code": "SAR"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "amenities": [],
+          "map": null,
+          "images": [],
+          "documents": [],
+          "buildings_count": 4,
+          "units_count": 0,
+          "requests_count": 0,
+          "total_income": 0,
+          "sales_commission_rate": "0.00",
+          "rental_commission_rate": "0.00",
+          "product_code": null,
+          "license_number": null,
+          "license_issue_date": null,
+          "license_expiry_date": null,
+          "record_payments": [],
+          "additional_payments": [],
+          "completion_percent": 0,
+          "allow_cash_sale": 0,
+          "allow_bank_financing": 0,
+          "listed_percentage": 0,
+          "is_market_place": "0",
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "is_off_plan_sale": "0"
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:21.770Z",
+    "method": "PUT",
+    "endpoint": "/rf/buildings/1",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1",
+    "body": {
+      "name": "Test Building 1",
+      "rf_community_id": 1,
+      "description": "A test building",
+      "no_floors": 10,
+      "year_build": 2020,
+      "is_active": true,
+      "status": "active"
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم تحديث المبنى بنجاح",
+        "data": {
+          "id": 1,
+          "name": "Test Building 1",
+          "community": {
+            "id": 1,
+            "name": "Test Community 1",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": 0,
+            "units_count": 0,
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": null,
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "no_floors": "10",
+          "year_build": "2020",
+          "map": null,
+          "images": [],
+          "documents": [],
+          "units": 0
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:22.093Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Apartment Final",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "owner_id": 3
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:22.381Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Apartment 101",
+      "unit_number": "APT-101",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:47:22.661Z",
+    "method": "POST",
+    "endpoint": "/rf/units/store",
+    "url": "https://api.goatar.com/api-management/rf/units/store",
+    "body": {
+      "name": "Test Store Unit",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 405,
+      "data": {
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT, PATCH."
+      }
+    }
+  }
+]

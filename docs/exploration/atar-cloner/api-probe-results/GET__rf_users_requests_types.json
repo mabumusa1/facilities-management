@@ -1,0 +1,507 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/users/requests/types",
+    "path": "/rf/users/requests/types",
+    "base": "management",
+    "body": null,
+    "description": "Request types",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 502,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:54 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=47vRu1YavEsfl%2Fr5EGtx2fst%2BUsJgncw9yUDJwIcqn%2BBMtqUduQULMv2nwAtCnW5JBjcdSbMk76pnQyU0fGjargWDrNVc6w8yLyEwVHY6GN57mXxgHzAn3A51xJaS%2FuQAcckmdkckJe7BagW\"}]}",
+      "cf-ray": "9ea50b4d1ffb6534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": {
+        "list": [
+          {
+            "id": 1,
+            "name_ar": "السباكة",
+            "name_en": "Plumbing",
+            "name": "السباكة",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 2,
+            "name_ar": "الكهرباء",
+            "name_en": "Electrical",
+            "name": "الكهرباء",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 3,
+            "name_ar": "التكيف",
+            "name_en": "Air Conditioning",
+            "name": "التكيف",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 4,
+            "name_ar": "النجارة",
+            "name_en": "Carpentary",
+            "name": "النجارة",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 5,
+            "name_ar": "الدهانات",
+            "name_en": "Painting",
+            "name": "الدهانات",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 6,
+            "name_ar": "اخرى",
+            "name_en": "Other",
+            "name": "اخرى",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 7,
+            "name_ar": "تنظيف",
+            "name_en": "Regular Cleaning",
+            "name": "تنظيف",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 8,
+            "name_ar": "تنظيف عميق",
+            "name_en": "Deep Cleaning",
+            "name": "تنظيف عميق",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 9,
+            "name_ar": "اخرى",
+            "name_en": "Other",
+            "name": "اخرى",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 10,
+            "name_ar": "الداخلية فقط",
+            "name_en": "Interior Only",
+            "name": "الداخلية فقط",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 11,
+            "name_ar": "الخارجية فقط",
+            "name_en": "Exterior Only",
+            "name": "الخارجية فقط",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 12,
+            "name_ar": "الداخلية والخارجية فقط",
+            "name_en": "Interior And Exterior Only",
+            "name": "الداخلية والخارجية فقط",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 13,
+            "name_ar": "اخرى",
+            "name_en": "Other",
+            "name": "اخرى",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 14,
+            "name_ar": "ثلاجة",
+            "name_en": "Refrigerator",
+            "name": "ثلاجة",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 15,
+            "name_ar": "ثلاجة",
+            "name_en": "Freezer",
+            "name": "ثلاجة",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 16,
+            "name_ar": "المكواة",
+            "name_en": "Iron",
+            "name": "المكواة",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 17,
+            "name_ar": "مكنسة كهربائية",
+            "name_en": "VacuumCleaner",
+            "name": "مكنسة كهربائية",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 18,
+            "name_ar": "تلفاز",
+            "name_en": "TV",
+            "name": "تلفاز",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 19,
+            "name_ar": "سطح الفرن",
+            "name_en": "Stove",
+            "name": "سطح الفرن",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 20,
+            "name_ar": "فرن",
+            "name_en": "Oven",
+            "name": "فرن",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 21,
+            "name_ar": "فرن المايكرويف",
+            "name_en": "MicrowaveOven",
+            "name": "فرن المايكرويف",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 22,
+            "name_ar": "غسالة",
+            "name_en": "WashingMachine",
+            "name": "غسالة",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 23,
+            "name_ar": "مجفف",
+            "name_en": "Dryer",
+            "name": "مجفف",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 24,
+            "name_ar": "غسالة الاواني",
+            "name_en": "Dishwasher",
+            "name": "غسالة الاواني",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          },
+          {
+            "id": 25,
+            "name_ar": "ألة القهوة",
+            "name_en": "CoffeeMaker",
+            "name": "ألة القهوة",
+            "fee_type": "free",
+            "price": null,
+            "fee_from": null,
+            "fee_to": null,
+            "status": "1",
+            "icon_url": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "description": null
+          }
+        ],
+        "paginator": {
+          "current_page": 1,
+          "last_page": 5,
+          "total": 111,
+          "per_page": 25
+        }
+      },
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:54.144Z"
+}

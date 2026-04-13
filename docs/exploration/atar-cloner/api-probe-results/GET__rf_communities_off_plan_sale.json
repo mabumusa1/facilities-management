@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities/off-plan-sale",
+    "path": "/rf/communities/off-plan-sale",
+    "base": "management",
+    "body": null,
+    "description": "Off-plan sales",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 500,
+    "success": false,
+    "duration": 326,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:58 GMT",
+      "content-type": "application/json",
+      "content-length": "33",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-cloud-trace-context": "d385591c5108161abaf2da0a85de7312",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pphW0fLof7GUAOND2CqVbLF6QrYpjTnw%2FTt5lwdJuh51XVA8QaBZl7YdaCzNu2m%2BQLJz78HSLdgtgIhs%2B9ZNELSX3okc8mwNfr2%2FgPE19iav2H9EOofXMFZbnDDJuOVZ3PTNeacc%2FDwC8fYc\"}]}",
+      "cf-ray": "9ea50b6a4d9c6534-LHR"
+    },
+    "body": {
+      "message": "Server Error"
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:58.656Z"
+}

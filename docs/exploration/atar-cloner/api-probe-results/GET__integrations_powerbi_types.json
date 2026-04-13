@@ -1,0 +1,79 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/integrations/powerbi/types",
+    "path": "/integrations/powerbi/types",
+    "base": "management",
+    "body": null,
+    "description": "Power BI types",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 317,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:12 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=kyidJpW2twbuNCPx9WEETDFEAw4xxopqFZc9cFh1vPqrXxQNF1ExM1qfVuy%2FOwMD6O5l5R62eP7BKNR3lPXcnok9ALApLIH5igRxV7y6pWHaGmrbe6l2QzuPt%2FoEg%2FUySL8foyBAWKmpITYk\"}]}",
+      "cf-ray": "9ea50bc01f896534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": [
+        {
+          "id": 5,
+          "title": "التقارير المالية",
+          "comming_soon": "1",
+          "is_active": "1"
+        },
+        {
+          "id": 2,
+          "title": "تقارير التأجير",
+          "comming_soon": "1",
+          "is_active": "1"
+        },
+        {
+          "id": 4,
+          "title": "تقارير العقارات",
+          "comming_soon": "1",
+          "is_active": "1"
+        },
+        {
+          "id": 3,
+          "title": "تقارير المبيعات",
+          "comming_soon": "1",
+          "is_active": "1"
+        },
+        {
+          "id": 1,
+          "title": "تقارير الطلبات",
+          "comming_soon": "1",
+          "is_active": "1"
+        }
+      ],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:12.381Z"
+}

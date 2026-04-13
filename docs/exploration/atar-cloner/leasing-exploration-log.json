@@ -1,0 +1,1721 @@
+[
+  {
+    "timestamp": "2026-04-10T23:20:33.783Z",
+    "method": "GET",
+    "endpoint": "/rf/leases",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:34.327Z",
+    "method": "GET",
+    "endpoint": "/rf/leases/create",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم استرجاع البيانات بنجاح",
+        "data": {
+          "specifications": {
+            "fit_out_status": [
+              {
+                "id": 1,
+                "name": "عظم",
+                "type": "fit_out_status",
+                "name_ar": "عظم",
+                "name_en": "Shell & Core",
+                "parent_id": null
+              },
+              {
+                "id": 2,
+                "name": "مكتمل",
+                "type": "fit_out_status",
+                "name_ar": "مكتمل",
+                "name_en": "Fitted-out",
+                "parent_id": null
+              },
+              {
+                "id": 3,
+                "name": "لا يطبق",
+                "type": "fit_out_status",
+                "name_ar": "لا يطبق",
+                "name_en": "Not Applicable",
+                "parent_id": null
+              }
+            ],
+            "payment_schedule": [
+              {
+                "id": 4,
+                "name": "شهري",
+                "type": "payment_schedule",
+                "name_ar": "شهري",
+                "name_en": "Monthly",
+                "parent_id": "13"
+              },
+              {
+                "id": 5,
+                "name": "ربع سنوي",
+                "type": "payment_schedule",
+                "name_ar": "ربع سنوي",
+                "name_en": "Quarterly",
+                "parent_id": "13"
+              },
+              {
+                "id": 6,
+                "name": "نصف سنوي",
+                "type": "payment_schedule",
+                "name_ar": "نصف سنوي",
+                "name_en": "Semi-Annual",
+                "parent_id": "13"
+              },
+              {
+                "id": 7,
+                "name": "سنوي",
+                "type": "payment_schedule",
+                "name_ar": "سنوي",
+                "name_en": "Annual",
+                "parent_id": "13"
+              },
+              {
+                "id": 16,
+                "name": "دفع شهري",
+                "type": "payment_schedule",
+                "name_ar": "دفع شهري",
+                "name_en": "Monthly Payment",
+                "parent_id": "14"
+              },
+              {
+                "id": 17,
+                "name": "دفع مقدم",
+                "type": "payment_schedule",
+                "name_ar": "دفع مقدم",
+                "name_en": "Upfront Payment",
+                "parent_id": "14"
+              },
+              {
+                "id": 18,
+                "name": "دفع مقدم",
+                "type": "payment_schedule",
+                "name_ar": "دفع مقدم",
+                "name_en": "Upfront Payment",
+                "parent_id": "15"
+              }
+            ],
+            "calculation_basis": [
+              {
+                "id": 8,
+                "name": "مبلغ سنوي ثابت",
+                "type": "calculation_basis",
+                "name_ar": "مبلغ سنوي ثابت",
+                "name_en": "Fixed Yearly Amount",
+                "parent_id": null
+              },
+              {
+                "id": 9,
+                "name": "نسبة من الإيجار السنوي",
+                "type": "calculation_basis",
+                "name_ar": "نسبة من الإيجار السنوي",
+                "name_en": "Percentage of Annual Rent",
+                "parent_id": null
+              }
+            ],
+            "payment_frequency": [
+              {
+                "id": 10,
+                "name": "يدفع سنويا كدفعة واحدة",
+                "type": "payment_frequency",
+                "name_ar": "يدفع سنويا كدفعة واحدة",
+                "name_en": "Paid annually as one payment",
+                "parent_id": null
+              },
+              {
+                "id": 11,
+                "name": "يدفع مع دفعات الإيجار",
+                "type": "payment_frequency",
+                "name_ar": "يدفع مع دفعات الإيجار",
+                "name_en": "Paid with rental payments",
+                "parent_id": null
+              }
+            ],
+            "rental_contract_type": [
+              {
+                "id": 13,
+                "name": "ايجار سنوي",
+                "type": "rental_contract_type",
+                "name_ar": "ايجار سنوي",
+                "name_en": "Yearly Rental",
+                "parent_id": null,
+                "options": [
+                  {
+                    "id": 4,
+                    "name": "شهري",
+                    "type": "payment_schedule",
+                    "name_ar": "شهري",
+                    "name_en": "Monthly",
+                    "parent_id": "13"
+                  },
+                  {
+                    "id": 5,
+                    "name": "ربع سنوي",
+                    "type": "payment_schedule",
+                    "name_ar": "ربع سنوي",
+                    "name_en": "Quarterly",
+                    "parent_id": "13"
+                  },
+                  {
+                    "id": 6,
+                    "name": "نصف سنوي",
+                    "type": "payment_schedule",
+                    "name_ar": "نصف سنوي",
+                    "name_en": "Semi-Annual",
+                    "parent_id": "13"
+                  },
+                  {
+                    "id": 7,
+                    "name": "سنوي",
+                    "type": "payment_schedule",
+                    "name_ar": "سنوي",
+                    "name_en": "Annual",
+                    "parent_id": "13"
+                  }
+                ]
+              },
+              {
+                "id": 14,
+                "name": "ايجار شهري",
+                "type": "rental_contract_type",
+                "name_ar": "ايجار شهري",
+                "name_en": "Monthly Rental",
+                "parent_id": null,
+                "options": [
+                  {
+                    "id": 16,
+                    "name": "دفع شهري",
+                    "type": "payment_schedule",
+                    "name_ar": "دفع شهري",
+                    "name_en": "Monthly Payment",
+                    "parent_id": "14"
+                  },
+                  {
+                    "id": 17,
+                    "name": "دفع مقدم",
+                    "type": "payment_schedule",
+                    "name_ar": "دفع مقدم",
+                    "name_en": "Upfront Payment",
+                    "parent_id": "14"
+                  }
+                ]
+              },
+              {
+                "id": 15,
+                "name": "ايجار يومي",
+                "type": "rental_contract_type",
+                "name_ar": "ايجار يومي",
+                "name_en": "Daily Rental",
+                "parent_id": null,
+                "options": [
+                  {
+                    "id": 18,
+                    "name": "دفع مقدم",
+                    "type": "payment_schedule",
+                    "name_ar": "دفع مقدم",
+                    "name_en": "Upfront Payment",
+                    "parent_id": "15"
+                  }
+                ]
+              }
+            ]
+          },
+          "status": [
+            {
+              "id": 30,
+              "name": "عقد جديد",
+              "created_at": null,
+              "priority": "1"
+            },
+            {
+              "id": 31,
+              "name": " عقد ساري",
+              "created_at": null,
+              "priority": "1"
+            },
+            {
+              "id": 32,
+              "name": "عقد منتهي",
+              "created_at": null,
+              "priority": "1"
+            },
+            {
+              "id": 33,
+              "name": "عقد ملغي",
+              "created_at": null,
+              "priority": "1"
+            },
+            {
+              "id": 34,
+              "name": "عقد مغلق",
+              "created_at": null,
+              "priority": "1"
+            }
+          ]
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:34.601Z",
+    "method": "GET",
+    "endpoint": "/rf/leases/statistics",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "totalLeases": 0,
+          "newLeases": 0,
+          "activeLeases": 0,
+          "expiredLeases": 0,
+          "terminatedLeases": 0,
+          "percentNewLeases": 0,
+          "percentActiveLeases": 0,
+          "percentExpiredLeases": 0,
+          "percentTerminatedLeases": 0,
+          "activeCommercialLeases": 0,
+          "activeResidentialLeases": 0,
+          "currentMonthCollection": 0,
+          "currentYearCollection": 0,
+          "calculatePaidCollectionForCurrentMonth": 0,
+          "calculatePaidCollectionForCurrentYear": 0
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:34.885Z",
+    "method": "GET",
+    "endpoint": "/rf/sub-leases",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:35.161Z",
+    "method": "GET",
+    "endpoint": "/rf/leads",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 3,
+            "name": "Mohammed Al-Saud",
+            "phone_number": "+966500000002",
+            "email": "owner1@example.com",
+            "created_at": "2026-04-10T22:45:51.000000Z",
+            "updated_at": "2026-04-10T22:45:51.000000Z",
+            "lead_last_contact_at": null,
+            "interested": null,
+            "role": "مالك",
+            "status": {
+              "id": null,
+              "value": null
+            },
+            "source": {
+              "id": null,
+              "value": null
+            },
+            "priority": {
+              "id": null,
+              "value": null
+            },
+            "lead_owner": null
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:35.508Z",
+    "method": "GET",
+    "endpoint": "/rf/leads/create",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "statuses": [
+            {
+              "id": 1,
+              "name": "جديد"
+            },
+            {
+              "id": 2,
+              "name": "تم التواصل"
+            },
+            {
+              "id": 3,
+              "name": "لا يوجد رد"
+            },
+            {
+              "id": 4,
+              "name": "قيد المتابعة"
+            },
+            {
+              "id": 5,
+              "name": "مهتم"
+            },
+            {
+              "id": 6,
+              "name": "غير مهتم"
+            },
+            {
+              "id": 7,
+              "name": "اهتمام مستقبلي"
+            }
+          ],
+          "sources": [
+            {
+              "id": 1,
+              "name": "الماركت بليس"
+            },
+            {
+              "id": 2,
+              "name": "إدخال يدوي"
+            },
+            {
+              "id": 3,
+              "name": "لينكدإن"
+            },
+            {
+              "id": 4,
+              "name": "فيسبوك"
+            },
+            {
+              "id": 5,
+              "name": "إنستغرام"
+            },
+            {
+              "id": 6,
+              "name": "X"
+            },
+            {
+              "id": 7,
+              "name": "تيك توك"
+            },
+            {
+              "id": 8,
+              "name": "سناب شات"
+            },
+            {
+              "id": 9,
+              "name": "واتساب"
+            },
+            {
+              "id": 10,
+              "name": "تيليجرام"
+            },
+            {
+              "id": 11,
+              "name": "أخرى"
+            }
+          ],
+          "priorities": [
+            {
+              "id": 1,
+              "name": "عالية"
+            },
+            {
+              "id": 2,
+              "name": "متوسطة"
+            },
+            {
+              "id": 3,
+              "name": "منخفضة"
+            }
+          ]
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:35.916Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/visits",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:36.307Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/settings/visits",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "id": 1,
+          "days": [
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "start_time": null,
+          "end_time": null,
+          "is_all_day": "1",
+          "created_at": "2026-04-10 04:09"
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:36.735Z",
+    "method": "GET",
+    "endpoint": "/rf/tenants",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:37.036Z",
+    "method": "GET",
+    "endpoint": "/rf/contacts/statistics",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم استرجاع البيانات بنجاح",
+        "data": {
+          "user_count": 0,
+          "individual_tenants_count": 0,
+          "company_tenants_count": 0
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:37.549Z",
+    "method": "GET",
+    "endpoint": "/rf/transactions/",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:37.967Z",
+    "method": "GET",
+    "endpoint": "/rf/users/requests",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:38.340Z",
+    "method": "GET",
+    "endpoint": "/rf/users/requests/types",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": {
+          "list": [
+            {
+              "id": 1,
+              "name_ar": "السباكة",
+              "name_en": "Plumbing",
+              "name": "السباكة",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 2,
+              "name_ar": "الكهرباء",
+              "name_en": "Electrical",
+              "name": "الكهرباء",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 3,
+              "name_ar": "التكيف",
+              "name_en": "Air Conditioning",
+              "name": "التكيف",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 4,
+              "name_ar": "النجارة",
+              "name_en": "Carpentary",
+              "name": "النجارة",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 5,
+              "name_ar": "الدهانات",
+              "name_en": "Painting",
+              "name": "الدهانات",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 6,
+              "name_ar": "اخرى",
+              "name_en": "Other",
+              "name": "اخرى",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 7,
+              "name_ar": "تنظيف",
+              "name_en": "Regular Cleaning",
+              "name": "تنظيف",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 8,
+              "name_ar": "تنظيف عميق",
+              "name_en": "Deep Cleaning",
+              "name": "تنظيف عميق",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 9,
+              "name_ar": "اخرى",
+              "name_en": "Other",
+              "name": "اخرى",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 10,
+              "name_ar": "الداخلية فقط",
+              "name_en": "Interior Only",
+              "name": "الداخلية فقط",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 11,
+              "name_ar": "الخارجية فقط",
+              "name_en": "Exterior Only",
+              "name": "الخارجية فقط",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 12,
+              "name_ar": "الداخلية والخارجية فقط",
+              "name_en": "Interior And Exterior Only",
+              "name": "الداخلية والخارجية فقط",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 13,
+              "name_ar": "اخرى",
+              "name_en": "Other",
+              "name": "اخرى",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 14,
+              "name_ar": "ثلاجة",
+              "name_en": "Refrigerator",
+              "name": "ثلاجة",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 15,
+              "name_ar": "ثلاجة",
+              "name_en": "Freezer",
+              "name": "ثلاجة",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 16,
+              "name_ar": "المكواة",
+              "name_en": "Iron",
+              "name": "المكواة",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 17,
+              "name_ar": "مكنسة كهربائية",
+              "name_en": "VacuumCleaner",
+              "name": "مكنسة كهربائية",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 18,
+              "name_ar": "تلفاز",
+              "name_en": "TV",
+              "name": "تلفاز",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 19,
+              "name_ar": "سطح الفرن",
+              "name_en": "Stove",
+              "name": "سطح الفرن",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 20,
+              "name_ar": "فرن",
+              "name_en": "Oven",
+              "name": "فرن",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 21,
+              "name_ar": "فرن المايكرويف",
+              "name_en": "MicrowaveOven",
+              "name": "فرن المايكرويف",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 22,
+              "name_ar": "غسالة",
+              "name_en": "WashingMachine",
+              "name": "غسالة",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 23,
+              "name_ar": "مجفف",
+              "name_en": "Dryer",
+              "name": "مجفف",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 24,
+              "name_ar": "غسالة الاواني",
+              "name_en": "Dishwasher",
+              "name": "غسالة الاواني",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            },
+            {
+              "id": 25,
+              "name_ar": "ألة القهوة",
+              "name_en": "CoffeeMaker",
+              "name": "ألة القهوة",
+              "fee_type": "free",
+              "price": null,
+              "fee_from": null,
+              "fee_to": null,
+              "status": "1",
+              "icon_url": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "description": null
+            }
+          ],
+          "paginator": {
+            "current_page": 1,
+            "last_page": 5,
+            "total": 111,
+            "per_page": 25
+          }
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:38.757Z",
+    "method": "GET",
+    "endpoint": "/rf/requests/categories",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 1,
+            "name": "خدمات الوحدات",
+            "description": "للخدمات الخاصة بالوحدات",
+            "status": "1",
+            "has_sub_categories": "1",
+            "sub_categories": [
+              {
+                "id": 1,
+                "name": "صيانة",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 2,
+                "name": "تنظيف المنزل",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 3,
+                "name": "غسيل السيارات",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 4,
+                "name": "الأجهزة الكهربائية",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 5,
+                "name": "إصلاح الأثاث",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 6,
+                "name": "خدمات أخرى",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              }
+            ],
+            "serviceSettings": {
+              "visibilities": {
+                "hide_resident_number": false,
+                "hide_resident_name": false,
+                "hide_professional_number_and_name": false,
+                "show_unified_number_only": false
+              },
+              "permissions": {
+                "manager_close_Request": false,
+                "not_require_professional_enter_request_code": false,
+                "not_require_professional_upload_request_photo": false,
+                "attachments_required": false,
+                "allow_professional_reschedule": false
+              },
+              "submit_request_before_type": null,
+              "submit_request_before_value": null,
+              "capacity_type": null,
+              "capacity_value": null
+            },
+            "icon": {
+              "id": "1",
+              "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/1.png",
+              "name": "1.png",
+              "notes": "predefined"
+            }
+          },
+          {
+            "id": 2,
+            "name": "طلبات المناطق المشتركة",
+            "description": "للخدمات الخاصة بالمناطق المشتركة",
+            "status": "1",
+            "has_sub_categories": "1",
+            "sub_categories": [
+              {
+                "id": 7,
+                "name": "الأمن و السلامة",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 8,
+                "name": "مشاكل الوحدات",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 9,
+                "name": "مشاكل السكان",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 10,
+                "name": "مشاكل الخدمات",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              },
+              {
+                "id": 11,
+                "name": "مشاكل اخرى",
+                "icon": {
+                  "id": 6,
+                  "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                  "name": "6",
+                  "notes": "predefined"
+                },
+                "status": "1"
+              }
+            ],
+            "serviceSettings": {
+              "visibilities": {
+                "hide_resident_number": false,
+                "hide_resident_name": false,
+                "hide_professional_number_and_name": false,
+                "show_unified_number_only": false
+              },
+              "permissions": {
+                "manager_close_Request": false,
+                "not_require_professional_enter_request_code": false,
+                "not_require_professional_upload_request_photo": false,
+                "attachments_required": false,
+                "allow_professional_reschedule": false
+              },
+              "submit_request_before_type": null,
+              "submit_request_before_value": null,
+              "capacity_type": null,
+              "capacity_value": null
+            },
+            "icon": {
+              "id": "2",
+              "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/2.png",
+              "name": "2.png",
+              "notes": "predefined"
+            }
+          },
+          {
+            "id": 3,
+            "name": "طلبات تصاريح الزوار",
+            "description": "لطلبات تصاريح دخول الزوار",
+            "status": "1",
+            "has_sub_categories": "0",
+            "sub_categories": [],
+            "serviceSettings": {
+              "visibilities": {
+                "hide_resident_number": false,
+                "hide_resident_name": false,
+                "hide_professional_number_and_name": false,
+                "show_unified_number_only": false
+              },
+              "permissions": {
+                "manager_close_Request": false,
+                "not_require_professional_enter_request_code": false,
+                "not_require_professional_upload_request_photo": false,
+                "attachments_required": false,
+                "allow_professional_reschedule": false
+              },
+              "submit_request_before_type": null,
+              "submit_request_before_value": null,
+              "capacity_type": null,
+              "capacity_value": null
+            },
+            "icon": {
+              "id": "3",
+              "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/3.png",
+              "name": "3.png",
+              "notes": "predefined"
+            }
+          },
+          {
+            "id": 4,
+            "name": "طلبات المدير",
+            "description": "للتواصل مع مدير المجمع السكني ﻷي أمر في محيطك",
+            "status": "0",
+            "has_sub_categories": "0",
+            "sub_categories": [],
+            "serviceSettings": {
+              "visibilities": {
+                "hide_resident_number": false,
+                "hide_resident_name": false,
+                "hide_professional_number_and_name": false,
+                "show_unified_number_only": false
+              },
+              "permissions": {
+                "manager_close_Request": false,
+                "not_require_professional_enter_request_code": false,
+                "not_require_professional_upload_request_photo": false,
+                "attachments_required": false,
+                "allow_professional_reschedule": false
+              },
+              "submit_request_before_type": null,
+              "submit_request_before_value": null,
+              "capacity_type": null,
+              "capacity_value": null
+            },
+            "icon": {
+              "id": "4",
+              "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/4.png",
+              "name": "4.png",
+              "notes": "predefined"
+            }
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:20:39.084Z",
+    "method": "GET",
+    "endpoint": "/rf/statuses",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 1,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 11,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 12,
+            "name": "في الانتظار",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 13,
+            "name": "موافق عليه",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 14,
+            "name": "مرفوض",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 15,
+            "name": "ألغي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 16,
+            "name": "تم تسجيل الدخول",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 17,
+            "name": "تم تسجيل الخروج",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 19,
+            "name": "في انتظار الموافقة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 20,
+            "name": "تم الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 21,
+            "name": "تم رفض الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 22,
+            "name": "تم الألغاء",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 23,
+            "name": "مباعة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 24,
+            "name": "\tمباعة و مؤجرة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 26,
+            "name": "متاحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 27,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 28,
+            "name": "تم الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 29,
+            "name": "تم الألغاء",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 30,
+            "name": "عقد جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 31,
+            "name": " عقد ساري",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 32,
+            "name": "عقد منتهي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 33,
+            "name": "عقد ملغي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 34,
+            "name": "عقد مغلق",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 35,
+            "name": "مجدول",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 36,
+            "name": "مكتمل",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 37,
+            "name": "ملغى",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 38,
+            "name": "مرفوض",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 39,
+            "name": "تم انشاء الحجز الأولي",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 40,
+            "name": "تمت الموافقة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 41,
+            "name": "الغاء قبل العربون",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 42,
+            "name": "تم رفض الحجز",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 43,
+            "name": "الغاء بعد العربون",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 44,
+            "name": "تم دفع العربون",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 45,
+            "name": "تم إرسال العقد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 46,
+            "name": "اكتمل الدفع",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 47,
+            "name": "تم توقيع العقد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 48,
+            "name": "تم نقل الملكية",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 49,
+            "name": "تم الغاء العقد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 52,
+            "name": "جديد",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 62,
+            "name": "مراجعة البيانات المالية",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 63,
+            "name": "جدول دفع الوحدة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 64,
+            "name": "دفع عمولة ضريبة القيمة المضافة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 65,
+            "name": "في انتظار الارسال",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 66,
+            "name": "تم الدفع",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 67,
+            "name": "تم الارسال",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 68,
+            "name": "في الانتظار",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 69,
+            "name": "تم اكتمال",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 2,
+            "name": "تم التعيين",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 53,
+            "name": "تمت الموافقة",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 6,
+            "name": "تم قبول الطلب",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 54,
+            "name": "مرفوض",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 55,
+            "name": "تم إرسال عرض السعر",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 56,
+            "name": "تم الرفض من العميل",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 57,
+            "name": "تم القبول من العميل",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 58,
+            "name": "تم الإلغاء من المسؤول",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 10,
+            "name": "تم رفض الطلب",
+            "created_at": null,
+            "priority": "4"
+          },
+          {
+            "id": 5,
+            "name": "جاري العمل",
+            "created_at": null,
+            "priority": "5"
+          },
+          {
+            "id": 7,
+            "name": "تم انشاء الفاتوره",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 25,
+            "name": "مؤجرة",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 8,
+            "name": "تم قبول الفاتوره",
+            "created_at": null,
+            "priority": "7"
+          },
+          {
+            "id": 9,
+            "name": "تم رفض الفاتوره",
+            "created_at": null,
+            "priority": "8"
+          },
+          {
+            "id": 3,
+            "name": "تم الحل",
+            "created_at": null,
+            "priority": "9"
+          },
+          {
+            "id": 4,
+            "name": "تم الألغاء",
+            "created_at": null,
+            "priority": "10"
+          },
+          {
+            "id": 50,
+            "name": "اعادة جدولة",
+            "created_at": null,
+            "priority": "11"
+          }
+        ],
+        "meta": []
+      }
+    }
+  }
+]

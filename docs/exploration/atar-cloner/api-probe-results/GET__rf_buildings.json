@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/buildings",
+    "path": "/rf/buildings",
+    "base": "management",
+    "body": null,
+    "description": "List buildings",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 412,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:56 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0iuIYv9gL4L8ZOk%2BdWItkZHMpjPKog0cYx3RqPJGct6PGEMJC13mTkTDAiLs4H6EN3h3xK%2FhDD1Qwrhm3sjHO9nPLoTVptoxYp1%2BXyA8DWmtNHPP2qM%2BNX5g5I094hvAMElDO08wttrFWnP3\"}]}",
+      "cf-ray": "9ea50b5dacef6534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "تم استرجاع المباني بنجاح",
+      "data": [],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:56.721Z"
+}

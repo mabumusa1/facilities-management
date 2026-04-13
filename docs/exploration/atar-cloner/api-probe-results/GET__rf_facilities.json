@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/facilities",
+    "path": "/rf/facilities",
+    "base": "management",
+    "body": null,
+    "description": "List facilities",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 607,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:57 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=FeVQIkxPIWh1OkbUldzjELKTfPCMguXnJGGBfBcfxr9Ynp%2FAj14M5bMgBj%2Fnbtf%2BdkTbwHfyc9nPWwfmR1D1rXPxvubClbyl%2F9tniSVuM04oRkJY06oQEHPLcXO6Ax%2BxBQh20RAPNzKqDWZP\"}]}",
+      "cf-ray": "9ea50b6358e76534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": [],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:57.829Z"
+}

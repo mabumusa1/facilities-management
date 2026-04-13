@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/contacts/statistics",
+    "path": "/rf/contacts/statistics",
+    "base": "management",
+    "body": null,
+    "description": "Contact statistics",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 514,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:50 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IK2FJ2q7%2Fag7g0s3pNQM28fvPhNGCA2FpFZtACdcaqO9zKjC1k2BfTmbkFv2i%2BIBoRcsjlWIyOkrwl9bcvCwVOG%2Bt8clG%2F1m8L4dGzxMlEqOAqtTgzQHm8UMGry3JGUMuHXOj18%2BljLcr2Fl\"}]}",
+      "cf-ray": "9ea50b347e3e6534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "تم استرجاع البيانات بنجاح",
+      "data": {
+        "user_count": 0,
+        "individual_tenants_count": 0,
+        "company_tenants_count": 0
+      },
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:50.220Z"
+}

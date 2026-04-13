@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/rf/requests/change-status/canceled",
+    "path": "/rf/requests/change-status/canceled",
+    "base": "management",
+    "body": {},
+    "description": "Cancel request validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 542,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:21 GMT",
+      "content-type": "application/json",
+      "content-length": "149",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "8bee70cf221c52adb331576e81a938c2",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pF%2FAzH7m3IXQyAAVcifjSTekpNDEajO1LEU55pJK8o173n3kKGn6D5xGMRmBG6IgY9NjfpjCHgipYUCwALWW0lqcOq3%2BDWfyfJ5R1P1%2Flx2wie5FDaNrz%2BDJMrSS7fztqXCtzC0Gf6PnoUPF\"}]}",
+      "cf-ray": "9ea50bf6ff176534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "rf_request_id": [
+          "الحقل rf request id مطلوب."
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:21.389Z"
+}

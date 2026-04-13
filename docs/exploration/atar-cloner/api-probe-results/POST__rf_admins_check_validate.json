@@ -1,0 +1,57 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/rf/admins/check-validate",
+    "path": "/rf/admins/check-validate",
+    "base": "management",
+    "body": {},
+    "description": "Admin validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 327,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:16 GMT",
+      "content-type": "application/json",
+      "content-length": "549",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "436c95567b106c1dbb81a6ab27b0d892",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jhT9C3Ifwz3YCKbmMNMtQfhbnNjtY1xbDvMpqOq2jfLVnhaWniecoJy4YgJ89OhwgB4kNTzj2PIpQfFqbMQUnE8So7p6IqKV3qwI3YtlO%2FKUQZ7wkXH46CeMFMWMs3ppiELAZRz8rY7NVrwg\"}]}",
+      "cf-ray": "9ea50bdbca766534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "first_name": [
+          "الحقل الاسم مطلوب."
+        ],
+        "last_name": [
+          "الحقل اسم العائلة مطلوب."
+        ],
+        "phone_country_code": [
+          "الحقل phone country code مطلوب."
+        ],
+        "phone_number": [
+          "الحقل رقم الجوال مطلوب."
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:16.807Z"
+}

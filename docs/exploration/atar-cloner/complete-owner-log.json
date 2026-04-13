@@ -1,0 +1,101 @@
+[
+  {
+    "timestamp": "2026-04-10T22:45:51.061Z",
+    "method": "POST",
+    "endpoint": "/rf/owners",
+    "url": "https://api.goatar.com/api-management/rf/owners",
+    "body": {
+      "first_name": "Mohammed",
+      "last_name": "Al-Saud",
+      "phone_country_code": "SA",
+      "phone_number": "500000002",
+      "email": "owner1@example.com",
+      "national_id": "1122334455"
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": {
+          "id": 3,
+          "name": "Mohammed Al-Saud",
+          "image": null,
+          "phone_number": "+966500000002",
+          "created_at": "2026-04-10T22:45:51.000000Z",
+          "units": []
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:51.905Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Apartment With Owner",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "owner_id": 3
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:52.282Z",
+    "method": "GET",
+    "endpoint": "/rf/owners",
+    "url": "https://api.goatar.com/api-management/rf/owners",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 3,
+            "name": "Mohammed Al-Saud",
+            "image": null,
+            "phone_number": "+966500000002",
+            "created_at": "2026-04-10T22:45:51.000000Z",
+            "units": []
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:45:52.552Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Apartment RF Owner",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "rf_owner_id": 3
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  }
+]

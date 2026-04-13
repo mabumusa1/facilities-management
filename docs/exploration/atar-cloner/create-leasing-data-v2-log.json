@@ -1,0 +1,3189 @@
+[
+  {
+    "timestamp": "2026-04-10T23:32:52.242Z",
+    "method": "POST",
+    "endpoint": "/rf/tenants",
+    "body": {
+      "name": "Khalid Test",
+      "first_name": "Khalid",
+      "last_name": "Test",
+      "email": "khalid.test@example.com",
+      "phone_number": "512345678",
+      "phone_country_code": "SA",
+      "type": "individual",
+      "national_id": "2233445566"
+    },
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": {
+          "id": 4,
+          "name": "Khalid Test",
+          "image": null,
+          "phone_number": "+966512345678",
+          "invited": null,
+          "created_at": "2026-04-10T23:32:52.000000Z",
+          "units": [],
+          "accepted_invite": 0
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:52.889Z",
+    "method": "GET",
+    "endpoint": "/rf/common-lists",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 1,
+            "name": "معلومات الطلب غير صحيحة",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 2,
+            "name": "تم إلغاءه بناءً على طلب الساكن",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 3,
+            "name": "الساكن غير متوفر",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 4,
+            "name": "خارج نطاق الضمان",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 5,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 6,
+            "name": "ليس ضمن نطاق خدمتي",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 7,
+            "name": "لست متاح",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 8,
+            "name": "طلب مكرر",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 9,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 10,
+            "name": "تجزئة",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 11,
+            "name": "الخدمات اللوجستية والتخزين",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 12,
+            "name": "الأغذية والمشروبات (مطعم / مقهى)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 13,
+            "name": "الرعاية الصحية / العيادات / الصيدليات",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 14,
+            "name": "الجمال والعناية الشخصية (صالون / منتجع صحي)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 15,
+            "name": "العقارات وخدمات الممتلكات",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 16,
+            "name": "الأزياء والملابس",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 17,
+            "name": "الخدمات المهنية (قانونية / استشارات / تسويق)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 18,
+            "name": "مراكز التعليم والتدريب",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 19,
+            "name": "خدمات الصيانة والإصلاح (تكييف، سباكة، كهرباء)",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 20,
+            "name": "شركة تقنية / برمجيات",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 21,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "0"
+          },
+          {
+            "id": 22,
+            "name": "معلومات الطلب غير صحيحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 29,
+            "name": "معلومات الطلب غير صحيحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          {
+            "id": 23,
+            "name": "طلب مكرر",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 30,
+            "name": "طلب مكرر",
+            "created_at": null,
+            "priority": "2"
+          },
+          {
+            "id": 24,
+            "name": "الطلب خارج نطاق خدمات المناطق المشتركة",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 31,
+            "name": "الطلب خارج نطاق خدمات المناطق المشتركة",
+            "created_at": null,
+            "priority": "3"
+          },
+          {
+            "id": 25,
+            "name": "المشكلة محلولة مسبقًا",
+            "created_at": null,
+            "priority": "4"
+          },
+          {
+            "id": 32,
+            "name": "المشكلة محلولة مسبقًا",
+            "created_at": null,
+            "priority": "4"
+          },
+          {
+            "id": 26,
+            "name": "تم الإلغاء بناءً على قرار إداري",
+            "created_at": null,
+            "priority": "5"
+          },
+          {
+            "id": 33,
+            "name": "تم الإلغاء بناءً على قرار إداري",
+            "created_at": null,
+            "priority": "5"
+          },
+          {
+            "id": 27,
+            "name": "الطلب مخالف لسياسة الخدمة",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 34,
+            "name": "الطلب مخالف لسياسة الخدمة",
+            "created_at": null,
+            "priority": "6"
+          },
+          {
+            "id": 28,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "7"
+          },
+          {
+            "id": 35,
+            "name": "أخرى",
+            "created_at": null,
+            "priority": "7"
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:53.263Z",
+    "method": "GET",
+    "endpoint": "/rf/units",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:53.843Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "handover_date": "2026-04-15",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "lease_unit_type": 1,
+      "units": [
+        {
+          "id": 3,
+          "amount_type": 1,
+          "amount": 50000
+        }
+      ],
+      "tenant_type": "individual",
+      "tenant": {
+        "name": "Lease Tenant",
+        "first_name": "Lease",
+        "last_name": "Tenant",
+        "email": "lease.test.tenant@example.com",
+        "phone_number": "555000001",
+        "phone_country_code": "SA",
+        "national_id": "7788990011"
+      },
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-2026-002",
+      "rental_type": 13,
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "deposit_amount": 5000,
+      "annual_rent": 50000,
+      "rf_status_id": 30
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "lease_unit_type": [
+            "lease unit type غير موجود",
+            "الحقل lease unit type غير صحيح"
+          ],
+          "tenant_id": [
+            "الحقل tenant id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.amount_type": [
+            "يجب أن يكون نوع المبلغ عبارة عن نص.",
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:54.282Z",
+    "method": "GET",
+    "endpoint": "/rf/specifications",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 2,
+            "name": "سكني",
+            "type": "unit_residential",
+            "input_type": "",
+            "icon": null,
+            "options": [
+              {
+                "id": 17,
+                "name": "شقة",
+                "type": "apartment"
+              },
+              {
+                "id": 18,
+                "name": "بنتهاوس",
+                "type": "penthouse"
+              },
+              {
+                "id": 19,
+                "name": "شقة دوبلكس",
+                "type": "duplex_apartment"
+              },
+              {
+                "id": 20,
+                "name": "فيلا دوبلكس",
+                "type": "duplex_villa"
+              },
+              {
+                "id": 21,
+                "name": "دور",
+                "type": "floor_apartment"
+              },
+              {
+                "id": 22,
+                "name": "فيلا",
+                "type": "villa"
+              },
+              {
+                "id": 24,
+                "name": "تاون هاوس",
+                "type": "townhouse"
+              },
+              {
+                "id": 25,
+                "name": "أرض",
+                "type": "land"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 3,
+            "name": "تجاري",
+            "type": "unit_commercial",
+            "input_type": "",
+            "icon": null,
+            "options": [
+              {
+                "id": 26,
+                "name": "محل",
+                "type": "retail_store"
+              },
+              {
+                "id": 27,
+                "name": "مطعم /مقهى",
+                "type": "f&b_outlet"
+              },
+              {
+                "id": 28,
+                "name": "مستودع",
+                "type": "warehouse"
+              },
+              {
+                "id": 29,
+                "name": "مخزن",
+                "type": "storage"
+              },
+              {
+                "id": 30,
+                "name": "مكتب",
+                "type": "office"
+              },
+              {
+                "id": 31,
+                "name": "أرض",
+                "type": "land"
+              },
+              {
+                "id": 135,
+                "name": "معرض",
+                "type": "Showroom"
+              },
+              {
+                "id": 136,
+                "name": "كشك",
+                "type": "kiosk"
+              },
+              {
+                "id": 137,
+                "name": "مكتب تنفيذي",
+                "type": "executive_office"
+              },
+              {
+                "id": 138,
+                "name": "مكتب مشترك",
+                "type": "shared_office"
+              },
+              {
+                "id": 139,
+                "name": "مبنى",
+                "type": "building"
+              },
+              {
+                "id": 140,
+                "name": "برج",
+                "type": "tower"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 4,
+            "name": "صافي مساحة الوحدة (متر مربع)",
+            "type": "Net_Unit_Area",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/Net_Unit_Area.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 5,
+            "name": "غرف النوم",
+            "type": "Bedrooms",
+            "input_type": "counter",
+            "icon": "https://api.goatar.com/images/specifications/Bedrooms.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 6,
+            "name": "دورات المياه",
+            "type": "Bathrooms",
+            "input_type": "counter",
+            "icon": "https://api.goatar.com/images/specifications/Bathrooms.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 7,
+            "name": "المجالس",
+            "type": "Guest_Rooms",
+            "input_type": "counter",
+            "icon": "https://api.goatar.com/images/specifications/Guest_Rooms.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 8,
+            "name": "الصالات",
+            "type": "Lounges",
+            "input_type": "counter",
+            "icon": "https://api.goatar.com/images/specifications/Lounges.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 9,
+            "name": "رقم الدور",
+            "type": "Floor_No",
+            "input_type": "counter",
+            "icon": "https://api.goatar.com/images/specifications/Floor_No.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 10,
+            "name": "عدد المواقف",
+            "type": "Parking_Spaces",
+            "input_type": "counter",
+            "icon": "https://api.goatar.com/images/specifications/Parking_Spaces.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 11,
+            "name": "رقم عداد الكهرباء",
+            "type": "Electricity_Meter_No",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/Electricity_Meter_No.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 12,
+            "name": "رقم عداد المياه",
+            "type": "Water_Meter_No",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/Water_Meter_No.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 13,
+            "name": "نوع التكييف",
+            "type": "Air_Conditioning",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Air_Conditioning.svg",
+            "options": [
+              {
+                "id": 32,
+                "name": "مركزي",
+                "type": "Air_Conditioning"
+              },
+              {
+                "id": 33,
+                "name": "سبليت",
+                "type": "Air_Conditioning"
+              },
+              {
+                "id": 34,
+                "name": "سبليت مخفي",
+                "type": "Air_Conditioning"
+              },
+              {
+                "id": 35,
+                "name": "شباك",
+                "type": "Air_Conditioning"
+              },
+              {
+                "id": 36,
+                "name": "صحراوي",
+                "type": "Air_Conditioning"
+              },
+              {
+                "id": 37,
+                "name": "أخرى",
+                "type": "Air_Conditioning"
+              },
+              {
+                "id": 38,
+                "name": "غير متوفر",
+                "type": "Air_Conditioning"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 14,
+            "name": "نوع المواقف",
+            "type": "Parking_Type",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Parking_Type.svg",
+            "options": [
+              {
+                "id": 39,
+                "name": "مواقف القبو",
+                "type": "Parking_Type"
+              },
+              {
+                "id": 40,
+                "name": "مواقف أرضية",
+                "type": "Parking_Type"
+              },
+              {
+                "id": 41,
+                "name": "مواقف أدوار",
+                "type": "Parking_Type"
+              },
+              {
+                "id": 42,
+                "name": "أخرى",
+                "type": "Parking_Type"
+              },
+              {
+                "id": 43,
+                "name": "غير متوفر",
+                "type": "Parking_Type"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 15,
+            "name": "حالة التأثيث",
+            "type": "Furnishing_Type",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Furnishing_Type.svg",
+            "options": [
+              {
+                "id": 44,
+                "name": "غير مؤثث",
+                "type": "Furnishing_Type"
+              },
+              {
+                "id": 45,
+                "name": "مؤثث جزئيا",
+                "type": "Furnishing_Type"
+              },
+              {
+                "id": 46,
+                "name": "مؤثث بالكامل",
+                "type": "Furnishing_Type"
+              },
+              {
+                "id": 47,
+                "name": "أخرى",
+                "type": "Furnishing_Type"
+              },
+              {
+                "id": 48,
+                "name": "غير متوفر",
+                "type": "Furnishing_Type"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 16,
+            "name": "نوع المطبخ",
+            "type": "Kitchen_Type",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Kitchen_Type.svg",
+            "options": [
+              {
+                "id": 51,
+                "name": "مفتوح",
+                "type": "Kitchen_Type"
+              },
+              {
+                "id": 52,
+                "name": "مغلق",
+                "type": "Kitchen_Type"
+              },
+              {
+                "id": 53,
+                "name": "أخرى",
+                "type": "Kitchen_Type"
+              },
+              {
+                "id": 54,
+                "name": "غير متوفر",
+                "type": "Kitchen_Type"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 17,
+            "name": "شقة",
+            "type": "apartment",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 18,
+            "name": "بنتهاوس",
+            "type": "penthouse",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 19,
+            "name": "شقة دوبلكس",
+            "type": "duplex_apartment",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 20,
+            "name": "فيلا دوبلكس",
+            "type": "duplex_villa",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 21,
+            "name": "دور",
+            "type": "floor_apartment",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 22,
+            "name": "فيلا",
+            "type": "villa",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 24,
+            "name": "تاون هاوس",
+            "type": "townhouse",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 25,
+            "name": "أرض",
+            "type": "land",
+            "input_type": null,
+            "icon": null,
+            "options": [
+              {
+                "id": 85,
+                "name": "العرض",
+                "type": "width"
+              },
+              {
+                "id": 86,
+                "name": "الطول",
+                "type": "length"
+              },
+              {
+                "id": 87,
+                "name": "الاتجاه",
+                "type": "direction"
+              },
+              {
+                "id": 88,
+                "name": "عرض الشارع (متر)",
+                "type": "street width"
+              },
+              {
+                "id": 89,
+                "name": "حالة اتصال الكهرباء",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 90,
+                "name": "حالة اتصال المياه",
+                "type": "water_connection"
+              },
+              {
+                "id": 91,
+                "name": "حالة اتصال الصرف الصحي",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 171,
+                "name": "اتصال الألياف البصرية",
+                "type": "fiber_optics_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 26,
+            "name": "محل",
+            "type": "retail_store",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 27,
+            "name": "مطعم /مقهى",
+            "type": "f&b_outlet",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 28,
+            "name": "مستودع",
+            "type": "warehouse",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 29,
+            "name": "مخزن",
+            "type": "storage",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 30,
+            "name": "مكتب",
+            "type": "office",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 31,
+            "name": "أرض",
+            "type": "land",
+            "input_type": null,
+            "icon": null,
+            "options": [
+              {
+                "id": 110,
+                "name": "العرض",
+                "type": "width"
+              },
+              {
+                "id": 111,
+                "name": "الطول",
+                "type": "length"
+              },
+              {
+                "id": 112,
+                "name": "الاتجاه",
+                "type": "direction"
+              },
+              {
+                "id": 113,
+                "name": "عرض الشارع (متر)",
+                "type": "street width"
+              },
+              {
+                "id": 114,
+                "name": "حالة اتصال الكهرباء",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 115,
+                "name": "حالة اتصال المياه",
+                "type": "water_connection"
+              },
+              {
+                "id": 116,
+                "name": "حالة اتصال الصرف الصحي",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 172,
+                "name": "اتصال الألياف البصرية",
+                "type": "fiber_optics_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 32,
+            "name": "مركزي",
+            "type": "Air_Conditioning",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 33,
+            "name": "سبليت",
+            "type": "Air_Conditioning",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 34,
+            "name": "سبليت مخفي",
+            "type": "Air_Conditioning",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 35,
+            "name": "شباك",
+            "type": "Air_Conditioning",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 36,
+            "name": "صحراوي",
+            "type": "Air_Conditioning",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 37,
+            "name": "أخرى",
+            "type": "Air_Conditioning",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 38,
+            "name": "غير متوفر",
+            "type": "Air_Conditioning",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 39,
+            "name": "مواقف القبو",
+            "type": "Parking_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 40,
+            "name": "مواقف أرضية",
+            "type": "Parking_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 41,
+            "name": "مواقف أدوار",
+            "type": "Parking_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 42,
+            "name": "أخرى",
+            "type": "Parking_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 43,
+            "name": "غير متوفر",
+            "type": "Parking_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 44,
+            "name": "غير مؤثث",
+            "type": "Furnishing_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 45,
+            "name": "مؤثث جزئيا",
+            "type": "Furnishing_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 46,
+            "name": "مؤثث بالكامل",
+            "type": "Furnishing_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 47,
+            "name": "أخرى",
+            "type": "Furnishing_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 48,
+            "name": "غير متوفر",
+            "type": "Furnishing_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 51,
+            "name": "مفتوح",
+            "type": "Kitchen_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 52,
+            "name": "مغلق",
+            "type": "Kitchen_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 53,
+            "name": "أخرى",
+            "type": "Kitchen_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 54,
+            "name": "غير متوفر",
+            "type": "Kitchen_Type",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 55,
+            "name": "دخول ذكي",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Smart_access.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 56,
+            "name": "مواقف سيارات",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Parking.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 57,
+            "name": "مساحات عمل مشتركة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Co-Working_space.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 58,
+            "name": "حديقة خارجية",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Outdoor_Gardens.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 59,
+            "name": "شرفة",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Balcony.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 60,
+            "name": "جهاز إنذار الحريق",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Smoke_alarm.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 61,
+            "name": "مطبخ",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Kitchen.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 62,
+            "name": "غسالة",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Washing_machine.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 63,
+            "name": "واي فاي",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Wifi.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 64,
+            "name": "مناسب لذوي الاحتياجات الخاصة",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Accessible_For_Determination.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 65,
+            "name": "نوافذ بزجاج مزدوج",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Double_glazed_windows.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 66,
+            "name": "مصعد",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Elevator.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 67,
+            "name": "منزل ذكي",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Smart_Home.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 68,
+            "name": "مناسب لذوي الاحتياجات الخاصة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Accessible_For_Determination.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 69,
+            "name": "أنظمة إنذار",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Alarm_Systems.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 70,
+            "name": "مناطق استراحة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Breakout_Areas.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 71,
+            "name": "قاعة اجتماعات",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Conference_Room.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 72,
+            "name": "مصعد",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Elevator.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 73,
+            "name": "أنظمة موفرة للطاقة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Energy-Efficient_Systems.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 74,
+            "name": "إنترنت عالي السرعة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/High-Speed_Internet.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 75,
+            "name": "غرف اجتماعات",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Meeting_Rooms.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 76,
+            "name": "إضاءة طبيعية",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Natural_Lighting.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 77,
+            "name": "مواقف سيارات",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Parking.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 78,
+            "name": "نظام احتياطي للطاقة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Power_Backup_System.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 79,
+            "name": "مكاتب خاصة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Private_Offices.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 80,
+            "name": "دخول ذكي",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Smart_access.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 81,
+            "name": "غرف عازلة للصوت",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Soundproof_Rooms.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 82,
+            "name": "مساحة تخزين",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Storage_Space.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 83,
+            "name": "مساحة خارجية",
+            "type": "amenities_residential",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/residentialIcons/Outdoor_dining.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 84,
+            "name": "أمن على مدار الساعة",
+            "type": "amenities_commercial",
+            "input_type": null,
+            "icon": "https://api.goatar.com/images/commercialIcons/Security.png",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 85,
+            "name": "العرض",
+            "type": "width",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 86,
+            "name": "الطول",
+            "type": "length",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 87,
+            "name": "الاتجاه",
+            "type": "direction",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/direction.svg",
+            "options": [
+              {
+                "id": 101,
+                "name": "شمال",
+                "type": "direction"
+              },
+              {
+                "id": 102,
+                "name": " شمال شرق",
+                "type": "direction"
+              },
+              {
+                "id": 103,
+                "name": "شرق",
+                "type": "direction"
+              },
+              {
+                "id": 104,
+                "name": "جنوب شرق",
+                "type": "direction"
+              },
+              {
+                "id": 105,
+                "name": "جنوب",
+                "type": "direction"
+              },
+              {
+                "id": 106,
+                "name": "جنوب غرب",
+                "type": "direction"
+              },
+              {
+                "id": 107,
+                "name": "غرب",
+                "type": "direction"
+              },
+              {
+                "id": 108,
+                "name": "شمال غرب",
+                "type": "direction"
+              },
+              {
+                "id": 109,
+                "name": "غير متوفر",
+                "type": "direction"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 88,
+            "name": "عرض الشارع (متر)",
+            "type": "street width",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 89,
+            "name": "حالة اتصال الكهرباء",
+            "type": "electricity_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Electric.svg",
+            "options": [
+              {
+                "id": 98,
+                "name": "لا",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 99,
+                "name": "نعم",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 100,
+                "name": "غير متوفر",
+                "type": "electricity_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 90,
+            "name": "حالة اتصال المياه",
+            "type": "water_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/waterConnection.svg",
+            "options": [
+              {
+                "id": 95,
+                "name": "لا",
+                "type": "water_connection"
+              },
+              {
+                "id": 96,
+                "name": "نعم",
+                "type": "water_connection"
+              },
+              {
+                "id": 97,
+                "name": "غير متوفر",
+                "type": "water_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 91,
+            "name": "حالة اتصال الصرف الصحي",
+            "type": "sewage_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Sewage.svg",
+            "options": [
+              {
+                "id": 92,
+                "name": "لا",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 93,
+                "name": "نعم",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 94,
+                "name": "غير متوفر",
+                "type": "sewage_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 92,
+            "name": "لا",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 93,
+            "name": "نعم",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 94,
+            "name": "غير متوفر",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 95,
+            "name": "لا",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 96,
+            "name": "نعم",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 97,
+            "name": "غير متوفر",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 98,
+            "name": "لا",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 99,
+            "name": "نعم",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 100,
+            "name": "غير متوفر",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 101,
+            "name": "شمال",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 102,
+            "name": " شمال شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 103,
+            "name": "شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 104,
+            "name": "جنوب شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 105,
+            "name": "جنوب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 106,
+            "name": "جنوب غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 107,
+            "name": "غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 108,
+            "name": "شمال غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 109,
+            "name": "غير متوفر",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 110,
+            "name": "العرض",
+            "type": "width",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 111,
+            "name": "الطول",
+            "type": "length",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 112,
+            "name": "الاتجاه",
+            "type": "direction",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/direction.svg",
+            "options": [
+              {
+                "id": 126,
+                "name": "شمال",
+                "type": "direction"
+              },
+              {
+                "id": 127,
+                "name": " شمال شرق",
+                "type": "direction"
+              },
+              {
+                "id": 128,
+                "name": "شرق",
+                "type": "direction"
+              },
+              {
+                "id": 129,
+                "name": "جنوب شرق",
+                "type": "direction"
+              },
+              {
+                "id": 130,
+                "name": "جنوب",
+                "type": "direction"
+              },
+              {
+                "id": 131,
+                "name": "جنوب غرب",
+                "type": "direction"
+              },
+              {
+                "id": 132,
+                "name": "غرب",
+                "type": "direction"
+              },
+              {
+                "id": 133,
+                "name": "شمال غرب",
+                "type": "direction"
+              },
+              {
+                "id": 134,
+                "name": "غير متوفر",
+                "type": "direction"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 113,
+            "name": "عرض الشارع (متر)",
+            "type": "street width",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 114,
+            "name": "حالة اتصال الكهرباء",
+            "type": "electricity_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Electric.svg",
+            "options": [
+              {
+                "id": 123,
+                "name": "لا",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 124,
+                "name": "نعم",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 125,
+                "name": "غير متوفر",
+                "type": "electricity_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 115,
+            "name": "حالة اتصال المياه",
+            "type": "water_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/waterConnection.svg",
+            "options": [
+              {
+                "id": 120,
+                "name": "لا",
+                "type": "water_connection"
+              },
+              {
+                "id": 121,
+                "name": "نعم",
+                "type": "water_connection"
+              },
+              {
+                "id": 122,
+                "name": "غير متوفر",
+                "type": "water_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 116,
+            "name": "حالة اتصال الصرف الصحي",
+            "type": "sewage_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Sewage.svg",
+            "options": [
+              {
+                "id": 117,
+                "name": "لا",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 118,
+                "name": "نعم",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 119,
+                "name": "غير متوفر",
+                "type": "sewage_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 117,
+            "name": "لا",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 118,
+            "name": "نعم",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 119,
+            "name": "غير متوفر",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 120,
+            "name": "لا",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 121,
+            "name": "نعم",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 122,
+            "name": "غير متوفر",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 123,
+            "name": "لا",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 124,
+            "name": "نعم",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 125,
+            "name": "غير متوفر",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 126,
+            "name": "شمال",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 127,
+            "name": " شمال شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 128,
+            "name": "شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 129,
+            "name": "جنوب شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 130,
+            "name": "جنوب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 131,
+            "name": "جنوب غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 132,
+            "name": "غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 133,
+            "name": "شمال غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 134,
+            "name": "غير متوفر",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 135,
+            "name": "معرض",
+            "type": "Showroom",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 136,
+            "name": "كشك",
+            "type": "kiosk",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 137,
+            "name": "مكتب تنفيذي",
+            "type": "executive_office",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 138,
+            "name": "مكتب مشترك",
+            "type": "shared_office",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 139,
+            "name": "مبنى",
+            "type": "building",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 140,
+            "name": "برج",
+            "type": "tower",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 141,
+            "name": "حالة التجهيز",
+            "type": "fit_out_status",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Fit-Out.png",
+            "options": [
+              {
+                "id": 149,
+                "name": "عظم",
+                "type": "fit_out_status"
+              },
+              {
+                "id": 150,
+                "name": "مشطبة",
+                "type": "fit_out_status"
+              },
+              {
+                "id": 151,
+                "name": "غير متوفر",
+                "type": "fit_out_status"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 142,
+            "name": "العرض",
+            "type": "width",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 143,
+            "name": "الطول",
+            "type": "length",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 144,
+            "name": "الاتجاه",
+            "type": "direction",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/direction.svg",
+            "options": [
+              {
+                "id": 161,
+                "name": "شمال",
+                "type": "direction"
+              },
+              {
+                "id": 162,
+                "name": " شمال شرق",
+                "type": "direction"
+              },
+              {
+                "id": 163,
+                "name": "شرق",
+                "type": "direction"
+              },
+              {
+                "id": 164,
+                "name": "جنوب شرق",
+                "type": "direction"
+              },
+              {
+                "id": 165,
+                "name": "جنوب",
+                "type": "direction"
+              },
+              {
+                "id": 167,
+                "name": "جنوب غرب",
+                "type": "direction"
+              },
+              {
+                "id": 168,
+                "name": "غرب",
+                "type": "direction"
+              },
+              {
+                "id": 169,
+                "name": "شمال غرب",
+                "type": "direction"
+              },
+              {
+                "id": 170,
+                "name": "غير متوفر",
+                "type": "direction"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 145,
+            "name": "عرض الشارع (متر)",
+            "type": "street width",
+            "input_type": "text",
+            "icon": "https://api.goatar.com/images/specifications/length.svg",
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 146,
+            "name": "حالة اتصال الكهرباء",
+            "type": "electricity_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Electric.svg",
+            "options": [
+              {
+                "id": 158,
+                "name": "لا",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 159,
+                "name": "نعم",
+                "type": "electricity_connection"
+              },
+              {
+                "id": 160,
+                "name": "غير متوفر",
+                "type": "electricity_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 147,
+            "name": "حالة اتصال المياه",
+            "type": "water_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/waterConnection.svg",
+            "options": [
+              {
+                "id": 155,
+                "name": "لا",
+                "type": "water_connection"
+              },
+              {
+                "id": 156,
+                "name": "نعم",
+                "type": "water_connection"
+              },
+              {
+                "id": 157,
+                "name": "غير متوفر",
+                "type": "water_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 148,
+            "name": "حالة اتصال الصرف الصحي",
+            "type": "sewage_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Sewage.svg",
+            "options": [
+              {
+                "id": 152,
+                "name": "لا",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 153,
+                "name": "نعم",
+                "type": "sewage_connection"
+              },
+              {
+                "id": 154,
+                "name": "غير متوفر",
+                "type": "sewage_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 149,
+            "name": "عظم",
+            "type": "fit_out_status",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 150,
+            "name": "مشطبة",
+            "type": "fit_out_status",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 151,
+            "name": "غير متوفر",
+            "type": "fit_out_status",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 152,
+            "name": "لا",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 153,
+            "name": "نعم",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 154,
+            "name": "غير متوفر",
+            "type": "sewage_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 155,
+            "name": "لا",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 156,
+            "name": "نعم",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 157,
+            "name": "غير متوفر",
+            "type": "water_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 158,
+            "name": "لا",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 159,
+            "name": "نعم",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 160,
+            "name": "غير متوفر",
+            "type": "electricity_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 161,
+            "name": "شمال",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 162,
+            "name": " شمال شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 163,
+            "name": "شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 164,
+            "name": "جنوب شرق",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 165,
+            "name": "جنوب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 167,
+            "name": "جنوب غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 168,
+            "name": "غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 169,
+            "name": "شمال غرب",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 170,
+            "name": "غير متوفر",
+            "type": "direction",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 171,
+            "name": "اتصال الألياف البصرية",
+            "type": "fiber_optics_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Fiber.svg",
+            "options": [
+              {
+                "id": 176,
+                "name": "نعم",
+                "type": "fiber_optics_connection"
+              },
+              {
+                "id": 177,
+                "name": "لا",
+                "type": "fiber_optics_connection"
+              },
+              {
+                "id": 178,
+                "name": "غير متوفر",
+                "type": "fiber_optics_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 172,
+            "name": "اتصال الألياف البصرية",
+            "type": "fiber_optics_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Fiber.svg",
+            "options": [
+              {
+                "id": 173,
+                "name": "نعم",
+                "type": "fiber_optics_connection"
+              },
+              {
+                "id": 174,
+                "name": "لا",
+                "type": "fiber_optics_connection"
+              },
+              {
+                "id": 175,
+                "name": "غير متوفر",
+                "type": "fiber_optics_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 173,
+            "name": "نعم",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 174,
+            "name": "لا",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 175,
+            "name": "غير متوفر",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 176,
+            "name": "نعم",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 177,
+            "name": "لا",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 178,
+            "name": "غير متوفر",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 179,
+            "name": "اتصال الألياف البصرية",
+            "type": "fiber_optics_connection",
+            "input_type": "select",
+            "icon": "https://api.goatar.com/images/specifications/Fiber.svg",
+            "options": [
+              {
+                "id": 180,
+                "name": "نعم",
+                "type": "fiber_optics_connection"
+              },
+              {
+                "id": 181,
+                "name": "لا",
+                "type": "fiber_optics_connection"
+              },
+              {
+                "id": 182,
+                "name": "غير متوفر",
+                "type": "fiber_optics_connection"
+              }
+            ],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 180,
+            "name": "نعم",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 181,
+            "name": "لا",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          },
+          {
+            "id": 182,
+            "name": "غير متوفر",
+            "type": "fiber_optics_connection",
+            "input_type": null,
+            "icon": null,
+            "options": [],
+            "value": 0,
+            "disaplay_value": 0,
+            "max": 50
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:55.935Z",
+    "method": "GET",
+    "endpoint": "/rf/common-lists/lease-unit-types",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:56.165Z",
+    "method": "GET",
+    "endpoint": "/rf/common-lists/rental-types",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:56.518Z",
+    "method": "GET",
+    "endpoint": "/rf/common-lists/amount-types",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:56.869Z",
+    "method": "GET",
+    "endpoint": "/rf/leases/specifications",
+    "body": null,
+    "response": {
+      "status": 500,
+      "data": {
+        "message": "Server Error"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:57.221Z",
+    "method": "GET",
+    "endpoint": "/rf/tenants",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 4,
+            "name": "Khalid Test",
+            "image": null,
+            "phone_number": "+966512345678",
+            "invited": "0",
+            "created_at": "2026-04-10T23:32:52.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:32:57.575Z",
+    "method": "GET",
+    "endpoint": "/rf/leases",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  }
+]

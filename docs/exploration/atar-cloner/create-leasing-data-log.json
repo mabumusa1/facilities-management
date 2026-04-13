@@ -1,0 +1,393 @@
+[
+  {
+    "timestamp": "2026-04-10T23:28:24.115Z",
+    "method": "POST",
+    "endpoint": "/rf/tenants",
+    "body": {
+      "name": "Test Tenant One",
+      "first_name": "Test",
+      "last_name": "One",
+      "email": "tenant.one@example.com",
+      "phone_number": "500000011",
+      "phone_country_code": "+966",
+      "phone_iso_code": "SA",
+      "type": "individual",
+      "national_id": "9876543210"
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "phone_country_code": [
+            "يجب أن لا يتجاوز طول نص phone country code 2 حروفٍ/حرفًا"
+          ],
+          "phone_number": [
+            "رقم رقم الجوال غير صحيح.",
+            "قيمة الحقل رقم الجوال مُستخدمة من قبل"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:24.664Z",
+    "method": "POST",
+    "endpoint": "/rf/tenants",
+    "body": {
+      "name": "Ahmed Test Tenant",
+      "first_name": "Ahmed",
+      "last_name": "Test",
+      "email": "ahmed.tenant@example.com",
+      "phone_number": "966500000012",
+      "phone_country_code": "966",
+      "type": "individual",
+      "national_id": "1122334455"
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "national_id": [
+            "قيمة الحقل رقم الهوية مُستخدمة من قبل"
+          ],
+          "phone_country_code": [
+            "يجب أن لا يتجاوز طول نص phone country code 2 حروفٍ/حرفًا"
+          ],
+          "phone_number": [
+            "رقم رقم الجوال غير صحيح.",
+            "قيمة الحقل رقم الجوال مُستخدمة من قبل"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:24.928Z",
+    "method": "GET",
+    "endpoint": "/rf/bookings/create",
+    "body": null,
+    "response": {
+      "status": 500,
+      "data": {
+        "message": "Server Error"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:25.199Z",
+    "method": "GET",
+    "endpoint": "/rf/units",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:25.497Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "handover_date": "2026-04-15",
+      "lease_unit_type": "single",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "units": [
+        3
+      ],
+      "tenant_type": "individual",
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-2026-001",
+      "rental_type": "yearly",
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "annual_rent": 50000,
+      "deposit_amount": 5000,
+      "tenant_name": "Lease Test Tenant",
+      "tenant_phone": "500000020",
+      "tenant_phone_country_code": "966",
+      "tenant_email": "lease.tenant@example.com",
+      "tenant_national_id": "5566778899",
+      "rf_status_id": 30
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "start_date": [
+            "الحقل start date مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "lease_unit_type": [
+            "يجب أن يكون الحقل lease unit type عددًا صحيحًا",
+            "الحقل lease unit type غير صحيح"
+          ],
+          "tenant_id": [
+            "الحقل tenant id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.id": [
+            "الحقل units.0.id مطلوب."
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:25.780Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/visits/create",
+    "body": null,
+    "response": {
+      "status": 500,
+      "data": {
+        "message": "Server Error"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:26.052Z",
+    "method": "POST",
+    "endpoint": "/marketplace/admin/visits",
+    "body": {
+      "unit_id": 3,
+      "visitor_name": "Test Visitor",
+      "visitor_phone": "500000030",
+      "visitor_email": "visitor@example.com",
+      "visit_date": "2026-04-15",
+      "visit_time": "10:00",
+      "notes": "Test visit for Unit Test Unit API v2"
+    },
+    "response": {
+      "status": 500,
+      "data": {
+        "message": "Server Error"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:26.346Z",
+    "method": "GET",
+    "endpoint": "/rf/tenants",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:26.646Z",
+    "method": "GET",
+    "endpoint": "/rf/leases",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:28:26.926Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/visits",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": [],
+        "meta": []
+      }
+    }
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/visits",
+    "path": "/marketplace/admin/visits",
+    "base": "management",
+    "body": null,
+    "description": "Marketplace visits",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 516,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:04 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Gbjo6q60T8%2FMqhrDH6tauEePdGHOeBP%2FAQ4JGvXjRnahWfFhavaTn3O%2BfrLtpV5PEu6ldWvJC7G5Uu3vYvlMY7wCKppcq3C0DwqQ%2Fu2fKFI9ZvUP88HHRmMvwFhwpjlVwS4jUA4%2Fe%2F6q%2BmF0\"}]}",
+      "cf-ray": "9ea50b8f7b0e6534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "تم انشاء المطلوب بنجاح.",
+      "data": [],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:04.793Z"
+}

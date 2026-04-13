@@ -1,0 +1,148 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/tenancy/api/cities/all",
+    "path": "/cities/all",
+    "base": "tenancy",
+    "body": null,
+    "description": "All cities",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 337,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:14 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ot5wfP4oomxm%2BlEpBROjXu1GX0L7MtJjgflLLg25Mjf%2F2RBlDaBt8ivQKPt9NpvBfGkOrPhWvvGS%2BNjYrA0llLgZDBv3JhBR2023uqRo6prDqR2%2Fztq7b%2B5CO08HGxoREwnudVTa3EI%2FpID1\"}]}",
+      "cf-ray": "9ea50bd05aed6534-LHR"
+    },
+    "body": {
+      "data": [
+        {
+          "id": 1,
+          "name": "الرياض"
+        },
+        {
+          "id": 2,
+          "name": "الدمام"
+        },
+        {
+          "id": 3,
+          "name": "الخبر"
+        },
+        {
+          "id": 4,
+          "name": "جدة"
+        },
+        {
+          "id": 5,
+          "name": "الدرعية"
+        },
+        {
+          "id": 6,
+          "name": "مدينة الملك عبدالله الاقتصادية"
+        },
+        {
+          "id": 7,
+          "name": "مكة المكرمة"
+        },
+        {
+          "id": 8,
+          "name": "المدينة المنورة"
+        },
+        {
+          "id": 9,
+          "name": "الهفوف"
+        },
+        {
+          "id": 10,
+          "name": "المبرز"
+        },
+        {
+          "id": 11,
+          "name": "الطائف"
+        },
+        {
+          "id": 12,
+          "name": "الخرج"
+        },
+        {
+          "id": 13,
+          "name": "عنيزة"
+        },
+        {
+          "id": 14,
+          "name": "بريدة"
+        },
+        {
+          "id": 15,
+          "name": "الرس"
+        },
+        {
+          "id": 16,
+          "name": "البكيرية"
+        },
+        {
+          "id": 17,
+          "name": "تبوك"
+        },
+        {
+          "id": 18,
+          "name": "الظهران"
+        },
+        {
+          "id": 19,
+          "name": "الجبيل الصناعية"
+        },
+        {
+          "id": 20,
+          "name": "الجبيل"
+        },
+        {
+          "id": 21,
+          "name": "القطيف"
+        },
+        {
+          "id": 22,
+          "name": "حفر الباطن"
+        },
+        {
+          "id": 23,
+          "name": "خميس مشيط"
+        },
+        {
+          "id": 24,
+          "name": "الزلفي"
+        },
+        {
+          "id": 25,
+          "name": "أبها"
+        },
+        {
+          "id": 26,
+          "name": "حائل"
+        }
+      ]
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:14.999Z"
+}

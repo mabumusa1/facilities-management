@@ -1,0 +1,139 @@
+{
+  "GET__rf_communities_edaat_product_codes": {
+    "code": 400,
+    "message": "حدث خطأ ما, برجاء المحاوله لاحقا.",
+    "errors": []
+  },
+  "POST__rf_admins_check_validate": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "first_name": [
+        "الحقل الاسم مطلوب."
+      ],
+      "last_name": [
+        "الحقل اسم العائلة مطلوب."
+      ],
+      "phone_country_code": [
+        "الحقل phone country code مطلوب."
+      ],
+      "phone_number": [
+        "الحقل رقم الجوال مطلوب."
+      ]
+    }
+  },
+  "POST__rf_leases_change_status_move_out": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "rf_lease_id": [
+        "الحقل rf lease id مطلوب."
+      ],
+      "end_at": [
+        "الحقل end at مطلوب."
+      ]
+    }
+  },
+  "POST__rf_leases_change_status_terminate": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "rf_lease_id": [
+        "الحقل rf lease id مطلوب."
+      ],
+      "end_at": [
+        "الحقل end at مطلوب."
+      ]
+    }
+  },
+  "POST__rf_leases_renew_store": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "rental_contract_type_id": [
+        "الحقل rental contract type id مطلوب."
+      ],
+      "created_at": [
+        "الحقل created at مطلوب."
+      ],
+      "start_date": [
+        "الحقل start date مطلوب."
+      ],
+      "end_date": [
+        "الحقل end date مطلوب."
+      ],
+      "rf_lease_id": [
+        "الحقل rf lease id مطلوب."
+      ],
+      "number_of_years": [
+        "يرجى إضافة مدة الإيجار بالسنوات."
+      ],
+      "number_of_months": [
+        "يرجى إضافة مدة الإيجار بالشهور."
+      ],
+      "autoGenerateLeaseNumber": [
+        "الحقل auto generate lease number مطلوب."
+      ],
+      "contract_number": [
+        "يرجى إدخال رقم إيجار فريد."
+      ],
+      "rental_type": [
+        "الحقل rental type مطلوب."
+      ],
+      "payment_schedule_id": [
+        "الحقل payment schedule id مطلوب."
+      ],
+      "units": [
+        "الحقل units مطلوب."
+      ]
+    }
+  },
+  "POST__rf_requests_change_status_canceled": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "rf_request_id": [
+        "الحقل rf request id مطلوب."
+      ]
+    }
+  },
+  "POST__marketplace_admin_settings_banks_store": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "beneficiary_name": [
+        "الحقل beneficiary name مطلوب."
+      ],
+      "bank_name": [
+        "الحقل bank name مطلوب."
+      ],
+      "account_number": [
+        "الحقل account number مطلوب.",
+        "يجب ان يحتوي رقم الحساب على ارقام فقط",
+        "يجب ان يكون رقم الحساب اكثر من 14 رقم"
+      ],
+      "iban": [
+        "الحقل iban مطلوب."
+      ]
+    }
+  },
+  "POST__marketplace_admin_settings_sales_store": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "deposit_time_limit_days": [
+        "مدة التوقيع مطلوبة."
+      ],
+      "cash_contract_signing_days": [
+        "validation.marketplace_sales.cash_signing.required"
+      ],
+      "bank_contract_signing_days": [
+        "validation.marketplace_sales.bank_signing.required"
+      ]
+    }
+  },
+  "POST__marketplace_admin_settings_visits_store": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "is_all_day": [
+        "الحقل is all day مطلوب."
+      ],
+      "days": [
+        "الحقل days مطلوب."
+      ]
+    }
+  }
+}

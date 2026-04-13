@@ -1,0 +1,81 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/rf/leases/renew/store",
+    "path": "/rf/leases/renew/store",
+    "base": "management",
+    "body": {},
+    "description": "Renew lease validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 511,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:20 GMT",
+      "content-type": "application/json",
+      "content-length": "1463",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "e74f9d6f455da6d00cc7490f581e3d45",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=FPKrw24TNuJfPkkXUao7ETDMmQIdX2ogZq7YkuVHafz6auiwbz6bhK%2Bq0bLZpQAQVaIf97%2FWVB8KGEN05OUMqhsSvm0sS%2FiynRNS5Jvr7yGK8%2FBOC2SdalLGwDsRddhzt2HhvDkV5olkPAT5\"}]}",
+      "cf-ray": "9ea50bf0aad66534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "rental_contract_type_id": [
+          "الحقل rental contract type id مطلوب."
+        ],
+        "created_at": [
+          "الحقل created at مطلوب."
+        ],
+        "start_date": [
+          "الحقل start date مطلوب."
+        ],
+        "end_date": [
+          "الحقل end date مطلوب."
+        ],
+        "rf_lease_id": [
+          "الحقل rf lease id مطلوب."
+        ],
+        "number_of_years": [
+          "يرجى إضافة مدة الإيجار بالسنوات."
+        ],
+        "number_of_months": [
+          "يرجى إضافة مدة الإيجار بالشهور."
+        ],
+        "autoGenerateLeaseNumber": [
+          "الحقل auto generate lease number مطلوب."
+        ],
+        "contract_number": [
+          "يرجى إدخال رقم إيجار فريد."
+        ],
+        "rental_type": [
+          "الحقل rental type مطلوب."
+        ],
+        "payment_schedule_id": [
+          "الحقل payment schedule id مطلوب."
+        ],
+        "units": [
+          "الحقل units مطلوب."
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:20.346Z"
+}

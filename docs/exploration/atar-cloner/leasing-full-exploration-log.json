@@ -1,0 +1,539 @@
+[
+  {
+    "timestamp": "2026-04-10T23:24:21.957Z",
+    "method": "GET",
+    "endpoint": "/rf/tenants/create",
+    "body": null,
+    "response": {
+      "status": 500,
+      "data": {
+        "message": "Server Error"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:22.608Z",
+    "method": "POST",
+    "endpoint": "/rf/tenants",
+    "body": {
+      "name": "Test Tenant",
+      "first_name": "Test",
+      "last_name": "Tenant",
+      "email": "tenant1@example.com",
+      "phone_number": "+966500000010",
+      "phone_iso_code": "SA",
+      "type": "individual",
+      "national_id": "1234567890"
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "national_id": [
+            "قيمة الحقل رقم الهوية مُستخدمة من قبل"
+          ],
+          "phone_country_code": [
+            "الحقل phone country code مطلوب."
+          ],
+          "phone_number": [
+            "يجب أن يحتوي رقم الجوال على حروفٍ وأرقامٍ فقط",
+            "رقم رقم الجوال غير صحيح."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:22.989Z",
+    "method": "GET",
+    "endpoint": "/rf/visits",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:23.255Z",
+    "method": "GET",
+    "endpoint": "/rf/visits/create",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:23.470Z",
+    "method": "GET",
+    "endpoint": "/rf/applications",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:23.702Z",
+    "method": "GET",
+    "endpoint": "/rf/apps",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:23.918Z",
+    "method": "GET",
+    "endpoint": "/rf/leasing/applications",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:24.146Z",
+    "method": "GET",
+    "endpoint": "/rf/leasing/apps",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:24.374Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/applications",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:24.599Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/apps",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:24.843Z",
+    "method": "GET",
+    "endpoint": "/rf/quotes",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:25.132Z",
+    "method": "GET",
+    "endpoint": "/rf/leasing/quotes",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:25.476Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/quotes",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:25.694Z",
+    "method": "GET",
+    "endpoint": "/rf/contacts",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:26.090Z",
+    "method": "GET",
+    "endpoint": "/rf/contacts/create",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:26.451Z",
+    "method": "GET",
+    "endpoint": "/rf/units",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:26.852Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "rf_unit_id": 3,
+      "tenant_name": "Test Lease Tenant",
+      "tenant_phone": "+966500000020",
+      "tenant_email": "lease.tenant@example.com",
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "annual_rent": 50000,
+      "deposit_amount": 5000,
+      "rf_status_id": 30
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "created_at": [
+            "الحقل created at مطلوب."
+          ],
+          "handover_date": [
+            "الحقل handover date مطلوب."
+          ],
+          "lease_unit_type": [
+            "الحقل lease unit type مطلوب."
+          ],
+          "number_of_years": [
+            "يرجى إضافة مدة الإيجار بالسنوات."
+          ],
+          "number_of_months": [
+            "يرجى إضافة مدة الإيجار بالشهور."
+          ],
+          "units": [
+            "الحقل units مطلوب."
+          ],
+          "tenant_type": [
+            "الحقل نوع المستأجر مطلوب."
+          ],
+          "autoGenerateLeaseNumber": [
+            "الحقل auto generate lease number مطلوب."
+          ],
+          "contract_number": [
+            "يرجى إدخال رقم إيجار فريد."
+          ],
+          "rental_type": [
+            "الحقل rental type مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:27.211Z",
+    "method": "GET",
+    "endpoint": "/rf/leases/available-units",
+    "body": null,
+    "response": {
+      "status": 500,
+      "data": {
+        "message": "Server Error"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:27.515Z",
+    "method": "GET",
+    "endpoint": "/rf/bookings",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:27.852Z",
+    "method": "GET",
+    "endpoint": "/rf/reservations",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:28.343Z",
+    "method": "GET",
+    "endpoint": "/rf/contracts",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:28.753Z",
+    "method": "GET",
+    "endpoint": "/rf/rental-applications",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:29.155Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/leases",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:24:29.386Z",
+    "method": "GET",
+    "endpoint": "/marketplace/admin/bookings",
+    "body": null,
+    "response": {
+      "status": 405,
+      "data": {
+        "code": 405,
+        "message": "هذا الإجراء غير مصرح به.",
+        "data": [],
+        "meta": []
+      }
+    }
+  }
+]

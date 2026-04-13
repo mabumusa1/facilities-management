@@ -1,0 +1,282 @@
+[
+  {
+    "timestamp": "2026-04-11T00:04:53.484Z",
+    "method": "GET",
+    "endpoint": "/rf/units",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": {
+              "id": 4,
+              "name": "Khalid Test"
+            },
+            "status": {
+              "id": 25,
+              "name": "مؤجرة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-11T00:04:54.373Z",
+    "method": "GET",
+    "endpoint": "/rf/tenants",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 4,
+            "name": "Khalid Test",
+            "image": null,
+            "phone_number": "+966512345678",
+            "invited": "0",
+            "created_at": "2026-04-10T23:32:52.000000Z",
+            "units": [
+              {
+                "id": 3,
+                "name": "Test Unit API v2",
+                "status": {
+                  "id": 25,
+                  "name_ar": "مؤجرة",
+                  "name_en": "Leased",
+                  "active": "1",
+                  "type": "unit",
+                  "created_at": null,
+                  "updated_at": null,
+                  "deleted_at": null,
+                  "priority": "6",
+                  "is_history": "0"
+                },
+                "map": {
+                  "latitude": 24.7103488,
+                  "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+                  "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+                  "longitude": 46.6878464,
+                  "districtName": "3287 ,RHSA7555",
+                  "latitudeDelta": 0.02,
+                  "longitudeDelta": 0.009244060475161988,
+                  "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                }
+              }
+            ],
+            "accepted_invite": 0
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-11T00:04:54.772Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-20",
+      "end_date": "2027-04-20",
+      "handover_date": "2026-04-20",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "lease_unit_type": 2,
+      "tenant_type": "individual",
+      "tenant_id": 4,
+      "tenant": {
+        "id": 4,
+        "name": "Khalid Test",
+        "phone_number": "+966512345678"
+      },
+      "autoGenerateLeaseNumber": true,
+      "rental_type": "detailed",
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 7,
+      "lease_escalations_type": "fixed",
+      "rental_total_amount": 60000,
+      "rf_status_id": 30,
+      "units": [
+        {
+          "id": 3,
+          "rental_annual_type": "total",
+          "annual_rental_amount": 60000
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "units.0.id": [
+            "The selected unit must have a status of SOLD or VACANT."
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/settings/sales/store",
+    "path": "/marketplace/admin/settings/sales/store",
+    "base": "management",
+    "body": {},
+    "description": "Store sales settings validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 429,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:23 GMT",
+      "content-type": "application/json",
+      "content-length": "350",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "2a06325873fc0016bb81a6ab27b0dabc",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9jFAdccBwbZ7wZsN4zCC%2BAOUkjxxq4Fzu3Wmy7nGdQYFG7wBoxvipPRYZLCTRCP1MnheovZ0XM%2Fl1C8ANT2RLHwk%2F3t%2BZPhyAI%2FGU7Z2Cx9xVpShrDAHdxMNQf42N3YthsT9OZjYZGbyICF%2B\"}]}",
+      "cf-ray": "9ea50c03e8726534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "deposit_time_limit_days": [
+          "مدة التوقيع مطلوبة."
+        ],
+        "cash_contract_signing_days": [
+          "validation.marketplace_sales.cash_signing.required"
+        ],
+        "bank_contract_signing_days": [
+          "validation.marketplace_sales.bank_signing.required"
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:23.335Z"
+}

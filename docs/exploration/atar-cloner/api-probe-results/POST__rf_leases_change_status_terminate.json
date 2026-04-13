@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/rf/leases/change-status/terminate",
+    "path": "/rf/leases/change-status/terminate",
+    "base": "management",
+    "body": {},
+    "description": "Terminate validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 377,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:19 GMT",
+      "content-type": "application/json",
+      "content-length": "228",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "3696ce194a84a0e20cc7490f581e308a",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NJHwKMq20rCrVqfkkofIYM063HTY4iR2rc9sYd7H4UrDwYtY80cQT7G%2BnQ%2BDfVXsFZ5WyYHyTaVI2955advCtkTd8stpE2BNV904Cytn%2BQwa4yOWyqXITN757rxGqMz1%2BXsrD1zo3Chm321Y\"}]}",
+      "cf-ray": "9ea50beb2e116534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "rf_lease_id": [
+          "الحقل rf lease id مطلوب."
+        ],
+        "end_at": [
+          "الحقل end at مطلوب."
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:19.334Z"
+}

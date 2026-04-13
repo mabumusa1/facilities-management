@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/rf/leases/create",
+    "path": "/rf/leases/create",
+    "base": "management",
+    "body": {},
+    "description": "Create lease validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 405,
+    "success": false,
+    "duration": 287,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:17 GMT",
+      "content-type": "application/json",
+      "content-length": "107",
+      "connection": "keep-alive",
+      "allow": "GET, HEAD, DELETE",
+      "cache-control": "no-cache, private",
+      "vary": "Origin",
+      "x-cloud-trace-context": "a577ed4813f0f2dd54186d04df0c3394",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=316SejyVweFB7jfDMDwTjgYCz1LPbqpYvj3Rzy5vm8Pbmllj%2BV5WUW0eOYvYvRC5scjLUwgXRToKBURndNqgZvhMxMwKErnRgJuM1P6lNacVk9KYmx4r4AUfWPMFG25EpDRhCFoO7GanBsWu\"}]}",
+      "cf-ray": "9ea50be0fdbb6534-LHR"
+    },
+    "body": {
+      "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:17.596Z"
+}

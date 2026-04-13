@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/settings/visits/store",
+    "path": "/marketplace/admin/settings/visits/store",
+    "base": "management",
+    "body": {},
+    "description": "Store visit settings validation",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 422,
+    "success": false,
+    "duration": 673,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:24 GMT",
+      "content-type": "application/json",
+      "content-length": "222",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "5",
+      "x-ratelimit-remaining": "4",
+      "vary": "Origin",
+      "x-cloud-trace-context": "77b44f98b3b7eb7a54186d04df0c3f49",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Wx0IQ7gF3HmIsIozjzx3yNLuBJj5IEAgTJBXZ3SitW0b7IfU7oXrXzCbGc6ETEJocFCmbUOxxcYB4quTlcUE7WzpidSq2pmQfwQA30aI5vYRPrCyxWwGEg5Prdpp4HIcXRFcwacAb0Nlq1Ji\"}]}",
+      "cf-ray": "9ea50c0b0d906534-LHR"
+    },
+    "body": {
+      "message": "The given data was invalid.",
+      "errors": {
+        "is_all_day": [
+          "الحقل is all day مطلوب."
+        ],
+        "days": [
+          "الحقل days مطلوب."
+        ]
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:24.509Z"
+}

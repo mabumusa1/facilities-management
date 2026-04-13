@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/settings/banks",
+    "path": "/marketplace/admin/settings/banks",
+    "base": "management",
+    "body": null,
+    "description": "Bank settings",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 525,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:00 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wBNh72C395TV0S0IG%2Bjh7F8ZV83MDdATu95nZ6GtlUYu7GtUAdLtk9AiwUzE4j8PsnRo%2FT49KpJUCz2NV%2B2TNoPlErJ641NbFkLEtceq%2FUg4I9mL8ZvRN2PpZHbS5IlU4boHpIBLsBV%2FzvOs\"}]}",
+      "cf-ray": "9ea50b75eed96534-LHR"
+    },
+    "body": {
+      "success": true,
+      "data": {
+        "beneficiary_name": "",
+        "bank_name": "",
+        "account_number": "",
+        "iban": ""
+      },
+      "message": "تم استرجاع الاعدادات بنجاح"
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:00.704Z"
+}

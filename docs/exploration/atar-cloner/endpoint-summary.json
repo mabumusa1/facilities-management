@@ -1,0 +1,703 @@
+[
+  {
+    "endpoint": "GET /admins",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /api/rf/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /billing",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /billing/subscription",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /contacts",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /csrf",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /features",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /features/enabled",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /floors",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /landlords",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /owners",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /plans",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /residents",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/account/subscription",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/active-plan",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/admins",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/billing",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/billing/subscription",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/buildings/1/activate",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/buildings/1/enable",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/buildings/1/floors",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/buildings/1/publish",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/buildings/1/status",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/buildings/1/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/business",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/business/info",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/clients",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/communities/1",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/communities/1/activate",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/communities/1/enable",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/communities/1/publish",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/communities/1/status",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/company",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/contacts",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/current-plan",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/customers",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/dashboard",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/dashboard/stats",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/employees",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/enabled-features",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/features",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/features/properties",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/features/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/floors",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/home",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/import/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/landlords",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/levels",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/organization",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/overview",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/owners",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/owners/create",
+    "statuses": [
+      500
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/plan/current",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/plans",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/properties",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/properties/create",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/property",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/property-owners",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/property/create",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/real-estate/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/rentals/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/residents",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/settings/business",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/staff",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/stats",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/subscription/current",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/subscription/status",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/tenant",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/tenants",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/tenants/current",
+    "statuses": [
+      500
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/unit-owners",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/units",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/units/batch",
+    "statuses": [
+      500
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/units/bulk",
+    "statuses": [
+      500
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/units/export",
+    "statuses": [
+      500
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/units/import",
+    "statuses": [
+      500
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/user",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/user/plan",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/user/subscription",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /rf/users",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /tenants",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /users",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /v1/rf/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "GET /v2/rf/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "HEAD /rf/units",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /api/units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/buildings/1/activate",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/buildings/1/enable",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/buildings/1/publish",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/buildings/1/status",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/communities/1/activate",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/communities/1/enable",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/communities/1/publish",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/communities/1/status",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/owners",
+    "statuses": [
+      200,
+      422
+    ],
+    "hasErrors": true
+  },
+  {
+    "endpoint": "POST /rf/units",
+    "statuses": [
+      400
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /rf/units/store",
+    "statuses": [
+      405
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "POST /units",
+    "statuses": [
+      404
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "PUT /rf/buildings/1",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  },
+  {
+    "endpoint": "PUT /rf/communities/1",
+    "statuses": [
+      200
+    ],
+    "hasErrors": false
+  }
+]

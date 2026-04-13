@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/request-category",
+    "path": "/request-category",
+    "base": "management",
+    "body": null,
+    "description": "Request category",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 404,
+    "success": false,
+    "duration": 324,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:54 GMT",
+      "content-type": "application/json",
+      "content-length": "49",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "vary": "Origin",
+      "x-cloud-trace-context": "e687474d70e0db7462b28ab0f234a327",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lfO7T635gmeXMUv6WQPyAUq5KheOOcwrFzj3dvHJ7Me8EXxQU7Hqp6ju7MDqMJjX3hHo8vGu%2BldeWwliTGgrkFY0JLoFHcvYYq9w0qHvzh%2B1LXaoqRZfvvNpJzyMkXp0FV5%2BlKjDZjheUMsO\"}]}",
+      "cf-ray": "9ea50b534cd76534-LHR"
+    },
+    "body": {
+      "success": false,
+      "message": "URL link not Found."
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:54.969Z"
+}

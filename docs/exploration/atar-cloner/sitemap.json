@@ -1,0 +1,410 @@
+{
+  "appInfo": {
+    "name": "Atar - Property Management System",
+    "apiBaseUrls": {
+      "main": "https://api.goatar.com",
+      "management": "https://api.goatar.com/api-management",
+      "firebase": "https://hectare-286110.firebaseio.com"
+    },
+    "staging": "https://staging.goatar.com",
+    "techStack": {
+      "framework": "React (Vite)",
+      "router": "React Router",
+      "backend": "Firebase",
+      "analytics": "Power BI integration"
+    }
+  },
+  "userRoles": [
+    "CUSTOMER",
+    "MAINTENANCE",
+    "MANAGEMENT",
+    "OWNER",
+    "TENANT",
+    "ADMIN"
+  ],
+  "sidebarNavigation": {
+    "dashboard": {
+      "label": "sidebar.dashboard",
+      "path": "/dashboard"
+    },
+    "leasing": {
+      "label": "sidebar.leasing",
+      "path": "/leasing"
+    },
+    "marketplace": {
+      "label": "sidebar.marketplace",
+      "path": "/marketplace"
+    },
+    "property": {
+      "label": "sidebar.property",
+      "path": "/properties-list"
+    },
+    "transactions": {
+      "label": "sidebar.transactions",
+      "path": "/transactions"
+    },
+    "requests": {
+      "label": "sidebar.requests",
+      "path": "/requests"
+    },
+    "contacts": {
+      "label": "sidebar.contacts",
+      "path": "/contacts"
+    },
+    "visitorAccess": {
+      "label": "sidebar.visitorAccess",
+      "path": "/visitor-access"
+    },
+    "more": {
+      "label": "sidebar.more",
+      "path": "/more"
+    }
+  },
+  "frontendRoutes": {
+    "auth": [
+      { "path": "/login", "description": "User login" },
+      { "path": "/signup", "description": "User registration" },
+      { "path": "/verify", "description": "Verification page" },
+      { "path": "/verifycode", "description": "Verification code entry" },
+      { "path": "/resetAccount", "description": "Account reset" },
+      { "path": "/no-access", "description": "Access denied page" },
+      { "path": "/401", "description": "Unauthorized" },
+      { "path": "/403", "description": "Forbidden" },
+      { "path": "/429", "description": "Rate limit exceeded" }
+    ],
+    "dashboard": [
+      { "path": "/dashboard", "description": "Main dashboard" },
+      { "path": "/dashboard/announcements", "description": "Announcements" },
+      { "path": "/dashboard/bookings", "description": "Bookings list" },
+      { "path": "/dashboard/booking-contracts", "description": "Booking contracts" },
+      { "path": "/dashboard/directory", "description": "Directory" },
+      { "path": "/dashboard/issues", "description": "Issues list" },
+      { "path": "/dashboard/offers", "description": "Offers list" },
+      { "path": "/dashboard/suggestions", "description": "Suggestions" },
+      { "path": "/dashboard/visits", "description": "Visits" },
+      { "path": "/dashboard/move-out-tenants", "description": "Move out tenants" },
+      { "path": "/dashboard/payment", "description": "Payment" },
+      { "path": "/dashboard/reports", "description": "Reports" },
+      { "path": "/dashboard/power-bi-reports", "description": "Power BI reports" },
+      { "path": "/dashboard/system-reports", "description": "System reports" },
+      { "path": "/dashboard/system-reports/maintenance", "description": "Maintenance reports" },
+      { "path": "/dashboard/system-reports/Lease", "description": "Lease reports" }
+    ],
+    "leasing": [
+      { "path": "/leasing", "description": "Leasing main" },
+      { "path": "/leasing/apps", "description": "Rental applications" },
+      { "path": "/leasing/leases", "description": "Leases list" },
+      { "path": "/leasing/leases/:id", "description": "Lease details" },
+      { "path": "/leasing/quotes", "description": "Quotes list" },
+      { "path": "/leasing/visits", "description": "Visits" },
+      { "path": "/addRentalApplication", "description": "Add rental application" },
+      { "path": "/addQuotes", "description": "Add quotes" },
+      { "path": "/expiring-leases", "description": "Expiring leases" },
+      { "path": "/expiring-leases/:id", "description": "Expiring lease details" },
+      { "path": "/moveout-lease", "description": "Move out lease" },
+      { "path": "/terminate-lease", "description": "Terminate lease" }
+    ],
+    "marketplace": [
+      { "path": "/marketplace", "description": "Marketplace main" },
+      { "path": "/marketplace/listing", "description": "Property listings" },
+      { "path": "/marketplace/listing/off-plan-sale-form", "description": "Off-plan sale form" },
+      { "path": "/marketplace/customers", "description": "Customers/leads" },
+      { "path": "/marketplace/customers/upload-leads", "description": "Upload leads" },
+      { "path": "/marketplace/customers/upload-leads/errors", "description": "Upload errors" },
+      { "path": "/marketplace-listing", "description": "Marketplace listing" }
+    ],
+    "properties": [
+      { "path": "/properties-list", "description": "Properties main" },
+      { "path": "/properties-list/communities", "description": "Communities list" },
+      { "path": "/properties-list/buildings", "description": "Buildings list" },
+      { "path": "/properties-list/units", "description": "Units list" },
+      { "path": "/communities/:communityId/:type/:id", "description": "Community details" },
+      { "path": "/select-community", "description": "Select community" },
+      { "path": "/select-building", "description": "Select building" },
+      { "path": "/new-unit", "description": "New unit" },
+      { "path": "/edit-unit", "description": "Edit unit" },
+      { "path": "/unit/details/:id", "description": "Unit details" },
+      { "path": "/multiUnit/:id", "description": "Multi-unit view" }
+    ],
+    "transactions": [
+      { "path": "/transactions", "description": "Transactions main" },
+      { "path": "/transactions/:id", "description": "Transaction details" },
+      { "path": "/transactions/overdues", "description": "Overdues" },
+      { "path": "/transactions/money-in", "description": "Money in" },
+      { "path": "/transactions/money-out", "description": "Money out" },
+      { "path": "/transactions/record-transaction", "description": "Record transaction" },
+      { "path": "/transactions/tenant/:assignee_id", "description": "Tenant transactions" }
+    ],
+    "requests": [
+      { "path": "/requests", "description": "Requests main" },
+      { "path": "/active-requests", "description": "Active requests" },
+      { "path": "/serviceRequests", "description": "Service requests" }
+    ],
+    "contacts": [
+      { "path": "/contacts", "description": "Contacts main" },
+      { "path": "/contact", "description": "Contact page" },
+      { "path": "/directory", "description": "Directory" },
+      { "path": "/directory/create", "description": "Create directory entry" },
+      { "path": "/directory/:id", "description": "Directory entry details" },
+      { "path": "/directory/update", "description": "Update directory" }
+    ],
+    "visitorAccess": [
+      { "path": "/visitor-access", "description": "Visitor access main" },
+      { "path": "/visitor-details/:id", "description": "Visitor details" }
+    ],
+    "facilities": [
+      { "path": "/facilities", "description": "Facilities list" },
+      { "path": "/facility/:facilityID", "description": "Facility details" },
+      { "path": "/addNewFacility/:facilityID?", "description": "Add new facility" }
+    ],
+    "issues": [
+      { "path": "/issues", "description": "Issues list" },
+      { "path": "/issues/create", "description": "Create issue" },
+      { "path": "/issues/:id/view", "description": "View issue" },
+      { "path": "/issues/:id/assign", "description": "Assign issue" }
+    ],
+    "offers": [
+      { "path": "/offers", "description": "Offers list" },
+      { "path": "/offers/create", "description": "Create offer" },
+      { "path": "/offers/:id/view", "description": "View offer" }
+    ],
+    "suggestions": [
+      { "path": "/suggestions", "description": "Suggestions list" },
+      { "path": "/suggestions/:id", "description": "Suggestion details" }
+    ],
+    "settings": [
+      { "path": "/settings", "description": "Settings main" },
+      { "path": "/settings/bank-details", "description": "Bank details" },
+      { "path": "/settings/sales-details", "description": "Sales details" },
+      { "path": "/settings/visits-details", "description": "Visits details" },
+      { "path": "/settings/invoice/", "description": "Invoice settings" },
+      { "path": "/settings/service-request/", "description": "Service request settings" },
+      { "path": "/settings/service-request/:type/:catCode/:catId", "description": "Service request category settings" },
+      { "path": "/settings/visitor-request", "description": "Visitor request settings" },
+      { "path": "/home-service-settings/:id", "description": "Home service settings" },
+      { "path": "/neighbourhood-service-settings/:id", "description": "Neighbourhood service settings" }
+    ],
+    "profile": [
+      { "path": "/edit-profile", "description": "Edit profile" },
+      { "path": "/edit-manager", "description": "Edit manager" },
+      { "path": "/edit-professional", "description": "Edit professional" },
+      { "path": "/family-members", "description": "Family members" },
+      { "path": "/related-companies", "description": "Related companies" }
+    ],
+    "other": [
+      { "path": "/", "description": "Home/redirect" },
+      { "path": "/welcome", "description": "Welcome page" },
+      { "path": "/about", "description": "About page" },
+      { "path": "/pricing", "description": "Pricing" },
+      { "path": "/notifications", "description": "Notifications" },
+      { "path": "/more", "description": "More options" },
+      { "path": "/privacy_policy", "description": "Privacy policy" },
+      { "path": "/terms_and_conditions", "description": "Terms and conditions" },
+      { "path": "/TermsConditionsDahia", "description": "Dahia terms" },
+      { "path": "/create-business-username", "description": "Create business username" },
+      { "path": "/quickcreate", "description": "Quick create" },
+      { "path": "/sendInvite", "description": "Send invite" },
+      { "path": "/qr", "description": "QR code" },
+      { "path": "/maps", "description": "Maps view" },
+      { "path": "/sadeq/:tenant/:id", "description": "Sadeq integration" }
+    ],
+    "dynamicRoutes": [
+      { "path": "/:id", "description": "Generic ID route" },
+      { "path": "/:type", "description": "Generic type route" },
+      { "path": "/:type/:id", "description": "Type with ID" },
+      { "path": "/:type/details/:id", "description": "Type details" },
+      { "path": "/:type/details/:id/active-requests", "description": "Type active requests" },
+      { "path": "/:type/form", "description": "Type form" },
+      { "path": "/:categoryName/:id", "description": "Category by ID" },
+      { "path": "/:subCategoryName/:subCatId", "description": "Subcategory by ID" },
+      { "path": "/:typename/:typeId", "description": "Typename by ID" },
+      { "path": "/details/:id", "description": "Details by ID" },
+      { "path": "/details/:id/:offerId", "description": "Details with offer" },
+      { "path": "/edit/:id", "description": "Edit by ID" },
+      { "path": "/manage/:id", "description": "Manage by ID" },
+      { "path": "/my/:id", "description": "My items by ID" },
+      { "path": "/new/:type/:id?", "description": "New item by type" },
+      { "path": "/preview/:id", "description": "Preview by ID" },
+      { "path": "/:id/contract", "description": "Contract by ID" },
+      { "path": "/:customerId", "description": "Customer by ID" }
+    ]
+  },
+  "apiEndpoints": {
+    "auth": [
+      { "path": "/tenancy/api/signup/create-tenant", "method": "POST" },
+      { "path": "/tenancy/api/signup/send-verification", "method": "POST" },
+      { "path": "/tenancy/api/signup/verify", "method": "POST" },
+      { "path": "/tenancy/api/me", "method": "GET" },
+      { "path": "/tenancy/login", "method": "POST" },
+      { "path": "/tenancy/logout", "method": "POST" },
+      { "path": "/tenancy/send-verification", "method": "POST" },
+      { "path": "/token", "method": "POST" }
+    ],
+    "dashboard": [
+      { "path": "/api-management/dashboard/requires-attention", "method": "GET" }
+    ],
+    "admins": [
+      { "path": "/api-management/rf/admins", "method": "GET" },
+      { "path": "/api-management/rf/admins/check-validate", "method": "POST" },
+      { "path": "/api-management/rf/admins/manager-roles", "method": "GET" }
+    ],
+    "leases": [
+      { "path": "/api-management/rf/leases", "method": "GET" },
+      { "path": "/api-management/rf/leases/create", "method": "POST" },
+      { "path": "/api-management/rf/leases/statistics", "method": "GET" },
+      { "path": "/api-management/rf/leases/change-status/move-out", "method": "POST" },
+      { "path": "/api-management/rf/leases/change-status/terminate", "method": "POST" },
+      { "path": "/api-management/rf/leases/renew/store", "method": "POST" },
+      { "path": "/rf/leases/step-four", "method": "POST" }
+    ],
+    "subLeases": [
+      { "path": "/api-management/rf/sub-leases", "method": "GET" }
+    ],
+    "leads": [
+      { "path": "/api-management/rf/leads", "method": "GET" }
+    ],
+    "contacts": [
+      { "path": "/api-management/rf/contacts/statistics", "method": "GET" }
+    ],
+    "tenants": [
+      { "path": "/api-management/rf/tenants", "method": "GET" }
+    ],
+    "requests": [
+      { "path": "/api-management/rf/requests/categories", "method": "GET" },
+      { "path": "/api-management/rf/requests/change-status/canceled", "method": "POST" },
+      { "path": "/api-management/rf/users/requests", "method": "GET" },
+      { "path": "/api-management/rf/users/requests/types", "method": "GET" },
+      { "path": "/api-management/request-category", "method": "GET" }
+    ],
+    "transactions": [
+      { "path": "/api-management/rf/transactions/", "method": "GET" }
+    ],
+    "properties": [
+      { "path": "/api-management/rf/buildings", "method": "GET" },
+      { "path": "/api-management/rf/facilities", "method": "GET" },
+      { "path": "/api-management/rf/communities/off-plan-sale", "method": "GET" },
+      { "path": "/api-management/rf/communities/edaat/product-codes", "method": "GET" },
+      { "path": "/rf/units", "method": "GET" }
+    ],
+    "marketplace": [
+      { "path": "/api-management/marketplace/admin/settings/banks", "method": "GET" },
+      { "path": "/api-management/marketplace/admin/settings/banks/store", "method": "POST" },
+      { "path": "/api-management/marketplace/admin/settings/sales", "method": "GET" },
+      { "path": "/api-management/marketplace/admin/settings/sales/store", "method": "POST" },
+      { "path": "/api-management/marketplace/admin/settings/visits", "method": "GET" },
+      { "path": "/api-management/marketplace/admin/settings/visits/store", "method": "POST" },
+      { "path": "/api-management/marketplace/admin/units", "method": "GET" },
+      { "path": "/api-management/marketplace/admin/visits", "method": "GET" }
+    ],
+    "visitorAccess": [
+      { "path": "/api-management/rf/users/visitor-access", "method": "GET" }
+    ],
+    "notifications": [
+      { "path": "/api-management/notifications/unread-count", "method": "GET" },
+      { "path": "/api-management/notifications/mark-all-as-read", "method": "POST" }
+    ],
+    "announcements": [
+      { "path": "/api-management/rf/announcements", "method": "GET" }
+    ],
+    "common": [
+      { "path": "/api-management/rf/common-lists", "method": "GET" },
+      { "path": "/api-management/rf/statuses", "method": "GET" },
+      { "path": "/api-management/rf/modules", "method": "GET" },
+      { "path": "/api-management/countries", "method": "GET" },
+      { "path": "/tenancy/api/cities/all", "method": "GET" },
+      { "path": "/tenancy/api/districts/all", "method": "GET" }
+    ],
+    "integrations": [
+      { "path": "/api-management/integrations/powerbi/types", "method": "GET" }
+    ],
+    "files": [
+      { "path": "/rf/files", "method": "POST" },
+      { "path": "/rf/excel-sheets", "method": "POST" },
+      { "path": "/rf/excel-sheets/land", "method": "POST" },
+      { "path": "/rf/excel-sheets/leads", "method": "POST" },
+      { "path": "/images/multiple", "method": "POST" }
+    ],
+    "powerBI": [
+      { "path": "/report/load", "method": "POST" },
+      { "path": "/report/create", "method": "POST" },
+      { "path": "/report/render", "method": "POST" },
+      { "path": "/report/prepare", "method": "POST" },
+      { "path": "/report/refresh", "method": "POST" },
+      { "path": "/report/save", "method": "POST" },
+      { "path": "/report/print", "method": "POST" },
+      { "path": "/report/pages", "method": "GET" },
+      { "path": "/report/pages/active", "method": "GET" },
+      { "path": "/report/filters", "method": "GET" },
+      { "path": "/report/bookmarks", "method": "GET" },
+      { "path": "/report/bookmarks/capture", "method": "POST" },
+      { "path": "/report/bookmarks/play", "method": "POST" },
+      { "path": "/report/settings", "method": "GET" },
+      { "path": "/report/theme", "method": "GET" },
+      { "path": "/report/zoom", "method": "POST" },
+      { "path": "/dashboard/load", "method": "POST" },
+      { "path": "/dashboard/prepare", "method": "POST" },
+      { "path": "/tile/load", "method": "POST" },
+      { "path": "/qna/load", "method": "POST" },
+      { "path": "/qna/prepare", "method": "POST" },
+      { "path": "/qna/interpret", "method": "POST" }
+    ]
+  },
+  "marketplaceSubdomains": [
+    "alawaly.marketplace.goatar.com",
+    "alramz.marketplace.goatar.com",
+    "anan.marketplace.goatar.com",
+    "arabiandyar.marketplace.goatar.com",
+    "atardemo.marketplace.goatar.com",
+    "dailyestate.marketplace.goatar.com",
+    "dammamsquare.marketplace.goatar.com",
+    "demo.marketplace.goatar.com",
+    "dyari.marketplace.goatar.com",
+    "inmar.marketplace.goatar.com",
+    "khawalid.marketplace.goatar.com",
+    "makeen.marketplace.goatar.com",
+    "masheed.marketplace.goatar.com",
+    "mawreth.marketplace.goatar.com",
+    "nawat.marketplace.goatar.com",
+    "nayarealty.marketplace.goatar.com",
+    "osus.marketplace.goatar.com",
+    "rasf.marketplace.goatar.com",
+    "rosow.marketplace.goatar.com",
+    "safa.marketplace.goatar.com",
+    "solana.marketplace.goatar.com",
+    "sumou.marketplace.goatar.com",
+    "superoffice.marketplace.goatar.com",
+    "thimarya.marketplace.goatar.com",
+    "wathbah.marketplace.goatar.com"
+  ],
+  "features": {
+    "amenities": [
+      "Balcony",
+      "Double_glazed_windows",
+      "Elevator",
+      "Kitchen",
+      "Outdoor_dining",
+      "Outdoor_Gardens",
+      "Parking",
+      "Smart_access",
+      "Smart_Home",
+      "Smoke_alarm",
+      "Washing_machine",
+      "Wifi"
+    ],
+    "languages": ["ar", "en"],
+    "integrations": ["Firebase", "Power BI", "Edaat"]
+  },
+  "permissions": {
+    "canAddPayment": "Add payment capability",
+    "canAddRentalDetails": "Add rental details capability",
+    "canConvert": "Convert lead capability",
+    "canDelete": "Delete capability",
+    "canDeletePayment": "Delete payment capability"
+  },
+  "statusTypes": {
+    "lease": ["active", "terminated", "expired"],
+    "transaction": ["paid", "outstanding", "overdue"],
+    "customer": ["new", "inProgress", "connected", "noResponse", "notInterested", "interested"],
+    "priority": ["high", "medium", "low"]
+  }
+}

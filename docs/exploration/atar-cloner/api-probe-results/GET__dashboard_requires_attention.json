@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/dashboard/requires-attention",
+    "path": "/dashboard/requires-attention",
+    "base": "management",
+    "body": null,
+    "description": "Dashboard attention items",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 1312,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:43 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lSuIhIvMDO7BC%2Fd8HHvRlG%2BxiTpu33H1YtHPlbUXA1AayFbrhfNdG2tB%2B26BXTYH%2F7czAB%2BeIcCjg8Q3sEGaXztS8x08mb1d%2BVHCp42rOsS4yXKcm2ksQoMELNhRIhQUGlhuf6mIs7Jf1T8x\"}]}",
+      "cf-ray": "9ea50b07b8406534-LHR"
+    },
+    "body": {
+      "data": {
+        "requests_approval": 0,
+        "pending_complaints": 0,
+        "expiring_leases": 0,
+        "overdue_recipes": 0
+      }
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:43.289Z"
+}

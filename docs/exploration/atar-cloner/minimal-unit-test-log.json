@@ -1,0 +1,397 @@
+[
+  {
+    "timestamp": "2026-04-10T22:48:06.380Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit EN",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "headers": {
+      "Accept-Language": "en"
+    },
+    "response": {
+      "status": 400,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:06 GMT",
+        "content-type": "application/json",
+        "content-length": "66",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "2d9a0e36130b945ac5300ad57b4cb826",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=560Dr9UvUOyYwvAfrtgnpj7etin4WEUUiBxHS3yXrR%2FaGH7Kr27kL8NslxfRXVaM%2BcS5Jh61YK4RQkWWobCxPYCkGLRi8eBEB0WR%2BYovkXxybn8tf1fW5I7ZObXCD1MLELflAgr%2FlAgtWhZp\"}]}",
+        "cf-ray": "9ea54c11f8bd260a-MRS"
+      },
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:06.961Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit V2",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "headers": {
+      "X-API-Version": "2.0",
+      "Accept-Language": "en"
+    },
+    "response": {
+      "status": 400,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:07 GMT",
+        "content-type": "application/json",
+        "content-length": "66",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "9a2f6fb8cd826755c5300ad57b4cb9d9",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=EuPcGXB6ndQJlZAR4N0huynjvKQjXUXGu7MwjxZ8J9Rdf7dFE%2FBcfWZy1Kdb6zdi6J%2FLoSCpChUAlExYTGk82xhACL8xnMedV8tGZbeZtoHm9pct0aymwsfhsgGzM6aOGYNBzlwu34V7PGTa\"}]}",
+        "cf-ray": "9ea54c13cb97260a-MRS"
+      },
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:07.299Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Form",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "_method": "POST"
+    },
+    "headers": {},
+    "response": {
+      "status": 400,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:07 GMT",
+        "content-type": "application/json",
+        "content-length": "66",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "4cda48ed0479a787a56a009bde47154a",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YiKwGOSHh44fuHI4hhuoeAIiZEo6vxncbwoEGciQxQcQIVT1wfo%2FpJnn9csqDy9772PfiNRlin9gvWbdWdaIQuu691HUHyYCWcV6ifrZg5EBakA4%2BnoW2lotd5yyaNxXzyht9wFn9Y4Sm%2BIR\"}]}",
+        "cf-ray": "9ea54c15df37260a-MRS"
+      },
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:07.563Z",
+    "method": "GET",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": null,
+    "headers": {},
+    "response": {
+      "status": 200,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:07 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=AqlhpbuweLx%2F7cMAIFKZJuqWmGt8FDQlFSfssiQgV21HspkSBUBgnDdGcGELB6QD0e6i%2B7gF4RZej6iMKdzNS%2Bl51dwEI%2FrOXiGdE0fgHCFjtd4chy0BzuzelOXYKlGBekbdTaEb6m1GZyJy\"}]}",
+        "cf-ray": "9ea54c178a96260a-MRS"
+      },
+      "data": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:07.830Z",
+    "method": "HEAD",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": null,
+    "headers": {},
+    "response": {
+      "status": 200,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:08 GMT",
+        "content-type": "application/json",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Jdrx%2BO2IYuD1pnWz10VrhXGB26Nai1zPgw6Uu8d5fnUES7BVM%2BPzKIls22Uj%2F85eoVOnS7AC5RIPdJNPk%2FsONSbVBbSZq%2F90v4K7aY3adh%2F75OSc1M2PHlLtejPplciJDl4R6z42Z628pjfn\"}]}",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "cf-ray": "9ea54c193d20260a-MRS"
+      },
+      "data": ""
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:08.089Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Full Spec Unit",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "owner_id": 3,
+      "rf_status_id": 26,
+      "specifications": [],
+      "amenities": [],
+      "images": [],
+      "documents": [],
+      "description": "Test unit description",
+      "floor_no": 1,
+      "area": 100,
+      "price": 50000
+    },
+    "headers": {},
+    "response": {
+      "status": 400,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:08 GMT",
+        "content-type": "application/json",
+        "content-length": "66",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "ecceb51430d36b4ba56a009bde471c1d",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=H92m18zXQyb95l2%2F7Uhi4nN3fK41OHF7HV0Sg4uej6OBZ%2BLD%2FHqn0PD9ZpqmchmRQ7DyM0awM%2FdmkTxOakvKTVSIagA4u1VegQhq6XGV36CZXWVC3qyQ9FXUj2klu7h%2BDpjTpFYtJXfJi9cU\"}]}",
+        "cf-ray": "9ea54c1c0cd7e243-MRS"
+      },
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:08.603Z",
+    "method": "GET",
+    "endpoint": "/rf/communities/1",
+    "url": "https://api.goatar.com/api-management/rf/communities/1",
+    "body": null,
+    "headers": {},
+    "response": {
+      "status": 200,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:08 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NG1bJH9ms616JTX7ZsEkYVZ%2F9UIHB%2B5QKDSXN%2B05L4uNhHgfedKqsKEV1Z7wLvL6rd2l41lKws8agkyg1f%2FlxTEvOJPu2lLZ2Hr5nULjhEful%2BRiywG5Lpvq8dO73LHpxqk99f54E4HLzv7D\"}]}",
+        "cf-ray": "9ea54c1e080ce243-MRS"
+      },
+      "data": {
+        "code": 200,
+        "message": "تم استرجاع المشروع بنجاح",
+        "data": {
+          "id": 1,
+          "name": "Test Community 1",
+          "description": "A test community for development",
+          "country": {
+            "id": 1,
+            "name": "المملكة العربية السعودية",
+            "code": "SA"
+          },
+          "currency": {
+            "id": 1,
+            "name": "ريال سعودي",
+            "code": "SAR"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "amenities": [],
+          "map": null,
+          "images": [],
+          "documents": [],
+          "buildings_count": 4,
+          "units_count": 0,
+          "requests_count": 0,
+          "total_income": 0,
+          "sales_commission_rate": "0.00",
+          "rental_commission_rate": "0.00",
+          "product_code": null,
+          "license_number": null,
+          "license_issue_date": null,
+          "license_expiry_date": null,
+          "record_payments": [],
+          "additional_payments": [],
+          "completion_percent": 0,
+          "allow_cash_sale": 0,
+          "allow_bank_financing": 0,
+          "listed_percentage": 0,
+          "is_market_place": "0",
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "is_off_plan_sale": "0"
+        },
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:08.905Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Headers",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "headers": {
+      "Origin": "https://goatar.com",
+      "Referer": "https://goatar.com/testbusiness123/units/create",
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    "response": {
+      "status": 400,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:09 GMT",
+        "content-type": "application/json",
+        "content-length": "66",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "access-control-allow-origin": "https://goatar.com",
+        "vary": "Origin",
+        "access-control-allow-credentials": "true",
+        "x-cloud-trace-context": "1099cb1ea879ce71a56a009bde4715ff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WsHMXg4WaLdRXGsO7ukdp7lLIT3O3jN5%2FCLFjXkyrUN1Fuv0PPHz%2Bm0YGmZfVJFrXNpaH6PfgkpayvEdDRGhFO35QyY4hlq2z%2BiHk1CnrmOQmulagJitKwReiacLGNkTFTF4fSPrhx04faaY\"}]}",
+        "cf-ray": "9ea54c1feb35e243-MRS"
+      },
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:48:09.196Z",
+    "method": "GET",
+    "endpoint": "/csrf",
+    "url": "https://api.goatar.com/api-management/csrf",
+    "body": null,
+    "headers": {},
+    "response": {
+      "status": 404,
+      "headers": {
+        "date": "Fri, 10 Apr 2026 22:48:09 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "b1dbd94785f2c46da56a009bde4712f0;o=1",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=oHi8ICiPkqDTCYWlKru1grF3k1%2Fj0e74lcrupt32YahsHKpLzhm%2FOr%2Bx%2BEMIXUr1I8jFNL1sRbrb%2BqqLV5PVgSw5AAGEVeWGIzi7qMDhHxR%2FplObsmWzaAhT2Jxf34DUxcGzL710g2nvHB4y\"}]}",
+        "cf-ray": "9ea54c21be92e243-MRS"
+      },
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  }
+]

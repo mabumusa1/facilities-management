@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/users/requests",
+    "path": "/rf/users/requests",
+    "base": "management",
+    "body": null,
+    "description": "User requests",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 333,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:53 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Ijbkp030OJ918oSw6goPwbOrTmMKBG2jGh3erln81ckxeEPUjmRvgZwEiZ757QKoXv04wliFnixiTnHzo2UpfK0GlxhwxRQ1%2BSRi7AfJg3tBJodJKBAzT6NfMJV77t23gpX9RFv846cf44vk\"}]}",
+      "cf-ray": "9ea50b47cc476534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": [],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:53.141Z"
+}

@@ -1,0 +1,249 @@
+{
+  "code": 200,
+  "message": "تم استرجاع البيانات بنجاح",
+  "data": {
+    "specifications": {
+      "fit_out_status": [
+        {
+          "id": 1,
+          "name": "عظم",
+          "type": "fit_out_status",
+          "name_ar": "عظم",
+          "name_en": "Shell & Core",
+          "parent_id": null
+        },
+        {
+          "id": 2,
+          "name": "مكتمل",
+          "type": "fit_out_status",
+          "name_ar": "مكتمل",
+          "name_en": "Fitted-out",
+          "parent_id": null
+        },
+        {
+          "id": 3,
+          "name": "لا يطبق",
+          "type": "fit_out_status",
+          "name_ar": "لا يطبق",
+          "name_en": "Not Applicable",
+          "parent_id": null
+        }
+      ],
+      "payment_schedule": [
+        {
+          "id": 4,
+          "name": "شهري",
+          "type": "payment_schedule",
+          "name_ar": "شهري",
+          "name_en": "Monthly",
+          "parent_id": "13"
+        },
+        {
+          "id": 5,
+          "name": "ربع سنوي",
+          "type": "payment_schedule",
+          "name_ar": "ربع سنوي",
+          "name_en": "Quarterly",
+          "parent_id": "13"
+        },
+        {
+          "id": 6,
+          "name": "نصف سنوي",
+          "type": "payment_schedule",
+          "name_ar": "نصف سنوي",
+          "name_en": "Semi-Annual",
+          "parent_id": "13"
+        },
+        {
+          "id": 7,
+          "name": "سنوي",
+          "type": "payment_schedule",
+          "name_ar": "سنوي",
+          "name_en": "Annual",
+          "parent_id": "13"
+        },
+        {
+          "id": 16,
+          "name": "دفع شهري",
+          "type": "payment_schedule",
+          "name_ar": "دفع شهري",
+          "name_en": "Monthly Payment",
+          "parent_id": "14"
+        },
+        {
+          "id": 17,
+          "name": "دفع مقدم",
+          "type": "payment_schedule",
+          "name_ar": "دفع مقدم",
+          "name_en": "Upfront Payment",
+          "parent_id": "14"
+        },
+        {
+          "id": 18,
+          "name": "دفع مقدم",
+          "type": "payment_schedule",
+          "name_ar": "دفع مقدم",
+          "name_en": "Upfront Payment",
+          "parent_id": "15"
+        }
+      ],
+      "calculation_basis": [
+        {
+          "id": 8,
+          "name": "مبلغ سنوي ثابت",
+          "type": "calculation_basis",
+          "name_ar": "مبلغ سنوي ثابت",
+          "name_en": "Fixed Yearly Amount",
+          "parent_id": null
+        },
+        {
+          "id": 9,
+          "name": "نسبة من الإيجار السنوي",
+          "type": "calculation_basis",
+          "name_ar": "نسبة من الإيجار السنوي",
+          "name_en": "Percentage of Annual Rent",
+          "parent_id": null
+        }
+      ],
+      "payment_frequency": [
+        {
+          "id": 10,
+          "name": "يدفع سنويا كدفعة واحدة",
+          "type": "payment_frequency",
+          "name_ar": "يدفع سنويا كدفعة واحدة",
+          "name_en": "Paid annually as one payment",
+          "parent_id": null
+        },
+        {
+          "id": 11,
+          "name": "يدفع مع دفعات الإيجار",
+          "type": "payment_frequency",
+          "name_ar": "يدفع مع دفعات الإيجار",
+          "name_en": "Paid with rental payments",
+          "parent_id": null
+        }
+      ],
+      "rental_contract_type": [
+        {
+          "id": 13,
+          "name": "ايجار سنوي",
+          "type": "rental_contract_type",
+          "name_ar": "ايجار سنوي",
+          "name_en": "Yearly Rental",
+          "parent_id": null,
+          "options": [
+            {
+              "id": 4,
+              "name": "شهري",
+              "type": "payment_schedule",
+              "name_ar": "شهري",
+              "name_en": "Monthly",
+              "parent_id": "13"
+            },
+            {
+              "id": 5,
+              "name": "ربع سنوي",
+              "type": "payment_schedule",
+              "name_ar": "ربع سنوي",
+              "name_en": "Quarterly",
+              "parent_id": "13"
+            },
+            {
+              "id": 6,
+              "name": "نصف سنوي",
+              "type": "payment_schedule",
+              "name_ar": "نصف سنوي",
+              "name_en": "Semi-Annual",
+              "parent_id": "13"
+            },
+            {
+              "id": 7,
+              "name": "سنوي",
+              "type": "payment_schedule",
+              "name_ar": "سنوي",
+              "name_en": "Annual",
+              "parent_id": "13"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "ايجار شهري",
+          "type": "rental_contract_type",
+          "name_ar": "ايجار شهري",
+          "name_en": "Monthly Rental",
+          "parent_id": null,
+          "options": [
+            {
+              "id": 16,
+              "name": "دفع شهري",
+              "type": "payment_schedule",
+              "name_ar": "دفع شهري",
+              "name_en": "Monthly Payment",
+              "parent_id": "14"
+            },
+            {
+              "id": 17,
+              "name": "دفع مقدم",
+              "type": "payment_schedule",
+              "name_ar": "دفع مقدم",
+              "name_en": "Upfront Payment",
+              "parent_id": "14"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "name": "ايجار يومي",
+          "type": "rental_contract_type",
+          "name_ar": "ايجار يومي",
+          "name_en": "Daily Rental",
+          "parent_id": null,
+          "options": [
+            {
+              "id": 18,
+              "name": "دفع مقدم",
+              "type": "payment_schedule",
+              "name_ar": "دفع مقدم",
+              "name_en": "Upfront Payment",
+              "parent_id": "15"
+            }
+          ]
+        }
+      ]
+    },
+    "status": [
+      {
+        "id": 30,
+        "name": "عقد جديد",
+        "created_at": null,
+        "priority": "1"
+      },
+      {
+        "id": 31,
+        "name": " عقد ساري",
+        "created_at": null,
+        "priority": "1"
+      },
+      {
+        "id": 32,
+        "name": "عقد منتهي",
+        "created_at": null,
+        "priority": "1"
+      },
+      {
+        "id": 33,
+        "name": "عقد ملغي",
+        "created_at": null,
+        "priority": "1"
+      },
+      {
+        "id": 34,
+        "name": "عقد مغلق",
+        "created_at": null,
+        "priority": "1"
+      }
+    ]
+  },
+  "meta": []
+}

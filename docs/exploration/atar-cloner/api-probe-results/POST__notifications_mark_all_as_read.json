@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.goatar.com/api-management/notifications/mark-all-as-read",
+    "path": "/notifications/mark-all-as-read",
+    "base": "management",
+    "body": {},
+    "description": "Mark notifications read",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 405,
+    "success": false,
+    "duration": 578,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:04:25 GMT",
+      "content-type": "application/json",
+      "content-length": "104",
+      "connection": "keep-alive",
+      "allow": "GET, HEAD, PUT",
+      "cache-control": "no-cache, private",
+      "vary": "Origin",
+      "x-cloud-trace-context": "eae1a8d6754c3bc354186d04df0c3717;o=1",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2Fs8OQXldGVCX1KlaLod2%2BIQMx%2FQ2cgdxtNR2%2BTYzXqL7bjI9Yi6rToskHHsbjdydn0pZI4BP2ISNq6nYAl%2FQD2cxhFcSilVBLW9UlfBNneFK24y0m%2FPyovomTDL%2BbWGkRKAoSS10vdA4AQKp\"}]}",
+      "cf-ray": "9ea50c11a9e36534-LHR"
+    },
+    "body": {
+      "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT."
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:04:25.588Z"
+}

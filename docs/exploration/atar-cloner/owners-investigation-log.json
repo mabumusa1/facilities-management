@@ -1,0 +1,539 @@
+[
+  {
+    "timestamp": "2026-04-10T22:43:58.762Z",
+    "method": "GET",
+    "endpoint": "/rf/owners",
+    "url": "https://api.goatar.com/api-management/rf/owners",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:00.240Z",
+    "method": "GET",
+    "endpoint": "/rf/landlords",
+    "url": "https://api.goatar.com/api-management/rf/landlords",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:00.599Z",
+    "method": "GET",
+    "endpoint": "/rf/property-owners",
+    "url": "https://api.goatar.com/api-management/rf/property-owners",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:00.850Z",
+    "method": "GET",
+    "endpoint": "/rf/unit-owners",
+    "url": "https://api.goatar.com/api-management/rf/unit-owners",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:01.093Z",
+    "method": "GET",
+    "endpoint": "/owners",
+    "url": "https://api.goatar.com/api-management/owners",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:01.328Z",
+    "method": "GET",
+    "endpoint": "/landlords",
+    "url": "https://api.goatar.com/api-management/landlords",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:01.552Z",
+    "method": "GET",
+    "endpoint": "/rf/contacts",
+    "url": "https://api.goatar.com/api-management/rf/contacts",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:01.797Z",
+    "method": "GET",
+    "endpoint": "/contacts",
+    "url": "https://api.goatar.com/api-management/contacts",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:02.169Z",
+    "method": "GET",
+    "endpoint": "/rf/customers",
+    "url": "https://api.goatar.com/api-management/rf/customers",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:02.675Z",
+    "method": "GET",
+    "endpoint": "/rf/clients",
+    "url": "https://api.goatar.com/api-management/rf/clients",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:02.915Z",
+    "method": "GET",
+    "endpoint": "/rf/tenants",
+    "url": "https://api.goatar.com/api-management/rf/tenants",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:03.178Z",
+    "method": "GET",
+    "endpoint": "/tenants",
+    "url": "https://api.goatar.com/api-management/tenants",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:03.418Z",
+    "method": "GET",
+    "endpoint": "/rf/residents",
+    "url": "https://api.goatar.com/api-management/rf/residents",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:03.641Z",
+    "method": "GET",
+    "endpoint": "/residents",
+    "url": "https://api.goatar.com/api-management/residents",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:03.870Z",
+    "method": "GET",
+    "endpoint": "/rf/users",
+    "url": "https://api.goatar.com/api-management/rf/users",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:04.113Z",
+    "method": "GET",
+    "endpoint": "/users",
+    "url": "https://api.goatar.com/api-management/users",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:04.697Z",
+    "method": "GET",
+    "endpoint": "/rf/admins",
+    "url": "https://api.goatar.com/api-management/rf/admins",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 2,
+            "name": "Atar Support",
+            "image": null,
+            "phone_number": "+966502879676",
+            "phone_country_code": "SA",
+            "national_id": null,
+            "email": "info@goatar.com",
+            "role": "Admins",
+            "created_at": "2026-04-10T06:09:54.000000Z",
+            "types": []
+          },
+          {
+            "id": 1,
+            "name": "Test User",
+            "image": null,
+            "phone_number": "+966555123456",
+            "phone_country_code": "SA",
+            "national_id": "1234567890",
+            "email": "test@example.com",
+            "role": "accountAdmins",
+            "created_at": "2026-04-10T06:09:27.000000Z",
+            "types": []
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:05.569Z",
+    "method": "GET",
+    "endpoint": "/admins",
+    "url": "https://api.goatar.com/api-management/admins",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:05.822Z",
+    "method": "GET",
+    "endpoint": "/rf/staff",
+    "url": "https://api.goatar.com/api-management/rf/staff",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:06.058Z",
+    "method": "GET",
+    "endpoint": "/rf/employees",
+    "url": "https://api.goatar.com/api-management/rf/employees",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:06.429Z",
+    "method": "GET",
+    "endpoint": "/rf/floors",
+    "url": "https://api.goatar.com/api-management/rf/floors",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:06.668Z",
+    "method": "GET",
+    "endpoint": "/floors",
+    "url": "https://api.goatar.com/api-management/floors",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:06.907Z",
+    "method": "GET",
+    "endpoint": "/rf/buildings/1/floors",
+    "url": "https://api.goatar.com/api-management/rf/buildings/1/floors",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:07.143Z",
+    "method": "GET",
+    "endpoint": "/rf/levels",
+    "url": "https://api.goatar.com/api-management/rf/levels",
+    "body": null,
+    "response": {
+      "status": 404,
+      "data": {
+        "success": false,
+        "message": "URL link not Found."
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:07.380Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Owner 0",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "owner_id": 0
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:07.708Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Owner 1",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "owner_id": 1
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:08.026Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Owner null",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17,
+      "owner_id": null
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:08.332Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Building 1",
+      "rf_community_id": 1,
+      "rf_building_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:08.667Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Building 2",
+      "rf_community_id": 1,
+      "rf_building_id": 2,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:08.976Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Building 3",
+      "rf_community_id": 1,
+      "rf_building_id": 3,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:09.243Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit Building 4",
+      "rf_community_id": 1,
+      "rf_building_id": 4,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T22:44:09.529Z",
+    "method": "POST",
+    "endpoint": "/rf/units",
+    "url": "https://api.goatar.com/api-management/rf/units",
+    "body": {
+      "name": "Test Unit No Building",
+      "rf_community_id": 1,
+      "category_id": 2,
+      "type_id": 17
+    },
+    "response": {
+      "status": 400,
+      "data": {
+        "code": 400,
+        "message": "messages.unit_creation_failed",
+        "errors": []
+      }
+    }
+  }
+]

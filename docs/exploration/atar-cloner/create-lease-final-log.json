@@ -1,0 +1,594 @@
+[
+  {
+    "timestamp": "2026-04-10T23:35:58.783Z",
+    "method": "GET",
+    "endpoint": "/rf/units",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:35:59.474Z",
+    "method": "GET",
+    "endpoint": "/rf/tenants",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 4,
+            "name": "Khalid Test",
+            "image": null,
+            "phone_number": "+966512345678",
+            "invited": "0",
+            "created_at": "2026-04-10T23:32:52.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          }
+        ],
+        "meta": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:35:59.755Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "handover_date": "2026-04-15",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "tenant_type": "individual",
+      "tenant_id": 4,
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-TEST-1775864159754",
+      "rf_status_id": 30,
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "deposit_amount": 5000,
+      "annual_rent": 50000,
+      "lease_unit_type": "single",
+      "rental_type": 13,
+      "units": [
+        {
+          "id": 3,
+          "amount_type": "fixed",
+          "amount": 50000
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "lease_unit_type": [
+            "يجب أن يكون الحقل lease unit type عددًا صحيحًا",
+            "الحقل lease unit type غير صحيح"
+          ],
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:36:00.040Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "handover_date": "2026-04-15",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "tenant_type": "individual",
+      "tenant_id": 4,
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-TEST-1775864160040",
+      "rf_status_id": 30,
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "deposit_amount": 5000,
+      "annual_rent": 50000,
+      "lease_unit_type": 2,
+      "rental_type": "yearly",
+      "units": [
+        {
+          "id": 3,
+          "amount_type": "fixed",
+          "amount": 50000
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:36:00.394Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "handover_date": "2026-04-15",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "tenant_type": "individual",
+      "tenant_id": 4,
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-TEST-1775864160394",
+      "rf_status_id": 30,
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "deposit_amount": 5000,
+      "annual_rent": 50000,
+      "lease_unit_type": 2,
+      "rental_type": "annual",
+      "units": [
+        {
+          "id": 3,
+          "amount_type": "fixed",
+          "amount": 50000
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:36:00.713Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "handover_date": "2026-04-15",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "tenant_type": "individual",
+      "tenant_id": 4,
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-TEST-1775864160713",
+      "rf_status_id": 30,
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "deposit_amount": 5000,
+      "annual_rent": 50000,
+      "lease_unit_type": 17,
+      "rental_type": "annual",
+      "units": [
+        {
+          "id": 3,
+          "amount_type": "fixed",
+          "amount": 50000
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "lease_unit_type": [
+            "الحقل lease unit type غير صحيح"
+          ],
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:36:01.032Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "handover_date": "2026-04-15",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "tenant_type": "individual",
+      "tenant_id": 4,
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-TEST-1775864161032",
+      "rf_status_id": 30,
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "deposit_amount": 5000,
+      "annual_rent": 50000,
+      "lease_unit_type": 2,
+      "rental_type": "annual",
+      "units": [
+        {
+          "id": 3,
+          "amount_type": "yearly",
+          "amount": 50000
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:36:01.353Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "created_at": "2026-04-11",
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "handover_date": "2026-04-15",
+      "number_of_years": 1,
+      "number_of_months": 0,
+      "tenant_type": "individual",
+      "tenant_id": 4,
+      "autoGenerateLeaseNumber": true,
+      "contract_number": "LEASE-TEST-1775864161353",
+      "rf_status_id": 30,
+      "rental_contract_type_id": 13,
+      "payment_schedule_id": 4,
+      "fit_out_status_id": 2,
+      "deposit_amount": 5000,
+      "annual_rent": 50000,
+      "rf_unit_type_id": 17,
+      "lease_unit_type": 2,
+      "rental_type": "annual",
+      "units": [
+        {
+          "id": 3,
+          "amount_type": "annual",
+          "amount": 50000
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:36:01.646Z",
+    "method": "POST",
+    "endpoint": "/rf/leases",
+    "body": {
+      "start_date": "2026-04-15",
+      "end_date": "2027-04-14",
+      "tenant_id": 4,
+      "units": [
+        {
+          "id": 3
+        }
+      ]
+    },
+    "response": {
+      "status": 422,
+      "data": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rental_contract_type_id": [
+            "الحقل rental contract type id مطلوب."
+          ],
+          "created_at": [
+            "الحقل created at مطلوب."
+          ],
+          "handover_date": [
+            "الحقل handover date مطلوب."
+          ],
+          "lease_unit_type": [
+            "الحقل lease unit type مطلوب."
+          ],
+          "number_of_years": [
+            "يرجى إضافة مدة الإيجار بالسنوات."
+          ],
+          "number_of_months": [
+            "يرجى إضافة مدة الإيجار بالشهور."
+          ],
+          "tenant_type": [
+            "الحقل نوع المستأجر مطلوب."
+          ],
+          "autoGenerateLeaseNumber": [
+            "الحقل auto generate lease number مطلوب."
+          ],
+          "contract_number": [
+            "يرجى إدخال رقم إيجار فريد."
+          ],
+          "rental_type": [
+            "الحقل rental type مطلوب."
+          ],
+          "payment_schedule_id": [
+            "الحقل payment schedule id مطلوب."
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-10T23:36:01.993Z",
+    "method": "GET",
+    "endpoint": "/rf/leases",
+    "body": null,
+    "response": {
+      "status": 200,
+      "data": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      }
+    }
+  }
+]

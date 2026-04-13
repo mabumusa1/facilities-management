@@ -1,11 +1,64 @@
-atar-cloner
-# Playwright
-node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
+# Laravel
+/.phpunit.cache
+/bootstrap/ssr
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/auth.json
 
-playwright/.auth
-.playwright-mcp
+# Laravel Wayfinder (auto-generated)
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder
+
+# IDE
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+*.swp
+*.swo
+*~
+.project
+.settings
+.buildpath
+.phpactor.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+storage/logs/*
+!storage/logs/.gitkeep
+
+# Cache
+bootstrap/cache/*
+!bootstrap/cache/.gitkeep
+
+# Testing
+coverage/
+
+# Docs folder - keep the scanner artifacts ignored
+docs/scanner/node_modules/
+docs/scanner/test-results/
+docs/scanner/playwright-report/
+docs/scanner/.playwright/
+docs/exploration/atar-cloner/node_modules/
+
+# Agents
+agents/*/node_modules/

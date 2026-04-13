@@ -1,0 +1,304 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/requests/categories",
+    "path": "/rf/requests/categories",
+    "base": "management",
+    "body": null,
+    "description": "Request categories",
+    "headers": {
+      "Authorization": "Bearer ***",
+      "Content-Type": "application/json",
+      "X-Tenant": "testbusiness123"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "success": true,
+    "duration": 523,
+    "retries": 0,
+    "headers": {
+      "date": "Fri, 10 Apr 2026 22:03:52 GMT",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "cache-control": "no-cache, private",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "vary": "Origin",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "1; mode=block",
+      "x-content-type-options": "nosniff",
+      "server": "cloudflare",
+      "via": "1.1 google",
+      "cf-cache-status": "DYNAMIC",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NLjFribSVfuzC8DmdpGaWgmhvAHQariY%2BJfCuca%2Bsll6fh%2FIwHAdX9uFlBe%2FRrjYITmW3QT0jG6tlksnLusBUH5G409GuB0qSE7kkn2d%2Fi9dCRLE2lD5VZkV0yO37A3gjIv2QRGdEuvDslz%2B\"}]}",
+      "cf-ray": "9ea50b41680e6534-LHR"
+    },
+    "body": {
+      "code": 200,
+      "message": "",
+      "data": [
+        {
+          "id": 1,
+          "name": "خدمات الوحدات",
+          "description": "للخدمات الخاصة بالوحدات",
+          "status": "1",
+          "has_sub_categories": "1",
+          "sub_categories": [
+            {
+              "id": 1,
+              "name": "صيانة",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 2,
+              "name": "تنظيف المنزل",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 3,
+              "name": "غسيل السيارات",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 4,
+              "name": "الأجهزة الكهربائية",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 5,
+              "name": "إصلاح الأثاث",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 6,
+              "name": "خدمات أخرى",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            }
+          ],
+          "serviceSettings": {
+            "visibilities": {
+              "hide_resident_number": false,
+              "hide_resident_name": false,
+              "hide_professional_number_and_name": false,
+              "show_unified_number_only": false
+            },
+            "permissions": {
+              "manager_close_Request": false,
+              "not_require_professional_enter_request_code": false,
+              "not_require_professional_upload_request_photo": false,
+              "attachments_required": false,
+              "allow_professional_reschedule": false
+            },
+            "submit_request_before_type": null,
+            "submit_request_before_value": null,
+            "capacity_type": null,
+            "capacity_value": null
+          },
+          "icon": {
+            "id": "1",
+            "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/1.png",
+            "name": "1.png",
+            "notes": "predefined"
+          }
+        },
+        {
+          "id": 2,
+          "name": "طلبات المناطق المشتركة",
+          "description": "للخدمات الخاصة بالمناطق المشتركة",
+          "status": "1",
+          "has_sub_categories": "1",
+          "sub_categories": [
+            {
+              "id": 7,
+              "name": "الأمن و السلامة",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 8,
+              "name": "مشاكل الوحدات",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 9,
+              "name": "مشاكل السكان",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 10,
+              "name": "مشاكل الخدمات",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            },
+            {
+              "id": 11,
+              "name": "مشاكل اخرى",
+              "icon": {
+                "id": 6,
+                "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+                "name": "6",
+                "notes": "predefined"
+              },
+              "status": "1"
+            }
+          ],
+          "serviceSettings": {
+            "visibilities": {
+              "hide_resident_number": false,
+              "hide_resident_name": false,
+              "hide_professional_number_and_name": false,
+              "show_unified_number_only": false
+            },
+            "permissions": {
+              "manager_close_Request": false,
+              "not_require_professional_enter_request_code": false,
+              "not_require_professional_upload_request_photo": false,
+              "attachments_required": false,
+              "allow_professional_reschedule": false
+            },
+            "submit_request_before_type": null,
+            "submit_request_before_value": null,
+            "capacity_type": null,
+            "capacity_value": null
+          },
+          "icon": {
+            "id": "2",
+            "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/2.png",
+            "name": "2.png",
+            "notes": "predefined"
+          }
+        },
+        {
+          "id": 3,
+          "name": "طلبات تصاريح الزوار",
+          "description": "لطلبات تصاريح دخول الزوار",
+          "status": "1",
+          "has_sub_categories": "0",
+          "sub_categories": [],
+          "serviceSettings": {
+            "visibilities": {
+              "hide_resident_number": false,
+              "hide_resident_name": false,
+              "hide_professional_number_and_name": false,
+              "show_unified_number_only": false
+            },
+            "permissions": {
+              "manager_close_Request": false,
+              "not_require_professional_enter_request_code": false,
+              "not_require_professional_upload_request_photo": false,
+              "attachments_required": false,
+              "allow_professional_reschedule": false
+            },
+            "submit_request_before_type": null,
+            "submit_request_before_value": null,
+            "capacity_type": null,
+            "capacity_value": null
+          },
+          "icon": {
+            "id": "3",
+            "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/3.png",
+            "name": "3.png",
+            "notes": "predefined"
+          }
+        },
+        {
+          "id": 4,
+          "name": "طلبات المدير",
+          "description": "للتواصل مع مدير المجمع السكني ﻷي أمر في محيطك",
+          "status": "0",
+          "has_sub_categories": "0",
+          "sub_categories": [],
+          "serviceSettings": {
+            "visibilities": {
+              "hide_resident_number": false,
+              "hide_resident_name": false,
+              "hide_professional_number_and_name": false,
+              "show_unified_number_only": false
+            },
+            "permissions": {
+              "manager_close_Request": false,
+              "not_require_professional_enter_request_code": false,
+              "not_require_professional_upload_request_photo": false,
+              "attachments_required": false,
+              "allow_professional_reschedule": false
+            },
+            "submit_request_before_type": null,
+            "submit_request_before_value": null,
+            "capacity_type": null,
+            "capacity_value": null
+          },
+          "icon": {
+            "id": "4",
+            "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/4.png",
+            "name": "4.png",
+            "notes": "predefined"
+          }
+        }
+      ],
+      "meta": []
+    },
+    "parseError": null
+  },
+  "timestamp": "2026-04-10T22:03:52.307Z"
+}
