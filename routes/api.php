@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,5 +46,19 @@ Route::middleware(['web', 'auth'])->group(function () {
 
         // Occupancy reports
         Route::get('/occupancy', [ReportController::class, 'occupancy'])->name('occupancy');
+    });
+
+    // Notifications API routes
+    Route::prefix('notifications')->name('api.notifications.')->group(function () {
+        Route::get('/', [NotificationController::class, 'list'])->name('list');
+        Route::get('/unread', [NotificationController::class, 'unread'])->name('unread');
+        Route::get('/unread-count', [NotificationController::class, 'unreadCount'])->name('unread-count');
+        Route::post('/{id}/read', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
+        Route::post('/read-all', [NotificationController::class, 'markAllAsRead'])->name('mark-all-as-read');
+        Route::delete('/{id}', [NotificationController::class, 'destroy'])->name('destroy');
+        Route::delete('/', [NotificationController::class, 'destroyAll'])->name('destroy-all');
+        Route::get('/preferences', [NotificationController::class, 'preferences'])->name('preferences');
+        Route::put('/preferences', [NotificationController::class, 'updatePreferences'])->name('update-preferences');
+        Route::get('/statistics', [NotificationController::class, 'statistics'])->name('statistics');
     });
 });

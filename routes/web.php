@@ -4,6 +4,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\UnitController;
@@ -41,6 +42,11 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('index');
         Route::get('/leases', [ReportController::class, 'leases'])->name('leases');
         Route::get('/maintenance', [ReportController::class, 'maintenance'])->name('maintenance');
+    });
+
+    // Notifications module routes
+    Route::prefix('notifications')->name('notifications.')->group(function () {
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
     });
 });
 
