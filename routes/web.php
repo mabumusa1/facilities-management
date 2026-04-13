@@ -5,6 +5,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceRequestController;
@@ -37,6 +38,13 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
 
     // Service Requests module routes
     Route::resource('service-requests', ServiceRequestController::class);
+
+    // Leases module routes
+    Route::resource('leases', LeaseController::class);
+    Route::post('leases/wizard/save-step', [LeaseController::class, 'saveStep'])->name('leases.wizard.save-step');
+    Route::post('leases/{lease}/activate', [LeaseController::class, 'activate'])->name('leases.activate');
+    Route::post('leases/{lease}/terminate', [LeaseController::class, 'terminate'])->name('leases.terminate');
+    Route::post('leases/{lease}/move-out', [LeaseController::class, 'moveOut'])->name('leases.move-out');
 
     // Reports module routes
     Route::prefix('reports')->name('reports.')->group(function () {
