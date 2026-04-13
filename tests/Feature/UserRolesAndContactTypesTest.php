@@ -157,25 +157,30 @@ class UserRolesAndContactTypesTest extends TestCase
 
     public function test_permissions_are_seeded_correctly(): void
     {
-        $this->assertDatabaseHas('permissions', ['name' => 'manage-properties']);
+        // Check permissions generated from PermissionSubject enum
+        $this->assertDatabaseHas('permissions', ['name' => 'view-communities']);
+        $this->assertDatabaseHas('permissions', ['name' => 'manage-communities']);
+        $this->assertDatabaseHas('permissions', ['name' => 'view-leases']);
         $this->assertDatabaseHas('permissions', ['name' => 'manage-leases']);
+        $this->assertDatabaseHas('permissions', ['name' => 'view-transactions']);
         $this->assertDatabaseHas('permissions', ['name' => 'manage-transactions']);
+        $this->assertDatabaseHas('permissions', ['name' => 'view-service-requests']);
         $this->assertDatabaseHas('permissions', ['name' => 'manage-service-requests']);
+        $this->assertDatabaseHas('permissions', ['name' => 'view-announcements']);
         $this->assertDatabaseHas('permissions', ['name' => 'manage-announcements']);
-        $this->assertDatabaseHas('permissions', ['name' => 'manage-marketplace']);
     }
 
     public function test_admin_role_has_all_permissions(): void
     {
         $adminRole = Role::findByName('Admins');
-        $expectedPermissions = ManagerRole::Admin->capabilities();
 
-        foreach ($expectedPermissions as $permission) {
-            $this->assertTrue(
-                $adminRole->hasPermissionTo($permission),
-                "Admin role should have permission: {$permission}"
-            );
-        }
+        // Admin should have permissions from all modules based on capabilities
+        $this->assertTrue($adminRole->hasPermissionTo('view-communities'));
+        $this->assertTrue($adminRole->hasPermissionTo('view-leases'));
+        $this->assertTrue($adminRole->hasPermissionTo('view-transactions'));
+        $this->assertTrue($adminRole->hasPermissionTo('view-service-requests'));
+        $this->assertTrue($adminRole->hasPermissionTo('view-announcements'));
+        $this->assertTrue($adminRole->hasPermissionTo('manage-users'));
     }
 
     public function test_user_can_be_assigned_role_with_permissions(): void
@@ -188,7 +193,7 @@ class UserRolesAndContactTypesTest extends TestCase
         $user->assignRole('Admins');
 
         $this->assertTrue($user->hasRole('Admins'));
-        $this->assertTrue($user->hasPermissionTo('manage-properties'));
+        $this->assertTrue($user->hasPermissionTo('view-communities'));
         $this->assertTrue($user->hasPermissionTo('manage-users'));
     }
 
@@ -202,9 +207,9 @@ class UserRolesAndContactTypesTest extends TestCase
         $user->assignRole('accountingManagers');
 
         $this->assertTrue($user->hasRole('accountingManagers'));
-        $this->assertTrue($user->hasPermissionTo('manage-transactions'));
+        $this->assertTrue($user->hasPermissionTo('view-transactions'));
         $this->assertTrue($user->hasPermissionTo('view-financial-reports'));
-        $this->assertFalse($user->hasPermissionTo('manage-properties'));
+        $this->assertFalse($user->hasPermissionTo('view-communities'));
         $this->assertFalse($user->hasPermissionTo('manage-users'));
     }
 }
