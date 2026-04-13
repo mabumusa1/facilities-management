@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -28,6 +29,9 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
 
     // Contacts module routes
     Route::resource('contacts', ContactController::class);
+
+    // Service Requests module routes
+    Route::resource('service-requests', ServiceRequestController::class);
 });
 
 // Test routes for RBAC middleware (only in testing environment)
