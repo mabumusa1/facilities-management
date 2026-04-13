@@ -1,26 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\ContactType;
 use App\Enums\ManagerRole;
 use App\Enums\ServiceManagerType;
+use App\Multitenancy\HasScopedAccess;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'contact_type', 'manager_role', 'service_manager_type', 'is_all_communities', 'is_all_buildings'])]
+#[Fillable(['name', 'email', 'password', 'tenant_id', 'contact_type', 'manager_role', 'service_manager_type', 'is_all_communities', 'is_all_buildings'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, HasRoles, HasScopedAccess, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * Get the attributes that should be cast.
@@ -120,6 +124,14 @@ class User extends Authenticatable
     public function hasUnrestrictedAccess(): bool
     {
         return $this->hasAllCommunitiesAccess() && $this->hasAllBuildingsAccess();
+    }
+
+    /**
+     * Get the tenant that owns the user.
+     */
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
     }
 
     /**
