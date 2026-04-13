@@ -70,6 +70,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/statistics', [LeaseController::class, 'statistics'])->name('statistics');
         Route::get('/expiring', [LeaseController::class, 'expiring'])->name('expiring');
         Route::get('/available-units', [LeaseController::class, 'availableUnits'])->name('available-units');
+        Route::get('/{lease}/renewal-history', [LeaseController::class, 'renewalHistory'])->name('renewal-history');
     });
 
     // Announcements API routes

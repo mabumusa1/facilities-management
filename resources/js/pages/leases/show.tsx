@@ -297,7 +297,7 @@ export default function LeaseShow({ lease, canRenew, canTerminate }: LeaseShowPr
                         )}
 
                         {canRenew && (
-                            <Link href={`/leases/create?renew_from=${lease.id}`}>
+                            <Link href={`/leases/${lease.id}/renew`}>
                                 <Button variant="outline">
                                     <RefreshCw className="mr-2 h-4 w-4" />
                                     Renew
