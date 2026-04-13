@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,14 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/preferences', [NotificationController::class, 'preferences'])->name('preferences');
         Route::put('/preferences', [NotificationController::class, 'updatePreferences'])->name('update-preferences');
         Route::get('/statistics', [NotificationController::class, 'statistics'])->name('statistics');
+    });
+
+    // Leases API routes
+    Route::prefix('leases')->name('api.leases.')->group(function () {
+        Route::get('/', [LeaseController::class, 'list'])->name('list');
+        Route::get('/statistics', [LeaseController::class, 'statistics'])->name('statistics');
+        Route::get('/expiring', [LeaseController::class, 'expiring'])->name('expiring');
+        Route::get('/available-units', [LeaseController::class, 'availableUnits'])->name('available-units');
     });
 
     // Announcements API routes
