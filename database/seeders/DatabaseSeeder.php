@@ -18,6 +18,18 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
         ]);
 
+        // Seed reference data (lookups)
+        $this->call([
+            CountrySeeder::class,
+            CurrencySeeder::class,
+            CitySeeder::class,
+            DistrictSeeder::class,
+            UnitCategorySeeder::class,
+            UnitTypeSeeder::class,
+            FacilityCategorySeeder::class,
+            AmenitySeeder::class,
+        ]);
+
         // Create admin user
         $admin = User::factory()->create([
             'name' => 'Test Admin',
