@@ -248,6 +248,137 @@ class VisitorAccessTest extends TestCase
         $this->assertFalse($visitorAccess->isActive());
     }
 
+    public function test_can_check_in_visitor(): void
+    {
+        $checkedInStatus = Status::factory()->create([
+            'domain' => 'visitor',
+            'slug' => 'visitor_checked_in',
+            'name' => 'Checked In',
+        ]);
+
+        $visitorAccess = VisitorAccess::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'requested_by' => $this->contact->id,
+            'status_id' => $this->approvedStatus->id,
+        ]);
+
+        $checker = Contact::factory()->create(['tenant_id' => $this->tenant->id]);
+        $visitorAccess->checkIn($checker->id);
+
+        $this->assertDatabaseHas('visitor_accesses', [
+            'id' => $visitorAccess->id,
+            'status_id' => $checkedInStatus->id,
+            'checked_in_by' => $checker->id,
+        ]);
+
+        $this->assertNotNull($visitorAccess->fresh()->checked_in_at);
+    }
+
+    public function test_can_check_out_visitor(): void
+    {
+        $checkedInStatus = Status::factory()->create([
+            'domain' => 'visitor',
+            'slug' => 'visitor_checked_in',
+            'name' => 'Checked In',
+        ]);
+
+        $checkedOutStatus = Status::factory()->create([
+            'domain' => 'visitor',
+            'slug' => 'visitor_checked_out',
+            'name' => 'Checked Out',
+        ]);
+
+        $visitorAccess = VisitorAccess::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'requested_by' => $this->contact->id,
+            'status_id' => $checkedInStatus->id,
+        ]);
+
+        $checker = Contact::factory()->create(['tenant_id' => $this->tenant->id]);
+        $visitorAccess->checkOut($checker->id);
+
+        $this->assertDatabaseHas('visitor_accesses', [
+            'id' => $visitorAccess->id,
+            'status_id' => $checkedOutStatus->id,
+            'checked_out_by' => $checker->id,
+        ]);
+
+        $this->assertNotNull($visitorAccess->fresh()->checked_out_at);
+    }
+
+    public function test_can_cancel_visitor_access(): void
+    {
+        $canceledStatus = Status::factory()->create([
+            'domain' => 'visitor',
+            'slug' => 'visitor_canceled',
+            'name' => 'Canceled',
+        ]);
+
+        $visitorAccess = VisitorAccess::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'requested_by' => $this->contact->id,
+            'status_id' => $this->pendingStatus->id,
+        ]);
+
+        $visitorAccess->cancel();
+
+        $this->assertDatabaseHas('visitor_accesses', [
+            'id' => $visitorAccess->id,
+            'status_id' => $canceledStatus->id,
+        ]);
+    }
+
+    public function test_is_checked_in_returns_true_for_checked_in_status(): void
+    {
+        $checkedInStatus = Status::factory()->create([
+            'domain' => 'visitor',
+            'slug' => 'visitor_checked_in',
+            'name' => 'Checked In',
+        ]);
+
+        $visitorAccess = VisitorAccess::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'requested_by' => $this->contact->id,
+            'status_id' => $checkedInStatus->id,
+        ]);
+
+        $this->assertTrue($visitorAccess->isCheckedIn());
+    }
+
+    public function test_is_checked_out_returns_true_for_checked_out_status(): void
+    {
+        $checkedOutStatus = Status::factory()->create([
+            'domain' => 'visitor',
+            'slug' => 'visitor_checked_out',
+            'name' => 'Checked Out',
+        ]);
+
+        $visitorAccess = VisitorAccess::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'requested_by' => $this->contact->id,
+            'status_id' => $checkedOutStatus->id,
+        ]);
+
+        $this->assertTrue($visitorAccess->isCheckedOut());
+    }
+
+    public function test_is_canceled_returns_true_for_canceled_status(): void
+    {
+        $canceledStatus = Status::factory()->create([
+            'domain' => 'visitor',
+            'slug' => 'visitor_canceled',
+            'name' => 'Canceled',
+        ]);
+
+        $visitorAccess = VisitorAccess::factory()->create([
+            'tenant_id' => $this->tenant->id,
+            'requested_by' => $this->contact->id,
+            'status_id' => $canceledStatus->id,
+        ]);
+
+        $this->assertTrue($visitorAccess->isCanceled());
+    }
+
     public function test_soft_deletes_visitor_access(): void
     {
         $visitorAccess = VisitorAccess::factory()->create([

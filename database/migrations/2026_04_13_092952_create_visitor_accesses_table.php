@@ -41,6 +41,12 @@ return new class extends Migration
             $table->timestamp('approved_at')->nullable();
             $table->text('rejection_reason')->nullable();
 
+            // Check-in/Check-out tracking
+            $table->timestamp('checked_in_at')->nullable();
+            $table->foreignId('checked_in_by')->nullable()->constrained('contacts')->nullOnDelete();
+            $table->timestamp('checked_out_at')->nullable();
+            $table->foreignId('checked_out_by')->nullable()->constrained('contacts')->nullOnDelete();
+
             $table->timestamps();
             $table->softDeletes();
 
