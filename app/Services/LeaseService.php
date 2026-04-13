@@ -249,45 +249,146 @@ class LeaseService
 
     /**
      * Terminate a lease (Active -> Cancelled).
+     *
+     * @param  array<string, mixed>  $data
      */
-    public function terminateLease(Lease $lease): Lease
+    public function terminateLease(Lease $lease, array $data = []): Lease
     {
         if ($lease->status_id !== self::STATUS_ACTIVE) {
             throw new \RuntimeException('Only active leases can be terminated.');
         }
 
-        $lease->update([
+        $updateData = [
             'status_id' => self::STATUS_CANCELLED,
-            'actual_end_at' => now(),
-        ]);
+            'actual_end_at' => isset($data['termination_date'])
+                ? Carbon::parse($data['termination_date'])
+                : now(),
+        ];
+
+        // Store termination reason if provided
+        if (isset($data['termination_reason'])) {
+            $updateData['terms_conditions'] = ($lease->terms_conditions ?? '').
+                "\n\n--- Termination ---\nReason: ".$data['termination_reason'].
+                "\nDate: ".$updateData['actual_end_at']->format('Y-m-d');
+        }
+
+        $lease->update($updateData);
 
         // Release units
         $unitIds = $lease->units->pluck('id')->toArray();
         Unit::whereIn('id', $unitIds)->update(['status_id' => self::UNIT_AVAILABLE]);
 
-        return $lease->fresh();
+        return $lease->fresh(['tenant', 'units', 'status']);
     }
 
     /**
-     * Move out from a lease (Active -> Closed).
+     * Move out from a lease (Active/Expired -> Closed).
+     *
+     * @param  array<string, mixed>  $data
      */
-    public function moveOut(Lease $lease, ?string $actualEndDate = null): Lease
+    public function moveOut(Lease $lease, array $data = []): Lease
     {
         if ($lease->status_id !== self::STATUS_ACTIVE && $lease->status_id !== self::STATUS_EXPIRED) {
             throw new \RuntimeException('Only active or expired leases can be moved out.');
         }
 
-        $lease->update([
+        $updateData = [
             'status_id' => self::STATUS_CLOSED,
             'is_move_out' => true,
-            'actual_end_at' => $actualEndDate ? Carbon::parse($actualEndDate) : now(),
-        ]);
+            'actual_end_at' => isset($data['move_out_date'])
+                ? Carbon::parse($data['move_out_date'])
+                : now(),
+        ];
+
+        // Store move-out notes if provided
+        if (isset($data['inspection_notes']) || isset($data['deposit_deductions'])) {
+            $moveOutNotes = "\n\n--- Move Out ---";
+            $moveOutNotes .= "\nDate: ".$updateData['actual_end_at']->format('Y-m-d');
+
+            if (isset($data['inspection_notes'])) {
+                $moveOutNotes .= "\nInspection Notes: ".$data['inspection_notes'];
+            }
+
+            if (isset($data['deposit_deductions'])) {
+                $moveOutNotes .= "\nDeposit Deductions: ".$data['deposit_deductions'];
+            }
+
+            if (isset($data['deposit_refund_amount'])) {
+                $moveOutNotes .= "\nDeposit Refund: ".$data['deposit_refund_amount'];
+            }
+
+            $updateData['terms_conditions'] = ($lease->terms_conditions ?? '').$moveOutNotes;
+        }
+
+        $lease->update($updateData);
 
         // Release units
         $unitIds = $lease->units->pluck('id')->toArray();
         Unit::whereIn('id', $unitIds)->update(['status_id' => self::UNIT_AVAILABLE]);
 
-        return $lease->fresh();
+        return $lease->fresh(['tenant', 'units', 'status']);
+    }
+
+    /**
+     * Check if a lease can be moved out.
+     */
+    public function canMoveOut(Lease $lease): bool
+    {
+        return in_array($lease->status_id, [self::STATUS_ACTIVE, self::STATUS_EXPIRED])
+            && ! $lease->is_move_out;
+    }
+
+    /**
+     * Get termination summary for a lease.
+     *
+     * @return array<string, mixed>
+     */
+    public function getTerminationSummary(Lease $lease): array
+    {
+        $today = Carbon::now();
+        $endDate = Carbon::parse($lease->end_date);
+        $daysRemaining = $today->diffInDays($endDate, false);
+        $isEarlyTermination = $daysRemaining > 0;
+
+        return [
+            'lease_id' => $lease->id,
+            'contract_number' => $lease->contract_number,
+            'tenant_name' => $lease->tenant?->name,
+            'start_date' => $lease->start_date->format('Y-m-d'),
+            'end_date' => $lease->end_date->format('Y-m-d'),
+            'days_remaining' => max(0, $daysRemaining),
+            'is_early_termination' => $isEarlyTermination,
+            'security_deposit' => (float) $lease->security_deposit_amount,
+            'rental_total_amount' => (float) $lease->rental_total_amount,
+        ];
+    }
+
+    /**
+     * Get move-out summary for a lease.
+     *
+     * @return array<string, mixed>
+     */
+    public function getMoveOutSummary(Lease $lease): array
+    {
+        $today = Carbon::now();
+        $endDate = Carbon::parse($lease->end_date);
+        $isAfterEndDate = $today->gt($endDate);
+
+        return [
+            'lease_id' => $lease->id,
+            'contract_number' => $lease->contract_number,
+            'tenant_name' => $lease->tenant?->name,
+            'start_date' => $lease->start_date->format('Y-m-d'),
+            'end_date' => $lease->end_date->format('Y-m-d'),
+            'is_after_end_date' => $isAfterEndDate,
+            'security_deposit' => (float) $lease->security_deposit_amount,
+            'rental_total_amount' => (float) $lease->rental_total_amount,
+            'unpaid_amount' => $lease->getTotalUnpaidAmount(),
+            'units' => $lease->units->map(fn ($u) => [
+                'id' => $u->id,
+                'name' => $u->name,
+            ])->toArray(),
+        ];
     }
 
     /**
