@@ -7,9 +7,11 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeaseApplicationController;
 use App\Http\Controllers\LeaseController;
+use App\Http\Controllers\LeasingModuleController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceRequestController;
+use App\Http\Controllers\SubLeaseController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -63,6 +65,12 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::post('lease-applications/{leaseApplication}/send-quote', [LeaseApplicationController::class, 'sendQuote'])->name('lease-applications.send-quote');
     Route::post('lease-applications/{leaseApplication}/convert-to-lease', [LeaseApplicationController::class, 'convertToLease'])->name('lease-applications.convert-to-lease');
     Route::get('lease-applications/{leaseApplication}/history', [LeaseApplicationController::class, 'history'])->name('lease-applications.history');
+
+    // Sub-Leases module routes
+    Route::resource('sub-leases', SubLeaseController::class);
+
+    // Leasing Module UI (overview dashboard)
+    Route::get('leasing', [LeasingModuleController::class, 'index'])->name('leasing.index');
 
     // Reports module routes
     Route::prefix('reports')->name('reports.')->group(function () {

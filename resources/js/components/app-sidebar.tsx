@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import {
     BookOpen,
     Building2,
+    FileText,
     FolderGit2,
     Home,
     LayoutGrid,
@@ -60,6 +61,11 @@ const mainNavItems: NavItem[] = [
         title: 'Service Requests',
         href: serviceRequestsIndex(),
         icon: Wrench,
+    },
+    {
+        title: 'Leasing',
+        href: '/leasing',
+        icon: FileText,
     },
 ];
 
