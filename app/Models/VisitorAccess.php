@@ -33,6 +33,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'approved_by',
     'approved_at',
     'rejection_reason',
+    'checked_in_at',
+    'checked_in_by',
+    'checked_out_at',
+    'checked_out_by',
 ])]
 class VisitorAccess extends Model
 {
@@ -49,6 +53,8 @@ class VisitorAccess extends Model
             'visit_start_date' => 'date',
             'visit_end_date' => 'date',
             'approved_at' => 'datetime',
+            'checked_in_at' => 'datetime',
+            'checked_out_at' => 'datetime',
         ];
     }
 
@@ -109,6 +115,22 @@ class VisitorAccess extends Model
     }
 
     /**
+     * Get the contact who checked in the visitor.
+     */
+    public function checkedInBy(): BelongsTo
+    {
+        return $this->belongsTo(Contact::class, 'checked_in_by');
+    }
+
+    /**
+     * Get the contact who checked out the visitor.
+     */
+    public function checkedOutBy(): BelongsTo
+    {
+        return $this->belongsTo(Contact::class, 'checked_out_by');
+    }
+
+    /**
      * Check if the visitor access is pending.
      */
     public function isPending(): bool
@@ -130,6 +152,30 @@ class VisitorAccess extends Model
     public function isDenied(): bool
     {
         return $this->status->slug === 'visitor_denied';
+    }
+
+    /**
+     * Check if the visitor is checked in.
+     */
+    public function isCheckedIn(): bool
+    {
+        return $this->status->slug === 'visitor_checked_in';
+    }
+
+    /**
+     * Check if the visitor is checked out.
+     */
+    public function isCheckedOut(): bool
+    {
+        return $this->status->slug === 'visitor_checked_out';
+    }
+
+    /**
+     * Check if the visitor access is canceled.
+     */
+    public function isCanceled(): bool
+    {
+        return $this->status->slug === 'visitor_canceled';
     }
 
     /**
@@ -171,6 +217,46 @@ class VisitorAccess extends Model
             'approved_by' => $deniedBy,
             'approved_at' => now(),
             'rejection_reason' => $reason,
+        ]);
+    }
+
+    /**
+     * Check in the visitor.
+     */
+    public function checkIn(?int $checkedInBy = null): void
+    {
+        $status = Status::where('domain', 'visitor')->where('slug', 'visitor_checked_in')->first();
+
+        $this->update([
+            'status_id' => $status?->id ?? $this->status_id,
+            'checked_in_at' => now(),
+            'checked_in_by' => $checkedInBy,
+        ]);
+    }
+
+    /**
+     * Check out the visitor.
+     */
+    public function checkOut(?int $checkedOutBy = null): void
+    {
+        $status = Status::where('domain', 'visitor')->where('slug', 'visitor_checked_out')->first();
+
+        $this->update([
+            'status_id' => $status?->id ?? $this->status_id,
+            'checked_out_at' => now(),
+            'checked_out_by' => $checkedOutBy,
+        ]);
+    }
+
+    /**
+     * Cancel the visitor access.
+     */
+    public function cancel(): void
+    {
+        $status = Status::where('domain', 'visitor')->where('slug', 'visitor_canceled')->first();
+
+        $this->update([
+            'status_id' => $status?->id ?? $this->status_id,
         ]);
     }
 }
