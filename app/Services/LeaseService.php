@@ -142,7 +142,7 @@ class LeaseService
 
         // Set defaults
         $data['status_id'] = $data['status_id'] ?? self::STATUS_NEW;
-        $data['created_by_id'] = $creator->contact_id ?? $creator->id;
+        $data['created_by_id'] = $creator->contact_id ?? null;
 
         // Calculate duration if not provided
         if (isset($data['start_date'], $data['end_date']) && ! isset($data['number_of_years'])) {
@@ -437,7 +437,7 @@ class LeaseService
             'deal_owner_id' => $originalLease->deal_owner_id,
             'parent_lease_id' => $originalLease->id,
             'status_id' => self::STATUS_NEW,
-            'created_by_id' => $creator->contact_id ?? $creator->id,
+            'created_by_id' => $creator->contact_id ?? null,
         ];
 
         // Override with provided data
