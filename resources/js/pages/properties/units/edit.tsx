@@ -78,7 +78,7 @@ export default function UnitEdit({ unit, communities, buildings, categories, typ
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(unitsUpdate({ unit: unit.id }));
+        put(unitsUpdate.url({ unit: unit.id }));
     };
 
     // Filter buildings by selected community

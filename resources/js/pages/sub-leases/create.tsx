@@ -1,11 +1,11 @@
 import { Head, Link, useForm } from '@inertiajs/react';
+import { ArrowLeft, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Save } from 'lucide-react';
 
 interface ParentLeaseOption { id: number; label: string; start_date: string; end_date: string }
 interface Option { id: number; name: string }
@@ -168,6 +168,7 @@ export default function SubLeasesCreate({ parentLeases, communities, buildings, 
                                 <div className="grid grid-cols-3 gap-2 max-h-40 overflow-y-auto border rounded-md p-2">
                                     {units.map(u => {
                                         const selected = data.units.some(su => su.id === u.id);
+
                                         return (
                                             <button
                                                 key={u.id}

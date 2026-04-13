@@ -1,9 +1,9 @@
 import { Head, Link, router } from '@inertiajs/react';
+import { ArrowLeft, Building2, Calendar, DollarSign, Edit, FileText, Trash2, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Building2, Calendar, DollarSign, Edit, FileText, Trash2, User } from 'lucide-react';
 
 interface Status { id: number; name: string }
 interface Contact { id: number; name: string; email?: string; phone?: string }

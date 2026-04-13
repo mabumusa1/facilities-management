@@ -1,15 +1,16 @@
-import { Head, Link, useForm, router } from '@inertiajs/react';
-import { FormEvent, useState } from 'react';
-import AppLayout from '@/layouts/app-layout';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { ArrowLeft, ArrowRight, FileText, RefreshCw, CalendarDays, DollarSign, Building2, User } from 'lucide-react';
+import type { FormEvent} from 'react';
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, ArrowRight, FileText, RefreshCw, CalendarDays, DollarSign, Building2, User } from 'lucide-react';
-import { type BreadcrumbItem } from '@/types';
+import AppLayout from '@/layouts/app-layout';
+import type {BreadcrumbItem} from '@/types';
 
 interface Unit {
     id: number;
@@ -91,11 +92,11 @@ interface Props {
 export default function LeaseRenew({
     originalLease,
     renewalDefaults,
-    communities,
-    buildings,
-    units,
-    tenants,
-    statuses,
+    communities: _communities,
+    buildings: _buildings,
+    units: _units,
+    tenants: _tenants,
+    statuses: _statuses,
 }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
         { title: 'Leases', href: '/leases' },
@@ -326,6 +327,7 @@ export default function LeaseRenew({
                                         <div className="space-y-4">
                                             {data.units.map((unit, index) => {
                                                 const unitInfo = originalLease.units.find(u => u.id === unit.id);
+
                                                 return (
                                                     <Card key={unit.id}>
                                                         <CardContent className="pt-4">
@@ -427,6 +429,7 @@ export default function LeaseRenew({
                                                 <div className="space-y-2">
                                                     {data.units.map((unit) => {
                                                         const unitInfo = originalLease.units.find(u => u.id === unit.id);
+
                                                         return (
                                                             <div key={unit.id} className="flex justify-between items-center text-sm">
                                                                 <span>{unitInfo?.name || `Unit ${unit.id}`}</span>

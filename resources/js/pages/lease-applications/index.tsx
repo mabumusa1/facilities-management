@@ -1,7 +1,22 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    FileText,
+    Plus,
+    Search,
+    Calendar,
+    DollarSign,
+    AlertCircle,
+    CheckCircle,
+    Clock,
+    XCircle,
+    Eye,
+    Pause,
+    Send,
+} from 'lucide-react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
     Select,
@@ -18,21 +33,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import {
-    FileText,
-    Plus,
-    Search,
-    Calendar,
-    DollarSign,
-    AlertCircle,
-    CheckCircle,
-    Clock,
-    XCircle,
-    Eye,
-    Pause,
-    Send,
-} from 'lucide-react';
-import { useState } from 'react';
 
 interface Contact {
     id: number;

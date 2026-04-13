@@ -1,18 +1,4 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
     FileText,
     ArrowLeft,
@@ -23,6 +9,19 @@ import {
     User,
     Home,
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Unit {
     id: number;
@@ -132,6 +131,7 @@ export default function LeaseEdit({ lease, communities, buildings, units, tenant
 
     const handleUnitToggle = (unitId: number) => {
         const exists = data.units.find(u => u.id === unitId);
+
         if (exists) {
             setData('units', data.units.filter(u => u.id !== unitId));
         } else {
@@ -144,6 +144,7 @@ export default function LeaseEdit({ lease, communities, buildings, units, tenant
             if (u.id === unitId) {
                 return { ...u, [field]: value };
             }
+
             return u;
         }));
     };
@@ -366,6 +367,7 @@ export default function LeaseEdit({ lease, communities, buildings, units, tenant
                                                     {filteredUnits.map((unit) => {
                                                         const isSelected = data.units.some(u => u.id === unit.id);
                                                         const selectedUnit = data.units.find(u => u.id === unit.id);
+
                                                         return (
                                                             <div key={unit.id} className="p-3">
                                                                 <div className="flex items-center gap-3">

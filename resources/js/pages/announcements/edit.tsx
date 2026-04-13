@@ -1,10 +1,11 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, Save } from 'lucide-react';
+import type { FormEventHandler } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
     Select,
     SelectContent,
@@ -12,8 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft, Save } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Announcement {
     id: number;
@@ -65,6 +65,7 @@ export default function AnnouncementsEdit({ announcement }: AnnouncementEditProp
 
     const toggleNotifyUserType = (type: string) => {
         const currentTypes = data.notify_user_types || [];
+
         if (currentTypes.includes(type)) {
             setData('notify_user_types', currentTypes.filter((t) => t !== type));
         } else {

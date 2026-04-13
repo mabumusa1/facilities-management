@@ -1,39 +1,4 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
 import {
     FileText,
     Edit,
@@ -55,6 +20,41 @@ import {
     Mail,
 } from 'lucide-react';
 import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/components/ui/table';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Unit {
     id: number;
@@ -169,7 +169,10 @@ function getStatusBadge(status: string) {
 }
 
 function formatDate(dateString: string | null): string {
-    if (!dateString) return '-';
+    if (!dateString) {
+return '-';
+}
+
     return new Date(dateString).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
@@ -178,7 +181,10 @@ function formatDate(dateString: string | null): string {
 }
 
 function formatDateTime(dateString: string | null): string {
-    if (!dateString) return '-';
+    if (!dateString) {
+return '-';
+}
+
     return new Date(dateString).toLocaleString('en-US', {
         year: 'numeric',
         month: 'short',
@@ -189,8 +195,12 @@ function formatDateTime(dateString: string | null): string {
 }
 
 function formatCurrency(amount: string | number | null): string {
-    if (amount === null) return '-';
+    if (amount === null) {
+return '-';
+}
+
     const num = typeof amount === 'string' ? parseFloat(amount) : amount;
+
     return `$${num.toLocaleString()}`;
 }
 
@@ -201,6 +211,7 @@ function getSourceLabel(source: string | null): string {
         referral: 'Referral',
         marketplace: 'Marketplace',
     };
+
     return source ? sources[source] || source : '-';
 }
 
@@ -220,7 +231,7 @@ export default function ApplicationShow({ application, allowedTransitions, state
 
     const handleAction = (action: string, data: Record<string, unknown> = {}) => {
         setIsProcessing(true);
-        router.post(`/lease-applications/${application.id}/${action}`, data, {
+        router.post(`/lease-applications/${application.id}/${action}`, data as Record<string, string>, {
             onFinish: () => setIsProcessing(false),
         });
     };
@@ -248,7 +259,6 @@ export default function ApplicationShow({ application, allowedTransitions, state
     const isInProgress = application.status === 'in_progress';
     const isUnderReview = application.status === 'review';
     const isOnHold = application.status === 'on_hold';
-    const isApproved = application.status === 'approved';
 
     return (
         <>

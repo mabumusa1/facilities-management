@@ -62,8 +62,15 @@ export default function BuildingsIndex({ buildings, communities, filters }: Prop
 
     const handleFilterChange = (key: string, value: string) => {
         const newFilters = { search, status, community_id: communityId, [key]: value };
-        if (key === 'status') setStatus(value);
-        if (key === 'community_id') setCommunityId(value);
+
+        if (key === 'status') {
+setStatus(value);
+}
+
+        if (key === 'community_id') {
+setCommunityId(value);
+}
+
         router.get(buildingsIndex(), newFilters, { preserveState: true });
     };
 

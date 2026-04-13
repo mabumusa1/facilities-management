@@ -1,9 +1,11 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, Save, User, Building2, DollarSign, Calendar, FileText } from 'lucide-react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
     Select,
     SelectContent,
@@ -11,9 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, Save, User, Building2, DollarSign, Calendar, FileText } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Community {
     id: number;
@@ -119,6 +119,7 @@ export default function ApplicationEdit({
                 unitMap.set(u.id, u as unknown as Unit);
             }
         });
+
         return Array.from(unitMap.values());
     }, [availableUnits, application.units]);
 
@@ -152,13 +153,19 @@ export default function ApplicationEdit({
 
     // Filter buildings based on selected community
     const filteredBuildings = useMemo(() => {
-        if (!data.community_id) return buildings;
+        if (!data.community_id) {
+return buildings;
+}
+
         return buildings.filter(b => b.community_id === parseInt(data.community_id));
     }, [data.community_id, buildings]);
 
     // Filter units based on selected building
     const filteredUnits = useMemo(() => {
-        if (!data.building_id) return allUnits;
+        if (!data.building_id) {
+return allUnits;
+}
+
         return allUnits.filter(u => u.building_id === parseInt(data.building_id) || u.building?.id === parseInt(data.building_id));
     }, [data.building_id, allUnits]);
 
@@ -168,13 +175,18 @@ export default function ApplicationEdit({
             : [...selectedUnits, unitId];
 
         setSelectedUnits(newSelected);
-        setData('units', newSelected.map(id => ({ id })));
+        setData('units', newSelected.map(id => {
+            const existing = data.units.find(u => u.id === id);
+            return existing || { id, proposed_rental_amount: undefined, net_area: undefined, meter_cost: undefined };
+        }));
     };
 
     const handleContactSelect = (contactId: string) => {
         setData('applicant_id', contactId);
+
         if (contactId) {
             const contact = contacts.find(c => c.id === parseInt(contactId));
+
             if (contact) {
                 setData(prev => ({
                     ...prev,

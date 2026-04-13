@@ -1,9 +1,11 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, Save, User, Building2, DollarSign, Calendar, FileText } from 'lucide-react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
     Select,
     SelectContent,
@@ -11,9 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, Save, User, Building2, DollarSign, Calendar, FileText } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Community {
     id: number;
@@ -95,13 +95,19 @@ export default function ApplicationCreate({
 
     // Filter buildings based on selected community
     const filteredBuildings = useMemo(() => {
-        if (!data.community_id) return buildings;
+        if (!data.community_id) {
+return buildings;
+}
+
         return buildings.filter(b => b.community_id === parseInt(data.community_id));
     }, [data.community_id, buildings]);
 
     // Filter units based on selected building
     const filteredUnits = useMemo(() => {
-        if (!data.building_id) return availableUnits;
+        if (!data.building_id) {
+return availableUnits;
+}
+
         return availableUnits.filter(u => u.building_id === parseInt(data.building_id) || u.building?.id === parseInt(data.building_id));
     }, [data.building_id, availableUnits]);
 
@@ -116,8 +122,10 @@ export default function ApplicationCreate({
 
     const handleContactSelect = (contactId: string) => {
         setData('applicant_id', contactId);
+
         if (contactId) {
             const contact = contacts.find(c => c.id === parseInt(contactId));
+
             if (contact) {
                 setData(prev => ({
                     ...prev,

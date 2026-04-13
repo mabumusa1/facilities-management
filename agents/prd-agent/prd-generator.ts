@@ -4,9 +4,11 @@
  * Generates PRD content using templates and source artifacts
  */
 
-import { PRDConfig } from './config';
-import { ArtifactReader, ArtifactData } from './artifact-reader';
-import { templates, TemplateType } from './templates';
+import type { ArtifactReader} from './artifact-reader';
+import { ArtifactData } from './artifact-reader';
+import type { PRDConfig } from './config';
+import type { TemplateType } from './templates';
+import { templates } from './templates';
 
 export interface GeneratorOptions {
   issueMap: Map<number, number>; // Maps PRD id to GitHub issue number
@@ -53,6 +55,7 @@ export class PRDGenerator {
 
     const links = dependsOn.map(prdId => {
       const issueNumber = issueMap.get(prdId);
+
       return issueNumber ? `#${issueNumber}` : `(PRD ${prdId} - pending)`;
     });
 
@@ -100,6 +103,7 @@ export class PRDGenerator {
         if (!prdIds.has(depId)) {
           errors.push(`PRD ${prd.id}: Depends on non-existent PRD ${depId}`);
         }
+
         if (depId === prd.id) {
           errors.push(`PRD ${prd.id}: Self-dependency detected`);
         }
@@ -115,19 +119,23 @@ export class PRDGenerator {
       recursionStack.add(id);
 
       const prd = prds.find(p => p.id === id);
+
       if (prd) {
         for (const depId of prd.dependsOn) {
           if (!visited.has(depId) && hasCycle(depId)) {
             return true;
           }
+
           if (recursionStack.has(depId)) {
             errors.push(`Circular dependency detected involving PRD ${id} and PRD ${depId}`);
+
             return true;
           }
         }
       }
 
       recursionStack.delete(id);
+
       return false;
     };
 
@@ -149,14 +157,19 @@ export class PRDGenerator {
     const prdMap = new Map(prds.map(p => [p.id, p]));
 
     const visit = (id: number) => {
-      if (visited.has(id)) return;
+      if (visited.has(id)) {
+return;
+}
+
       visited.add(id);
 
       const prd = prdMap.get(id);
+
       if (prd) {
         for (const depId of prd.dependsOn) {
           visit(depId);
         }
+
         result.push(prd);
       }
     };

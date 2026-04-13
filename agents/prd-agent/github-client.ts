@@ -5,7 +5,7 @@
  */
 
 import { execSync } from 'child_process';
-import { LabelConfig, MilestoneConfig, RepoConfig } from './config';
+import type { LabelConfig, MilestoneConfig, RepoConfig } from './config';
 
 export interface IssueConfig {
   title: string;
@@ -23,13 +23,16 @@ export class GitHubClient {
    * Get the authenticated GitHub username
    */
   async getUsername(): Promise<string> {
-    if (this.owner) return this.owner;
+    if (this.owner) {
+return this.owner;
+}
 
     try {
       const response = execSync('gh api user --jq .login', {
         encoding: 'utf-8'
       }).trim();
       this.owner = response;
+
       return this.owner;
     } catch (e) {
       throw new Error('Failed to get GitHub username. Make sure gh is authenticated.');
@@ -41,6 +44,7 @@ export class GitHubClient {
    */
   async getRepoId(): Promise<string> {
     const owner = await this.getUsername();
+
     return `${owner}/${this.config.name}`;
   }
 
@@ -110,6 +114,7 @@ export class GitHubClient {
             `gh api "repos/${repo}/milestones?state=all" --jq '.[] | select(.title == "${ms.title}") | .number'`,
             { encoding: 'utf-8' }
           ).trim();
+
           if (existingResponse) {
             result[ms.title] = parseInt(existingResponse, 10);
             console.log(`  Milestone exists: ${ms.title} (#${result[ms.title]})`);
@@ -153,7 +158,10 @@ export class GitHubClient {
       return { number, url: response.trim() };
     } catch (e: any) {
       // Clean up temp file
-      try { require('fs').unlinkSync(tempFile); } catch {}
+      try {
+ require('fs').unlinkSync(tempFile); 
+} catch {}
+
       throw new Error(`Failed to create issue: ${issue.title}\n${e.message}`);
     }
   }
@@ -163,8 +171,10 @@ export class GitHubClient {
    */
   async repoExists(): Promise<boolean> {
     const repo = await this.getRepoId();
+
     try {
       execSync(`gh repo view ${repo}`, { stdio: 'pipe' });
+
       return true;
     } catch {
       return false;
@@ -176,11 +186,13 @@ export class GitHubClient {
    */
   async getIssueCount(): Promise<number> {
     const repo = await this.getRepoId();
+
     try {
       const response = execSync(
         `gh issue list -R ${repo} --state all --limit 1000 --json number | jq length`,
         { encoding: 'utf-8' }
       );
+
       return parseInt(response.trim(), 10);
     } catch {
       return 0;

@@ -33,7 +33,7 @@ export default function BuildingCreate({ communities, preselectedCommunityId }: 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(buildingsStore());
+        post(buildingsStore.url());
     };
 
     return (

@@ -13,8 +13,8 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 import { index as buildingsIndex, edit as buildingsEdit, destroy as buildingsDestroy } from '@/routes/buildings';
-import { create as unitsCreate, show as unitsShow } from '@/routes/units';
 import { show as communitiesShow } from '@/routes/communities';
+import { create as unitsCreate, show as unitsShow } from '@/routes/units';
 
 interface Unit {
     id: number;

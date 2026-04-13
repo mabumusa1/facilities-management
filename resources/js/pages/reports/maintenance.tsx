@@ -1,6 +1,4 @@
 import { Head } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import {
     Wrench,
     Clock,
@@ -10,6 +8,8 @@ import {
     BarChart3,
     PieChart,
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface MaintenanceStatistics {
     total_requests: number;

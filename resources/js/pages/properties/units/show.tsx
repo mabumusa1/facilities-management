@@ -12,9 +12,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { index as unitsIndex, edit as unitsEdit, destroy as unitsDestroy } from '@/routes/units';
 import { show as buildingsShow } from '@/routes/buildings';
 import { show as communitiesShow } from '@/routes/communities';
+import { index as unitsIndex, edit as unitsEdit, destroy as unitsDestroy } from '@/routes/units';
 
 interface Community {
     id: number;

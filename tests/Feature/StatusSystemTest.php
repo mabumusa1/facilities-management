@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Status;
+use Database\Seeders\StatusSeeder;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -34,7 +36,7 @@ class StatusSystemTest extends TestCase
     {
         Status::factory()->create(['slug' => 'unique_slug']);
 
-        $this->expectException(\Illuminate\Database\QueryException::class);
+        $this->expectException(QueryException::class);
         Status::factory()->create(['slug' => 'unique_slug']);
     }
 
@@ -190,7 +192,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_all_domains(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         // Check each domain has statuses
         $this->assertTrue(Status::forDomain('service_request')->exists());
@@ -208,7 +210,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_service_request_statuses(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $statuses = Status::forDomain('service_request')->get();
 
@@ -221,7 +223,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_lease_statuses(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $statuses = Status::forDomain('lease')->get();
 
@@ -234,7 +236,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_visitor_access_statuses(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $statuses = Status::forDomain('visitor_access')->get();
 
@@ -248,7 +250,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_unit_statuses(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $statuses = Status::forDomain('unit')->get();
 
@@ -260,7 +262,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_statuses_with_arabic_names(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $status = Status::findBySlug('lease_active');
 
@@ -271,7 +273,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_statuses_with_colors(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $status = Status::findBySlug('lease_active');
 
@@ -282,7 +284,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_creates_statuses_with_icons(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $status = Status::findBySlug('lease_active');
 
@@ -293,7 +295,7 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_total_count(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         // Should have all 62 statuses as defined in seeder
         $this->assertGreaterThanOrEqual(60, Status::count());
@@ -301,10 +303,10 @@ class StatusSystemTest extends TestCase
 
     public function test_status_seeder_is_idempotent(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
         $countAfterFirst = Status::count();
 
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
         $countAfterSecond = Status::count();
 
         $this->assertEquals($countAfterFirst, $countAfterSecond);
@@ -314,7 +316,7 @@ class StatusSystemTest extends TestCase
 
     public function test_booking_contract_statuses_have_correct_priority_order(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $statuses = Status::forDomain('booking_contract')
             ->orderBy('priority')
@@ -326,7 +328,7 @@ class StatusSystemTest extends TestCase
 
     public function test_can_filter_multiple_domains(): void
     {
-        $this->seed(\Database\Seeders\StatusSeeder::class);
+        $this->seed(StatusSeeder::class);
 
         $domains = ['lease', 'unit'];
         $statuses = Status::whereIn('domain', $domains)->get();

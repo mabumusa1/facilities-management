@@ -10,6 +10,14 @@ use App\Models\District;
 use App\Models\FacilityCategory;
 use App\Models\UnitCategory;
 use App\Models\UnitType;
+use Database\Seeders\AmenitySeeder;
+use Database\Seeders\CitySeeder;
+use Database\Seeders\CountrySeeder;
+use Database\Seeders\CurrencySeeder;
+use Database\Seeders\DistrictSeeder;
+use Database\Seeders\FacilityCategorySeeder;
+use Database\Seeders\UnitCategorySeeder;
+use Database\Seeders\UnitTypeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -311,11 +319,11 @@ class ReferenceDataTest extends TestCase
     public function test_seeders_create_reference_data(): void
     {
         $this->seed([
-            \Database\Seeders\CountrySeeder::class,
-            \Database\Seeders\CurrencySeeder::class,
-            \Database\Seeders\UnitCategorySeeder::class,
-            \Database\Seeders\FacilityCategorySeeder::class,
-            \Database\Seeders\AmenitySeeder::class,
+            CountrySeeder::class,
+            CurrencySeeder::class,
+            UnitCategorySeeder::class,
+            FacilityCategorySeeder::class,
+            AmenitySeeder::class,
         ]);
 
         // Countries
@@ -341,8 +349,8 @@ class ReferenceDataTest extends TestCase
     public function test_city_seeder_creates_cities_for_countries(): void
     {
         $this->seed([
-            \Database\Seeders\CountrySeeder::class,
-            \Database\Seeders\CitySeeder::class,
+            CountrySeeder::class,
+            CitySeeder::class,
         ]);
 
         $uae = Country::where('iso2', 'AE')->first();
@@ -354,9 +362,9 @@ class ReferenceDataTest extends TestCase
     public function test_district_seeder_creates_districts_for_cities(): void
     {
         $this->seed([
-            \Database\Seeders\CountrySeeder::class,
-            \Database\Seeders\CitySeeder::class,
-            \Database\Seeders\DistrictSeeder::class,
+            CountrySeeder::class,
+            CitySeeder::class,
+            DistrictSeeder::class,
         ]);
 
         $dubai = City::where('name', 'Dubai')->first();
@@ -368,8 +376,8 @@ class ReferenceDataTest extends TestCase
     public function test_unit_type_seeder_creates_types_for_categories(): void
     {
         $this->seed([
-            \Database\Seeders\UnitCategorySeeder::class,
-            \Database\Seeders\UnitTypeSeeder::class,
+            UnitCategorySeeder::class,
+            UnitTypeSeeder::class,
         ]);
 
         $residential = UnitCategory::where('name', 'Residential')->first();

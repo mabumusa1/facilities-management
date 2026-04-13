@@ -1,6 +1,4 @@
 import { Head } from '@inertiajs/react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import {
     Megaphone,
     Calendar,
@@ -8,6 +6,8 @@ import {
     AlertTriangle,
     Info,
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface Announcement {
     id: number;
@@ -38,6 +38,7 @@ function getPriorityBadge(priority: string) {
     };
 
     const config = priorityConfig[priority] || priorityConfig.normal;
+
     return (
         <Badge variant="outline" className={config.className}>
             {config.icon}

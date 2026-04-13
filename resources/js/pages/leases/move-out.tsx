@@ -1,15 +1,15 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEvent } from 'react';
-import AppLayout from '@/layouts/app-layout';
+import { ArrowLeft, LogOut, Calendar, DollarSign, User, Building2, FileText, ClipboardCheck, AlertCircle } from 'lucide-react';
+import type { FormEvent } from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, LogOut, Calendar, DollarSign, User, Building2, FileText, ClipboardCheck, AlertCircle } from 'lucide-react';
-import { type BreadcrumbItem } from '@/types';
+import AppLayout from '@/layouts/app-layout';
+import type {BreadcrumbItem} from '@/types';
+import { Textarea } from '@/components/ui/textarea';
 
 interface MoveOutSummary {
     lease_id: number;
@@ -90,8 +90,6 @@ export default function LeaseMoveOut({ lease, moveOutSummary }: Props) {
             minimumFractionDigits: 0,
         }).format(amount);
     };
-
-    const unpaidTransactions = lease.transactions?.filter(t => !t.is_paid) || [];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

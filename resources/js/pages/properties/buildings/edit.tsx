@@ -44,7 +44,7 @@ export default function BuildingEdit({ building, communities }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(buildingsUpdate({ building: building.id }));
+        put(buildingsUpdate.url({ building: building.id }));
     };
 
     return (

@@ -1,14 +1,4 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
 import {
     Megaphone,
     Plus,
@@ -24,6 +14,16 @@ import {
     Info,
     CheckCircle,
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 
 interface Announcement {
     id: number;
@@ -79,6 +79,7 @@ function getStatusBadge(status: string) {
     };
 
     const config = statusConfig[status] || statusConfig.draft;
+
     return (
         <Badge variant={config.variant} className={config.className}>
             {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -95,6 +96,7 @@ function getPriorityBadge(priority: string) {
     };
 
     const config = priorityConfig[priority] || priorityConfig.normal;
+
     return (
         <Badge variant="outline" className={config.className}>
             {config.icon}

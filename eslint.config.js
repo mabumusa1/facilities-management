@@ -63,6 +63,14 @@ export default [
         },
         rules: {
             '@typescript-eslint/no-explicit-any': 'off',
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    varsIgnorePattern: '^_',
+                    argsIgnorePattern: '^_',
+                    destructuredArrayIgnorePattern: '^_',
+                },
+            ],
             '@typescript-eslint/consistent-type-imports': [
                 'error',
                 {
@@ -111,6 +119,9 @@ export default [
             'node_modules',
             'public',
             'bootstrap/ssr',
+            'docs',
+            'docs-site',
+            'agents',
             'tailwind.config.js',
             'vite.config.ts',
             'resources/js/actions/**',

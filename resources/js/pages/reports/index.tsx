@@ -1,7 +1,4 @@
 import { Head, Link } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
     FileText,
     Wrench,
@@ -11,8 +8,10 @@ import {
     ArrowRight,
     DollarSign,
     Home,
-    PieChart,
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface LeaseStatistics {
     total_leases: number;

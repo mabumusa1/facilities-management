@@ -90,7 +90,7 @@ class SubLeaseController extends Controller
             ->get(['id', 'contract_number', 'tenant_id', 'start_date', 'end_date'])
             ->map(fn ($l) => [
                 'id' => $l->id,
-                'label' => ($l->contract_number ?? "#{$l->id}") . ' — ' . ($l->tenant?->name ?? 'Unknown'),
+                'label' => ($l->contract_number ?? "#{$l->id}").' — '.($l->tenant?->name ?? 'Unknown'),
                 'start_date' => $l->start_date,
                 'end_date' => $l->end_date,
             ]);

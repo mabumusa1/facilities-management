@@ -1,27 +1,4 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table';
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import {
     FileText,
     Edit,
@@ -40,6 +17,29 @@ import {
     LogOut,
 } from 'lucide-react';
 import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/components/ui/table';
 
 interface Unit {
     id: number;
@@ -123,7 +123,9 @@ interface LeaseShowProps {
 }
 
 function getStatusBadge(status: Status | null) {
-    if (!status) return <Badge variant="secondary">Unknown</Badge>;
+    if (!status) {
+return <Badge variant="secondary">Unknown</Badge>;
+}
 
     const statusConfig: Record<number, { variant: 'default' | 'secondary' | 'destructive' | 'outline'; className: string; icon: React.ReactNode }> = {
         30: { variant: 'outline', className: 'border-blue-500 text-blue-600', icon: <Clock className="h-3 w-3" /> },
@@ -153,6 +155,7 @@ function formatDate(dateString: string): string {
 
 function formatCurrency(amount: string | number): string {
     const num = typeof amount === 'string' ? parseFloat(amount) : amount;
+
     return `$${num.toLocaleString()}`;
 }
 

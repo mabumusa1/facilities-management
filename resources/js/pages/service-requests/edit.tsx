@@ -8,7 +8,7 @@ interface Props {
     contacts: any[];
 }
 
-export default function Edit({ request, categories, communities, contacts }: Props) {
+export default function Edit({ request, categories: _categories, communities: _communities, contacts: _contacts }: Props) {
     return (
         <AppLayout>
             <Head title={`Edit Request #${request.request_number}`} />

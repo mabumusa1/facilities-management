@@ -9,10 +9,10 @@ export * as dataModel from './data-model';
 export * as workflow from './workflow';
 export * as moduleUi from './module-ui';
 
-import * as foundation from './foundation';
 import * as dataModel from './data-model';
-import * as workflow from './workflow';
+import * as foundation from './foundation';
 import * as moduleUi from './module-ui';
+import * as workflow from './workflow';
 
 export const templates = {
   'foundation': foundation,

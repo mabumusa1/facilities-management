@@ -1,15 +1,15 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEvent } from 'react';
-import AppLayout from '@/layouts/app-layout';
+import { AlertTriangle, ArrowLeft, XCircle, Calendar, DollarSign, User, Building2, FileText } from 'lucide-react';
+import type { FormEvent } from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { AlertTriangle, ArrowLeft, XCircle, Calendar, DollarSign, User, Building2, FileText } from 'lucide-react';
-import { type BreadcrumbItem } from '@/types';
+import AppLayout from '@/layouts/app-layout';
+import type {BreadcrumbItem} from '@/types';
+import { Textarea } from '@/components/ui/textarea';
 
 interface TerminationSummary {
     lease_id: number;

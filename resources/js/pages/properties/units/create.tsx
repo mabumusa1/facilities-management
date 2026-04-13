@@ -67,7 +67,7 @@ export default function UnitCreate({
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(unitsStore());
+        post(unitsStore.url());
     };
 
     // Filter buildings by selected community

@@ -43,6 +43,7 @@ export class ArtifactReader {
     }
 
     this.cache.set(source, data);
+
     return data;
   }
 
@@ -51,11 +52,14 @@ export class ArtifactReader {
    */
   private readMarkdown(filename: string): ArtifactData {
     const filePath = path.join(this.basePath, 'docs', filename);
+
     try {
       const content = fs.readFileSync(filePath, 'utf-8');
+
       return { content, parsed: this.parseMarkdown(content) };
     } catch (e) {
       console.warn(`Warning: Could not read ${filePath}`);
+
       return { content: '' };
     }
   }
@@ -65,11 +69,14 @@ export class ArtifactReader {
    */
   private readJSON(filename: string): ArtifactData {
     const filePath = path.join(this.basePath, filename);
+
     try {
       const content = fs.readFileSync(filePath, 'utf-8');
+
       return { content, parsed: JSON.parse(content) };
     } catch (e) {
       console.warn(`Warning: Could not read ${filePath}`);
+
       return { content: '' };
     }
   }
@@ -79,6 +86,7 @@ export class ArtifactReader {
    */
   private readQuerySchemas(module: string): ArtifactData {
     const dirPath = path.join(this.basePath, 'queries', module);
+
     try {
       if (!fs.existsSync(dirPath)) {
         return { content: '', parsed: {} };
@@ -104,6 +112,7 @@ export class ArtifactReader {
       return { content: JSON.stringify(schemas, null, 2), parsed: schemas };
     } catch (e) {
       console.warn(`Warning: Could not read query schemas for ${module}`);
+
       return { content: '', parsed: {} };
     }
   }
@@ -113,11 +122,13 @@ export class ArtifactReader {
    */
   private readValidationSchemas(entity: string): ArtifactData {
     const dirPath = path.join(this.basePath, 'validations');
+
     try {
       const schemas: Record<string, any> = {};
 
       // Try exact match first
       const exactPath = path.join(dirPath, `${entity}.json`);
+
       if (fs.existsSync(exactPath)) {
         schemas[entity] = JSON.parse(fs.readFileSync(exactPath, 'utf-8'));
       }
@@ -135,6 +146,7 @@ export class ArtifactReader {
       return { content: JSON.stringify(schemas, null, 2), parsed: schemas };
     } catch (e) {
       console.warn(`Warning: Could not read validation schemas for ${entity}`);
+
       return { content: '', parsed: {} };
     }
   }
@@ -150,10 +162,12 @@ export class ArtifactReader {
 
     for (const line of lines) {
       const headerMatch = line.match(/^(#{1,3})\s+(.+)$/);
+
       if (headerMatch) {
         if (currentContent.length > 0) {
           sections[currentSection] = currentContent.join('\n').trim();
         }
+
         currentSection = headerMatch[2].toLowerCase().replace(/\s+/g, '-');
         currentContent = [];
       } else {
@@ -173,6 +187,7 @@ export class ArtifactReader {
    */
   getAvailableModules(): string[] {
     const queriesDir = path.join(this.basePath, 'queries');
+
     try {
       return fs.readdirSync(queriesDir).filter(f =>
         fs.statSync(path.join(queriesDir, f)).isDirectory()
@@ -187,6 +202,7 @@ export class ArtifactReader {
    */
   getAvailableValidations(): string[] {
     const validationsDir = path.join(this.basePath, 'validations');
+
     try {
       return fs.readdirSync(validationsDir)
         .filter(f => f.endsWith('.json'))

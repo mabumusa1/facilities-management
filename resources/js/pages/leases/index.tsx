@@ -1,7 +1,20 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    FileText,
+    Plus,
+    Search,
+    Calendar,
+    DollarSign,
+    AlertCircle,
+    CheckCircle,
+    Clock,
+    XCircle,
+    Eye,
+} from 'lucide-react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
     Select,
@@ -18,19 +31,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import {
-    FileText,
-    Plus,
-    Search,
-    Calendar,
-    DollarSign,
-    AlertCircle,
-    CheckCircle,
-    Clock,
-    XCircle,
-    Eye,
-} from 'lucide-react';
-import { useState } from 'react';
 
 interface Unit {
     id: number;
@@ -89,7 +89,9 @@ interface LeasesIndexProps {
 }
 
 function getStatusBadge(status: Status | null) {
-    if (!status) return <Badge variant="secondary">Unknown</Badge>;
+    if (!status) {
+return <Badge variant="secondary">Unknown</Badge>;
+}
 
     const statusConfig: Record<number, { variant: 'default' | 'secondary' | 'destructive' | 'outline'; className: string; icon: React.ReactNode }> = {
         30: { variant: 'outline', className: 'border-blue-500 text-blue-600', icon: <Clock className="h-3 w-3" /> },

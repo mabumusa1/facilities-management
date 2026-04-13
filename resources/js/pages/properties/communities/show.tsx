@@ -12,8 +12,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { index as communitiesIndex, edit as communitiesEdit, destroy as communitiesDestroy } from '@/routes/communities';
 import { create as buildingsCreate, show as buildingsShow } from '@/routes/buildings';
+import { index as communitiesIndex, edit as communitiesEdit, destroy as communitiesDestroy } from '@/routes/communities';
 
 interface Building {
     id: number;

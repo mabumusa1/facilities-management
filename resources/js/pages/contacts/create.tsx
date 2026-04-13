@@ -34,7 +34,7 @@ export default function ContactCreate({ contactType }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(contactsStore());
+        post(contactsStore.url());
     };
 
     return (

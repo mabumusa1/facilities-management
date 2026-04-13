@@ -1,10 +1,13 @@
 import { Head, router, useForm } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, ArrowRight, Check, Building2, User, FileText, Eye } from 'lucide-react';
+import type { FormEventHandler} from 'react';
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
     Select,
     SelectContent,
@@ -12,9 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, ArrowRight, Check, Building2, User, FileText, Eye } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Unit {
     id: number;
@@ -426,7 +427,7 @@ function Step4Review({
 
 export default function LeaseCreate({
     step,
-    communities,
+    communities: _communities,
     buildings,
     availableUnits,
     tenants,
@@ -438,7 +439,7 @@ export default function LeaseCreate({
         tenant_id: (wizardData?.step_2 as { tenant_id?: number })?.tenant_id || null,
         community_id: null,
         building_id: null,
-        units: (wizardData?.step_1 as { units?: { id: number }[] })?.units || [],
+        units: (wizardData?.step_1 as { units?: { id: number; annual_rental_amount: number | null }[] })?.units || [],
         tenant_type: (wizardData?.step_2 as { tenant_type?: 'individual' | 'company' })?.tenant_type || 'individual',
         rental_total_amount: (wizardData?.step_3 as { rental_total_amount?: number })?.rental_total_amount || 0,
         security_deposit_amount: (wizardData?.step_3 as { security_deposit_amount?: number })?.security_deposit_amount || 0,
@@ -451,6 +452,7 @@ export default function LeaseCreate({
     const handleSelectUnit = (unitId: number) => {
         const current = data.units || [];
         const exists = current.some(u => u.id === unitId);
+
         if (exists) {
             setData('units', current.filter(u => u.id !== unitId));
         } else {
@@ -494,9 +496,18 @@ export default function LeaseCreate({
     };
 
     const canProceed = () => {
-        if (currentStep === 1) return data.units.length > 0;
-        if (currentStep === 2) return data.tenant_id !== null;
-        if (currentStep === 3) return data.start_date && data.end_date && data.rental_total_amount > 0;
+        if (currentStep === 1) {
+return data.units.length > 0;
+}
+
+        if (currentStep === 2) {
+return data.tenant_id !== null;
+}
+
+        if (currentStep === 3) {
+return data.start_date && data.end_date && data.rental_total_amount > 0;
+}
+
         return true;
     };
 

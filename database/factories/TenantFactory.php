@@ -24,7 +24,7 @@ class TenantFactory extends Factory
             'uuid' => Str::uuid()->toString(),
             'name' => $name,
             'slug' => Str::slug($name).'-'.fake()->unique()->randomNumber(4),
-            'domain' => fake()->optional(0.3)->domainName(),
+            'domain' => fake()->boolean(30) ? fake()->unique()->domainName() : null,
             'email' => fake()->companyEmail(),
             'phone' => fake()->phoneNumber(),
             'logo' => null,

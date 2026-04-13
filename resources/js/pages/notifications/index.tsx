@@ -1,9 +1,4 @@
 import { Head, router } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
 import {
     Bell,
     BellOff,
@@ -14,12 +9,13 @@ import {
     Settings,
     Trash2,
     Wrench,
-    AlertCircle,
-    Info,
-    CheckCircle,
-    XCircle,
 } from 'lucide-react';
 import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 
 interface Notification {
     id: string;
@@ -66,24 +62,23 @@ function formatTimeAgo(dateString: string): string {
     const now = new Date();
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-    if (diffInSeconds < 60) return 'Just now';
-    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
-    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
-    if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)}d ago`;
-    return date.toLocaleDateString();
+    if (diffInSeconds < 60) {
+return 'Just now';
 }
 
-function getSeverityIcon(severity?: string) {
-    switch (severity) {
-        case 'warning':
-            return <AlertCircle className="h-5 w-5 text-yellow-500" />;
-        case 'success':
-            return <CheckCircle className="h-5 w-5 text-green-500" />;
-        case 'error':
-            return <XCircle className="h-5 w-5 text-red-500" />;
-        default:
-            return <Info className="h-5 w-5 text-blue-500" />;
-    }
+    if (diffInSeconds < 3600) {
+return `${Math.floor(diffInSeconds / 60)}m ago`;
+}
+
+    if (diffInSeconds < 86400) {
+return `${Math.floor(diffInSeconds / 3600)}h ago`;
+}
+
+    if (diffInSeconds < 604800) {
+return `${Math.floor(diffInSeconds / 86400)}d ago`;
+}
+
+    return date.toLocaleDateString();
 }
 
 function getTypeIcon(type?: string) {
@@ -361,7 +356,7 @@ export default function NotificationsIndex({ notifications, statistics, preferen
                                         <Switch
                                             id="inapp_enabled"
                                             checked={localPreferences.inapp_enabled}
-                                            onCheckedChange={(checked) => handlePreferenceChange('inapp_enabled', checked)}
+                                            onCheckedChange={(checked: boolean) => handlePreferenceChange('inapp_enabled', checked)}
                                             disabled={isUpdatingPreferences}
                                         />
                                     </div>
@@ -381,7 +376,7 @@ export default function NotificationsIndex({ notifications, statistics, preferen
                                             <Switch
                                                 id="email_lease_expiring"
                                                 checked={localPreferences.email_lease_expiring}
-                                                onCheckedChange={(checked) =>
+                                                onCheckedChange={(checked: boolean) =>
                                                     handlePreferenceChange('email_lease_expiring', checked)
                                                 }
                                                 disabled={isUpdatingPreferences}
@@ -394,7 +389,7 @@ export default function NotificationsIndex({ notifications, statistics, preferen
                                             <Switch
                                                 id="email_service_request"
                                                 checked={localPreferences.email_service_request}
-                                                onCheckedChange={(checked) =>
+                                                onCheckedChange={(checked: boolean) =>
                                                     handlePreferenceChange('email_service_request', checked)
                                                 }
                                                 disabled={isUpdatingPreferences}
@@ -407,7 +402,7 @@ export default function NotificationsIndex({ notifications, statistics, preferen
                                             <Switch
                                                 id="email_payment_reminder"
                                                 checked={localPreferences.email_payment_reminder}
-                                                onCheckedChange={(checked) =>
+                                                onCheckedChange={(checked: boolean) =>
                                                     handlePreferenceChange('email_payment_reminder', checked)
                                                 }
                                                 disabled={isUpdatingPreferences}
@@ -430,7 +425,7 @@ export default function NotificationsIndex({ notifications, statistics, preferen
                                             <Switch
                                                 id="push_lease_expiring"
                                                 checked={localPreferences.push_lease_expiring}
-                                                onCheckedChange={(checked) =>
+                                                onCheckedChange={(checked: boolean) =>
                                                     handlePreferenceChange('push_lease_expiring', checked)
                                                 }
                                                 disabled={isUpdatingPreferences}
@@ -443,7 +438,7 @@ export default function NotificationsIndex({ notifications, statistics, preferen
                                             <Switch
                                                 id="push_service_request"
                                                 checked={localPreferences.push_service_request}
-                                                onCheckedChange={(checked) =>
+                                                onCheckedChange={(checked: boolean) =>
                                                     handlePreferenceChange('push_service_request', checked)
                                                 }
                                                 disabled={isUpdatingPreferences}
@@ -456,7 +451,7 @@ export default function NotificationsIndex({ notifications, statistics, preferen
                                             <Switch
                                                 id="push_payment_reminder"
                                                 checked={localPreferences.push_payment_reminder}
-                                                onCheckedChange={(checked) =>
+                                                onCheckedChange={(checked: boolean) =>
                                                     handlePreferenceChange('push_payment_reminder', checked)
                                                 }
                                                 disabled={isUpdatingPreferences}

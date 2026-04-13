@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import AppLayout from '@/layouts/app-layout';
 import { create } from '@/routes/service-requests';
 
 interface ServiceRequest {
@@ -31,7 +31,7 @@ interface Props {
     categories: any[];
 }
 
-export default function Index({ requests, filters, categories }: Props) {
+export default function Index({ requests, filters: _filters, categories: _categories }: Props) {
     return (
         <AppLayout>
             <Head title="Service Requests" />

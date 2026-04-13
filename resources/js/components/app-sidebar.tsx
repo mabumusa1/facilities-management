@@ -23,12 +23,12 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { dashboard } from '@/routes';
 import { index as buildingsIndex } from '@/routes/buildings';
 import { index as communitiesIndex } from '@/routes/communities';
 import { index as contactsIndex } from '@/routes/contacts';
 import { index as serviceRequestsIndex } from '@/routes/service-requests';
 import { index as unitsIndex } from '@/routes/units';
-import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [

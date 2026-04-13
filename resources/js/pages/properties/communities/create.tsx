@@ -13,7 +13,7 @@ export default function CommunityCreate() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(communitiesStore());
+        post(communitiesStore.url());
     };
 
     return (

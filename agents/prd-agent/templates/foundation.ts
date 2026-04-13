@@ -4,8 +4,8 @@
  * For foundational system requirements (RBAC, Auth, Reference Data)
  */
 
-import { PRDConfig } from '../config';
-import { ArtifactData } from '../artifact-reader';
+import type { ArtifactData } from '../artifact-reader';
+import type { PRDConfig } from '../config';
 
 export interface TemplateData {
   prd: PRDConfig;

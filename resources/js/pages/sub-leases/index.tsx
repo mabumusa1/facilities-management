@@ -1,12 +1,12 @@
 import { Head, Link, router } from '@inertiajs/react';
+import { AlertCircle, Calendar, CheckCircle, Clock, Eye, FileText, Plus, Search, XCircle } from 'lucide-react';
+import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { AlertCircle, Calendar, CheckCircle, Clock, Eye, FileText, Plus, Search, XCircle } from 'lucide-react';
-import { useState } from 'react';
 
 interface Unit { id: number; name: string }
 interface Contact { id: number; name: string }
@@ -34,7 +34,10 @@ interface Props {
 }
 
 function StatusBadge({ status }: { status: Status | null }) {
-    if (!status) return <Badge variant="secondary">Unknown</Badge>;
+    if (!status) {
+return <Badge variant="secondary">Unknown</Badge>;
+}
+
     const map: Record<number, { className: string; icon: React.ReactNode }> = {
         30: { className: 'border-blue-500 text-blue-600', icon: <Clock className="h-3 w-3" /> },
         31: { className: 'bg-green-100 text-green-800', icon: <CheckCircle className="h-3 w-3" /> },
@@ -43,6 +46,7 @@ function StatusBadge({ status }: { status: Status | null }) {
         34: { className: 'bg-gray-100 text-gray-800', icon: <FileText className="h-3 w-3" /> },
     };
     const cfg = map[status.id] ?? { className: '', icon: null };
+
     return (
         <Badge variant="outline" className={cfg.className}>
             {cfg.icon}

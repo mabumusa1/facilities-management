@@ -1,7 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { dashboard } from '@/routes';
+import { Head } from '@inertiajs/react';
 import {
     Building2,
     Home,
@@ -17,6 +14,9 @@ import {
     TrendingUp,
     TrendingDown,
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { dashboard } from '@/routes';
 
 interface UnitStatistics {
     vacant: number;
@@ -139,7 +139,9 @@ function AttentionItem({
     count: number;
     variant?: 'default' | 'warning' | 'destructive';
 }) {
-    if (count === 0) return null;
+    if (count === 0) {
+return null;
+}
 
     const badgeVariant = variant === 'warning' ? 'secondary' : variant === 'destructive' ? 'destructive' : 'default';
 

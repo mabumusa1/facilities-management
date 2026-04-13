@@ -15,9 +15,9 @@
  *   --only        Only create a specific PRD by ID
  */
 
+import { ArtifactReader } from './artifact-reader';
 import { CONFIG, PRDConfig } from './config';
 import { GitHubClient } from './github-client';
-import { ArtifactReader } from './artifact-reader';
 import { PRDGenerator } from './prd-generator';
 
 interface CLIOptions {
@@ -75,9 +75,11 @@ async function main() {
 
   if (allErrors.length > 0) {
     console.error('\nValidation errors:');
+
     for (const err of allErrors) {
       console.error(`  - ${err}`);
     }
+
     process.exit(1);
   }
 
@@ -91,22 +93,26 @@ async function main() {
 
   if (options.only) {
     prdsToProcess = orderedPRDs.filter(p => p.id === options.only);
+
     if (prdsToProcess.length === 0) {
       console.error(`PRD ${options.only} not found`);
       process.exit(1);
     }
   } else if (options.startFrom) {
     const startIndex = orderedPRDs.findIndex(p => p.id === options.startFrom);
+
     if (startIndex === -1) {
       console.error(`PRD ${options.startFrom} not found`);
       process.exit(1);
     }
+
     prdsToProcess = orderedPRDs.slice(startIndex);
   }
 
   if (options.dryRun) {
     console.log('\n[DRY RUN MODE - No changes will be made]\n');
     console.log('PRDs to create:');
+
     for (const prd of prdsToProcess) {
       console.log(`  ${prd.id}. ${prd.title}`);
       console.log(`     Milestone: ${prd.milestone}`);
@@ -114,6 +120,7 @@ async function main() {
       console.log(`     Depends on: ${prd.dependsOn.length > 0 ? prd.dependsOn.join(', ') : 'None'}`);
       console.log();
     }
+
     return;
   }
 
@@ -143,6 +150,7 @@ async function main() {
 
       // Verify milestone exists
       const milestoneNumber = milestones[prd.milestone];
+
       if (!milestoneNumber) {
         console.warn(`Warning: Milestone "${prd.milestone}" not found for PRD ${prd.id}`);
         continue;

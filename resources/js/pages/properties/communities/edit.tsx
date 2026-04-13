@@ -32,7 +32,7 @@ export default function CommunityEdit({ community }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(communitiesUpdate({ community: community.id }));
+        put(communitiesUpdate.url({ community: community.id }));
     };
 
     return (

@@ -91,10 +91,23 @@ export default function UnitsIndex({ units, communities, buildings, categories, 
             category_id: categoryId,
             [key]: value,
         };
-        if (key === 'status') setStatus(value);
-        if (key === 'community_id') setCommunityId(value);
-        if (key === 'building_id') setBuildingId(value);
-        if (key === 'category_id') setCategoryId(value);
+
+        if (key === 'status') {
+setStatus(value);
+}
+
+        if (key === 'community_id') {
+setCommunityId(value);
+}
+
+        if (key === 'building_id') {
+setBuildingId(value);
+}
+
+        if (key === 'category_id') {
+setCategoryId(value);
+}
+
         router.get(unitsIndex(), newFilters, { preserveState: true });
     };
 

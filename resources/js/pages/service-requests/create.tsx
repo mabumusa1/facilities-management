@@ -7,7 +7,7 @@ interface Props {
     contacts: any[];
 }
 
-export default function Create({ categories, communities, contacts }: Props) {
+export default function Create({ categories: _categories, communities: _communities, contacts: _contacts }: Props) {
     return (
         <AppLayout>
             <Head title="Create Service Request" />

@@ -50,7 +50,7 @@ export default function ContactEdit({ contact }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(contactsUpdate({ contact: contact.id }));
+        put(contactsUpdate.url({ contact: contact.id }));
     };
 
     return (
