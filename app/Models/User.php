@@ -19,7 +19,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'tenant_id', 'contact_type', 'manager_role', 'service_manager_type', 'is_all_communities', 'is_all_buildings'])]
+#[Fillable(['name', 'email', 'password', 'tenant_id', 'contact_type', 'manager_role', 'service_manager_type', 'is_all_communities', 'is_all_buildings', 'notification_preferences'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -42,6 +42,7 @@ class User extends Authenticatable
             'service_manager_type' => ServiceManagerType::class,
             'is_all_communities' => 'boolean',
             'is_all_buildings' => 'boolean',
+            'notification_preferences' => 'array',
         ];
     }
 
