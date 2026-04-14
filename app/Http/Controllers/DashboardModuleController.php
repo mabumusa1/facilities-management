@@ -350,7 +350,7 @@ class DashboardModuleController extends Controller
             endpoint: '/dashboard/system-reports',
             items: [
                 ['id' => 'lease', 'label' => 'Lease'],
-                ['id' => 'maintenance', 'label' => 'maintenance'],
+                ['id' => 'maintenance', 'label' => 'Maintenance'],
             ],
         );
     }

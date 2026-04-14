@@ -1,6 +1,6 @@
 import { Head } from "@inertiajs/react";
 
-export default function TermsandConditions() {
+export default function TermsAndConditions() {
     return (
         <>
             <Head title="Terms and Conditions" />
