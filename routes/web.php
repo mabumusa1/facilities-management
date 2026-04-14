@@ -95,8 +95,14 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
         ->name('properties-list.communities.building.show');
     Route::get('properties-list/communities/community/details/{community}', [CommunityController::class, 'show'])
         ->name('properties-list.communities.show');
+    Route::get('properties-list/communities/{community}/building/{building}', [BuildingController::class, 'show'])
+        ->name('properties-list.communities.building.scoped-show');
     Route::get('properties-list/buildings', [BuildingController::class, 'index'])
         ->name('properties-list.buildings.index');
+    Route::get('properties-list/buildings/commercial', [BuildingController::class, 'index'])
+        ->name('properties-list.buildings.commercial');
+    Route::get('properties-list/buildings/residential', [BuildingController::class, 'index'])
+        ->name('properties-list.buildings.residential');
     Route::get('properties-list/new/building', [BuildingController::class, 'create'])
         ->name('properties-list.buildings.create');
     Route::get('properties-list/buildings/bulk-upload', [BuildingController::class, 'bulkUpload'])
@@ -117,6 +123,7 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
         ->name('properties-list.units.marketplace-details');
     Route::get('properties-list/units/unit/details/{unit}', [UnitController::class, 'show'])
         ->name('properties-list.units.show');
+    Route::get('properties-list', fn () => Inertia::render('properties/index'))->name('properties-list.index');
     Route::resource('communities', CommunityController::class);
     Route::resource('buildings', BuildingController::class);
     Route::resource('units', UnitController::class);
@@ -285,6 +292,7 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::prefix('marketplace/admin')->name('marketplace.admin.')->group(function () {
         Route::get('bookings', [MarketplaceController::class, 'adminBookings'])->name('bookings');
         Route::get('communities', [MarketplaceController::class, 'adminCommunities'])->name('communities');
+        Route::get('communities/list/{community}', [MarketplaceController::class, 'adminCommunityShow'])->name('communities.list.show');
         Route::get('communities/{community}', [MarketplaceController::class, 'adminCommunityShow'])->name('communities.show');
         Route::get('units', [MarketplaceController::class, 'adminUnits'])->name('units');
         Route::get('units/{unit}', [MarketplaceController::class, 'adminUnitShow'])->name('units.show');
@@ -307,24 +315,35 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::get('settings/forms', [SettingsController::class, 'forms'])->name('settings.forms');
     Route::get('settings/forms/create', [SettingsController::class, 'formCreate'])->name('settings.forms.create');
     Route::get('settings/forms/{id}/preview', [SettingsController::class, 'formPreview'])->name('settings.forms.preview');
+    Route::get('settings/forms/preview/{id}', [SettingsController::class, 'formPreview'])->name('settings.forms.preview.alt');
     Route::get('settings/forms/{id}/select-building', [SettingsController::class, 'formSelectBuilding'])->name('settings.forms.select-building');
+    Route::get('settings/forms/select-building', [SettingsController::class, 'formSelectBuilding'])->name('settings.forms.select-building.alt');
     Route::get('settings/forms/{id}/select-community', [SettingsController::class, 'formSelectCommunity'])->name('settings.forms.select-community');
+    Route::get('settings/forms/select-community', [SettingsController::class, 'formSelectCommunity'])->name('settings.forms.select-community.alt');
     Route::get('settings/bank-details', [SettingsController::class, 'bankDetails'])->name('settings.bank-details');
     Route::get('settings/visits-details', [SettingsController::class, 'visitsDetails'])->name('settings.visits-details');
     Route::get('settings/facilities', [SettingsController::class, 'facilities'])->name('settings.facilities');
     Route::get('settings/facilities/list', [SettingsController::class, 'facilitiesList'])->name('settings.facilities.list');
+    Route::get('settings/addNewFacility', [SettingsController::class, 'addNewFacility'])->name('settings.add-new-facility-camel');
     Route::get('settings/add-facility', [SettingsController::class, 'addFacility'])->name('settings.add-facility');
     Route::get('settings/add-new-facility', [SettingsController::class, 'addNewFacility'])->name('settings.add-new-facility');
     Route::get('settings/facility/{id}', [SettingsController::class, 'facilityDetails'])->name('settings.facility-details');
-    Route::get('settings/home-service-settings/{id}', [SettingsController::class, 'homeService'])->name('settings.home-service');
+    Route::get('settings/home-service-settings/{id}/category/{categoryId}', [SettingsController::class, 'homeServiceCategory'])->name('settings.home-service.category.show');
     Route::get('settings/home-service-settings/{id}/category', [SettingsController::class, 'homeServiceCategory'])->name('settings.home-service.category');
+    Route::get('settings/home-service-settings/{id}/ServiceDetails/{detailId}', [SettingsController::class, 'homeServiceDetails'])->name('settings.home-service.details.show');
     Route::get('settings/home-service-settings/{id}/details', [SettingsController::class, 'homeServiceDetails'])->name('settings.home-service.details');
+    Route::get('settings/home-service-settings/{id}/newType', [SettingsController::class, 'homeServiceNewType'])->name('settings.home-service.new-type-camel');
     Route::get('settings/home-service-settings/{id}/new-type', [SettingsController::class, 'homeServiceNewType'])->name('settings.home-service.new-type');
+    Route::get('settings/home-service-settings/{id}/AddNewSubcategory', [SettingsController::class, 'homeServiceAddSubcategory'])->name('settings.home-service.add-subcategory-camel');
     Route::get('settings/home-service-settings/{id}/add-subcategory', [SettingsController::class, 'homeServiceAddSubcategory'])->name('settings.home-service.add-subcategory');
+    Route::get('settings/home-service-settings/{id}/selectCommunityBuilding', [SettingsController::class, 'homeServiceSelectCommunity'])->name('settings.home-service.select-community-camel');
     Route::get('settings/home-service-settings/{id}/select-community', [SettingsController::class, 'homeServiceSelectCommunity'])->name('settings.home-service.select-community');
+    Route::get('settings/home-service-settings/{id}', [SettingsController::class, 'homeService'])->name('settings.home-service');
+    Route::get('settings/neighbourhood-service-settings/{id}', [SettingsController::class, 'neighbourhoodService'])->name('settings.neighbourhood-service.show');
     Route::get('settings/neighbourhood-service', [SettingsController::class, 'neighbourhoodService'])->name('settings.neighbourhood-service');
-    Route::get('settings/service-request', [SettingsController::class, 'serviceRequest'])->name('settings.service-request');
+    Route::get('settings/service-request/home/{serviceId}/{categoryId}', [SettingsController::class, 'serviceRequestCategory'])->name('settings.service-request.category.show');
     Route::get('settings/service-request/category', [SettingsController::class, 'serviceRequestCategory'])->name('settings.service-request.category');
+    Route::get('settings/service-request', [SettingsController::class, 'serviceRequest'])->name('settings.service-request');
     Route::get('settings/visitor-request', [SettingsController::class, 'visitorRequest'])->name('settings.visitor-request');
     Route::get('settings/invoice', [SettingsController::class, 'invoice'])->name('settings.invoice');
     Route::get('settings/sales-details', [SettingsController::class, 'salesDetails'])->name('settings.sales-details');

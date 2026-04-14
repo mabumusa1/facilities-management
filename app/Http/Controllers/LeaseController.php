@@ -452,7 +452,7 @@ class LeaseController extends Controller
     public function overdues(Request $request): Response
     {
         $user = $request->user();
-        $leases = $this->leaseService->getLeasesForTenant($user->tenant_id, 15, 'overdue', null);
+        $leases = $this->leaseService->getLeasesForTenant($user->tenant_id, 15, null, null);
 
         return Inertia::render('leases/overdues', [
             'leases' => $leases,
