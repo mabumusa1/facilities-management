@@ -186,4 +186,36 @@ class ServiceRequestController extends Controller
         return redirect()->route('service-requests.index')
             ->with('success', 'Service request deleted successfully.');
     }
+
+    /**
+     * Display service request history page.
+     */
+    public function history(Request $request): Response
+    {
+        $tenantId = $request->user()->tenant_id;
+
+        $requests = ServiceRequest::query()
+            ->where(function ($q) use ($tenantId): void {
+                $q->whereHas('community', fn ($cq) => $cq->where('tenant_id', $tenantId))
+                    ->orWhereHas('building', fn ($bq) => $bq->where('tenant_id', $tenantId))
+                    ->orWhereHas('unit', fn ($uq) => $uq->where('tenant_id', $tenantId));
+            })
+            ->whereNotNull('completed_at')
+            ->with(['status', 'category'])
+            ->orderByDesc('completed_at')
+            ->paginate(15)
+            ->withQueryString()
+            ->through(fn (ServiceRequest $r): array => [
+                'id' => $r->id,
+                'request_number' => $r->request_number,
+                'title' => $r->title,
+                'category' => $r->category?->name,
+                'status' => $r->status?->name,
+                'completed_at' => $r->completed_at?->toDateString(),
+            ]);
+
+        return Inertia::render('service-requests/history', [
+            'requests' => $requests,
+        ]);
+    }
 }

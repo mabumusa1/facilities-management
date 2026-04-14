@@ -141,4 +141,24 @@ class ContactController extends Controller
         return redirect()->route('contacts.index')
             ->with('success', 'Contact deleted successfully.');
     }
+
+    /**
+     * Display contacts statistics page.
+     */
+    public function statistics(Request $request): Response
+    {
+        $tenantId = $request->user()->tenant_id;
+
+        $stats = [
+            'total' => Contact::query()->where('tenant_id', $tenantId)->count(),
+            'tenants' => Contact::query()->where('tenant_id', $tenantId)->where('contact_type', 'tenant')->count(),
+            'owners' => Contact::query()->where('tenant_id', $tenantId)->where('contact_type', 'owner')->count(),
+            'admins' => Contact::query()->where('tenant_id', $tenantId)->where('contact_type', 'admin')->count(),
+            'professionals' => Contact::query()->where('tenant_id', $tenantId)->where('contact_type', 'professional')->count(),
+        ];
+
+        return Inertia::render('contacts/statistics', [
+            'stats' => $stats,
+        ]);
+    }
 }

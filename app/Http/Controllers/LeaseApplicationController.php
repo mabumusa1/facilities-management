@@ -400,4 +400,32 @@ class LeaseApplicationController extends Controller
             'history' => $this->applicationService->getStateHistory($leaseApplication),
         ]);
     }
+
+    /**
+     * Display lease applications with quote status (leasing/quotes page).
+     */
+    public function quotes(Request $request): Response
+    {
+        $tenantId = $request->user()->tenant_id;
+
+        $quotes = LeaseApplication::query()
+            ->where('tenant_id', $tenantId)
+            ->whereIn('status', ['quote_sent', 'approved'])
+            ->with(['applicant'])
+            ->orderByDesc('created_at')
+            ->paginate(15)
+            ->withQueryString()
+            ->through(fn (LeaseApplication $app): array => [
+                'id' => $app->id,
+                'application_number' => $app->application_number,
+                'status' => $app->status,
+                'quoted_rental_amount' => $app->quoted_rental_amount,
+                'applicant' => $app->applicant_name,
+                'created_at' => $app->created_at?->toDateString(),
+            ]);
+
+        return Inertia::render('lease-applications/quotes', [
+            'quotes' => $quotes,
+        ]);
+    }
 }

@@ -6,15 +6,19 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardModuleController;
+use App\Http\Controllers\DirectoryController;
 use App\Http\Controllers\LeaseApplicationController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\LeasingModuleController;
+use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceRequestController;
+use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\SubLeaseController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\VisitorAccessController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -164,15 +168,23 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
         ->name('contacts.legacy.edit');
 
     // Contacts module routes
+    Route::get('contacts/statistics', [ContactController::class, 'statistics'])->name('contacts.statistics');
     Route::resource('contacts', ContactController::class);
 
     // Service Requests module routes
     Route::resource('service-requests', ServiceRequestController::class);
     Route::get('requests', [ServiceRequestController::class, 'index'])->name('requests.index');
     Route::get('requests/create', [ServiceRequestController::class, 'create'])->name('requests.create');
+    Route::get('requests/history', [ServiceRequestController::class, 'history'])->name('requests.history');
     Route::get('requests/{serviceRequest}', [ServiceRequestController::class, 'show'])
         ->whereNumber('serviceRequest')
         ->name('requests.show');
+
+    // Visitor Access module routes
+    Route::get('visitor-access', [VisitorAccessController::class, 'index'])->name('visitor-access.index');
+    Route::get('visitor-access/history', [VisitorAccessController::class, 'history'])->name('visitor-access.history');
+    Route::get('visitor-access/visitor-details/{visitorAccess}', [VisitorAccessController::class, 'show'])
+        ->name('visitor-access.show');
 
     // Leases module routes
     Route::resource('leases', LeaseController::class);
@@ -188,6 +200,11 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     // Transactions module routes
     Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::get('transactions/list', [TransactionController::class, 'list'])->name('transactions.list');
+    Route::get('transactions/chart-of-accounts', [TransactionController::class, 'chartOfAccounts'])->name('transactions.chart-of-accounts');
+    Route::get('transactions/journal-entries', [TransactionController::class, 'journalEntries'])->name('transactions.journal-entries');
+    Route::get('transactions/overdues', [TransactionController::class, 'overdues'])->name('transactions.overdues');
+    Route::get('transactions/record-transaction', [TransactionController::class, 'recordTransaction'])->name('transactions.record-transaction');
+    Route::get('transactions/tenant/{contact}', [TransactionController::class, 'contactTransactions'])->name('transactions.tenant');
     Route::get('transactions/money-in', function (Request $request, TransactionController $controller) {
         $request->query->set('filter_type', 'money_in');
 
@@ -198,7 +215,9 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
 
         return $controller->index($request);
     })->name('transactions.money-out');
+    Route::get('transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
     Route::get('accounting', [TransactionController::class, 'index'])->name('accounting.index');
+    Route::get('accounting/main', [TransactionController::class, 'index'])->name('accounting.main');
 
     // Lease Applications routes
     Route::resource('lease-applications', LeaseApplicationController::class);
@@ -222,10 +241,73 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     // Docs parity aliases for leasing pages
     Route::get('leasing/leases', [LeaseController::class, 'index'])->name('leasing.leases.index');
     Route::get('leasing/leases/create', [LeaseController::class, 'create'])->name('leasing.leases.create');
+    Route::get('leasing/leases/expiring-leases', [LeaseController::class, 'expiringLeases'])->name('leasing.leases.expiring');
+    Route::get('leasing/leases/expiring-leases/{lease}', [LeaseController::class, 'expiringLeaseDetails'])->name('leasing.leases.expiring.show');
+    Route::get('leasing/leases/overdues', [LeaseController::class, 'overdues'])->name('leasing.leases.overdues');
     Route::get('leasing/leases/{lease}', [LeaseController::class, 'show'])->name('leasing.leases.show');
     Route::get('leasing/leases/{lease}/renew', [LeaseController::class, 'renewForm'])->name('leasing.leases.renew');
     Route::get('leasing/leases/renew/{lease}', [LeaseController::class, 'renewForm'])->name('leasing.leases.renew.legacy');
     Route::get('leasing/details/{lease}', [LeaseController::class, 'show'])->name('leasing.details.show');
+    Route::get('leasing/apps', [LeaseApplicationController::class, 'index'])->name('leasing.apps.index');
+    Route::get('leasing/statistics', [LeasingModuleController::class, 'statistics'])->name('leasing.statistics');
+    Route::get('leasing/visits', [LeasingModuleController::class, 'visits'])->name('leasing.visits');
+    Route::get('leasing/quotes', [LeaseApplicationController::class, 'quotes'])->name('leasing.quotes');
+    Route::get('leasing/sub-leases', [SubLeaseController::class, 'index'])->name('leasing.sub-leases.index');
+    Route::get('leasing/sub-leases/{subLease}', [SubLeaseController::class, 'show'])->name('leasing.sub-leases.show');
+
+    // Marketplace module routes
+    Route::get('marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+    Route::get('marketplace/listing', [MarketplaceController::class, 'listing'])->name('marketplace.listing');
+    Route::get('marketplace/customers', [MarketplaceController::class, 'customers'])->name('marketplace.customers');
+    Route::get('marketplace/favorites', [MarketplaceController::class, 'favorites'])->name('marketplace.favorites');
+    Route::get('marketplace/off-plan-form', [MarketplaceController::class, 'offPlanForm'])->name('marketplace.off-plan-form');
+    Route::get('marketplace/upload-leads', [MarketplaceController::class, 'uploadLeads'])->name('marketplace.upload-leads');
+    Route::prefix('marketplace/admin')->name('marketplace.admin.')->group(function () {
+        Route::get('bookings', [MarketplaceController::class, 'adminBookings'])->name('bookings');
+        Route::get('communities', [MarketplaceController::class, 'adminCommunities'])->name('communities');
+        Route::get('communities/{community}', [MarketplaceController::class, 'adminCommunityShow'])->name('communities.show');
+        Route::get('units', [MarketplaceController::class, 'adminUnits'])->name('units');
+        Route::get('units/{unit}', [MarketplaceController::class, 'adminUnitShow'])->name('units.show');
+        Route::get('visits', [MarketplaceController::class, 'adminVisits'])->name('visits');
+        Route::get('visits/{visit}', [MarketplaceController::class, 'adminVisitShow'])->name('visits.show');
+        Route::get('settings', [MarketplaceController::class, 'adminSettings'])->name('settings');
+    });
+
+    // Directory module routes (extended)
+    Route::get('directory', [DirectoryController::class, 'index'])->name('directory.index');
+    Route::get('directory/facilities', [DirectoryController::class, 'facilities'])->name('directory.facilities');
+    Route::get('directory/addNewFacility', [DirectoryController::class, 'addFacility'])->name('directory.add-facility');
+    Route::get('directory/facility/{facility}', [DirectoryController::class, 'facilityShow'])->name('directory.facility.show');
+    Route::get('directory/building/{building}', [DirectoryController::class, 'buildingShow'])->name('directory.building.show');
+    Route::get('directory/community/{community}', [DirectoryController::class, 'communityShow'])->name('directory.community.show');
+    Route::get('directory/owner', [DirectoryController::class, 'owner'])->name('directory.owner');
+    Route::get('directory/documents', [DirectoryController::class, 'documents'])->name('directory.documents');
+
+    // Settings extended module routes
+    Route::get('settings/forms', [SettingsController::class, 'forms'])->name('settings.forms');
+    Route::get('settings/forms/create', [SettingsController::class, 'formCreate'])->name('settings.forms.create');
+    Route::get('settings/forms/{id}/preview', [SettingsController::class, 'formPreview'])->name('settings.forms.preview');
+    Route::get('settings/forms/{id}/select-building', [SettingsController::class, 'formSelectBuilding'])->name('settings.forms.select-building');
+    Route::get('settings/forms/{id}/select-community', [SettingsController::class, 'formSelectCommunity'])->name('settings.forms.select-community');
+    Route::get('settings/bank-details', [SettingsController::class, 'bankDetails'])->name('settings.bank-details');
+    Route::get('settings/visits-details', [SettingsController::class, 'visitsDetails'])->name('settings.visits-details');
+    Route::get('settings/facilities', [SettingsController::class, 'facilities'])->name('settings.facilities');
+    Route::get('settings/facilities/list', [SettingsController::class, 'facilitiesList'])->name('settings.facilities.list');
+    Route::get('settings/add-facility', [SettingsController::class, 'addFacility'])->name('settings.add-facility');
+    Route::get('settings/add-new-facility', [SettingsController::class, 'addNewFacility'])->name('settings.add-new-facility');
+    Route::get('settings/facility/{id}', [SettingsController::class, 'facilityDetails'])->name('settings.facility-details');
+    Route::get('settings/home-service-settings/{id}', [SettingsController::class, 'homeService'])->name('settings.home-service');
+    Route::get('settings/home-service-settings/{id}/category', [SettingsController::class, 'homeServiceCategory'])->name('settings.home-service.category');
+    Route::get('settings/home-service-settings/{id}/details', [SettingsController::class, 'homeServiceDetails'])->name('settings.home-service.details');
+    Route::get('settings/home-service-settings/{id}/new-type', [SettingsController::class, 'homeServiceNewType'])->name('settings.home-service.new-type');
+    Route::get('settings/home-service-settings/{id}/add-subcategory', [SettingsController::class, 'homeServiceAddSubcategory'])->name('settings.home-service.add-subcategory');
+    Route::get('settings/home-service-settings/{id}/select-community', [SettingsController::class, 'homeServiceSelectCommunity'])->name('settings.home-service.select-community');
+    Route::get('settings/neighbourhood-service', [SettingsController::class, 'neighbourhoodService'])->name('settings.neighbourhood-service');
+    Route::get('settings/service-request', [SettingsController::class, 'serviceRequest'])->name('settings.service-request');
+    Route::get('settings/service-request/category', [SettingsController::class, 'serviceRequestCategory'])->name('settings.service-request.category');
+    Route::get('settings/visitor-request', [SettingsController::class, 'visitorRequest'])->name('settings.visitor-request');
+    Route::get('settings/invoice', [SettingsController::class, 'invoice'])->name('settings.invoice');
+    Route::get('settings/sales-details', [SettingsController::class, 'salesDetails'])->name('settings.sales-details');
 
     // Reports module routes
     Route::prefix('reports')->name('reports.')->group(function () {
@@ -247,8 +329,7 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::post('announcements/{announcement}/publish', [AnnouncementController::class, 'publish'])->name('announcements.publish');
     Route::post('announcements/{announcement}/cancel', [AnnouncementController::class, 'cancel'])->name('announcements.cancel');
 
-    // Directory module routes
-    Route::get('directory', [AnnouncementController::class, 'directory'])->name('directory.index');
+    // Announcements directory (legacy alias handled by DirectoryController above)
 });
 
 // Test routes for RBAC middleware (only in testing environment)

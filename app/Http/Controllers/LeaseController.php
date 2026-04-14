@@ -413,4 +413,49 @@ class LeaseController extends Controller
             'history' => $this->leaseService->getRenewalHistory($lease),
         ]);
     }
+
+    /**
+     * Display expiring leases page.
+     */
+    public function expiringLeases(Request $request): Response
+    {
+        $user = $request->user();
+        $leases = $this->leaseService->getExpiringLeases($user->tenant_id, 60);
+
+        return Inertia::render('leases/expiring-leases', [
+            'leases' => $leases,
+        ]);
+    }
+
+    /**
+     * Display expiring lease detail page.
+     */
+    public function expiringLeaseDetails(Lease $lease): Response
+    {
+        $lease->load(['units', 'tenant', 'community', 'building', 'status']);
+
+        return Inertia::render('leases/expiring-lease-details', [
+            'lease' => [
+                'id' => $lease->id,
+                'contract_number' => $lease->contract_number,
+                'start_date' => $lease->start_date?->toDateString(),
+                'end_date' => $lease->end_date?->toDateString(),
+                'status' => $lease->status?->name,
+                'tenant' => $lease->tenant ? ['name' => trim($lease->tenant->first_name.' '.$lease->tenant->last_name)] : null,
+            ],
+        ]);
+    }
+
+    /**
+     * Display overdue leases page.
+     */
+    public function overdues(Request $request): Response
+    {
+        $user = $request->user();
+        $leases = $this->leaseService->getLeasesForTenant($user->tenant_id, 15, 'overdue', null);
+
+        return Inertia::render('leases/overdues', [
+            'leases' => $leases,
+        ]);
+    }
 }

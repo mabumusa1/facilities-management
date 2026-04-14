@@ -72,6 +72,115 @@ class TransactionController extends Controller
     }
 
     /**
+     * Display a single transaction.
+     */
+    public function show(Transaction $transaction): Response
+    {
+        $transaction->load(['type', 'category', 'status', 'assignee']);
+
+        return Inertia::render('transactions/show', [
+            'transaction' => [
+                'id' => $transaction->id,
+                'amount' => (float) $transaction->amount,
+                'paid' => (float) $transaction->paid,
+                'left' => (float) $transaction->left,
+                'details' => $transaction->details,
+                'lease_number' => $transaction->lease_number,
+                'is_paid' => $transaction->is_paid,
+                'due_on' => $transaction->due_on?->toDateString(),
+                'created_at' => $transaction->created_at?->toDateTimeString(),
+                'type' => $transaction->type?->name,
+                'category' => $transaction->category?->name,
+                'status' => $transaction->status?->name,
+                'assignee' => $transaction->assignee ? trim($transaction->assignee->first_name.' '.$transaction->assignee->last_name) : null,
+            ],
+        ]);
+    }
+
+    /**
+     * Chart of accounts page.
+     */
+    public function chartOfAccounts(): Response
+    {
+        return Inertia::render('transactions/chart-of-accounts');
+    }
+
+    /**
+     * Journal entries page.
+     */
+    public function journalEntries(): Response
+    {
+        return Inertia::render('transactions/journal-entries');
+    }
+
+    /**
+     * Overdues page.
+     */
+    public function overdues(Request $request): Response
+    {
+        $filters = $this->validatedFilters($request);
+        $transactions = $this->buildTransactionsQuery($request, $filters)
+            ->where('is_paid', false)
+            ->where('due_on', '<', now())
+            ->orderBy('due_on')
+            ->paginate(15)
+            ->withQueryString()
+            ->through(fn (Transaction $t): array => [
+                'id' => $t->id,
+                'amount' => (float) $t->amount,
+                'paid' => (float) $t->paid,
+                'left' => (float) $t->left,
+                'lease_number' => $t->lease_number,
+                'due_on' => $t->due_on?->toDateString(),
+                'status' => $t->status?->name,
+            ]);
+
+        return Inertia::render('transactions/overdues', [
+            'transactions' => $transactions,
+            'filters' => $filters,
+        ]);
+    }
+
+    /**
+     * Record transaction form page.
+     */
+    public function recordTransaction(): Response
+    {
+        return Inertia::render('transactions/record-transaction');
+    }
+
+    /**
+     * Transactions for a specific contact (tenant/owner).
+     */
+    public function contactTransactions(Request $request, int $contact): Response
+    {
+        $transactions = Transaction::query()
+            ->forTenant($request->user()?->tenant_id)
+            ->where('assignee_id', $contact)
+            ->with(['type', 'category', 'status'])
+            ->orderByDesc('created_at')
+            ->paginate(15)
+            ->withQueryString()
+            ->through(fn (Transaction $t): array => [
+                'id' => $t->id,
+                'amount' => (float) $t->amount,
+                'paid' => (float) $t->paid,
+                'left' => (float) $t->left,
+                'details' => $t->details,
+                'lease_number' => $t->lease_number,
+                'is_paid' => $t->is_paid,
+                'due_on' => $t->due_on?->toDateString(),
+                'type' => $t->type?->name,
+                'status' => $t->status?->name,
+            ]);
+
+        return Inertia::render('transactions/contact-transactions', [
+            'transactions' => $transactions,
+            'contact_id' => $contact,
+        ]);
+    }
+
+    /**
      * @return array{filter_type: string, from: string, to: string, search: string}
      */
     protected function validatedFilters(Request $request): array
