@@ -145,8 +145,12 @@ class Unit extends Model
     /**
      * Scope to filter units for a specific tenant.
      */
-    public function scopeForTenant(Builder $query, Tenant|int $tenant): Builder
+    public function scopeForTenant(Builder $query, Tenant|int|null $tenant): Builder
     {
+        if ($tenant === null) {
+            return $query;
+        }
+
         $tenantId = $tenant instanceof Tenant ? $tenant->id : $tenant;
 
         return $query->where('tenant_id', $tenantId);

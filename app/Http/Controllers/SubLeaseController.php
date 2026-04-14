@@ -30,7 +30,7 @@ class SubLeaseController extends Controller
         $status = $request->query('status');
 
         $query = Lease::where('is_sub_lease', true)
-            ->whereHas('tenant', fn ($q) => $q->where('tenant_id', $user->tenant_id))
+            ->when($user->tenant_id !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $user->tenant_id)))
             ->with(['tenant', 'units', 'community', 'building', 'status', 'parentLease'])
             ->orderBy('created_at', 'desc');
 
@@ -53,16 +53,16 @@ class SubLeaseController extends Controller
 
         $statistics = [
             'total' => Lease::where('is_sub_lease', true)
-                ->whereHas('tenant', fn ($q) => $q->where('tenant_id', $user->tenant_id))
+                ->when($user->tenant_id !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $user->tenant_id)))
                 ->count(),
             'active' => Lease::where('is_sub_lease', true)
-                ->whereHas('tenant', fn ($q) => $q->where('tenant_id', $user->tenant_id))
+                ->when($user->tenant_id !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $user->tenant_id)))
                 ->where('status_id', 31)->count(),
             'new' => Lease::where('is_sub_lease', true)
-                ->whereHas('tenant', fn ($q) => $q->where('tenant_id', $user->tenant_id))
+                ->when($user->tenant_id !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $user->tenant_id)))
                 ->where('status_id', 30)->count(),
             'expired' => Lease::where('is_sub_lease', true)
-                ->whereHas('tenant', fn ($q) => $q->where('tenant_id', $user->tenant_id))
+                ->when($user->tenant_id !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $user->tenant_id)))
                 ->where('status_id', 32)->count(),
         ];
 
@@ -84,7 +84,7 @@ class SubLeaseController extends Controller
         $user = $request->user();
 
         $parentLeases = Lease::where('is_sub_lease', false)
-            ->whereHas('tenant', fn ($q) => $q->where('tenant_id', $user->tenant_id))
+            ->when($user->tenant_id !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $user->tenant_id)))
             ->where('status_id', 31) // Active only
             ->with(['tenant', 'units'])
             ->get(['id', 'contract_number', 'tenant_id', 'start_date', 'end_date'])
@@ -97,10 +97,10 @@ class SubLeaseController extends Controller
 
         return Inertia::render('sub-leases/create', [
             'parentLeases' => $parentLeases,
-            'communities' => Community::where('tenant_id', $user->tenant_id)->select('id', 'name')->get(),
-            'buildings' => Building::where('tenant_id', $user->tenant_id)->select('id', 'name', 'community_id')->get(),
-            'units' => Unit::where('tenant_id', $user->tenant_id)->select('id', 'name', 'building_id')->get(),
-            'tenants' => Contact::where('tenant_id', $user->tenant_id)
+            'communities' => Community::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name')->get(),
+            'buildings' => Building::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'community_id')->get(),
+            'units' => Unit::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'building_id')->get(),
+            'tenants' => Contact::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->where('contact_type_id', 2)
                 ->select('id', 'name', 'email', 'phone')->get(),
             'statuses' => Status::whereIn('id', [30, 31])->get(),
@@ -171,7 +171,7 @@ class SubLeaseController extends Controller
         $subLease->load(['units', 'tenant']);
 
         $parentLeases = Lease::where('is_sub_lease', false)
-            ->whereHas('tenant', fn ($q) => $q->where('tenant_id', $user->tenant_id))
+            ->when($user->tenant_id !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $user->tenant_id)))
             ->get(['id', 'contract_number', 'tenant_id'])
             ->map(fn ($l) => [
                 'id' => $l->id,
@@ -181,10 +181,10 @@ class SubLeaseController extends Controller
         return Inertia::render('sub-leases/edit', [
             'sublease' => $subLease,
             'parentLeases' => $parentLeases,
-            'communities' => Community::where('tenant_id', $user->tenant_id)->select('id', 'name')->get(),
-            'buildings' => Building::where('tenant_id', $user->tenant_id)->select('id', 'name', 'community_id')->get(),
-            'units' => Unit::where('tenant_id', $user->tenant_id)->select('id', 'name', 'building_id')->get(),
-            'tenants' => Contact::where('tenant_id', $user->tenant_id)
+            'communities' => Community::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name')->get(),
+            'buildings' => Building::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'community_id')->get(),
+            'units' => Unit::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'building_id')->get(),
+            'tenants' => Contact::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->where('contact_type_id', 2)
                 ->select('id', 'name', 'email', 'phone')->get(),
             'statuses' => Status::whereIn('id', [30, 31, 32, 33, 34])->get(),

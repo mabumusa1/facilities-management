@@ -14,7 +14,10 @@ class LeasingModuleController extends Controller
     {
         $tenantId = $request->user()->tenant_id;
 
-        $baseLeases = Lease::whereHas('tenant', fn ($q) => $q->where('tenant_id', $tenantId));
+        $baseLeases = Lease::query()
+            ->when($tenantId !== null, fn ($q) => $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $tenantId)));
+        $baseApplications = LeaseApplication::query()
+            ->when($tenantId !== null, fn ($q) => $q->where('tenant_id', $tenantId));
 
         $stats = [
             'leases' => [
@@ -31,8 +34,8 @@ class LeasingModuleController extends Controller
                 'active' => (clone $baseLeases)->where('is_sub_lease', true)->where('status_id', 31)->count(),
             ],
             'applications' => [
-                'total' => LeaseApplication::whereHas('tenant', fn ($q) => $q->where('tenant_id', $tenantId))->count(),
-                'pending' => LeaseApplication::whereHas('tenant', fn ($q) => $q->where('tenant_id', $tenantId))
+                'total' => (clone $baseApplications)->count(),
+                'pending' => (clone $baseApplications)
                     ->whereIn('status', ['draft', 'submitted', 'under_review'])
                     ->count(),
             ],

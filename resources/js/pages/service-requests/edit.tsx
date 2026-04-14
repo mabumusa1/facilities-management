@@ -1,5 +1,5 @@
 import { Head } from "@inertiajs/react";
-import AppLayout from "@/layouts/app-layout";
+import { index as serviceRequestsIndex } from "@/routes/service-requests";
 
 interface Props {
     request: any;
@@ -15,7 +15,7 @@ export default function Edit({
     contacts: _contacts,
 }: Props) {
     return (
-        <AppLayout>
+        <>
             <Head title={`Edit Request #${request.request_number}`} />
 
             <div className="space-y-6">
@@ -33,6 +33,13 @@ export default function Edit({
                     {/* TODO: Implement edit form with validation */}
                 </div>
             </div>
-        </AppLayout>
+        </>
     );
 }
+
+Edit.layout = {
+    breadcrumbs: [
+        { title: "Service Requests", href: serviceRequestsIndex() },
+        { title: "Edit", href: "#" },
+    ],
+};

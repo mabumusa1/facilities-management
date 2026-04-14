@@ -24,8 +24,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import AppLayout from "@/layouts/app-layout";
-import type { BreadcrumbItem } from "@/types";
 
 interface MoveOutSummary {
     lease_id: number;
@@ -73,12 +71,6 @@ interface Props {
 }
 
 export default function LeaseMoveOut({ lease, moveOutSummary }: Props) {
-    const breadcrumbs: BreadcrumbItem[] = [
-        { title: "Leases", href: "/leases" },
-        { title: lease.contract_number, href: `/leases/${lease.id}` },
-        { title: "Move Out", href: "#" },
-    ];
-
     const { data, setData, post, processing, errors } = useForm({
         move_out_date: new Date().toISOString().split("T")[0],
         inspection_notes: "",
@@ -108,7 +100,7 @@ export default function LeaseMoveOut({ lease, moveOutSummary }: Props) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title={`Move Out - ${lease.contract_number}`} />
 
             <div className="space-y-6">
@@ -465,6 +457,6 @@ export default function LeaseMoveOut({ lease, moveOutSummary }: Props) {
                     </Card>
                 </form>
             </div>
-        </AppLayout>
+        </>
     );
 }

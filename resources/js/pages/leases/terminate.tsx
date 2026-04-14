@@ -23,8 +23,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import AppLayout from "@/layouts/app-layout";
-import type { BreadcrumbItem } from "@/types";
 
 interface TerminationSummary {
     lease_id: number;
@@ -63,12 +61,6 @@ interface Props {
 }
 
 export default function LeaseTerminate({ lease, terminationSummary }: Props) {
-    const breadcrumbs: BreadcrumbItem[] = [
-        { title: "Leases", href: "/leases" },
-        { title: lease.contract_number, href: `/leases/${lease.id}` },
-        { title: "Terminate", href: "#" },
-    ];
-
     const { data, setData, post, processing, errors } = useForm({
         termination_date: new Date().toISOString().split("T")[0],
         termination_reason: "",
@@ -96,7 +88,7 @@ export default function LeaseTerminate({ lease, terminationSummary }: Props) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title={`Terminate Lease - ${lease.contract_number}`} />
 
             <div className="space-y-6">
@@ -362,6 +354,6 @@ export default function LeaseTerminate({ lease, terminationSummary }: Props) {
                     </Card>
                 </form>
             </div>
-        </AppLayout>
+        </>
     );
 }

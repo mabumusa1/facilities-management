@@ -87,8 +87,12 @@ class Announcement extends Model
     /**
      * Scope a query to filter by tenant.
      */
-    public function scopeForTenant($query, int $tenantId)
+    public function scopeForTenant($query, ?int $tenantId)
     {
+        if ($tenantId === null) {
+            return $query;
+        }
+
         return $query->where('tenant_id', $tenantId);
     }
 

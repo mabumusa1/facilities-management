@@ -1,5 +1,5 @@
 import { Head } from "@inertiajs/react";
-import AppLayout from "@/layouts/app-layout";
+import { index as serviceRequestsIndex } from "@/routes/service-requests";
 
 interface Props {
     categories: any[];
@@ -13,7 +13,7 @@ export default function Create({
     contacts: _contacts,
 }: Props) {
     return (
-        <AppLayout>
+        <>
             <Head title="Create Service Request" />
 
             <div className="space-y-6">
@@ -33,6 +33,13 @@ export default function Create({
                     {/* TODO: Implement create form with validation */}
                 </div>
             </div>
-        </AppLayout>
+        </>
     );
 }
+
+Create.layout = {
+    breadcrumbs: [
+        { title: "Service Requests", href: serviceRequestsIndex() },
+        { title: "Create", href: "#" },
+    ],
+};

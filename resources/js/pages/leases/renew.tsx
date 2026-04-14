@@ -30,8 +30,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import AppLayout from "@/layouts/app-layout";
-import type { BreadcrumbItem } from "@/types";
 
 interface Unit {
     id: number;
@@ -119,15 +117,6 @@ export default function LeaseRenew({
     tenants: _tenants,
     statuses: _statuses,
 }: Props) {
-    const breadcrumbs: BreadcrumbItem[] = [
-        { title: "Leases", href: "/leases" },
-        {
-            title: originalLease.contract_number,
-            href: `/leases/${originalLease.id}`,
-        },
-        { title: "Renew", href: "#" },
-    ];
-
     const { data, setData, post, processing, errors } = useForm({
         start_date: renewalDefaults.start_date,
         end_date: renewalDefaults.end_date,
@@ -176,7 +165,7 @@ export default function LeaseRenew({
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title={`Renew Lease - ${originalLease.contract_number}`} />
 
             <div className="space-y-6">
@@ -724,6 +713,6 @@ export default function LeaseRenew({
                     </Card>
                 </form>
             </div>
-        </AppLayout>
+        </>
     );
 }

@@ -14,9 +14,10 @@ class AnnouncementService
     /**
      * Get paginated announcements for a tenant.
      */
-    public function getAnnouncementsForTenant(int $tenantId, int $perPage = 15, ?string $status = null): LengthAwarePaginator
+    public function getAnnouncementsForTenant(?int $tenantId, int $perPage = 15, ?string $status = null): LengthAwarePaginator
     {
-        $query = Announcement::where('tenant_id', $tenantId)
+        $query = Announcement::query()
+            ->when($tenantId !== null, fn ($q) => $q->where('tenant_id', $tenantId))
             ->with('creator')
             ->orderBy('created_at', 'desc');
 
@@ -32,7 +33,8 @@ class AnnouncementService
      */
     public function getActiveAnnouncementsForUser(User $user): Collection
     {
-        return Announcement::where('tenant_id', $user->tenant_id)
+        return Announcement::query()
+            ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
             ->active()
             ->orderBy('priority', 'desc')
             ->orderBy('start_date', 'desc')
@@ -44,9 +46,10 @@ class AnnouncementService
      *
      * @return array<string, int>
      */
-    public function getAnnouncementStatistics(int $tenantId): array
+    public function getAnnouncementStatistics(?int $tenantId): array
     {
-        $base = Announcement::where('tenant_id', $tenantId);
+        $base = Announcement::query()
+            ->when($tenantId !== null, fn ($q) => $q->where('tenant_id', $tenantId));
 
         return [
             'total' => (clone $base)->count(),
@@ -152,9 +155,10 @@ class AnnouncementService
     /**
      * Get announcements for directory view (active and visible only).
      */
-    public function getAnnouncementsForDirectory(int $tenantId): Collection
+    public function getAnnouncementsForDirectory(?int $tenantId): Collection
     {
-        return Announcement::where('tenant_id', $tenantId)
+        return Announcement::query()
+            ->when($tenantId !== null, fn ($q) => $q->where('tenant_id', $tenantId))
             ->active()
             ->visible()
             ->with('creator')

@@ -225,6 +225,15 @@ class CommunityEntityTest extends TestCase
         $this->assertCount(2, $tenant2Communities);
     }
 
+    public function test_community_for_tenant_scope_with_null_returns_unscoped_results(): void
+    {
+        Community::factory()->count(3)->create();
+
+        $communities = Community::forTenant(null)->get();
+
+        $this->assertCount(3, $communities);
+    }
+
     public function test_community_marketplace_scope(): void
     {
         Community::factory()->count(3)->marketplace()->create();

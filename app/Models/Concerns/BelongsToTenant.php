@@ -38,8 +38,12 @@ trait BelongsToTenant
     /**
      * Scope a query to only include models for a specific tenant.
      */
-    public function scopeForTenant(Builder $query, int $tenantId): Builder
+    public function scopeForTenant(Builder $query, ?int $tenantId): Builder
     {
+        if ($tenantId === null) {
+            return $query;
+        }
+
         return $query->where(static::getQualifiedTenantColumn(), $tenantId);
     }
 

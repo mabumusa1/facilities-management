@@ -20,12 +20,13 @@ class LeaseApplicationService
      * Get paginated lease applications for a tenant organization.
      */
     public function getApplicationsForTenant(
-        int $tenantId,
+        ?int $tenantId,
         int $perPage = 15,
         ?string $status = null,
         ?string $search = null
     ): LengthAwarePaginator {
-        $query = LeaseApplication::byTenantOrg($tenantId)
+        $query = LeaseApplication::query()
+            ->when($tenantId !== null, fn ($q) => $q->byTenantOrg($tenantId))
             ->with(['applicant', 'community', 'building', 'units', 'assignedTo'])
             ->latest();
 
@@ -43,9 +44,10 @@ class LeaseApplicationService
     /**
      * Get application statistics for a tenant organization.
      */
-    public function getApplicationStatistics(int $tenantId): array
+    public function getApplicationStatistics(?int $tenantId): array
     {
-        $applications = LeaseApplication::byTenantOrg($tenantId);
+        $applications = LeaseApplication::query()
+            ->when($tenantId !== null, fn ($q) => $q->byTenantOrg($tenantId));
 
         return [
             'total' => (clone $applications)->count(),
@@ -355,9 +357,10 @@ class LeaseApplicationService
     /**
      * Get available units for application.
      */
-    public function getAvailableUnits(int $tenantId): array
+    public function getAvailableUnits(?int $tenantId): array
     {
-        return Unit::where('tenant_id', $tenantId)
+        return Unit::query()
+            ->when($tenantId !== null, fn ($q) => $q->where('tenant_id', $tenantId))
             ->where('status_id', 26) // Available
             ->with(['building', 'community'])
             ->get()

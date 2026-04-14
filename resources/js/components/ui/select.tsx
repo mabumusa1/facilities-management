@@ -4,10 +4,31 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
+const EMPTY_SELECT_VALUE = "__EMPTY_SELECT_VALUE__";
+
 function Select({
+    value,
+    defaultValue,
+    onValueChange,
     ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
-    return <SelectPrimitive.Root data-slot="select" {...props} />;
+    const mappedValue = value === "" ? EMPTY_SELECT_VALUE : value;
+    const mappedDefaultValue =
+        defaultValue === "" ? EMPTY_SELECT_VALUE : defaultValue;
+
+    return (
+        <SelectPrimitive.Root
+            data-slot="select"
+            value={mappedValue}
+            defaultValue={mappedDefaultValue}
+            onValueChange={(nextValue) => {
+                onValueChange?.(
+                    nextValue === EMPTY_SELECT_VALUE ? "" : nextValue,
+                );
+            }}
+            {...props}
+        />
+    );
 }
 
 function SelectGroup({
@@ -109,8 +130,11 @@ function SelectLabel({
 function SelectItem({
     className,
     children,
+    value,
     ...props
 }: React.ComponentProps<typeof SelectPrimitive.Item>) {
+    const mappedValue = value === "" ? EMPTY_SELECT_VALUE : value;
+
     return (
         <SelectPrimitive.Item
             data-slot="select-item"
@@ -118,6 +142,7 @@ function SelectItem({
                 "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
                 className,
             )}
+            value={mappedValue}
             {...props}
         >
             <span

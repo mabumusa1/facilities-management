@@ -55,14 +55,17 @@ class LeaseController extends Controller
 
         return Inertia::render('leases/create', [
             'step' => $step,
-            'communities' => Community::where('tenant_id', $user->tenant_id)
+            'communities' => Community::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name')
                 ->get(),
-            'buildings' => Building::where('tenant_id', $user->tenant_id)
+            'buildings' => Building::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name', 'community_id')
                 ->get(),
             'availableUnits' => $this->leaseService->getAvailableUnits($user->tenant_id),
-            'tenants' => Contact::where('tenant_id', $user->tenant_id)
+            'tenants' => Contact::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->where('contact_type_id', 2) // Tenant contact type
                 ->select('id', 'name', 'email', 'phone')
                 ->get(),
@@ -132,16 +135,20 @@ class LeaseController extends Controller
 
         return Inertia::render('leases/edit', [
             'lease' => $lease,
-            'communities' => Community::where('tenant_id', $user->tenant_id)
+            'communities' => Community::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name')
                 ->get(),
-            'buildings' => Building::where('tenant_id', $user->tenant_id)
+            'buildings' => Building::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name', 'community_id')
                 ->get(),
-            'units' => Unit::where('tenant_id', $user->tenant_id)
+            'units' => Unit::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name', 'building_id')
                 ->get(),
-            'tenants' => Contact::where('tenant_id', $user->tenant_id)
+            'tenants' => Contact::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->where('contact_type_id', 2)
                 ->select('id', 'name', 'email', 'phone')
                 ->get(),
@@ -289,16 +296,20 @@ class LeaseController extends Controller
         return Inertia::render('leases/renew', [
             'originalLease' => $lease,
             'renewalDefaults' => $this->leaseService->getRenewalDefaults($lease),
-            'communities' => Community::where('tenant_id', $user->tenant_id)
+            'communities' => Community::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name')
                 ->get(),
-            'buildings' => Building::where('tenant_id', $user->tenant_id)
+            'buildings' => Building::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name', 'community_id')
                 ->get(),
-            'units' => Unit::where('tenant_id', $user->tenant_id)
+            'units' => Unit::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name', 'building_id')
                 ->get(),
-            'tenants' => Contact::where('tenant_id', $user->tenant_id)
+            'tenants' => Contact::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->where('contact_type_id', 2)
                 ->select('id', 'name', 'email', 'phone')
                 ->get(),

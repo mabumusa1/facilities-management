@@ -33,14 +33,15 @@ class LeaseService
      * Get paginated leases for a tenant.
      */
     public function getLeasesForTenant(
-        int $tenantId,
+        ?int $tenantId,
         int $perPage = 15,
         ?string $status = null,
         ?string $search = null
     ): LengthAwarePaginator {
-        $query = Lease::whereHas('tenant', function ($q) use ($tenantId) {
-            $q->where('tenant_id', $tenantId);
-        })
+        $query = Lease::query()
+            ->when($tenantId !== null, function ($q) use ($tenantId) {
+                $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $tenantId));
+            })
             ->with(['tenant', 'units', 'community', 'building', 'status'])
             ->orderBy('created_at', 'desc');
 
@@ -67,11 +68,12 @@ class LeaseService
      *
      * @return array<string, int|float>
      */
-    public function getLeaseStatistics(int $tenantId): array
+    public function getLeaseStatistics(?int $tenantId): array
     {
-        $baseQuery = Lease::whereHas('tenant', function ($q) use ($tenantId) {
-            $q->where('tenant_id', $tenantId);
-        });
+        $baseQuery = Lease::query()
+            ->when($tenantId !== null, function ($q) use ($tenantId) {
+                $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $tenantId));
+            });
 
         $total = (clone $baseQuery)->count();
         $active = (clone $baseQuery)->where('status_id', self::STATUS_ACTIVE)->count();
@@ -105,11 +107,12 @@ class LeaseService
     /**
      * Get expiring leases.
      */
-    public function getExpiringLeases(int $tenantId, int $days = 30): Collection
+    public function getExpiringLeases(?int $tenantId, int $days = 30): Collection
     {
-        return Lease::whereHas('tenant', function ($q) use ($tenantId) {
-            $q->where('tenant_id', $tenantId);
-        })
+        return Lease::query()
+            ->when($tenantId !== null, function ($q) use ($tenantId) {
+                $q->whereHas('tenant', fn ($tq) => $tq->where('tenant_id', $tenantId));
+            })
             ->where('status_id', self::STATUS_ACTIVE)
             ->whereDate('end_date', '>=', now())
             ->whereDate('end_date', '<=', now()->addDays($days))
@@ -121,9 +124,10 @@ class LeaseService
     /**
      * Get available units for leasing.
      */
-    public function getAvailableUnits(int $tenantId): Collection
+    public function getAvailableUnits(?int $tenantId): Collection
     {
-        return Unit::where('tenant_id', $tenantId)
+        return Unit::query()
+            ->when($tenantId !== null, fn ($q) => $q->where('tenant_id', $tenantId))
             ->where('status_id', self::UNIT_AVAILABLE)
             ->with(['building', 'community'])
             ->get();

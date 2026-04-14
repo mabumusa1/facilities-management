@@ -52,14 +52,17 @@ class LeaseApplicationController extends Controller
         $user = $request->user();
 
         return Inertia::render('lease-applications/create', [
-            'communities' => Community::where('tenant_id', $user->tenant_id)
+            'communities' => Community::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name')
                 ->get(),
-            'buildings' => Building::where('tenant_id', $user->tenant_id)
+            'buildings' => Building::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name', 'community_id')
                 ->get(),
             'availableUnits' => $this->applicationService->getAvailableUnits($user->tenant_id),
-            'contacts' => Contact::where('tenant_id', $user->tenant_id)
+            'contacts' => Contact::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->where('contact_type_id', 2) // Tenant contact type
                 ->select('id', 'name', 'email', 'phone')
                 ->get(),
@@ -121,14 +124,17 @@ class LeaseApplicationController extends Controller
 
         return Inertia::render('lease-applications/edit', [
             'application' => $leaseApplication,
-            'communities' => Community::where('tenant_id', $user->tenant_id)
+            'communities' => Community::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name')
                 ->get(),
-            'buildings' => Building::where('tenant_id', $user->tenant_id)
+            'buildings' => Building::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->select('id', 'name', 'community_id')
                 ->get(),
             'availableUnits' => $this->applicationService->getAvailableUnits($user->tenant_id),
-            'contacts' => Contact::where('tenant_id', $user->tenant_id)
+            'contacts' => Contact::query()
+                ->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
                 ->where('contact_type_id', 2)
                 ->select('id', 'name', 'email', 'phone')
                 ->get(),
