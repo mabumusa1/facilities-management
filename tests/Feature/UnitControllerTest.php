@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Building;
 use App\Models\Community;
 use App\Models\Tenant;
+use App\Models\Unit;
 use App\Models\UnitCategory;
 use App\Models\UnitType;
 use App\Models\User;
@@ -18,7 +19,11 @@ class UnitControllerTest extends TestCase
 
     private const UNITS_ROUTE = '/units';
 
+    private const UNITS_ALIAS_ROUTE = '/properties-list/units';
+
     private const UNITS_CREATE_ROUTE = '/units/create';
+
+    private const UNITS_ALIAS_CREATE_ROUTE = '/properties-list/units/new-unit';
 
     private const VALID_UNIT_NAME = 'Unit 101';
 
@@ -55,6 +60,49 @@ class UnitControllerTest extends TestCase
             ->has('buildings', 1)
             ->has('categories', 1)
             ->has('types', 1)
+        );
+    }
+
+    public function test_properties_list_units_alias_displays_units_index_page(): void
+    {
+        $community = Community::factory()->forTenant($this->tenant)->create();
+        $building = Building::factory()->forCommunity($community)->forTenant($this->tenant)->create();
+        $category = UnitCategory::factory()->create();
+        $type = UnitType::factory()->forCategory($category)->create();
+
+        Unit::factory()
+            ->forTenant($this->tenant)
+            ->forCommunity($community)
+            ->forBuilding($building)
+            ->forCategory($category)
+            ->forType($type)
+            ->create();
+
+        $response = $this->actingAs($this->user)->get(self::UNITS_ALIAS_ROUTE);
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('properties/units/index')
+            ->has('units.data', 1)
+            ->where('tabCounts.units', 1)
+        );
+    }
+
+    public function test_properties_list_new_unit_alias_displays_unit_create_page(): void
+    {
+        $community = Community::factory()->forTenant($this->tenant)->create();
+        Building::factory()->forCommunity($community)->forTenant($this->tenant)->create();
+        $category = UnitCategory::factory()->create();
+        UnitType::factory()->forCategory($category)->create();
+
+        $response = $this->actingAs($this->user)->get(self::UNITS_ALIAS_CREATE_ROUTE);
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('properties/units/create')
+            ->has('communities', 1)
+            ->has('buildings', 1)
+            ->has('categories', 1)
         );
     }
 

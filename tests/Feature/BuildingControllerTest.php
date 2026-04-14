@@ -18,7 +18,11 @@ class BuildingControllerTest extends TestCase
 
     private const BUILDINGS_ROUTE = '/buildings';
 
+    private const BUILDINGS_ALIAS_ROUTE = '/properties-list/buildings';
+
     private const BUILDINGS_CREATE_ROUTE = '/buildings/create';
+
+    private const BUILDINGS_ALIAS_CREATE_ROUTE = '/properties-list/new/building';
 
     private const VALID_BUILDING_NAME = 'Tower A';
 
@@ -44,6 +48,33 @@ class BuildingControllerTest extends TestCase
         Community::factory()->forTenant($this->tenant)->create();
 
         $response = $this->actingAs($this->user)->get(self::BUILDINGS_CREATE_ROUTE);
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('properties/buildings/create')
+            ->has('communities', 1)
+        );
+    }
+
+    public function test_properties_list_buildings_alias_displays_building_index_page(): void
+    {
+        Building::factory()->forTenant($this->tenant)->create();
+
+        $response = $this->actingAs($this->user)->get(self::BUILDINGS_ALIAS_ROUTE);
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('properties/buildings/index')
+            ->has('buildings.data', 1)
+            ->where('tabCounts.buildings', 1)
+        );
+    }
+
+    public function test_properties_list_new_building_alias_displays_building_create_page(): void
+    {
+        Community::factory()->forTenant($this->tenant)->create();
+
+        $response = $this->actingAs($this->user)->get(self::BUILDINGS_ALIAS_CREATE_ROUTE);
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page

@@ -24,7 +24,7 @@ class UnitController extends Controller
     {
         $units = Unit::query()
             ->forTenant(auth()->user()->tenant_id)
-            ->with(['community', 'building', 'category', 'type', 'status'])
+            ->with(['community', 'building', 'category', 'type', 'status', 'tenant'])
             ->when($request->search, fn ($q, $search) => $q->where('name', 'like', "%{$search}%"))
             ->when($request->community_id, fn ($q, $communityId) => $q->forCommunity($communityId))
             ->when($request->building_id, fn ($q, $buildingId) => $q->forBuilding($buildingId))
@@ -54,6 +54,11 @@ class UnitController extends Controller
             'buildings' => $buildings,
             'categories' => $categories,
             'filters' => $request->only(['search', 'community_id', 'building_id', 'category_id', 'is_marketplace', 'sort', 'direction']),
+            'tabCounts' => [
+                'communities' => Community::query()->forTenant(auth()->user()->tenant_id)->count(),
+                'buildings' => Building::query()->forTenant(auth()->user()->tenant_id)->count(),
+                'units' => Unit::query()->forTenant(auth()->user()->tenant_id)->count(),
+            ],
         ]);
     }
 

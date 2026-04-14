@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Building;
 use App\Models\Community;
+use App\Models\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -40,6 +41,11 @@ class BuildingController extends Controller
             'buildings' => $buildings,
             'communities' => $communities,
             'filters' => $request->only(['search', 'status', 'community_id', 'sort', 'direction']),
+            'tabCounts' => [
+                'communities' => Community::query()->forTenant(auth()->user()->tenant_id)->count(),
+                'buildings' => Building::query()->forTenant(auth()->user()->tenant_id)->count(),
+                'units' => Unit::query()->forTenant(auth()->user()->tenant_id)->count(),
+            ],
         ]);
     }
 

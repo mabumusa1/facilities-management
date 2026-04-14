@@ -40,6 +40,18 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
         ->name('properties-list.communities.create');
     Route::get('properties-list/communities/community/details/{community}', [CommunityController::class, 'show'])
         ->name('properties-list.communities.show');
+    Route::get('properties-list/buildings', [BuildingController::class, 'index'])
+        ->name('properties-list.buildings.index');
+    Route::get('properties-list/new/building', [BuildingController::class, 'create'])
+        ->name('properties-list.buildings.create');
+    Route::get('properties-list/buildings/building/details/{building}', [BuildingController::class, 'show'])
+        ->name('properties-list.buildings.show');
+    Route::get('properties-list/units', [UnitController::class, 'index'])
+        ->name('properties-list.units.index');
+    Route::get('properties-list/units/new-unit', [UnitController::class, 'create'])
+        ->name('properties-list.units.create');
+    Route::get('properties-list/units/unit/details/{unit}', [UnitController::class, 'show'])
+        ->name('properties-list.units.show');
     Route::resource('communities', CommunityController::class);
     Route::resource('buildings', BuildingController::class);
     Route::resource('units', UnitController::class);
@@ -113,6 +125,11 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
 
     // Service Requests module routes
     Route::resource('service-requests', ServiceRequestController::class);
+    Route::get('requests', [ServiceRequestController::class, 'index'])->name('requests.index');
+    Route::get('requests/create', [ServiceRequestController::class, 'create'])->name('requests.create');
+    Route::get('requests/{serviceRequest}', [ServiceRequestController::class, 'show'])
+        ->whereNumber('serviceRequest')
+        ->name('requests.show');
 
     // Leases module routes
     Route::resource('leases', LeaseController::class);
@@ -173,6 +190,9 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
         Route::get('/leases', [ReportController::class, 'leases'])->name('leases');
         Route::get('/maintenance', [ReportController::class, 'maintenance'])->name('maintenance');
     });
+    Route::get('reporting', [ReportController::class, 'index'])->name('reporting.index');
+    Route::get('reporting/leases', [ReportController::class, 'leases'])->name('reporting.leases');
+    Route::get('reporting/maintenance', [ReportController::class, 'maintenance'])->name('reporting.maintenance');
 
     // Notifications module routes
     Route::prefix('notifications')->name('notifications.')->group(function () {

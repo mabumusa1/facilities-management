@@ -1,9 +1,9 @@
 import { Head, Link, router } from "@inertiajs/react";
-import { Home, Plus, Search } from "lucide-react";
+import { ArrowUpDown, Funnel, Search } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
     Select,
@@ -13,8 +13,18 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import {
-    index as unitsIndex,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { index as communitiesIndex } from "@/routes/communities";
+import { index as buildingsIndex } from "@/routes/buildings";
+import {
     create as unitsCreate,
+    index as unitsIndex,
     show as unitsShow,
 } from "@/routes/units";
 
@@ -33,17 +43,30 @@ interface UnitCategory {
     name: string;
 }
 
+interface UnitType {
+    id: number;
+    name: string;
+}
+
+interface UnitStatus {
+    id?: number;
+    name?: string;
+}
+
+interface UnitTenant {
+    id: number;
+    name: string;
+}
+
 interface Unit {
     id: number;
     name: string;
-    status: "active" | "inactive";
-    floor_no?: number;
-    net_area?: number;
-    market_rent?: number;
+    category?: UnitCategory;
+    type?: UnitType;
     community?: Community;
     building?: Building;
-    category?: UnitCategory;
-    created_at: string;
+    tenant?: UnitTenant | null;
+    status?: UnitStatus | string | null;
 }
 
 interface PaginatedData {
@@ -62,10 +85,16 @@ interface Props {
     categories: UnitCategory[];
     filters: {
         search?: string;
-        status?: string;
         community_id?: string;
         building_id?: string;
         category_id?: string;
+        sort?: string;
+        direction?: string;
+    };
+    tabCounts?: {
+        communities: number;
+        buildings: number;
+        units: number;
     };
 }
 
@@ -75,274 +104,299 @@ export default function UnitsIndex({
     buildings,
     categories,
     filters,
+    tabCounts,
 }: Props) {
     const [search, setSearch] = useState(filters.search ?? "");
-    const [status, setStatus] = useState(filters.status ?? "");
     const [communityId, setCommunityId] = useState(filters.community_id ?? "");
     const [buildingId, setBuildingId] = useState(filters.building_id ?? "");
     const [categoryId, setCategoryId] = useState(filters.category_id ?? "");
+    const [sortValue, setSortValue] = useState(
+        `${filters.sort ?? "created_at"}_${filters.direction ?? "desc"}`,
+    );
 
-    const handleSearch = () => {
-        router.get(
-            unitsIndex(),
-            {
-                search,
-                status,
-                community_id: communityId,
-                building_id: buildingId,
-                category_id: categoryId,
-            },
-            { preserveState: true },
-        );
+    const buildFilters = (
+        next?: Partial<{
+            communityId: string;
+            buildingId: string;
+            categoryId: string;
+            sortValue: string;
+        }>,
+    ) => {
+        const currentCommunityId = next?.communityId ?? communityId;
+        const currentBuildingId = next?.buildingId ?? buildingId;
+        const currentCategoryId = next?.categoryId ?? categoryId;
+        const currentSort = next?.sortValue ?? sortValue;
+        const [sort = "created_at", direction = "desc"] = currentSort.split("_");
+
+        return {
+            search,
+            community_id: currentCommunityId,
+            building_id: currentBuildingId,
+            category_id: currentCategoryId,
+            sort,
+            direction,
+        };
     };
 
-    const handleFilterChange = (key: string, value: string) => {
-        const newFilters = {
-            search,
-            status,
-            community_id: communityId,
-            building_id: buildingId,
-            category_id: categoryId,
-            [key]: value,
-        };
+    const handleSearch = () => {
+        router.get(unitsIndex(), buildFilters(), { preserveState: true });
+    };
 
-        if (key === "status") {
-            setStatus(value);
+    const handleSortChange = (value: string) => {
+        setSortValue(value);
+
+        router.get(unitsIndex(), buildFilters({ sortValue: value }), {
+            preserveState: true,
+        });
+    };
+
+    const getStatusLabel = (status?: UnitStatus | string | null): string => {
+        if (typeof status === "string") {
+            return status;
         }
 
-        if (key === "community_id") {
-            setCommunityId(value);
-        }
-
-        if (key === "building_id") {
-            setBuildingId(value);
-        }
-
-        if (key === "category_id") {
-            setCategoryId(value);
-        }
-
-        router.get(unitsIndex(), newFilters, { preserveState: true });
+        return status?.name ?? "N/A";
     };
 
     return (
         <>
             <Head title="Units" />
 
-            <div className="flex h-full flex-1 flex-col gap-4 p-4">
-                {/* Header */}
+            <div className="flex h-full flex-1 flex-col gap-6 p-4">
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-bold">Units</h1>
-                        <p className="text-muted-foreground">
-                            Manage your property units
-                        </p>
+                        <p className="text-muted-foreground">Properties list</p>
                     </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                    <Button asChild variant="outline">
+                        <Link href={communitiesIndex()}>
+                            Communities ({tabCounts?.communities ?? 0})
+                        </Link>
+                    </Button>
+                    <Button asChild variant="outline">
+                        <Link href={buildingsIndex()}>
+                            Buildings ({tabCounts?.buildings ?? 0})
+                        </Link>
+                    </Button>
                     <Button asChild>
-                        <Link href={unitsCreate()}>
-                            <Plus className="mr-2 h-4 w-4" />
-                            Add Unit
+                        <Link href={unitsIndex()}>
+                            Units ({tabCounts?.units ?? units.total})
                         </Link>
                     </Button>
                 </div>
 
-                {/* Filters */}
                 <Card>
-                    <CardContent className="pt-6">
-                        <div className="flex flex-wrap gap-4">
-                            <div className="relative min-w-64 flex-1">
-                                <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
-                                <Input
-                                    placeholder="Search units..."
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    onKeyDown={(e) =>
-                                        e.key === "Enter" && handleSearch()
-                                    }
-                                    className="pl-8"
-                                />
-                            </div>
-                            <Select
-                                value={communityId}
-                                onValueChange={(v) =>
-                                    handleFilterChange("community_id", v)
-                                }
-                            >
-                                <SelectTrigger className="w-40">
-                                    <SelectValue placeholder="Community" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="">
-                                        All communities
-                                    </SelectItem>
-                                    {communities.map((c) => (
-                                        <SelectItem
-                                            key={c.id}
-                                            value={String(c.id)}
-                                        >
-                                            {c.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <Select
-                                value={buildingId}
-                                onValueChange={(v) =>
-                                    handleFilterChange("building_id", v)
-                                }
-                            >
-                                <SelectTrigger className="w-40">
-                                    <SelectValue placeholder="Building" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="">
-                                        All buildings
-                                    </SelectItem>
-                                    {buildings.map((b) => (
-                                        <SelectItem
-                                            key={b.id}
-                                            value={String(b.id)}
-                                        >
-                                            {b.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <Select
-                                value={categoryId}
-                                onValueChange={(v) =>
-                                    handleFilterChange("category_id", v)
-                                }
-                            >
-                                <SelectTrigger className="w-40">
-                                    <SelectValue placeholder="Category" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="">
-                                        All categories
-                                    </SelectItem>
-                                    {categories.map((cat) => (
-                                        <SelectItem
-                                            key={cat.id}
-                                            value={String(cat.id)}
-                                        >
-                                            {cat.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            <Select
-                                value={status}
-                                onValueChange={(v) =>
-                                    handleFilterChange("status", v)
-                                }
-                            >
-                                <SelectTrigger className="w-32">
-                                    <SelectValue placeholder="Status" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="">
-                                        All statuses
-                                    </SelectItem>
-                                    <SelectItem value="active">
-                                        Active
-                                    </SelectItem>
-                                    <SelectItem value="inactive">
-                                        Inactive
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <Button onClick={handleSearch}>Search</Button>
-                        </div>
-                    </CardContent>
-                </Card>
+                    <CardContent className="space-y-4 pt-6">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            <div className="flex flex-wrap items-center gap-3">
+                                <div className="relative w-full min-w-64 md:w-96">
+                                    <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
+                                    <Input
+                                        placeholder="Search"
+                                        value={search}
+                                        onChange={(event) => setSearch(event.target.value)}
+                                        onKeyDown={(event) =>
+                                            event.key === "Enter" && handleSearch()
+                                        }
+                                        className="pl-8"
+                                    />
+                                </div>
 
-                {/* Data Table */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            {units.total} {units.total === 1 ? "Unit" : "Units"}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {units.data.length === 0 ? (
-                            <div className="text-muted-foreground py-8 text-center">
-                                No units found. Create your first unit to get
-                                started.
-                            </div>
-                        ) : (
-                            <div className="divide-y">
-                                {units.data.map((unit) => (
-                                    <Link
-                                        key={unit.id}
-                                        href={unitsShow({ unit: unit.id })}
-                                        className="hover:bg-muted/50 flex items-center justify-between p-4 transition-colors"
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-lg">
-                                                <Home className="text-primary h-5 w-5" />
-                                            </div>
-                                            <div>
-                                                <div className="font-medium">
-                                                    {unit.name}
-                                                </div>
-                                                <div className="text-muted-foreground text-sm">
-                                                    {unit.building?.name ??
-                                                        unit.community?.name ??
-                                                        "No location"}
-                                                    {unit.floor_no !==
-                                                        undefined &&
-                                                        ` • Floor ${unit.floor_no}`}
-                                                    {unit.net_area &&
-                                                        ` • ${unit.net_area} sqm`}
-                                                </div>
-                                            </div>
+                                <Select value={sortValue} onValueChange={handleSortChange}>
+                                    <SelectTrigger className="w-44">
+                                        <div className="flex items-center gap-2">
+                                            <ArrowUpDown className="h-4 w-4" />
+                                            <SelectValue placeholder="Sort" />
                                         </div>
-                                        <div className="flex items-center gap-4">
-                                            {unit.category && (
-                                                <Badge variant="outline">
-                                                    {unit.category.name}
-                                                </Badge>
-                                            )}
-                                            {unit.market_rent && (
-                                                <div className="text-muted-foreground text-sm">
-                                                    $
-                                                    {unit.market_rent.toLocaleString()}
-                                                    /mo
-                                                </div>
-                                            )}
-                                            <Badge
-                                                variant={
-                                                    unit.status === "active"
-                                                        ? "default"
-                                                        : "secondary"
-                                                }
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="created_at_desc">Newest</SelectItem>
+                                        <SelectItem value="created_at_asc">Oldest</SelectItem>
+                                        <SelectItem value="name_asc">Name A-Z</SelectItem>
+                                        <SelectItem value="name_desc">Name Z-A</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Button variant="outline" type="button">
+                                    <Funnel className="mr-2 h-4 w-4" />
+                                    Filter by
+                                </Button>
+
+                                <Select
+                                    value={communityId}
+                                    onValueChange={(value) => {
+                                        setCommunityId(value);
+                                        router.get(
+                                            unitsIndex(),
+                                            buildFilters({ communityId: value }),
+                                            { preserveState: true },
+                                        );
+                                    }}
+                                >
+                                    <SelectTrigger className="w-48">
+                                        <SelectValue placeholder="Community" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="">All communities</SelectItem>
+                                        {communities.map((community) => (
+                                            <SelectItem
+                                                key={community.id}
+                                                value={String(community.id)}
                                             >
-                                                {unit.status}
-                                            </Badge>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
+                                                {community.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
 
-                        {/* Pagination */}
+                                <Select
+                                    value={buildingId}
+                                    onValueChange={(value) => {
+                                        setBuildingId(value);
+                                        router.get(
+                                            unitsIndex(),
+                                            buildFilters({ buildingId: value }),
+                                            { preserveState: true },
+                                        );
+                                    }}
+                                >
+                                    <SelectTrigger className="w-48">
+                                        <SelectValue placeholder="Building" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="">All buildings</SelectItem>
+                                        {buildings.map((building) => (
+                                            <SelectItem
+                                                key={building.id}
+                                                value={String(building.id)}
+                                            >
+                                                {building.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={categoryId}
+                                    onValueChange={(value) => {
+                                        setCategoryId(value);
+                                        router.get(
+                                            unitsIndex(),
+                                            buildFilters({ categoryId: value }),
+                                            { preserveState: true },
+                                        );
+                                    }}
+                                >
+                                    <SelectTrigger className="w-48">
+                                        <SelectValue placeholder="Category" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="">All categories</SelectItem>
+                                        {categories.map((category) => (
+                                            <SelectItem
+                                                key={category.id}
+                                                value={String(category.id)}
+                                            >
+                                                {category.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+
+                                <Button variant="outline" onClick={handleSearch}>
+                                    Search
+                                </Button>
+                            </div>
+
+                            <Button asChild>
+                                <Link href={unitsCreate()}>Add Unit</Link>
+                            </Button>
+                        </div>
+
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Unit Name</TableHead>
+                                    <TableHead>Type</TableHead>
+                                    <TableHead>Community</TableHead>
+                                    <TableHead>Building</TableHead>
+                                    <TableHead>Owner</TableHead>
+                                    <TableHead>Tenant</TableHead>
+                                    <TableHead>Status</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {units.data.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell
+                                            colSpan={8}
+                                            className="text-muted-foreground py-8 text-center"
+                                        >
+                                            No units found.
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    units.data.map((unit) => (
+                                        <TableRow key={unit.id}>
+                                            <TableCell className="font-medium">
+                                                {unit.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="space-y-0.5">
+                                                    <p>{unit.type?.name ?? "-"}</p>
+                                                    <p className="text-muted-foreground text-xs">
+                                                        {unit.category?.name ?? "-"}
+                                                    </p>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell>{unit.community?.name ?? "-"}</TableCell>
+                                            <TableCell>{unit.building?.name ?? "-"}</TableCell>
+                                            <TableCell>
+                                                <Button asChild variant="outline" size="sm">
+                                                    <Link
+                                                        href={`/contacts/Owner/form?unit_id=${unit.id}`}
+                                                    >
+                                                        Add
+                                                    </Link>
+                                                </Button>
+                                            </TableCell>
+                                            <TableCell>
+                                                {unit.tenant?.name ?? "N/A"}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Badge variant="secondary">
+                                                    {getStatusLabel(unit.status)}
+                                                </Badge>
+                                            </TableCell>
+                                            <TableCell className="text-right">
+                                                <Button asChild size="sm" variant="ghost">
+                                                    <Link
+                                                        href={unitsShow({ unit: unit.id })}
+                                                    >
+                                                        Details
+                                                    </Link>
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                )}
+                            </TableBody>
+                        </Table>
+
                         {units.last_page > 1 && (
                             <div className="mt-4 flex items-center justify-center gap-2">
                                 {units.links.map((link, index) => (
                                     <Button
                                         key={index}
-                                        variant={
-                                            link.active ? "default" : "outline"
-                                        }
+                                        variant={link.active ? "default" : "outline"}
                                         size="sm"
                                         disabled={!link.url}
-                                        onClick={() =>
-                                            link.url && router.get(link.url)
-                                        }
-                                        dangerouslySetInnerHTML={{
-                                            __html: link.label,
-                                        }}
+                                        onClick={() => link.url && router.get(link.url)}
+                                        dangerouslySetInnerHTML={{ __html: link.label }}
                                     />
                                 ))}
                             </div>
