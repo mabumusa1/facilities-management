@@ -113,7 +113,7 @@ class LeaseControllerTest extends TestCase
 
     public function test_index_displays_leases_list(): void
     {
-        $lease = Lease::factory()->create([
+        Lease::factory()->create([
             'tenant_id' => $this->tenantContact->id,
             'community_id' => $this->community->id,
             'building_id' => $this->building->id,
@@ -121,6 +121,26 @@ class LeaseControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)->get('/leases');
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('leases/index')
+            ->has('leases')
+            ->has('statistics')
+            ->has('filters')
+        );
+    }
+
+    public function test_leasing_leases_alias_displays_leases_list(): void
+    {
+        Lease::factory()->create([
+            'tenant_id' => $this->tenantContact->id,
+            'community_id' => $this->community->id,
+            'building_id' => $this->building->id,
+            'status_id' => $this->statusActive->id,
+        ]);
+
+        $response = $this->actingAs($this->user)->get('/leasing/leases');
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page
@@ -157,7 +177,7 @@ class LeaseControllerTest extends TestCase
 
     public function test_index_can_search_leases(): void
     {
-        $lease = Lease::factory()->create([
+        Lease::factory()->create([
             'tenant_id' => $this->tenantContact->id,
             'community_id' => $this->community->id,
             'building_id' => $this->building->id,
@@ -177,6 +197,22 @@ class LeaseControllerTest extends TestCase
     public function test_create_displays_wizard_form(): void
     {
         $response = $this->actingAs($this->user)->get('/leases/create');
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('leases/create')
+            ->has('step')
+            ->has('communities')
+            ->has('buildings')
+            ->has('availableUnits')
+            ->has('tenants')
+            ->has('statuses')
+        );
+    }
+
+    public function test_leasing_leases_create_alias_displays_wizard_form(): void
+    {
+        $response = $this->actingAs($this->user)->get('/leasing/leases/create');
 
         $response->assertOk();
         $response->assertInertia(fn (Assert $page) => $page

@@ -44,7 +44,12 @@ class SubLeaseController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('contract_number', 'like', "%{$search}%")
-                    ->orWhereHas('tenant', fn ($tq) => $tq->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('tenant', function ($tq) use ($search) {
+                        $tq->where('first_name', 'like', "%{$search}%")
+                            ->orWhere('last_name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%")
+                            ->orWhere('phone_number', 'like', "%{$search}%");
+                    })
                     ->orWhereHas('units', fn ($uq) => $uq->where('name', 'like', "%{$search}%"));
             });
         }
@@ -101,8 +106,17 @@ class SubLeaseController extends Controller
             'buildings' => Building::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'community_id')->get(),
             'units' => Unit::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'building_id')->get(),
             'tenants' => Contact::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
-                ->where('contact_type_id', 2)
-                ->select('id', 'name', 'email', 'phone')->get(),
+                ->where('contact_type', 'tenant')
+                ->select('id', 'first_name', 'last_name', 'email', 'phone_number')
+                ->orderBy('first_name')
+                ->orderBy('last_name')
+                ->get()
+                ->map(fn (Contact $contact) => [
+                    'id' => $contact->id,
+                    'name' => $contact->name,
+                    'email' => $contact->email,
+                    'phone' => $contact->phone_number,
+                ]),
             'statuses' => Status::whereIn('id', [30, 31])->get(),
         ]);
     }
@@ -185,8 +199,17 @@ class SubLeaseController extends Controller
             'buildings' => Building::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'community_id')->get(),
             'units' => Unit::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))->select('id', 'name', 'building_id')->get(),
             'tenants' => Contact::query()->when($user->tenant_id !== null, fn ($q) => $q->where('tenant_id', $user->tenant_id))
-                ->where('contact_type_id', 2)
-                ->select('id', 'name', 'email', 'phone')->get(),
+                ->where('contact_type', 'tenant')
+                ->select('id', 'first_name', 'last_name', 'email', 'phone_number')
+                ->orderBy('first_name')
+                ->orderBy('last_name')
+                ->get()
+                ->map(fn (Contact $contact) => [
+                    'id' => $contact->id,
+                    'name' => $contact->name,
+                    'email' => $contact->email,
+                    'phone' => $contact->phone_number,
+                ]),
             'statuses' => Status::whereIn('id', [30, 31, 32, 33, 34])->get(),
         ]);
     }

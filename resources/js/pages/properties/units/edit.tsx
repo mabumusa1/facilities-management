@@ -18,26 +18,32 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { index as unitsIndex, update as unitsUpdate } from "@/routes/units";
+import { useEffect } from "react";
 
 interface Community {
     id: number;
     name: string;
+    name_ar?: string | null;
 }
 
 interface Building {
     id: number;
     name: string;
+    name_ar?: string | null;
     community_id?: number;
 }
 
 interface UnitCategory {
     id: number;
     name: string;
+    name_ar?: string | null;
 }
 
 interface UnitType {
     id: number;
     name: string;
+    name_ar?: string | null;
+    unit_category_id: number;
 }
 
 interface Unit {
@@ -95,10 +101,43 @@ export default function UnitEdit({
         put(unitsUpdate.url({ unit: unit.id }));
     };
 
+    const getDisplayName = (item?: { name: string; name_ar?: string | null }) =>
+        item?.name_ar && item.name_ar.trim() !== ""
+            ? item.name_ar
+            : item?.name ?? "";
+
     // Filter buildings by selected community
     const filteredBuildings = data.community_id
         ? buildings.filter((b) => b.community_id === Number(data.community_id))
         : buildings;
+
+    // Filter unit types by selected category
+    const filteredTypes = data.unit_category_id
+        ? types.filter(
+              (type) =>
+                  String(type.unit_category_id) === data.unit_category_id,
+          )
+        : types;
+
+    useEffect(() => {
+        if (
+            data.building_id !== "" &&
+            !filteredBuildings.some(
+                (building) => String(building.id) === data.building_id,
+            )
+        ) {
+            setData("building_id", "");
+        }
+    }, [data.building_id, filteredBuildings, setData]);
+
+    useEffect(() => {
+        if (
+            data.unit_type_id !== "" &&
+            !filteredTypes.some((type) => String(type.id) === data.unit_type_id)
+        ) {
+            setData("unit_type_id", "");
+        }
+    }, [data.unit_type_id, filteredTypes, setData]);
 
     return (
         <>
@@ -143,9 +182,10 @@ export default function UnitEdit({
                                     </Label>
                                     <Select
                                         value={data.community_id}
-                                        onValueChange={(v) =>
-                                            setData("community_id", v)
-                                        }
+                                        onValueChange={(value) => {
+                                            setData("community_id", value);
+                                            setData("building_id", "");
+                                        }}
                                     >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select community" />
@@ -156,7 +196,7 @@ export default function UnitEdit({
                                                     key={c.id}
                                                     value={String(c.id)}
                                                 >
-                                                    {c.name}
+                                                    {getDisplayName(c)}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -190,7 +230,7 @@ export default function UnitEdit({
                                                     key={b.id}
                                                     value={String(b.id)}
                                                 >
-                                                    {b.name}
+                                                    {getDisplayName(b)}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -210,9 +250,10 @@ export default function UnitEdit({
                                     </Label>
                                     <Select
                                         value={data.unit_category_id}
-                                        onValueChange={(v) =>
-                                            setData("unit_category_id", v)
-                                        }
+                                        onValueChange={(value) => {
+                                            setData("unit_category_id", value);
+                                            setData("unit_type_id", "");
+                                        }}
                                     >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select category" />
@@ -223,7 +264,7 @@ export default function UnitEdit({
                                                     key={cat.id}
                                                     value={String(cat.id)}
                                                 >
-                                                    {cat.name}
+                                                    {getDisplayName(cat)}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -247,12 +288,12 @@ export default function UnitEdit({
                                             <SelectValue placeholder="Select type" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {types.map((type) => (
+                                            {filteredTypes.map((type) => (
                                                 <SelectItem
                                                     key={type.id}
                                                     value={String(type.id)}
                                                 >
-                                                    {type.name}
+                                                    {getDisplayName(type)}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>

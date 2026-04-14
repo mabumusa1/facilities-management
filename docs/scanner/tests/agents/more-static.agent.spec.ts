@@ -4,17 +4,17 @@ const MORE_STATIC_ROUTES = [
   // Settings facilities
   { path: '/settings/facilities', name: 'settings-facilities-list' },
   { path: '/settings/addNewFacility', name: 'settings-add-new-facility' },
-  
+
   // Dashboard additional
   { path: '/dashboard/system-reports', name: 'dashboard-system-reports-main' },
-  
+
   // Leasing additional
   { path: '/leasing/apps', name: 'leasing-apps-main' },
   { path: '/leasing/quotes', name: 'leasing-quotes-main' },
   { path: '/leasing/visits', name: 'leasing-visits-main' },
-  
+
   // Properties communities create
-  { path: '/properties-list/communities/new/community', name: 'properties-communities-create' },
+  { path: '/properties-list/new/community', name: 'properties-communities-create' },
 ];
 
 test.describe('More Static Pages Agent', () => {

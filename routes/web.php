@@ -12,7 +12,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SubLeaseController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnitController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -32,9 +34,79 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Properties module routes
+    Route::get('properties-list/communities', [CommunityController::class, 'index'])
+        ->name('properties-list.communities.index');
+    Route::get('properties-list/new/community', [CommunityController::class, 'create'])
+        ->name('properties-list.communities.create');
+    Route::get('properties-list/communities/community/details/{community}', [CommunityController::class, 'show'])
+        ->name('properties-list.communities.show');
     Route::resource('communities', CommunityController::class);
     Route::resource('buildings', BuildingController::class);
     Route::resource('units', UnitController::class);
+
+    // Docs parity aliases for contact listing pages
+    Route::get('contacts/tenants', function (Request $request, ContactController $controller) {
+        $request->query->set('type', 'tenant');
+
+        return $controller->index($request);
+    })->name('contacts.tenants.index');
+    Route::get('contacts/owners', function (Request $request, ContactController $controller) {
+        $request->query->set('type', 'owner');
+
+        return $controller->index($request);
+    })->name('contacts.owners.index');
+    Route::get('contacts/admins', function (Request $request, ContactController $controller) {
+        $request->query->set('type', 'admin');
+
+        return $controller->index($request);
+    })->name('contacts.admins.index');
+    Route::get('contacts/managers', function (Request $request, ContactController $controller) {
+        $request->query->set('type', 'professional');
+
+        return $controller->index($request);
+    })->name('contacts.managers.index');
+    Route::get('contacts/service-professional', function (Request $request, ContactController $controller) {
+        $request->query->set('type', 'professional');
+
+        return $controller->index($request);
+    })->name('contacts.professionals.index');
+    Route::get('contacts/ServiceProfessional', function (Request $request, ContactController $controller) {
+        $request->query->set('type', 'professional');
+
+        return $controller->index($request);
+    })->name('contacts.professionals.legacy.index');
+    Route::get('contacts/tenants/{contact}', [ContactController::class, 'show'])
+        ->whereNumber('contact')
+        ->name('contacts.tenants.show');
+    Route::get('contacts/owners/{contact}', [ContactController::class, 'show'])
+        ->whereNumber('contact')
+        ->name('contacts.owners.show');
+    Route::get('contacts/managers/{contact}', [ContactController::class, 'show'])
+        ->whereNumber('contact')
+        ->name('contacts.managers.show');
+    Route::get('contacts/family-members/{contact}', [ContactController::class, 'show'])
+        ->whereNumber('contact')
+        ->name('contacts.family-members.show');
+
+    // Docs parity aliases for contact forms
+    Route::get('contacts/{legacyType}/form', function (Request $request, ContactController $controller, string $legacyType) {
+        $contactType = match (strtolower($legacyType)) {
+            'tenant' => 'tenant',
+            'owner' => 'owner',
+            'admin' => 'admin',
+            'professional', 'manager' => 'professional',
+            default => null,
+        };
+
+        abort_if($contactType === null, 404);
+
+        $request->query->set('type', $contactType);
+
+        return $controller->create($request);
+    })->whereIn('legacyType', ['Tenant', 'Owner', 'Admin', 'Professional', 'Manager'])->name('contacts.legacy.form');
+    Route::get('contacts/{contact}/form', [ContactController::class, 'edit'])
+        ->whereNumber('contact')
+        ->name('contacts.legacy.edit');
 
     // Contacts module routes
     Route::resource('contacts', ContactController::class);
@@ -52,6 +124,21 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::post('leases/{lease}/move-out', [LeaseController::class, 'moveOut'])->name('leases.move-out');
     Route::get('leases/{lease}/renew', [LeaseController::class, 'renewForm'])->name('leases.renew');
     Route::post('leases/{lease}/renew', [LeaseController::class, 'renew'])->name('leases.renew.store');
+
+    // Transactions module routes
+    Route::get('transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::get('transactions/list', [TransactionController::class, 'list'])->name('transactions.list');
+    Route::get('transactions/money-in', function (Request $request, TransactionController $controller) {
+        $request->query->set('filter_type', 'money_in');
+
+        return $controller->index($request);
+    })->name('transactions.money-in');
+    Route::get('transactions/money-out', function (Request $request, TransactionController $controller) {
+        $request->query->set('filter_type', 'money_out');
+
+        return $controller->index($request);
+    })->name('transactions.money-out');
+    Route::get('accounting', [TransactionController::class, 'index'])->name('accounting.index');
 
     // Lease Applications routes
     Route::resource('lease-applications', LeaseApplicationController::class);
@@ -71,6 +158,14 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
 
     // Leasing Module UI (overview dashboard)
     Route::get('leasing', [LeasingModuleController::class, 'index'])->name('leasing.index');
+
+    // Docs parity aliases for leasing pages
+    Route::get('leasing/leases', [LeaseController::class, 'index'])->name('leasing.leases.index');
+    Route::get('leasing/leases/create', [LeaseController::class, 'create'])->name('leasing.leases.create');
+    Route::get('leasing/leases/{lease}', [LeaseController::class, 'show'])->name('leasing.leases.show');
+    Route::get('leasing/leases/{lease}/renew', [LeaseController::class, 'renewForm'])->name('leasing.leases.renew');
+    Route::get('leasing/leases/renew/{lease}', [LeaseController::class, 'renewForm'])->name('leasing.leases.renew.legacy');
+    Route::get('leasing/details/{lease}', [LeaseController::class, 'show'])->name('leasing.details.show');
 
     // Reports module routes
     Route::prefix('reports')->name('reports.')->group(function () {

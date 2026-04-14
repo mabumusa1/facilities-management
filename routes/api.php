@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,6 +73,14 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/available-units', [LeaseController::class, 'availableUnits'])->name('available-units');
         Route::get('/{lease}/renewal-history', [LeaseController::class, 'renewalHistory'])->name('renewal-history');
     });
+
+    // Transactions API routes
+    Route::prefix('transactions')->name('api.transactions.')->group(function () {
+        Route::get('/', [TransactionController::class, 'list'])->name('list');
+    });
+    Route::get('transactions-graph/all-transactions', fn () => response()->json([
+        'message' => 'Not Found',
+    ], 404))->name('api.transactions.graph.all');
 
     // Announcements API routes
     Route::prefix('announcements')->name('api.announcements.')->group(function () {

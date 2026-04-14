@@ -5,9 +5,50 @@ import { createNetworkCapture } from '../utils/network-capture';
 import { writeEndpoints, writeScreenshot, writeSnapshot } from '../utils/output-writer';
 import { ScannerContext, ScanOptions, ScanResult, ATAR_CONFIG, NetworkCapture } from '../utils/types';
 
+const NOT_FOUND_ENDPOINT_PATTERN = /\/assets\/js\/404[-\w]*\.js/i;
+const NOT_FOUND_TEXT_SNIPPETS = [
+  'لم يتم العثور على الصفحة',
+  'المحتوى الذي تبحث عنه غير موجود',
+  'page not found',
+  'the page you are looking for',
+];
+
+async function assertNoNotFoundPage(
+  page: Page,
+  pageName: string,
+  fullUrl: string,
+  endpoints: string[],
+  navigationStatus: number | null,
+): Promise<void> {
+  const pageTitle = (await page.title()).toLowerCase();
+  const bodyText = (await page.locator('body').innerText().catch(() => ''))
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+
+  const has404Number = /\b404\b/.test(pageTitle) || /\b404\b/.test(bodyText);
+  const hasNotFoundText = NOT_FOUND_TEXT_SNIPPETS.some((snippet) => bodyText.includes(snippet));
+  const loaded404Chunk = endpoints.some((endpoint) => NOT_FOUND_ENDPOINT_PATTERN.test(endpoint));
+  const isHttpNotFound = navigationStatus !== null && navigationStatus >= 400;
+
+  const isLikelyNotFoundPage = isHttpNotFound || (has404Number && hasNotFoundText) || (hasNotFoundText && loaded404Chunk);
+
+  if (isLikelyNotFoundPage) {
+    throw new Error(
+      [
+        `Capture blocked for ${pageName}.`,
+        `URL: ${fullUrl}`,
+        `Current page URL: ${page.url()}`,
+        `Navigation status: ${navigationStatus ?? 'unknown'}`,
+        'Detected a likely 404/not-found page. Refusing to persist screenshot/snapshot.',
+      ].join(' '),
+    );
+  }
+}
+
 async function loadLocalStorage(): Promise<Record<string, string>> {
-  const filePath = path.join(process.cwd(), 'tests', 'localstorage.json');
-  const content = await fs.readFile(filePath, 'utf-8');
+  const fileUrl = new URL('../localstorage.json', import.meta.url);
+  const content = await fs.readFile(fileUrl, 'utf-8');
   return JSON.parse(content);
 }
 
@@ -34,12 +75,16 @@ export const test = base.extend<{ scanner: ScannerContext }>({
         waitTimeout = 30000,
         takeScreenshot = true,
         takeSnapshot = true,
+        failOnNotFound = true,
       } = options;
 
       capture.startCapture();
 
       const fullUrl = urlPath.startsWith('http') ? urlPath : `${ATAR_CONFIG.baseUrl}${urlPath}`;
-      await page.goto(fullUrl, { waitUntil: waitForNetworkIdle ? 'networkidle' : 'load', timeout: waitTimeout });
+      const navigationResponse = await page.goto(fullUrl, {
+        waitUntil: waitForNetworkIdle ? 'networkidle' : 'load',
+        timeout: waitTimeout,
+      });
 
       if (waitForSelector) {
         await page.waitForSelector(waitForSelector, { timeout: waitTimeout });
@@ -51,6 +96,17 @@ export const test = base.extend<{ scanner: ScannerContext }>({
       capture.stopCapture();
 
       const endpoints = capture.formatEndpoints();
+
+      if (failOnNotFound) {
+        await assertNoNotFoundPage(
+          page,
+          pageName,
+          fullUrl,
+          endpoints,
+          navigationResponse ? navigationResponse.status() : null,
+        );
+      }
+
       let screenshot: Buffer | undefined;
       let snapshot: string | undefined;
 

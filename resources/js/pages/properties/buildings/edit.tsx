@@ -108,9 +108,6 @@ export default function BuildingEdit({ building, communities }: Props) {
                                         <SelectValue placeholder="Select community" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="">
-                                            No community
-                                        </SelectItem>
                                         {communities.map((c) => (
                                             <SelectItem
                                                 key={c.id}

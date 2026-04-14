@@ -11,6 +11,7 @@ use App\Models\UnitCategory;
 use App\Models\UnitType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -94,10 +95,27 @@ class UnitController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'community_id' => ['required', 'exists:communities,id'],
-            'building_id' => ['nullable', 'exists:buildings,id'],
+            'community_id' => [
+                'required',
+                Rule::exists('communities', 'id')->where(
+                    fn ($query) => $query->where('tenant_id', auth()->user()->tenant_id)
+                ),
+            ],
+            'building_id' => [
+                'nullable',
+                Rule::exists('buildings', 'id')->where(
+                    fn ($query) => $query
+                        ->where('community_id', $request->integer('community_id'))
+                        ->where('tenant_id', auth()->user()->tenant_id)
+                ),
+            ],
             'unit_category_id' => ['required', 'exists:unit_categories,id'],
-            'unit_type_id' => ['required', 'exists:unit_types,id'],
+            'unit_type_id' => [
+                'required',
+                Rule::exists('unit_types', 'id')->where(
+                    fn ($query) => $query->where('unit_category_id', $request->integer('unit_category_id'))
+                ),
+            ],
             'floor_no' => ['nullable', 'integer', 'min:0', 'max:200'],
             'net_area' => ['nullable', 'numeric', 'min:0'],
             'year_built' => ['nullable', 'integer', 'min:1800', 'max:2100'],
@@ -171,10 +189,27 @@ class UnitController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'community_id' => ['required', 'exists:communities,id'],
-            'building_id' => ['nullable', 'exists:buildings,id'],
+            'community_id' => [
+                'required',
+                Rule::exists('communities', 'id')->where(
+                    fn ($query) => $query->where('tenant_id', auth()->user()->tenant_id)
+                ),
+            ],
+            'building_id' => [
+                'nullable',
+                Rule::exists('buildings', 'id')->where(
+                    fn ($query) => $query
+                        ->where('community_id', $request->integer('community_id'))
+                        ->where('tenant_id', auth()->user()->tenant_id)
+                ),
+            ],
             'unit_category_id' => ['required', 'exists:unit_categories,id'],
-            'unit_type_id' => ['required', 'exists:unit_types,id'],
+            'unit_type_id' => [
+                'required',
+                Rule::exists('unit_types', 'id')->where(
+                    fn ($query) => $query->where('unit_category_id', $request->integer('unit_category_id'))
+                ),
+            ],
             'floor_no' => ['nullable', 'integer', 'min:0', 'max:200'],
             'net_area' => ['nullable', 'numeric', 'min:0'],
             'year_built' => ['nullable', 'integer', 'min:1800', 'max:2100'],

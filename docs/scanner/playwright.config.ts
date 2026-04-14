@@ -56,6 +56,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     {
+      name: 'properties-focus-agent',
+      testMatch: /properties-focus\.agent\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
       name: 'leasing-agent',
       testMatch: /leasing\.agent\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },

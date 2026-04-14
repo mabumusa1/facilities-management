@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -67,25 +69,15 @@ class ContactController extends Controller
     /**
      * Store a newly created contact in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreContactRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'contact_type' => 'required|in:owner,tenant,admin,professional',
-            'first_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            'email' => 'required|email|unique:contacts,email',
-            'phone_number' => 'required|string|max:20',
-            'national_phone_number' => 'required|string|max:20',
-            'phone_country_code' => 'required|string|size:2',
-            'gender' => 'nullable|in:male,female',
-            'national_id' => 'nullable|string|max:50',
-            'nationality' => 'nullable|string|max:50',
-            'georgian_birthdate' => 'nullable|date',
-            'active' => 'boolean',
-        ]);
+        $validated = $request->validated();
 
         $validated['tenant_id'] = auth()->user()->tenant_id;
         $validated['active'] = $validated['active'] ?? true;
+        if (($validated['contact_type'] ?? null) !== 'admin') {
+            $validated['role'] = null;
+        }
 
         $contact = Contact::create($validated);
 
@@ -124,21 +116,14 @@ class ContactController extends Controller
     /**
      * Update the specified contact in storage.
      */
-    public function update(Request $request, Contact $contact): RedirectResponse
+    public function update(UpdateContactRequest $request, Contact $contact): RedirectResponse
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:100',
-            'last_name' => 'required|string|max:100',
-            'email' => 'required|email|unique:contacts,email,'.$contact->id,
-            'phone_number' => 'required|string|max:20',
-            'national_phone_number' => 'required|string|max:20',
-            'phone_country_code' => 'required|string|size:2',
-            'gender' => 'nullable|in:male,female',
-            'national_id' => 'nullable|string|max:50',
-            'nationality' => 'nullable|string|max:50',
-            'georgian_birthdate' => 'nullable|date',
-            'active' => 'boolean',
-        ]);
+        $validated = $request->validated();
+
+        $resolvedContactType = $validated['contact_type'] ?? $contact->contact_type;
+        if ($resolvedContactType !== 'admin') {
+            $validated['role'] = null;
+        }
 
         $contact->update($validated);
 

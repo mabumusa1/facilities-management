@@ -1,0 +1,177 @@
+{
+  "create_url": "https://api.goatar.com/api-management/rf/communities/create",
+  "create_status": 200,
+  "create_top_keys": [
+    "code",
+    "message",
+    "data",
+    "meta"
+  ],
+  "create_data_keys": [
+    "countries",
+    "currencies",
+    "amenities"
+  ],
+  "create_data_preview": {
+    "countries": [
+      {
+        "id": 1,
+        "name": "المملكة العربية السعودية",
+        "code": "SA"
+      }
+    ],
+    "currencies": [
+      {
+        "id": 1,
+        "name": "ريال سعودي",
+        "code": "SAR"
+      }
+    ],
+    "amenities": [
+      {
+        "id": 1,
+        "name": "مناطق للحيوانات الأليفة",
+        "icon": "https://api.goatar.com/images/communityIcons/Pet_amenities.png"
+      },
+      {
+        "id": 2,
+        "name": "مواقف سيارات",
+        "icon": "https://api.goatar.com/images/communityIcons/Parking.png"
+      },
+      {
+        "id": 3,
+        "name": "مساحة عمل مشتركة",
+        "icon": "https://api.goatar.com/images/communityIcons/Co-Working_space.png"
+      },
+      {
+        "id": 4,
+        "name": "مسبح",
+        "icon": "https://api.goatar.com/images/communityIcons/Pool.png"
+      },
+      {
+        "id": 5,
+        "name": "حديقة",
+        "icon": "https://api.goatar.com/images/communityIcons/Gardens.png"
+      },
+      {
+        "id": 6,
+        "name": "ملاعب",
+        "icon": "https://api.goatar.com/images/communityIcons/Playground.png"
+      },
+      {
+        "id": 7,
+        "name": "ملعب بادل",
+        "icon": "https://api.goatar.com/images/communityIcons/Padel_Arena.png"
+      },
+      {
+        "id": 8,
+        "name": "صالة العاب رياضية",
+        "icon": "https://api.goatar.com/images/communityIcons/Gym.png"
+      },
+      {
+        "id": 9,
+        "name": "سينما",
+        "icon": "https://api.goatar.com/images/communityIcons/Movie_Theaters.png"
+      },
+      {
+        "id": 10,
+        "name": "مواقف للدراجات",
+        "icon": "https://api.goatar.com/images/communityIcons/Bike_Storage_Area.png"
+      },
+      {
+        "id": 11,
+        "name": "مرافق لغسيل الملابس",
+        "icon": "https://api.goatar.com/images/communityIcons/Laundry_Facility.png"
+      },
+      {
+        "id": 12,
+        "name": "خزائن الطرود",
+        "icon": "https://api.goatar.com/images/communityIcons/Package_Lockers.png"
+      },
+      {
+        "id": 13,
+        "name": "جهاز انذار الحريق",
+        "icon": "https://api.goatar.com/images/communityIcons/Smoke_alarm.png"
+      },
+      {
+        "id": 14,
+        "name": "مقهى",
+        "icon": "https://api.goatar.com/images/communityIcons/Cafe.png"
+      },
+      {
+        "id": 15,
+        "name": "مسجد",
+        "icon": "https://api.goatar.com/images/communityIcons/Mosque.png"
+      },
+      {
+        "id": 16,
+        "name": "مجالس",
+        "icon": "https://api.goatar.com/images/communityIcons/Lounges.png"
+      },
+      {
+        "id": 17,
+        "name": "حضانة أطفال",
+        "icon": "https://api.goatar.com/images/communityIcons/Children's_Nursery.png"
+      },
+      {
+        "id": 18,
+        "name": "مكتبة",
+        "icon": "https://api.goatar.com/images/communityIcons/Library.png"
+      },
+      {
+        "id": 19,
+        "name": "صالون",
+        "icon": "https://api.goatar.com/images/communityIcons/Salon.png"
+      },
+      {
+        "id": 20,
+        "name": "كاميرات مراقبة",
+        "icon": "https://api.goatar.com/images/communityIcons/Surveillance_Camera.png"
+      },
+      {
+        "id": 21,
+        "name": "ممرات مكيفة",
+        "icon": "https://api.goatar.com/images/communityIcons/Air_conditioned_corridors.png"
+      },
+      {
+        "id": 22,
+        "name": "مدارس للبنين",
+        "icon": "https://api.goatar.com/images/communityIcons/Boys_School.png"
+      },
+      {
+        "id": 23,
+        "name": "مدارس للبنات",
+        "icon": "https://api.goatar.com/images/communityIcons/Girls_School.png"
+      },
+      {
+        "id": 24,
+        "name": "مستشفى",
+        "icon": "https://api.goatar.com/images/communityIcons/hospital.png"
+      },
+      {
+        "id": 25,
+        "name": "مركز تسوق",
+        "icon": "https://api.goatar.com/images/communityIcons/Shopping_Center.png"
+      },
+      {
+        "id": 26,
+        "name": "مركز صحي",
+        "icon": "https://api.goatar.com/images/communityIcons/Health_Center.png"
+      }
+    ]
+  },
+  "cities_url": "https://api.goatar.com/tenancy/api/cities/all",
+  "cities_status": 200,
+  "cities_is_array": true,
+  "cities_first": {
+    "id": 1,
+    "name": "الرياض"
+  },
+  "districts_url": "https://api.goatar.com/tenancy/api/districts/all",
+  "districts_status": 200,
+  "districts_is_array": true,
+  "districts_first": {
+    "id": 1,
+    "name": "الدرعية"
+  }
+}

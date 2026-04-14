@@ -24,6 +24,7 @@ class ContactFactory extends Factory
         return [
             'tenant_id' => Tenant::factory(),
             'contact_type' => 'owner',
+            'role' => null,
             'first_name' => $firstName,
             'last_name' => $lastName,
             'email' => fake()->unique()->safeEmail(),
@@ -68,6 +69,7 @@ class ContactFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'contact_type' => 'admin',
+            'role' => 'Admins',
             'source' => null,
             'accepted_invite' => false,
         ]);

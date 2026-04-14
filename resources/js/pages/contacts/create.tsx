@@ -25,9 +25,18 @@ interface Props {
     contactType: string;
 }
 
+const managerRoleOptions = [
+    { value: "Admins", label: "Admin" },
+    { value: "accountingManagers", label: "Accounting Manager" },
+    { value: "serviceManagers", label: "Service Manager" },
+    { value: "marketingManagers", label: "Marketing Manager" },
+    { value: "salesAndLeasingManagers", label: "Sales & Leasing Manager" },
+] as const;
+
 export default function ContactCreate({ contactType }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         contact_type: contactType,
+        role: "",
         first_name: "",
         last_name: "",
         email: "",
@@ -73,9 +82,12 @@ export default function ContactCreate({ contactType }: Props) {
                                 </Label>
                                 <Select
                                     value={data.contact_type}
-                                    onValueChange={(v) =>
-                                        setData("contact_type", v)
-                                    }
+                                    onValueChange={(value) => {
+                                        setData("contact_type", value);
+                                        if (value !== "admin") {
+                                            setData("role", "");
+                                        }
+                                    }}
                                 >
                                     <SelectTrigger>
                                         <SelectValue />
@@ -101,6 +113,37 @@ export default function ContactCreate({ contactType }: Props) {
                                     </p>
                                 )}
                             </div>
+
+                            {data.contact_type === "admin" && (
+                                <div className="space-y-2">
+                                    <Label htmlFor="role">Manager Role</Label>
+                                    <Select
+                                        value={data.role}
+                                        onValueChange={(value) =>
+                                            setData("role", value)
+                                        }
+                                    >
+                                        <SelectTrigger id="role">
+                                            <SelectValue placeholder="Select manager role" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {managerRoleOptions.map((option) => (
+                                                <SelectItem
+                                                    key={option.value}
+                                                    value={option.value}
+                                                >
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {errors.role && (
+                                        <p className="text-destructive text-sm">
+                                            {errors.role}
+                                        </p>
+                                    )}
+                                </div>
+                            )}
 
                             <div className="grid gap-4 md:grid-cols-2">
                                 <div className="space-y-2">

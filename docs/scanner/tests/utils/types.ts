@@ -53,6 +53,7 @@ export interface ScanOptions {
   takeScreenshot?: boolean;
   takeSnapshot?: boolean;
   clickTabs?: string[];
+  failOnNotFound?: boolean;
 }
 
 export const ATAR_CONFIG: AtarConfig = {

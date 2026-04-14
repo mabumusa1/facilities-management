@@ -24,6 +24,7 @@ import {
 interface Contact {
     id: number;
     contact_type: string;
+    role?: string;
     first_name: string;
     last_name: string;
     name: string;
@@ -42,8 +43,17 @@ interface Props {
     contact: Contact;
 }
 
+const managerRoleOptions = [
+    { value: "Admins", label: "Admin" },
+    { value: "accountingManagers", label: "Accounting Manager" },
+    { value: "serviceManagers", label: "Service Manager" },
+    { value: "marketingManagers", label: "Marketing Manager" },
+    { value: "salesAndLeasingManagers", label: "Sales & Leasing Manager" },
+] as const;
+
 export default function ContactEdit({ contact }: Props) {
     const { data, setData, put, processing, errors } = useForm({
+        role: contact.role ?? "",
         first_name: contact.first_name,
         last_name: contact.last_name,
         email: contact.email,
@@ -241,6 +251,37 @@ export default function ContactEdit({ contact }: Props) {
                                     )}
                                 </div>
                             </div>
+
+                            {contact.contact_type === "admin" && (
+                                <div className="space-y-2">
+                                    <Label htmlFor="role">Manager Role</Label>
+                                    <Select
+                                        value={data.role}
+                                        onValueChange={(value) =>
+                                            setData("role", value)
+                                        }
+                                    >
+                                        <SelectTrigger id="role">
+                                            <SelectValue placeholder="Select manager role" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {managerRoleOptions.map((option) => (
+                                                <SelectItem
+                                                    key={option.value}
+                                                    value={option.value}
+                                                >
+                                                    {option.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    {errors.role && (
+                                        <p className="text-destructive text-sm">
+                                            {errors.role}
+                                        </p>
+                                    )}
+                                </div>
+                            )}
 
                             <div className="flex gap-4">
                                 <Button type="submit" disabled={processing}>

@@ -8,6 +8,7 @@ use App\Models\Building;
 use App\Models\Community;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -66,9 +67,23 @@ class BuildingController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'community_id' => ['required', 'exists:communities,id'],
-            'city_id' => ['nullable', 'exists:cities,id'],
-            'district_id' => ['nullable', 'exists:districts,id'],
+            'community_id' => [
+                'required',
+                Rule::exists('communities', 'id')->where(
+                    fn ($query) => $query->where('tenant_id', auth()->user()->tenant_id)
+                ),
+            ],
+            'city_id' => [
+                'nullable',
+                'required_with:district_id',
+                Rule::exists('cities', 'id'),
+            ],
+            'district_id' => [
+                'nullable',
+                Rule::exists('districts', 'id')->where(
+                    fn ($query) => $query->where('city_id', $request->integer('city_id'))
+                ),
+            ],
             'no_floors' => ['nullable', 'integer', 'min:0', 'max:200'],
             'year_built' => ['nullable', 'integer', 'min:1800', 'max:2100'],
             'map' => ['nullable', 'array'],
@@ -126,9 +141,23 @@ class BuildingController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'community_id' => ['required', 'exists:communities,id'],
-            'city_id' => ['nullable', 'exists:cities,id'],
-            'district_id' => ['nullable', 'exists:districts,id'],
+            'community_id' => [
+                'required',
+                Rule::exists('communities', 'id')->where(
+                    fn ($query) => $query->where('tenant_id', auth()->user()->tenant_id)
+                ),
+            ],
+            'city_id' => [
+                'nullable',
+                'required_with:district_id',
+                Rule::exists('cities', 'id'),
+            ],
+            'district_id' => [
+                'nullable',
+                Rule::exists('districts', 'id')->where(
+                    fn ($query) => $query->where('city_id', $request->integer('city_id'))
+                ),
+            ],
             'no_floors' => ['nullable', 'integer', 'min:0', 'max:200'],
             'year_built' => ['nullable', 'integer', 'min:1800', 'max:2100'],
             'map' => ['nullable', 'array'],

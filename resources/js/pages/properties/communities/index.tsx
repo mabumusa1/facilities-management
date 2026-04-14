@@ -1,7 +1,6 @@
 import { Head, Link, router } from "@inertiajs/react";
-import { Building2, MapPin, Plus, Search } from "lucide-react";
+import { ArrowUpDown, Search } from "lucide-react";
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,18 +12,27 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { index as buildingsIndex } from "@/routes/buildings";
+import {
     index as communitiesIndex,
-    create as communitiesCreate,
-    show as communitiesShow,
 } from "@/routes/communities";
+import { index as unitsIndex } from "@/routes/units";
 
 interface Community {
     id: number;
-    name: string;
+    name: string | null;
     status: "active" | "inactive";
     city?: { id: number; name: string };
     district?: { id: number; name: string };
-    buildings_count: number;
+    buildings_count: number | string;
+    units_count: number | string;
     created_at: string;
 }
 
@@ -41,62 +49,133 @@ interface Props {
     communities: PaginatedData;
     filters: {
         search?: string;
-        status?: string;
-        sort?: string;
-        direction?: string;
+        sortBy?: string;
+        sortDirection?: "asc" | "desc";
+    };
+    tabCounts: {
+        communities: number;
+        buildings: number;
+        units: number;
     };
 }
 
-export default function CommunitiesIndex({ communities, filters }: Props) {
+export default function CommunitiesIndex({
+    communities,
+    filters,
+    tabCounts,
+}: Props) {
     const [search, setSearch] = useState(filters.search ?? "");
-    const [status, setStatus] = useState(filters.status ?? "");
+    const [sortValue, setSortValue] = useState(() => {
+        const sortBy = filters.sortBy ?? "created_at";
+        const sortDirection = filters.sortDirection ?? "desc";
+
+        return `${sortBy}_${sortDirection}`;
+    });
+
+    const buildFilters = (next?: Partial<{ search: string; sortValue: string }>) => {
+        const activeSearch = next?.search ?? search;
+        const activeSort = next?.sortValue ?? sortValue;
+        const [sortBy = "created_at", sortDirection = "desc"] = activeSort.split("_");
+
+        return {
+            search: activeSearch,
+            sortBy,
+            sortDirection,
+        };
+    };
 
     const handleSearch = () => {
+        router.get(communitiesIndex(), buildFilters(), { preserveState: true });
+    };
+
+    const handleSortChange = (value: string) => {
+        setSortValue(value);
         router.get(
             communitiesIndex(),
-            { search, status },
+            buildFilters({ sortValue: value }),
             { preserveState: true },
         );
     };
 
-    const handleStatusChange = (value: string) => {
-        setStatus(value);
-        router.get(
-            communitiesIndex(),
-            { search, status: value },
-            { preserveState: true },
-        );
-    };
+    const formatCount = (value: number | string) => Number(value ?? 0);
 
     return (
         <>
             <Head title="Communities" />
 
-            <div className="flex h-full flex-1 flex-col gap-4 p-4">
-                {/* Header */}
+            <div className="flex h-full flex-1 flex-col gap-6 p-4">
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-2xl font-bold">Communities</h1>
                         <p className="text-muted-foreground">
-                            Manage your property communities
+                            Properties list
                         </p>
                     </div>
-                    <Button asChild>
-                        <Link href={communitiesCreate()}>
-                            <Plus className="mr-2 h-4 w-4" />
-                            Add Community
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                    <Button asChild variant="default">
+                        <Link href={communitiesIndex()}>
+                            Communities ({tabCounts.communities})
                         </Link>
+                    </Button>
+                    <Button asChild variant="outline">
+                        <Link href={buildingsIndex()}>
+                            Buildings ({tabCounts.buildings})
+                        </Link>
+                    </Button>
+                    <Button asChild variant="outline">
+                        <Link href={unitsIndex()}>Units ({tabCounts.units})</Link>
                     </Button>
                 </div>
 
-                {/* Filters */}
                 <Card>
                     <CardContent className="pt-6">
-                        <div className="flex gap-4">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            <Button asChild>
+                                <Link href="/properties-list/new/community">
+                                    Add Community
+                                </Link>
+                            </Button>
+
+                            <div className="flex flex-wrap items-center gap-3">
+                                <Select
+                                    value={sortValue}
+                                    onValueChange={handleSortChange}
+                                >
+                                    <SelectTrigger className="w-44">
+                                        <div className="flex items-center gap-2">
+                                            <ArrowUpDown className="h-4 w-4" />
+                                            <SelectValue placeholder="Sort" />
+                                        </div>
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="created_at_desc">
+                                            Newest
+                                        </SelectItem>
+                                        <SelectItem value="created_at_asc">
+                                            Oldest
+                                        </SelectItem>
+                                        <SelectItem value="name_asc">
+                                            Name A-Z
+                                        </SelectItem>
+                                        <SelectItem value="name_desc">
+                                            Name Z-A
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Button variant="outline" onClick={handleSearch}>
+                                    Search
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 flex gap-4">
                             <div className="relative flex-1">
                                 <Search className="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
                                 <Input
-                                    placeholder="Search communities..."
+                                    placeholder="Search"
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     onKeyDown={(e) =>
@@ -105,31 +184,10 @@ export default function CommunitiesIndex({ communities, filters }: Props) {
                                     className="pl-8"
                                 />
                             </div>
-                            <Select
-                                value={status}
-                                onValueChange={handleStatusChange}
-                            >
-                                <SelectTrigger className="w-40">
-                                    <SelectValue placeholder="All statuses" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="">
-                                        All statuses
-                                    </SelectItem>
-                                    <SelectItem value="active">
-                                        Active
-                                    </SelectItem>
-                                    <SelectItem value="inactive">
-                                        Inactive
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <Button onClick={handleSearch}>Search</Button>
                         </div>
                     </CardContent>
                 </Card>
 
-                {/* Data Table */}
                 <Card>
                     <CardHeader>
                         <CardTitle>
@@ -140,61 +198,87 @@ export default function CommunitiesIndex({ communities, filters }: Props) {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        {communities.data.length === 0 ? (
-                            <div className="text-muted-foreground py-8 text-center">
-                                No communities found. Create your first
-                                community to get started.
-                            </div>
-                        ) : (
-                            <div className="divide-y">
-                                {communities.data.map((community) => (
-                                    <Link
-                                        key={community.id}
-                                        href={communitiesShow({
-                                            community: community.id,
-                                        })}
-                                        className="hover:bg-muted/50 flex items-center justify-between p-4 transition-colors"
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-lg">
-                                                <Building2 className="text-primary h-5 w-5" />
-                                            </div>
-                                            <div>
-                                                <div className="font-medium">
-                                                    {community.name}
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Community Name</TableHead>
+                                    <TableHead>City</TableHead>
+                                    <TableHead>District</TableHead>
+                                    <TableHead>Buildings</TableHead>
+                                    <TableHead>Units</TableHead>
+                                    <TableHead className="text-right">
+                                        Actions
+                                    </TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {communities.data.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell
+                                            colSpan={6}
+                                            className="text-muted-foreground py-8 text-center"
+                                        >
+                                            No communities found.
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    communities.data.map((community) => (
+                                        <TableRow key={community.id}>
+                                            <TableCell className="font-medium">
+                                                {community.name ?? "-"}
+                                            </TableCell>
+                                            <TableCell>
+                                                {community.city?.name ?? "-"}
+                                            </TableCell>
+                                            <TableCell>
+                                                {community.district?.name ??
+                                                    "-"}
+                                            </TableCell>
+                                            <TableCell>
+                                                {formatCount(
+                                                    community.buildings_count,
+                                                )}
+                                            </TableCell>
+                                            <TableCell>
+                                                {formatCount(
+                                                    community.units_count,
+                                                )}
+                                            </TableCell>
+                                            <TableCell className="text-right">
+                                                <div className="flex justify-end gap-2">
+                                                    <Button
+                                                        asChild
+                                                        size="sm"
+                                                        variant="outline"
+                                                    >
+                                                        <Link
+                                                            href={
+                                                                buildingsIndex() +
+                                                                `?community_id=${community.id}`
+                                                            }
+                                                        >
+                                                            Properties
+                                                        </Link>
+                                                    </Button>
+                                                    <Button
+                                                        asChild
+                                                        size="sm"
+                                                        variant="ghost"
+                                                    >
+                                                        <Link
+                                                            href={`/properties-list/communities/community/details/${community.id}`}
+                                                        >
+                                                            Details
+                                                        </Link>
+                                                    </Button>
                                                 </div>
-                                                <div className="text-muted-foreground flex items-center gap-1 text-sm">
-                                                    <MapPin className="h-3 w-3" />
-                                                    {community.city?.name ??
-                                                        "No city"}
-                                                    ,{" "}
-                                                    {community.district?.name ??
-                                                        "No district"}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-4">
-                                            <div className="text-muted-foreground text-sm">
-                                                {community.buildings_count}{" "}
-                                                buildings
-                                            </div>
-                                            <Badge
-                                                variant={
-                                                    community.status ===
-                                                    "active"
-                                                        ? "default"
-                                                        : "secondary"
-                                                }
-                                            >
-                                                {community.status}
-                                            </Badge>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                )}
+                            </TableBody>
+                        </Table>
 
-                        {/* Pagination */}
                         {communities.last_page > 1 && (
                             <div className="mt-4 flex items-center justify-center gap-2">
                                 {communities.links.map((link, index) => (
@@ -205,9 +289,7 @@ export default function CommunitiesIndex({ communities, filters }: Props) {
                                         }
                                         size="sm"
                                         disabled={!link.url}
-                                        onClick={() =>
-                                            link.url && router.get(link.url)
-                                        }
+                                        onClick={() => link.url && router.get(link.url)}
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,
                                         }}

@@ -23,6 +23,7 @@ interface Contact {
     name: string;
     email?: string;
     phone?: string;
+    phone_number?: string;
 }
 interface Unit {
     id: number;
@@ -68,6 +69,8 @@ interface Props {
 }
 
 export default function SubLeasesShow({ sublease }: Props) {
+    const tenantPhone = sublease.tenant?.phone ?? sublease.tenant?.phone_number;
+
     const handleDelete = () => {
         if (confirm("Are you sure you want to delete this sub-lease?")) {
             router.delete(`/sub-leases/${sublease.id}`);
@@ -170,9 +173,9 @@ export default function SubLeasesShow({ sublease }: Props) {
                                     {sublease.tenant.email}
                                 </p>
                             )}
-                            {sublease.tenant?.phone && (
+                            {tenantPhone && (
                                 <p className="text-sm text-muted-foreground">
-                                    {sublease.tenant.phone}
+                                    {tenantPhone}
                                 </p>
                             )}
                             <Badge variant="secondary" className="capitalize">

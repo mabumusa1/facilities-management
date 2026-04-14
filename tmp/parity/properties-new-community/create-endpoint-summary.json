@@ -1,0 +1,20 @@
+{
+  "countriesCount": 1,
+  "currenciesCount": 1,
+  "amenitiesCount": 26,
+  "firstCountry": {
+    "id": 1,
+    "name": "المملكة العربية السعودية",
+    "code": "SA"
+  },
+  "firstCurrency": {
+    "id": 1,
+    "name": "ريال سعودي",
+    "code": "SAR"
+  },
+  "firstAmenity": {
+    "id": 1,
+    "name": "مناطق للحيوانات الأليفة",
+    "icon": "https://api.goatar.com/images/communityIcons/Pet_amenities.png"
+  }
+}

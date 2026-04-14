@@ -19,6 +19,7 @@ class Contact extends Model
     protected $fillable = [
         'tenant_id',
         'contact_type',
+        'role',
         'first_name',
         'last_name',
         'email',

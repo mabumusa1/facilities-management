@@ -28,6 +28,16 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - eslint (ESLINT) - v9
 - prettier (PRETTIER) - v3
 
+## Sail Execution Mandate
+
+All command-line operations must run inside Laravel Sail.
+
+- Use `./vendor/bin/sail artisan ...` for Artisan commands.
+- Use `./vendor/bin/sail test ...` or `./vendor/bin/sail artisan test ...` for tests.
+- Use `./vendor/bin/sail pint ...` for formatting.
+- Use `./vendor/bin/sail composer ...` and `./vendor/bin/sail npm ...` for dependency/build commands.
+- Do not run host-level `php artisan`, `vendor/bin/pint`, `composer`, `npm`, or `pnpm` directly.
+
 ## Skills Activation
 
 This project has domain-specific skills available. You MUST activate the relevant skill whenever you work in that domain—don't wait until you're stuck.
