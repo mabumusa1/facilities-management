@@ -39,11 +39,18 @@ class UnitController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
+        $buildings = Building::query()
+            ->forTenant(auth()->user()->tenant_id)
+            ->active()
+            ->orderBy('name')
+            ->get(['id', 'name', 'community_id']);
+
         $categories = UnitCategory::active()->orderBy('name')->get(['id', 'name']);
 
         return Inertia::render('properties/units/index', [
             'units' => $units,
             'communities' => $communities,
+            'buildings' => $buildings,
             'categories' => $categories,
             'filters' => $request->only(['search', 'community_id', 'building_id', 'category_id', 'is_marketplace', 'sort', 'direction']),
         ]);
