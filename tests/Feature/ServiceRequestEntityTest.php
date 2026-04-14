@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\Community;
 use App\Models\Contact;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Models\ServiceRequestSubcategory;
 use App\Models\Status;
+use App\Models\Tenant;
 use App\Models\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -207,6 +209,43 @@ class ServiceRequestEntityTest extends TestCase
 
         $this->assertCount(2, $highPriorityRequests);
         $this->assertTrue($highPriorityRequests->every(fn ($request) => $request->priority === 'high'));
+    }
+
+    public function test_for_tenant_scope_filters_through_related_property_entities(): void
+    {
+        $tenantA = Tenant::factory()->create();
+        $tenantB = Tenant::factory()->create();
+
+        $communityA = Community::factory()->forTenant($tenantA)->create();
+        $communityB = Community::factory()->forTenant($tenantB)->create();
+
+        $category = ServiceRequestCategory::factory()->create();
+
+        ServiceRequest::factory()->create([
+            'category_id' => $category->id,
+            'status_id' => 1,
+            'community_id' => $communityA->id,
+            'building_id' => null,
+            'unit_id' => null,
+            'requester_id' => Contact::factory()->forTenant($tenantA)->create()->id,
+            'created_by' => Contact::factory()->forTenant($tenantA)->create()->id,
+        ]);
+
+        ServiceRequest::factory()->create([
+            'category_id' => $category->id,
+            'status_id' => 1,
+            'community_id' => $communityB->id,
+            'building_id' => null,
+            'unit_id' => null,
+            'requester_id' => Contact::factory()->forTenant($tenantB)->create()->id,
+            'created_by' => Contact::factory()->forTenant($tenantB)->create()->id,
+        ]);
+
+        $tenantARequests = ServiceRequest::forTenant($tenantA->id)->count();
+        $tenantBRequests = ServiceRequest::forTenant($tenantB->id)->count();
+
+        $this->assertSame(1, $tenantARequests);
+        $this->assertSame(1, $tenantBRequests);
     }
 
     public function test_overdue_scope_returns_only_overdue_requests(): void

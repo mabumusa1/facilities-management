@@ -32,19 +32,9 @@ class DatabaseSeeder extends Seeder
             FeatureFlagSeeder::class,
         ]);
 
-        // Create admin user
-        $admin = User::factory()->create([
-            'name' => 'Test Admin',
-            'email' => 'admin@example.com',
-            'contact_type' => 'admin',
-            'manager_role' => 1,
-        ]);
-        $admin->assignRole('Admins');
-
-        // Create test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Seed admin user
+        $this->call([
+            AdminUserSeeder::class,
         ]);
     }
 }

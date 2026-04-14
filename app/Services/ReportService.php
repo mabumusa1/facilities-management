@@ -34,13 +34,13 @@ class ReportService
         $activeLeases = (clone $leases)
             ->where('start_date', '<=', $now)
             ->where('end_date', '>=', $now)
-            ->whereNull('terminated_at')
+            ->where('is_move_out', false)
             ->count();
         $expiredLeases = (clone $leases)
             ->where('end_date', '<', $now)
-            ->whereNull('terminated_at')
+            ->where('is_move_out', false)
             ->count();
-        $terminatedLeases = (clone $leases)->whereNotNull('terminated_at')->count();
+        $terminatedLeases = (clone $leases)->where('is_move_out', true)->count();
 
         // Calculate percentages
         $percentNew = $totalLeases > 0 ? round(($newLeases / $totalLeases) * 100, 2) : 0;
@@ -52,42 +52,38 @@ class ReportService
         $commercialLeases = (clone $leases)
             ->where('start_date', '<=', $now)
             ->where('end_date', '>=', $now)
-            ->whereNull('terminated_at')
+            ->where('is_move_out', false)
             ->where('lease_type', 'commercial')
             ->count();
         $residentialLeases = (clone $leases)
             ->where('start_date', '<=', $now)
             ->where('end_date', '>=', $now)
-            ->whereNull('terminated_at')
+            ->where('is_move_out', false)
             ->where('lease_type', 'residential')
             ->count();
 
         // Collections
         $monthlyCollection = Transaction::where('tenant_id', $tenantId)
-            ->where('type', 'income')
-            ->where('category', 'rent')
-            ->whereBetween('transaction_date', [$startOfMonth, $now])
+            ->whereHas('category', fn ($q) => $q->where('name', 'Rentals'))
+            ->whereBetween('due_on', [$startOfMonth, $now])
             ->sum('amount');
 
         $yearlyCollection = Transaction::where('tenant_id', $tenantId)
-            ->where('type', 'income')
-            ->where('category', 'rent')
-            ->whereBetween('transaction_date', [$startOfYear, $now])
+            ->whereHas('category', fn ($q) => $q->where('name', 'Rentals'))
+            ->whereBetween('due_on', [$startOfYear, $now])
             ->sum('amount');
 
         $paidMonthlyCollection = Transaction::where('tenant_id', $tenantId)
-            ->where('type', 'income')
-            ->where('category', 'rent')
-            ->whereBetween('transaction_date', [$startOfMonth, $now])
-            ->whereHas('status', fn ($q) => $q->where('slug', 'transaction_paid'))
-            ->sum('amount');
+            ->whereHas('category', fn ($q) => $q->where('name', 'Rentals'))
+            ->whereBetween('due_on', [$startOfMonth, $now])
+            ->where('is_paid', true)
+            ->sum('paid');
 
         $paidYearlyCollection = Transaction::where('tenant_id', $tenantId)
-            ->where('type', 'income')
-            ->where('category', 'rent')
-            ->whereBetween('transaction_date', [$startOfYear, $now])
-            ->whereHas('status', fn ($q) => $q->where('slug', 'transaction_paid'))
-            ->sum('amount');
+            ->whereHas('category', fn ($q) => $q->where('name', 'Rentals'))
+            ->whereBetween('due_on', [$startOfYear, $now])
+            ->where('is_paid', true)
+            ->sum('paid');
 
         return [
             'total_leases' => $totalLeases,
@@ -121,7 +117,7 @@ class ReportService
         return Lease::where('tenant_id', $tenantId)
             ->where('end_date', '>=', $now)
             ->where('end_date', '<=', $futureDate)
-            ->whereNull('terminated_at')
+            ->where('is_move_out', false)
             ->with(['unit', 'contact', 'status'])
             ->orderBy('end_date')
             ->get();
@@ -163,7 +159,7 @@ class ReportService
         $startOfMonth = $now->copy()->startOfMonth();
         $startOfYear = $now->copy()->startOfYear();
 
-        $requests = ServiceRequest::where('tenant_id', $tenantId);
+        $requests = ServiceRequest::forTenant($tenantId);
 
         return [
             'total_requests' => (clone $requests)->count(),
@@ -200,7 +196,7 @@ class ReportService
      */
     public function getMaintenanceByCategoryReport(int $tenantId): array
     {
-        $categoryCounts = ServiceRequest::where('tenant_id', $tenantId)
+        $categoryCounts = ServiceRequest::forTenant($tenantId)
             ->join('service_request_categories', 'service_requests.category_id', '=', 'service_request_categories.id')
             ->select('service_request_categories.name', DB::raw('count(*) as count'))
             ->groupBy('service_request_categories.id', 'service_request_categories.name')
@@ -225,7 +221,7 @@ class ReportService
      */
     public function getMaintenanceByPriorityReport(int $tenantId): array
     {
-        $priorityCounts = ServiceRequest::where('tenant_id', $tenantId)
+        $priorityCounts = ServiceRequest::forTenant($tenantId)
             ->select('priority', DB::raw('count(*) as count'))
             ->groupBy('priority')
             ->pluck('count', 'priority')
@@ -250,7 +246,7 @@ class ReportService
         $startDate = $endDate->copy()->subMonths($months)->startOfMonth();
 
         // Fetch all requests in the period and group in PHP for database agnosticity
-        $requests = ServiceRequest::where('tenant_id', $tenantId)
+        $requests = ServiceRequest::forTenant($tenantId)
             ->where('created_at', '>=', $startDate)
             ->select('created_at', 'priority')
             ->get();
@@ -329,8 +325,8 @@ class ReportService
         $endOfMonth = $now->copy()->endOfMonth();
 
         $rentTransactions = Transaction::where('tenant_id', $tenantId)
-            ->where('category', 'rent')
-            ->whereBetween('due_date', [$startOfMonth, $endOfMonth]);
+            ->whereHas('category', fn ($q) => $q->where('name', 'Rentals'))
+            ->whereBetween('due_on', [$startOfMonth, $endOfMonth]);
 
         $totalDue = (clone $rentTransactions)->sum('amount');
         $totalCollected = (clone $rentTransactions)
@@ -363,7 +359,7 @@ class ReportService
      */
     private function calculateAverageResolutionDays(int $tenantId): float
     {
-        $completedRequests = ServiceRequest::where('tenant_id', $tenantId)
+        $completedRequests = ServiceRequest::forTenant($tenantId)
             ->whereHas('status', fn ($q) => $q->whereIn('slug', ['service_request_completed', 'service_request_closed']))
             ->whereNotNull('completed_at')
             ->get();

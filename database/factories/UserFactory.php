@@ -39,6 +39,33 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
+    /**
+     * Create an admin user.
+     *
+     * @return $this
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'contact_type' => 'admin',
+            'manager_role' => 1,
+            'is_all_communities' => true,
+            'is_all_buildings' => true,
+        ]);
+    }
+
+    /**
+     * Create a user with a specific contact type.
+     *
+     * @return $this
+     */
+    public function contactType(string $type): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'contact_type' => $type,
+        ]);
+    }
+
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [

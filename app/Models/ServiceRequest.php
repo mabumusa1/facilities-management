@@ -192,6 +192,16 @@ class ServiceRequest extends Model
         return $query->where('community_id', $communityId);
     }
 
+    public function scopeForTenant(Builder $query, int $tenantId): Builder
+    {
+        return $query->where(function (Builder $tenantScopedQuery) use ($tenantId) {
+            $tenantScopedQuery
+                ->whereHas('community', fn (Builder $communityQuery) => $communityQuery->where('tenant_id', $tenantId))
+                ->orWhereHas('building', fn (Builder $buildingQuery) => $buildingQuery->where('tenant_id', $tenantId))
+                ->orWhereHas('unit', fn (Builder $unitQuery) => $unitQuery->where('tenant_id', $tenantId));
+        });
+    }
+
     public function scopeByPriority(Builder $query, string $priority): Builder
     {
         return $query->where('priority', $priority);

@@ -91,7 +91,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->timestamps();
 
-            $table->index(['lease_application_id', 'created_at']);
+            $table->index(['lease_application_id', 'created_at'], 'lease_app_state_hist_app_created_idx');
         });
     }
 

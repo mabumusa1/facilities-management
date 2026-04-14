@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('category_id')->constrained('transaction_categories');
-            $table->foreignId('subcategory_id')->nullable()->constrained('transaction_subcategories');
-            $table->foreignId('type_id')->constrained('transaction_types');
+            // These lookups are created in later migrations, so defer FK constraints.
+            $table->foreignId('category_id');
+            $table->foreignId('subcategory_id')->nullable();
+            $table->foreignId('type_id');
             $table->foreignId('status_id')->constrained('statuses');
             $table->foreignId('unit_id')->nullable()->constrained();
             $table->unsignedBigInteger('lease_id')->nullable(); // Will be FK when Lease model is created

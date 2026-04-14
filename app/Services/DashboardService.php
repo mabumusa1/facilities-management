@@ -84,7 +84,7 @@ class DashboardService
 
         $expiredLeases = (clone $leases)
             ->where('end_date', '<', $now)
-            ->whereNull('terminated_at')
+            ->where('is_move_out', false)
             ->count();
 
         $totalLeases = $leases->count();
@@ -104,7 +104,7 @@ class DashboardService
      */
     public function getServiceRequestStatistics(int $tenantId): array
     {
-        $stats = ServiceRequest::where('tenant_id', $tenantId)
+        $stats = ServiceRequest::forTenant($tenantId)
             ->join('statuses', 'service_requests.status_id', '=', 'statuses.id')
             ->select('statuses.slug', DB::raw('count(*) as count'))
             ->groupBy('statuses.slug')
@@ -165,13 +165,15 @@ class DashboardService
         $transactions = Transaction::where('tenant_id', $tenantId);
 
         $monthlyIncome = (clone $transactions)
-            ->where('type', 'income')
-            ->whereBetween('transaction_date', [$startOfMonth, $endOfMonth])
-            ->sum('amount');
+            ->where('is_paid', true)
+            ->whereBetween('due_on', [$startOfMonth, $endOfMonth])
+            ->sum('paid');
 
         $monthlyExpenses = (clone $transactions)
-            ->where('type', 'expense')
-            ->whereBetween('transaction_date', [$startOfMonth, $endOfMonth])
+            ->whereHas('category', function ($q) {
+                $q->where('name', 'Insurance Refund');
+            })
+            ->whereBetween('due_on', [$startOfMonth, $endOfMonth])
             ->sum('amount');
 
         $pendingPayments = (clone $transactions)
@@ -206,8 +208,8 @@ class DashboardService
         $bookings = FacilityBooking::where('tenant_id', $tenantId);
 
         return [
-            'today_bookings' => (clone $bookings)->whereDate('start_datetime', $today)->count(),
-            'upcoming_bookings' => (clone $bookings)->where('start_datetime', '>', $today)->count(),
+            'today_bookings' => (clone $bookings)->whereDate('booking_date', $today)->count(),
+            'upcoming_bookings' => (clone $bookings)->whereDate('booking_date', '>', $today)->count(),
             'pending_approval' => (clone $bookings)->whereHas('status', function ($q) {
                 $q->where('slug', 'facility_booking_pending');
             })->count(),
@@ -227,7 +229,7 @@ class DashboardService
 
         return [
             'expected_today' => (clone $visitors)
-                ->whereDate('expected_at', $today)
+                ->whereDate('visit_start_date', $today)
                 ->whereNull('checked_in_at')
                 ->count(),
             'checked_in_today' => (clone $visitors)
@@ -263,7 +265,7 @@ class DashboardService
      */
     private function getServiceRequestsAwaitingApproval(int $tenantId): int
     {
-        return ServiceRequest::where('tenant_id', $tenantId)
+        return ServiceRequest::forTenant($tenantId)
             ->whereHas('status', function ($q) {
                 $q->where('slug', 'service_request_pending_approval');
             })
@@ -275,13 +277,13 @@ class DashboardService
      */
     private function getPendingComplaints(int $tenantId): int
     {
-        return ServiceRequest::where('tenant_id', $tenantId)
+        return ServiceRequest::forTenant($tenantId)
             ->where('priority', 'high')
             ->whereHas('status', function ($q) {
                 $q->whereIn('slug', ['service_request_open', 'service_request_in_progress']);
             })
             ->whereHas('category', function ($q) {
-                $q->where('slug', 'complaint');
+                $q->where('name', 'like', '%complaint%');
             })
             ->count();
     }
