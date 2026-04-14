@@ -5,6 +5,7 @@ use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardModuleController;
 use App\Http\Controllers\LeaseApplicationController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\LeasingModuleController;
@@ -32,6 +33,48 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     // Dashboard routes
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+        Route::get('announcements/create', [AnnouncementController::class, 'create'])->name('announcements.create');
+        Route::get('announcements/{announcement}', [AnnouncementController::class, 'show'])->name('announcements.show');
+        Route::get('announcements/edit/{announcement}', [AnnouncementController::class, 'edit'])->name('announcements.edit');
+
+        Route::get('issues', [ServiceRequestController::class, 'index'])->name('issues.index');
+        Route::get('issues/create', [ServiceRequestController::class, 'create'])->name('issues.create');
+        Route::get('issues/{serviceRequest}/view', [ServiceRequestController::class, 'show'])->name('issues.view');
+        Route::get('issues/{serviceRequest}/assign', [ServiceRequestController::class, 'edit'])->name('issues.assign');
+
+        Route::get('bookings', [DashboardModuleController::class, 'bookings'])->name('bookings.index');
+        Route::get('bookings/{facilityBooking}', [DashboardModuleController::class, 'bookingDetails'])->name('bookings.show');
+        Route::get('booking-contracts', [DashboardModuleController::class, 'bookingContracts'])->name('booking-contracts.index');
+        Route::get('booking-contracts/{marketplaceOffer}', [DashboardModuleController::class, 'bookingContractDetails'])->name('booking-contracts.show');
+
+        Route::get('visits', [DashboardModuleController::class, 'visits'])->name('visits.index');
+        Route::get('complaints', [DashboardModuleController::class, 'complaints'])->name('complaints.index');
+        Route::get('complaints/{serviceRequest}', [DashboardModuleController::class, 'complaintDetails'])->name('complaints.show');
+        Route::get('suggestions', [DashboardModuleController::class, 'suggestions'])->name('suggestions.index');
+        Route::get('suggestions/{serviceRequest}', [DashboardModuleController::class, 'suggestionDetails'])->name('suggestions.show');
+
+        Route::get('reports', [DashboardModuleController::class, 'reports'])->name('reports.index');
+        Route::get('payment', [DashboardModuleController::class, 'payment'])->name('payment.index');
+
+        Route::get('offers', [DashboardModuleController::class, 'offers'])->name('offers.index');
+        Route::get('offers/create', [DashboardModuleController::class, 'offerCreate'])->name('offers.create');
+        Route::get('offers/{marketplaceOffer}/view', [DashboardModuleController::class, 'offerView'])->name('offers.view');
+
+        Route::get('directory', [DashboardModuleController::class, 'directory'])->name('directory.index');
+        Route::get('directory/create', [DashboardModuleController::class, 'directoryCreate'])->name('directory.create');
+        Route::get('directory/update', [DashboardModuleController::class, 'directoryUpdate'])->name('directory.update');
+        Route::get('directory/{contact}', [DashboardModuleController::class, 'directoryDetails'])->name('directory.show');
+
+        Route::get('move-out-tenants', [DashboardModuleController::class, 'moveOutTenants'])->name('move-out-tenants.index');
+        Route::get('move-out-tenants/{lease}', [DashboardModuleController::class, 'moveOutTenantDetails'])->name('move-out-tenants.show');
+
+        Route::get('system-reports', [DashboardModuleController::class, 'systemReports'])->name('system-reports.index');
+        Route::get('system-reports/Lease', [DashboardModuleController::class, 'systemReportsLease'])->name('system-reports.lease');
+        Route::get('system-reports/maintenance', [DashboardModuleController::class, 'systemReportsMaintenance'])->name('system-reports.maintenance');
+        Route::get('power-bi-reports', [DashboardModuleController::class, 'powerBiReports'])->name('power-bi-reports.index');
+    });
 
     // Properties module routes
     Route::get('properties-list/communities', [CommunityController::class, 'index'])
