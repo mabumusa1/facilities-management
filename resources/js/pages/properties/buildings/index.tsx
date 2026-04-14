@@ -19,12 +19,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { index as communitiesIndex } from "@/routes/communities";
 import {
     create as buildingsCreate,
     index as buildingsIndex,
     show as buildingsShow,
 } from "@/routes/buildings";
+import { index as communitiesIndex } from "@/routes/communities";
 import { index as unitsIndex } from "@/routes/units";
 
 interface Community {
@@ -244,7 +244,11 @@ export default function BuildingsIndex({
                                                 <div className="flex justify-end gap-2">
                                                     <Button asChild size="sm" variant="outline">
                                                         <Link
-                                                            href={`${unitsIndex()}?building_id=${building.id}`}
+                                                            href={unitsIndex({
+                                                                query: {
+                                                                    building_id: building.id,
+                                                                },
+                                                            })}
                                                         >
                                                             Properties
                                                         </Link>

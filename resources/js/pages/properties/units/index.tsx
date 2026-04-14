@@ -20,8 +20,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { index as communitiesIndex } from "@/routes/communities";
 import { index as buildingsIndex } from "@/routes/buildings";
+import { index as communitiesIndex } from "@/routes/communities";
+import { create as contactsCreate } from "@/routes/contacts";
 import {
     create as unitsCreate,
     index as unitsIndex,
@@ -358,7 +359,12 @@ export default function UnitsIndex({
                                             <TableCell>
                                                 <Button asChild variant="outline" size="sm">
                                                     <Link
-                                                        href={`/contacts/Owner/form?unit_id=${unit.id}`}
+                                                        href={contactsCreate({
+                                                            query: {
+                                                                type: "owner",
+                                                                unit_id: unit.id,
+                                                            },
+                                                        })}
                                                     >
                                                         Add
                                                     </Link>
