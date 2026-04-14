@@ -66,7 +66,9 @@ class BuildingControllerTest extends TestCase
         $response->assertInertia(fn (Assert $page) => $page
             ->component('properties/buildings/index')
             ->has('buildings.data', 1)
+            ->has('tabCounts.communities')
             ->where('tabCounts.buildings', 1)
+            ->has('tabCounts.units')
         );
     }
 

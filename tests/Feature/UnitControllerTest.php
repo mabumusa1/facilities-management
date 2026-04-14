@@ -103,6 +103,7 @@ class UnitControllerTest extends TestCase
             ->has('communities', 1)
             ->has('buildings', 1)
             ->has('categories', 1)
+            ->has('types', 1)
         );
     }
 
