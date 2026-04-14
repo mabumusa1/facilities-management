@@ -7,10 +7,13 @@ namespace Tests\Feature;
 use App\Enums\ContactType;
 use App\Enums\ManagerRole;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AdminAuthenticationTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Test that admin user can be created via seeder
      */

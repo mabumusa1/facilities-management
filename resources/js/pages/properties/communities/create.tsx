@@ -1,6 +1,6 @@
 import { Head, Link, useForm } from "@inertiajs/react";
-import { useEffect } from "react";
 import { ArrowLeft, ChevronDown, UploadCloud } from "lucide-react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -116,9 +116,6 @@ export default function CommunityCreate({
     const selectedDistrict = districts.find(
         (district) => String(district.id) === data.district_id,
     );
-    const selectedCurrency = currencies.find(
-        (currency) => String(currency.id) === data.currency_id,
-    );
 
     const getDisplayName = (item?: { name: string; name_ar?: string | null }) =>
         item?.name_ar && item.name_ar.trim() !== ""
@@ -187,7 +184,7 @@ export default function CommunityCreate({
                     <CardContent className="space-y-6 pt-6">
                         <div className="flex justify-end">
                             <Button asChild variant="outline" size="sm">
-                                <Link href="/properties-list/communities">
+                                <Link href={communitiesIndex()}>
                                     <ArrowLeft className="mr-2 h-4 w-4" />
                                     Back
                                 </Link>
@@ -620,7 +617,7 @@ export default function CommunityCreate({
 
 CommunityCreate.layout = {
     breadcrumbs: [
-        { title: "Properties", href: "/properties-list/communities" },
+        { title: "Properties", href: communitiesIndex() },
         { title: "Add", href: "/properties-list/new/community" },
     ],
 };

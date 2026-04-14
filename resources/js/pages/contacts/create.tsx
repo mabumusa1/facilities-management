@@ -84,6 +84,7 @@ export default function ContactCreate({ contactType }: Props) {
                                     value={data.contact_type}
                                     onValueChange={(value) => {
                                         setData("contact_type", value);
+
                                         if (value !== "admin") {
                                             setData("role", "");
                                         }

@@ -1,4 +1,5 @@
 import { Head, useForm } from "@inertiajs/react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -18,7 +19,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { index as unitsIndex, update as unitsUpdate } from "@/routes/units";
-import { useEffect } from "react";
 
 interface Community {
     id: number;
