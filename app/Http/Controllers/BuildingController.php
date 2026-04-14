@@ -190,4 +190,12 @@ class BuildingController extends Controller
             ->route('buildings.index')
             ->with('success', 'Building deleted successfully.');
     }
+
+    /**
+     * Bulk upload page for buildings.
+     */
+    public function bulkUpload(): Response
+    {
+        return Inertia::render('properties/buildings/bulk-upload');
+    }
 }

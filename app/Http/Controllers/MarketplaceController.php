@@ -129,6 +129,14 @@ class MarketplaceController extends Controller
     }
 
     /**
+     * Upload leads errors page.
+     */
+    public function uploadLeadsErrors(): Response
+    {
+        return Inertia::render('marketplace/upload-leads-errors');
+    }
+
+    /**
      * Admin: bookings page.
      */
     public function adminBookings(Request $request): Response

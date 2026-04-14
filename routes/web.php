@@ -14,6 +14,7 @@ use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceRequestController;
+use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\SubLeaseController;
 use App\Http\Controllers\TransactionController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VisitorAccessController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
 Route::inertia('/', 'welcome', [
@@ -85,18 +87,34 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
         ->name('properties-list.communities.index');
     Route::get('properties-list/new/community', [CommunityController::class, 'create'])
         ->name('properties-list.communities.create');
+    Route::get('properties-list/communities/new/community', [CommunityController::class, 'create'])
+        ->name('properties-list.communities.create.alt');
+    Route::get('properties-list/communities/bulk-upload', [CommunityController::class, 'bulkUpload'])
+        ->name('properties-list.communities.bulk-upload');
+    Route::get('properties-list/communities/building/details/{building}', [BuildingController::class, 'show'])
+        ->name('properties-list.communities.building.show');
     Route::get('properties-list/communities/community/details/{community}', [CommunityController::class, 'show'])
         ->name('properties-list.communities.show');
     Route::get('properties-list/buildings', [BuildingController::class, 'index'])
         ->name('properties-list.buildings.index');
     Route::get('properties-list/new/building', [BuildingController::class, 'create'])
         ->name('properties-list.buildings.create');
+    Route::get('properties-list/buildings/bulk-upload', [BuildingController::class, 'bulkUpload'])
+        ->name('properties-list.buildings.bulk-upload');
+    Route::get('properties-list/buildings/{building}', [BuildingController::class, 'show'])
+        ->name('properties-list.buildings.numeric-show');
     Route::get('properties-list/buildings/building/details/{building}', [BuildingController::class, 'show'])
         ->name('properties-list.buildings.show');
     Route::get('properties-list/units', [UnitController::class, 'index'])
         ->name('properties-list.units.index');
     Route::get('properties-list/units/new-unit', [UnitController::class, 'create'])
         ->name('properties-list.units.create');
+    Route::get('properties-list/units/edit-unit', [UnitController::class, 'create'])
+        ->name('properties-list.units.edit-alias');
+    Route::get('properties-list/units/marketplace-listing', [UnitController::class, 'marketplaceListing'])
+        ->name('properties-list.units.marketplace-listing');
+    Route::get('properties-list/units/{unit}/marketplace', [UnitController::class, 'marketplaceDetails'])
+        ->name('properties-list.units.marketplace-details');
     Route::get('properties-list/units/unit/details/{unit}', [UnitController::class, 'show'])
         ->name('properties-list.units.show');
     Route::resource('communities', CommunityController::class);
@@ -258,10 +276,12 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     // Marketplace module routes
     Route::get('marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
     Route::get('marketplace/listing', [MarketplaceController::class, 'listing'])->name('marketplace.listing');
+    Route::get('marketplace/listing/off-plan-sale-form', [MarketplaceController::class, 'offPlanForm'])->name('marketplace.off-plan-sale-form');
     Route::get('marketplace/customers', [MarketplaceController::class, 'customers'])->name('marketplace.customers');
+    Route::get('marketplace/customers/upload-leads', [MarketplaceController::class, 'uploadLeads'])->name('marketplace.upload-leads');
+    Route::get('marketplace/customers/upload-leads/errors', [MarketplaceController::class, 'uploadLeadsErrors'])->name('marketplace.upload-leads.errors');
     Route::get('marketplace/favorites', [MarketplaceController::class, 'favorites'])->name('marketplace.favorites');
     Route::get('marketplace/off-plan-form', [MarketplaceController::class, 'offPlanForm'])->name('marketplace.off-plan-form');
-    Route::get('marketplace/upload-leads', [MarketplaceController::class, 'uploadLeads'])->name('marketplace.upload-leads');
     Route::prefix('marketplace/admin')->name('marketplace.admin.')->group(function () {
         Route::get('bookings', [MarketplaceController::class, 'adminBookings'])->name('bookings');
         Route::get('communities', [MarketplaceController::class, 'adminCommunities'])->name('communities');
@@ -329,7 +349,23 @@ Route::middleware(['auth', 'verified', 'verified.user'])->group(function () {
     Route::post('announcements/{announcement}/publish', [AnnouncementController::class, 'publish'])->name('announcements.publish');
     Route::post('announcements/{announcement}/cancel', [AnnouncementController::class, 'cancel'])->name('announcements.cancel');
 
-    // Announcements directory (legacy alias handled by DirectoryController above)
+    // Admins routes (contacts with type=admin)
+    Route::get('admins', function (Request $request, ContactController $controller) {
+        $request->query->set('type', 'admin');
+
+        return $controller->index($request);
+    })->name('admins.index');
+    Route::get('admins/{contact}', [ContactController::class, 'show'])->name('admins.show');
+
+    // Maintenance mode page
+    Route::get('maintenance', fn () => Inertia::render('maintenance'))->name('maintenance');
+
+    // Misc docs alias routes
+    Route::get('edit-profile', [ProfileController::class, 'edit'])->name('edit-profile');
+    Route::get('more', fn () => Inertia::render('more-page'))->name('more-page');
+    Route::get('pricing', fn () => Inertia::render('pricing-page'))->name('pricing-page');
+    Route::get('privacy_policy', fn () => Inertia::render('legal/privacy-policy'))->name('legal.privacy-policy');
+    Route::get('terms_and_conditions', fn () => Inertia::render('legal/terms-and-conditions'))->name('legal.terms-and-conditions');
 });
 
 // Test routes for RBAC middleware (only in testing environment)

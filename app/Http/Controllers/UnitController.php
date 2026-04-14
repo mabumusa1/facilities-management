@@ -245,4 +245,62 @@ class UnitController extends Controller
             ->route('units.index')
             ->with('success', 'Unit deleted successfully.');
     }
+
+    /**
+     * Bulk upload page for units.
+     */
+    public function bulkUpload(): Response
+    {
+        return Inertia::render('properties/units/bulk-upload');
+    }
+
+    /**
+     * Marketplace listing page for units.
+     */
+    public function marketplaceListing(Request $request): Response
+    {
+        $tenantId = $request->user()->tenant_id;
+
+        $units = Unit::query()
+            ->where('tenant_id', $tenantId)
+            ->where('is_marketplace', true)
+            ->with(['community', 'building', 'type'])
+            ->orderByDesc('created_at')
+            ->paginate(15)
+            ->withQueryString()
+            ->through(fn (Unit $u): array => [
+                'id' => $u->id,
+                'name' => $u->name,
+                'community' => $u->community?->name,
+                'building' => $u->building?->name,
+                'type' => $u->type?->name,
+                'market_rent' => $u->market_rent,
+            ]);
+
+        return Inertia::render('properties/units/marketplace-listing', [
+            'units' => $units,
+        ]);
+    }
+
+    /**
+     * Marketplace details page for a specific unit.
+     */
+    public function marketplaceDetails(Unit $unit): Response
+    {
+        $unit->load(['community', 'building', 'type', 'category', 'status']);
+
+        return Inertia::render('properties/units/marketplace-details', [
+            'unit' => [
+                'id' => $unit->id,
+                'name' => $unit->name,
+                'community' => $unit->community?->name,
+                'building' => $unit->building?->name,
+                'type' => $unit->type?->name,
+                'market_rent' => $unit->market_rent,
+                'net_area' => $unit->net_area,
+                'floor_no' => $unit->floor_no,
+                'is_marketplace' => $unit->is_marketplace,
+            ],
+        ]);
+    }
 }

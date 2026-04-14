@@ -270,4 +270,12 @@ class CommunityController extends Controller
             ->route('communities.index')
             ->with('success', 'Community deleted successfully.');
     }
+
+    /**
+     * Bulk upload page for communities.
+     */
+    public function bulkUpload(): Response
+    {
+        return Inertia::render('properties/communities/bulk-upload');
+    }
 }
