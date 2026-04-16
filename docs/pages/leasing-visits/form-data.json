@@ -1,0 +1,14 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_j_",
+      "placeholder": "بحث",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

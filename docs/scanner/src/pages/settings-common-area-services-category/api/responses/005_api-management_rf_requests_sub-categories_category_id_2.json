@@ -1,0 +1,129 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/sub-categories?category_id=2",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288968234,
+  "response": {
+    "code": 200,
+    "message": "data retrieved",
+    "data": [
+      {
+        "id": 7,
+        "name_ar": "الأمن و السلامة",
+        "name_en": "Life & Safety",
+        "name": "الأمن و السلامة",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 1,
+        "request": {
+          "category_id": "2"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 8,
+        "name_ar": "مشاكل الوحدات",
+        "name_en": "Property Related",
+        "name": "مشاكل الوحدات",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 31,
+        "request": {
+          "category_id": "2"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 9,
+        "name_ar": "مشاكل السكان",
+        "name_en": "Community Related",
+        "name": "مشاكل السكان",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 18,
+        "request": {
+          "category_id": "2"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 10,
+        "name_ar": "مشاكل الخدمات",
+        "name_en": "Service Related",
+        "name": "مشاكل الخدمات",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 4,
+        "request": {
+          "category_id": "2"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 11,
+        "name_ar": "مشاكل اخرى",
+        "name_en": "Other",
+        "name": "مشاكل اخرى",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 1,
+        "request": {
+          "category_id": "2"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      }
+    ],
+    "meta": []
+  }
+}

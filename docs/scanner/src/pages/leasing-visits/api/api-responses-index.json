@@ -1,0 +1,74 @@
+[
+  {
+    "index": 0,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/ar/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "000_assets_locales_ar_translation_json.json"
+  },
+  {
+    "index": 1,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/en/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "001_assets_locales_en_translation_json.json"
+  },
+  {
+    "index": 2,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/visits?page=1&is_paginate=1&limit=30&type=1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "002_api-management_marketplace_admin_visits_page_1_is_paginate_1_limit_30.json"
+  },
+  {
+    "index": 3,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/notifications/unread-count",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "003_api-management_notifications_unread-count.json"
+  },
+  {
+    "index": 4,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/users/requests/categories?is_paginate=0",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "004_api-management_rf_users_requests_categories_is_paginate_0.json"
+  },
+  {
+    "index": 5,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/modules",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "005_api-management_rf_modules.json"
+  },
+  {
+    "index": 6,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/settings/visits",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "006_api-management_marketplace_admin_settings_visits.json"
+  },
+  {
+    "index": 7,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/marketplace/admin/visits?search=&page=1&community_id=&is_paginate=1&limit=30&type=1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "007_api-management_marketplace_admin_visits_search__page_1_community_id__.json"
+  }
+]

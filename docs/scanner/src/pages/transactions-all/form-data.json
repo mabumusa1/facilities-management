@@ -1,0 +1,32 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_n_",
+      "value": "⁦⁨01⁩/⁨01⁩/⁨2021⁩⁩",
+      "placeholder": "اختر التاريخ",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_p_",
+      "value": "⁦⁨16⁩/⁨04⁩/⁨2026⁩⁩",
+      "placeholder": "اختر التاريخ",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_r_",
+      "placeholder": "بحث",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

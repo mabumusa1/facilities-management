@@ -1,0 +1,310 @@
+{
+  "apiRelationships": [],
+  "enums": [
+    {
+      "name": "modules",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "العروض"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات الحجوزات للمرافق"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        },
+        {
+          "key": "4",
+          "value": "4",
+          "label": "الدليل"
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "خدمات الوحدات"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات المناطق المشتركة"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        }
+      ]
+    },
+    {
+      "name": "create",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "icons/types/001.png"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "icons/types/002.png"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "icons/types/003.png"
+        },
+        {
+          "key": "4",
+          "value": "4",
+          "label": "icons/types/004.png"
+        },
+        {
+          "key": "5",
+          "value": "5",
+          "label": "icons/types/005.png"
+        },
+        {
+          "key": "6",
+          "value": "6",
+          "label": "icons/types/006.png"
+        },
+        {
+          "key": "7",
+          "value": "7",
+          "label": "icons/types/007.png"
+        },
+        {
+          "key": "8",
+          "value": "8",
+          "label": "icons/types/008.png"
+        },
+        {
+          "key": "9",
+          "value": "9",
+          "label": "icons/types/009.png"
+        },
+        {
+          "key": "10",
+          "value": "10",
+          "label": "icons/types/010.png"
+        },
+        {
+          "key": "11",
+          "value": "11",
+          "label": "icons/types/011.png"
+        },
+        {
+          "key": "12",
+          "value": "12",
+          "label": "icons/types/012.png"
+        },
+        {
+          "key": "13",
+          "value": "13",
+          "label": "icons/types/013.png"
+        },
+        {
+          "key": "14",
+          "value": "14",
+          "label": "icons/types/014.png"
+        },
+        {
+          "key": "15",
+          "value": "15",
+          "label": "icons/types/015.png"
+        },
+        {
+          "key": "16",
+          "value": "16",
+          "label": "icons/types/016.png"
+        },
+        {
+          "key": "17",
+          "value": "17",
+          "label": "icons/types/017.png"
+        },
+        {
+          "key": "18",
+          "value": "18",
+          "label": "icons/types/018.png"
+        },
+        {
+          "key": "19",
+          "value": "19",
+          "label": "icons/types/019.png"
+        },
+        {
+          "key": "20",
+          "value": "20",
+          "label": "icons/types/020.png"
+        },
+        {
+          "key": "21",
+          "value": "21",
+          "label": "icons/types/021.png"
+        },
+        {
+          "key": "22",
+          "value": "22",
+          "label": "icons/types/022.png"
+        },
+        {
+          "key": "23",
+          "value": "23",
+          "label": "icons/types/023.png"
+        },
+        {
+          "key": "24",
+          "value": "24",
+          "label": "icons/types/024.png"
+        },
+        {
+          "key": "25",
+          "value": "25",
+          "label": "icons/types/025.png"
+        },
+        {
+          "key": "26",
+          "value": "26",
+          "label": "icons/types/026.png"
+        },
+        {
+          "key": "27",
+          "value": "27",
+          "label": "icons/types/027.png"
+        },
+        {
+          "key": "28",
+          "value": "28",
+          "label": "icons/types/028.png"
+        },
+        {
+          "key": "29",
+          "value": "29",
+          "label": "icons/types/029.png"
+        },
+        {
+          "key": "30",
+          "value": "30",
+          "label": "icons/types/030.png"
+        },
+        {
+          "key": "31",
+          "value": "31",
+          "label": "icons/types/031.png"
+        },
+        {
+          "key": "32",
+          "value": "32",
+          "label": "icons/types/032.png"
+        },
+        {
+          "key": "33",
+          "value": "33",
+          "label": "icons/types/033.png"
+        },
+        {
+          "key": "34",
+          "value": "34",
+          "label": "icons/types/034.png"
+        },
+        {
+          "key": "35",
+          "value": "35",
+          "label": "icons/types/035.png"
+        },
+        {
+          "key": "36",
+          "value": "36",
+          "label": "icons/types/036.png"
+        },
+        {
+          "key": "37",
+          "value": "37",
+          "label": "icons/types/037.png"
+        },
+        {
+          "key": "38",
+          "value": "38",
+          "label": "icons/types/038.png"
+        },
+        {
+          "key": "39",
+          "value": "39",
+          "label": "icons/types/039.png"
+        },
+        {
+          "key": "40",
+          "value": "40",
+          "label": "icons/types/040.png"
+        },
+        {
+          "key": "41",
+          "value": "41",
+          "label": "icons/types/041.png"
+        },
+        {
+          "key": "42",
+          "value": "42",
+          "label": "icons/types/042.png"
+        },
+        {
+          "key": "43",
+          "value": "43",
+          "label": "icons/types/043.png"
+        },
+        {
+          "key": "44",
+          "value": "44",
+          "label": "icons/types/044.png"
+        },
+        {
+          "key": "45",
+          "value": "45",
+          "label": "icons/types/045.png"
+        },
+        {
+          "key": "46",
+          "value": "46",
+          "label": "icons/types/046.png"
+        },
+        {
+          "key": "47",
+          "value": "47",
+          "label": "icons/types/047.png"
+        },
+        {
+          "key": "48",
+          "value": "48",
+          "label": "icons/types/048.png"
+        },
+        {
+          "key": "49",
+          "value": "49",
+          "label": "icons/types/049.png"
+        },
+        {
+          "key": "50",
+          "value": "50",
+          "label": "icons/types/050.png"
+        }
+      ]
+    }
+  ],
+  "foreignKeys": [],
+  "translationKeys": {}
+}

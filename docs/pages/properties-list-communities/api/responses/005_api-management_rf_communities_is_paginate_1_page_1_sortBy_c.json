@@ -1,0 +1,99 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/communities?is_paginate=1&page=1&sortBy=created_at&sortDirection=desc",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288964724,
+  "response": {
+    "code": 200,
+    "message": "تم استرجاع المشاريع بنجاح",
+    "data": {
+      "list": [
+        {
+          "id": 2,
+          "name": "Community",
+          "city": {
+            "id": 6,
+            "name": "مدينة الملك عبدالله الاقتصادية"
+          },
+          "district": {
+            "id": 277,
+            "name": "بيلسان"
+          },
+          "sales_commission_rate": "10.00",
+          "rental_commission_rate": "10.00",
+          "buildings_count": "0",
+          "units_count": "0",
+          "map": {
+            "latitude": 24.7365632,
+            "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7365632,46.6976768",
+            "place_id": "ChIJv9wQNZICLz4RcNjLK3QTJ7w",
+            "longitude": 46.6976768,
+            "districtName": "Mamar AZ Zuhur ,King Salman Neighborhood",
+            "latitudeDelta": 0.02,
+            "longitudeDelta": 0.009244060475161988,
+            "formattedAddress": "3208 Mamar AZ Zuhur, 7920, King Salman Neighborhood, Riyadh 12435, Saudi Arabia"
+          },
+          "images": [
+            {
+              "id": 1,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/scantest2026apr/files/Saudi_Arabia_licence_plate_right_side_KSA_pre-2014.jpg_200901776288488.webp",
+              "name": "Saudi_Arabia_licence_plate_right_side_KSA_pre-2014.jpg",
+              "notes": "all"
+            }
+          ],
+          "is_selected_property": false,
+          "count_selected_property": 0,
+          "requests_count": "0",
+          "total_income": 0,
+          "is_market_place": "0",
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "is_off_plan_sale": "0"
+        },
+        {
+          "id": 1,
+          "name": "Test Community Alpha",
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "sales_commission_rate": "0.00",
+          "rental_commission_rate": "0.00",
+          "buildings_count": "1",
+          "units_count": "1",
+          "map": {
+            "latitude": 24.690688,
+            "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.690688,46.7009536",
+            "place_id": "ChIJg9iplHEDLz4R9xWKPK8rJWE",
+            "longitude": 46.7009536,
+            "districtName": "Prince Abdulaziz Ibn Musaid Ibn Jalawi Street ,Al Olaya",
+            "latitudeDelta": 0.02,
+            "longitudeDelta": 0.009244060475161988,
+            "formattedAddress": "2893 Prince Abdulaziz Ibn Musaid Ibn Jalawi St, Al Olaya, Riyadh 12221, Saudi Arabia"
+          },
+          "images": [],
+          "is_selected_property": false,
+          "count_selected_property": 0,
+          "requests_count": "0",
+          "total_income": 0,
+          "is_market_place": "0",
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "is_off_plan_sale": "0"
+        }
+      ],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 2,
+        "per_page": 25
+      }
+    },
+    "meta": []
+  }
+}

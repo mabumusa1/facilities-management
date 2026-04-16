@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/company_profile",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288911212,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "unified_number": null,
+      "whatsapp_business_number": null,
+      "whatsapp_country_code": null,
+      "enable": "false"
+    },
+    "meta": []
+  }
+}

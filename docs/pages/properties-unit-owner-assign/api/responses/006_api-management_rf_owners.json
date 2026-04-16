@@ -1,0 +1,22 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/owners",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288568037,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": [
+      {
+        "id": 4,
+        "name": "Mohammed AlSaeed",
+        "image": null,
+        "phone_number": "+966555987654",
+        "created_at": "2026-04-15T12:45:29.000000Z",
+        "units": []
+      }
+    ],
+    "meta": []
+  }
+}

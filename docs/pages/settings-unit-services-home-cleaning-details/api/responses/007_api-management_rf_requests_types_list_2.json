@@ -1,0 +1,76 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/types/list/2",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776284873376,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [
+        {
+          "id": 7,
+          "name_ar": "تنظيف",
+          "name_en": "Regular Cleaning",
+          "name": "تنظيف",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 8,
+          "name_ar": "تنظيف عميق",
+          "name_en": "Deep Cleaning",
+          "name": "تنظيف عميق",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 9,
+          "name_ar": "اخرى",
+          "name_en": "Other",
+          "name": "اخرى",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        }
+      ],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 3,
+        "per_page": 100
+      }
+    },
+    "meta": []
+  }
+}

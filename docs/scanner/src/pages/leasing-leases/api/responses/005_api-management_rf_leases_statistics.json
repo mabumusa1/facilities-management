@@ -1,0 +1,29 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/leases/statistics",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776287724845,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "totalLeases": 0,
+      "newLeases": 0,
+      "activeLeases": 0,
+      "expiredLeases": 0,
+      "terminatedLeases": 0,
+      "percentNewLeases": 0,
+      "percentActiveLeases": 0,
+      "percentExpiredLeases": 0,
+      "percentTerminatedLeases": 0,
+      "activeCommercialLeases": 0,
+      "activeResidentialLeases": 0,
+      "currentMonthCollection": 0,
+      "currentYearCollection": 0,
+      "calculatePaidCollectionForCurrentMonth": 0,
+      "calculatePaidCollectionForCurrentYear": 0
+    },
+    "meta": []
+  }
+}

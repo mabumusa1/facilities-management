@@ -1,0 +1,42 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/transactions?filter_type=all&page=1&from=2021-01-01&to=2026-04-16",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776287768578,
+  "response": {
+    "data": [],
+    "links": {
+      "first": "http://api.goatar.com/api-management/transactions?filter_type=all&from=2021-01-01&to=2026-04-16&page=1",
+      "last": "http://api.goatar.com/api-management/transactions?filter_type=all&from=2021-01-01&to=2026-04-16&page=1",
+      "prev": null,
+      "next": null
+    },
+    "meta": {
+      "current_page": 1,
+      "from": null,
+      "last_page": 1,
+      "links": [
+        {
+          "url": null,
+          "label": "&laquo; السابق",
+          "active": false
+        },
+        {
+          "url": "http://api.goatar.com/api-management/transactions?filter_type=all&from=2021-01-01&to=2026-04-16&page=1",
+          "label": "1",
+          "active": true
+        },
+        {
+          "url": null,
+          "label": "التالي &raquo;",
+          "active": false
+        }
+      ],
+      "path": "http://api.goatar.com/api-management/transactions",
+      "per_page": 15,
+      "to": null,
+      "total": 0
+    }
+  }
+}

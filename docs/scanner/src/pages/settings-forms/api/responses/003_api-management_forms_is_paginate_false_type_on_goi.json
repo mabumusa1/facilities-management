@@ -1,0 +1,13 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/forms?is_paginate=false&type=on_going&query=",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776246502847,
+  "response": {
+    "code": 200,
+    "message": "messages.forms_retrieved",
+    "data": [],
+    "meta": []
+  }
+}

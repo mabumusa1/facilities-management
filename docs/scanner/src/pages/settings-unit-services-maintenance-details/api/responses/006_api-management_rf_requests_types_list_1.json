@@ -1,0 +1,130 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/types/list/1",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776285909359,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [
+        {
+          "id": 1,
+          "name_ar": "السباكة",
+          "name_en": "Plumbing",
+          "name": "السباكة",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 2,
+          "name_ar": "الكهرباء",
+          "name_en": "Electrical",
+          "name": "الكهرباء",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 3,
+          "name_ar": "التكيف",
+          "name_en": "Air Conditioning",
+          "name": "التكيف",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 4,
+          "name_ar": "النجارة",
+          "name_en": "Carpentary",
+          "name": "النجارة",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 5,
+          "name_ar": "الدهانات",
+          "name_en": "Painting",
+          "name": "الدهانات",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 6,
+          "name_ar": "اخرى",
+          "name_en": "Other",
+          "name": "اخرى",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        }
+      ],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 6,
+        "per_page": 100
+      }
+    },
+    "meta": []
+  }
+}

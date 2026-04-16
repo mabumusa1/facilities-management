@@ -1,0 +1,54 @@
+{
+  "forms": [
+    {
+      "action": "https://goatar.com/properties-list/new/building",
+      "fields": [
+        {
+          "type": "other",
+          "name": "",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "name",
+          "id": "_r_c_",
+          "placeholder": "أدخل اسم العمارة",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "community",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "number",
+          "name": "year",
+          "id": "_r_e_",
+          "placeholder": "أدخل سنة البناء",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "other",
+          "name": "",
+          "required": false,
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_f_",
+      "placeholder": "البحث",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

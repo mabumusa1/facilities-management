@@ -1,0 +1,83 @@
+{
+  "forms": [
+    {
+      "action": "https://goatar.com/settings/invoice",
+      "fields": [
+        {
+          "type": "other",
+          "name": "file",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "company_name",
+          "id": "_r_c_",
+          "value": "scantest2026apr",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "address",
+          "id": "_r_d_",
+          "value": "scantest2026apr",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "textarea",
+          "name": "instructions",
+          "id": "_r_e_",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "textarea",
+          "name": "",
+          "value": "x",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "textarea",
+          "name": "notes",
+          "id": "_r_f_",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "textarea",
+          "name": "",
+          "value": "x",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "vat",
+          "id": "_r_g_",
+          "value": "15.00",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "vat_number",
+          "id": "_r_h_",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "cr_number",
+          "id": "_r_i_",
+          "required": false,
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "orphanFields": [],
+  "dropdownOptions": {}
+}

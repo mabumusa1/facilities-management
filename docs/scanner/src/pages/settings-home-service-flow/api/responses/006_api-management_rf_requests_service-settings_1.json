@@ -1,0 +1,31 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/service-settings/1",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288909261,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "visibilities": {
+        "hide_resident_number": false,
+        "hide_resident_name": false,
+        "hide_professional_number_and_name": false,
+        "show_unified_number_only": false
+      },
+      "permissions": {
+        "manager_close_Request": false,
+        "not_require_professional_enter_request_code": false,
+        "not_require_professional_upload_request_photo": false,
+        "attachments_required": false,
+        "allow_professional_reschedule": false
+      },
+      "submit_request_before_type": null,
+      "submit_request_before_value": null,
+      "capacity_type": null,
+      "capacity_value": null
+    },
+    "meta": []
+  }
+}

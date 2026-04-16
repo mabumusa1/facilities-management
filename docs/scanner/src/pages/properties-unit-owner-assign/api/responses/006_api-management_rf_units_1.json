@@ -1,0 +1,111 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/units/1",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288655710,
+  "response": {
+    "code": 200,
+    "message": "messages.unit_show",
+    "data": {
+      "id": 1,
+      "name": "Unit 101",
+      "category": {
+        "id": 2,
+        "name": "سكني",
+        "icon": "residential"
+      },
+      "type": {
+        "id": 17,
+        "name": "شقة",
+        "icon": "residential"
+      },
+      "status": {
+        "id": 26,
+        "name": "متاحة",
+        "created_at": null,
+        "priority": "1"
+      },
+      "rf_community": {
+        "id": 1,
+        "name": "Test Community Alpha",
+        "city": {
+          "id": 1,
+          "name": "الرياض"
+        },
+        "district": {
+          "id": 1,
+          "name": "الدرعية"
+        },
+        "sales_commission_rate": "0.00",
+        "rental_commission_rate": "0.00",
+        "buildings_count": 0,
+        "units_count": 0,
+        "map": {
+          "latitude": 24.690688,
+          "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.690688,46.7009536",
+          "place_id": "ChIJg9iplHEDLz4R9xWKPK8rJWE",
+          "longitude": 46.7009536,
+          "districtName": "Prince Abdulaziz Ibn Musaid Ibn Jalawi Street ,Al Olaya",
+          "latitudeDelta": 0.02,
+          "longitudeDelta": 0.009244060475161988,
+          "formattedAddress": "2893 Prince Abdulaziz Ibn Musaid Ibn Jalawi St, Al Olaya, Riyadh 12221, Saudi Arabia"
+        },
+        "images": [],
+        "is_selected_property": false,
+        "count_selected_property": 0,
+        "requests_count": null,
+        "total_income": 0,
+        "is_market_place": "0",
+        "is_buy": 0,
+        "community_marketplace_type": "rent",
+        "is_off_plan_sale": "0"
+      },
+      "rf_building": {
+        "id": 1,
+        "name": "Tower A",
+        "map": {
+          "latitude": 24.690688,
+          "longitude": 46.7009536,
+          "formattedAddress": "2893 Prince Abdulaziz Ibn Musaid Ibn Jalawi St, Al Olaya, Riyadh 12221, Saudi Arabia"
+        }
+      },
+      "year_build": null,
+      "map": {
+        "latitude": 24.690688,
+        "longitude": 46.7009536,
+        "formattedAddress": "2893 Prince Abdulaziz Ibn Musaid Ibn Jalawi St, Al Olaya, Riyadh 12221, Saudi Arabia"
+      },
+      "photos": [],
+      "floor_plans": [],
+      "documents": [],
+      "specifications": [],
+      "net_area": null,
+      "marketplace": {
+        "sale": null,
+        "rent": null
+      },
+      "rooms": [],
+      "areas": [],
+      "owner": null,
+      "tenant": null,
+      "merge_document": [],
+      "lease": [],
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "features": [],
+      "is_market_place": "0",
+      "renewal_status": false,
+      "marketplace_booking_unit_id": null,
+      "about": null,
+      "is_off_plan_sale": "0"
+    },
+    "meta": []
+  }
+}

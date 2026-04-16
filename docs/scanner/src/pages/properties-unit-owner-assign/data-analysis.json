@@ -1,0 +1,65 @@
+{
+  "apiRelationships": [],
+  "enums": [
+    {
+      "name": "modules",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "العروض"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات الحجوزات للمرافق"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        },
+        {
+          "key": "4",
+          "value": "4",
+          "label": "الدليل"
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "خدمات الوحدات"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات المناطق المشتركة"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        }
+      ]
+    },
+    {
+      "name": "owners",
+      "source": "api",
+      "values": [
+        {
+          "key": "4",
+          "value": "4",
+          "label": "Mohammed AlSaeed"
+        }
+      ]
+    }
+  ],
+  "foreignKeys": [],
+  "translationKeys": {}
+}

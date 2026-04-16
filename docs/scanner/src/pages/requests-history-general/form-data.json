@@ -1,0 +1,14 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_n_",
+      "placeholder": "ابحث بمعرف التذكرة، الاسم/الهاتف",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

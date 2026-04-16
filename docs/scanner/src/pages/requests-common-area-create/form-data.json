@@ -1,0 +1,26 @@
+{
+  "forms": [
+    {
+      "action": "https://goatar.com/requests/create?type=2",
+      "fields": [
+        {
+          "type": "text",
+          "name": "rf_sub_category_id",
+          "required": false,
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_d_",
+      "placeholder": "Search",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

@@ -1,0 +1,81 @@
+{
+  "forms": [
+    {
+      "action": "https://goatar.com/properties-list/unit/details/1/owner",
+      "fields": [
+        {
+          "type": "text",
+          "name": "owner",
+          "value": "0",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "first_name",
+          "id": "_r_d_",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "last_name",
+          "id": "_r_e_",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "phone_country_code",
+          "value": "{\"id\":\"SA\",\"name\":\"(+966 )\",\"listName\":\"(+966) المملكة العربية السعودية  \"}",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "phone_number",
+          "id": "_r_g_",
+          "placeholder": "أدخل رقم الهاتف",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "id": "_r_h_",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "national_id",
+          "id": "_r_i_",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "name": "invite_owner",
+          "required": false,
+          "disabled": false,
+          "attributes": {
+            "data-indeterminate": "false"
+          },
+          "label": "ارسال دعوة",
+          "checked": false
+        }
+      ]
+    }
+  ],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_j_",
+      "placeholder": "البحث",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

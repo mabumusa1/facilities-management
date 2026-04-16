@@ -1,0 +1,17 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/reports/performance/units?date=null",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776287705121,
+  "response": {
+    "success": true,
+    "data": {
+      "vacant": 1,
+      "sold": 0,
+      "leased": 0,
+      "soldAndLeased": 0
+    },
+    "message": "تمت العمليه بنجاح."
+  }
+}

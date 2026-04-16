@@ -1,0 +1,94 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/types/list/3",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288946806,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [
+        {
+          "id": 10,
+          "name_ar": "الداخلية فقط",
+          "name_en": "Interior Only",
+          "name": "الداخلية فقط",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 11,
+          "name_ar": "الخارجية فقط",
+          "name_en": "Exterior Only",
+          "name": "الخارجية فقط",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 12,
+          "name_ar": "الداخلية والخارجية فقط",
+          "name_en": "Interior And Exterior Only",
+          "name": "الداخلية والخارجية فقط",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        },
+        {
+          "id": 13,
+          "name_ar": "اخرى",
+          "name_en": "Other",
+          "name": "اخرى",
+          "fee_type": "free",
+          "price": null,
+          "fee_from": null,
+          "fee_to": null,
+          "status": "1",
+          "icon_url": {
+            "id": 6,
+            "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+            "name": "6",
+            "notes": "predefined"
+          },
+          "description": null
+        }
+      ],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 4,
+        "per_page": 100
+      }
+    },
+    "meta": []
+  }
+}

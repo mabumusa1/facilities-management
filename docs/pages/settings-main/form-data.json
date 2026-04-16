@@ -1,0 +1,16 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "checkbox",
+      "name": "",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "checked": false
+    }
+  ],
+  "dropdownOptions": {}
+}

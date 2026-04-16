@@ -1,0 +1,71 @@
+{
+  "forms": [
+    {
+      "action": "https://goatar.com/settings/bank-details",
+      "fields": [
+        {
+          "type": "textarea",
+          "name": "beneficiary_name",
+          "id": "_r_c_",
+          "placeholder": "أدخل اسم المستفيد",
+          "required": false,
+          "disabled": true
+        },
+        {
+          "type": "textarea",
+          "name": "",
+          "value": "x",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "textarea",
+          "name": "bank_name",
+          "id": "_r_d_",
+          "placeholder": "أدخل اسم البنك",
+          "required": false,
+          "disabled": true
+        },
+        {
+          "type": "textarea",
+          "name": "",
+          "value": "x",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "textarea",
+          "name": "account_number",
+          "id": "_r_e_",
+          "placeholder": "أدخل رقم الحساب",
+          "required": false,
+          "disabled": true
+        },
+        {
+          "type": "textarea",
+          "name": "",
+          "value": "x",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "textarea",
+          "name": "iban",
+          "id": "_r_f_",
+          "placeholder": "أدخل رقم الآيبان",
+          "required": false,
+          "disabled": true
+        },
+        {
+          "type": "textarea",
+          "name": "",
+          "value": "x",
+          "required": false,
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "orphanFields": [],
+  "dropdownOptions": {}
+}
