@@ -1,0 +1,34 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "checkbox",
+      "name": "خدمات الوحدات",
+      "required": false,
+      "disabled": false,
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "طلبات المناطق المشتركة",
+      "required": false,
+      "disabled": false,
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "طلبات تصاريح الزوار",
+      "required": false,
+      "disabled": false,
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "طلبات المدير",
+      "required": false,
+      "disabled": false,
+      "checked": false
+    }
+  ],
+  "dropdownOptions": {}
+}

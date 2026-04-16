@@ -1,0 +1,13 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/sub-categories?category_id=contract-types",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288934807,
+  "response": {
+    "code": 200,
+    "message": "data retrieved",
+    "data": [],
+    "meta": []
+  }
+}

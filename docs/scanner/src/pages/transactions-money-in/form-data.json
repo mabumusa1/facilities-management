@@ -1,0 +1,30 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_n_",
+      "placeholder": "اختر التاريخ",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_p_",
+      "placeholder": "اختر التاريخ",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_r_",
+      "placeholder": "بحث",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

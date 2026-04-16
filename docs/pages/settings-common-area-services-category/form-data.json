@@ -1,0 +1,49 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_c_",
+      "placeholder": "بحث",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "type": "checkbox",
+      "name": "",
+      "required": false,
+      "disabled": false,
+      "checked": true
+    },
+    {
+      "type": "checkbox",
+      "name": "",
+      "required": false,
+      "disabled": false,
+      "checked": true
+    },
+    {
+      "type": "checkbox",
+      "name": "",
+      "required": false,
+      "disabled": false,
+      "checked": true
+    },
+    {
+      "type": "checkbox",
+      "name": "",
+      "required": false,
+      "disabled": false,
+      "checked": true
+    },
+    {
+      "type": "checkbox",
+      "name": "",
+      "required": false,
+      "disabled": false,
+      "checked": true
+    }
+  ],
+  "dropdownOptions": {}
+}

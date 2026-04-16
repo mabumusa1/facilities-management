@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/buildings?is_paginate=1&sortBy=created_at&sortDirection=desc&page=1",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776248299221,
+  "response": {
+    "code": 200,
+    "message": "تم استرجاع المباني بنجاح",
+    "data": {
+      "list": [],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 0,
+        "per_page": 25
+      }
+    },
+    "meta": []
+  }
+}

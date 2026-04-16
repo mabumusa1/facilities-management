@@ -1,0 +1,31 @@
+{
+  "forms": [
+    {
+      "action": "https://goatar.com/properties-list/new/unit",
+      "fields": [
+        {
+          "type": "other",
+          "name": "",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "name",
+          "id": "_r_c_",
+          "placeholder": "properties.unitName_placeholder",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "other",
+          "name": "",
+          "required": false,
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "orphanFields": [],
+  "dropdownOptions": {}
+}

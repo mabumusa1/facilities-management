@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/users/requests/1",
+  "status": 404,
+  "contentType": "application/json",
+  "timestamp": 1776288722555,
+  "response": {
+    "success": false,
+    "message": "RfReques not Found."
+  }
+}

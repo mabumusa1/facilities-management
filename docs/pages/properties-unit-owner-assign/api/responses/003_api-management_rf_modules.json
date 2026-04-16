@@ -1,0 +1,34 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/modules",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288655181,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": [
+      {
+        "id": 1,
+        "title": "العروض",
+        "is_active": "1"
+      },
+      {
+        "id": 2,
+        "title": "طلبات الحجوزات للمرافق",
+        "is_active": "1"
+      },
+      {
+        "id": 3,
+        "title": "طلبات تصاريح الزوار",
+        "is_active": "1"
+      },
+      {
+        "id": 4,
+        "title": "الدليل",
+        "is_active": "1"
+      }
+    ],
+    "meta": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/users/requests/common-area?is_paginate=1&page=1&query=&rf_category_id=2&sortDirection=desc&sortBy=created_at&request_history=0&limit=30",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776285953162,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 0,
+        "per_page": 30
+      }
+    },
+    "meta": []
+  }
+}

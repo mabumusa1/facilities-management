@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/marketplace/admin/leases/applications/quotes?search=&status_id=&is_paginate=1&page=1&sortBy=created_at&sortDirection=desc",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776287209531,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 0,
+        "per_page": 25
+      }
+    },
+    "meta": []
+  }
+}

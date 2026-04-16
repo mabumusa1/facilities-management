@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/users/visitor-access?page=1&is_paginate=1&type=normal",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776287767365,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 0,
+        "per_page": 15
+      }
+    },
+    "meta": []
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "checkbox",
+      "name": "hide_resident_number",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "إخفاء رقم الساكن",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "hide_resident_name",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "إخفاء اسم الساكن",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "hide_professional_number_and_name",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "إخفاء اسم ورقم أخصائي الصيانة",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "show_unified_number_only",
+      "required": false,
+      "disabled": true,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "إظهار الرقم الموحد فقط",
+      "checked": false
+    },
+    {
+      "type": "radio",
+      "name": "submit_request_before_type",
+      "value": "hour",
+      "required": false,
+      "disabled": false,
+      "label": "ساعه",
+      "checked": false
+    },
+    {
+      "type": "radio",
+      "name": "submit_request_before_type",
+      "value": "day",
+      "required": false,
+      "disabled": false,
+      "label": "يوم",
+      "checked": true
+    },
+    {
+      "type": "number",
+      "name": "submit_request_before_value",
+      "id": "_r_d_",
+      "placeholder": "حدد الأيام",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "type": "radio",
+      "name": "capacityLimit",
+      "value": "no_limit",
+      "required": false,
+      "disabled": false,
+      "label": "غير محدد",
+      "checked": true
+    },
+    {
+      "type": "radio",
+      "name": "capacityLimit",
+      "value": "custom",
+      "required": false,
+      "disabled": false,
+      "label": "مخصص",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "manager_close_Request",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "يمكن فتح / اغلاق الطلب من قبل المدير",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "attachments_required",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "يجب رفع صورة واحدة على الأقل قبل إرسال الطلب",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "not_require_professional_enter_request_code",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "لا تطلب من أخصائي الصيانة إدخال رمز التأكيد قبل إغلاق الطلب",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "not_require_professional_upload_request_photo",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "لا يتطلب التقاط الصور قبل / بعد الإصلاح",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "allow_professional_reschedule",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "يسمح للأخصائيين بإعادة جدولة الطلبات",
+      "checked": false
+    }
+  ],
+  "dropdownOptions": {}
+}

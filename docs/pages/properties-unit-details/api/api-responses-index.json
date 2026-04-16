@@ -1,0 +1,56 @@
+[
+  {
+    "index": 0,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/ar/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "000_assets_locales_ar_translation_json.json"
+  },
+  {
+    "index": 1,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/en/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "001_assets_locales_en_translation_json.json"
+  },
+  {
+    "index": 2,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/notifications/unread-count",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "002_api-management_notifications_unread-count.json"
+  },
+  {
+    "index": 3,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/modules",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "003_api-management_rf_modules.json"
+  },
+  {
+    "index": 4,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/users/requests/categories?is_paginate=0",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "004_api-management_rf_users_requests_categories_is_paginate_0.json"
+  },
+  {
+    "index": 5,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/units/1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "005_api-management_rf_units_1.json"
+  }
+]

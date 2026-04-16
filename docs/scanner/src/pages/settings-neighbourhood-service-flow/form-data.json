@@ -1,0 +1,50 @@
+{
+  "forms": [],
+  "orphanFields": [
+    {
+      "type": "checkbox",
+      "name": "manager_close_Request",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "يمكن فتح / اغلاق الطلب من قبل المدير",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "attachments_required",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "يجب رفع صورة واحدة على الأقل قبل إرسال الطلب",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "not_require_professional_enter_request_code",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "لا تطلب من أخصائي الصيانة إدخال رمز التأكيد قبل إغلاق الطلب",
+      "checked": false
+    },
+    {
+      "type": "checkbox",
+      "name": "not_require_professional_upload_request_photo",
+      "required": false,
+      "disabled": false,
+      "attributes": {
+        "data-indeterminate": "false"
+      },
+      "label": "لا يتطلب التقاط الصور قبل / بعد الإصلاح",
+      "checked": false
+    }
+  ],
+  "dropdownOptions": {}
+}

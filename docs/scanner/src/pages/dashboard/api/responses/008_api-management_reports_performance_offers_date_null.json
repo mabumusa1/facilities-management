@@ -1,0 +1,91 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/reports/performance/offers?date=null",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776287706056,
+  "response": {
+    "success": true,
+    "data": {
+      "total_offers": [
+        {
+          "name": "يناير",
+          "value": 0
+        },
+        {
+          "name": "فبراير",
+          "value": 0
+        },
+        {
+          "name": "مارس",
+          "value": 0
+        },
+        {
+          "name": "أبريل",
+          "value": 0
+        },
+        {
+          "name": "مايو",
+          "value": 0
+        },
+        {
+          "name": "يونيو",
+          "value": 0
+        }
+      ],
+      "total_redemptions": [
+        {
+          "name": "يناير",
+          "value": 0
+        },
+        {
+          "name": "فبراير",
+          "value": 0
+        },
+        {
+          "name": "مارس",
+          "value": 0
+        },
+        {
+          "name": "أبريل",
+          "value": 0
+        },
+        {
+          "name": "مايو",
+          "value": 0
+        },
+        {
+          "name": "يونيو",
+          "value": 0
+        }
+      ],
+      "active_offers": [
+        {
+          "name": "يناير",
+          "value": 0
+        },
+        {
+          "name": "فبراير",
+          "value": 0
+        },
+        {
+          "name": "مارس",
+          "value": 0
+        },
+        {
+          "name": "أبريل",
+          "value": 0
+        },
+        {
+          "name": "مايو",
+          "value": 0
+        },
+        {
+          "name": "يونيو",
+          "value": 0
+        }
+      ]
+    },
+    "message": "تمت العمليه بنجاح."
+  }
+}

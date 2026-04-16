@@ -1,0 +1,65 @@
+[
+  {
+    "index": 0,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/modules",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "000_api-management_rf_modules.json"
+  },
+  {
+    "index": 1,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/notifications/unread-count",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "001_api-management_notifications_unread-count.json"
+  },
+  {
+    "index": 2,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/users/requests/categories?is_paginate=0",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "002_api-management_rf_users_requests_categories_is_paginate_0.json"
+  },
+  {
+    "index": 3,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/buildings?is_paginate=1&sortBy=created_at&sortDirection=desc&page=1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "003_api-management_rf_buildings_is_paginate_1_sortBy_created_.json"
+  },
+  {
+    "index": 4,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities?is_paginate=1&page=1&sortBy=created_at&sortDirection=desc",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "004_api-management_rf_communities_is_paginate_1_page_1_sortBy_c.json"
+  },
+  {
+    "index": 5,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/buildings?is_paginate=1&sortBy=created_at&sortDirection=desc&page=1&search=",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "005_api-management_rf_buildings_is_paginate_1_sortBy_created_.json"
+  },
+  {
+    "index": 6,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities?is_paginate=1&page=1&sortBy=created_at&sortDirection=desc&search=",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "006_api-management_rf_communities_is_paginate_1_page_1_sortBy_c.json"
+  }
+]

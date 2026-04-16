@@ -1,0 +1,152 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/sub-categories?category_id=1",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288935196,
+  "response": {
+    "code": 200,
+    "message": "data retrieved",
+    "data": [
+      {
+        "id": 1,
+        "name_ar": "صيانة",
+        "name_en": "Maintenance",
+        "name": "صيانة",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 6,
+        "request": {
+          "category_id": "1"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 2,
+        "name_ar": "تنظيف المنزل",
+        "name_en": "Home Cleaning",
+        "name": "تنظيف المنزل",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 3,
+        "request": {
+          "category_id": "1"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 3,
+        "name_ar": "غسيل السيارات",
+        "name_en": "Car Cleaning",
+        "name": "غسيل السيارات",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 4,
+        "request": {
+          "category_id": "1"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 4,
+        "name_ar": "الأجهزة الكهربائية",
+        "name_en": "Appliances",
+        "name": "الأجهزة الكهربائية",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 13,
+        "request": {
+          "category_id": "1"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 5,
+        "name_ar": "إصلاح الأثاث",
+        "name_en": "Furniture Fixtures",
+        "name": "إصلاح الأثاث",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 29,
+        "request": {
+          "category_id": "1"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      },
+      {
+        "id": 6,
+        "name_ar": "خدمات أخرى",
+        "name_en": "Other Services",
+        "name": "خدمات أخرى",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 1,
+        "request": {
+          "category_id": "1"
+        },
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      }
+    ],
+    "meta": []
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "apiRelationships": [],
+  "enums": [
+    {
+      "name": "modules",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "العروض"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات الحجوزات للمرافق"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        },
+        {
+          "key": "4",
+          "value": "4",
+          "label": "الدليل"
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "خدمات الوحدات"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات المناطق المشتركة"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        }
+      ]
+    },
+    {
+      "name": "sub_categories",
+      "source": "api",
+      "values": [
+        {
+          "key": "7",
+          "value": "7",
+          "label": "الأمن و السلامة"
+        },
+        {
+          "key": "8",
+          "value": "8",
+          "label": "مشاكل الوحدات"
+        },
+        {
+          "key": "9",
+          "value": "9",
+          "label": "مشاكل السكان"
+        },
+        {
+          "key": "10",
+          "value": "10",
+          "label": "مشاكل الخدمات"
+        },
+        {
+          "key": "11",
+          "value": "11",
+          "label": "مشاكل اخرى"
+        }
+      ]
+    }
+  ],
+  "foreignKeys": [],
+  "translationKeys": {}
+}

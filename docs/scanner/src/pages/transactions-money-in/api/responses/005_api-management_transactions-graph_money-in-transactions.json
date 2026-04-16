@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/transactions-graph/money-in-transactions",
+  "status": 422,
+  "contentType": "application/json",
+  "timestamp": 1776288858362,
+  "response": {
+    "message": "The given data was invalid.",
+    "errors": {
+      "from": [
+        "الحقل from مطلوب."
+      ],
+      "to": [
+        "الحقل to مطلوب."
+      ]
+    }
+  }
+}

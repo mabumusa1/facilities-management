@@ -1,0 +1,12 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/notifications/unread-count",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288605687,
+  "response": {
+    "data": {
+      "count": 0
+    }
+  }
+}

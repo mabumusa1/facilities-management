@@ -1,0 +1,334 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/types/create",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288936139,
+  "response": {
+    "code": 200,
+    "message": "Get all types images",
+    "data": [
+      {
+        "id": 1,
+        "name": "icons/types/001.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/001.png"
+      },
+      {
+        "id": 2,
+        "name": "icons/types/002.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/002.png"
+      },
+      {
+        "id": 3,
+        "name": "icons/types/003.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/003.png"
+      },
+      {
+        "id": 4,
+        "name": "icons/types/004.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/004.png"
+      },
+      {
+        "id": 5,
+        "name": "icons/types/005.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/005.png"
+      },
+      {
+        "id": 6,
+        "name": "icons/types/006.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/006.png"
+      },
+      {
+        "id": 7,
+        "name": "icons/types/007.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/007.png"
+      },
+      {
+        "id": 8,
+        "name": "icons/types/008.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/008.png"
+      },
+      {
+        "id": 9,
+        "name": "icons/types/009.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/009.png"
+      },
+      {
+        "id": 10,
+        "name": "icons/types/010.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/010.png"
+      },
+      {
+        "id": 11,
+        "name": "icons/types/011.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/011.png"
+      },
+      {
+        "id": 12,
+        "name": "icons/types/012.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/012.png"
+      },
+      {
+        "id": 13,
+        "name": "icons/types/013.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/013.png"
+      },
+      {
+        "id": 14,
+        "name": "icons/types/014.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/014.png"
+      },
+      {
+        "id": 15,
+        "name": "icons/types/015.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/015.png"
+      },
+      {
+        "id": 16,
+        "name": "icons/types/016.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/016.png"
+      },
+      {
+        "id": 17,
+        "name": "icons/types/017.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/017.png"
+      },
+      {
+        "id": 18,
+        "name": "icons/types/018.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/018.png"
+      },
+      {
+        "id": 19,
+        "name": "icons/types/019.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/019.png"
+      },
+      {
+        "id": 20,
+        "name": "icons/types/020.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/020.png"
+      },
+      {
+        "id": 21,
+        "name": "icons/types/021.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/021.png"
+      },
+      {
+        "id": 22,
+        "name": "icons/types/022.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/022.png"
+      },
+      {
+        "id": 23,
+        "name": "icons/types/023.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/023.png"
+      },
+      {
+        "id": 24,
+        "name": "icons/types/024.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/024.png"
+      },
+      {
+        "id": 25,
+        "name": "icons/types/025.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/025.png"
+      },
+      {
+        "id": 26,
+        "name": "icons/types/026.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/026.png"
+      },
+      {
+        "id": 27,
+        "name": "icons/types/027.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/027.png"
+      },
+      {
+        "id": 28,
+        "name": "icons/types/028.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/028.png"
+      },
+      {
+        "id": 29,
+        "name": "icons/types/029.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/029.png"
+      },
+      {
+        "id": 30,
+        "name": "icons/types/030.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/030.png"
+      },
+      {
+        "id": 31,
+        "name": "icons/types/031.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/031.png"
+      },
+      {
+        "id": 32,
+        "name": "icons/types/032.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/032.png"
+      },
+      {
+        "id": 33,
+        "name": "icons/types/033.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/033.png"
+      },
+      {
+        "id": 34,
+        "name": "icons/types/034.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/034.png"
+      },
+      {
+        "id": 35,
+        "name": "icons/types/035.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/035.png"
+      },
+      {
+        "id": 36,
+        "name": "icons/types/036.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/036.png"
+      },
+      {
+        "id": 37,
+        "name": "icons/types/037.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/037.png"
+      },
+      {
+        "id": 38,
+        "name": "icons/types/038.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/038.png"
+      },
+      {
+        "id": 39,
+        "name": "icons/types/039.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/039.png"
+      },
+      {
+        "id": 40,
+        "name": "icons/types/040.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/040.png"
+      },
+      {
+        "id": 41,
+        "name": "icons/types/041.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/041.png"
+      },
+      {
+        "id": 42,
+        "name": "icons/types/042.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/042.png"
+      },
+      {
+        "id": 43,
+        "name": "icons/types/043.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/043.png"
+      },
+      {
+        "id": 44,
+        "name": "icons/types/044.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/044.png"
+      },
+      {
+        "id": 45,
+        "name": "icons/types/045.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/045.png"
+      },
+      {
+        "id": 46,
+        "name": "icons/types/046.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/046.png"
+      },
+      {
+        "id": 47,
+        "name": "icons/types/047.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/047.png"
+      },
+      {
+        "id": 48,
+        "name": "icons/types/048.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/048.png"
+      },
+      {
+        "id": 49,
+        "name": "icons/types/049.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/049.png"
+      },
+      {
+        "id": 50,
+        "name": "icons/types/050.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/050.png"
+      },
+      {
+        "id": 51,
+        "name": "icons/types/051.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/051.png"
+      },
+      {
+        "id": 52,
+        "name": "icons/types/052.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/052.png"
+      },
+      {
+        "id": 53,
+        "name": "icons/types/053.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/053.png"
+      },
+      {
+        "id": 54,
+        "name": "icons/types/054.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/054.png"
+      },
+      {
+        "id": 55,
+        "name": "icons/types/055.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/055.png"
+      },
+      {
+        "id": 56,
+        "name": "icons/types/056.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/056.png"
+      },
+      {
+        "id": 57,
+        "name": "icons/types/057.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/057.png"
+      },
+      {
+        "id": 58,
+        "name": "icons/types/058.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/058.png"
+      },
+      {
+        "id": 59,
+        "name": "icons/types/059.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/059.png"
+      },
+      {
+        "id": 60,
+        "name": "icons/types/060.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/060.png"
+      },
+      {
+        "id": 61,
+        "name": "icons/types/061.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/061.png"
+      },
+      {
+        "id": 62,
+        "name": "icons/types/062.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/062.png"
+      },
+      {
+        "id": 63,
+        "name": "icons/types/063.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/063.png"
+      },
+      {
+        "id": 64,
+        "name": "icons/types/064.png",
+        "url": "https://storage.googleapis.com/prod-pms-bucket/icons/types/064.png"
+      }
+    ],
+    "meta": []
+  }
+}

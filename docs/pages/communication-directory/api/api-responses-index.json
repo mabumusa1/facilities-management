@@ -1,0 +1,20 @@
+[
+  {
+    "index": 0,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/ar/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "000_assets_locales_ar_translation_json.json"
+  },
+  {
+    "index": 1,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/en/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "001_assets_locales_en_translation_json.json"
+  }
+]

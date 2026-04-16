@@ -1,0 +1,104 @@
+{
+  "forms": [
+    {
+      "action": "https://goatar.com/contacts/Tenant/form",
+      "fields": [
+        {
+          "type": "text",
+          "name": "first_name",
+          "id": "_r_c_",
+          "placeholder": "أدخل الاسم الاول",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "last_name",
+          "id": "_r_d_",
+          "placeholder": "أدخل الاسم الاخير",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "radio",
+          "name": "gender",
+          "value": "male",
+          "required": false,
+          "disabled": false,
+          "label": "ذكر",
+          "checked": false
+        },
+        {
+          "type": "radio",
+          "name": "gender",
+          "value": "female",
+          "required": false,
+          "disabled": false,
+          "label": "أنثى",
+          "checked": false
+        },
+        {
+          "type": "text",
+          "name": "georgian_birthdate",
+          "id": "_r_f_",
+          "placeholder": "تاريخ الميلاد",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "national_id",
+          "id": "_r_h_",
+          "placeholder": "أدخل رقم الهوية",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "phone_country_code",
+          "value": "SA",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "phone_number",
+          "id": "_r_k_",
+          "placeholder": "أدخل رقم الهاتف",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "id": "_r_l_",
+          "placeholder": "أدخل البريد الإلكتروني",
+          "required": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "name": "invited",
+          "required": false,
+          "disabled": false,
+          "attributes": {
+            "data-indeterminate": "false"
+          },
+          "label": "ارسال دعوة",
+          "checked": false
+        }
+      ]
+    }
+  ],
+  "orphanFields": [
+    {
+      "type": "text",
+      "name": "",
+      "id": "_r_m_",
+      "placeholder": "البحث",
+      "required": false,
+      "disabled": false
+    }
+  ],
+  "dropdownOptions": {}
+}

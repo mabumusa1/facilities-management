@@ -1,0 +1,8 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/transactions-graph/all-transactions?from=2021-01-01&to=2026-04-16",
+  "status": 404,
+  "contentType": "application/json",
+  "timestamp": 1776287768502,
+  "response": []
+}

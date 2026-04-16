@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/users/requests?is_paginate=1&page=1&rf_category_id=0&sortDirection=desc&sortBy=created_at&request_history=1&limit=30",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288686420,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 0,
+        "per_page": 30
+      }
+    },
+    "meta": []
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "dropdownRelationships": [
+    {
+      "triggerDropdown": {
+        "selector": ".MuiSelect-select[id=\"rf_sub_category_id\"]",
+        "name": "rf_sub_category_id",
+        "selectedValue": "7",
+        "selectedLabel": "الأمن و السلامة"
+      },
+      "triggeredApiCalls": [
+        {
+          "method": "GET",
+          "url": "https://api.goatar.com/api-management/rf/requests/types/list/7?is_paginate=0",
+          "queryParams": {
+            "is_paginate": "0"
+          }
+        }
+      ],
+      "affectedDropdowns": []
+    }
+  ],
+  "hardcodedValues": [],
+  "staticOptions": {}
+}

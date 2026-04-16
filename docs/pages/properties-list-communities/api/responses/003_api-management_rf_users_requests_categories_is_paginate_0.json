@@ -1,0 +1,110 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/users/requests/categories?is_paginate=0",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288964504,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": [
+      {
+        "id": 1,
+        "name": "خدمات الوحدات",
+        "description": "للخدمات الخاصة بالوحدات",
+        "status": "1",
+        "has_sub_categories": "1",
+        "serviceSettings": {
+          "visibilities": {
+            "hide_resident_number": false,
+            "hide_resident_name": false,
+            "hide_professional_number_and_name": false,
+            "show_unified_number_only": false
+          },
+          "permissions": {
+            "manager_close_Request": false,
+            "not_require_professional_enter_request_code": false,
+            "not_require_professional_upload_request_photo": false,
+            "attachments_required": false,
+            "allow_professional_reschedule": false
+          },
+          "submit_request_before_type": null,
+          "submit_request_before_value": null,
+          "capacity_type": null,
+          "capacity_value": null
+        },
+        "icon": {
+          "id": "1",
+          "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/1.png",
+          "name": "1.png",
+          "notes": "predefined"
+        }
+      },
+      {
+        "id": 2,
+        "name": "طلبات المناطق المشتركة",
+        "description": "للخدمات الخاصة بالمناطق المشتركة",
+        "status": "1",
+        "has_sub_categories": "1",
+        "serviceSettings": {
+          "visibilities": {
+            "hide_resident_number": false,
+            "hide_resident_name": false,
+            "hide_professional_number_and_name": false,
+            "show_unified_number_only": false
+          },
+          "permissions": {
+            "manager_close_Request": false,
+            "not_require_professional_enter_request_code": false,
+            "not_require_professional_upload_request_photo": false,
+            "attachments_required": false,
+            "allow_professional_reschedule": false
+          },
+          "submit_request_before_type": null,
+          "submit_request_before_value": null,
+          "capacity_type": null,
+          "capacity_value": null
+        },
+        "icon": {
+          "id": "2",
+          "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/2.png",
+          "name": "2.png",
+          "notes": "predefined"
+        }
+      },
+      {
+        "id": 3,
+        "name": "طلبات تصاريح الزوار",
+        "description": "لطلبات تصاريح دخول الزوار",
+        "status": "1",
+        "has_sub_categories": "0",
+        "serviceSettings": {
+          "visibilities": {
+            "hide_resident_number": false,
+            "hide_resident_name": false,
+            "hide_professional_number_and_name": false,
+            "show_unified_number_only": false
+          },
+          "permissions": {
+            "manager_close_Request": false,
+            "not_require_professional_enter_request_code": false,
+            "not_require_professional_upload_request_photo": false,
+            "attachments_required": false,
+            "allow_professional_reschedule": false
+          },
+          "submit_request_before_type": null,
+          "submit_request_before_value": null,
+          "capacity_type": null,
+          "capacity_value": null
+        },
+        "icon": {
+          "id": "3",
+          "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/3.png",
+          "name": "3.png",
+          "notes": "predefined"
+        }
+      }
+    ],
+    "meta": []
+  }
+}

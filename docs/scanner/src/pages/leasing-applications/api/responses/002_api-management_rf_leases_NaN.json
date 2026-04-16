@@ -1,0 +1,10 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/leases/NaN",
+  "status": 500,
+  "contentType": "application/json",
+  "timestamp": 1776287208550,
+  "response": {
+    "message": "Server Error"
+  }
+}

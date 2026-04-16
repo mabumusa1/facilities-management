@@ -1,0 +1,90 @@
+{
+  "apiRelationships": [],
+  "enums": [
+    {
+      "name": "modules",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "العروض"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات الحجوزات للمرافق"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        },
+        {
+          "key": "4",
+          "value": "4",
+          "label": "الدليل"
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "خدمات الوحدات"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "طلبات المناطق المشتركة"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "طلبات تصاريح الزوار"
+        }
+      ]
+    },
+    {
+      "name": "sub_categories",
+      "source": "api",
+      "values": [
+        {
+          "key": "1",
+          "value": "1",
+          "label": "صيانة"
+        },
+        {
+          "key": "2",
+          "value": "2",
+          "label": "تنظيف المنزل"
+        },
+        {
+          "key": "3",
+          "value": "3",
+          "label": "غسيل السيارات"
+        },
+        {
+          "key": "4",
+          "value": "4",
+          "label": "الأجهزة الكهربائية"
+        },
+        {
+          "key": "5",
+          "value": "5",
+          "label": "إصلاح الأثاث"
+        },
+        {
+          "key": "6",
+          "value": "6",
+          "label": "خدمات أخرى"
+        }
+      ]
+    }
+  ],
+  "foreignKeys": [],
+  "translationKeys": {}
+}

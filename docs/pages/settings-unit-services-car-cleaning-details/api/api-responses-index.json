@@ -1,0 +1,101 @@
+[
+  {
+    "index": 0,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/ar/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "000_assets_locales_ar_translation_json.json"
+  },
+  {
+    "index": 1,
+    "method": "GET",
+    "url": "https://goatar.com/assets/locales/en/translation.json",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "001_assets_locales_en_translation_json.json"
+  },
+  {
+    "index": 2,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/notifications/unread-count",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "002_api-management_notifications_unread-count.json"
+  },
+  {
+    "index": 3,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/modules",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "003_api-management_rf_modules.json"
+  },
+  {
+    "index": 4,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/users/requests/categories?is_paginate=0",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "004_api-management_rf_users_requests_categories_is_paginate_0.json"
+  },
+  {
+    "index": 5,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/requests/types/list/3",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "005_api-management_rf_requests_types_list_3.json"
+  },
+  {
+    "index": 6,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities?search=&page=1&is_paginate=1&selected_sub_category_id=3&is_true=1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "006_api-management_rf_communities_search__page_1_is_paginate_1_.json"
+  },
+  {
+    "index": 7,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/requests/sub-categories/3",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "007_api-management_rf_requests_sub-categories_3.json"
+  },
+  {
+    "index": 8,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities?search=&page=1&is_paginate=1&selected_sub_category_id=3&is_true=1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "008_api-management_rf_communities_search__page_1_is_paginate_1_.json"
+  },
+  {
+    "index": 9,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities?search=&page=1&is_paginate=1&selected_sub_category_id=3&is_true=1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "009_api-management_rf_communities_search__page_1_is_paginate_1_.json"
+  },
+  {
+    "index": 10,
+    "method": "GET",
+    "url": "https://api.goatar.com/api-management/rf/communities?search=&page=1&is_paginate=1&selected_sub_category_id=3&is_true=1",
+    "status": 200,
+    "hasRequestBody": false,
+    "hasResponseBody": true,
+    "filename": "010_api-management_rf_communities_search__page_1_is_paginate_1_.json"
+  }
+]

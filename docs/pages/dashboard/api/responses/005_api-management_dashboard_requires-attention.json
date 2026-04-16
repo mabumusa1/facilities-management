@@ -1,0 +1,15 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/dashboard/requires-attention",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288805300,
+  "response": {
+    "data": {
+      "requests_approval": 0,
+      "pending_complaints": 0,
+      "expiring_leases": 0,
+      "overdue_recipes": 0
+    }
+  }
+}

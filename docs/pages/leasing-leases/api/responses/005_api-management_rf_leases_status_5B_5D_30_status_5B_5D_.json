@@ -1,0 +1,21 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/leases?status%5B%5D=30&status%5B%5D=31&sortBy=created_at&sortDirection=desc&page=1&is_paginate=1&limit=50",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288828555,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "list": [],
+      "paginator": {
+        "current_page": 1,
+        "last_page": 1,
+        "total": 0,
+        "per_page": 50
+      }
+    },
+    "meta": []
+  }
+}

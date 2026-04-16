@@ -1,0 +1,43 @@
+{
+  "method": "GET",
+  "url": "https://api.goatar.com/api-management/rf/requests/sub-categories/3",
+  "status": 200,
+  "contentType": "application/json",
+  "timestamp": 1776288946909,
+  "response": {
+    "code": 200,
+    "message": "",
+    "data": {
+      "id": 3,
+      "name_ar": "غسيل السيارات",
+      "name_en": "Car Cleaning",
+      "name": "غسيل السيارات",
+      "start": null,
+      "end": null,
+      "is_all_day": null,
+      "working_days": [],
+      "status": "1",
+      "requests_count": 0,
+      "request": [],
+      "selects": {
+        "buildings": {
+          "data": [],
+          "count": 0
+        },
+        "communities": {
+          "data": [],
+          "count": 0
+        }
+      },
+      "featured": [],
+      "icon": {
+        "id": 6,
+        "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+        "name": "6",
+        "notes": "predefined"
+      },
+      "terms_and_conditions": null
+    },
+    "meta": []
+  }
+}

@@ -2,8 +2,11 @@ import { test as base, Page } from '@playwright/test';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { createNetworkCapture } from '../utils/network-capture';
-import { writeEndpoints, writeScreenshot, writeSnapshot } from '../utils/output-writer';
-import { ScannerContext, ScanOptions, ScanResult, ATAR_CONFIG, NetworkCapture } from '../utils/types';
+import { writeEndpoints, writeFormData, writeScreenshot, writeSnapshot, writeApiResponses, writeRelationships, writeDataAnalysis } from '../utils/output-writer';
+import { extractDropdownOptions, extractFormData } from '../utils/form-extractor';
+import { explorePageRelationships } from '../utils/relationship-explorer';
+import { analyzePageData } from '../utils/data-analyzer';
+import { PageFormData, PageRelationships, DataAnalysis, ScannerContext, ScanOptions, ScanResult, ATAR_CONFIG, NetworkCapture } from '../utils/types';
 
 const NOT_FOUND_ENDPOINT_PATTERN = /\/assets\/js\/404[-\w]*\.js/i;
 const NOT_FOUND_TEXT_SNIPPETS = [
@@ -52,6 +55,70 @@ async function loadLocalStorage(): Promise<Record<string, string>> {
   return JSON.parse(content);
 }
 
+/**
+ * Scroll to bottom of page to trigger lazy loading and ensure all content is rendered.
+ * Returns to top after scrolling for consistent screenshots.
+ */
+async function scrollPageToBottom(
+  page: Page,
+  options: { delay?: number; stepSize?: number } = {}
+): Promise<void> {
+  const { delay = 200, stepSize = 500 } = options;
+
+  let previousHeight = 0;
+  let currentHeight = await page.evaluate(() => document.body.scrollHeight);
+  let scrollAttempts = 0;
+  const maxAttempts = 50; // Prevent infinite loops
+
+  while (previousHeight !== currentHeight && scrollAttempts < maxAttempts) {
+    previousHeight = currentHeight;
+    await page.evaluate((step) => window.scrollBy(0, step), stepSize);
+    await page.waitForTimeout(delay);
+    currentHeight = await page.evaluate(() => document.body.scrollHeight);
+    scrollAttempts++;
+  }
+
+  // Final scroll to absolute bottom
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(delay);
+
+  // Scroll back to top for consistent screenshot
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(100);
+}
+
+/**
+ * Expand collapsible sections (accordions, details elements, etc.)
+ * to reveal hidden content before capture.
+ */
+async function expandCollapsibleSections(page: Page, customSelectors?: string[]): Promise<void> {
+  const defaultSelectors = [
+    '[data-testid*="expand"]',
+    '[aria-expanded="false"]',
+    'button[class*="collapse"]',
+    'details:not([open])',
+    '[class*="accordion"]:not([class*="open"])',
+    '[class*="expandable"]:not([class*="expanded"])',
+  ];
+
+  const allSelectors = [...defaultSelectors, ...(customSelectors || [])];
+
+  for (const selector of allSelectors) {
+    try {
+      const elements = await page.locator(selector).all();
+      for (const element of elements) {
+        const isVisible = await element.isVisible({ timeout: 500 }).catch(() => false);
+        if (isVisible) {
+          await element.click().catch(() => {});
+          await page.waitForTimeout(100);
+        }
+      }
+    } catch {
+      // Continue if selector fails
+    }
+  }
+}
+
 export const test = base.extend<{ scanner: ScannerContext }>({
   scanner: async ({ page }, use) => {
     const localStorageData = await loadLocalStorage();
@@ -76,6 +143,14 @@ export const test = base.extend<{ scanner: ScannerContext }>({
         takeScreenshot = true,
         takeSnapshot = true,
         failOnNotFound = true,
+        // New options with defaults
+        scrollToBottom = true,
+        scrollDelay = 200,
+        expandSections = true,
+        expandSelectors,
+        extractFormData: shouldExtractForms = true,
+        exploreRelationships: shouldExploreRelationships = false,
+        analyzeData: shouldAnalyzeData = true, // Default ON - analyze API responses for relationships
       } = options;
 
       capture.startCapture();
@@ -88,6 +163,17 @@ export const test = base.extend<{ scanner: ScannerContext }>({
 
       if (waitForSelector) {
         await page.waitForSelector(waitForSelector, { timeout: waitTimeout });
+      }
+
+      // Scroll to bottom to trigger lazy loading
+      if (scrollToBottom) {
+        await scrollPageToBottom(page, { delay: scrollDelay });
+      }
+
+      // Expand collapsible sections to reveal hidden content
+      if (expandSections) {
+        await expandCollapsibleSections(page, expandSelectors);
+        await page.waitForTimeout(500);
       }
 
       // Wait a bit for any delayed API calls
@@ -130,12 +216,61 @@ export const test = base.extend<{ scanner: ScannerContext }>({
 
       await writeEndpoints(pageName, endpoints);
 
+      // Save API responses with request/response bodies
+      const apiResponses = capture.getApiRequestsWithBodies();
+      if (apiResponses.length > 0) {
+        await writeApiResponses(pageName, apiResponses);
+      }
+
+      // Extract form data (field values, dropdown options, etc.)
+      let formData: PageFormData | undefined;
+      if (shouldExtractForms) {
+        try {
+          formData = await extractFormData(page);
+          const dropdownOptions = await extractDropdownOptions(page);
+          formData.dropdownOptions = dropdownOptions;
+          await writeFormData(pageName, formData);
+        } catch (e) {
+          console.log(`Could not extract form data for ${pageName}: ${e}`);
+        }
+      }
+
+      // Explore dropdown relationships and extract hardcoded values
+      let relationships: PageRelationships | undefined;
+      if (shouldExploreRelationships) {
+        try {
+          // Re-start capture for relationship exploration
+          capture.startCapture();
+          relationships = await explorePageRelationships(page, capture.requests);
+          capture.stopCapture();
+          await writeRelationships(pageName, relationships);
+          console.log(`Explored relationships for ${pageName}: ${relationships.dropdownRelationships.length} dropdown relationships found`);
+        } catch (e) {
+          console.log(`Could not explore relationships for ${pageName}: ${e}`);
+        }
+      }
+
+      // Analyze API responses for relationships, enums, and foreign keys
+      let dataAnalysis: DataAnalysis | undefined;
+      if (shouldAnalyzeData && apiResponses.length > 0) {
+        try {
+          dataAnalysis = await analyzePageData(page, apiResponses);
+          await writeDataAnalysis(pageName, dataAnalysis);
+        } catch (e) {
+          console.log(`Could not analyze data for ${pageName}: ${e}`);
+        }
+      }
+
       return {
         pageName,
         pagePath: urlPath,
         endpoints,
+        apiResponses,
         screenshot,
         snapshot,
+        formData,
+        relationships,
+        dataAnalysis,
         timestamp: new Date().toISOString(),
       };
     };
