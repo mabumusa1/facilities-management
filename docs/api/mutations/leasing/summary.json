@@ -1,0 +1,76 @@
+{
+  "module": "leasing",
+  "generatedAt": "2026-04-12T16:48:53.206Z",
+  "totalCaptures": 18,
+  "successCount": 1,
+  "errorCount": 17,
+  "successRate": "5.6%",
+  "endpoints": {
+    "POST rf/leases": {
+      "method": "POST",
+      "success": 0,
+      "error": 4,
+      "avgTiming": 189.20833333333331
+    },
+    "PUT rf/leases/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 246
+    },
+    "DELETE rf/leases/99999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 391
+    },
+    "POST rf/leases/1/addendum": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 358
+    },
+    "POST rf/leases/change-status/move-out": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 322
+    },
+    "POST rf/leases/change-status/terminate": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 285.5
+    },
+    "POST rf/leases/change-status/suspend": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 266
+    },
+    "POST rf/leases/change-status/reactivate": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 247
+    },
+    "POST rf/sub-leases": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 304.5
+    },
+    "DELETE rf/sub-leases/999": {
+      "method": "DELETE",
+      "success": 1,
+      "error": 0,
+      "avgTiming": 279
+    },
+    "POST rf/leases/renew/store": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 406.5
+    }
+  }
+}

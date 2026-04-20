@@ -1,0 +1,94 @@
+{
+  "module": "properties",
+  "generatedAt": "2026-04-12T16:49:01.045Z",
+  "totalCaptures": 22,
+  "successCount": 3,
+  "errorCount": 19,
+  "successRate": "13.6%",
+  "endpoints": {
+    "POST rf/communities": {
+      "method": "POST",
+      "success": 1,
+      "error": 1,
+      "avgTiming": 605
+    },
+    "PUT rf/communities/15": {
+      "method": "PUT",
+      "success": 1,
+      "error": 0,
+      "avgTiming": 384
+    },
+    "DELETE rf/communities/1": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 247
+    },
+    "POST rf/buildings": {
+      "method": "POST",
+      "success": 0,
+      "error": 3,
+      "avgTiming": 255.66666666666666
+    },
+    "PUT rf/buildings/4": {
+      "method": "PUT",
+      "success": 1,
+      "error": 0,
+      "avgTiming": 341
+    },
+    "DELETE rf/buildings/1": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 253
+    },
+    "POST rf/units": {
+      "method": "POST",
+      "success": 0,
+      "error": 4,
+      "avgTiming": 154.125
+    },
+    "PUT rf/units/3": {
+      "method": "PUT",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 432
+    },
+    "DELETE rf/units/1": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 268
+    },
+    "POST rf/units/bulk-update": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 830
+    },
+    "POST rf/units/bulk-delete": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 784
+    },
+    "POST rf/facilities": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 362
+    },
+    "PUT rf/facilities/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 378
+    },
+    "DELETE rf/facilities/999": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 302
+    }
+  }
+}

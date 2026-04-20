@@ -1,0 +1,685 @@
+{
+  "module": "leasing",
+  "endpointCount": 7,
+  "endpoints": [
+    {
+      "endpoint": "rf/leases",
+      "method": "GET",
+      "responseType": "list",
+      "hasPagination": true,
+      "fieldCount": 13,
+      "fields": [
+        "id",
+        "contract_number",
+        "lease_unit_type",
+        "tenant",
+        "units",
+        "building",
+        "community",
+        "status",
+        "updated_at",
+        "duration",
+        "days_remaining",
+        "pdf_url",
+        "is_old"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "contract_number": "2026000001RL",
+        "lease_unit_type": {
+          "id": 2,
+          "name": "سكني",
+          "icon": "residential"
+        },
+        "tenant": {
+          "id": 4,
+          "name": "Khalid Test",
+          "rate": null,
+          "role": "Tenant",
+          "email": "khalid.test@example.com",
+          "image": null,
+          "active": "1",
+          "gender": null,
+          "company": null,
+          "birthdate": null,
+          "national_id": "2233445566",
+          "nationality": null,
+          "phone_number": "+966512345678",
+          "primary_user_name": "Khalid Test"
+        },
+        "units": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "status": {
+              "id": 26,
+              "name_ar": "متاحة",
+              "name_en": "Vacant",
+              "active": "1",
+              "type": "unit",
+              "created_at": null,
+              "updated_at": null,
+              "deleted_at": null,
+              "priority": "1",
+              "is_history": "0"
+            },
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            }
+          }
+        ],
+        "building": {
+          "id": 1,
+          "name": "Test Building 1"
+        },
+        "community": {
+          "id": 1,
+          "name": "Test Community 1"
+        },
+        "status": {
+          "id": 33,
+          "name": "عقد ملغي",
+          "created_at": null,
+          "priority": "1"
+        },
+        "updated_at": "2026-04-12T08:01:59.000000Z",
+        "duration": "1 سنة 0 شهور 0 أيام",
+        "days_remaining": 0,
+        "pdf_url": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf",
+        "is_old": "0"
+      }
+    },
+    {
+      "endpoint": "rf/leases",
+      "method": "GET",
+      "responseType": "list",
+      "hasPagination": true,
+      "fieldCount": 13,
+      "fields": [
+        "id",
+        "contract_number",
+        "lease_unit_type",
+        "tenant",
+        "units",
+        "building",
+        "community",
+        "status",
+        "updated_at",
+        "duration",
+        "days_remaining",
+        "pdf_url",
+        "is_old"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "contract_number": "2026000001RL",
+        "lease_unit_type": {
+          "id": 2,
+          "name": "سكني",
+          "icon": "residential"
+        },
+        "tenant": {
+          "id": 4,
+          "name": "Khalid Test",
+          "rate": null,
+          "role": "Tenant",
+          "email": "khalid.test@example.com",
+          "image": null,
+          "active": "1",
+          "gender": null,
+          "company": null,
+          "birthdate": null,
+          "national_id": "2233445566",
+          "nationality": null,
+          "phone_number": "+966512345678",
+          "primary_user_name": "Khalid Test"
+        },
+        "units": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "status": {
+              "id": 26,
+              "name_ar": "متاحة",
+              "name_en": "Vacant",
+              "active": "1",
+              "type": "unit",
+              "created_at": null,
+              "updated_at": null,
+              "deleted_at": null,
+              "priority": "1",
+              "is_history": "0"
+            },
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            }
+          }
+        ],
+        "building": {
+          "id": 1,
+          "name": "Test Building 1"
+        },
+        "community": {
+          "id": 1,
+          "name": "Test Community 1"
+        },
+        "status": {
+          "id": 33,
+          "name": "عقد ملغي",
+          "created_at": null,
+          "priority": "1"
+        },
+        "updated_at": "2026-04-12T08:01:59.000000Z",
+        "duration": "1 سنة 0 شهور 0 أيام",
+        "days_remaining": 0,
+        "pdf_url": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf",
+        "is_old": "0"
+      }
+    },
+    {
+      "endpoint": "rf/leases",
+      "method": "GET",
+      "responseType": "list",
+      "hasPagination": true,
+      "fieldCount": 13,
+      "fields": [
+        "id",
+        "contract_number",
+        "lease_unit_type",
+        "tenant",
+        "units",
+        "building",
+        "community",
+        "status",
+        "updated_at",
+        "duration",
+        "days_remaining",
+        "pdf_url",
+        "is_old"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "contract_number": "2026000001RL",
+        "lease_unit_type": {
+          "id": 2,
+          "name": "سكني",
+          "icon": "residential"
+        },
+        "tenant": {
+          "id": 4,
+          "name": "Khalid Test",
+          "rate": null,
+          "role": "Tenant",
+          "email": "khalid.test@example.com",
+          "image": null,
+          "active": "1",
+          "gender": null,
+          "company": null,
+          "birthdate": null,
+          "national_id": "2233445566",
+          "nationality": null,
+          "phone_number": "+966512345678",
+          "primary_user_name": "Khalid Test"
+        },
+        "units": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "status": {
+              "id": 26,
+              "name_ar": "متاحة",
+              "name_en": "Vacant",
+              "active": "1",
+              "type": "unit",
+              "created_at": null,
+              "updated_at": null,
+              "deleted_at": null,
+              "priority": "1",
+              "is_history": "0"
+            },
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            }
+          }
+        ],
+        "building": {
+          "id": 1,
+          "name": "Test Building 1"
+        },
+        "community": {
+          "id": 1,
+          "name": "Test Community 1"
+        },
+        "status": {
+          "id": 33,
+          "name": "عقد ملغي",
+          "created_at": null,
+          "priority": "1"
+        },
+        "updated_at": "2026-04-12T08:01:59.000000Z",
+        "duration": "1 سنة 0 شهور 0 أيام",
+        "days_remaining": 0,
+        "pdf_url": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf",
+        "is_old": "0"
+      }
+    },
+    {
+      "endpoint": "rf/leases",
+      "method": "GET",
+      "responseType": "list",
+      "hasPagination": true,
+      "fieldCount": 13,
+      "fields": [
+        "id",
+        "contract_number",
+        "lease_unit_type",
+        "tenant",
+        "units",
+        "building",
+        "community",
+        "status",
+        "updated_at",
+        "duration",
+        "days_remaining",
+        "pdf_url",
+        "is_old"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "contract_number": "2026000001RL",
+        "lease_unit_type": {
+          "id": 2,
+          "name": "سكني",
+          "icon": "residential"
+        },
+        "tenant": {
+          "id": 4,
+          "name": "Khalid Test",
+          "rate": null,
+          "role": "Tenant",
+          "email": "khalid.test@example.com",
+          "image": null,
+          "active": "1",
+          "gender": null,
+          "company": null,
+          "birthdate": null,
+          "national_id": "2233445566",
+          "nationality": null,
+          "phone_number": "+966512345678",
+          "primary_user_name": "Khalid Test"
+        },
+        "units": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "status": {
+              "id": 26,
+              "name_ar": "متاحة",
+              "name_en": "Vacant",
+              "active": "1",
+              "type": "unit",
+              "created_at": null,
+              "updated_at": null,
+              "deleted_at": null,
+              "priority": "1",
+              "is_history": "0"
+            },
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            }
+          }
+        ],
+        "building": {
+          "id": 1,
+          "name": "Test Building 1"
+        },
+        "community": {
+          "id": 1,
+          "name": "Test Community 1"
+        },
+        "status": {
+          "id": 33,
+          "name": "عقد ملغي",
+          "created_at": null,
+          "priority": "1"
+        },
+        "updated_at": "2026-04-12T08:01:59.000000Z",
+        "duration": "1 سنة 0 شهور 0 أيام",
+        "days_remaining": 0,
+        "pdf_url": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf",
+        "is_old": "0"
+      }
+    },
+    {
+      "endpoint": "rf/leases/1",
+      "method": "GET",
+      "responseType": "detail",
+      "hasPagination": false,
+      "fieldCount": 42,
+      "fields": [
+        "id",
+        "contract_number",
+        "tenant",
+        "units",
+        "status",
+        "security_deposit_amount",
+        "security_deposit_due_date",
+        "lease_unit_type",
+        "start_date",
+        "end_date",
+        "handover_date",
+        "tenant_type",
+        "user",
+        "created_by",
+        "deal_owner",
+        "rental_type",
+        "rental_total_amount",
+        "rental_contract_type",
+        "legal_representative",
+        "fit_out_status",
+        "payment_schedule",
+        "lease_escalations_type",
+        "additional_fees_lease",
+        "lease_escalations",
+        "terms_conditions",
+        "is_terms",
+        "transactions",
+        "subleases",
+        "is_sub_lease",
+        "actual_end_at",
+        "created_at",
+        "free_period",
+        "number_of_years",
+        "number_of_months",
+        "number_of_days",
+        "lease_id",
+        "is_renew",
+        "is_move_out",
+        "pdf_url",
+        "total_unpaid_amount",
+        "unpaid_transactions_count",
+        "is_old"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "contract_number": "2026000001RL",
+        "tenant": {
+          "id": 4,
+          "name": "Khalid Test",
+          "rate": null,
+          "role": "Tenant",
+          "email": "khalid.test@example.com",
+          "image": null,
+          "active": "1",
+          "gender": null,
+          "company": null,
+          "birthdate": null,
+          "national_id": "2233445566",
+          "nationality": null,
+          "phone_number": "+966512345678",
+          "primary_user_name": "Khalid Test"
+        },
+        "units": [
+          {
+            "rental_annual_type": "total",
+            "annual_rental_amount": "50000",
+            "unit": {
+              "id": 3,
+              "name": "Test Unit API v2",
+              "category": {
+                "id": 2,
+                "name": "سكني",
+                "name_ar": "سكني",
+                "name_en": "Residential"
+              },
+              "type": {
+                "id": 17,
+                "name": "شقة",
+                "name_ar": "شقة",
+                "name_en": "Apartment"
+              },
+              "status": {
+                "id": 25,
+                "name": "مؤجرة",
+                "name_ar": "مؤجرة",
+                "name_en": "Leased"
+              },
+              "rf_community": {
+                "id": 1,
+                "name": "Test Community 1"
+              },
+              "rf_building": {
+                "id": 1,
+                "name": "Test Building 1"
+              },
+              "year_build": "2020",
+              "net_area": null,
+              "rooms": [],
+              "areas": [],
+              "city": {
+                "id": 1,
+                "name": "الرياض",
+                "name_ar": "الرياض",
+                "name_en": "Riyadh"
+              },
+              "district": {
+                "id": 1,
+                "name": "الدرعية",
+                "name_ar": "الدرعية",
+                "name_en": "Al Diriyah"
+              },
+              "is_market_place": "0",
+              "is_buy": "0",
+              "market_rent": null,
+              "floor_no": null
+            },
+            "net_area": null,
+            "meter_cost": null
+          }
+        ],
+        "status": {
+          "id": 33,
+          "name": "عقد ملغي",
+          "created_at": null,
+          "priority": "1"
+        },
+        "security_deposit_amount": null,
+        "security_deposit_due_date": null,
+        "lease_unit_type": {
+          "id": 2,
+          "name": "سكني",
+          "icon": "residential"
+        },
+        "start_date": "2026-04-16",
+        "end_date": "2027-04-16",
+        "handover_date": "2026-04-16",
+        "tenant_type": "individual",
+        "user": {
+          "id": 4,
+          "name": "Khalid Test"
+        },
+        "created_by": {
+          "id": 1,
+          "name": "Test User",
+          "primary_user_name": "Test User",
+          "image": null,
+          "phone_number": "+966555123456",
+          "role": "مدير الحساب",
+          "rate": null,
+          "email": "test@example.com",
+          "nationality": null,
+          "gender": null,
+          "birthdate": null,
+          "national_id": "1234567890",
+          "company": null,
+          "active": "1"
+        },
+        "deal_owner": null,
+        "rental_type": "detailed",
+        "rental_total_amount": "50000.00",
+        "rental_contract_type": {
+          "id": 13,
+          "name": "ايجار سنوي",
+          "type": "rental_contract_type",
+          "name_ar": "ايجار سنوي",
+          "name_en": "Yearly Rental",
+          "parent_id": null
+        },
+        "legal_representative": null,
+        "fit_out_status": null,
+        "payment_schedule": {
+          "id": 7,
+          "name": "سنوي",
+          "type": "payment_schedule",
+          "name_ar": "سنوي",
+          "name_en": "Annual",
+          "parent_id": "13"
+        },
+        "lease_escalations_type": "fixed",
+        "additional_fees_lease": [],
+        "lease_escalations": [],
+        "terms_conditions": null,
+        "is_terms": "0",
+        "transactions": [
+          {
+            "id": 1,
+            "images": null,
+            "payments": [],
+            "unit": null,
+            "amount": 50000,
+            "tax_amount": "0.00",
+            "rental_amount": "50000.00",
+            "additional_fees_amount": "0.00",
+            "vat": "0",
+            "lease_number": "2026000001RL",
+            "additional_fees": [],
+            "amount_fmt": "50,000.00",
+            "category": {
+              "id": "1",
+              "name": "الإيجارات"
+            },
+            "subcategory": {
+              "id": null,
+              "name": ""
+            },
+            "due_on": "2026-04-16",
+            "assignee": "Khalid Test",
+            "assignee_id": 4,
+            "assignee_active": "1",
+            "details": null,
+            "payments_sum": "0.00",
+            "paid_fmt": "0.00",
+            "left_fmt": "50,000.00",
+            "paid": 0,
+            "left": 50000,
+            "type": {
+              "id": 2,
+              "name": "مستحقة"
+            },
+            "status": {
+              "id": 2,
+              "name": "مستحقة"
+            },
+            "is_paid": false,
+            "created_at": "2026-04-11",
+            "is_old": "0"
+          }
+        ],
+        "subleases": [],
+        "is_sub_lease": "0",
+        "actual_end_at": "2026-04-12",
+        "created_at": "2026-04-11 00:00:00",
+        "free_period": 0,
+        "number_of_years": "1",
+        "number_of_months": "0",
+        "number_of_days": null,
+        "lease_id": null,
+        "is_renew": false,
+        "is_move_out": false,
+        "pdf_url": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf",
+        "total_unpaid_amount": "50000.00",
+        "unpaid_transactions_count": 1,
+        "is_old": "0"
+      }
+    },
+    {
+      "endpoint": "rf/leases/statistics",
+      "method": "GET",
+      "responseType": "detail",
+      "hasPagination": false,
+      "fieldCount": 15,
+      "fields": [
+        "totalLeases",
+        "newLeases",
+        "activeLeases",
+        "expiredLeases",
+        "terminatedLeases",
+        "percentNewLeases",
+        "percentActiveLeases",
+        "percentExpiredLeases",
+        "percentTerminatedLeases",
+        "activeCommercialLeases",
+        "activeResidentialLeases",
+        "currentMonthCollection",
+        "currentYearCollection",
+        "calculatePaidCollectionForCurrentMonth",
+        "calculatePaidCollectionForCurrentYear"
+      ],
+      "sampleResponse": {
+        "totalLeases": 1,
+        "newLeases": 0,
+        "activeLeases": 0,
+        "expiredLeases": 0,
+        "terminatedLeases": 1,
+        "percentNewLeases": 0,
+        "percentActiveLeases": 0,
+        "percentExpiredLeases": 0,
+        "percentTerminatedLeases": 100,
+        "activeCommercialLeases": 0,
+        "activeResidentialLeases": 0,
+        "currentMonthCollection": 50000,
+        "currentYearCollection": 50000,
+        "calculatePaidCollectionForCurrentMonth": 0,
+        "calculatePaidCollectionForCurrentYear": 0
+      }
+    },
+    {
+      "endpoint": "rf/sub-leases",
+      "method": "GET",
+      "responseType": "list",
+      "hasPagination": true,
+      "fieldCount": 0,
+      "fields": [],
+      "sampleResponse": []
+    }
+  ],
+  "capturedAt": "2026-04-12T17:05:53.275Z"
+}

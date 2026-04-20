@@ -1,0 +1,1913 @@
+[
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/owners"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:17 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=bzKnVIEBkX354WRP%2Bgw3yfsWJDD5bbu3KfvMKO8Dpi1K5dNezmRcJpPy8MsYkSYSg8k741WebWzqyuYo6WmNvK99lwVXOaVKZy74usF%2Bd%2Fr%2By4dGH6z3ZKgQt%2BXReg41qQIcEPbVO51g6EzK\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3944c2ef0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 3,
+            "name": "Mohammed Al-Saud",
+            "image": null,
+            "phone_number": "+966500000002",
+            "created_at": "2026-04-10T22:45:51.000000Z",
+            "units": []
+          }
+        ],
+        "meta": []
+      },
+      "timing": 2462
+    },
+    "timestamp": "2026-04-12T17:07:17.984Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 3
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Mohammed Al-Saud"
+              },
+              "image": {
+                "type": "null",
+                "nullable": true
+              },
+              "phone_number": {
+                "type": "string",
+                "nullable": false,
+                "example": "+966500000002"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-10T22:45:51.000000Z"
+              },
+              "units": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/owners",
+      "params": {
+        "page": 1,
+        "per_page": 10
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:19 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2BG7mzZV8DqflmGCTEjSglcrviDrRh7mM1K5lA%2Bg8PYjDefzQLlA0kv1PkXyQqrfwb%2FAIDNQYURAY4n8w2h%2BckQudulu6bZ8On06Zv1vvbcfux3CYW0OlxMBBsKp8DDZPWlwh7Iwb1IjGvGmQ\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d39d89d5f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 3,
+            "name": "Mohammed Al-Saud",
+            "image": null,
+            "phone_number": "+966500000002",
+            "created_at": "2026-04-10T22:45:51.000000Z",
+            "units": []
+          }
+        ],
+        "meta": []
+      },
+      "timing": 1378
+    },
+    "timestamp": "2026-04-12T17:07:19.491Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 3
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Mohammed Al-Saud"
+              },
+              "image": {
+                "type": "null",
+                "nullable": true
+              },
+              "phone_number": {
+                "type": "string",
+                "nullable": false,
+                "example": "+966500000002"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-10T22:45:51.000000Z"
+              },
+              "units": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/owners",
+      "params": {
+        "search": "test"
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:20 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WUfMfZE8A%2FPX44wZaBTpO4GSP1XP23VXQcPVno3PSsUzJ2oR%2BmXBtn8ctpCqK0ggqDqzaw91La7fSciDEblXnGvtclOJLFiCr80dgTzgh3iGiv%2BQhFdBvl9s7sBGjawwctu3W5v5OlhFYjCY\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3a28dd1f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 3,
+            "name": "Mohammed Al-Saud",
+            "image": null,
+            "phone_number": "+966500000002",
+            "created_at": "2026-04-10T22:45:51.000000Z",
+            "units": []
+          }
+        ],
+        "meta": []
+      },
+      "timing": 705
+    },
+    "timestamp": "2026-04-12T17:07:20.251Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 3
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Mohammed Al-Saud"
+              },
+              "image": {
+                "type": "null",
+                "nullable": true
+              },
+              "phone_number": {
+                "type": "string",
+                "nullable": false,
+                "example": "+966500000002"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-10T22:45:51.000000Z"
+              },
+              "units": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/owners/3"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:20 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=PbhihIxxlHhMG%2BRu4wZn94fK2%2FxnY73jQ0mHGYtAS1wUY8cMhHyZSCZch3pKpNNrXyv0JaEaZqGbtzbpig7fowHWk2GGBzdpE%2BMGxSi%2B9bdEKZDP8PtKRrZBQZ0OmsugG5cyHnBSj47sjTdR\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3a60e00f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": {
+          "id": 3,
+          "name": "Mohammed Al-Saud",
+          "first_name": "Mohammed",
+          "last_name": "Al-Saud",
+          "image": null,
+          "email": "owner1@example.com",
+          "georgian_birthdate": null,
+          "gender": null,
+          "national_id": "1122334455",
+          "phone_number": "+966500000002",
+          "national_phone_number": "0500000002",
+          "phone_country_code": "SA",
+          "nationality": null,
+          "created_at": "2026-04-10T22:45:51.000000Z",
+          "active": "1",
+          "account_creation_date": "2026-04-11 01:45 am",
+          "last_active": null,
+          "units": [],
+          "active_requests": [],
+          "transaction": [],
+          "relation": null,
+          "relation_key": null
+        },
+        "meta": []
+      },
+      "timing": 517
+    },
+    "timestamp": "2026-04-12T17:07:20.825Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 3
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Mohammed Al-Saud"
+            },
+            "first_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Mohammed"
+            },
+            "last_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Al-Saud"
+            },
+            "image": {
+              "type": "null",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": false,
+              "example": "owner1@example.com"
+            },
+            "georgian_birthdate": {
+              "type": "null",
+              "nullable": true
+            },
+            "gender": {
+              "type": "null",
+              "nullable": true
+            },
+            "national_id": {
+              "type": "string",
+              "nullable": false,
+              "example": "1122334455"
+            },
+            "phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "+966500000002"
+            },
+            "national_phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "0500000002"
+            },
+            "phone_country_code": {
+              "type": "string",
+              "nullable": false,
+              "example": "SA"
+            },
+            "nationality": {
+              "type": "null",
+              "nullable": true
+            },
+            "created_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-10T22:45:51.000000Z"
+            },
+            "active": {
+              "type": "string",
+              "nullable": false,
+              "example": "1"
+            },
+            "account_creation_date": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-11 01:45 am"
+            },
+            "last_active": {
+              "type": "null",
+              "nullable": true
+            },
+            "units": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "active_requests": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "transaction": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "relation": {
+              "type": "null",
+              "nullable": true
+            },
+            "relation_key": {
+              "type": "null",
+              "nullable": true
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "nullable": false,
+          "example": "تم انشاء المطلوب بنجاح."
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/tenants"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:21 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=iP99FjF63AbEWrwwg%2FylZRRv8CzGnoujU3OFidXs82R4HWShjOoXs4v2qEJiQxr7BP6bRtsK752u3RFXe0pDIvwNnCu5fQ6xUdkPmEltS4jL0s9gs5UnnZEvWKjK5gEOj%2BZTSR3RABp%2BBqSk\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3a89c3ff0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 23,
+            "name": "Test Company2gno84",
+            "image": null,
+            "phone_number": "+966542870128",
+            "invited": "0",
+            "created_at": "2026-04-12T16:48:49.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 22,
+            "name": "Test Tenant1jeq4n",
+            "image": null,
+            "phone_number": "+966572882294",
+            "invited": "0",
+            "created_at": "2026-04-12T16:48:48.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 21,
+            "name": "Test Company4owwc4",
+            "image": null,
+            "phone_number": "+966508827826",
+            "invited": "0",
+            "created_at": "2026-04-12T15:21:50.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 20,
+            "name": "Test Tenant4ovw8r",
+            "image": null,
+            "phone_number": "+966581882487",
+            "invited": "0",
+            "created_at": "2026-04-12T15:21:49.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 19,
+            "name": "Test Company28ovdw",
+            "image": null,
+            "phone_number": "+966541818341",
+            "invited": "0",
+            "created_at": "2026-04-12T11:19:55.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 18,
+            "name": "Test Tenant1gvpjx",
+            "image": null,
+            "phone_number": "+966530186894",
+            "invited": "0",
+            "created_at": "2026-04-12T11:19:54.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 16,
+            "name": "Test Tenant42n8q7",
+            "image": null,
+            "phone_number": "+966502076827",
+            "invited": "0",
+            "created_at": "2026-04-12T11:10:28.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 17,
+            "name": "Test Company0cnb92",
+            "image": null,
+            "phone_number": "+966585373500",
+            "invited": "0",
+            "created_at": "2026-04-12T11:10:28.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 15,
+            "name": "Test Company85w1i8",
+            "image": null,
+            "phone_number": "+966591003666",
+            "invited": "0",
+            "created_at": "2026-04-12T09:45:31.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 14,
+            "name": "Test Company2o0wu6",
+            "image": null,
+            "phone_number": "+966554545343",
+            "invited": "0",
+            "created_at": "2026-04-12T09:02:10.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 13,
+            "name": "Test Tenant22t0ql",
+            "image": null,
+            "phone_number": "+966509402218",
+            "invited": "0",
+            "created_at": "2026-04-12T09:02:09.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 11,
+            "name": "Test Tenant4ke3n2",
+            "image": null,
+            "phone_number": "+966504090394",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:46.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 12,
+            "name": "Test Company68chfi",
+            "image": null,
+            "phone_number": "+966566423387",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:46.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 10,
+            "name": "Test Tenant1cv4w8",
+            "image": null,
+            "phone_number": "+966536148801",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:45.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 9,
+            "name": "Test Company6wh137",
+            "image": null,
+            "phone_number": "+966563326235",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:02.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 8,
+            "name": "Test Company3fa2tb",
+            "image": null,
+            "phone_number": "+966588009072",
+            "invited": "0",
+            "created_at": "2026-04-12T08:32:13.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 7,
+            "name": "Test Tenant5ol4dr",
+            "image": null,
+            "phone_number": "+966533977107",
+            "invited": "0",
+            "created_at": "2026-04-12T08:31:01.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 6,
+            "name": "Test Company9bd5k5",
+            "image": null,
+            "phone_number": "+966593475494",
+            "invited": "0",
+            "created_at": "2026-04-12T08:05:37.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 5,
+            "name": "Test Company4byxnc",
+            "image": null,
+            "phone_number": "+966538084496",
+            "invited": "0",
+            "created_at": "2026-04-12T08:01:56.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 4,
+            "name": "Khalid Test",
+            "image": null,
+            "phone_number": "+966512345678",
+            "invited": "0",
+            "created_at": "2026-04-10T23:32:52.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          }
+        ],
+        "meta": []
+      },
+      "timing": 418
+    },
+    "timestamp": "2026-04-12T17:07:21.294Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 23
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Company2gno84"
+              },
+              "image": {
+                "type": "null",
+                "nullable": true
+              },
+              "phone_number": {
+                "type": "string",
+                "nullable": false,
+                "example": "+966542870128"
+              },
+              "invited": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-12T16:48:49.000000Z"
+              },
+              "units": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "accepted_invite": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/tenants",
+      "params": {
+        "page": 1,
+        "per_page": 10
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:21 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zUyEVW3sZRyfvfuWZdtfAIfr77mWi7fE%2FImnbkLaFyI0NFaJqVNciBNs2KCXXzgP%2BQWr8liU0yD0QFyvVX4FwjYUfZVd2y2wwO2QQMq3T7Kz8ZeHEUEP0TkpQx2PJMejEjAyLHhxsUCMatMk\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3ac0cf9f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 23,
+            "name": "Test Company2gno84",
+            "image": null,
+            "phone_number": "+966542870128",
+            "invited": "0",
+            "created_at": "2026-04-12T16:48:49.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 22,
+            "name": "Test Tenant1jeq4n",
+            "image": null,
+            "phone_number": "+966572882294",
+            "invited": "0",
+            "created_at": "2026-04-12T16:48:48.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 21,
+            "name": "Test Company4owwc4",
+            "image": null,
+            "phone_number": "+966508827826",
+            "invited": "0",
+            "created_at": "2026-04-12T15:21:50.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 20,
+            "name": "Test Tenant4ovw8r",
+            "image": null,
+            "phone_number": "+966581882487",
+            "invited": "0",
+            "created_at": "2026-04-12T15:21:49.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 19,
+            "name": "Test Company28ovdw",
+            "image": null,
+            "phone_number": "+966541818341",
+            "invited": "0",
+            "created_at": "2026-04-12T11:19:55.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 18,
+            "name": "Test Tenant1gvpjx",
+            "image": null,
+            "phone_number": "+966530186894",
+            "invited": "0",
+            "created_at": "2026-04-12T11:19:54.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 16,
+            "name": "Test Tenant42n8q7",
+            "image": null,
+            "phone_number": "+966502076827",
+            "invited": "0",
+            "created_at": "2026-04-12T11:10:28.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 17,
+            "name": "Test Company0cnb92",
+            "image": null,
+            "phone_number": "+966585373500",
+            "invited": "0",
+            "created_at": "2026-04-12T11:10:28.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 15,
+            "name": "Test Company85w1i8",
+            "image": null,
+            "phone_number": "+966591003666",
+            "invited": "0",
+            "created_at": "2026-04-12T09:45:31.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 14,
+            "name": "Test Company2o0wu6",
+            "image": null,
+            "phone_number": "+966554545343",
+            "invited": "0",
+            "created_at": "2026-04-12T09:02:10.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 13,
+            "name": "Test Tenant22t0ql",
+            "image": null,
+            "phone_number": "+966509402218",
+            "invited": "0",
+            "created_at": "2026-04-12T09:02:09.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 11,
+            "name": "Test Tenant4ke3n2",
+            "image": null,
+            "phone_number": "+966504090394",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:46.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 12,
+            "name": "Test Company68chfi",
+            "image": null,
+            "phone_number": "+966566423387",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:46.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 10,
+            "name": "Test Tenant1cv4w8",
+            "image": null,
+            "phone_number": "+966536148801",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:45.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 9,
+            "name": "Test Company6wh137",
+            "image": null,
+            "phone_number": "+966563326235",
+            "invited": "0",
+            "created_at": "2026-04-12T09:01:02.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 8,
+            "name": "Test Company3fa2tb",
+            "image": null,
+            "phone_number": "+966588009072",
+            "invited": "0",
+            "created_at": "2026-04-12T08:32:13.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 7,
+            "name": "Test Tenant5ol4dr",
+            "image": null,
+            "phone_number": "+966533977107",
+            "invited": "0",
+            "created_at": "2026-04-12T08:31:01.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 6,
+            "name": "Test Company9bd5k5",
+            "image": null,
+            "phone_number": "+966593475494",
+            "invited": "0",
+            "created_at": "2026-04-12T08:05:37.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 5,
+            "name": "Test Company4byxnc",
+            "image": null,
+            "phone_number": "+966538084496",
+            "invited": "0",
+            "created_at": "2026-04-12T08:01:56.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          },
+          {
+            "id": 4,
+            "name": "Khalid Test",
+            "image": null,
+            "phone_number": "+966512345678",
+            "invited": "0",
+            "created_at": "2026-04-10T23:32:52.000000Z",
+            "units": [],
+            "accepted_invite": 0
+          }
+        ],
+        "meta": []
+      },
+      "timing": 611
+    },
+    "timestamp": "2026-04-12T17:07:21.964Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 23
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Company2gno84"
+              },
+              "image": {
+                "type": "null",
+                "nullable": true
+              },
+              "phone_number": {
+                "type": "string",
+                "nullable": false,
+                "example": "+966542870128"
+              },
+              "invited": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-12T16:48:49.000000Z"
+              },
+              "units": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "accepted_invite": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/tenants/23"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:22 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=K7z%2FwxAjAV8yMYviCnqhKHhMgT8qeYBVC0POCiFr4rUFJsk5LX8g0FG5vkVVw8cSapPrwhKryirf0R6pbB9%2Bvt901OjZLFL%2FVqD0Ox3hOzbmgvr%2BLxX1S0up43%2BYeYPX%2FXABKsUXmluHP%2FfR\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3af9da6f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": {
+          "id": 23,
+          "name": "Test Company2gno84",
+          "first_name": "Test",
+          "last_name": "Company2gno84",
+          "image": null,
+          "email": "company2gno84@example.com",
+          "georgian_birthdate": null,
+          "gender": null,
+          "national_id": null,
+          "phone_number": "+966542870128",
+          "national_phone_number": "0542870128",
+          "phone_country_code": "SA",
+          "nationality": null,
+          "created_at": "2026-04-12T16:48:49.000000Z",
+          "active": "1",
+          "account_creation_date": "2026-04-12 19:48 pm",
+          "last_active": null,
+          "units": [],
+          "leases": [],
+          "active_requests": [],
+          "transaction": [],
+          "relation": null,
+          "relation_key": null,
+          "documents": [],
+          "source": null,
+          "accepted_invite": 0
+        },
+        "meta": []
+      },
+      "timing": 409
+    },
+    "timestamp": "2026-04-12T17:07:22.435Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 23
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Test Company2gno84"
+            },
+            "first_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Test"
+            },
+            "last_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Company2gno84"
+            },
+            "image": {
+              "type": "null",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": false,
+              "example": "company2gno84@example.com"
+            },
+            "georgian_birthdate": {
+              "type": "null",
+              "nullable": true
+            },
+            "gender": {
+              "type": "null",
+              "nullable": true
+            },
+            "national_id": {
+              "type": "null",
+              "nullable": true
+            },
+            "phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "+966542870128"
+            },
+            "national_phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "0542870128"
+            },
+            "phone_country_code": {
+              "type": "string",
+              "nullable": false,
+              "example": "SA"
+            },
+            "nationality": {
+              "type": "null",
+              "nullable": true
+            },
+            "created_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-12T16:48:49.000000Z"
+            },
+            "active": {
+              "type": "string",
+              "nullable": false,
+              "example": "1"
+            },
+            "account_creation_date": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-12 19:48 pm"
+            },
+            "last_active": {
+              "type": "null",
+              "nullable": true
+            },
+            "units": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "leases": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "active_requests": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "transaction": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "relation": {
+              "type": "null",
+              "nullable": true
+            },
+            "relation_key": {
+              "type": "null",
+              "nullable": true
+            },
+            "documents": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "source": {
+              "type": "null",
+              "nullable": true
+            },
+            "accepted_invite": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "nullable": false,
+          "example": "تم انشاء المطلوب بنجاح."
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/admins"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:22 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=tg39oBKp7E6n%2FW7162%2BqTdGY9tFCgTp9lBuvIawdC1PhAYA0yaYnMOtgPWcilJdK1xngYWYBz6D9UbOwRwBEfDP4OocvbWyqcHYT4rvqekHqU3s57ll3YzK6BzNP91O%2BU%2FzshSncIm9X5GM%2F\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3b2fd64f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 2,
+            "name": "Atar Support",
+            "image": null,
+            "phone_number": "+966502879676",
+            "phone_country_code": "SA",
+            "national_id": null,
+            "email": "info@goatar.com",
+            "role": "Admins",
+            "created_at": "2026-04-10T06:09:54.000000Z",
+            "types": []
+          },
+          {
+            "id": 1,
+            "name": "Test User",
+            "image": null,
+            "phone_number": "+966555123456",
+            "phone_country_code": "SA",
+            "national_id": "1234567890",
+            "email": "test@example.com",
+            "role": "accountAdmins",
+            "created_at": "2026-04-10T06:09:27.000000Z",
+            "types": []
+          }
+        ],
+        "meta": []
+      },
+      "timing": 328
+    },
+    "timestamp": "2026-04-12T17:07:22.879Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 2
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Atar Support"
+              },
+              "image": {
+                "type": "null",
+                "nullable": true
+              },
+              "phone_number": {
+                "type": "string",
+                "nullable": false,
+                "example": "+966502879676"
+              },
+              "phone_country_code": {
+                "type": "string",
+                "nullable": false,
+                "example": "SA"
+              },
+              "national_id": {
+                "type": "null",
+                "nullable": true
+              },
+              "email": {
+                "type": "string",
+                "nullable": false,
+                "example": "info@goatar.com"
+              },
+              "role": {
+                "type": "string",
+                "nullable": false,
+                "example": "Admins"
+              },
+              "created_at": {
+                "type": "string",
+                "nullable": false,
+                "example": "2026-04-10T06:09:54.000000Z"
+              },
+              "types": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/admins/2"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:23 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Ti7Buo0GO60YTFVKBGIYhvq%2BQIX48L0NPsATUF9HXsW6xC3mzOgnXNbm2Y0Y4KA1hI%2FubecNwNzQ57JdIG7T0k5nSeL72k83ACrPyjLRtKqBOpdLVu2QK4YNXk7s7SoRPZ7H930jmlqYm%2FOu\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3b52aaaf0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم انشاء المطلوب بنجاح.",
+        "data": {
+          "id": 2,
+          "name": "Atar Support",
+          "first_name": "Atar",
+          "last_name": "Support",
+          "image": null,
+          "email": "info@goatar.com",
+          "georgian_birthdate": null,
+          "gender": null,
+          "national_id": null,
+          "full_phone_number": "+966502879676",
+          "phone_number": "0502879676",
+          "phone_country_code": "SA",
+          "nationality": null,
+          "role": "Admins",
+          "selects": {
+            "is_all_buildings": null,
+            "is_all_communities": null
+          },
+          "created_at": "2026-04-10T06:09:54.000000Z",
+          "last_login_at": null,
+          "active": "1",
+          "types": []
+        },
+        "meta": []
+      },
+      "timing": 330
+    },
+    "timestamp": "2026-04-12T17:07:23.266Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 2
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Atar Support"
+            },
+            "first_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Atar"
+            },
+            "last_name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Support"
+            },
+            "image": {
+              "type": "null",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": false,
+              "example": "info@goatar.com"
+            },
+            "georgian_birthdate": {
+              "type": "null",
+              "nullable": true
+            },
+            "gender": {
+              "type": "null",
+              "nullable": true
+            },
+            "national_id": {
+              "type": "null",
+              "nullable": true
+            },
+            "full_phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "+966502879676"
+            },
+            "phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "0502879676"
+            },
+            "phone_country_code": {
+              "type": "string",
+              "nullable": false,
+              "example": "SA"
+            },
+            "nationality": {
+              "type": "null",
+              "nullable": true
+            },
+            "role": {
+              "type": "string",
+              "nullable": false,
+              "example": "Admins"
+            },
+            "selects": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "is_all_buildings": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "is_all_communities": {
+                  "type": "null",
+                  "nullable": true
+                }
+              }
+            },
+            "created_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-10T06:09:54.000000Z"
+            },
+            "last_login_at": {
+              "type": "null",
+              "nullable": true
+            },
+            "active": {
+              "type": "string",
+              "nullable": false,
+              "example": "1"
+            },
+            "types": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "nullable": false,
+          "example": "تم انشاء المطلوب بنجاح."
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/admins/manager-roles"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:23 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=clD4m%2BPeKIP004NcawSvgA1jYsz114o2hvz1UmMqps8vy83xoziCa4n1n5ITyhSsr%2FqLq8O2W1dp0Mm4zdeLl7eS8K%2Bk28%2Bbo051AJqo4I4oMvnLYxgPGbwVXryxdsIzEzDsEPoCJMc7cAIy\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3b78841f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [
+          {
+            "id": 1,
+            "role": "Admins",
+            "name_ar": "مدير",
+            "name_en": "Admin",
+            "types": null
+          },
+          {
+            "id": 2,
+            "role": "accountingManagers",
+            "name_ar": "مسؤول المالي",
+            "name_en": "Accounting Manager",
+            "types": null
+          },
+          {
+            "id": 3,
+            "role": "serviceManagers",
+            "name_ar": "مسؤول الخدمات",
+            "name_en": "Service Manager",
+            "types": [
+              {
+                "id": 1,
+                "name": "طلبات خدمات المنازل"
+              },
+              {
+                "id": 2,
+                "name": "طلبات خدمات المناطق المشتركة"
+              },
+              {
+                "id": 3,
+                "name": "طلبات دخول الزوار"
+              },
+              {
+                "id": 5,
+                "name": "طلبات الحجوزات للمرافق"
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "role": "marketingManagers",
+            "name_ar": "مسؤول التسويق",
+            "name_en": "Marketing Manager",
+            "types": null
+          },
+          {
+            "id": 5,
+            "role": "salesAndLeasingManagers",
+            "name_ar": "مسؤول المبيعات والتأجير",
+            "name_en": "Sales & Leasing Manager",
+            "types": null
+          }
+        ],
+        "meta": []
+      },
+      "timing": 352
+    },
+    "timestamp": "2026-04-12T17:07:23.667Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "role": {
+                "type": "string",
+                "nullable": false,
+                "example": "Admins"
+              },
+              "name_ar": {
+                "type": "string",
+                "nullable": false,
+                "example": "مدير"
+              },
+              "name_en": {
+                "type": "string",
+                "nullable": false,
+                "example": "Admin"
+              },
+              "types": {
+                "type": "null",
+                "nullable": true
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/professionals"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:24 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=XcTt4K464CXorDKifR80BE34RWb81AmBzat50SIU0kTAk%2BClkuUpq58yGiY8sQ8cfEV%2Fpsx5%2BWG%2BLFaK8lWdFJ1egam%2BpagyRDqPjKa1XAE%2BMd1Fp8LXYBlgwvcnlFz%2BuLDX671X9QhrD2NN\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d3ba5ee8f0de-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      },
+      "timing": 282
+    },
+    "timestamp": "2026-04-12T17:07:24.049Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": true,
+            "properties": {}
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  }
+]

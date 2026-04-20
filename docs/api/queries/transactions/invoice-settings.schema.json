@@ -1,0 +1,69 @@
+{
+  "endpoint": "invoice-settings",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object",
+        "nullable": false,
+        "properties": {
+          "id": {
+            "type": "number",
+            "nullable": false,
+            "example": 1
+          },
+          "company_name": {
+            "type": "string",
+            "nullable": false,
+            "example": "testbusiness123"
+          },
+          "logo": {
+            "type": "null",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": false,
+            "example": "testbusiness123"
+          },
+          "vat": {
+            "type": "string",
+            "nullable": false,
+            "example": "15.00"
+          },
+          "instructions": {
+            "type": "null",
+            "nullable": true
+          },
+          "notes": {
+            "type": "null",
+            "nullable": true
+          },
+          "vat_number": {
+            "type": "null",
+            "nullable": true
+          },
+          "cr_number": {
+            "type": "null",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "meta": {
+      "hasPagination": false
+    }
+  },
+  "sample": {
+    "id": 1,
+    "company_name": "testbusiness123",
+    "logo": null,
+    "address": "testbusiness123",
+    "vat": "15.00",
+    "instructions": null,
+    "notes": null,
+    "vat_number": null,
+    "cr_number": null
+  }
+}

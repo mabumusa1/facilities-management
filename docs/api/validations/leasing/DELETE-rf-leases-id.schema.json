@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/delete-rf-leases-{id}.schema.json",
+  "title": "DELETE rf/leases/{id}",
+  "description": "Request body schema for DELETE rf/leases/{id}",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": true
+}

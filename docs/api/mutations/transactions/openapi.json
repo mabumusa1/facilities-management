@@ -1,0 +1,364 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Atar API - transactions Module",
+    "version": "1.0.0",
+    "description": "API documentation for the transactions module of the Atar property management platform."
+  },
+  "servers": [
+    {
+      "url": "https://api.goatar.com/api-management/",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "rf/transactions": {
+      "post": {
+        "operationId": "post_rf_transactions",
+        "summary": "POST rf/transactions",
+        "tags": [
+          "transactions"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The POST method is not supported for this route. Supported methods: GET, HEAD."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/transactions/1": {
+      "put": {
+        "operationId": "put_rf_transactions_1",
+        "summary": "PUT rf/transactions/1",
+        "tags": [
+          "transactions"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "description": "Updated transaction 1776012543488"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/transactions/2": {
+      "delete": {
+        "operationId": "delete_rf_transactions_2",
+        "summary": "DELETE rf/transactions/2",
+        "tags": [
+          "transactions"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "invoice-settings": {
+      "put": {
+        "operationId": "put_invoice_settings",
+        "summary": "PUT invoice-settings",
+        "tags": [
+          "transactions"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD, POST."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "auto_generate": {
+                    "type": "boolean"
+                  },
+                  "prefix": {
+                    "type": "string"
+                  },
+                  "due_days": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "auto_generate": true,
+                    "prefix": "INV-",
+                    "due_days": 30
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "post_invoice_settings",
+        "summary": "POST invoice-settings",
+        "tags": [
+          "transactions"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "company_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "address": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "vat": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "company_name": [
+                          "الحقل company name مطلوب."
+                        ],
+                        "address": [
+                          "الحقل العنوان مطلوب."
+                        ],
+                        "vat": [
+                          "الحقل vat مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "tenantHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Tenant"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [],
+      "tenantHeader": []
+    }
+  ]
+}

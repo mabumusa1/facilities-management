@@ -1,0 +1,163 @@
+{
+  "endpoint": "rf/facilities",
+  "method": "POST",
+  "fields": {
+    "name_ar": {
+      "field": "name_ar",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل name ar مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "name_en": {
+      "field": "name_en",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل name en مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "days": {
+      "field": "days",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل days مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "booking_type": {
+      "field": "booking_type",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل booking type مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "complex_id": {
+      "field": "complex_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل complex id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "gender": {
+      "field": "gender",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل النوع مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "approved": {
+      "field": "approved",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل approved مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "approved",
+    "booking_type",
+    "complex_id",
+    "days",
+    "gender",
+    "name_ar",
+    "name_en"
+  ],
+  "optionalFields": []
+}

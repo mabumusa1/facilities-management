@@ -1,0 +1,109 @@
+{
+  "endpoint": "rf/admins",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 2
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Atar Support"
+            },
+            "image": {
+              "type": "null",
+              "nullable": true
+            },
+            "phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "+966502879676"
+            },
+            "phone_country_code": {
+              "type": "string",
+              "nullable": false,
+              "example": "SA"
+            },
+            "national_id": {
+              "type": "null",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": false,
+              "example": "info@goatar.com"
+            },
+            "role": {
+              "type": "string",
+              "nullable": false,
+              "example": "Admins"
+            },
+            "created_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-10T06:09:54.000000Z"
+            },
+            "types": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "mixed",
+          "nullable": true
+        },
+        "example": []
+      }
+    },
+    "meta": {
+      "hasPagination": true
+    }
+  },
+  "sample": [
+    {
+      "id": 2,
+      "name": "Atar Support",
+      "image": null,
+      "phone_number": "+966502879676",
+      "phone_country_code": "SA",
+      "national_id": null,
+      "email": "info@goatar.com",
+      "role": "Admins",
+      "created_at": "2026-04-10T06:09:54.000000Z",
+      "types": []
+    },
+    {
+      "id": 1,
+      "name": "Test User",
+      "image": null,
+      "phone_number": "+966555123456",
+      "phone_country_code": "SA",
+      "national_id": "1234567890",
+      "email": "test@example.com",
+      "role": "accountAdmins",
+      "created_at": "2026-04-10T06:09:27.000000Z",
+      "types": []
+    }
+  ]
+}

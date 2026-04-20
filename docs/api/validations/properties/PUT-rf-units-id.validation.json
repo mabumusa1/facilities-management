@@ -1,0 +1,97 @@
+{
+  "endpoint": "rf/units/{id}",
+  "method": "PUT",
+  "fields": {
+    "category_id": {
+      "field": "category_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل category id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "type_id": {
+      "field": "type_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل type id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "rf_community_id": {
+      "field": "rf_community_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل rf community id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "name": {
+      "field": "name",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل الاسم مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "category_id",
+    "name",
+    "rf_community_id",
+    "type_id"
+  ],
+  "optionalFields": []
+}

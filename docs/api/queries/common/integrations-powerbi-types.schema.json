@@ -1,0 +1,83 @@
+{
+  "endpoint": "integrations/powerbi/types",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 5
+            },
+            "title": {
+              "type": "string",
+              "nullable": false,
+              "example": "التقارير المالية"
+            },
+            "comming_soon": {
+              "type": "string",
+              "nullable": false,
+              "example": "1"
+            },
+            "is_active": {
+              "type": "string",
+              "nullable": false,
+              "example": "1"
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "mixed",
+          "nullable": true
+        },
+        "example": []
+      }
+    },
+    "meta": {
+      "hasPagination": true
+    }
+  },
+  "sample": [
+    {
+      "id": 5,
+      "title": "التقارير المالية",
+      "comming_soon": "1",
+      "is_active": "1"
+    },
+    {
+      "id": 2,
+      "title": "تقارير التأجير",
+      "comming_soon": "1",
+      "is_active": "1"
+    },
+    {
+      "id": 4,
+      "title": "تقارير العقارات",
+      "comming_soon": "1",
+      "is_active": "1"
+    },
+    {
+      "id": 3,
+      "title": "تقارير المبيعات",
+      "comming_soon": "1",
+      "is_active": "1"
+    },
+    {
+      "id": 1,
+      "title": "تقارير الطلبات",
+      "comming_soon": "1",
+      "is_active": "1"
+    }
+  ]
+}

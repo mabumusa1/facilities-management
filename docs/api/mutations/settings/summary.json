@@ -1,0 +1,46 @@
+{
+  "module": "settings",
+  "generatedAt": "2026-04-12T16:49:03.065Z",
+  "totalCaptures": 10,
+  "successCount": 1,
+  "errorCount": 9,
+  "successRate": "10.0%",
+  "endpoints": {
+    "POST rf/announcements": {
+      "method": "POST",
+      "success": 0,
+      "error": 3,
+      "avgTiming": 473.3333333333333
+    },
+    "PUT rf/announcements/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 388
+    },
+    "DELETE rf/announcements/99999": {
+      "method": "DELETE",
+      "success": 1,
+      "error": 0,
+      "avgTiming": 378
+    },
+    "POST notifications/mark-all-as-read": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 277
+    },
+    "POST rf/facilities": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 356.5
+    },
+    "POST rf/requests/service-settings/updateOrCreate": {
+      "method": "POST",
+      "success": 0,
+      "error": 2,
+      "avgTiming": 326
+    }
+  }
+}

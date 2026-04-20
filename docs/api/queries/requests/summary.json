@@ -1,0 +1,223 @@
+{
+  "module": "requests",
+  "endpointCount": 3,
+  "endpoints": [
+    {
+      "endpoint": "rf/requests/categories",
+      "method": "GET",
+      "responseType": "list",
+      "hasPagination": true,
+      "fieldCount": 8,
+      "fields": [
+        "id",
+        "name",
+        "description",
+        "status",
+        "has_sub_categories",
+        "sub_categories",
+        "serviceSettings",
+        "icon"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "name": "خدمات الوحدات",
+        "description": "للخدمات الخاصة بالوحدات",
+        "status": "1",
+        "has_sub_categories": "1",
+        "sub_categories": [
+          {
+            "id": 1,
+            "name": "صيانة",
+            "icon": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "status": "1"
+          },
+          {
+            "id": 2,
+            "name": "تنظيف المنزل",
+            "icon": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "status": "1"
+          },
+          {
+            "id": 3,
+            "name": "غسيل السيارات",
+            "icon": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "status": "1"
+          },
+          {
+            "id": 4,
+            "name": "الأجهزة الكهربائية",
+            "icon": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "status": "1"
+          },
+          {
+            "id": 5,
+            "name": "إصلاح الأثاث",
+            "icon": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "status": "1"
+          },
+          {
+            "id": 6,
+            "name": "خدمات أخرى",
+            "icon": {
+              "id": 6,
+              "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+              "name": "6",
+              "notes": "predefined"
+            },
+            "status": "1"
+          }
+        ],
+        "serviceSettings": {
+          "visibilities": {
+            "hide_resident_number": false,
+            "hide_resident_name": false,
+            "hide_professional_number_and_name": false,
+            "show_unified_number_only": false
+          },
+          "permissions": {
+            "manager_close_Request": false,
+            "not_require_professional_enter_request_code": false,
+            "not_require_professional_upload_request_photo": false,
+            "attachments_required": false,
+            "allow_professional_reschedule": false
+          },
+          "submit_request_before_type": null,
+          "submit_request_before_value": null,
+          "capacity_type": null,
+          "capacity_value": null
+        },
+        "icon": {
+          "id": "1",
+          "url": "https://storage.googleapis.com/prod-pms-bucket/icons/rf_categories_icons/1.png",
+          "name": "1.png",
+          "notes": "predefined"
+        }
+      }
+    },
+    {
+      "endpoint": "rf/requests/sub-categories",
+      "method": "GET",
+      "responseType": "list",
+      "hasPagination": true,
+      "fieldCount": 14,
+      "fields": [
+        "id",
+        "name_ar",
+        "name_en",
+        "name",
+        "start",
+        "end",
+        "is_all_day",
+        "working_days",
+        "status",
+        "requests_count",
+        "types_count",
+        "request",
+        "icon",
+        "terms_and_conditions"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "name_ar": "صيانة",
+        "name_en": "Maintenance",
+        "name": "صيانة",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": null,
+        "status": "1",
+        "requests_count": 0,
+        "types_count": 6,
+        "request": [],
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      }
+    },
+    {
+      "endpoint": "rf/requests/sub-categories/1",
+      "method": "GET",
+      "responseType": "detail",
+      "hasPagination": false,
+      "fieldCount": 15,
+      "fields": [
+        "id",
+        "name_ar",
+        "name_en",
+        "name",
+        "start",
+        "end",
+        "is_all_day",
+        "working_days",
+        "status",
+        "requests_count",
+        "request",
+        "selects",
+        "featured",
+        "icon",
+        "terms_and_conditions"
+      ],
+      "sampleResponse": {
+        "id": 1,
+        "name_ar": "صيانة",
+        "name_en": "Maintenance",
+        "name": "صيانة",
+        "start": null,
+        "end": null,
+        "is_all_day": null,
+        "working_days": [],
+        "status": "1",
+        "requests_count": 0,
+        "request": [],
+        "selects": {
+          "buildings": {
+            "data": [],
+            "count": 0
+          },
+          "communities": {
+            "data": [],
+            "count": 0
+          }
+        },
+        "featured": [],
+        "icon": {
+          "id": 6,
+          "url": "https://storage.googleapis.com/prod-pms-bucket/6",
+          "name": "6",
+          "notes": "predefined"
+        },
+        "terms_and_conditions": null
+      }
+    }
+  ],
+  "capturedAt": "2026-04-12T17:08:03.301Z"
+}

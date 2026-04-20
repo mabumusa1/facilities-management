@@ -1,0 +1,53 @@
+{
+  "endpoint": "rf/leases/change-status/move-out",
+  "method": "POST",
+  "fields": {
+    "rf_lease_id": {
+      "field": "rf_lease_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل rf lease id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "end_at": {
+      "field": "end_at",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل end at مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "end_at",
+    "rf_lease_id"
+  ],
+  "optionalFields": []
+}

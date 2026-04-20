@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-requests-change-status-canceled.schema.json",
+  "title": "POST rf/requests/change-status/canceled",
+  "description": "Request body schema for POST rf/requests/change-status/canceled",
+  "type": "object",
+  "properties": {
+    "rf_request_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "rf_request_id"
+  ],
+  "additionalProperties": true
+}

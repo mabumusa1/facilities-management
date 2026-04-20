@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-marketplace-admin-settings-visits-store.schema.json",
+  "title": "POST marketplace/admin/settings/visits/store",
+  "description": "Request body schema for POST marketplace/admin/settings/visits/store",
+  "type": "object",
+  "properties": {
+    "days.0": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يجب أن يكون الحقل days.0 نصآ.; الحقل days.0 غير صحيح",
+      "examples": [
+        "example"
+      ]
+    },
+    "days.1": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يجب أن يكون الحقل days.1 نصآ.; الحقل days.1 غير صحيح",
+      "examples": [
+        "example"
+      ]
+    },
+    "days.2": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يجب أن يكون الحقل days.2 نصآ.; الحقل days.2 غير صحيح",
+      "examples": [
+        "example"
+      ]
+    },
+    "days.3": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يجب أن يكون الحقل days.3 نصآ.; الحقل days.3 غير صحيح",
+      "examples": [
+        "example"
+      ]
+    },
+    "days.4": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يجب أن يكون الحقل days.4 نصآ.; الحقل days.4 غير صحيح",
+      "examples": [
+        "example"
+      ]
+    },
+    "is_all_day": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "days": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "days",
+    "is_all_day"
+  ],
+  "additionalProperties": true
+}

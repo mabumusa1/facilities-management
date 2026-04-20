@@ -1,0 +1,542 @@
+{
+  "endpoint": "rf/communities",
+  "method": "GET",
+  "params": {
+    "page": 1,
+    "per_page": 10
+  },
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 15
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Updated Community 1776012522795"
+            },
+            "city": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الرياض"
+                }
+              }
+            },
+            "district": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الدرعية"
+                }
+              }
+            },
+            "sales_commission_rate": {
+              "type": "string",
+              "nullable": false,
+              "example": "0.00"
+            },
+            "rental_commission_rate": {
+              "type": "string",
+              "nullable": false,
+              "example": "0.00"
+            },
+            "buildings_count": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            },
+            "units_count": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            },
+            "map": {
+              "type": "null",
+              "nullable": true
+            },
+            "images": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "is_selected_property": {
+              "type": "boolean",
+              "nullable": false,
+              "example": false
+            },
+            "count_selected_property": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "requests_count": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            },
+            "total_income": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "is_market_place": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            },
+            "is_buy": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "community_marketplace_type": {
+              "type": "string",
+              "nullable": false,
+              "example": "rent"
+            },
+            "is_off_plan_sale": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "mixed",
+          "nullable": true
+        },
+        "example": []
+      }
+    },
+    "meta": {
+      "hasPagination": true
+    }
+  },
+  "sample": [
+    {
+      "id": 15,
+      "name": "Updated Community 1776012522795",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 14,
+      "name": "Updated Community 1776007315589",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 13,
+      "name": "Updated Community 1775992807546",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 12,
+      "name": "Updated Community 1775992241067",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 11,
+      "name": "Test Community 1775987149060etg23",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 10,
+      "name": "Updated Community 1775987144471",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 9,
+      "name": "Updated Community 1775984545700",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 8,
+      "name": "Updated Community 1775984473535",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 7,
+      "name": "Updated Community 1775982746126",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 6,
+      "name": "Updated Community 1775982674517",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 5,
+      "name": "Updated Community 1775981141944",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 4,
+      "name": "Updated Community 1775980921530",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 3,
+      "name": "Updated Community 1775980887023",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 2,
+      "name": "Updated Community 1775980861731",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "0",
+      "units_count": "0",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    {
+      "id": 1,
+      "name": "Test Community 1",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": "4",
+      "units_count": "3",
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": "0",
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    }
+  ]
+}

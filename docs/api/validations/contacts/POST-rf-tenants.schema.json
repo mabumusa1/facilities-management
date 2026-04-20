@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-tenants.schema.json",
+  "title": "POST rf/tenants",
+  "description": "Request body schema for POST rf/tenants",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "last_name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "phone_country_code": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "phone_number": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "phone_country_code",
+    "phone_number"
+  ],
+  "additionalProperties": true
+}

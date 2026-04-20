@@ -1,0 +1,77 @@
+{
+  "endpoint": "rf/owners",
+  "method": "GET",
+  "params": {
+    "search": "test"
+  },
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 3
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Mohammed Al-Saud"
+            },
+            "image": {
+              "type": "null",
+              "nullable": true
+            },
+            "phone_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "+966500000002"
+            },
+            "created_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-10T22:45:51.000000Z"
+            },
+            "units": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "mixed",
+          "nullable": true
+        },
+        "example": []
+      }
+    },
+    "meta": {
+      "hasPagination": true
+    }
+  },
+  "sample": [
+    {
+      "id": 3,
+      "name": "Mohammed Al-Saud",
+      "image": null,
+      "phone_number": "+966500000002",
+      "created_at": "2026-04-10T22:45:51.000000Z",
+      "units": []
+    }
+  ]
+}

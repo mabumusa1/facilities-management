@@ -1,0 +1,758 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/announcements",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:56 GMT",
+        "content-type": "application/json",
+        "content-length": "915",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "c8ed0bca3586805d330c14d71ff3e5b5",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WNtzG9yY7qEQxl4gJ1sK8bY7PvG9iBwGPiP%2FQKxvDhcUcluuquLkNGzhFk%2FJIXVScBnFuA36M9aORuvxh5jAlAaH%2BSjyVoope5nrMLb4u5pBwQwgVzozIx7f9qED%2BNub5KfmyJfWe2T%2FAXHN\"}]}",
+        "cf-ray": "9eb3b8ad5d6cedca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "title": [
+            "الحقل العنوان مطلوب."
+          ],
+          "description": [
+            "الحقل الوصف مطلوب."
+          ],
+          "is_visible": [
+            "الحقل is visible مطلوب."
+          ],
+          "start_date": [
+            "الحقل start date مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "start_time": [
+            "الحقل start time مطلوب."
+          ],
+          "end_time": [
+            "الحقل end time مطلوب."
+          ],
+          "notify_user_type": [
+            "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+          ]
+        }
+      },
+      "timing": 373
+    },
+    "timestamp": "2026-04-12T16:48:55.894Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "title",
+        "message": "الحقل العنوان مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "description",
+        "message": "الحقل الوصف مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "is_visible",
+        "message": "الحقل is visible مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_date",
+        "message": "الحقل start date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_time",
+        "message": "الحقل start time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_time",
+        "message": "الحقل end time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "notify_user_type",
+        "message": "الحقل notify user type مطلوب إذا لم يتوفّر available for.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/announcements",
+      "body": {
+        "title": "Test Announcement 1776012535968",
+        "content": "This is a test announcement content",
+        "type": "general",
+        "start_date": "2026-04-12"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:56 GMT",
+        "content-type": "application/json",
+        "content-length": "706",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "803c99214645b59a3b081e0832972640",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5D0D2bpKtiYFUzeigWZpID4M8nI4Izol0YP9o9E%2FmpOwpaorJ%2BiBYbIp7I9gnn%2BgrfB4JT8s8AtP1Z%2Fp1y7fVk04s9ISYNYl9%2Fu2GXtU6Puq0m3DhlP4P%2B5cCdFIu4PKt%2BdXYFHIKcTyzxhU\"}]}",
+        "cf-ray": "9eb3b8b0d81eedca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "description": [
+            "الحقل الوصف مطلوب."
+          ],
+          "is_visible": [
+            "الحقل is visible مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "start_time": [
+            "الحقل start time مطلوب."
+          ],
+          "end_time": [
+            "الحقل end time مطلوب."
+          ],
+          "notify_user_type": [
+            "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+          ]
+        }
+      },
+      "timing": 887
+    },
+    "timestamp": "2026-04-12T16:48:56.858Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "description",
+        "message": "الحقل الوصف مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "is_visible",
+        "message": "الحقل is visible مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_time",
+        "message": "الحقل start time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_time",
+        "message": "الحقل end time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "notify_user_type",
+        "message": "الحقل notify user type مطلوب إذا لم يتوفّر available for.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/announcements",
+      "body": {
+        "title": "Test Title Only"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:57 GMT",
+        "content-type": "application/json",
+        "content-length": "797",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "9bb336325ef2ed6c4c0c63f9f225b269",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zkmSsG4hXir%2B8cb2r3A4aAEKbUwrNxPSzNliw%2FBKD0P9dfcFb14SQpc8cE8zyIXOInDwAx%2BSpeBHQE8TUhOBBYT1h%2Bukr7gn%2F16X4sMYfPnd2ea4KGghs5nRfxeA%2BT1d7yTkaFAvhXTspjl2\"}]}",
+        "cf-ray": "9eb3b8b68f69edca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "description": [
+            "الحقل الوصف مطلوب."
+          ],
+          "is_visible": [
+            "الحقل is visible مطلوب."
+          ],
+          "start_date": [
+            "الحقل start date مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "start_time": [
+            "الحقل start time مطلوب."
+          ],
+          "end_time": [
+            "الحقل end time مطلوب."
+          ],
+          "notify_user_type": [
+            "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+          ]
+        }
+      },
+      "timing": 790
+    },
+    "timestamp": "2026-04-12T16:48:57.809Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "description",
+        "message": "الحقل الوصف مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "is_visible",
+        "message": "الحقل is visible مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_date",
+        "message": "الحقل start date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_time",
+        "message": "الحقل start time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_time",
+        "message": "الحقل end time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "notify_user_type",
+        "message": "الحقل notify user type مطلوب إذا لم يتوفّر available for.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/announcements/1",
+      "body": {
+        "title": "Updated Announcement 1776012538472"
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:58 GMT",
+        "content-type": "application/json",
+        "content-length": "797",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-cloud-trace-context": "26ee5cf2c698c8f43b081e0832972efa",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=odaEKVeMWqlJ4iDijfqCgsB1UVIgVr1U%2BQXht%2BI4PA5lKbdDAraBy00ueFDC8T5zGD41FZ5Qz3cASaJzWsnPr5Xm%2B0afw4CzsLHB%2FshJjCs4jlze1suhVptRf%2BPcXh%2Baw0xucWzDTFXf0nmE\"}]}",
+        "cf-ray": "9eb3b8bd6a67edca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "description": [
+            "الحقل الوصف مطلوب."
+          ],
+          "is_visible": [
+            "الحقل is visible مطلوب."
+          ],
+          "start_date": [
+            "الحقل start date مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "start_time": [
+            "الحقل start time مطلوب."
+          ],
+          "end_time": [
+            "الحقل end time مطلوب."
+          ],
+          "notify_user_type": [
+            "الحقل notify user type مطلوب إذا لم يتوفّر available for."
+          ]
+        }
+      },
+      "timing": 388
+    },
+    "timestamp": "2026-04-12T16:48:58.861Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "description",
+        "message": "الحقل الوصف مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "is_visible",
+        "message": "الحقل is visible مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_date",
+        "message": "الحقل start date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_time",
+        "message": "الحقل start time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_time",
+        "message": "الحقل end time مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "notify_user_type",
+        "message": "الحقل notify user type مطلوب إذا لم يتوفّر available for.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "rf/announcements/99999"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:59 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zdLn8focqbgp93glmhUvtkC%2FtgnswNufqtY12BJVwTMYtonjI%2Bxk6CG5JiKtKltFu6YAYLAKqrJJmIhCTiATBPYR7yIpatOkxGLhZKgK%2F1xNE7FAytKTvIGIIZwZtz6LIdRAjjji2a9dSvB6\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3b8c1ffccedca-MXP"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم مسح المطلوب بنجاح.",
+        "data": [],
+        "meta": []
+      },
+      "timing": 378
+    },
+    "timestamp": "2026-04-12T16:48:59.584Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "notifications/mark-all-as-read",
+      "body": {}
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:59 GMT",
+        "content-type": "application/json",
+        "content-length": "104",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, PUT",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "07199b4896441feb217b14f3ca02653a",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0aX6hIT1mZt1BIQpEE2fxc6MPpMyD1JfzQI7Nqpo9lRmWpP3iE2P8%2FU9wLParB0aJsz85zaL%2BV0ihThpQT%2FHUO54bSUNwdb0bIuLaQ0P0%2BgyFUYiItAXyo1xUJqAwwnvsMoGxMDygZL241nX\"}]}",
+        "cf-ray": "9eb3b8c49816edca-MXP"
+      },
+      "body": {
+        "message": "The POST method is not supported for this route. Supported methods: GET, HEAD, PUT."
+      },
+      "timing": 277
+    },
+    "timestamp": "2026-04-12T16:48:59.898Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/facilities",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:49:00 GMT",
+        "content-type": "application/json",
+        "content-length": "681",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "595be153f2f2701d4c0c63f9f225b581",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CTvfHgoabrC1H%2BuNbAvo4DjVlTFibaqcxd3eYbKLAP8XzAdOx4qAZKRn%2FeqEPLqlqC5kMP48oGigtUewTqH%2Biz%2F%2BJpbaEoDULWOfGOzCoSbqgAQIBNNU%2BSlFqKgF4QZhYdfESmcEsCGMDwmY\"}]}",
+        "cf-ray": "9eb3b8c66cf6edca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name_ar": [
+            "الحقل name ar مطلوب."
+          ],
+          "name_en": [
+            "الحقل name en مطلوب."
+          ],
+          "days": [
+            "الحقل days مطلوب."
+          ],
+          "booking_type": [
+            "الحقل booking type مطلوب."
+          ],
+          "complex_id": [
+            "الحقل complex id مطلوب."
+          ],
+          "gender": [
+            "الحقل النوع مطلوب."
+          ],
+          "approved": [
+            "الحقل approved مطلوب."
+          ]
+        }
+      },
+      "timing": 412
+    },
+    "timestamp": "2026-04-12T16:49:00.353Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name_ar",
+        "message": "الحقل name ar مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "name_en",
+        "message": "الحقل name en مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "days",
+        "message": "الحقل days مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "booking_type",
+        "message": "الحقل booking type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "complex_id",
+        "message": "الحقل complex id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "gender",
+        "message": "الحقل النوع مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "approved",
+        "message": "الحقل approved مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/facilities",
+      "body": {
+        "name": "Test Facility 1776012540860",
+        "name_ar": "مرفق اختباري 1776012540860",
+        "type": "amenity",
+        "rf_community_id": 15
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:49:01 GMT",
+        "content-type": "application/json",
+        "content-length": "596",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "66e91774607bc6774c0c63f9f225bf0d",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=AvFr5aFrkqY%2F%2FsJoQxbA4C%2FSCb5QZpQO0xw%2BA5dMO8jJXJcQGpWltvMART5K3u2%2BqCzVWGFhmIjX9plJ3Ky5LpbkITNM8dKVNaU15dBC%2B8dmMGucIlYar5oOFMVOYyIUYv6slhf7cE3yTBg5\"}]}",
+        "cf-ray": "9eb3b8cc2e58edca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "name_en": [
+            "الحقل name en مطلوب."
+          ],
+          "days": [
+            "الحقل days مطلوب."
+          ],
+          "booking_type": [
+            "الحقل booking type مطلوب."
+          ],
+          "complex_id": [
+            "الحقل complex id مطلوب."
+          ],
+          "gender": [
+            "الحقل النوع مطلوب."
+          ],
+          "approved": [
+            "الحقل approved مطلوب."
+          ]
+        }
+      },
+      "timing": 301
+    },
+    "timestamp": "2026-04-12T16:49:01.162Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "name_en",
+        "message": "الحقل name en مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "days",
+        "message": "الحقل days مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "booking_type",
+        "message": "الحقل booking type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "complex_id",
+        "message": "الحقل complex id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "gender",
+        "message": "الحقل النوع مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "approved",
+        "message": "الحقل approved مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/requests/service-settings/updateOrCreate",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:49:01 GMT",
+        "content-type": "application/json",
+        "content-length": "244",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "48666a29eb9ee61e217b14f3ca026b56",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2Byfws7K90f4oleB0uBo7o7dMfy%2FNgnwBFIi3eyFfQfX0kk%2F%2FbJiftUTFhlZhvdcIipKJuptA5VlR52T8qybypCj%2BhCv0Xtzse%2BrzrTSk12xcygL9vr8olvzon2HyrfREhYVHPGhP2jUjXPHg\"}]}",
+        "cf-ray": "9eb3b8ce5ccdedca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rf_category_id": [
+            "الحقل rf category id مطلوب."
+          ],
+          "permissions": [
+            "الحقل permissions مطلوب."
+          ]
+        }
+      },
+      "timing": 295
+    },
+    "timestamp": "2026-04-12T16:49:01.495Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "rf_category_id",
+        "message": "الحقل rf category id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "permissions",
+        "message": "الحقل permissions مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/requests/service-settings/updateOrCreate",
+      "body": {
+        "rf_sub_category_id": 1,
+        "is_active": true,
+        "max_slots_per_day": 10,
+        "service_fee": 100
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:49:02 GMT",
+        "content-type": "application/json",
+        "content-length": "244",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "60c297d3fc895a91330c14d71ff3e7d8",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ZbObxfU7RUHcGz0F6%2BvNtxJYI1HDAoRjZ7S9Eme9COFMYGAPb9Z%2FgKtfBz4hJCwp9hzQmwWsCkByafO6GDb5cxZX7ru6BkBtz59dUUXYNahE7u%2BC%2B3bg5wl73vtQ3SFNi0JGwRZMYMGeZkhF\"}]}",
+        "cf-ray": "9eb3b8d2ea62edca-MXP"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rf_category_id": [
+            "الحقل rf category id مطلوب."
+          ],
+          "permissions": [
+            "الحقل permissions مطلوب."
+          ]
+        }
+      },
+      "timing": 357
+    },
+    "timestamp": "2026-04-12T16:49:02.239Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "rf_category_id",
+        "message": "الحقل rf category id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "permissions",
+        "message": "الحقل permissions مطلوب.",
+        "rule": "required"
+      }
+    ]
+  }
+]

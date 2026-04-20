@@ -1,0 +1,109 @@
+{
+  "endpoint": "rf/admins/manager-roles",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "role": {
+              "type": "string",
+              "nullable": false,
+              "example": "Admins"
+            },
+            "name_ar": {
+              "type": "string",
+              "nullable": false,
+              "example": "مدير"
+            },
+            "name_en": {
+              "type": "string",
+              "nullable": false,
+              "example": "Admin"
+            },
+            "types": {
+              "type": "null",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "mixed",
+          "nullable": true
+        },
+        "example": []
+      }
+    },
+    "meta": {
+      "hasPagination": true
+    }
+  },
+  "sample": [
+    {
+      "id": 1,
+      "role": "Admins",
+      "name_ar": "مدير",
+      "name_en": "Admin",
+      "types": null
+    },
+    {
+      "id": 2,
+      "role": "accountingManagers",
+      "name_ar": "مسؤول المالي",
+      "name_en": "Accounting Manager",
+      "types": null
+    },
+    {
+      "id": 3,
+      "role": "serviceManagers",
+      "name_ar": "مسؤول الخدمات",
+      "name_en": "Service Manager",
+      "types": [
+        {
+          "id": 1,
+          "name": "طلبات خدمات المنازل"
+        },
+        {
+          "id": 2,
+          "name": "طلبات خدمات المناطق المشتركة"
+        },
+        {
+          "id": 3,
+          "name": "طلبات دخول الزوار"
+        },
+        {
+          "id": 5,
+          "name": "طلبات الحجوزات للمرافق"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "role": "marketingManagers",
+      "name_ar": "مسؤول التسويق",
+      "name_en": "Marketing Manager",
+      "types": null
+    },
+    {
+      "id": 5,
+      "role": "salesAndLeasingManagers",
+      "name_ar": "مسؤول المبيعات والتأجير",
+      "name_en": "Sales & Leasing Manager",
+      "types": null
+    }
+  ]
+}

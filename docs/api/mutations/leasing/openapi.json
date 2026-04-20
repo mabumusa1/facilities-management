@@ -1,0 +1,1042 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Atar API - leasing Module",
+    "version": "1.0.0",
+    "description": "API documentation for the leasing module of the Atar property management platform."
+  },
+  "servers": [
+    {
+      "url": "https://api.goatar.com/api-management/",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "rf/leases": {
+      "post": {
+        "operationId": "post_rf_leases",
+        "summary": "POST rf/leases",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "tenant.national_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "units.0.rental_amount": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "tenant.national_id": [
+                          "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+                        ],
+                        "units.0.rental_amount": [
+                          "المبلغ السنوي للإيجار مطلوب"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "start_date": {
+                    "type": "string"
+                  },
+                  "end_date": {
+                    "type": "string"
+                  },
+                  "handover_date": {
+                    "type": "string"
+                  },
+                  "number_of_years": {
+                    "type": "integer"
+                  },
+                  "number_of_months": {
+                    "type": "integer"
+                  },
+                  "lease_unit_type": {
+                    "type": "integer"
+                  },
+                  "tenant_type": {
+                    "type": "string"
+                  },
+                  "tenant_id": {
+                    "type": "string"
+                  },
+                  "tenant": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "autoGenerateLeaseNumber": {
+                    "type": "boolean"
+                  },
+                  "rental_type": {
+                    "type": "string"
+                  },
+                  "rental_contract_type_id": {
+                    "type": "integer"
+                  },
+                  "payment_schedule_id": {
+                    "type": "integer"
+                  },
+                  "lease_escalations_type": {
+                    "type": "string"
+                  },
+                  "rental_total_amount": {
+                    "type": "integer"
+                  },
+                  "rf_status_id": {
+                    "type": "integer"
+                  },
+                  "units": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "rental_annual_type": {
+                          "type": "string"
+                        },
+                        "annual_rental_amount": {
+                          "type": "integer"
+                        },
+                        "amount_type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "created_at": "2026-04-12",
+                    "start_date": "2026-04-19",
+                    "end_date": "2027-04-19",
+                    "handover_date": "2026-04-19",
+                    "number_of_years": 1,
+                    "number_of_months": 0,
+                    "lease_unit_type": 2,
+                    "tenant_type": "individual",
+                    "tenant_id": "21",
+                    "tenant": {
+                      "id": "21",
+                      "name": "Test Company4owwc4",
+                      "phone_number": "+966508827826"
+                    },
+                    "autoGenerateLeaseNumber": true,
+                    "rental_type": "detailed",
+                    "rental_contract_type_id": 13,
+                    "payment_schedule_id": 7,
+                    "lease_escalations_type": "fixed",
+                    "rental_total_amount": 60000,
+                    "rf_status_id": 30,
+                    "units": [
+                      {
+                        "id": "3",
+                        "rental_annual_type": "total",
+                        "annual_rental_amount": 60000,
+                        "amount_type": "total"
+                      }
+                    ]
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/1": {
+      "put": {
+        "operationId": "put_rf_leases_1",
+        "summary": "PUT rf/leases/1",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "notes": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "notes": "Updated lease notes 1776012524084"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/99999": {
+      "delete": {
+        "operationId": "delete_rf_leases_99999",
+        "summary": "DELETE rf/leases/99999",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "code": 400,
+                      "message": "عذراً، تم حذف العقد بواسطة مستخدم آخر",
+                      "errors": []
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/1/addendum": {
+      "post": {
+        "operationId": "post_rf_leases_1_addendum",
+        "summary": "POST rf/leases/1/addendum",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "effective_date": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "type": "modification",
+                    "description": "Lease addendum 1776012525794",
+                    "effective_date": "2026-04-12"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/change-status/move-out": {
+      "post": {
+        "operationId": "post_rf_leases_change_status_move_out",
+        "summary": "POST rf/leases/change-status/move-out",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "rf_lease_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "end_at": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "rf_lease_id": [
+                          "الحقل rf lease id مطلوب."
+                        ],
+                        "end_at": [
+                          "الحقل end at مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/change-status/terminate": {
+      "post": {
+        "operationId": "post_rf_leases_change_status_terminate",
+        "summary": "POST rf/leases/change-status/terminate",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "rf_lease_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "end_at": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "rf_lease_id": [
+                          "الحقل rf lease id مطلوب."
+                        ],
+                        "end_at": [
+                          "الحقل end at مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/change-status/suspend": {
+      "post": {
+        "operationId": "post_rf_leases_change_status_suspend",
+        "summary": "POST rf/leases/change-status/suspend",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lease_id": {
+                    "type": "integer"
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "lease_id": 1,
+                    "reason": "Test suspension",
+                    "date": "2026-04-12"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/change-status/reactivate": {
+      "post": {
+        "operationId": "post_rf_leases_change_status_reactivate",
+        "summary": "POST rf/leases/change-status/reactivate",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lease_id": {
+                    "type": "integer"
+                  },
+                  "date": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "lease_id": 1,
+                    "date": "2026-04-12"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/sub-leases": {
+      "post": {
+        "operationId": "post_rf_sub_leases",
+        "summary": "POST rf/sub-leases",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "lease_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "tenant_type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "lease_id": [
+                          "الحقل lease id مطلوب."
+                        ],
+                        "tenant_type": [
+                          "الحقل نوع المستأجر مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/sub-leases/999": {
+      "delete": {
+        "operationId": "delete_rf_sub_leases_999",
+        "summary": "DELETE rf/sub-leases/999",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "messages.deleted_successfully",
+                      "data": [],
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "rf/leases/renew/store": {
+      "post": {
+        "operationId": "post_rf_leases_renew_store",
+        "summary": "POST rf/leases/renew/store",
+        "tags": [
+          "leasing"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "rental_contract_type_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "created_at": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "start_date": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "end_date": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "rf_lease_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "number_of_years": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "number_of_months": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "autoGenerateLeaseNumber": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "contract_number": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "rental_type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "payment_schedule_id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "units": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "rental_contract_type_id": [
+                          "الحقل rental contract type id مطلوب."
+                        ],
+                        "created_at": [
+                          "الحقل created at مطلوب."
+                        ],
+                        "start_date": [
+                          "الحقل start date مطلوب."
+                        ],
+                        "end_date": [
+                          "الحقل end date مطلوب."
+                        ],
+                        "rf_lease_id": [
+                          "الحقل rf lease id مطلوب."
+                        ],
+                        "number_of_years": [
+                          "يرجى إضافة مدة الإيجار بالسنوات."
+                        ],
+                        "number_of_months": [
+                          "يرجى إضافة مدة الإيجار بالشهور."
+                        ],
+                        "autoGenerateLeaseNumber": [
+                          "الحقل auto generate lease number مطلوب."
+                        ],
+                        "contract_number": [
+                          "يرجى إدخال رقم إيجار فريد."
+                        ],
+                        "rental_type": [
+                          "الحقل rental type مطلوب."
+                        ],
+                        "payment_schedule_id": [
+                          "الحقل payment schedule id مطلوب."
+                        ],
+                        "units": [
+                          "الحقل units مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "tenantHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Tenant"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [],
+      "tenantHeader": []
+    }
+  ]
+}

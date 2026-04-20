@@ -1,0 +1,29 @@
+{
+  "company_name": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل company name مطلوب."
+    ]
+  },
+  "address": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل العنوان مطلوب."
+    ]
+  },
+  "vat": {
+    "required": true,
+    "rules": [
+      "required"
+    ],
+    "messages": [
+      "الحقل vat مطلوب."
+    ]
+  }
+}

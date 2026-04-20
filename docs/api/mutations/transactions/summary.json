@@ -1,0 +1,40 @@
+{
+  "module": "transactions",
+  "generatedAt": "2026-04-12T16:49:07.104Z",
+  "totalCaptures": 7,
+  "successCount": 0,
+  "errorCount": 7,
+  "successRate": "0.0%",
+  "endpoints": {
+    "POST rf/transactions": {
+      "method": "POST",
+      "success": 0,
+      "error": 3,
+      "avgTiming": 164.33333333333334
+    },
+    "PUT rf/transactions/1": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 233
+    },
+    "DELETE rf/transactions/2": {
+      "method": "DELETE",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 520
+    },
+    "PUT invoice-settings": {
+      "method": "PUT",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 343
+    },
+    "POST invoice-settings": {
+      "method": "POST",
+      "success": 0,
+      "error": 1,
+      "avgTiming": 381
+    }
+  }
+}

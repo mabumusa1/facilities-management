@@ -1,0 +1,53 @@
+{
+  "endpoint": "rf/requests/sub-categories/{id}",
+  "method": "PUT",
+  "fields": {
+    "terms_and_conditions": {
+      "field": "terms_and_conditions",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "شروط وأحكام الخدمة مطلوبة."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "icon": {
+      "field": "icon",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "unknown",
+          "rawMessage": "يرجى اختيار أيقونة لهذا التصنيف الفرعي للخدمة."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "terms_and_conditions"
+  ],
+  "optionalFields": [
+    "icon"
+  ]
+}

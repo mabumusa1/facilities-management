@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-leases-renew-store.schema.json",
+  "title": "POST rf/leases/renew/store",
+  "description": "Request body schema for POST rf/leases/renew/store",
+  "type": "object",
+  "properties": {
+    "rental_contract_type_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "start_date": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "end_date": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "rf_lease_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "number_of_years": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يرجى إضافة مدة الإيجار بالسنوات.",
+      "examples": [
+        "example"
+      ]
+    },
+    "number_of_months": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يرجى إضافة مدة الإيجار بالشهور.",
+      "examples": [
+        "example"
+      ]
+    },
+    "autoGenerateLeaseNumber": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "contract_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يرجى إدخال رقم إيجار فريد.",
+      "examples": [
+        "example"
+      ]
+    },
+    "rental_type": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "payment_schedule_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "units": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "units.0.rental_amount": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "autoGenerateLeaseNumber",
+    "created_at",
+    "end_date",
+    "payment_schedule_id",
+    "rental_contract_type_id",
+    "rental_type",
+    "rf_lease_id",
+    "start_date",
+    "units",
+    "units.0.rental_amount"
+  ],
+  "additionalProperties": true
+}

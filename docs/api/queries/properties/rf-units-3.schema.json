@@ -1,0 +1,539 @@
+{
+  "endpoint": "rf/units/3",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object",
+        "nullable": false,
+        "properties": {
+          "id": {
+            "type": "number",
+            "nullable": false,
+            "example": 3
+          },
+          "name": {
+            "type": "string",
+            "nullable": false,
+            "example": "Test Unit API v2"
+          },
+          "category": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 2
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "سكني"
+              },
+              "icon": {
+                "type": "string",
+                "nullable": false,
+                "example": "residential"
+              }
+            }
+          },
+          "type": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 17
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "شقة"
+              },
+              "icon": {
+                "type": "string",
+                "nullable": false,
+                "example": "residential"
+              }
+            }
+          },
+          "status": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 26
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "متاحة"
+              },
+              "created_at": {
+                "type": "null",
+                "nullable": true
+              },
+              "priority": {
+                "type": "string",
+                "nullable": false,
+                "example": "1"
+              }
+            }
+          },
+          "rf_community": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Community 1"
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "sales_commission_rate": {
+                "type": "string",
+                "nullable": false,
+                "example": "0.00"
+              },
+              "rental_commission_rate": {
+                "type": "string",
+                "nullable": false,
+                "example": "0.00"
+              },
+              "buildings_count": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "units_count": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "map": {
+                "type": "null",
+                "nullable": true
+              },
+              "images": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_selected_property": {
+                "type": "boolean",
+                "nullable": false,
+                "example": false
+              },
+              "count_selected_property": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "requests_count": {
+                "type": "null",
+                "nullable": true
+              },
+              "total_income": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "is_market_place": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "is_buy": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "community_marketplace_type": {
+                "type": "string",
+                "nullable": false,
+                "example": "rent"
+              },
+              "is_off_plan_sale": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              }
+            }
+          },
+          "rf_building": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Building 1"
+              }
+            }
+          },
+          "year_build": {
+            "type": "string",
+            "nullable": false,
+            "example": "2020"
+          },
+          "map": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "nullable": false,
+                "example": 24.7103488
+              },
+              "mapsLink": {
+                "type": "string",
+                "nullable": false,
+                "example": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+              },
+              "place_id": {
+                "type": "string",
+                "nullable": false,
+                "example": "ChIJhz3eOQADLz4R_cqAJEJr0Qw"
+              },
+              "longitude": {
+                "type": "number",
+                "nullable": false,
+                "example": 46.6878464
+              },
+              "districtName": {
+                "type": "string",
+                "nullable": false,
+                "example": "3287 ,RHSA7555"
+              },
+              "latitudeDelta": {
+                "type": "number",
+                "nullable": false,
+                "example": 0.02
+              },
+              "longitudeDelta": {
+                "type": "number",
+                "nullable": false,
+                "example": 0.009244060475161988
+              },
+              "formattedAddress": {
+                "type": "string",
+                "nullable": false,
+                "example": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+              }
+            }
+          },
+          "photos": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "floor_plans": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "documents": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "specifications": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "net_area": {
+            "type": "null",
+            "nullable": true
+          },
+          "marketplace": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "sale": {
+                "type": "null",
+                "nullable": true
+              },
+              "rent": {
+                "type": "null",
+                "nullable": true
+              }
+            }
+          },
+          "rooms": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "areas": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "owner": {
+            "type": "null",
+            "nullable": true
+          },
+          "tenant": {
+            "type": "null",
+            "nullable": true
+          },
+          "merge_document": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "lease": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "city": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "الرياض"
+              }
+            }
+          },
+          "district": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "الدرعية"
+              }
+            }
+          },
+          "features": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "is_market_place": {
+            "type": "string",
+            "nullable": false,
+            "example": "0"
+          },
+          "renewal_status": {
+            "type": "boolean",
+            "nullable": false,
+            "example": false
+          },
+          "marketplace_booking_unit_id": {
+            "type": "null",
+            "nullable": true
+          },
+          "about": {
+            "type": "null",
+            "nullable": true
+          },
+          "is_off_plan_sale": {
+            "type": "string",
+            "nullable": false,
+            "example": "0"
+          }
+        }
+      },
+      "message": {
+        "type": "string",
+        "nullable": false,
+        "example": "messages.unit_show"
+      }
+    },
+    "meta": {
+      "hasPagination": false
+    }
+  },
+  "sample": {
+    "id": 3,
+    "name": "Test Unit API v2",
+    "category": {
+      "id": 2,
+      "name": "سكني",
+      "icon": "residential"
+    },
+    "type": {
+      "id": 17,
+      "name": "شقة",
+      "icon": "residential"
+    },
+    "status": {
+      "id": 26,
+      "name": "متاحة",
+      "created_at": null,
+      "priority": "1"
+    },
+    "rf_community": {
+      "id": 1,
+      "name": "Test Community 1",
+      "city": {
+        "id": 1,
+        "name": "الرياض"
+      },
+      "district": {
+        "id": 1,
+        "name": "الدرعية"
+      },
+      "sales_commission_rate": "0.00",
+      "rental_commission_rate": "0.00",
+      "buildings_count": 0,
+      "units_count": 0,
+      "map": null,
+      "images": [],
+      "is_selected_property": false,
+      "count_selected_property": 0,
+      "requests_count": null,
+      "total_income": 0,
+      "is_market_place": "0",
+      "is_buy": 0,
+      "community_marketplace_type": "rent",
+      "is_off_plan_sale": "0"
+    },
+    "rf_building": {
+      "id": 1,
+      "name": "Test Building 1"
+    },
+    "year_build": "2020",
+    "map": {
+      "latitude": 24.7103488,
+      "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+      "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+      "longitude": 46.6878464,
+      "districtName": "3287 ,RHSA7555",
+      "latitudeDelta": 0.02,
+      "longitudeDelta": 0.009244060475161988,
+      "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+    },
+    "photos": [],
+    "floor_plans": [],
+    "documents": [],
+    "specifications": [],
+    "net_area": null,
+    "marketplace": {
+      "sale": null,
+      "rent": null
+    },
+    "rooms": [],
+    "areas": [],
+    "owner": null,
+    "tenant": null,
+    "merge_document": [],
+    "lease": [],
+    "city": {
+      "id": 1,
+      "name": "الرياض"
+    },
+    "district": {
+      "id": 1,
+      "name": "الدرعية"
+    },
+    "features": [],
+    "is_market_place": "0",
+    "renewal_status": false,
+    "marketplace_booking_unit_id": null,
+    "about": null,
+    "is_off_plan_sale": "0"
+  }
+}

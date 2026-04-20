@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/post-rf-admins.schema.json",
+  "title": "POST rf/admins",
+  "description": "Request body schema for POST rf/admins",
+  "type": "object",
+  "properties": {
+    "last_name": {
+      "type": "string",
+      "description": "صيغة الحقل اسم العائلة .غير صحيحة",
+      "examples": [
+        "example"
+      ]
+    },
+    "role": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "first_name": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "phone_country_code": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "phone_number": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "phone_country_code",
+    "phone_number",
+    "role"
+  ],
+  "additionalProperties": true
+}

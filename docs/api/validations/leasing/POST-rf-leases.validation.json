@@ -1,0 +1,407 @@
+{
+  "endpoint": "rf/leases",
+  "method": "POST",
+  "fields": {
+    "tenant.national_id": {
+      "field": "tenant.national_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "units.0.rental_amount": {
+      "field": "units.0.rental_amount",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "المبلغ السنوي للإيجار مطلوب"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "rental_contract_type_id": {
+      "field": "rental_contract_type_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل rental contract type id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "created_at": {
+      "field": "created_at",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل created at مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "start_date": {
+      "field": "start_date",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل start date مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "end_date": {
+      "field": "end_date",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل end date مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "handover_date": {
+      "field": "handover_date",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل handover date مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "lease_unit_type": {
+      "field": "lease_unit_type",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل lease unit type مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "number_of_years": {
+      "field": "number_of_years",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "unknown",
+          "rawMessage": "يرجى إضافة مدة الإيجار بالسنوات."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "number_of_months": {
+      "field": "number_of_months",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "unknown",
+          "rawMessage": "يرجى إضافة مدة الإيجار بالشهور."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "units": {
+      "field": "units",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل units مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "tenant_type": {
+      "field": "tenant_type",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل نوع المستأجر مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "autoGenerateLeaseNumber": {
+      "field": "autoGenerateLeaseNumber",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل auto generate lease number مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "contract_number": {
+      "field": "contract_number",
+      "required": false,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "unknown",
+          "rawMessage": "يرجى إدخال رقم إيجار فريد."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null
+        ]
+      }
+    },
+    "rental_type": {
+      "field": "rental_type",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل rental type مطلوب."
+        },
+        {
+          "rule": "invalid",
+          "rawMessage": "الحقل rental type غير صحيح"
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "payment_schedule_id": {
+      "field": "payment_schedule_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل payment schedule id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "tenant": {
+      "field": "tenant",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "units.0.amount_type": {
+      "field": "units.0.amount_type",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": " نوع المبلغ مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "autoGenerateLeaseNumber",
+    "created_at",
+    "end_date",
+    "handover_date",
+    "lease_unit_type",
+    "payment_schedule_id",
+    "rental_contract_type_id",
+    "rental_type",
+    "start_date",
+    "tenant",
+    "tenant.national_id",
+    "tenant_type",
+    "units",
+    "units.0.amount_type",
+    "units.0.rental_amount"
+  ],
+  "optionalFields": [
+    "contract_number",
+    "number_of_months",
+    "number_of_years"
+  ]
+}

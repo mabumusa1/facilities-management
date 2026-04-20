@@ -1,0 +1,162 @@
+{
+  "endpoint": "rf/owners/3",
+  "method": "GET",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object",
+        "nullable": false,
+        "properties": {
+          "id": {
+            "type": "number",
+            "nullable": false,
+            "example": 3
+          },
+          "name": {
+            "type": "string",
+            "nullable": false,
+            "example": "Mohammed Al-Saud"
+          },
+          "first_name": {
+            "type": "string",
+            "nullable": false,
+            "example": "Mohammed"
+          },
+          "last_name": {
+            "type": "string",
+            "nullable": false,
+            "example": "Al-Saud"
+          },
+          "image": {
+            "type": "null",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": false,
+            "example": "owner1@example.com"
+          },
+          "georgian_birthdate": {
+            "type": "null",
+            "nullable": true
+          },
+          "gender": {
+            "type": "null",
+            "nullable": true
+          },
+          "national_id": {
+            "type": "string",
+            "nullable": false,
+            "example": "1122334455"
+          },
+          "phone_number": {
+            "type": "string",
+            "nullable": false,
+            "example": "+966500000002"
+          },
+          "national_phone_number": {
+            "type": "string",
+            "nullable": false,
+            "example": "0500000002"
+          },
+          "phone_country_code": {
+            "type": "string",
+            "nullable": false,
+            "example": "SA"
+          },
+          "nationality": {
+            "type": "null",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "nullable": false,
+            "example": "2026-04-10T22:45:51.000000Z"
+          },
+          "active": {
+            "type": "string",
+            "nullable": false,
+            "example": "1"
+          },
+          "account_creation_date": {
+            "type": "string",
+            "nullable": false,
+            "example": "2026-04-11 01:45 am"
+          },
+          "last_active": {
+            "type": "null",
+            "nullable": true
+          },
+          "units": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "active_requests": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "transaction": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "mixed",
+              "nullable": true
+            },
+            "example": []
+          },
+          "relation": {
+            "type": "null",
+            "nullable": true
+          },
+          "relation_key": {
+            "type": "null",
+            "nullable": true
+          }
+        }
+      },
+      "message": {
+        "type": "string",
+        "nullable": false,
+        "example": "تم انشاء المطلوب بنجاح."
+      }
+    },
+    "meta": {
+      "hasPagination": false
+    }
+  },
+  "sample": {
+    "id": 3,
+    "name": "Mohammed Al-Saud",
+    "first_name": "Mohammed",
+    "last_name": "Al-Saud",
+    "image": null,
+    "email": "owner1@example.com",
+    "georgian_birthdate": null,
+    "gender": null,
+    "national_id": "1122334455",
+    "phone_number": "+966500000002",
+    "national_phone_number": "0500000002",
+    "phone_country_code": "SA",
+    "nationality": null,
+    "created_at": "2026-04-10T22:45:51.000000Z",
+    "active": "1",
+    "account_creation_date": "2026-04-11 01:45 am",
+    "last_active": null,
+    "units": [],
+    "active_requests": [],
+    "transaction": [],
+    "relation": null,
+    "relation_key": null
+  }
+}

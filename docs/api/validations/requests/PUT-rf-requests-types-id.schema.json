@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atar-api/put-rf-requests-types-{id}.schema.json",
+  "title": "PUT rf/requests/types/{id}",
+  "description": "Request body schema for PUT rf/requests/types/{id}",
+  "type": "object",
+  "properties": {
+    "name_ar": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "name_en": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "rf_sub_category_id": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    },
+    "icon": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "يرجى اختيار أيقونة لهذا النوع من الخدمات.",
+      "examples": [
+        "example"
+      ]
+    },
+    "fee_type": {
+      "type": "string",
+      "examples": [
+        "example"
+      ]
+    }
+  },
+  "required": [
+    "fee_type",
+    "name_ar",
+    "name_en",
+    "rf_sub_category_id"
+  ],
+  "additionalProperties": true
+}

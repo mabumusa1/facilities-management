@@ -1,0 +1,57 @@
+{
+  "endpoint": "rf/buildings",
+  "method": "POST",
+  "fields": {
+    "name": {
+      "field": "name",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "unknown",
+          "rawMessage": "يجب أن لا يتجاوز طول نص الاسم 20 حروفٍ/حرفًا"
+        },
+        {
+          "rule": "required",
+          "rawMessage": "الحقل الاسم مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "rf_community_id": {
+      "field": "rf_community_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل rf community id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "name",
+    "rf_community_id"
+  ],
+  "optionalFields": []
+}

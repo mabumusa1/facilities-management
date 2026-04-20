@@ -1,0 +1,4251 @@
+[
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/communities"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:39 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YDVof%2Bz3ckdk29THHstkQ8bqdupDOKR%2BvW%2BjHC5u9lNVZJSat%2BaSuO5hV2cvpSLIej16JHDj%2Bp3d6dry6AnhuRqkxWitSE%2Bxf%2F3bmM%2BvVQm0ZyFftgnT1PVLaahSpdCCkgJFBB6zcmxFfo0x\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d4180945210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم استرجاع المشاريع بنجاح",
+        "data": [
+          {
+            "id": 15,
+            "name": "Updated Community 1776012522795",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 14,
+            "name": "Updated Community 1776007315589",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 13,
+            "name": "Updated Community 1775992807546",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 12,
+            "name": "Updated Community 1775992241067",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 11,
+            "name": "Test Community 1775987149060etg23",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 10,
+            "name": "Updated Community 1775987144471",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 9,
+            "name": "Updated Community 1775984545700",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 8,
+            "name": "Updated Community 1775984473535",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 7,
+            "name": "Updated Community 1775982746126",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 6,
+            "name": "Updated Community 1775982674517",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 5,
+            "name": "Updated Community 1775981141944",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 4,
+            "name": "Updated Community 1775980921530",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 3,
+            "name": "Updated Community 1775980887023",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Updated Community 1775980861731",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Test Community 1",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "4",
+            "units_count": "3",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 2258
+    },
+    "timestamp": "2026-04-12T17:07:40.223Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 15
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Updated Community 1776012522795"
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "sales_commission_rate": {
+                "type": "string",
+                "nullable": false,
+                "example": "0.00"
+              },
+              "rental_commission_rate": {
+                "type": "string",
+                "nullable": false,
+                "example": "0.00"
+              },
+              "buildings_count": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "units_count": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "map": {
+                "type": "null",
+                "nullable": true
+              },
+              "images": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_selected_property": {
+                "type": "boolean",
+                "nullable": false,
+                "example": false
+              },
+              "count_selected_property": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "requests_count": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "total_income": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "is_market_place": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "is_buy": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "community_marketplace_type": {
+                "type": "string",
+                "nullable": false,
+                "example": "rent"
+              },
+              "is_off_plan_sale": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/communities",
+      "params": {
+        "page": 1,
+        "per_page": 10
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:41 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=X4S1%2BGNJaRUJLLFp8V7Y6Del5mYRLQhMTf8LotU%2Bii%2FpV5Vzr6OEYDKm2KgAu9sawyhruqM%2Bmu7zEAW4i8H8VS5DC%2BYcFSxKKIZpgC9uUqZBf0PpMozHy%2F1pYjBA7AEr8bpabbZB86sNlq4%2B\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d4222e6e210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم استرجاع المشاريع بنجاح",
+        "data": [
+          {
+            "id": 15,
+            "name": "Updated Community 1776012522795",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 14,
+            "name": "Updated Community 1776007315589",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 13,
+            "name": "Updated Community 1775992807546",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 12,
+            "name": "Updated Community 1775992241067",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 11,
+            "name": "Test Community 1775987149060etg23",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 10,
+            "name": "Updated Community 1775987144471",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 9,
+            "name": "Updated Community 1775984545700",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 8,
+            "name": "Updated Community 1775984473535",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 7,
+            "name": "Updated Community 1775982746126",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 6,
+            "name": "Updated Community 1775982674517",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 5,
+            "name": "Updated Community 1775981141944",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 4,
+            "name": "Updated Community 1775980921530",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 3,
+            "name": "Updated Community 1775980887023",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Updated Community 1775980861731",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "0",
+            "units_count": "0",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Test Community 1",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": "4",
+            "units_count": "3",
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": "0",
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 970
+    },
+    "timestamp": "2026-04-12T17:07:41.291Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 15
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Updated Community 1776012522795"
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "sales_commission_rate": {
+                "type": "string",
+                "nullable": false,
+                "example": "0.00"
+              },
+              "rental_commission_rate": {
+                "type": "string",
+                "nullable": false,
+                "example": "0.00"
+              },
+              "buildings_count": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "units_count": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "map": {
+                "type": "null",
+                "nullable": true
+              },
+              "images": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_selected_property": {
+                "type": "boolean",
+                "nullable": false,
+                "example": false
+              },
+              "count_selected_property": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "requests_count": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "total_income": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "is_market_place": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "is_buy": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "community_marketplace_type": {
+                "type": "string",
+                "nullable": false,
+                "example": "rent"
+              },
+              "is_off_plan_sale": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/communities/15"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:41 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rJb7ZAO1lWR18rGKq2Vf7TeF0vOfhmmCMcvov%2FZCj6lihgid%2BDg3ij%2B9zFzLmeLogLXeK1m5LLuPns46PcyN6Wv0GHDD2g2mp4YjNMAyTeaASVw35MsMBah6qRj6upw6eo0C2YbUSMRuWMe%2B\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d4285e72210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم استرجاع المشروع بنجاح",
+        "data": {
+          "id": 15,
+          "name": "Updated Community 1776012522795",
+          "description": null,
+          "country": {
+            "id": 1,
+            "name": "المملكة العربية السعودية",
+            "code": "SA"
+          },
+          "currency": {
+            "id": 1,
+            "name": "ريال سعودي",
+            "code": "SAR"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "amenities": [],
+          "map": null,
+          "images": [],
+          "documents": [],
+          "buildings_count": 0,
+          "units_count": 0,
+          "requests_count": 0,
+          "total_income": 0,
+          "sales_commission_rate": "0.00",
+          "rental_commission_rate": "0.00",
+          "product_code": null,
+          "license_number": null,
+          "license_issue_date": null,
+          "license_expiry_date": null,
+          "record_payments": [],
+          "additional_payments": [],
+          "completion_percent": 0,
+          "allow_cash_sale": 0,
+          "allow_bank_financing": 0,
+          "listed_percentage": 0,
+          "is_market_place": "0",
+          "is_buy": 0,
+          "community_marketplace_type": "rent",
+          "is_off_plan_sale": "0"
+        },
+        "meta": []
+      },
+      "timing": 772
+    },
+    "timestamp": "2026-04-12T17:07:42.113Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 15
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Updated Community 1776012522795"
+            },
+            "description": {
+              "type": "null",
+              "nullable": true
+            },
+            "country": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "المملكة العربية السعودية"
+                },
+                "code": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "SA"
+                }
+              }
+            },
+            "currency": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "ريال سعودي"
+                },
+                "code": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "SAR"
+                }
+              }
+            },
+            "city": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الرياض"
+                }
+              }
+            },
+            "district": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الدرعية"
+                }
+              }
+            },
+            "amenities": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "map": {
+              "type": "null",
+              "nullable": true
+            },
+            "images": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "documents": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "buildings_count": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "units_count": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "requests_count": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "total_income": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "sales_commission_rate": {
+              "type": "string",
+              "nullable": false,
+              "example": "0.00"
+            },
+            "rental_commission_rate": {
+              "type": "string",
+              "nullable": false,
+              "example": "0.00"
+            },
+            "product_code": {
+              "type": "null",
+              "nullable": true
+            },
+            "license_number": {
+              "type": "null",
+              "nullable": true
+            },
+            "license_issue_date": {
+              "type": "null",
+              "nullable": true
+            },
+            "license_expiry_date": {
+              "type": "null",
+              "nullable": true
+            },
+            "record_payments": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "additional_payments": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "completion_percent": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "allow_cash_sale": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "allow_bank_financing": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "listed_percentage": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "is_market_place": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            },
+            "is_buy": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "community_marketplace_type": {
+              "type": "string",
+              "nullable": false,
+              "example": "rent"
+            },
+            "is_off_plan_sale": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "nullable": false,
+          "example": "تم استرجاع المشروع بنجاح"
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/buildings"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:42 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jSLPsJA8Xiu9wBRVoFIaXlFKLVPfUlcH7NKlWJySPTpcVLnmk61enFu3b9Dn8jtc90qB9%2BlkkOIPQv%2FeQW8BgFCgOhSuClq69uqRtZPeHMoX7qw90hwQkTRg%2BfmjgRvLwFYQf5XAq350S7r0\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d42dfdaf210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم استرجاع المباني بنجاح",
+        "data": [
+          {
+            "id": 4,
+            "name": "Updated Building 1776012526547",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 0,
+            "map": null,
+            "year_build": null,
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          },
+          {
+            "id": 3,
+            "name": "Building B",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 0,
+            "map": null,
+            "year_build": null,
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          },
+          {
+            "id": 2,
+            "name": "Building A",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 1,
+            "map": null,
+            "year_build": null,
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          },
+          {
+            "id": 1,
+            "name": "Test Building 1",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 2,
+            "map": null,
+            "year_build": "2020",
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          }
+        ],
+        "meta": []
+      },
+      "timing": 1744
+    },
+    "timestamp": "2026-04-12T17:07:43.959Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 4
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Updated Building 1776012526547"
+              },
+              "community": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Community 1"
+                  },
+                  "map": {
+                    "type": "null",
+                    "nullable": true
+                  }
+                }
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "units_count": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "map": {
+                "type": "null",
+                "nullable": true
+              },
+              "year_build": {
+                "type": "null",
+                "nullable": true
+              },
+              "images": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_selected_property": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "count_selected_property": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/buildings",
+      "params": {
+        "page": 1,
+        "per_page": 10
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:44 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7QjrNtU80x8kwB2wWFIoMimk7Ak5H1rm%2BF5rTC3RT%2FKI1s7ZRUuDOVYJAD3W0nKdb6Q1ITe%2BTnzR6uXqVNatnq7BcjsDAk38QFWyvuk418pjZc8th5deoYU6ELrGeob4lDBlmHo0RS8q9%2BX1\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d4392c85210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم استرجاع المباني بنجاح",
+        "data": [
+          {
+            "id": 4,
+            "name": "Updated Building 1776012526547",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 0,
+            "map": null,
+            "year_build": null,
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          },
+          {
+            "id": 3,
+            "name": "Building B",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 0,
+            "map": null,
+            "year_build": null,
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          },
+          {
+            "id": 2,
+            "name": "Building A",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 1,
+            "map": null,
+            "year_build": null,
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          },
+          {
+            "id": 1,
+            "name": "Test Building 1",
+            "community": {
+              "id": 1,
+              "name": "Test Community 1",
+              "map": null
+            },
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "units_count": 2,
+            "map": null,
+            "year_build": "2020",
+            "images": [],
+            "is_selected_property": 0,
+            "count_selected_property": 0
+          }
+        ],
+        "meta": []
+      },
+      "timing": 843
+    },
+    "timestamp": "2026-04-12T17:07:44.875Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 4
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Updated Building 1776012526547"
+              },
+              "community": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Community 1"
+                  },
+                  "map": {
+                    "type": "null",
+                    "nullable": true
+                  }
+                }
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "units_count": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "map": {
+                "type": "null",
+                "nullable": true
+              },
+              "year_build": {
+                "type": "null",
+                "nullable": true
+              },
+              "images": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_selected_property": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              },
+              "count_selected_property": {
+                "type": "number",
+                "nullable": false,
+                "example": 0
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/buildings/4"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:45 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=53SUbw%2FugmK4mKo9LeqkNTcY8nufSb%2F0%2F%2B1WLc33BdCQdYWvMQ9lsVwGbOHBZyn%2FSrRJUINlySVJWv%2BkXZIgdSAXtLOVOjd7drXzQhB9Ud8tOouoPDjvs31DAPu86P02xUMFdKJXFy90Jlsg\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d43ede6a210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "تم استرجاع المبنى بنجاح",
+        "data": {
+          "id": 4,
+          "name": "Updated Building 1776012526547",
+          "community": {
+            "id": 1,
+            "name": "Test Community 1",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": 0,
+            "units_count": 0,
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": null,
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "no_floors": "0",
+          "year_build": null,
+          "map": null,
+          "images": [],
+          "documents": [],
+          "units": 0
+        },
+        "meta": []
+      },
+      "timing": 835
+    },
+    "timestamp": "2026-04-12T17:07:45.770Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 4
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Updated Building 1776012526547"
+            },
+            "community": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Test Community 1"
+                },
+                "city": {
+                  "type": "object",
+                  "nullable": false,
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "nullable": false,
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "الرياض"
+                    }
+                  }
+                },
+                "district": {
+                  "type": "object",
+                  "nullable": false,
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "nullable": false,
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "الدرعية"
+                    }
+                  }
+                },
+                "sales_commission_rate": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0.00"
+                },
+                "rental_commission_rate": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0.00"
+                },
+                "buildings_count": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "units_count": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "map": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "images": {
+                  "type": "array",
+                  "nullable": false,
+                  "items": {
+                    "type": "mixed",
+                    "nullable": true
+                  },
+                  "example": []
+                },
+                "is_selected_property": {
+                  "type": "boolean",
+                  "nullable": false,
+                  "example": false
+                },
+                "count_selected_property": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "requests_count": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "total_income": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "is_market_place": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0"
+                },
+                "is_buy": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "community_marketplace_type": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "rent"
+                },
+                "is_off_plan_sale": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0"
+                }
+              }
+            },
+            "city": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الرياض"
+                }
+              }
+            },
+            "district": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الدرعية"
+                }
+              }
+            },
+            "no_floors": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            },
+            "year_build": {
+              "type": "null",
+              "nullable": true
+            },
+            "map": {
+              "type": "null",
+              "nullable": true
+            },
+            "images": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "documents": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "units": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "nullable": false,
+          "example": "تم استرجاع المبنى بنجاح"
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/units"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:46 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=K1PPZgrOJ5rTWzL%2Fcv1ij6n0HFM6EWcDR7s49MX9IYdF0LyOqQA3sXer7xeDyPpD832s2FYj9XRCWvkfz5GnvWPnSlz4Hx%2Fgsktww1MrTpisyhjCL2knE1%2BK5q9QbcDXmxQdFdoa2cktjNH8\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d4448e00210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 878
+    },
+    "timestamp": "2026-04-12T17:07:46.726Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 3
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Unit API v2"
+              },
+              "category": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 2
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "سكني"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "residential"
+                  }
+                }
+              },
+              "type": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 17
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "شقة"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "residential"
+                  }
+                }
+              },
+              "rf_community": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Community 1"
+                  }
+                }
+              },
+              "rf_building": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Building 1"
+                  }
+                }
+              },
+              "owner": {
+                "type": "null",
+                "nullable": true
+              },
+              "tenant": {
+                "type": "null",
+                "nullable": true
+              },
+              "status": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 26
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "متاحة"
+                  }
+                }
+              },
+              "photos": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_market_place": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "market_rent": {
+                "type": "null",
+                "nullable": true
+              },
+              "net_area": {
+                "type": "null",
+                "nullable": true
+              },
+              "floor_no": {
+                "type": "null",
+                "nullable": true
+              },
+              "map": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "latitude": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 24.7103488
+                  },
+                  "mapsLink": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+                  },
+                  "place_id": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "ChIJhz3eOQADLz4R_cqAJEJr0Qw"
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 46.6878464
+                  },
+                  "districtName": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "3287 ,RHSA7555"
+                  },
+                  "latitudeDelta": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 0.02
+                  },
+                  "longitudeDelta": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 0.009244060475161988
+                  },
+                  "formattedAddress": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                  }
+                }
+              },
+              "is_off_plan_sale": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/units",
+      "params": {
+        "page": 1,
+        "per_page": 10
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:47 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CVaLTXilk%2FOL5Codp6WNqBWnWn9rH9LtCkjGG1ifMelAordt%2B4R78IPWSFB4Qu4fsoDAOIX8nKJPrRq9pgCGyGF94bSZa1qqBFVK8zk%2FwdLoVKUMnbQhumjRhUWhiN18udxglnLThZYUA79K\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d44a4d8d210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 1002
+    },
+    "timestamp": "2026-04-12T17:07:47.774Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 3
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Unit API v2"
+              },
+              "category": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 2
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "سكني"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "residential"
+                  }
+                }
+              },
+              "type": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 17
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "شقة"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "residential"
+                  }
+                }
+              },
+              "rf_community": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Community 1"
+                  }
+                }
+              },
+              "rf_building": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Building 1"
+                  }
+                }
+              },
+              "owner": {
+                "type": "null",
+                "nullable": true
+              },
+              "tenant": {
+                "type": "null",
+                "nullable": true
+              },
+              "status": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 26
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "متاحة"
+                  }
+                }
+              },
+              "photos": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_market_place": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "market_rent": {
+                "type": "null",
+                "nullable": true
+              },
+              "net_area": {
+                "type": "null",
+                "nullable": true
+              },
+              "floor_no": {
+                "type": "null",
+                "nullable": true
+              },
+              "map": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "latitude": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 24.7103488
+                  },
+                  "mapsLink": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+                  },
+                  "place_id": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "ChIJhz3eOQADLz4R_cqAJEJr0Qw"
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 46.6878464
+                  },
+                  "districtName": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "3287 ,RHSA7555"
+                  },
+                  "latitudeDelta": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 0.02
+                  },
+                  "longitudeDelta": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 0.009244060475161988
+                  },
+                  "formattedAddress": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                  }
+                }
+              },
+              "is_off_plan_sale": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/units",
+      "params": {
+        "status_id": 26
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:48 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LD88T7dX1tkIASRflvxAMLCBPS92XB0vVSvs9y9cQ1ew0O24QND%2FkjjvT6tvkfw%2BdduUlSWLIKmVrpFJRy4Un8NWFmf2n2v4o4V6imYB%2BF2KYLWBj6kyZiTHmHdlWBA5jaa678%2FlbH7sn4HX\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d450eebf210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "messages.units_retrieved",
+        "data": [
+          {
+            "id": 3,
+            "name": "Test Unit API v2",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 2,
+            "name": "Penthouse Suite 501",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 18,
+              "name": "بنتهاوس",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 2,
+              "name": "Building A"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": null,
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          },
+          {
+            "id": 1,
+            "name": "Unit 101",
+            "category": {
+              "id": 2,
+              "name": "سكني",
+              "icon": "residential"
+            },
+            "type": {
+              "id": 17,
+              "name": "شقة",
+              "icon": "residential"
+            },
+            "rf_community": {
+              "id": 1,
+              "name": "Test Community 1"
+            },
+            "rf_building": {
+              "id": 1,
+              "name": "Test Building 1"
+            },
+            "owner": null,
+            "tenant": null,
+            "status": {
+              "id": 26,
+              "name": "متاحة"
+            },
+            "photos": [],
+            "is_market_place": "0",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "market_rent": null,
+            "net_area": "120",
+            "floor_no": null,
+            "map": {
+              "latitude": 24.7103488,
+              "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+              "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+              "longitude": 46.6878464,
+              "districtName": "3287 ,RHSA7555",
+              "latitudeDelta": 0.02,
+              "longitudeDelta": 0.009244060475161988,
+              "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555، Riyadh 12245, Saudi Arabia"
+            },
+            "is_off_plan_sale": "0"
+          }
+        ],
+        "meta": []
+      },
+      "timing": 823
+    },
+    "timestamp": "2026-04-12T17:07:48.646Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": false,
+            "properties": {
+              "id": {
+                "type": "number",
+                "nullable": false,
+                "example": 3
+              },
+              "name": {
+                "type": "string",
+                "nullable": false,
+                "example": "Test Unit API v2"
+              },
+              "category": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 2
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "سكني"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "residential"
+                  }
+                }
+              },
+              "type": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 17
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "شقة"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "residential"
+                  }
+                }
+              },
+              "rf_community": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Community 1"
+                  }
+                }
+              },
+              "rf_building": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Building 1"
+                  }
+                }
+              },
+              "owner": {
+                "type": "null",
+                "nullable": true
+              },
+              "tenant": {
+                "type": "null",
+                "nullable": true
+              },
+              "status": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 26
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "متاحة"
+                  }
+                }
+              },
+              "photos": {
+                "type": "array",
+                "nullable": false,
+                "items": {
+                  "type": "mixed",
+                  "nullable": true
+                },
+                "example": []
+              },
+              "is_market_place": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              },
+              "city": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الرياض"
+                  }
+                }
+              },
+              "district": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "الدرعية"
+                  }
+                }
+              },
+              "market_rent": {
+                "type": "null",
+                "nullable": true
+              },
+              "net_area": {
+                "type": "null",
+                "nullable": true
+              },
+              "floor_no": {
+                "type": "null",
+                "nullable": true
+              },
+              "map": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "latitude": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 24.7103488
+                  },
+                  "mapsLink": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+                  },
+                  "place_id": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "ChIJhz3eOQADLz4R_cqAJEJr0Qw"
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 46.6878464
+                  },
+                  "districtName": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "3287 ,RHSA7555"
+                  },
+                  "latitudeDelta": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 0.02
+                  },
+                  "longitudeDelta": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 0.009244060475161988
+                  },
+                  "formattedAddress": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                  }
+                }
+              },
+              "is_off_plan_sale": {
+                "type": "string",
+                "nullable": false,
+                "example": "0"
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/units/3"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:49 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7SzaSGbF3f%2FyAkJr6et2hEAsFtOIywzIoXB3bSnyB5AeZJXemkRAwul4CywYzxUuLZO6xMnwgvV4DxnI8N9DXVTmPVCYNR%2BCqD8k9ZGX0944RvGFuaQz5V%2FNg3nlhj%2BUtBJqxHo0YserXuxq\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d4566e30210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "messages.unit_show",
+        "data": {
+          "id": 3,
+          "name": "Test Unit API v2",
+          "category": {
+            "id": 2,
+            "name": "سكني",
+            "icon": "residential"
+          },
+          "type": {
+            "id": 17,
+            "name": "شقة",
+            "icon": "residential"
+          },
+          "status": {
+            "id": 26,
+            "name": "متاحة",
+            "created_at": null,
+            "priority": "1"
+          },
+          "rf_community": {
+            "id": 1,
+            "name": "Test Community 1",
+            "city": {
+              "id": 1,
+              "name": "الرياض"
+            },
+            "district": {
+              "id": 1,
+              "name": "الدرعية"
+            },
+            "sales_commission_rate": "0.00",
+            "rental_commission_rate": "0.00",
+            "buildings_count": 0,
+            "units_count": 0,
+            "map": null,
+            "images": [],
+            "is_selected_property": false,
+            "count_selected_property": 0,
+            "requests_count": null,
+            "total_income": 0,
+            "is_market_place": "0",
+            "is_buy": 0,
+            "community_marketplace_type": "rent",
+            "is_off_plan_sale": "0"
+          },
+          "rf_building": {
+            "id": 1,
+            "name": "Test Building 1"
+          },
+          "year_build": "2020",
+          "map": {
+            "latitude": 24.7103488,
+            "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+            "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+            "longitude": 46.6878464,
+            "districtName": "3287 ,RHSA7555",
+            "latitudeDelta": 0.02,
+            "longitudeDelta": 0.009244060475161988,
+            "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+          },
+          "photos": [],
+          "floor_plans": [],
+          "documents": [],
+          "specifications": [],
+          "net_area": null,
+          "marketplace": {
+            "sale": null,
+            "rent": null
+          },
+          "rooms": [],
+          "areas": [],
+          "owner": null,
+          "tenant": null,
+          "merge_document": [],
+          "lease": [],
+          "city": {
+            "id": 1,
+            "name": "الرياض"
+          },
+          "district": {
+            "id": 1,
+            "name": "الدرعية"
+          },
+          "features": [],
+          "is_market_place": "0",
+          "renewal_status": false,
+          "marketplace_booking_unit_id": null,
+          "about": null,
+          "is_off_plan_sale": "0"
+        },
+        "meta": []
+      },
+      "timing": 1031
+    },
+    "timestamp": "2026-04-12T17:07:49.743Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 3
+            },
+            "name": {
+              "type": "string",
+              "nullable": false,
+              "example": "Test Unit API v2"
+            },
+            "category": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 2
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "سكني"
+                },
+                "icon": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "residential"
+                }
+              }
+            },
+            "type": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 17
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "شقة"
+                },
+                "icon": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "residential"
+                }
+              }
+            },
+            "status": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 26
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "متاحة"
+                },
+                "created_at": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "priority": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "1"
+                }
+              }
+            },
+            "rf_community": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Test Community 1"
+                },
+                "city": {
+                  "type": "object",
+                  "nullable": false,
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "nullable": false,
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "الرياض"
+                    }
+                  }
+                },
+                "district": {
+                  "type": "object",
+                  "nullable": false,
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "nullable": false,
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": false,
+                      "example": "الدرعية"
+                    }
+                  }
+                },
+                "sales_commission_rate": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0.00"
+                },
+                "rental_commission_rate": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0.00"
+                },
+                "buildings_count": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "units_count": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "map": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "images": {
+                  "type": "array",
+                  "nullable": false,
+                  "items": {
+                    "type": "mixed",
+                    "nullable": true
+                  },
+                  "example": []
+                },
+                "is_selected_property": {
+                  "type": "boolean",
+                  "nullable": false,
+                  "example": false
+                },
+                "count_selected_property": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "requests_count": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "total_income": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "is_market_place": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0"
+                },
+                "is_buy": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0
+                },
+                "community_marketplace_type": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "rent"
+                },
+                "is_off_plan_sale": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "0"
+                }
+              }
+            },
+            "rf_building": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Test Building 1"
+                }
+              }
+            },
+            "year_build": {
+              "type": "string",
+              "nullable": false,
+              "example": "2020"
+            },
+            "map": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 24.7103488
+                },
+                "mapsLink": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+                },
+                "place_id": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "ChIJhz3eOQADLz4R_cqAJEJr0Qw"
+                },
+                "longitude": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 46.6878464
+                },
+                "districtName": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "3287 ,RHSA7555"
+                },
+                "latitudeDelta": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0.02
+                },
+                "longitudeDelta": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 0.009244060475161988
+                },
+                "formattedAddress": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                }
+              }
+            },
+            "photos": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "floor_plans": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "documents": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "specifications": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "net_area": {
+              "type": "null",
+              "nullable": true
+            },
+            "marketplace": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "sale": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "rent": {
+                  "type": "null",
+                  "nullable": true
+                }
+              }
+            },
+            "rooms": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "areas": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "owner": {
+              "type": "null",
+              "nullable": true
+            },
+            "tenant": {
+              "type": "null",
+              "nullable": true
+            },
+            "merge_document": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "lease": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "city": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الرياض"
+                }
+              }
+            },
+            "district": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "الدرعية"
+                }
+              }
+            },
+            "features": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "mixed",
+                "nullable": true
+              },
+              "example": []
+            },
+            "is_market_place": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            },
+            "renewal_status": {
+              "type": "boolean",
+              "nullable": false,
+              "example": false
+            },
+            "marketplace_booking_unit_id": {
+              "type": "null",
+              "nullable": true
+            },
+            "about": {
+              "type": "null",
+              "nullable": true
+            },
+            "is_off_plan_sale": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "nullable": false,
+          "example": "messages.unit_show"
+        }
+      },
+      "meta": {
+        "hasPagination": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "endpoint": "rf/facilities"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 17:07:50 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=3JQi881mQarZI2STSS2aIg579LgH1ARHky4eye7mw6dzSML4Ji7nuWR3laBoNuoirrNDEdHicqG7LO%2BWoeUyob7J%2FxJMVB5TZrWJa0aB2eoYUOi5y3PkmPK8Bx6UeCoeqBC2sC9QlEih9c9m\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3d45dd858210c-GIG"
+      },
+      "body": {
+        "code": 200,
+        "message": "",
+        "data": [],
+        "meta": []
+      },
+      "timing": 870
+    },
+    "timestamp": "2026-04-12T17:07:50.668Z",
+    "success": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "object",
+            "nullable": true,
+            "properties": {}
+          }
+        },
+        "meta": {
+          "type": "array",
+          "nullable": false,
+          "items": {
+            "type": "mixed",
+            "nullable": true
+          },
+          "example": []
+        }
+      },
+      "meta": {
+        "hasPagination": true
+      }
+    }
+  }
+]

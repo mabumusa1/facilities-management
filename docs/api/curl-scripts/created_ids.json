@@ -1,0 +1,15 @@
+{
+  "community_1": 3,
+  "community_2": 4,
+  "building_1": 2,
+  "building_2": 3,
+  "building_3": 4,
+  "owner_1": 6,
+  "owner_2": 7,
+  "tenant_1": 8,
+  "tenant_2": 9,
+  "tenant_3": 10,
+  "professional_1": 11,
+  "professional_2": 12,
+  "_note": "Admins 1,2 are pre-existing tenant admins, not created by scripts"
+}

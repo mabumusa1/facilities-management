@@ -1,0 +1,438 @@
+{
+  "endpoint": "rf/leases",
+  "method": "GET",
+  "params": {
+    "status_id": 32
+  },
+  "schema": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "object",
+          "nullable": false,
+          "properties": {
+            "id": {
+              "type": "number",
+              "nullable": false,
+              "example": 1
+            },
+            "contract_number": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026000001RL"
+            },
+            "lease_unit_type": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 2
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "سكني"
+                },
+                "icon": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "residential"
+                }
+              }
+            },
+            "tenant": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 4
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Khalid Test"
+                },
+                "rate": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "role": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Tenant"
+                },
+                "email": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "khalid.test@example.com"
+                },
+                "image": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "active": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "1"
+                },
+                "gender": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "company": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "birthdate": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "national_id": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "2233445566"
+                },
+                "nationality": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "phone_number": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "+966512345678"
+                },
+                "primary_user_name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Khalid Test"
+                }
+              }
+            },
+            "units": {
+              "type": "array",
+              "nullable": false,
+              "items": {
+                "type": "object",
+                "nullable": false,
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "nullable": false,
+                    "example": 3
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": false,
+                    "example": "Test Unit API v2"
+                  },
+                  "status": {
+                    "type": "object",
+                    "nullable": false,
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "nullable": false,
+                        "example": 26
+                      },
+                      "name_ar": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "متاحة"
+                      },
+                      "name_en": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "Vacant"
+                      },
+                      "active": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "1"
+                      },
+                      "type": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "unit"
+                      },
+                      "created_at": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "updated_at": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "deleted_at": {
+                        "type": "null",
+                        "nullable": true
+                      },
+                      "priority": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "1"
+                      },
+                      "is_history": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "0"
+                      }
+                    }
+                  },
+                  "map": {
+                    "type": "object",
+                    "nullable": false,
+                    "properties": {
+                      "latitude": {
+                        "type": "number",
+                        "nullable": false,
+                        "example": 24.7103488
+                      },
+                      "mapsLink": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464"
+                      },
+                      "place_id": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "ChIJhz3eOQADLz4R_cqAJEJr0Qw"
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "nullable": false,
+                        "example": 46.6878464
+                      },
+                      "districtName": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "3287 ,RHSA7555"
+                      },
+                      "latitudeDelta": {
+                        "type": "number",
+                        "nullable": false,
+                        "example": 0.02
+                      },
+                      "longitudeDelta": {
+                        "type": "number",
+                        "nullable": false,
+                        "example": 0.009244060475161988
+                      },
+                      "formattedAddress": {
+                        "type": "string",
+                        "nullable": false,
+                        "example": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                      }
+                    }
+                  }
+                }
+              },
+              "example": [
+                {
+                  "id": 3,
+                  "name": "Test Unit API v2",
+                  "status": {
+                    "id": 26,
+                    "name_ar": "متاحة",
+                    "name_en": "Vacant",
+                    "active": "1",
+                    "type": "unit",
+                    "created_at": null,
+                    "updated_at": null,
+                    "deleted_at": null,
+                    "priority": "1",
+                    "is_history": "0"
+                  },
+                  "map": {
+                    "latitude": 24.7103488,
+                    "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+                    "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+                    "longitude": 46.6878464,
+                    "districtName": "3287 ,RHSA7555",
+                    "latitudeDelta": 0.02,
+                    "longitudeDelta": 0.009244060475161988,
+                    "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                  }
+                }
+              ]
+            },
+            "building": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Test Building 1"
+                }
+              }
+            },
+            "community": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "Test Community 1"
+                }
+              }
+            },
+            "status": {
+              "type": "object",
+              "nullable": false,
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "nullable": false,
+                  "example": 33
+                },
+                "name": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "عقد ملغي"
+                },
+                "created_at": {
+                  "type": "null",
+                  "nullable": true
+                },
+                "priority": {
+                  "type": "string",
+                  "nullable": false,
+                  "example": "1"
+                }
+              }
+            },
+            "updated_at": {
+              "type": "string",
+              "nullable": false,
+              "example": "2026-04-12T08:01:59.000000Z"
+            },
+            "duration": {
+              "type": "string",
+              "nullable": false,
+              "example": "1 سنة 0 شهور 0 أيام"
+            },
+            "days_remaining": {
+              "type": "number",
+              "nullable": false,
+              "example": 0
+            },
+            "pdf_url": {
+              "type": "string",
+              "nullable": false,
+              "example": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf"
+            },
+            "is_old": {
+              "type": "string",
+              "nullable": false,
+              "example": "0"
+            }
+          }
+        }
+      },
+      "meta": {
+        "type": "array",
+        "nullable": false,
+        "items": {
+          "type": "mixed",
+          "nullable": true
+        },
+        "example": []
+      }
+    },
+    "meta": {
+      "hasPagination": true
+    }
+  },
+  "sample": [
+    {
+      "id": 1,
+      "contract_number": "2026000001RL",
+      "lease_unit_type": {
+        "id": 2,
+        "name": "سكني",
+        "icon": "residential"
+      },
+      "tenant": {
+        "id": 4,
+        "name": "Khalid Test",
+        "rate": null,
+        "role": "Tenant",
+        "email": "khalid.test@example.com",
+        "image": null,
+        "active": "1",
+        "gender": null,
+        "company": null,
+        "birthdate": null,
+        "national_id": "2233445566",
+        "nationality": null,
+        "phone_number": "+966512345678",
+        "primary_user_name": "Khalid Test"
+      },
+      "units": [
+        {
+          "id": 3,
+          "name": "Test Unit API v2",
+          "status": {
+            "id": 26,
+            "name_ar": "متاحة",
+            "name_en": "Vacant",
+            "active": "1",
+            "type": "unit",
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null,
+            "priority": "1",
+            "is_history": "0"
+          },
+          "map": {
+            "latitude": 24.7103488,
+            "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+            "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+            "longitude": 46.6878464,
+            "districtName": "3287 ,RHSA7555",
+            "latitudeDelta": 0.02,
+            "longitudeDelta": 0.009244060475161988,
+            "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+          }
+        }
+      ],
+      "building": {
+        "id": 1,
+        "name": "Test Building 1"
+      },
+      "community": {
+        "id": 1,
+        "name": "Test Community 1"
+      },
+      "status": {
+        "id": 33,
+        "name": "عقد ملغي",
+        "created_at": null,
+        "priority": "1"
+      },
+      "updated_at": "2026-04-12T08:01:59.000000Z",
+      "duration": "1 سنة 0 شهور 0 أيام",
+      "days_remaining": 0,
+      "pdf_url": "https://storage.googleapis.com/prod-pms-bucket/testbusiness123/files/leases/2026000001RL/1.pdf",
+      "is_old": "0"
+    }
+  ]
+}

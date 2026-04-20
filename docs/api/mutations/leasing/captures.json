@@ -1,0 +1,1191 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases",
+      "body": {
+        "created_at": "2026-04-12",
+        "start_date": "2026-04-19",
+        "end_date": "2027-04-19",
+        "handover_date": "2026-04-19",
+        "number_of_years": 1,
+        "number_of_months": 0,
+        "lease_unit_type": 2,
+        "tenant_type": "individual",
+        "tenant_id": "21",
+        "tenant": {
+          "id": "21",
+          "name": "Test Company4owwc4",
+          "phone_number": "+966508827826"
+        },
+        "autoGenerateLeaseNumber": true,
+        "rental_type": "detailed",
+        "rental_contract_type_id": 13,
+        "payment_schedule_id": 7,
+        "lease_escalations_type": "fixed",
+        "rental_total_amount": 60000,
+        "rf_status_id": 30,
+        "units": [
+          {
+            "id": "3",
+            "rental_annual_type": "total",
+            "annual_rental_amount": 60000,
+            "amount_type": "total"
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:39 GMT",
+        "content-type": "application/json",
+        "content-length": "528",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "92871f9dcf67890f3b081e08329729e3",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KW9fGGN4V6B1gsFNIpHG%2BFapTrVMWUK9k7A%2B5HvRy244Cmvb2uTmEKMWWLEk%2FtTjA9%2FMqYwjr123PuA1FoEzyqcV%2B%2BOFXzu2Dnp4wyc%2FeD93945UdLhRkUeaPdQfiZtEHqmuxw6JU1x7sJqm\"}]}",
+        "cf-ray": "9eb3b8477ec9e1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "units.0.rental_amount": [
+            "المبلغ السنوي للإيجار مطلوب"
+          ]
+        }
+      },
+      "timing": 954
+    },
+    "timestamp": "2026-04-12T16:48:40.187Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "tenant.national_id",
+        "message": "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual.",
+        "rule": "required"
+      },
+      {
+        "field": "units.0.rental_amount",
+        "message": "المبلغ السنوي للإيجار مطلوب",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:40 GMT",
+        "content-type": "application/json",
+        "content-length": "1717",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "37fc379723c288e2b59ed4a93b759e0e",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=J6wZdX43f0vhi56l5ZnXFHJ8cmcKnS8xJZz9co3yb59aABuOYTUn4NdnrYhoX5d0MmQHNczfhzKaoEzqMo69%2FDTkFL489xyTQ89GsxAjVevdW0gVemjo1oXN8Cry4dwYdCkVtfoDcY6a7zmW\"}]}",
+        "cf-ray": "9eb3b84eaca0e1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rental_contract_type_id": [
+            "الحقل rental contract type id مطلوب."
+          ],
+          "created_at": [
+            "الحقل created at مطلوب."
+          ],
+          "start_date": [
+            "الحقل start date مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "handover_date": [
+            "الحقل handover date مطلوب."
+          ],
+          "lease_unit_type": [
+            "الحقل lease unit type مطلوب."
+          ],
+          "number_of_years": [
+            "يرجى إضافة مدة الإيجار بالسنوات."
+          ],
+          "number_of_months": [
+            "يرجى إضافة مدة الإيجار بالشهور."
+          ],
+          "units": [
+            "الحقل units مطلوب."
+          ],
+          "tenant_type": [
+            "الحقل نوع المستأجر مطلوب."
+          ],
+          "autoGenerateLeaseNumber": [
+            "الحقل auto generate lease number مطلوب."
+          ],
+          "contract_number": [
+            "يرجى إدخال رقم إيجار فريد."
+          ],
+          "rental_type": [
+            "الحقل rental type مطلوب."
+          ],
+          "payment_schedule_id": [
+            "الحقل payment schedule id مطلوب."
+          ]
+        }
+      },
+      "timing": 327
+    },
+    "timestamp": "2026-04-12T16:48:40.691Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "rental_contract_type_id",
+        "message": "الحقل rental contract type id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "created_at",
+        "message": "الحقل created at مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_date",
+        "message": "الحقل start date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "handover_date",
+        "message": "الحقل handover date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "lease_unit_type",
+        "message": "الحقل lease unit type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "number_of_years",
+        "message": "يرجى إضافة مدة الإيجار بالسنوات."
+      },
+      {
+        "field": "number_of_months",
+        "message": "يرجى إضافة مدة الإيجار بالشهور."
+      },
+      {
+        "field": "units",
+        "message": "الحقل units مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "tenant_type",
+        "message": "الحقل نوع المستأجر مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "autoGenerateLeaseNumber",
+        "message": "الحقل auto generate lease number مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "contract_number",
+        "message": "يرجى إدخال رقم إيجار فريد.",
+        "rule": "unique"
+      },
+      {
+        "field": "rental_type",
+        "message": "الحقل rental type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "payment_schedule_id",
+        "message": "الحقل payment schedule id مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases",
+      "body": {
+        "rental_type": "yearly",
+        "rental_contract_type_id": 13
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:41 GMT",
+        "content-type": "application/json",
+        "content-length": "1612",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "853e1a68b1e6174502fc50b0ae849a5f",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=or8FsTY%2BV3B4rVvMnRctxCEWosJggA7twH8ORFErsI7J0EzRNJDkmZ5WsuHyICv8U9X%2BwH1i5BEhp2Gtc82QVShgUPGxTy4zxfddwosKdCtIgzTi5xQSS1VSyGb2WhbRRkP95tltVJO078E5\"}]}",
+        "cf-ray": "9eb3b850fb43e1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "created_at": [
+            "الحقل created at مطلوب."
+          ],
+          "start_date": [
+            "الحقل start date مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "handover_date": [
+            "الحقل handover date مطلوب."
+          ],
+          "lease_unit_type": [
+            "الحقل lease unit type مطلوب."
+          ],
+          "number_of_years": [
+            "يرجى إضافة مدة الإيجار بالسنوات."
+          ],
+          "number_of_months": [
+            "يرجى إضافة مدة الإيجار بالشهور."
+          ],
+          "units": [
+            "الحقل units مطلوب."
+          ],
+          "tenant_type": [
+            "الحقل نوع المستأجر مطلوب."
+          ],
+          "autoGenerateLeaseNumber": [
+            "الحقل auto generate lease number مطلوب."
+          ],
+          "contract_number": [
+            "يرجى إدخال رقم إيجار فريد."
+          ],
+          "rental_type": [
+            "الحقل rental type غير صحيح"
+          ],
+          "payment_schedule_id": [
+            "الحقل payment schedule id مطلوب."
+          ]
+        }
+      },
+      "timing": 313
+    },
+    "timestamp": "2026-04-12T16:48:41.059Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "created_at",
+        "message": "الحقل created at مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_date",
+        "message": "الحقل start date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "handover_date",
+        "message": "الحقل handover date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "lease_unit_type",
+        "message": "الحقل lease unit type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "number_of_years",
+        "message": "يرجى إضافة مدة الإيجار بالسنوات."
+      },
+      {
+        "field": "number_of_months",
+        "message": "يرجى إضافة مدة الإيجار بالشهور."
+      },
+      {
+        "field": "units",
+        "message": "الحقل units مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "tenant_type",
+        "message": "الحقل نوع المستأجر مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "autoGenerateLeaseNumber",
+        "message": "الحقل auto generate lease number مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "contract_number",
+        "message": "يرجى إدخال رقم إيجار فريد.",
+        "rule": "unique"
+      },
+      {
+        "field": "rental_type",
+        "message": "الحقل rental type غير صحيح"
+      },
+      {
+        "field": "payment_schedule_id",
+        "message": "الحقل payment schedule id مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases",
+      "body": {
+        "created_at": "2026-04-12",
+        "start_date": "2026-04-19",
+        "end_date": "2027-04-19",
+        "number_of_years": 1,
+        "number_of_months": 0,
+        "lease_unit_type": 2,
+        "tenant_type": "individual",
+        "tenant_id": "21",
+        "autoGenerateLeaseNumber": true,
+        "rental_type": "detailed",
+        "rental_contract_type_id": 13,
+        "payment_schedule_id": 7,
+        "rental_total_amount": 60000,
+        "rf_status_id": 30,
+        "units": [
+          {
+            "id": "3",
+            "annual_rental_amount": 60000
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:43 GMT",
+        "content-type": "application/json",
+        "content-length": "840",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "16a231f88727497a02fc50b0ae84977d",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rZsyzS%2FtVlreLyLfDYs%2FU3z%2BTgQQrruaHMHqn2aW3Sz9IcrntFH2OMKmSPnZatSjNjYwbNr38oWmXYkuovXElcjRqKc7ROCGlWpdfOz3U%2FdMqbOkeWJoFGD6%2BD1kBSrRqvcq3Prgq37nF7Ek\"}]}",
+        "cf-ray": "9eb3b8609fb0e1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "handover_date": [
+            "الحقل handover date مطلوب."
+          ],
+          "tenant": [
+            "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "tenant.national_id": [
+            "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual."
+          ],
+          "units.0.amount_type": [
+            " نوع المبلغ مطلوب."
+          ]
+        }
+      },
+      "timing": 439
+    },
+    "timestamp": "2026-04-12T16:48:43.666Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "handover_date",
+        "message": "الحقل handover date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "tenant",
+        "message": "الحقل tenant مطلوب في حال ما إذا كان نوع المستأجر يساوي individual.",
+        "rule": "required"
+      },
+      {
+        "field": "tenant.national_id",
+        "message": "الحقل tenant.national id مطلوب في حال ما إذا كان نوع المستأجر يساوي individual.",
+        "rule": "required"
+      },
+      {
+        "field": "units.0.amount_type",
+        "message": " نوع المبلغ مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "endpoint": "rf/leases/1",
+      "body": {
+        "notes": "Updated lease notes 1776012524084"
+      }
+    },
+    "response": {
+      "status": 405,
+      "statusText": "Method Not Allowed",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:44 GMT",
+        "content-type": "application/json",
+        "content-length": "106",
+        "connection": "keep-alive",
+        "allow": "GET, HEAD, DELETE",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "cefc3835fb4359fd83e3bb55fd3b5959",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1%2Fhemj3aADk%2FZvUoR8pKoxe15CasJ9zu2edjotlXrSMGs1gkAcOGO9u02dyx%2B%2FLTURZ7z7ifubTY21GHRKSuoHqtQOanHJXkUI9VVeN9CHPTMvprpL4i2St41Tu9iisGOJ07FAtlCwMjwYAB\"}]}",
+        "cf-ray": "9eb3b865de98e1d0-MRS"
+      },
+      "body": {
+        "message": "The PUT method is not supported for this route. Supported methods: GET, HEAD, DELETE."
+      },
+      "timing": 246
+    },
+    "timestamp": "2026-04-12T16:48:44.332Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "rf/leases/99999"
+    },
+    "response": {
+      "status": 400,
+      "statusText": "Bad Request",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:45 GMT",
+        "content-type": "application/json",
+        "content-length": "229",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-cloud-trace-context": "5faf894757854d94dcfce9d2b0341092",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Qnca9WR%2BHpLtH5XTJwQJFYytEBKhxrvJ9SFmCwQicPLJMk3wPzOGxISNfDcij%2BvrWxJmriDruPFd9Wk82Ok8wQolLXkPcE%2FxaSDHrfrA4WKS9wHsupL3ZYCj20Ou1s31AOqazxzbKq74v%2F12\"}]}",
+        "cf-ray": "9eb3b86b5cdce1d0-MRS"
+      },
+      "body": {
+        "code": 400,
+        "message": "عذراً، تم حذف العقد بواسطة مستخدم آخر",
+        "errors": []
+      },
+      "timing": 391
+    },
+    "timestamp": "2026-04-12T16:48:45.310Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/1/addendum",
+      "body": {
+        "type": "modification",
+        "description": "Lease addendum 1776012525794",
+        "effective_date": "2026-04-12"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:46 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "0f76c1fe827189a4b59ed4a93b759445",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=G5V%2BzJ50Wz39kVWv0vxNmMwAeXExKtQw%2FMYV6G4Idcb3OAYC5bM1yPer4lEq6p4myJKiuGTbHM64jBjwP57uJNdIseq9cqtr%2FrXw9qe%2FbGEugiigCm8EXGyBVQ1%2BEH3lH0BEQgHLeiPAQKti\"}]}",
+        "cf-ray": "9eb3b8708b63e1d0-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 358
+    },
+    "timestamp": "2026-04-12T16:48:46.153Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/change-status/move-out",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:46 GMT",
+        "content-type": "application/json",
+        "content-length": "228",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "c7d4816ae41c914cb59ed4a93b759938",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=isW%2F4qRyFeN7yxIXqZp1m1dykBSHnpGb1UilL2qeFWGas1U5ORvhEWs9qzzUHmMAnY631TJUq0%2BT1AokQPJHFUtxAM6mm2CO72uR66hf4lZwcOSanLQtqJDd1g2F4RjUSpf8yTvpsqHEPZyx\"}]}",
+        "cf-ray": "9eb3b873ac2ee1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rf_lease_id": [
+            "الحقل rf lease id مطلوب."
+          ],
+          "end_at": [
+            "الحقل end at مطلوب."
+          ]
+        }
+      },
+      "timing": 300
+    },
+    "timestamp": "2026-04-12T16:48:46.579Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "rf_lease_id",
+        "message": "الحقل rf lease id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_at",
+        "message": "الحقل end at مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/change-status/move-out",
+      "body": {
+        "rf_lease_id": 1,
+        "end_at": "2026-04-12"
+      }
+    },
+    "response": {
+      "status": 400,
+      "statusText": "Bad Request",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:47 GMT",
+        "content-type": "application/json",
+        "content-length": "87",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "19d816f13a6add10a8a2b95429d4df14;o=1",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5JnFbDWhHHqF0%2BzQJOQ6ZfTGzRvAybiDSUh1BStTF9806qopDBLfkKlsEX%2BhmF%2Bz1EJNyeib7gBr43frOL1o5AeEOgYnmNSnEC2Yy3qESbEgNIKfjIlWayLIzFWwMS9J%2BgqfC9iThD8WOrR6\"}]}",
+        "cf-ray": "9eb3b87838e9e1d0-MRS"
+      },
+      "body": {
+        "code": 400,
+        "message": "Move-out can only be processed for expired leases.",
+        "errors": []
+      },
+      "timing": 344
+    },
+    "timestamp": "2026-04-12T16:48:47.368Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/change-status/terminate",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:47 GMT",
+        "content-type": "application/json",
+        "content-length": "228",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "eb6a31f99fecea34dcfce9d2b034126e",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vL1ydUiErq5iIo0p92OEBlSlEFthAJKly3jsw4cMnt8ZyhXWiu%2BHz9FaTWc1uaP7kd3i6wXs%2FhWXOTCQ63afqUidHSkiKJMfz98EK1ao%2Bvjy3n6O9m%2FUXMmc88WxtrruirF7bI3lCEPtewzi\"}]}",
+        "cf-ray": "9eb3b87ab81ce1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rf_lease_id": [
+            "الحقل rf lease id مطلوب."
+          ],
+          "end_at": [
+            "الحقل end at مطلوب."
+          ]
+        }
+      },
+      "timing": 268
+    },
+    "timestamp": "2026-04-12T16:48:47.688Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "rf_lease_id",
+        "message": "الحقل rf lease id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_at",
+        "message": "الحقل end at مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/change-status/terminate",
+      "body": {
+        "rf_lease_id": 1,
+        "end_at": "2026-04-12"
+      }
+    },
+    "response": {
+      "status": 400,
+      "statusText": "Bad Request",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:48 GMT",
+        "content-type": "application/json",
+        "content-length": "96",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "59111ff9271349bab59ed4a93b7591da",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=t2LcPTg1TrjZaUEuKDzkS1HqUKqAmmp8sxSfNznDYJkzJRdxrdTlNQCt7F2vjpCAtgd2oJhkeR6l1kM31ooqwtKGfrthAC9rxSIVpkaFZsVAx6h8jccNy4gB1lDi7rELfcLkNtJl8LRRx25d\"}]}",
+        "cf-ray": "9eb3b87efb59e1d0-MRS"
+      },
+      "body": {
+        "code": 400,
+        "message": "Termination can only be processed for new or active leases.",
+        "errors": []
+      },
+      "timing": 303
+    },
+    "timestamp": "2026-04-12T16:48:48.402Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/change-status/suspend",
+      "body": {
+        "lease_id": 1,
+        "reason": "Test suspension",
+        "date": "2026-04-12"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:49 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "18bca60db0d16e3cb59ed4a93b75931e",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2F5QUlU9sZe%2B%2BAljF452Kum86u0Psa%2FcNvI4Ism6RAG7cuEwjarQD4ea%2Baz9byZul2AI4BpcKcpaolyfgVqYk2Zt9FghJc9gLuNsxu0aekYY5Q6xjX3cC1qUyx%2FIBx7LUaMsf%2F7f7TQ7yovo\"}]}",
+        "cf-ray": "9eb3b8831e86e1d0-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 266
+    },
+    "timestamp": "2026-04-12T16:48:49.020Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/change-status/reactivate",
+      "body": {
+        "lease_id": 1,
+        "date": "2026-04-12"
+      }
+    },
+    "response": {
+      "status": 404,
+      "statusText": "Not Found",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:49 GMT",
+        "content-type": "application/json",
+        "content-length": "49",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "vary": "Origin",
+        "x-cloud-trace-context": "a709fe17b0f7b887a8a2b95429d4de10",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=FHqFjo1%2FhWCP%2B7%2BXP9TXlj1Rizh%2FO00xv%2Bo0YUdYgiYtqbJwLZRGf35XCYFIAQozNfkKJwA1jAYoDahUaBZph%2B3BgTc%2Fhlvl5GnYUsohRSeOGUoKW0FUqSNQscaJkzjG1msp6Tycingshi4X\"}]}",
+        "cf-ray": "9eb3b88708c3e1d0-MRS"
+      },
+      "body": {
+        "success": false,
+        "message": "URL link not Found."
+      },
+      "timing": 247
+    },
+    "timestamp": "2026-04-12T16:48:49.647Z",
+    "success": false,
+    "validationErrors": []
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/sub-leases",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:50 GMT",
+        "content-type": "application/json",
+        "content-length": "288",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "98e174fcfcc43777dcfce9d2b0341ddf",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=khp9Hx4Do0OdmAzh3s4r%2FN5Ht3v4Jgw9jPxpjlblRbu3O6SUW25SejekMfhJplxwBDv7kpxIzaW2zDXzHwYkws2WibYoM0JSi8R6%2FVc%2BEuRq%2B8r3IuSukiE2Se1O9NKEIRSnOBJUzeCIpiQK\"}]}",
+        "cf-ray": "9eb3b888fdb3e1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "lease_id": [
+            "الحقل lease id مطلوب."
+          ],
+          "tenant_type": [
+            "الحقل نوع المستأجر مطلوب."
+          ]
+        }
+      },
+      "timing": 309
+    },
+    "timestamp": "2026-04-12T16:48:50.004Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "lease_id",
+        "message": "الحقل lease id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "tenant_type",
+        "message": "الحقل نوع المستأجر مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/sub-leases",
+      "body": {
+        "parent_lease_id": 1,
+        "sub_tenant_name": "Sub Tenant 1776012530459",
+        "sub_tenant_phone": "+966500000001",
+        "start_date": "2026-04-12",
+        "end_date": "2026-10-12",
+        "rental_amount": 30000
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:51 GMT",
+        "content-type": "application/json",
+        "content-length": "288",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "bb9f37e0ccc86796dcfce9d2b03418d9",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Mf9xNK4b09aAXyDoIb6AgnQni43zyTuGQ28kQWUVsxPcMGYck1aDnQNti%2F3InvZMz98fUoAAFJDsDOfGJB%2BGMPWupWAWIOukkbwxrE1I0eIqq1BYd7Rz33aftNz5bHc2U4C5SnDYhYXFstgL\"}]}",
+        "cf-ray": "9eb3b88daad9e1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "lease_id": [
+            "الحقل lease id مطلوب."
+          ],
+          "tenant_type": [
+            "الحقل نوع المستأجر مطلوب."
+          ]
+        }
+      },
+      "timing": 300
+    },
+    "timestamp": "2026-04-12T16:48:50.760Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "lease_id",
+        "message": "الحقل lease id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "tenant_type",
+        "message": "الحقل نوع المستأجر مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "DELETE",
+      "endpoint": "rf/sub-leases/999"
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:51 GMT",
+        "content-type": "application/json",
+        "transfer-encoding": "chunked",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "10",
+        "x-ratelimit-remaining": "9",
+        "vary": "Origin",
+        "x-frame-options": "SAMEORIGIN",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=V6kPmufv%2FU%2B7QKrTnKIc53p9516XYhaT3tlPPoCjeqedZaQEsJ6kxJgObsFjVSFqopBXVqRoofFuObAGYiE95IewHtM0AgTZOtQqyI2YjHvBLU01IyEtR9RNzzJfxSO85U2B9SLe2RbJoP0Y\"}]}",
+        "content-encoding": "br",
+        "cf-ray": "9eb3b88fe8a7e1d0-MRS"
+      },
+      "body": {
+        "code": 200,
+        "message": "messages.deleted_successfully",
+        "data": [],
+        "meta": []
+      },
+      "timing": 279
+    },
+    "timestamp": "2026-04-12T16:48:51.095Z",
+    "success": true
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/renew/store",
+      "body": {}
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:51 GMT",
+        "content-type": "application/json",
+        "content-length": "1463",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "24f42f608c7eb2f4b0234ab7eb576f1e",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ufKKZMT3yo4bXXCJl40lWWefRn9vcEgSYurAyxU%2BpsejCU%2BmzMsXyFfyodB3dEhyKklI9MdV4kjeRf6VKQc%2B4SZJySp%2FxBiONY%2BZ1CfS0VEkFdSq%2BZwIKanJwu93Yt2bkkwWYq9clVTlMewD\"}]}",
+        "cf-ray": "9eb3b892a8b0e1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "rental_contract_type_id": [
+            "الحقل rental contract type id مطلوب."
+          ],
+          "created_at": [
+            "الحقل created at مطلوب."
+          ],
+          "start_date": [
+            "الحقل start date مطلوب."
+          ],
+          "end_date": [
+            "الحقل end date مطلوب."
+          ],
+          "rf_lease_id": [
+            "الحقل rf lease id مطلوب."
+          ],
+          "number_of_years": [
+            "يرجى إضافة مدة الإيجار بالسنوات."
+          ],
+          "number_of_months": [
+            "يرجى إضافة مدة الإيجار بالشهور."
+          ],
+          "autoGenerateLeaseNumber": [
+            "الحقل auto generate lease number مطلوب."
+          ],
+          "contract_number": [
+            "يرجى إدخال رقم إيجار فريد."
+          ],
+          "rental_type": [
+            "الحقل rental type مطلوب."
+          ],
+          "payment_schedule_id": [
+            "الحقل payment schedule id مطلوب."
+          ],
+          "units": [
+            "الحقل units مطلوب."
+          ]
+        }
+      },
+      "timing": 324
+    },
+    "timestamp": "2026-04-12T16:48:51.576Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "rental_contract_type_id",
+        "message": "الحقل rental contract type id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "created_at",
+        "message": "الحقل created at مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "start_date",
+        "message": "الحقل start date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "end_date",
+        "message": "الحقل end date مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "rf_lease_id",
+        "message": "الحقل rf lease id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "number_of_years",
+        "message": "يرجى إضافة مدة الإيجار بالسنوات."
+      },
+      {
+        "field": "number_of_months",
+        "message": "يرجى إضافة مدة الإيجار بالشهور."
+      },
+      {
+        "field": "autoGenerateLeaseNumber",
+        "message": "الحقل auto generate lease number مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "contract_number",
+        "message": "يرجى إدخال رقم إيجار فريد.",
+        "rule": "unique"
+      },
+      {
+        "field": "rental_type",
+        "message": "الحقل rental type مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "payment_schedule_id",
+        "message": "الحقل payment schedule id مطلوب.",
+        "rule": "required"
+      },
+      {
+        "field": "units",
+        "message": "الحقل units مطلوب.",
+        "rule": "required"
+      }
+    ]
+  },
+  {
+    "request": {
+      "method": "POST",
+      "endpoint": "rf/leases/renew/store",
+      "body": {
+        "rf_lease_id": 1,
+        "rental_contract_type_id": 13,
+        "created_at": "2026-04-12",
+        "start_date": "2026-04-19",
+        "end_date": "2027-04-19",
+        "number_of_years": 1,
+        "number_of_months": 0,
+        "autoGenerateLeaseNumber": true,
+        "rental_type": "detailed",
+        "payment_schedule_id": 7,
+        "units": [
+          {
+            "id": 3,
+            "rental_annual_type": "total",
+            "annual_rental_amount": 60000,
+            "amount_type": "total"
+          }
+        ]
+      }
+    },
+    "response": {
+      "status": 422,
+      "statusText": "Unprocessable Entity",
+      "headers": {
+        "date": "Sun, 12 Apr 2026 16:48:52 GMT",
+        "content-type": "application/json",
+        "content-length": "228",
+        "connection": "keep-alive",
+        "cache-control": "no-cache, private",
+        "x-ratelimit-limit": "5",
+        "x-ratelimit-remaining": "4",
+        "vary": "Origin",
+        "x-cloud-trace-context": "45b502f6f5b2aad783e3bb55fd3b5180",
+        "server": "cloudflare",
+        "via": "1.1 google",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TDQ2kvWMAjBfI86GtEt9oBsJ38U1x9PTZVAvdVqPfB0f%2F1fdNrRNSyWOFqyshzJxwylD97iOwpIXPjhmB6NEICTJEmv%2FfwCjDLVoD9meUcQ1XlPb7khWXtvlVKF8XbbAe%2BbrppIrISdUm9eE\"}]}",
+        "cf-ray": "9eb3b8970cdbe1d0-MRS"
+      },
+      "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+          "units.0.rental_amount": [
+            "المبلغ السنوي للإيجار مطلوب"
+          ]
+        }
+      },
+      "timing": 489
+    },
+    "timestamp": "2026-04-12T16:48:52.420Z",
+    "success": false,
+    "validationErrors": [
+      {
+        "field": "units.0.rental_amount",
+        "message": "المبلغ السنوي للإيجار مطلوب",
+        "rule": "required"
+      }
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "endpoint": "rf/requests/service-settings/updateOrCreate",
+  "method": "POST",
+  "fields": {
+    "rf_category_id": {
+      "field": "rf_category_id",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل rf category id مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    },
+    "permissions": {
+      "field": "permissions",
+      "required": true,
+      "type": "string",
+      "rules": [
+        {
+          "rule": "required",
+          "rawMessage": "الحقل permissions مطلوب."
+        }
+      ],
+      "examples": {
+        "valid": [
+          "example"
+        ],
+        "invalid": [
+          "",
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "requiredFields": [
+    "permissions",
+    "rf_category_id"
+  ],
+  "optionalFields": []
+}

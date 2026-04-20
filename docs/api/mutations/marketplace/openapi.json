@@ -1,0 +1,1606 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Atar API - marketplace Module",
+    "version": "1.0.0",
+    "description": "API documentation for the marketplace module of the Atar property management platform."
+  },
+  "servers": [
+    {
+      "url": "https://api.goatar.com/api-management/",
+      "description": "Production API"
+    }
+  ],
+  "paths": {
+    "marketplace/admin/settings/banks/store": {
+      "post": {
+        "operationId": "post_marketplace_admin_settings_banks_store",
+        "summary": "POST marketplace/admin/settings/banks/store",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "beneficiary_name": {
+                          "type": "string"
+                        },
+                        "bank_name": {
+                          "type": "string"
+                        },
+                        "account_number": {
+                          "type": "string"
+                        },
+                        "iban": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "id": 1,
+                        "beneficiary_name": "Test Beneficiary",
+                        "bank_name": "Test Bank",
+                        "account_number": "12345678901234567890",
+                        "iban": "SA0380000000608010167519",
+                        "created_at": "2026-04-12T08:01:59.000000Z",
+                        "updated_at": "2026-04-12T08:01:59.000000Z"
+                      },
+                      "message": "تم تحديث الاعدادات بنجاح"
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "beneficiary_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "bank_name": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "account_number": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "iban": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "beneficiary_name": [
+                          "الحقل beneficiary name مطلوب."
+                        ],
+                        "bank_name": [
+                          "الحقل bank name مطلوب."
+                        ],
+                        "account_number": [
+                          "الحقل account number مطلوب.",
+                          "يجب ان يحتوي رقم الحساب على ارقام فقط",
+                          "يجب ان يكون رقم الحساب اكثر من 14 رقم"
+                        ],
+                        "iban": [
+                          "الحقل iban مطلوب."
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "beneficiary_name": {
+                    "type": "string"
+                  },
+                  "bank_name": {
+                    "type": "string"
+                  },
+                  "account_number": {
+                    "type": "string"
+                  },
+                  "iban": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "beneficiary_name": "Test Beneficiary",
+                    "bank_name": "Test Bank",
+                    "account_number": "12345678901234567890",
+                    "iban": "SA0380000000608010167519"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/settings/banks/1": {
+      "put": {
+        "operationId": "put_marketplace_admin_settings_banks_1",
+        "summary": "PUT marketplace/admin/settings/banks/1",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "beneficiary_name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "beneficiary_name": "Updated Beneficiary 1776012518665"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/settings/banks/999": {
+      "delete": {
+        "operationId": "delete_marketplace_admin_settings_banks_999",
+        "summary": "DELETE marketplace/admin/settings/banks/999",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/settings/sales/store": {
+      "post": {
+        "operationId": "post_marketplace_admin_settings_sales_store",
+        "summary": "POST marketplace/admin/settings/sales/store",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "deposit_time_limit_days": {
+                          "type": "integer"
+                        },
+                        "cash_contract_signing_days": {
+                          "type": "integer"
+                        },
+                        "bank_contract_signing_days": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "",
+                      "data": {
+                        "deposit_time_limit_days": 7,
+                        "cash_contract_signing_days": 14,
+                        "bank_contract_signing_days": 30
+                      }
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "deposit_time_limit_days": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "cash_contract_signing_days": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "bank_contract_signing_days": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "deposit_time_limit_days": [
+                          "مدة التوقيع مطلوبة."
+                        ],
+                        "cash_contract_signing_days": [
+                          "validation.marketplace_sales.cash_signing.required"
+                        ],
+                        "bank_contract_signing_days": [
+                          "validation.marketplace_sales.bank_signing.required"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deposit_time_limit_days": {
+                    "type": "integer"
+                  },
+                  "cash_contract_signing_days": {
+                    "type": "integer"
+                  },
+                  "bank_contract_signing_days": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "deposit_time_limit_days": 7,
+                    "cash_contract_signing_days": 14,
+                    "bank_contract_signing_days": 30
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/settings/visits/store": {
+      "post": {
+        "operationId": "post_marketplace_admin_settings_visits_store",
+        "summary": "POST marketplace/admin/settings/visits/store",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "days.0": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.1": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.2": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.3": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "days.4": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "days.0": [
+                          "يجب أن يكون الحقل days.0 نصآ.",
+                          "الحقل days.0 غير صحيح"
+                        ],
+                        "days.1": [
+                          "يجب أن يكون الحقل days.1 نصآ.",
+                          "الحقل days.1 غير صحيح"
+                        ],
+                        "days.2": [
+                          "يجب أن يكون الحقل days.2 نصآ.",
+                          "الحقل days.2 غير صحيح"
+                        ],
+                        "days.3": [
+                          "يجب أن يكون الحقل days.3 نصآ.",
+                          "الحقل days.3 غير صحيح"
+                        ],
+                        "days.4": [
+                          "يجب أن يكون الحقل days.4 نصآ.",
+                          "الحقل days.4 غير صحيح"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_all_day": {
+                    "type": "boolean"
+                  },
+                  "days": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "day": {
+                          "type": "string"
+                        },
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "start_time": {
+                          "type": "string"
+                        },
+                        "end_time": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "is_all_day": false,
+                    "days": [
+                      {
+                        "day": "sunday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "monday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "tuesday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "wednesday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      },
+                      {
+                        "day": "thursday",
+                        "enabled": true,
+                        "start_time": "09:00",
+                        "end_time": "17:00"
+                      }
+                    ]
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/communities/list/15": {
+      "post": {
+        "operationId": "post_marketplace_admin_communities_list_15",
+        "summary": "POST marketplace/admin/communities/list/15",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "allow_cash_sale": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "The given data was invalid.",
+                      "errors": {
+                        "allow_cash_sale": [
+                          "يجب اختيار طريقة شراء واحدة على الأقل"
+                        ]
+                      }
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/communities/unlist/15": {
+      "post": {
+        "operationId": "post_marketplace_admin_communities_unlist_15",
+        "summary": "POST marketplace/admin/communities/unlist/15",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "district": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "city": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "no_interests": {
+                          "type": "integer"
+                        },
+                        "no_listed_unit": {
+                          "type": "integer"
+                        },
+                        "is_buy": {
+                          "type": "integer"
+                        },
+                        "community_marketplace_type": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "is_market_place": {
+                          "type": "string"
+                        },
+                        "is_off_plan_sale": {
+                          "type": "string"
+                        },
+                        "sales_commission_rate": {
+                          "type": "string"
+                        },
+                        "rental_commission_rate": {
+                          "type": "string"
+                        },
+                        "allow_cash_sale": {
+                          "type": "integer"
+                        },
+                        "allow_bank_financing": {
+                          "type": "integer"
+                        },
+                        "active_bookings_count": {
+                          "type": "integer"
+                        },
+                        "voom_url": {
+                          "type": "null"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "",
+                      "data": {
+                        "id": 15,
+                        "name": "Updated Community 1776012522795",
+                        "district": {
+                          "id": 1,
+                          "name": "الدرعية"
+                        },
+                        "city": {
+                          "id": 1,
+                          "name": "الرياض"
+                        },
+                        "no_interests": 0,
+                        "no_listed_unit": 0,
+                        "is_buy": 0,
+                        "community_marketplace_type": "rent",
+                        "status": {
+                          "name": "قريباً",
+                          "id": 1
+                        },
+                        "is_market_place": "0",
+                        "is_off_plan_sale": "0",
+                        "sales_commission_rate": "0.00",
+                        "rental_commission_rate": "0.00",
+                        "allow_cash_sale": 0,
+                        "allow_bank_financing": 0,
+                        "active_bookings_count": 0,
+                        "voom_url": null
+                      },
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/units/prices-visibility/3": {
+      "post": {
+        "operationId": "post_marketplace_admin_units_prices_visibility_3",
+        "summary": "POST marketplace/admin/units/prices-visibility/3",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "unit_size": {
+                          "type": "integer"
+                        },
+                        "building": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "complex": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "status": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "map": {
+                          "type": "object",
+                          "properties": {
+                            "latitude": {
+                              "type": "number"
+                            },
+                            "mapsLink": {
+                              "type": "string"
+                            },
+                            "place_id": {
+                              "type": "string"
+                            },
+                            "longitude": {
+                              "type": "number"
+                            },
+                            "districtName": {
+                              "type": "string"
+                            },
+                            "latitudeDelta": {
+                              "type": "number"
+                            },
+                            "longitudeDelta": {
+                              "type": "number"
+                            },
+                            "formattedAddress": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "category": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "type": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "is_market_place": {
+                          "type": "string"
+                        },
+                        "is_market_place_prices_visible": {
+                          "type": "string"
+                        },
+                        "is_off_plan_sale": {
+                          "type": "string"
+                        },
+                        "allow_cash_sale": {
+                          "type": "boolean"
+                        },
+                        "allow_bank_financing": {
+                          "type": "boolean"
+                        },
+                        "marketplace": {
+                          "type": "object",
+                          "properties": {
+                            "amount_type": {
+                              "type": "null"
+                            },
+                            "net_unit_price": {
+                              "type": "integer"
+                            },
+                            "meter_unit_price": {
+                              "type": "integer"
+                            },
+                            "real_estate_transaction_tax": {
+                              "type": "integer"
+                            },
+                            "commission_rate": {
+                              "type": "integer"
+                            },
+                            "commission_excl_vat": {
+                              "type": "integer"
+                            },
+                            "commission_vat": {
+                              "type": "integer"
+                            },
+                            "commission_incl_vat": {
+                              "type": "integer"
+                            },
+                            "commission_vat_amount": {
+                              "type": "integer"
+                            },
+                            "total_amount": {
+                              "type": "integer"
+                            },
+                            "tax_rate": {
+                              "type": "integer"
+                            },
+                            "deposit": {
+                              "type": "integer"
+                            },
+                            "amount_before_tax": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "code": 200,
+                      "message": "",
+                      "data": {
+                        "id": 3,
+                        "name": "Test Unit API v2",
+                        "unit_size": 0,
+                        "building": {
+                          "id": 1,
+                          "name": "Test Building 1"
+                        },
+                        "complex": {
+                          "id": 1,
+                          "name": "Test Community 1"
+                        },
+                        "status": {
+                          "id": 1,
+                          "name": "متاح"
+                        },
+                        "map": {
+                          "latitude": 24.7103488,
+                          "mapsLink": "https://www.google.com/maps/search/?api=1&query=24.7103488,46.6878464",
+                          "place_id": "ChIJhz3eOQADLz4R_cqAJEJr0Qw",
+                          "longitude": 46.6878464,
+                          "districtName": "3287 ,RHSA7555",
+                          "latitudeDelta": 0.02,
+                          "longitudeDelta": 0.009244060475161988,
+                          "formattedAddress": "RHSA7555, 3287 Wadi Al Junah, As Sulimaniyah, 7555, Riyadh 12245, Saudi Arabia"
+                        },
+                        "category": {
+                          "id": 2,
+                          "name": "سكني"
+                        },
+                        "type": {
+                          "id": 17,
+                          "name": "شقة"
+                        },
+                        "is_market_place": "0",
+                        "is_market_place_prices_visible": "0",
+                        "is_off_plan_sale": "0",
+                        "allow_cash_sale": false,
+                        "allow_bank_financing": false,
+                        "marketplace": {
+                          "amount_type": null,
+                          "net_unit_price": 0,
+                          "meter_unit_price": 0,
+                          "real_estate_transaction_tax": 0,
+                          "commission_rate": 0,
+                          "commission_excl_vat": 0,
+                          "commission_vat": 0,
+                          "commission_incl_vat": 0,
+                          "commission_vat_amount": 0,
+                          "total_amount": 0,
+                          "tax_rate": 0,
+                          "deposit": 0,
+                          "amount_before_tax": 0
+                        }
+                      },
+                      "meta": []
+                    },
+                    "summary": "Successful response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "show_price": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "show_price": true
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/visits/cancel/999": {
+      "post": {
+        "operationId": "post_marketplace_admin_visits_cancel_999",
+        "summary": "POST marketplace/admin/visits/cancel/999",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "reason": "Test cancellation"
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/offers": {
+      "post": {
+        "operationId": "post_marketplace_admin_offers",
+        "summary": "POST marketplace/admin/offers",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/offers/1": {
+      "put": {
+        "operationId": "put_marketplace_admin_offers_1",
+        "summary": "PUT marketplace/admin/offers/1",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "discount_value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "title": "Updated Offer 1776012530914",
+                    "discount_value": 15
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/offers/999": {
+      "delete": {
+        "operationId": "delete_marketplace_admin_offers_999",
+        "summary": "DELETE marketplace/admin/offers/999",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/listings": {
+      "post": {
+        "operationId": "post_marketplace_admin_listings",
+        "summary": "POST marketplace/admin/listings",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "default": {
+                  "value": {},
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/listings/1": {
+      "put": {
+        "operationId": "put_marketplace_admin_listings_1",
+        "summary": "PUT marketplace/admin/listings/1",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "value": {
+                    "title": "Updated Listing 1776012533928",
+                    "price": 55000
+                  },
+                  "summary": "Example request body"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    },
+    "marketplace/admin/listings/999": {
+      "delete": {
+        "operationId": "delete_marketplace_admin_listings_999",
+        "summary": "DELETE marketplace/admin/listings/999",
+        "tags": [
+          "marketplace"
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "success": false,
+                      "message": "URL link not Found."
+                    },
+                    "summary": "Error response with validation errors"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [],
+            "tenantHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "tenantHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Tenant"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [],
+      "tenantHeader": []
+    }
+  ]
+}

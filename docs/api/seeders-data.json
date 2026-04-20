@@ -1,0 +1,440 @@
+{
+  "description": "Seeded/reference data extracted from goatar.com API captures",
+  "extractedAt": "2026-04-20",
+  "source": "API captures and schema files",
+
+  "countries": {
+    "description": "Supported countries for the platform",
+    "endpoint": "GET /countries",
+    "data": [
+      { "Iso2": "SA", "Name": "المملكة العربية السعودية", "Name_en": "Saudi Arabia", "Iso3": "SAU", "Dial": "966", "Currency": "SAR", "Capital": "الرياض", "Continent": "AS" },
+      { "Iso2": "QA", "Name": "قطر", "Name_en": "Qatar", "Iso3": "QAT", "Dial": "974", "Currency": "QAR", "Capital": "الدوحة", "Continent": "AS" },
+      { "Iso2": "KW", "Name": "الكويت", "Name_en": "Kuwait", "Iso3": "KWT", "Dial": "965", "Currency": "KWD", "Capital": "مدينة الكويت", "Continent": "AS" },
+      { "Iso2": "BH", "Name": "البحرين", "Name_en": "Bahrain", "Iso3": "BHR", "Dial": "973", "Currency": "BHD", "Capital": "المنامة", "Continent": "AS" },
+      { "Iso2": "OM", "Name": "عمان", "Name_en": "Oman", "Iso3": "OMN", "Dial": "968", "Currency": "OMR", "Capital": "مسقط", "Continent": "AS" },
+      { "Iso2": "AE", "Name": "الإمارات العربية المتحدة", "Name_en": "United Arab Emirates", "Iso3": "ARE", "Dial": "971", "Currency": "AED", "Capital": "أبو ظبي", "Continent": "AS" },
+      { "Iso2": "AU", "Name": "أستراليا", "Name_en": "Australia", "Iso3": "AUS", "Dial": "61", "Currency": "AUD", "Capital": "كانبرا", "Continent": "OC" }
+    ],
+    "note": "Additional countries may exist - this is a subset from captured API response"
+  },
+
+  "cities": {
+    "description": "Cities available for communities/properties",
+    "endpoint": "GET /tenancy/api/cities/all or /tenancy/api/cities/{country_code}",
+    "data": [
+      { "id": 1, "name_ar": "الرياض", "name_en": "Riyadh", "country_code": "SA" }
+    ],
+    "note": "Full list needs to be captured from tenancy API"
+  },
+
+  "districts": {
+    "description": "Districts within cities",
+    "endpoint": "GET /tenancy/api/districts/all or /tenancy/api/districts/{city_id}",
+    "data": [
+      { "id": 1, "name_ar": "الدرعية", "name_en": "Al Diriyah", "city_id": 1 }
+    ],
+    "note": "Full list needs to be captured from tenancy API"
+  },
+
+  "statuses": {
+    "description": "Status values for various entities, grouped by type/ID range",
+    "endpoint": "GET /rf/statuses",
+    "groups": {
+      "request": {
+        "description": "Service request statuses (IDs 1-10)",
+        "data": [
+          { "id": 1, "name_ar": "جديد", "name_en": "New", "priority": "1" },
+          { "id": 2, "name_ar": "تم التعيين", "name_en": "Assigned", "priority": "2" },
+          { "id": 3, "name_ar": "تم الحل", "name_en": "Resolved", "priority": "9" },
+          { "id": 4, "name_ar": "تم الألغاء", "name_en": "Cancelled", "priority": "10" },
+          { "id": 5, "name_ar": "جاري العمل", "name_en": "In Progress", "priority": "5" },
+          { "id": 6, "name_ar": "تم قبول الطلب", "name_en": "Request Accepted", "priority": "3" },
+          { "id": 7, "name_ar": "تم انشاء الفاتوره", "name_en": "Invoice Created", "priority": "6" },
+          { "id": 8, "name_ar": "تم قبول الفاتوره", "name_en": "Invoice Accepted", "priority": "7" },
+          { "id": 9, "name_ar": "تم رفض الفاتوره", "name_en": "Invoice Rejected", "priority": "8" },
+          { "id": 10, "name_ar": "تم رفض الطلب", "name_en": "Request Rejected", "priority": "4" }
+        ]
+      },
+      "visitor_access": {
+        "description": "Visitor access request statuses (IDs 11-17)",
+        "data": [
+          { "id": 11, "name_ar": "جديد", "name_en": "New", "priority": "1" },
+          { "id": 12, "name_ar": "في الانتظار", "name_en": "Pending", "priority": "1" },
+          { "id": 13, "name_ar": "موافق عليه", "name_en": "Approved", "priority": "1" },
+          { "id": 14, "name_ar": "مرفوض", "name_en": "Rejected", "priority": "1" },
+          { "id": 15, "name_ar": "ألغي", "name_en": "Cancelled", "priority": "1" },
+          { "id": 16, "name_ar": "تم تسجيل الدخول", "name_en": "Checked In", "priority": "1" },
+          { "id": 17, "name_ar": "تم تسجيل الخروج", "name_en": "Checked Out", "priority": "1" }
+        ]
+      },
+      "facility_booking": {
+        "description": "Facility booking statuses (IDs 19-22)",
+        "data": [
+          { "id": 19, "name_ar": "في انتظار الموافقة", "name_en": "Pending Approval", "priority": "1" },
+          { "id": 20, "name_ar": "تم الحجز", "name_en": "Booked", "priority": "1" },
+          { "id": 21, "name_ar": "تم رفض الحجز", "name_en": "Booking Rejected", "priority": "1" },
+          { "id": 22, "name_ar": "تم الألغاء", "name_en": "Cancelled", "priority": "1" }
+        ]
+      },
+      "unit": {
+        "description": "Unit statuses (IDs 23-26)",
+        "data": [
+          { "id": 23, "name_ar": "مباعة", "name_en": "Sold", "priority": "1" },
+          { "id": 24, "name_ar": "مباعة و مؤجرة", "name_en": "Sold and Leased", "priority": "1" },
+          { "id": 25, "name_ar": "مؤجرة", "name_en": "Leased", "priority": "6" },
+          { "id": 26, "name_ar": "متاحة", "name_en": "Vacant", "priority": "1" }
+        ]
+      },
+      "marketplace_booking": {
+        "description": "Marketplace booking statuses (IDs 27-29)",
+        "data": [
+          { "id": 27, "name_ar": "جديد", "name_en": "New", "priority": "1" },
+          { "id": 28, "name_ar": "تم الحجز", "name_en": "Booked", "priority": "1" },
+          { "id": 29, "name_ar": "تم الألغاء", "name_en": "Cancelled", "priority": "1" }
+        ]
+      },
+      "lease": {
+        "description": "Lease/contract statuses (IDs 30-34)",
+        "data": [
+          { "id": 30, "name_ar": "عقد جديد", "name_en": "New Contract", "priority": "1" },
+          { "id": 31, "name_ar": "عقد ساري", "name_en": "Active Contract", "priority": "1" },
+          { "id": 32, "name_ar": "عقد منتهي", "name_en": "Expired Contract", "priority": "1" },
+          { "id": 33, "name_ar": "عقد ملغي", "name_en": "Cancelled Contract", "priority": "1" },
+          { "id": 34, "name_ar": "عقد مغلق", "name_en": "Closed Contract", "priority": "1" }
+        ]
+      },
+      "visit": {
+        "description": "Property visit statuses (IDs 35-38)",
+        "data": [
+          { "id": 35, "name_ar": "مجدول", "name_en": "Scheduled", "priority": "1" },
+          { "id": 36, "name_ar": "مكتمل", "name_en": "Completed", "priority": "1" },
+          { "id": 37, "name_ar": "ملغى", "name_en": "Cancelled", "priority": "1" },
+          { "id": 38, "name_ar": "مرفوض", "name_en": "Rejected", "priority": "1" }
+        ]
+      },
+      "sale_reservation": {
+        "description": "Off-plan sale reservation statuses (IDs 39-49)",
+        "data": [
+          { "id": 39, "name_ar": "تم انشاء الحجز الأولي", "name_en": "Initial Booking Created", "priority": "1" },
+          { "id": 40, "name_ar": "تمت الموافقة", "name_en": "Approved", "priority": "1" },
+          { "id": 41, "name_ar": "الغاء قبل العربون", "name_en": "Cancelled Before Deposit", "priority": "1" },
+          { "id": 42, "name_ar": "تم رفض الحجز", "name_en": "Booking Rejected", "priority": "1" },
+          { "id": 43, "name_ar": "الغاء بعد العربون", "name_en": "Cancelled After Deposit", "priority": "1" },
+          { "id": 44, "name_ar": "تم دفع العربون", "name_en": "Deposit Paid", "priority": "1" },
+          { "id": 45, "name_ar": "تم إرسال العقد", "name_en": "Contract Sent", "priority": "1" },
+          { "id": 46, "name_ar": "اكتمل الدفع", "name_en": "Payment Complete", "priority": "1" },
+          { "id": 47, "name_ar": "تم توقيع العقد", "name_en": "Contract Signed", "priority": "1" },
+          { "id": 48, "name_ar": "تم نقل الملكية", "name_en": "Ownership Transferred", "priority": "1" },
+          { "id": 49, "name_ar": "تم الغاء العقد", "name_en": "Contract Cancelled", "priority": "1" }
+        ]
+      },
+      "reschedule": {
+        "description": "Reschedule status (ID 50)",
+        "data": [
+          { "id": 50, "name_ar": "اعادة جدولة", "name_en": "Rescheduled", "priority": "11" }
+        ]
+      },
+      "price_quote": {
+        "description": "Price quote statuses (IDs 52-58)",
+        "data": [
+          { "id": 52, "name_ar": "جديد", "name_en": "New", "priority": "1" },
+          { "id": 53, "name_ar": "تمت الموافقة", "name_en": "Approved", "priority": "2" },
+          { "id": 54, "name_ar": "مرفوض", "name_en": "Rejected", "priority": "3" },
+          { "id": 55, "name_ar": "تم إرسال عرض السعر", "name_en": "Quote Sent", "priority": "3" },
+          { "id": 56, "name_ar": "تم الرفض من العميل", "name_en": "Rejected by Client", "priority": "3" },
+          { "id": 57, "name_ar": "تم القبول من العميل", "name_en": "Accepted by Client", "priority": "3" },
+          { "id": 58, "name_ar": "تم الإلغاء من المسؤول", "name_en": "Cancelled by Admin", "priority": "3" }
+        ]
+      },
+      "invoice": {
+        "description": "Invoice/transaction statuses (IDs 62-69)",
+        "data": [
+          { "id": 62, "name_ar": "مراجعة البيانات المالية", "name_en": "Financial Data Review", "priority": "1" },
+          { "id": 63, "name_ar": "جدول دفع الوحدة", "name_en": "Unit Payment Schedule", "priority": "1" },
+          { "id": 64, "name_ar": "دفع عمولة ضريبة القيمة المضافة", "name_en": "VAT Commission Payment", "priority": "1" },
+          { "id": 65, "name_ar": "في انتظار الارسال", "name_en": "Pending Send", "priority": "1" },
+          { "id": 66, "name_ar": "تم الدفع", "name_en": "Paid", "priority": "1" },
+          { "id": 67, "name_ar": "تم الارسال", "name_en": "Sent", "priority": "1" },
+          { "id": 68, "name_ar": "في الانتظار", "name_en": "Pending", "priority": "1" },
+          { "id": 69, "name_ar": "تم اكتمال", "name_en": "Completed", "priority": "1" }
+        ]
+      }
+    }
+  },
+
+  "commonLists": {
+    "description": "Common lookup lists for various dropdown menus",
+    "endpoint": "GET /rf/common-lists",
+    "groups": {
+      "cancellation_reasons_home_services": {
+        "description": "Cancellation reasons for home service requests (IDs 1-9)",
+        "data": [
+          { "id": 1, "name_ar": "معلومات الطلب غير صحيحة", "name_en": "Incorrect request information" },
+          { "id": 2, "name_ar": "تم إلغاءه بناءً على طلب الساكن", "name_en": "Cancelled at resident's request" },
+          { "id": 3, "name_ar": "الساكن غير متوفر", "name_en": "Resident not available" },
+          { "id": 4, "name_ar": "خارج نطاق الضمان", "name_en": "Outside warranty scope" },
+          { "id": 5, "name_ar": "أخرى", "name_en": "Other" },
+          { "id": 6, "name_ar": "ليس ضمن نطاق خدمتي", "name_en": "Not within my service scope" },
+          { "id": 7, "name_ar": "لست متاح", "name_en": "Not available" },
+          { "id": 8, "name_ar": "طلب مكرر", "name_en": "Duplicate request" },
+          { "id": 9, "name_ar": "أخرى", "name_en": "Other" }
+        ]
+      },
+      "business_types": {
+        "description": "Business type categories (IDs 10-21)",
+        "data": [
+          { "id": 10, "name_ar": "تجزئة", "name_en": "Retail" },
+          { "id": 11, "name_ar": "الخدمات اللوجستية والتخزين", "name_en": "Logistics and Storage" },
+          { "id": 12, "name_ar": "الأغذية والمشروبات (مطعم / مقهى)", "name_en": "Food & Beverage (Restaurant/Cafe)" },
+          { "id": 13, "name_ar": "الرعاية الصحية / العيادات / الصيدليات", "name_en": "Healthcare/Clinics/Pharmacies" },
+          { "id": 14, "name_ar": "الجمال والعناية الشخصية (صالون / منتجع صحي)", "name_en": "Beauty & Personal Care (Salon/Spa)" },
+          { "id": 15, "name_ar": "العقارات وخدمات الممتلكات", "name_en": "Real Estate & Property Services" },
+          { "id": 16, "name_ar": "الأزياء والملابس", "name_en": "Fashion & Apparel" },
+          { "id": 17, "name_ar": "الخدمات المهنية (قانونية / استشارات / تسويق)", "name_en": "Professional Services (Legal/Consulting/Marketing)" },
+          { "id": 18, "name_ar": "مراكز التعليم والتدريب", "name_en": "Education & Training Centers" },
+          { "id": 19, "name_ar": "خدمات الصيانة والإصلاح (تكييف، سباكة، كهرباء)", "name_en": "Maintenance & Repair Services (AC, Plumbing, Electrical)" },
+          { "id": 20, "name_ar": "شركة تقنية / برمجيات", "name_en": "Technology/Software Company" },
+          { "id": 21, "name_ar": "أخرى", "name_en": "Other" }
+        ]
+      },
+      "cancellation_reasons_common_area": {
+        "description": "Cancellation reasons for common area requests (IDs 22-28)",
+        "data": [
+          { "id": 22, "name_ar": "معلومات الطلب غير صحيحة", "name_en": "Incorrect request information" },
+          { "id": 23, "name_ar": "طلب مكرر", "name_en": "Duplicate request" },
+          { "id": 24, "name_ar": "الطلب خارج نطاق خدمات المناطق المشتركة", "name_en": "Request outside common area services scope" },
+          { "id": 25, "name_ar": "المشكلة محلولة مسبقًا", "name_en": "Issue already resolved" },
+          { "id": 26, "name_ar": "تم الإلغاء بناءً على قرار إداري", "name_en": "Cancelled by administrative decision" },
+          { "id": 27, "name_ar": "الطلب مخالف لسياسة الخدمة", "name_en": "Request violates service policy" },
+          { "id": 28, "name_ar": "أخرى", "name_en": "Other" }
+        ]
+      }
+    }
+  },
+
+  "requestCategories": {
+    "description": "Service request categories and sub-categories",
+    "endpoint": "GET /rf/requests/categories",
+    "data": [
+      {
+        "id": 1,
+        "name_ar": "خدمات الوحدات",
+        "name_en": "Unit Services",
+        "description_ar": "للخدمات الخاصة بالوحدات",
+        "description_en": "For unit-specific services",
+        "has_sub_categories": true,
+        "sub_categories": [
+          { "id": 1, "name_ar": "صيانة", "name_en": "Maintenance" },
+          { "id": 2, "name_ar": "تنظيف المنزل", "name_en": "House Cleaning" },
+          { "id": 3, "name_ar": "غسيل السيارات", "name_en": "Car Wash" },
+          { "id": 4, "name_ar": "الأجهزة الكهربائية", "name_en": "Electrical Appliances" },
+          { "id": 5, "name_ar": "إصلاح الأثاث", "name_en": "Furniture Repair" },
+          { "id": 6, "name_ar": "خدمات أخرى", "name_en": "Other Services" }
+        ]
+      },
+      {
+        "id": 2,
+        "name_ar": "طلبات المناطق المشتركة",
+        "name_en": "Common Area Requests",
+        "description_ar": "للخدمات الخاصة بالمناطق المشتركة",
+        "description_en": "For common area services",
+        "has_sub_categories": true,
+        "sub_categories": [
+          { "id": 7, "name_ar": "الأمن و السلامة", "name_en": "Security & Safety" },
+          { "id": 8, "name_ar": "مشاكل الوحدات", "name_en": "Unit Issues" },
+          { "id": 9, "name_ar": "مشاكل السكان", "name_en": "Resident Issues" },
+          { "id": 10, "name_ar": "مشاكل الخدمات", "name_en": "Service Issues" },
+          { "id": 11, "name_ar": "مشاكل اخرى", "name_en": "Other Issues" }
+        ]
+      },
+      {
+        "id": 3,
+        "name_ar": "طلبات تصاريح الزوار",
+        "name_en": "Visitor Access Requests",
+        "description_ar": "لطلبات تصاريح دخول الزوار",
+        "description_en": "For visitor access permit requests",
+        "has_sub_categories": false,
+        "sub_categories": []
+      },
+      {
+        "id": 4,
+        "name_ar": "طلبات المدير",
+        "name_en": "Manager Requests",
+        "description_ar": "للتواصل مع مدير المجمع السكني ﻷي أمر في محيطك",
+        "description_en": "For contacting the community manager",
+        "has_sub_categories": false,
+        "sub_categories": []
+      }
+    ]
+  },
+
+  "unitCategories": {
+    "description": "Property/unit categories",
+    "data": [
+      { "id": 1, "name_ar": "تجاري", "name_en": "Commercial", "icon": "commercial" },
+      { "id": 2, "name_ar": "سكني", "name_en": "Residential", "icon": "residential" }
+    ]
+  },
+
+  "unitTypes": {
+    "description": "Unit types within categories",
+    "data": [
+      { "id": 17, "name_ar": "شقة", "name_en": "Apartment", "category_id": 2, "icon": "residential" },
+      { "id": 18, "name_ar": "فيلا", "name_en": "Villa", "category_id": 2, "icon": "residential" },
+      { "id": 19, "name_ar": "مكتب", "name_en": "Office", "category_id": 1, "icon": "commercial" },
+      { "id": 20, "name_ar": "محل", "name_en": "Shop", "category_id": 1, "icon": "commercial" }
+    ],
+    "note": "Additional types may exist - this is inferred from API captures"
+  },
+
+  "rentalContractTypes": {
+    "description": "Types of rental contracts",
+    "endpoint": "GET /rf/leases/create (in specifications.rental_contract_type)",
+    "data": [
+      { "id": 13, "name_ar": "ايجار سنوي", "name_en": "Yearly Rental", "type": "rental_contract_type" },
+      { "id": 14, "name_ar": "ايجار شهري", "name_en": "Monthly Rental", "type": "rental_contract_type" },
+      { "id": 15, "name_ar": "ايجار يومي", "name_en": "Daily Rental", "type": "rental_contract_type" }
+    ]
+  },
+
+  "paymentSchedules": {
+    "description": "Payment schedule options for leases",
+    "endpoint": "GET /rf/leases/create (in specifications.payment_schedule)",
+    "data": [
+      { "id": 4, "name_ar": "شهري", "name_en": "Monthly", "type": "payment_schedule", "parent_id": null },
+      { "id": 5, "name_ar": "ربع سنوي", "name_en": "Quarterly", "type": "payment_schedule", "parent_id": null },
+      { "id": 6, "name_ar": "نصف سنوي", "name_en": "Semi-Annual", "type": "payment_schedule", "parent_id": null },
+      { "id": 7, "name_ar": "سنوي", "name_en": "Annual", "type": "payment_schedule", "parent_id": "13" },
+      { "id": 16, "name_ar": "دفعة شهرية", "name_en": "Monthly Payment", "type": "payment_schedule", "parent_id": "14" },
+      { "id": 17, "name_ar": "دفعة مقدمة", "name_en": "Upfront Payment", "type": "payment_schedule", "parent_id": "14" },
+      { "id": 18, "name_ar": "دفعة مقدمة (يومي)", "name_en": "Upfront Payment (Daily)", "type": "payment_schedule", "parent_id": "15" }
+    ]
+  },
+
+  "managerRoles": {
+    "description": "Admin/manager roles available in the system",
+    "endpoint": "GET /rf/admins/manager-roles",
+    "data": [
+      {
+        "id": 1,
+        "role": "Admins",
+        "name_ar": "مدير",
+        "name_en": "Admin"
+      },
+      {
+        "id": 2,
+        "role": "accountingManagers",
+        "name_ar": "مدير حسابات",
+        "name_en": "Accounting Manager"
+      },
+      {
+        "id": 3,
+        "role": "serviceManagers",
+        "name_ar": "مدير خدمات",
+        "name_en": "Service Manager",
+        "types": [
+          { "id": 1, "name_ar": "خدمات الوحدات", "name_en": "Home Services" },
+          { "id": 2, "name_ar": "المناطق المشتركة", "name_en": "Common Area" },
+          { "id": 3, "name_ar": "تصاريح الزوار", "name_en": "Visitor Access" },
+          { "id": 4, "name_ar": "حجوزات المرافق", "name_en": "Facility Bookings" }
+        ]
+      },
+      {
+        "id": 4,
+        "role": "marketingManagers",
+        "name_ar": "مدير تسويق",
+        "name_en": "Marketing Manager"
+      },
+      {
+        "id": 5,
+        "role": "salesAndLeasingManagers",
+        "name_ar": "مدير مبيعات وتأجير",
+        "name_en": "Sales & Leasing Manager"
+      }
+    ]
+  },
+
+  "leadStatuses": {
+    "description": "CRM lead statuses",
+    "endpoint": "GET /rf/leads/create (in data.statuses)",
+    "data": [
+      { "id": 1, "name_ar": "جديد", "name_en": "New" },
+      { "id": 2, "name_ar": "تم التواصل", "name_en": "Contacted" },
+      { "id": 3, "name_ar": "لا يوجد رد", "name_en": "No Response" },
+      { "id": 4, "name_ar": "متابعة", "name_en": "Follow-up" },
+      { "id": 5, "name_ar": "مهتم", "name_en": "Interested" },
+      { "id": 6, "name_ar": "غير مهتم", "name_en": "Not Interested" },
+      { "id": 7, "name_ar": "اهتمام مستقبلي", "name_en": "Future Interest" }
+    ]
+  },
+
+  "leadSources": {
+    "description": "CRM lead sources",
+    "endpoint": "GET /rf/leads/create (in data.sources)",
+    "data": [
+      { "id": 1, "name_ar": "السوق", "name_en": "Marketplace" },
+      { "id": 2, "name_ar": "إدخال يدوي", "name_en": "Manual Entry" },
+      { "id": 3, "name_ar": "لينكد إن", "name_en": "LinkedIn" },
+      { "id": 4, "name_ar": "فيسبوك", "name_en": "Facebook" },
+      { "id": 5, "name_ar": "إنستغرام", "name_en": "Instagram" },
+      { "id": 6, "name_ar": "إكس", "name_en": "X" },
+      { "id": 7, "name_ar": "تيك توك", "name_en": "TikTok" },
+      { "id": 8, "name_ar": "سناب شات", "name_en": "Snapchat" },
+      { "id": 9, "name_ar": "واتساب", "name_en": "WhatsApp" },
+      { "id": 10, "name_ar": "تيليجرام", "name_en": "Telegram" },
+      { "id": 11, "name_ar": "أخرى", "name_en": "Other" }
+    ]
+  },
+
+  "leadPriorities": {
+    "description": "CRM lead priorities",
+    "endpoint": "GET /rf/leads/create (in data.priorities)",
+    "data": [
+      { "id": 1, "name_ar": "عالي", "name_en": "High" },
+      { "id": 2, "name_ar": "متوسط", "name_en": "Medium" },
+      { "id": 3, "name_ar": "منخفض", "name_en": "Low" }
+    ]
+  },
+
+  "modules": {
+    "description": "Feature modules that can be enabled/disabled per community",
+    "endpoint": "GET /rf/modules",
+    "data": [
+      { "id": 1, "title_ar": "العروض", "title_en": "Offers" },
+      { "id": 2, "title_ar": "حجوزات المرافق", "title_en": "Facility Bookings" },
+      { "id": 3, "title_ar": "تصاريح الزوار", "title_en": "Visitor Access" },
+      { "id": 4, "title_ar": "الدليل", "title_en": "Directory" }
+    ]
+  },
+
+  "powerBIReportTypes": {
+    "description": "Power BI report types for analytics",
+    "endpoint": "GET /integrations/powerbi/types",
+    "data": [
+      { "id": 1, "title_ar": "تقارير الطلبات", "title_en": "Request Reports" },
+      { "id": 2, "title_ar": "تقارير التأجير", "title_en": "Leasing Reports" },
+      { "id": 3, "title_ar": "تقارير المبيعات", "title_en": "Sales Reports" },
+      { "id": 4, "title_ar": "تقارير العقارات", "title_en": "Property Reports" },
+      { "id": 5, "title_ar": "التقارير المالية", "title_en": "Financial Reports" }
+    ]
+  },
+
+  "transactionCategories": {
+    "description": "Financial transaction categories",
+    "data": [
+      { "id": 1, "name_ar": "الإيجارات", "name_en": "Rentals" },
+      { "id": 2, "name_ar": "المستحقات", "name_en": "Dues" }
+    ],
+    "note": "Inferred from captured transaction data"
+  },
+
+  "transactionTypes": {
+    "description": "Transaction type/status",
+    "data": [
+      { "id": 1, "name_ar": "مدفوعة", "name_en": "Paid" },
+      { "id": 2, "name_ar": "مستحقة", "name_en": "Due" },
+      { "id": 3, "name_ar": "متأخرة", "name_en": "Overdue" }
+    ],
+    "note": "Inferred from captured transaction data"
+  }
+}
