@@ -2,8 +2,8 @@
 
 namespace App\Concerns;
 
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Multitenancy\Models\Tenant;
 
 trait ChecksTenantOwnership
 {

@@ -7,6 +7,7 @@ use Database\Factories\RequestSubcategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RequestSubcategory extends Model
@@ -53,5 +54,17 @@ class RequestSubcategory extends Model
     public function featuredServices(): HasMany
     {
         return $this->hasMany(FeaturedService::class, 'subcategory_id');
+    }
+
+    /** @return BelongsToMany<Community, $this> */
+    public function communities(): BelongsToMany
+    {
+        return $this->belongsToMany(Community::class, 'subcategory_communities', 'subcategory_id', 'community_id');
+    }
+
+    /** @return BelongsToMany<Building, $this> */
+    public function buildings(): BelongsToMany
+    {
+        return $this->belongsToMany(Building::class, 'subcategory_buildings', 'subcategory_id', 'building_id');
     }
 }

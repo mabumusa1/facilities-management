@@ -7,6 +7,7 @@ use App\Enums\AdminRole;
 use Database\Factories\AdminFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Admin extends Model
 {
@@ -45,5 +46,23 @@ class Admin extends Model
             'georgian_birthdate' => 'date',
             'last_login_at' => 'datetime',
         ];
+    }
+
+    /** @return BelongsToMany<Community, $this> */
+    public function communities(): BelongsToMany
+    {
+        return $this->belongsToMany(Community::class, 'admin_communities');
+    }
+
+    /** @return BelongsToMany<Building, $this> */
+    public function buildings(): BelongsToMany
+    {
+        return $this->belongsToMany(Building::class, 'admin_buildings');
+    }
+
+    /** @return BelongsToMany<ServiceManagerType, $this> */
+    public function serviceManagerTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(ServiceManagerType::class, 'admin_service_manager_types');
     }
 }

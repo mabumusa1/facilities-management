@@ -21,11 +21,16 @@ class Community extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'country_id',
         'currency_id',
         'city_id',
         'district_id',
         'account_tenant_id',
+        'product_code',
+        'license_number',
+        'license_issue_date',
+        'license_expiry_date',
         'sales_commission_rate',
         'rental_commission_rate',
         'map',
@@ -36,6 +41,10 @@ class Community extends Model
         'is_selected_property',
         'count_selected_property',
         'total_income',
+        'completion_percent',
+        'allow_cash_sale',
+        'allow_bank_financing',
+        'listed_percentage',
     ];
 
     protected $attributes = [
@@ -45,6 +54,10 @@ class Community extends Model
         'is_selected_property' => false,
         'count_selected_property' => 0,
         'total_income' => 0,
+        'completion_percent' => 0,
+        'allow_cash_sale' => false,
+        'allow_bank_financing' => false,
+        'listed_percentage' => 0,
     ];
 
     protected function casts(): array
@@ -59,6 +72,11 @@ class Community extends Model
             'sales_commission_rate' => 'decimal:2',
             'rental_commission_rate' => 'decimal:2',
             'total_income' => 'decimal:2',
+            'license_issue_date' => 'date',
+            'license_expiry_date' => 'date',
+            'allow_cash_sale' => 'boolean',
+            'allow_bank_financing' => 'boolean',
+            'listed_percentage' => 'decimal:2',
         ];
     }
 
@@ -101,5 +119,11 @@ class Community extends Model
     public function amenities(): BelongsToMany
     {
         return $this->belongsToMany(Amenity::class, 'community_amenities');
+    }
+
+    /** @return HasMany<Request, $this> */
+    public function requests(): HasMany
+    {
+        return $this->hasMany(Request::class, 'community_id');
     }
 }

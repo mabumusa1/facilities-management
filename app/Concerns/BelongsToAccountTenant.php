@@ -2,10 +2,10 @@
 
 namespace App\Concerns;
 
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\Multitenancy\Models\Tenant;
 
 trait BelongsToAccountTenant
 {

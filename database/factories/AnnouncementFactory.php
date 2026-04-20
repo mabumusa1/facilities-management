@@ -21,9 +21,8 @@ class AnnouncementFactory extends Factory
         return [
             'community_id' => Community::factory(),
             'title' => $this->faker->sentence(4),
-            'body' => $this->faker->paragraphs(2, true),
-            'priority' => $this->faker->randomElement(['low', 'normal', 'high', 'urgent']),
-            'is_published' => $this->faker->boolean(),
+            'content' => $this->faker->paragraphs(2, true),
+            'status' => $this->faker->boolean(),
             'published_at' => $this->faker->optional()->dateTimeBetween('-7 days', 'now'),
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\BelongsToAccountTenant;
 use Database\Factories\RequestFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Request extends Model
 {
     /** @use HasFactory<RequestFactory> */
-    use HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasFactory, SoftDeletes;
 
     protected $table = 'rf_requests';
 
@@ -20,15 +21,23 @@ class Request extends Model
         'category_id',
         'subcategory_id',
         'status_id',
+        'unit_id',
+        'community_id',
+        'building_id',
+        'professional_id',
         'requester_type',
         'requester_id',
         'title',
         'description',
+        'request_code',
         'preferred_date',
         'preferred_time',
         'priority',
         'admin_notes',
         'resolved_at',
+        'assigned_at',
+        'completed_at',
+        'account_tenant_id',
     ];
 
     protected function casts(): array
@@ -36,6 +45,8 @@ class Request extends Model
         return [
             'preferred_date' => 'date',
             'resolved_at' => 'datetime',
+            'assigned_at' => 'datetime',
+            'completed_at' => 'datetime',
         ];
     }
 
@@ -61,5 +72,25 @@ class Request extends Model
     public function requester(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
+    }
+
+    public function building(): BelongsTo
+    {
+        return $this->belongsTo(Building::class);
+    }
+
+    public function professional(): BelongsTo
+    {
+        return $this->belongsTo(Professional::class);
     }
 }

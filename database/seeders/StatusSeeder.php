@@ -2,101 +2,105 @@
 
 namespace Database\Seeders;
 
-use App\Models\Status;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StatusSeeder extends Seeder
 {
     public function run(): void
     {
         $statuses = [
-            // Request statuses (1-11, 50)
+            // Service request statuses (IDs 1-10)
             ['id' => 1, 'name' => 'New', 'name_ar' => 'جديد', 'name_en' => 'New', 'priority' => 1, 'type' => 'request'],
-            ['id' => 2, 'name' => 'Open', 'name_ar' => 'مفتوح', 'name_en' => 'Open', 'priority' => 2, 'type' => 'request'],
-            ['id' => 3, 'name' => 'In Progress', 'name_ar' => 'قيد التنفيذ', 'name_en' => 'In Progress', 'priority' => 3, 'type' => 'request'],
-            ['id' => 4, 'name' => 'Pending', 'name_ar' => 'معلق', 'name_en' => 'Pending', 'priority' => 4, 'type' => 'request'],
-            ['id' => 5, 'name' => 'Assigned', 'name_ar' => 'مُعيّن', 'name_en' => 'Assigned', 'priority' => 5, 'type' => 'request'],
-            ['id' => 6, 'name' => 'On the Way', 'name_ar' => 'في الطريق', 'name_en' => 'On the Way', 'priority' => 6, 'type' => 'request'],
-            ['id' => 7, 'name' => 'Started', 'name_ar' => 'بدأ', 'name_en' => 'Started', 'priority' => 7, 'type' => 'request'],
-            ['id' => 8, 'name' => 'Completed', 'name_ar' => 'مكتمل', 'name_en' => 'Completed', 'priority' => 8, 'type' => 'request'],
-            ['id' => 9, 'name' => 'Closed', 'name_ar' => 'مغلق', 'name_en' => 'Closed', 'priority' => 9, 'type' => 'request'],
-            ['id' => 10, 'name' => 'Cancelled', 'name_ar' => 'ملغي', 'name_en' => 'Cancelled', 'priority' => 10, 'type' => 'request'],
-            ['id' => 11, 'name' => 'Rejected', 'name_ar' => 'مرفوض', 'name_en' => 'Rejected', 'priority' => 11, 'type' => 'request'],
-            ['id' => 50, 'name' => 'Rescheduled', 'name_ar' => 'معاد جدولته', 'name_en' => 'Rescheduled', 'priority' => 12, 'type' => 'request'],
+            ['id' => 2, 'name' => 'Assigned', 'name_ar' => 'تم التعيين', 'name_en' => 'Assigned', 'priority' => 2, 'type' => 'request'],
+            ['id' => 3, 'name' => 'Resolved', 'name_ar' => 'تم الحل', 'name_en' => 'Resolved', 'priority' => 9, 'type' => 'request'],
+            ['id' => 4, 'name' => 'Cancelled', 'name_ar' => 'تم الألغاء', 'name_en' => 'Cancelled', 'priority' => 10, 'type' => 'request'],
+            ['id' => 5, 'name' => 'In Progress', 'name_ar' => 'جاري العمل', 'name_en' => 'In Progress', 'priority' => 5, 'type' => 'request'],
+            ['id' => 6, 'name' => 'Request Accepted', 'name_ar' => 'تم قبول الطلب', 'name_en' => 'Request Accepted', 'priority' => 3, 'type' => 'request'],
+            ['id' => 7, 'name' => 'Invoice Created', 'name_ar' => 'تم انشاء الفاتوره', 'name_en' => 'Invoice Created', 'priority' => 6, 'type' => 'request'],
+            ['id' => 8, 'name' => 'Invoice Accepted', 'name_ar' => 'تم قبول الفاتوره', 'name_en' => 'Invoice Accepted', 'priority' => 7, 'type' => 'request'],
+            ['id' => 9, 'name' => 'Invoice Rejected', 'name_ar' => 'تم رفض الفاتوره', 'name_en' => 'Invoice Rejected', 'priority' => 8, 'type' => 'request'],
+            ['id' => 10, 'name' => 'Request Rejected', 'name_ar' => 'تم رفض الطلب', 'name_en' => 'Request Rejected', 'priority' => 4, 'type' => 'request'],
 
-            // Visitor access statuses (11-17) — 11 shared with request
-            ['id' => 12, 'name' => 'Visitor Pending', 'name_ar' => 'بانتظار الموافقة', 'name_en' => 'Visitor Pending', 'priority' => 1, 'type' => 'visitor_access'],
-            ['id' => 13, 'name' => 'Visitor Approved', 'name_ar' => 'موافق عليه', 'name_en' => 'Visitor Approved', 'priority' => 2, 'type' => 'visitor_access'],
-            ['id' => 14, 'name' => 'Visitor Checked In', 'name_ar' => 'تم الدخول', 'name_en' => 'Visitor Checked In', 'priority' => 3, 'type' => 'visitor_access'],
-            ['id' => 15, 'name' => 'Visitor Checked Out', 'name_ar' => 'تم الخروج', 'name_en' => 'Visitor Checked Out', 'priority' => 4, 'type' => 'visitor_access'],
-            ['id' => 16, 'name' => 'Visitor Cancelled', 'name_ar' => 'ملغي', 'name_en' => 'Visitor Cancelled', 'priority' => 5, 'type' => 'visitor_access'],
-            ['id' => 17, 'name' => 'Visitor Expired', 'name_ar' => 'منتهي الصلاحية', 'name_en' => 'Visitor Expired', 'priority' => 6, 'type' => 'visitor_access'],
+            // Visitor access statuses (IDs 11-17)
+            ['id' => 11, 'name' => 'New', 'name_ar' => 'جديد', 'name_en' => 'New', 'priority' => 1, 'type' => 'visitor_access'],
+            ['id' => 12, 'name' => 'Pending', 'name_ar' => 'في الانتظار', 'name_en' => 'Pending', 'priority' => 1, 'type' => 'visitor_access'],
+            ['id' => 13, 'name' => 'Approved', 'name_ar' => 'موافق عليه', 'name_en' => 'Approved', 'priority' => 1, 'type' => 'visitor_access'],
+            ['id' => 14, 'name' => 'Rejected', 'name_ar' => 'مرفوض', 'name_en' => 'Rejected', 'priority' => 1, 'type' => 'visitor_access'],
+            ['id' => 15, 'name' => 'Cancelled', 'name_ar' => 'ألغي', 'name_en' => 'Cancelled', 'priority' => 1, 'type' => 'visitor_access'],
+            ['id' => 16, 'name' => 'Checked In', 'name_ar' => 'تم تسجيل الدخول', 'name_en' => 'Checked In', 'priority' => 1, 'type' => 'visitor_access'],
+            ['id' => 17, 'name' => 'Checked Out', 'name_ar' => 'تم تسجيل الخروج', 'name_en' => 'Checked Out', 'priority' => 1, 'type' => 'visitor_access'],
 
-            // Facility booking statuses (19-22)
-            ['id' => 19, 'name' => 'Booking Pending', 'name_ar' => 'حجز معلق', 'name_en' => 'Booking Pending', 'priority' => 1, 'type' => 'facility_booking'],
-            ['id' => 20, 'name' => 'Booking Confirmed', 'name_ar' => 'حجز مؤكد', 'name_en' => 'Booking Confirmed', 'priority' => 2, 'type' => 'facility_booking'],
-            ['id' => 21, 'name' => 'Booking Cancelled', 'name_ar' => 'حجز ملغي', 'name_en' => 'Booking Cancelled', 'priority' => 3, 'type' => 'facility_booking'],
-            ['id' => 22, 'name' => 'Booking Completed', 'name_ar' => 'حجز مكتمل', 'name_en' => 'Booking Completed', 'priority' => 4, 'type' => 'facility_booking'],
+            // Facility booking statuses (IDs 19-22)
+            ['id' => 19, 'name' => 'Pending Approval', 'name_ar' => 'في انتظار الموافقة', 'name_en' => 'Pending Approval', 'priority' => 1, 'type' => 'facility_booking'],
+            ['id' => 20, 'name' => 'Booked', 'name_ar' => 'تم الحجز', 'name_en' => 'Booked', 'priority' => 1, 'type' => 'facility_booking'],
+            ['id' => 21, 'name' => 'Booking Rejected', 'name_ar' => 'تم رفض الحجز', 'name_en' => 'Booking Rejected', 'priority' => 1, 'type' => 'facility_booking'],
+            ['id' => 22, 'name' => 'Cancelled', 'name_ar' => 'تم الألغاء', 'name_en' => 'Cancelled', 'priority' => 1, 'type' => 'facility_booking'],
 
-            // Unit statuses (23-26)
-            ['id' => 23, 'name' => 'Vacant', 'name_ar' => 'شاغرة', 'name_en' => 'Vacant', 'priority' => 1, 'type' => 'unit'],
-            ['id' => 24, 'name' => 'Occupied', 'name_ar' => 'مشغولة', 'name_en' => 'Occupied', 'priority' => 2, 'type' => 'unit'],
-            ['id' => 25, 'name' => 'Under Maintenance', 'name_ar' => 'تحت الصيانة', 'name_en' => 'Under Maintenance', 'priority' => 3, 'type' => 'unit'],
-            ['id' => 26, 'name' => 'Reserved', 'name_ar' => 'محجوزة', 'name_en' => 'Reserved', 'priority' => 4, 'type' => 'unit'],
+            // Unit statuses (IDs 23-26)
+            ['id' => 23, 'name' => 'Sold', 'name_ar' => 'مباعة', 'name_en' => 'Sold', 'priority' => 1, 'type' => 'unit'],
+            ['id' => 24, 'name' => 'Sold and Leased', 'name_ar' => 'مباعة و مؤجرة', 'name_en' => 'Sold and Leased', 'priority' => 1, 'type' => 'unit'],
+            ['id' => 25, 'name' => 'Leased', 'name_ar' => 'مؤجرة', 'name_en' => 'Leased', 'priority' => 6, 'type' => 'unit'],
+            ['id' => 26, 'name' => 'Vacant', 'name_ar' => 'متاحة', 'name_en' => 'Vacant', 'priority' => 1, 'type' => 'unit'],
 
-            // Booking statuses (27-29)
-            ['id' => 27, 'name' => 'Application Pending', 'name_ar' => 'طلب معلق', 'name_en' => 'Application Pending', 'priority' => 1, 'type' => 'booking'],
-            ['id' => 28, 'name' => 'Application Approved', 'name_ar' => 'طلب موافق', 'name_en' => 'Application Approved', 'priority' => 2, 'type' => 'booking'],
-            ['id' => 29, 'name' => 'Application Rejected', 'name_ar' => 'طلب مرفوض', 'name_en' => 'Application Rejected', 'priority' => 3, 'type' => 'booking'],
+            // Marketplace booking statuses (IDs 27-29)
+            ['id' => 27, 'name' => 'New', 'name_ar' => 'جديد', 'name_en' => 'New', 'priority' => 1, 'type' => 'marketplace_booking'],
+            ['id' => 28, 'name' => 'Booked', 'name_ar' => 'تم الحجز', 'name_en' => 'Booked', 'priority' => 1, 'type' => 'marketplace_booking'],
+            ['id' => 29, 'name' => 'Cancelled', 'name_ar' => 'تم الألغاء', 'name_en' => 'Cancelled', 'priority' => 1, 'type' => 'marketplace_booking'],
 
-            // Lease statuses (30-34)
-            ['id' => 30, 'name' => 'Draft', 'name_ar' => 'مسودة', 'name_en' => 'Draft', 'priority' => 1, 'type' => 'lease'],
-            ['id' => 31, 'name' => 'Active', 'name_ar' => 'نشط', 'name_en' => 'Active', 'priority' => 2, 'type' => 'lease'],
-            ['id' => 32, 'name' => 'Expired', 'name_ar' => 'منتهي', 'name_en' => 'Expired', 'priority' => 3, 'type' => 'lease'],
-            ['id' => 33, 'name' => 'Terminated', 'name_ar' => 'منهي', 'name_en' => 'Terminated', 'priority' => 4, 'type' => 'lease'],
-            ['id' => 34, 'name' => 'Renewed', 'name_ar' => 'مجدد', 'name_en' => 'Renewed', 'priority' => 5, 'type' => 'lease'],
+            // Lease statuses (IDs 30-34)
+            ['id' => 30, 'name' => 'New Contract', 'name_ar' => 'عقد جديد', 'name_en' => 'New Contract', 'priority' => 1, 'type' => 'lease'],
+            ['id' => 31, 'name' => 'Active Contract', 'name_ar' => 'عقد ساري', 'name_en' => 'Active Contract', 'priority' => 1, 'type' => 'lease'],
+            ['id' => 32, 'name' => 'Expired Contract', 'name_ar' => 'عقد منتهي', 'name_en' => 'Expired Contract', 'priority' => 1, 'type' => 'lease'],
+            ['id' => 33, 'name' => 'Cancelled Contract', 'name_ar' => 'عقد ملغي', 'name_en' => 'Cancelled Contract', 'priority' => 1, 'type' => 'lease'],
+            ['id' => 34, 'name' => 'Closed Contract', 'name_ar' => 'عقد مغلق', 'name_en' => 'Closed Contract', 'priority' => 1, 'type' => 'lease'],
 
-            // Property visit statuses (35-38)
-            ['id' => 35, 'name' => 'Visit Scheduled', 'name_ar' => 'زيارة مجدولة', 'name_en' => 'Visit Scheduled', 'priority' => 1, 'type' => 'property_visit'],
-            ['id' => 36, 'name' => 'Visit Completed', 'name_ar' => 'زيارة مكتملة', 'name_en' => 'Visit Completed', 'priority' => 2, 'type' => 'property_visit'],
-            ['id' => 37, 'name' => 'Visit Cancelled', 'name_ar' => 'زيارة ملغاة', 'name_en' => 'Visit Cancelled', 'priority' => 3, 'type' => 'property_visit'],
-            ['id' => 38, 'name' => 'Visit No Show', 'name_ar' => 'لم يحضر', 'name_en' => 'Visit No Show', 'priority' => 4, 'type' => 'property_visit'],
+            // Property visit statuses (IDs 35-38)
+            ['id' => 35, 'name' => 'Scheduled', 'name_ar' => 'مجدول', 'name_en' => 'Scheduled', 'priority' => 1, 'type' => 'visit'],
+            ['id' => 36, 'name' => 'Completed', 'name_ar' => 'مكتمل', 'name_en' => 'Completed', 'priority' => 1, 'type' => 'visit'],
+            ['id' => 37, 'name' => 'Cancelled', 'name_ar' => 'ملغى', 'name_en' => 'Cancelled', 'priority' => 1, 'type' => 'visit'],
+            ['id' => 38, 'name' => 'Rejected', 'name_ar' => 'مرفوض', 'name_en' => 'Rejected', 'priority' => 1, 'type' => 'visit'],
 
-            // Marketplace booking statuses (39-49)
-            ['id' => 39, 'name' => 'Marketplace Pending', 'name_ar' => 'معلق', 'name_en' => 'Marketplace Pending', 'priority' => 1, 'type' => 'marketplace_booking'],
-            ['id' => 40, 'name' => 'Marketplace Approved', 'name_ar' => 'موافق', 'name_en' => 'Marketplace Approved', 'priority' => 2, 'type' => 'marketplace_booking'],
-            ['id' => 41, 'name' => 'Marketplace Rejected', 'name_ar' => 'مرفوض', 'name_en' => 'Marketplace Rejected', 'priority' => 3, 'type' => 'marketplace_booking'],
-            ['id' => 42, 'name' => 'Marketplace Visit Scheduled', 'name_ar' => 'زيارة مجدولة', 'name_en' => 'Visit Scheduled', 'priority' => 4, 'type' => 'marketplace_booking'],
-            ['id' => 43, 'name' => 'Marketplace Visit Done', 'name_ar' => 'تمت الزيارة', 'name_en' => 'Visit Done', 'priority' => 5, 'type' => 'marketplace_booking'],
-            ['id' => 44, 'name' => 'Marketplace Negotiation', 'name_ar' => 'تفاوض', 'name_en' => 'Negotiation', 'priority' => 6, 'type' => 'marketplace_booking'],
-            ['id' => 45, 'name' => 'Marketplace Contract Sent', 'name_ar' => 'تم إرسال العقد', 'name_en' => 'Contract Sent', 'priority' => 7, 'type' => 'marketplace_booking'],
-            ['id' => 46, 'name' => 'Marketplace Contract Signed', 'name_ar' => 'تم توقيع العقد', 'name_en' => 'Contract Signed', 'priority' => 8, 'type' => 'marketplace_booking'],
-            ['id' => 47, 'name' => 'Marketplace Closed Won', 'name_ar' => 'مغلق - ربح', 'name_en' => 'Closed Won', 'priority' => 9, 'type' => 'marketplace_booking'],
-            ['id' => 48, 'name' => 'Marketplace Closed Lost', 'name_ar' => 'مغلق - خسارة', 'name_en' => 'Closed Lost', 'priority' => 10, 'type' => 'marketplace_booking'],
-            ['id' => 49, 'name' => 'Marketplace On Hold', 'name_ar' => 'معلق', 'name_en' => 'On Hold', 'priority' => 11, 'type' => 'marketplace_booking'],
+            // Off-plan sale reservation statuses (IDs 39-49)
+            ['id' => 39, 'name' => 'Initial Booking Created', 'name_ar' => 'تم انشاء الحجز الأولي', 'name_en' => 'Initial Booking Created', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 40, 'name' => 'Approved', 'name_ar' => 'تمت الموافقة', 'name_en' => 'Approved', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 41, 'name' => 'Cancelled Before Deposit', 'name_ar' => 'الغاء قبل العربون', 'name_en' => 'Cancelled Before Deposit', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 42, 'name' => 'Booking Rejected', 'name_ar' => 'تم رفض الحجز', 'name_en' => 'Booking Rejected', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 43, 'name' => 'Cancelled After Deposit', 'name_ar' => 'الغاء بعد العربون', 'name_en' => 'Cancelled After Deposit', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 44, 'name' => 'Deposit Paid', 'name_ar' => 'تم دفع العربون', 'name_en' => 'Deposit Paid', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 45, 'name' => 'Contract Sent', 'name_ar' => 'تم إرسال العقد', 'name_en' => 'Contract Sent', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 46, 'name' => 'Payment Complete', 'name_ar' => 'اكتمل الدفع', 'name_en' => 'Payment Complete', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 47, 'name' => 'Contract Signed', 'name_ar' => 'تم توقيع العقد', 'name_en' => 'Contract Signed', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 48, 'name' => 'Ownership Transferred', 'name_ar' => 'تم نقل الملكية', 'name_en' => 'Ownership Transferred', 'priority' => 1, 'type' => 'sale_reservation'],
+            ['id' => 49, 'name' => 'Contract Cancelled', 'name_ar' => 'تم الغاء العقد', 'name_en' => 'Contract Cancelled', 'priority' => 1, 'type' => 'sale_reservation'],
 
-            // Offer request statuses (52-58)
-            ['id' => 52, 'name' => 'Offer New', 'name_ar' => 'عرض جديد', 'name_en' => 'Offer New', 'priority' => 1, 'type' => 'offer_request'],
-            ['id' => 53, 'name' => 'Offer Sent', 'name_ar' => 'عرض مرسل', 'name_en' => 'Offer Sent', 'priority' => 2, 'type' => 'offer_request'],
-            ['id' => 54, 'name' => 'Offer Viewed', 'name_ar' => 'عرض معروض', 'name_en' => 'Offer Viewed', 'priority' => 3, 'type' => 'offer_request'],
-            ['id' => 55, 'name' => 'Offer Accepted', 'name_ar' => 'عرض مقبول', 'name_en' => 'Offer Accepted', 'priority' => 4, 'type' => 'offer_request'],
-            ['id' => 56, 'name' => 'Offer Rejected', 'name_ar' => 'عرض مرفوض', 'name_en' => 'Offer Rejected', 'priority' => 5, 'type' => 'offer_request'],
-            ['id' => 57, 'name' => 'Offer Expired', 'name_ar' => 'عرض منتهي', 'name_en' => 'Offer Expired', 'priority' => 6, 'type' => 'offer_request'],
-            ['id' => 58, 'name' => 'Offer Cancelled', 'name_ar' => 'عرض ملغي', 'name_en' => 'Offer Cancelled', 'priority' => 7, 'type' => 'offer_request'],
+            // Reschedule status (ID 50)
+            ['id' => 50, 'name' => 'Rescheduled', 'name_ar' => 'اعادة جدولة', 'name_en' => 'Rescheduled', 'priority' => 11, 'type' => 'request'],
 
-            // Property handover statuses (62-69)
-            ['id' => 62, 'name' => 'Handover Scheduled', 'name_ar' => 'تسليم مجدول', 'name_en' => 'Handover Scheduled', 'priority' => 1, 'type' => 'property_handover'],
-            ['id' => 63, 'name' => 'Inspection In Progress', 'name_ar' => 'فحص قيد التنفيذ', 'name_en' => 'Inspection In Progress', 'priority' => 2, 'type' => 'property_handover'],
-            ['id' => 64, 'name' => 'Inspection Completed', 'name_ar' => 'فحص مكتمل', 'name_en' => 'Inspection Completed', 'priority' => 3, 'type' => 'property_handover'],
-            ['id' => 65, 'name' => 'Pending Repairs', 'name_ar' => 'بانتظار الإصلاح', 'name_en' => 'Pending Repairs', 'priority' => 4, 'type' => 'property_handover'],
-            ['id' => 66, 'name' => 'Repairs Completed', 'name_ar' => 'إصلاح مكتمل', 'name_en' => 'Repairs Completed', 'priority' => 5, 'type' => 'property_handover'],
-            ['id' => 67, 'name' => 'Handover Completed', 'name_ar' => 'تسليم مكتمل', 'name_en' => 'Handover Completed', 'priority' => 6, 'type' => 'property_handover'],
-            ['id' => 68, 'name' => 'Handover Cancelled', 'name_ar' => 'تسليم ملغي', 'name_en' => 'Handover Cancelled', 'priority' => 7, 'type' => 'property_handover'],
-            ['id' => 69, 'name' => 'Handover Disputed', 'name_ar' => 'تسليم متنازع', 'name_en' => 'Handover Disputed', 'priority' => 8, 'type' => 'property_handover'],
+            // Price quote statuses (IDs 52-58)
+            ['id' => 52, 'name' => 'New', 'name_ar' => 'جديد', 'name_en' => 'New', 'priority' => 1, 'type' => 'price_quote'],
+            ['id' => 53, 'name' => 'Approved', 'name_ar' => 'تمت الموافقة', 'name_en' => 'Approved', 'priority' => 2, 'type' => 'price_quote'],
+            ['id' => 54, 'name' => 'Rejected', 'name_ar' => 'مرفوض', 'name_en' => 'Rejected', 'priority' => 3, 'type' => 'price_quote'],
+            ['id' => 55, 'name' => 'Quote Sent', 'name_ar' => 'تم إرسال عرض السعر', 'name_en' => 'Quote Sent', 'priority' => 3, 'type' => 'price_quote'],
+            ['id' => 56, 'name' => 'Rejected by Client', 'name_ar' => 'تم الرفض من العميل', 'name_en' => 'Rejected by Client', 'priority' => 3, 'type' => 'price_quote'],
+            ['id' => 57, 'name' => 'Accepted by Client', 'name_ar' => 'تم القبول من العميل', 'name_en' => 'Accepted by Client', 'priority' => 3, 'type' => 'price_quote'],
+            ['id' => 58, 'name' => 'Cancelled by Admin', 'name_ar' => 'تم الإلغاء من المسؤول', 'name_en' => 'Cancelled by Admin', 'priority' => 3, 'type' => 'price_quote'],
+
+            // Invoice/transaction statuses (IDs 62-69)
+            ['id' => 62, 'name' => 'Financial Data Review', 'name_ar' => 'مراجعة البيانات المالية', 'name_en' => 'Financial Data Review', 'priority' => 1, 'type' => 'invoice'],
+            ['id' => 63, 'name' => 'Unit Payment Schedule', 'name_ar' => 'جدول دفع الوحدة', 'name_en' => 'Unit Payment Schedule', 'priority' => 1, 'type' => 'invoice'],
+            ['id' => 64, 'name' => 'VAT Commission Payment', 'name_ar' => 'دفع عمولة ضريبة القيمة المضافة', 'name_en' => 'VAT Commission Payment', 'priority' => 1, 'type' => 'invoice'],
+            ['id' => 65, 'name' => 'Pending Send', 'name_ar' => 'في انتظار الارسال', 'name_en' => 'Pending Send', 'priority' => 1, 'type' => 'invoice'],
+            ['id' => 66, 'name' => 'Paid', 'name_ar' => 'تم الدفع', 'name_en' => 'Paid', 'priority' => 1, 'type' => 'invoice'],
+            ['id' => 67, 'name' => 'Sent', 'name_ar' => 'تم الارسال', 'name_en' => 'Sent', 'priority' => 1, 'type' => 'invoice'],
+            ['id' => 68, 'name' => 'Pending', 'name_ar' => 'في الانتظار', 'name_en' => 'Pending', 'priority' => 1, 'type' => 'invoice'],
+            ['id' => 69, 'name' => 'Completed', 'name_ar' => 'تم اكتمال', 'name_en' => 'Completed', 'priority' => 1, 'type' => 'invoice'],
         ];
 
-        foreach ($statuses as $status) {
-            Status::updateOrCreate(['id' => $status['id']], $status);
-        }
+        DB::table('rf_statuses')->upsert(
+            $statuses,
+            ['id'],
+            ['name', 'name_ar', 'name_en', 'priority', 'type'],
+        );
     }
 }

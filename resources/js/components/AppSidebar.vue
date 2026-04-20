@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-vue-next';
+import {
+    Building2,
+    CalendarCheck,
+    ClipboardList,
+    DoorOpen,
+    FileText,
+    LayoutGrid,
+    Megaphone,
+    Receipt,
+    Users,
+} from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
-import NavFooter from '@/components/NavFooter.vue';
+import NavGroups from '@/components/NavGroups.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import {
@@ -15,7 +25,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
-import type { NavItem } from '@/types';
+import type { NavGroup, NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
     {
@@ -25,16 +35,68 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
+const navGroups: NavGroup[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: FolderGit2,
+        title: 'Properties',
+        icon: Building2,
+        items: [
+            { title: 'Communities', href: '/communities' },
+            { title: 'Buildings', href: '/buildings' },
+            { title: 'Units', href: '/units' },
+        ],
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
+        title: 'Leasing',
+        icon: FileText,
+        items: [
+            { title: 'Leases', href: '/leases' },
+        ],
+    },
+    {
+        title: 'Requests',
+        icon: ClipboardList,
+        items: [
+            { title: 'All Requests', href: '/requests' },
+        ],
+    },
+    {
+        title: 'Facilities',
+        icon: CalendarCheck,
+        items: [
+            { title: 'Facilities', href: '/facilities' },
+            { title: 'Bookings', href: '/facility-bookings' },
+        ],
+    },
+    {
+        title: 'Accounting',
+        icon: Receipt,
+        items: [
+            { title: 'Transactions', href: '/transactions' },
+        ],
+    },
+    {
+        title: 'Communication',
+        icon: Megaphone,
+        items: [
+            { title: 'Announcements', href: '/announcements' },
+        ],
+    },
+    {
+        title: 'Contacts',
+        icon: Users,
+        items: [
+            { title: 'Owners', href: '/owners' },
+            { title: 'Tenants', href: '/residents' },
+            { title: 'Admins', href: '/admins' },
+            { title: 'Professionals', href: '/professionals' },
+        ],
+    },
+    {
+        title: 'Visitor Access',
+        icon: DoorOpen,
+        items: [
+            { title: 'Visitor Access', href: '/requests?category=visitor-access' },
+        ],
     },
 ];
 </script>
@@ -55,10 +117,10 @@ const footerNavItems: NavItem[] = [
 
         <SidebarContent>
             <NavMain :items="mainNavItems" />
+            <NavGroups label="Modules" :items="navGroups" />
         </SidebarContent>
 
         <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>
     </Sidebar>

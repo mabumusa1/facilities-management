@@ -6,6 +6,7 @@ use App\Concerns\BelongsToAccountTenant;
 use Database\Factories\ProfessionalFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Professional extends Model
 {
@@ -35,5 +36,11 @@ class Professional extends Model
         return [
             'active' => 'boolean',
         ];
+    }
+
+    /** @return BelongsToMany<RequestSubcategory, $this> */
+    public function subcategories(): BelongsToMany
+    {
+        return $this->belongsToMany(RequestSubcategory::class, 'professional_subcategories', 'professional_id', 'subcategory_id');
     }
 }

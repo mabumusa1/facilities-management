@@ -19,6 +19,7 @@ class Feature extends Model
         'name',
         'name_ar',
         'name_en',
+        'type',
         'icon',
     ];
 

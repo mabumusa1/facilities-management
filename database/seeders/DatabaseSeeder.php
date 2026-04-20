@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RolesEnum;
+use App\Models\AccountMembership;
+use App\Models\Tenant;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -28,12 +31,25 @@ class DatabaseSeeder extends Seeder
             LeadSourceSeeder::class,
             FeatureSeeder::class,
             AmenitySeeder::class,
+            CommonListSeeder::class,
             RolesSeeder::class,
         ]);
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $tenant = Tenant::create([
+            'name' => 'Demo Account',
+        ]);
+
+        AccountMembership::create([
+            'user_id' => $user->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => RolesEnum::ACCOUNT_ADMINS->value,
+        ]);
+
+        $user->assignRole(RolesEnum::ACCOUNT_ADMINS);
     }
 }

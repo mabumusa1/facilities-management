@@ -27,6 +27,8 @@ class Unit extends Model
         'status_id',
         'city_id',
         'district_id',
+        'owner_id',
+        'tenant_id',
         'account_tenant_id',
         'year_build',
         'net_area',
@@ -137,5 +139,15 @@ class Unit extends Model
     public function marketplaceListings(): HasMany
     {
         return $this->hasMany(MarketplaceUnit::class);
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Owner::class);
+    }
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Resident::class, 'tenant_id');
     }
 }

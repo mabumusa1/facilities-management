@@ -26,7 +26,7 @@ class RequestServiceTest extends TestCase
     {
         $this->seed(RequestCategorySeeder::class);
 
-        $this->assertDatabaseCount('rf_request_categories', 8);
+        $this->assertDatabaseCount('rf_request_categories', 5);
     }
 
     public function test_facility_category_seeder_creates_records(): void
@@ -172,10 +172,10 @@ class RequestServiceTest extends TestCase
 
     public function test_announcement_boolean_casts(): void
     {
-        $announcement = Announcement::factory()->create(['is_published' => true]);
+        $announcement = Announcement::factory()->create(['status' => true]);
         $announcement->refresh();
 
-        $this->assertTrue($announcement->is_published);
+        $this->assertTrue($announcement->status);
     }
 
     public function test_category_bilingual_name(): void

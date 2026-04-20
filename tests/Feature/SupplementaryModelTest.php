@@ -29,21 +29,21 @@ class SupplementaryModelTest extends TestCase
     {
         $this->seed(LeadSourceSeeder::class);
 
-        $this->assertDatabaseCount('rf_lead_sources', 6);
+        $this->assertDatabaseCount('rf_lead_sources', 11);
     }
 
     public function test_feature_seeder(): void
     {
         $this->seed(FeatureSeeder::class);
 
-        $this->assertDatabaseCount('rf_features', 8);
+        $this->assertDatabaseCount('rf_features', 30);
     }
 
     public function test_amenity_seeder(): void
     {
         $this->seed(AmenitySeeder::class);
 
-        $this->assertDatabaseCount('rf_amenities', 8);
+        $this->assertDatabaseCount('rf_amenities', 26);
     }
 
     public function test_dependent_polymorphic_to_resident(): void

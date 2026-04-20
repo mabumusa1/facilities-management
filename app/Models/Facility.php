@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\BelongsToAccountTenant;
 use App\Concerns\HasBilingualName;
 use Database\Factories\FacilityFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,12 +14,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Facility extends Model
 {
     /** @use HasFactory<FacilityFactory> */
-    use HasBilingualName, HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasBilingualName, HasFactory, SoftDeletes;
 
     protected $table = 'rf_facilities';
 
     protected $fillable = [
         'category_id',
+        'community_id',
         'name',
         'name_ar',
         'name_en',
@@ -29,6 +31,7 @@ class Facility extends Model
         'booking_fee',
         'is_active',
         'requires_approval',
+        'account_tenant_id',
     ];
 
     protected function casts(): array
@@ -44,6 +47,12 @@ class Facility extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(FacilityCategory::class, 'category_id');
+    }
+
+    /** @return BelongsTo<Community, $this> */
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
     }
 
     /** @return HasMany<FacilityBooking, $this> */

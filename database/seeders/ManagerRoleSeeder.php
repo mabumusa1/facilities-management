@@ -10,11 +10,11 @@ class ManagerRoleSeeder extends Seeder
     public function run(): void
     {
         $roles = [
-            ['role' => 'Admins', 'name_ar' => 'مدراء', 'name_en' => 'Admins'],
-            ['role' => 'accountingManagers', 'name_ar' => 'مدراء المحاسبة', 'name_en' => 'Accounting Managers'],
-            ['role' => 'serviceManagers', 'name_ar' => 'مدراء الخدمات', 'name_en' => 'Service Managers'],
-            ['role' => 'marketingManagers', 'name_ar' => 'مدراء التسويق', 'name_en' => 'Marketing Managers'],
-            ['role' => 'salesAndLeasingManagers', 'name_ar' => 'مدراء المبيعات والتأجير', 'name_en' => 'Sales & Leasing Managers'],
+            ['id' => 1, 'role' => 'Admins', 'name_ar' => 'مدير', 'name_en' => 'Admin'],
+            ['id' => 2, 'role' => 'accountingManagers', 'name_ar' => 'مدير حسابات', 'name_en' => 'Accounting Manager'],
+            ['id' => 3, 'role' => 'serviceManagers', 'name_ar' => 'مدير خدمات', 'name_en' => 'Service Manager'],
+            ['id' => 4, 'role' => 'marketingManagers', 'name_ar' => 'مدير تسويق', 'name_en' => 'Marketing Manager'],
+            ['id' => 5, 'role' => 'salesAndLeasingManagers', 'name_ar' => 'مدير مبيعات وتأجير', 'name_en' => 'Sales & Leasing Manager'],
         ];
 
         foreach ($roles as $role) {

@@ -28,7 +28,7 @@ class ReferenceDataSeederTest extends TestCase
     {
         $this->seed(CountrySeeder::class);
 
-        $this->assertDatabaseCount('countries', 8);
+        $this->assertDatabaseCount('countries', 45);
         $this->assertDatabaseHas('countries', ['iso2' => 'SA', 'name_en' => 'Saudi Arabia']);
     }
 
@@ -36,7 +36,7 @@ class ReferenceDataSeederTest extends TestCase
     {
         $this->seed([CountrySeeder::class, CitySeeder::class]);
 
-        $this->assertDatabaseCount('cities', 8);
+        $this->assertDatabaseCount('cities', 26);
         $this->assertDatabaseHas('cities', ['name' => 'Riyadh']);
     }
 
@@ -44,15 +44,15 @@ class ReferenceDataSeederTest extends TestCase
     {
         $this->seed([CountrySeeder::class, CitySeeder::class, DistrictSeeder::class]);
 
-        $this->assertDatabaseCount('districts', 5);
-        $this->assertDatabaseHas('districts', ['name' => 'Al Olaya']);
+        $this->assertDatabaseCount('districts', 1049);
+        $this->assertDatabaseHas('districts', ['name' => 'Al Diriyah']);
     }
 
     public function test_currencies_are_seeded(): void
     {
         $this->seed(CurrencySeeder::class);
 
-        $this->assertDatabaseCount('currencies', 8);
+        $this->assertDatabaseCount('currencies', 14);
         $this->assertDatabaseHas('currencies', ['code' => 'SAR']);
     }
 
@@ -70,16 +70,16 @@ class ReferenceDataSeederTest extends TestCase
     {
         $this->seed(SettingSeeder::class);
 
-        $this->assertGreaterThanOrEqual(11, Setting::count());
+        $this->assertGreaterThanOrEqual(6, Setting::count());
         $this->assertDatabaseHas('rf_settings', ['name' => 'Monthly', 'type' => 'payment_schedule']);
-        $this->assertDatabaseHas('rf_settings', ['name' => 'New Contract', 'type' => 'rental_contract_type']);
+        $this->assertDatabaseHas('rf_settings', ['name' => 'Yearly Rental', 'type' => 'rental_contract_type']);
     }
 
     public function test_unit_categories_are_seeded(): void
     {
         $this->seed(UnitCategorySeeder::class);
 
-        $this->assertDatabaseCount('rf_unit_categories', 4);
+        $this->assertDatabaseCount('rf_unit_categories', 2);
         $this->assertDatabaseHas('rf_unit_categories', ['name' => 'Residential']);
     }
 
@@ -87,7 +87,7 @@ class ReferenceDataSeederTest extends TestCase
     {
         $this->seed([UnitCategorySeeder::class, UnitTypeSeeder::class]);
 
-        $this->assertGreaterThanOrEqual(11, UnitType::count());
+        $this->assertGreaterThanOrEqual(4, UnitType::count());
         $this->assertDatabaseHas('rf_unit_types', ['name' => 'Apartment']);
         $this->assertDatabaseHas('rf_unit_types', ['name' => 'Office']);
     }

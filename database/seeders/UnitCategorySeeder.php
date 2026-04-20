@@ -2,22 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\UnitCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UnitCategorySeeder extends Seeder
 {
     public function run(): void
     {
         $categories = [
-            ['name' => 'Residential', 'name_ar' => 'سكني', 'name_en' => 'Residential', 'icon' => 'residential'],
-            ['name' => 'Commercial', 'name_ar' => 'تجاري', 'name_en' => 'Commercial', 'icon' => 'commercial'],
-            ['name' => 'Industrial', 'name_ar' => 'صناعي', 'name_en' => 'Industrial', 'icon' => 'industrial'],
-            ['name' => 'Mixed Use', 'name_ar' => 'متعدد الاستخدامات', 'name_en' => 'Mixed Use', 'icon' => 'mixed'],
+            ['id' => 2, 'name' => 'Residential', 'name_ar' => 'سكني', 'name_en' => 'Residential', 'icon' => 'residential'],
+            ['id' => 3, 'name' => 'Commercial', 'name_ar' => 'تجاري', 'name_en' => 'Commercial', 'icon' => 'commercial'],
         ];
 
-        foreach ($categories as $category) {
-            UnitCategory::updateOrCreate(['name' => $category['name']], $category);
-        }
+        DB::table('rf_unit_categories')->upsert(
+            $categories,
+            ['id'],
+            ['name', 'name_ar', 'name_en', 'icon'],
+        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\BelongsToAccountTenant;
 use Database\Factories\AnnouncementFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,26 +12,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Announcement extends Model
 {
     /** @use HasFactory<AnnouncementFactory> */
-    use HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasFactory, SoftDeletes;
 
     protected $table = 'rf_announcements';
 
     protected $fillable = [
         'community_id',
+        'building_id',
         'title',
-        'body',
-        'priority',
-        'is_published',
+        'content',
+        'status',
         'published_at',
-        'expires_at',
+        'account_tenant_id',
     ];
 
     protected function casts(): array
     {
         return [
-            'is_published' => 'boolean',
+            'status' => 'boolean',
             'published_at' => 'datetime',
-            'expires_at' => 'datetime',
         ];
     }
 
@@ -38,5 +38,11 @@ class Announcement extends Model
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class, 'community_id');
+    }
+
+    /** @return BelongsTo<Building, $this> */
+    public function building(): BelongsTo
+    {
+        return $this->belongsTo(Building::class);
     }
 }
