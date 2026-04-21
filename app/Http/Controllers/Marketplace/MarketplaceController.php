@@ -11,6 +11,8 @@ use App\Models\MarketplaceVisit;
 use App\Models\Request as ServiceRequest;
 use App\Models\Status;
 use App\Models\Unit;
+use App\Support\StatusWorkflow;
+use App\Support\WorkflowNotifier;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -218,8 +220,14 @@ class MarketplaceController extends Controller
         return back();
     }
 
-    public function cancelVisit(MarketplaceVisit $marketplaceVisit): RedirectResponse
-    {
+    public function cancelVisit(
+        Request $request,
+        MarketplaceVisit $marketplaceVisit,
+        StatusWorkflow $statusWorkflow,
+        WorkflowNotifier $workflowNotifier,
+    ): RedirectResponse {
+        $fromStatus = Status::query()->find($marketplaceVisit->status_id);
+
         $cancelStatus = Status::query()
             ->where('type', 'property_visit')
             ->where(function ($query): void {
@@ -230,10 +238,28 @@ class MarketplaceController extends Controller
             })
             ->value('id');
 
+        if ($cancelStatus !== null) {
+            $statusWorkflow->ensureTransition('property_visit', $marketplaceVisit->status_id, $cancelStatus);
+        }
+
         $marketplaceVisit->update([
             'status_id' => $cancelStatus ?: $marketplaceVisit->status_id,
             'notes' => trim(($marketplaceVisit->notes ? $marketplaceVisit->notes."\n" : '').'Visit canceled on '.Carbon::now()->toDateTimeString()),
         ]);
+
+        $toStatus = $cancelStatus ? Status::query()->find($cancelStatus) : null;
+
+        if ($toStatus instanceof Status) {
+            $workflowNotifier->notifyTenantUsers(
+                tenantId: (int) $request->session()->get('tenant_id'),
+                module: 'marketplace-visit',
+                resourceId: $marketplaceVisit->id,
+                fromStatus: $fromStatus?->name_en ?? $fromStatus?->name,
+                toStatus: $toStatus->name_en ?? $toStatus->name ?? (string) $toStatus->id,
+                url: route('marketplace.visits.show', $marketplaceVisit, false),
+                actor: $request->user()?->name,
+            );
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Visit canceled.')]);
 

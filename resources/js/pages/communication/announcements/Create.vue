@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -10,12 +11,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import type { Community, Building } from '@/types';
 
+const { t } = useI18n();
+
 const props = defineProps<{
     communities: Pick<Community, 'id' | 'name'>[];
     buildings: Pick<Building, 'id' | 'name' | 'rf_community_id'>[];
 }>();
 
-defineOptions({ layout: { breadcrumbs: [{ title: 'Dashboard', href: '/dashboard' }, { title: 'Announcements', href: '/announcements' }, { title: 'New Announcement', href: '/announcements/create' }] } });
+watch(() => t('app.announcements.newAnnouncement'), () => {
+    setLayoutProps({
+        breadcrumbs: [
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.announcements'), href: '/announcements' },
+            { title: t('app.announcements.newAnnouncement'), href: '/announcements/create' },
+        ],
+    });
+}, { immediate: true });
 
 const form = useForm({ title: '', body: '', community_id: '', building_id: '' });
 
@@ -29,26 +40,26 @@ function submit() { form.post('/announcements'); }
 </script>
 
 <template>
-    <Head title="New Announcement" />
+    <Head :title="t('app.announcements.newAnnouncement')" />
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Create Announcement" description="Create a new announcement for your community." />
+        <Heading variant="small" :title="t('app.announcements.createTitle')" :description="t('app.announcements.createDescription')" />
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-2">
-                <Label for="title">Title</Label>
-                <Input id="title" v-model="form.title" required placeholder="Announcement title" />
+                <Label for="title">{{ t('app.announcements.title') }}</Label>
+                <Input id="title" v-model="form.title" required :placeholder="t('app.announcements.titlePlaceholder')" />
                 <InputError :message="form.errors.title" />
             </div>
             <div class="grid gap-2">
-                <Label for="body">Body</Label>
-                <Textarea id="body" v-model="form.body" required placeholder="Announcement content..." />
+                <Label for="body">{{ t('app.announcements.body') }}</Label>
+                <Textarea id="body" v-model="form.body" required :placeholder="t('app.announcements.bodyPlaceholder')" />
                 <InputError :message="form.errors.body" />
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>Community (optional)</Label>
+                    <Label>{{ t('app.announcements.communityOptional') }}</Label>
                     <Select v-model="form.community_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select community" />
+                            <SelectValue :placeholder="t('app.announcements.selectCommunity')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="community in communities" :key="community.id" :value="String(community.id)">
@@ -59,10 +70,10 @@ function submit() { form.post('/announcements'); }
                     <InputError :message="form.errors.community_id" />
                 </div>
                 <div class="grid gap-2">
-                    <Label>Building (optional)</Label>
+                    <Label>{{ t('app.announcements.buildingOptional') }}</Label>
                     <Select v-model="form.building_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select building" />
+                            <SelectValue :placeholder="t('app.announcements.selectBuilding')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="building in filteredBuildings" :key="building.id" :value="String(building.id)">
@@ -74,7 +85,7 @@ function submit() { form.post('/announcements'); }
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Create Announcement</Button>
+                <Button :disabled="form.processing">{{ t('app.announcements.createButton') }}</Button>
             </div>
         </form>
     </div>

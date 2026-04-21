@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, router, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { computed, ref, watchEffect } from 'vue';
 import { update as updateRequestCategory } from '@/actions/App/Http/Controllers/AppSettings/RequestCategoryController';
 import { destroy as destroyRequestSubcategory, store as storeRequestSubcategory } from '@/actions/App/Http/Controllers/AppSettings/RequestSubcategoryController';
 import { updateOrCreate as updateOrCreateServiceSetting } from '@/actions/App/Http/Controllers/AppSettings/ServiceSettingController';
@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useI18n } from '@/composables/useI18n';
 import type { RequestCategory, RequestSubcategory, ServiceSetting } from '@/types';
 
 const props = defineProps<{
@@ -21,15 +22,19 @@ const props = defineProps<{
     serviceSetting: ServiceSetting | null;
 }>();
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Request Categories', href: '/app-settings/request-categories' },
-            { title: 'Edit', href: '#' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.appSettings.requestCategories.pageTitle'), href: '/app-settings/request-categories' },
+            { title: t('app.appSettings.common.edit'), href: '#' },
         ],
-    },
+    });
 });
+
+const pageTitle = computed(() => t('app.appSettings.requestCategories.editTitle', { name: props.category.name_en ?? props.category.name }));
 
 const form = useForm({
     name_ar: props.category.name_ar ?? '',
@@ -108,7 +113,7 @@ function addSubcategory() {
 }
 
 function deleteSubcategory(subId: number) {
-    if (confirm('Delete this subcategory?')) {
+    if (confirm(t('app.appSettings.requestCategories.deleteSubcategoryConfirm'))) {
         router.delete(destroyRequestSubcategory([props.category.id, subId]).url, {
             preserveScroll: true,
         });
@@ -117,20 +122,20 @@ function deleteSubcategory(subId: number) {
 </script>
 
 <template>
-    <Head :title="`Edit ${category.name_en ?? category.name}`" />
+    <Head :title="pageTitle" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" :title="`Edit: ${category.name_en ?? category.name}`" description="Update category details and manage subcategories." />
+        <Heading variant="small" :title="t('app.appSettings.requestCategories.editHeading', { name: category.name_en ?? category.name })" :description="t('app.appSettings.requestCategories.editDescription')" />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="name_en">Name (English)</Label>
+                    <Label for="name_en">{{ t('app.appSettings.requestCategories.nameEn') }}</Label>
                     <Input id="name_en" v-model="form.name_en" required />
                     <InputError :message="form.errors.name_en" />
                 </div>
                 <div class="grid gap-2">
-                    <Label for="name_ar">Name (Arabic)</Label>
+                    <Label for="name_ar">{{ t('app.appSettings.requestCategories.nameAr') }}</Label>
                     <Input id="name_ar" v-model="form.name_ar" required dir="rtl" />
                     <InputError :message="form.errors.name_ar" />
                 </div>
@@ -139,16 +144,16 @@ function deleteSubcategory(subId: number) {
             <div class="flex items-center gap-6">
                 <label class="flex items-center gap-2">
                     <Checkbox :checked="form.status" @update:checked="form.status = $event" />
-                    <span class="text-sm">Active</span>
+                    <span class="text-sm">{{ t('app.appSettings.common.active') }}</span>
                 </label>
                 <label class="flex items-center gap-2">
                     <Checkbox :checked="form.has_sub_categories" @update:checked="form.has_sub_categories = $event" />
-                    <span class="text-sm">Has Subcategories</span>
+                    <span class="text-sm">{{ t('app.appSettings.requestCategories.hasSubcategories') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Update Category</Button>
+                <Button :disabled="form.processing">{{ t('app.appSettings.requestCategories.updateButton') }}</Button>
             </div>
         </form>
 
@@ -156,40 +161,40 @@ function deleteSubcategory(subId: number) {
 
         <Card>
             <CardHeader>
-                <CardTitle>Service Settings Permissions</CardTitle>
+                <CardTitle>{{ t('app.appSettings.requestCategories.serviceSettingsTitle') }}</CardTitle>
             </CardHeader>
             <CardContent class="space-y-4">
                 <p class="text-muted-foreground text-sm">
-                    Configure request handling permissions for this category.
+                    {{ t('app.appSettings.requestCategories.serviceSettingsDescription') }}
                 </p>
 
                 <div class="grid gap-3 sm:grid-cols-2">
                     <label class="flex items-center gap-2">
                         <Checkbox :checked="serviceForm.permissions.manager_close_Request" @update:checked="serviceForm.permissions.manager_close_Request = !!$event" />
-                        <span class="text-sm">Manager can close request</span>
+                        <span class="text-sm">{{ t('app.appSettings.requestCategories.managerCloseRequest') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <Checkbox :checked="serviceForm.permissions.attachments_required" @update:checked="serviceForm.permissions.attachments_required = !!$event" />
-                        <span class="text-sm">Attachments required</span>
+                        <span class="text-sm">{{ t('app.appSettings.requestCategories.attachmentsRequired') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <Checkbox :checked="serviceForm.permissions.allow_professional_reschedule" @update:checked="serviceForm.permissions.allow_professional_reschedule = !!$event" />
-                        <span class="text-sm">Allow professional reschedule</span>
+                        <span class="text-sm">{{ t('app.appSettings.requestCategories.allowProfessionalReschedule') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <Checkbox :checked="serviceForm.permissions.not_require_professional_enter_request_code" @update:checked="serviceForm.permissions.not_require_professional_enter_request_code = !!$event" />
-                        <span class="text-sm">Skip request code for professional</span>
+                        <span class="text-sm">{{ t('app.appSettings.requestCategories.skipRequestCodeForProfessional') }}</span>
                     </label>
                     <label class="flex items-center gap-2 sm:col-span-2">
                         <Checkbox :checked="serviceForm.permissions.not_require_professional_upload_request_photo" @update:checked="serviceForm.permissions.not_require_professional_upload_request_photo = !!$event" />
-                        <span class="text-sm">Skip request photo upload for professional</span>
+                        <span class="text-sm">{{ t('app.appSettings.requestCategories.skipRequestPhotoForProfessional') }}</span>
                     </label>
                 </div>
 
                 <InputError :message="serviceForm.errors.permissions" />
 
                 <div class="flex items-center gap-4">
-                    <Button :disabled="serviceForm.processing" @click="saveServiceSettings">Save Service Settings</Button>
+                    <Button :disabled="serviceForm.processing" @click="saveServiceSettings">{{ t('app.appSettings.requestCategories.saveServiceSettings') }}</Button>
                 </div>
             </CardContent>
         </Card>
@@ -199,9 +204,9 @@ function deleteSubcategory(subId: number) {
         <!-- Subcategories Section -->
         <Card>
             <CardHeader class="flex flex-row items-center justify-between">
-                <CardTitle>Subcategories</CardTitle>
+                <CardTitle>{{ t('app.appSettings.requestCategories.subcategories') }}</CardTitle>
                 <Button size="sm" @click="showSubcategoryForm = !showSubcategoryForm">
-                    {{ showSubcategoryForm ? 'Cancel' : 'Add Subcategory' }}
+                    {{ showSubcategoryForm ? t('app.appSettings.requestCategories.cancelSubcategory') : t('app.appSettings.requestCategories.addSubcategory') }}
                 </Button>
             </CardHeader>
             <CardContent>
@@ -209,60 +214,60 @@ function deleteSubcategory(subId: number) {
                 <form v-if="showSubcategoryForm" @submit.prevent="addSubcategory" class="mb-6 space-y-4 rounded-lg border p-4">
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <Label>Name (English)</Label>
-                            <Input v-model="subForm.name_en" required placeholder="Subcategory name" />
+                            <Label>{{ t('app.appSettings.requestCategories.nameEn') }}</Label>
+                            <Input v-model="subForm.name_en" required :placeholder="t('app.appSettings.requestCategories.subcategoryNamePlaceholder')" />
                             <InputError :message="subForm.errors.name_en" />
                         </div>
                         <div class="grid gap-2">
-                            <Label>Name (Arabic)</Label>
-                            <Input v-model="subForm.name_ar" required placeholder="اسم الفئة الفرعية" dir="rtl" />
+                            <Label>{{ t('app.appSettings.requestCategories.nameAr') }}</Label>
+                            <Input v-model="subForm.name_ar" required :placeholder="t('app.appSettings.requestCategories.subcategoryNameArPlaceholder')" dir="rtl" />
                             <InputError :message="subForm.errors.name_ar" />
                         </div>
                     </div>
                     <div class="flex items-center gap-6">
                         <label class="flex items-center gap-2">
                             <Checkbox :checked="subForm.status" @update:checked="subForm.status = $event" />
-                            <span class="text-sm">Active</span>
+                            <span class="text-sm">{{ t('app.appSettings.common.active') }}</span>
                         </label>
                         <label class="flex items-center gap-2">
                             <Checkbox :checked="subForm.is_all_day" @update:checked="subForm.is_all_day = $event" />
-                            <span class="text-sm">All Day</span>
+                            <span class="text-sm">{{ t('app.appSettings.requestCategories.allDay') }}</span>
                         </label>
                     </div>
                     <div v-if="!subForm.is_all_day" class="grid gap-4 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <Label>Start Time</Label>
+                            <Label>{{ t('app.appSettings.requestCategories.startTime') }}</Label>
                             <Input v-model="subForm.start" type="time" />
                         </div>
                         <div class="grid gap-2">
-                            <Label>End Time</Label>
+                            <Label>{{ t('app.appSettings.requestCategories.endTime') }}</Label>
                             <Input v-model="subForm.end" type="time" />
                         </div>
                     </div>
-                    <Button size="sm" :disabled="subForm.processing">Add Subcategory</Button>
+                    <Button size="sm" :disabled="subForm.processing">{{ t('app.appSettings.requestCategories.addSubcategorySubmit') }}</Button>
                 </form>
 
                 <!-- Subcategories list -->
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Name (EN)</TableHead>
-                            <TableHead>Name (AR)</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead class="text-right">Actions</TableHead>
+                            <TableHead>{{ t('app.appSettings.requestCategories.nameEn') }}</TableHead>
+                            <TableHead>{{ t('app.appSettings.requestCategories.nameAr') }}</TableHead>
+                            <TableHead>{{ t('app.appSettings.requestCategories.status') }}</TableHead>
+                            <TableHead class="text-right">{{ t('app.appSettings.common.actions') }}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         <TableRow v-for="sub in category.subcategories" :key="sub.id">
                             <TableCell>{{ sub.name_en ?? sub.name }}</TableCell>
                             <TableCell>{{ sub.name_ar ?? '—' }}</TableCell>
-                            <TableCell><Badge :variant="(sub as any).status !== false ? 'default' : 'secondary'">{{ (sub as any).status !== false ? 'Active' : 'Inactive' }}</Badge></TableCell>
+                            <TableCell><Badge :variant="(sub as any).status !== false ? 'default' : 'secondary'">{{ (sub as any).status !== false ? t('app.appSettings.common.active') : t('app.appSettings.common.inactive') }}</Badge></TableCell>
                             <TableCell class="text-right">
-                                <Button variant="destructive" size="sm" @click="deleteSubcategory(sub.id)">Delete</Button>
+                                <Button variant="destructive" size="sm" @click="deleteSubcategory(sub.id)">{{ t('app.appSettings.common.delete') }}</Button>
                             </TableCell>
                         </TableRow>
                         <TableRow v-if="!category.subcategories?.length">
-                            <TableCell :colspan="4" class="text-muted-foreground text-center">No subcategories.</TableCell>
+                            <TableCell :colspan="4" class="text-muted-foreground text-center">{{ t('app.appSettings.requestCategories.noSubcategories') }}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

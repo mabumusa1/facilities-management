@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+
+const { t } = useI18n();
 
 const props = defineProps<{
     communities: { id: number; name: string }[];
@@ -17,33 +21,33 @@ function selectCommunity(event: Event) {
     router.get('/settings/forms/select-building', { community_id: communityId || undefined }, { preserveState: true });
 }
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Settings', href: '/settings/invoice' },
-            { title: 'Forms', href: '/settings/forms' },
-            { title: 'Select Building', href: '/settings/forms/select-building' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.settings'), href: '/settings/invoice' },
+            { title: t('app.navigation.settingsForms'), href: '/settings/forms' },
+            { title: t('app.settingsForms.selectBuilding'), href: '/settings/forms/select-building' },
         ],
-    },
+    });
 });
 </script>
 
 <template>
-    <Head title="Select Building" />
+    <Head :title="t('app.settingsForms.selectBuilding')" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Select Building" description="Filter by community then select a building for the template scope." />
+        <Heading variant="small" :title="t('app.settingsForms.selectBuilding')" :description="t('app.settingsForms.selectBuildingDescription')" />
 
         <Card>
             <CardHeader>
-                <CardTitle>Building Scope</CardTitle>
+                <CardTitle>{{ t('app.settingsForms.buildingScope') }}</CardTitle>
             </CardHeader>
             <CardContent class="space-y-4">
                 <div class="grid gap-2">
-                    <Label for="community_id">Community</Label>
+                    <Label for="community_id">{{ t('app.settingsForms.community') }}</Label>
                     <select id="community_id" class="rounded-md border border-input bg-background px-3 py-2" :value="props.selectedCommunityId ?? ''" @change="selectCommunity">
-                        <option value="">Select community</option>
+                        <option value="">{{ t('app.settingsForms.selectCommunity') }}</option>
                         <option v-for="community in props.communities" :key="community.id" :value="community.id">
                             {{ community.name }}
                         </option>
@@ -54,10 +58,10 @@ defineOptions({
                     <div v-for="building in props.buildings" :key="building.id" class="flex items-center justify-between rounded-md border p-3">
                         <p class="text-sm font-medium">{{ building.name }}</p>
                         <Button size="sm" as-child>
-                            <Link :href="`/settings/forms/create?community_id=${building.rf_community_id}`">Use in Template</Link>
+                            <Link :href="`/settings/forms/create?community_id=${building.rf_community_id}`">{{ t('app.settingsForms.useInTemplate') }}</Link>
                         </Button>
                     </div>
-                    <p v-if="props.selectedCommunityId && props.buildings.length === 0" class="text-muted-foreground text-sm">No buildings found for this community.</p>
+                    <p v-if="props.selectedCommunityId && props.buildings.length === 0" class="text-muted-foreground text-sm">{{ t('app.settingsForms.noBuildingsForCommunity') }}</p>
                 </div>
             </CardContent>
         </Card>

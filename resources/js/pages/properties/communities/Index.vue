@@ -1,45 +1,49 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, setLayoutProps } from '@inertiajs/vue3';
+import { computed, watchEffect } from 'vue';
 import DataTable from '@/components/DataTable.vue';
 import type { Column } from '@/components/DataTable.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import { useI18n } from '@/composables/useI18n';
 import type { Community, Paginated } from '@/types';
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Communities', href: '/communities' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.properties.communities.pageTitle'), href: '/communities' },
         ],
-    },
+    });
 });
 
 const props = defineProps<{
     communities: Paginated<Community>;
 }>();
 
-const columns: Column<Community>[] = [
-    { key: 'name', label: 'Name' },
-    { key: 'country.name', label: 'Country' },
-    { key: 'city.name', label: 'City' },
-    { key: 'currency.code', label: 'Currency' },
-    { key: 'buildings_count', label: 'Buildings' },
-    { key: 'units_count', label: 'Units' },
-    { key: 'requests_count', label: 'Requests' },
-    { key: 'sales_commission_rate', label: 'Sales %' },
-    { key: 'rental_commission_rate', label: 'Rental %' },
-];
+const columns = computed<Column<Community>[]>(() => [
+    { key: 'name', label: t('app.properties.communities.table.name') },
+    { key: 'country.name', label: t('app.properties.communities.table.country') },
+    { key: 'city.name', label: t('app.properties.communities.table.city') },
+    { key: 'currency.code', label: t('app.properties.communities.table.currency') },
+    { key: 'buildings_count', label: t('app.properties.communities.table.buildings') },
+    { key: 'units_count', label: t('app.properties.communities.table.units') },
+    { key: 'requests_count', label: t('app.properties.communities.table.requests') },
+    { key: 'sales_commission_rate', label: t('app.properties.communities.table.salesCommission') },
+    { key: 'rental_commission_rate', label: t('app.properties.communities.table.rentalCommission') },
+]);
 </script>
 
 <template>
-    <Head title="Communities" />
+    <Head :title="t('app.properties.communities.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
         <PageHeader
-            title="Communities"
-            description="Manage your property communities and developments."
+            :title="t('app.properties.communities.heading')"
+            :description="t('app.properties.communities.description')"
             create-href="/communities/create"
-            create-label="New Community"
+            :create-label="t('app.properties.communities.newCommunity')"
         />
 
         <DataTable
@@ -47,7 +51,7 @@ const columns: Column<Community>[] = [
             :rows="communities.data"
             :links="communities.links"
             :row-href="(row: any) => `/communities/${row.id}`"
-            empty-message="No communities found. Create your first community to get started."
+            :empty-message="t('app.properties.communities.noCommunitiesFound')"
         />
     </div>
 </template>

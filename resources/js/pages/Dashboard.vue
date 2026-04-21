@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
+import { useI18n } from '@/composables/useI18n';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 
-defineOptions({
-    layout: {
-        breadcrumbs: [{ title: 'Dashboard', href: '/dashboard' }],
-    },
+const { currentLocale, t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
+        breadcrumbs: [{ title: t('app.navigation.dashboard'), href: '/dashboard' }],
+    });
 });
 
 defineProps<{
@@ -47,8 +51,17 @@ defineProps<{
 }>();
 
 function formatCurrency(value: string | number | undefined): string {
-    if (!value) return '0.00';
-    return Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    if (!value) {
+        return Number(0).toLocaleString(currentLocale.value === 'ar' ? 'ar-SA' : 'en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+    }
+
+    return Number(value).toLocaleString(currentLocale.value === 'ar' ? 'ar-SA' : 'en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
 }
 
 function priorityVariant(priority: string | null): 'default' | 'secondary' | 'destructive' | 'outline' {
@@ -62,14 +75,14 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head :title="t('app.dashboard.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
         <!-- Stats Cards -->
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Communities</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.communities') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-16" />
@@ -78,7 +91,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
             </Card>
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Buildings</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.buildings') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-16" />
@@ -87,7 +100,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
             </Card>
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Units</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.units') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-16" />
@@ -96,7 +109,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
             </Card>
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Tenants</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.tenants') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-16" />
@@ -108,7 +121,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Active Leases</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.activeLeases') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-16" />
@@ -117,7 +130,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
             </Card>
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Open Requests</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.openRequests') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-16" />
@@ -126,7 +139,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
             </Card>
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Pending Transactions</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.pendingTransactions') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-16" />
@@ -135,7 +148,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
             </Card>
             <Card>
                 <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle class="text-sm font-medium">Total Revenue</CardTitle>
+                    <CardTitle class="text-sm font-medium">{{ t('app.dashboard.totalRevenue') }}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Skeleton v-if="!stats" class="h-8 w-20" />
@@ -146,7 +159,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
 
         <Card>
             <CardHeader>
-                <CardTitle>Requires Attention</CardTitle>
+                <CardTitle>{{ t('app.dashboard.requiresAttention') }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <div v-if="!requiresAttention" class="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
@@ -169,7 +182,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
         <!-- Recent Leases -->
         <Card>
             <CardHeader>
-                <CardTitle>Recent Leases</CardTitle>
+                <CardTitle>{{ t('app.dashboard.recentLeases') }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <div v-if="!recentLeases" class="space-y-3">
@@ -178,11 +191,11 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
                 <Table v-else>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Contract</TableHead>
-                            <TableHead>Tenant</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Period</TableHead>
-                            <TableHead class="text-right">Amount</TableHead>
+                            <TableHead>{{ t('app.dashboard.contract') }}</TableHead>
+                            <TableHead>{{ t('app.dashboard.tenant') }}</TableHead>
+                            <TableHead>{{ t('app.dashboard.status') }}</TableHead>
+                            <TableHead>{{ t('app.dashboard.period') }}</TableHead>
+                            <TableHead class="text-right">{{ t('app.dashboard.amount') }}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -191,12 +204,12 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
                                 <a :href="`/leases/${lease.id}`" class="text-primary hover:underline">{{ lease.contract_number }}</a>
                             </TableCell>
                             <TableCell>{{ lease.tenant_name }}</TableCell>
-                            <TableCell><Badge variant="secondary">{{ lease.status ?? 'N/A' }}</Badge></TableCell>
+                            <TableCell><Badge variant="secondary">{{ lease.status ?? t('app.common.notAvailable') }}</Badge></TableCell>
                             <TableCell>{{ lease.start_date }} — {{ lease.end_date }}</TableCell>
                             <TableCell class="text-right">{{ formatCurrency(lease.amount) }}</TableCell>
                         </TableRow>
                         <TableRow v-if="recentLeases.length === 0">
-                            <TableCell :colspan="5" class="text-muted-foreground text-center">No leases yet.</TableCell>
+                            <TableCell :colspan="5" class="text-muted-foreground text-center">{{ t('app.dashboard.noLeasesYet') }}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -206,7 +219,7 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
         <!-- Recent Requests -->
         <Card>
             <CardHeader>
-                <CardTitle>Recent Service Requests</CardTitle>
+                <CardTitle>{{ t('app.dashboard.recentServiceRequests') }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <div v-if="!recentRequests" class="space-y-3">
@@ -215,11 +228,11 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
                 <Table v-else>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>ID</TableHead>
-                            <TableHead>Category</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Priority</TableHead>
-                            <TableHead>Date</TableHead>
+                            <TableHead>{{ t('app.dashboard.id') }}</TableHead>
+                            <TableHead>{{ t('app.dashboard.category') }}</TableHead>
+                            <TableHead>{{ t('app.dashboard.status') }}</TableHead>
+                            <TableHead>{{ t('app.dashboard.priority') }}</TableHead>
+                            <TableHead>{{ t('app.dashboard.date') }}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -227,13 +240,13 @@ function priorityVariant(priority: string | null): 'default' | 'secondary' | 'de
                             <TableCell>
                                 <a :href="`/requests/${req.id}`" class="text-primary hover:underline">#{{ req.id }}</a>
                             </TableCell>
-                            <TableCell>{{ req.category ?? 'N/A' }}</TableCell>
-                            <TableCell><Badge variant="secondary">{{ req.status ?? 'N/A' }}</Badge></TableCell>
-                            <TableCell><Badge :variant="priorityVariant(req.priority)">{{ req.priority ?? 'N/A' }}</Badge></TableCell>
+                            <TableCell>{{ req.category ?? t('app.common.notAvailable') }}</TableCell>
+                            <TableCell><Badge variant="secondary">{{ req.status ?? t('app.common.notAvailable') }}</Badge></TableCell>
+                            <TableCell><Badge :variant="priorityVariant(req.priority)">{{ req.priority ?? t('app.common.notAvailable') }}</Badge></TableCell>
                             <TableCell>{{ req.created_at }}</TableCell>
                         </TableRow>
                         <TableRow v-if="recentRequests.length === 0">
-                            <TableCell :colspan="5" class="text-muted-foreground text-center">No requests yet.</TableCell>
+                            <TableCell :colspan="5" class="text-muted-foreground text-center">{{ t('app.dashboard.noRequestsYet') }}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

@@ -1,42 +1,46 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, setLayoutProps } from '@inertiajs/vue3';
+import { computed, watchEffect } from 'vue';
 import DataTable from '@/components/DataTable.vue';
 import type { Column } from '@/components/DataTable.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import { useI18n } from '@/composables/useI18n';
 import type { Paginated, Resident } from '@/types';
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Tenants', href: '/residents' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.contacts.tenants.pageTitle'), href: '/residents' },
         ],
-    },
+    });
 });
 
 const props = defineProps<{
     residents: Paginated<Resident>;
 }>();
 
-const columns: Column<Resident>[] = [
-    { key: 'name', label: 'Name', render: (row: Resident) => `${row.first_name} ${row.last_name}` },
-    { key: 'email', label: 'Email' },
-    { key: 'phone_number', label: 'Phone' },
-    { key: 'units_count', label: 'Units' },
-    { key: 'leases_count', label: 'Leases' },
-    { key: 'active', label: 'Status', render: (row: Resident) => row.active ? 'Active' : 'Inactive' },
-];
+const columns = computed<Column<Resident>[]>(() => [
+    { key: 'name', label: t('app.contacts.shared.name'), render: (row: Resident) => `${row.first_name} ${row.last_name}` },
+    { key: 'email', label: t('app.contacts.shared.email') },
+    { key: 'phone_number', label: t('app.contacts.shared.phone') },
+    { key: 'units_count', label: t('app.contacts.shared.units') },
+    { key: 'leases_count', label: t('app.contacts.shared.leases') },
+    { key: 'active', label: t('app.contacts.shared.status'), render: (row: Resident) => row.active ? t('app.common.active') : t('app.common.inactive') },
+]);
 </script>
 
 <template>
-    <Head title="Tenants" />
+    <Head :title="t('app.contacts.tenants.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
         <PageHeader
-            title="Tenants"
-            description="Manage tenants across your properties."
+            :title="t('app.contacts.tenants.heading')"
+            :description="t('app.contacts.tenants.description')"
             create-href="/residents/create"
-            create-label="New Tenant"
+            :create-label="t('app.contacts.tenants.newTenant')"
         />
 
         <DataTable
@@ -44,7 +48,7 @@ const columns: Column<Resident>[] = [
             :rows="residents.data"
             :links="residents.links"
             :row-href="(row: any) => `/residents/${row.id}`"
-            empty-message="No tenants found."
+            :empty-message="t('app.contacts.tenants.emptyMessage')"
         />
     </div>
 </template>

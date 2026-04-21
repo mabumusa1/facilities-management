@@ -256,11 +256,45 @@ Priority: HIGH - current captures show high error rates in key modules
 ## Phase 10: Advanced Features (Future)
 Priority: LOW - requires business logic
 
-- [ ] Status workflow enforcement (state machine)
-- [ ] Sub-lease management UI
-- [ ] Search/filtering on Index pages
-- [ ] Pagination controls on Index pages
-- [ ] Notification delivery channels (email/SMS/push) beyond in-app
+- [x] Status workflow enforcement (state machine)
+- [x] Sub-lease management UI
+- [x] Search/filtering on Index pages
+- [x] Pagination controls on Index pages
+- [x] Notification delivery channels (email/SMS/push) beyond in-app
+
+---
+
+## Phase 11: Arabic-First Localization & Frontend Parity Audit
+Priority: CRITICAL - aligns copied system behavior and UX completeness
+
+### 11.1 Planning and Governance
+- [x] Create localization/parity planning package in `docs/plans/localization-gap-audit/`
+- [x] Define module-by-module scan method, severity model, and evidence format
+- [x] Create page-level tracking matrix for all frontend pages and shared components
+
+### 11.2 Localization Foundation
+- [x] Add frontend runtime i18n infrastructure with Arabic default and English fallback
+- [x] Wire locale persistence and document `lang` / `dir` synchronization
+- [x] Set backend default locale to Arabic for Laravel fallback behavior
+- [ ] Add missing-key and hardcoded-string guardrails to CI checks
+
+### 11.3 Shared UI and Auth Localization
+- [x] Localize shared navigation/sidebar/header/user-menu surfaces
+- [x] Localize auth flows (login/register/forgot/reset/verify/confirm/2FA)
+- [x] Localize settings shell and profile/security/appearance pages
+- [x] Localize dashboard and notifications high-traffic pages
+
+### 11.4 Module-by-Module Page Audit and Gap Detection
+- [ ] Audit core domain modules (properties, leasing, contacts, accounting)
+- [ ] Audit operations modules (requests, facilities, communication, visitor-access, documents)
+- [ ] Audit marketplace/reports/app-settings modules against `docs/api/**`
+- [ ] Log all parity gaps with severity, repro steps, expected behavior, and fix scope
+
+### 11.5 Remediation and Verification
+- [ ] Implement high/critical parity gaps discovered during audits
+- [ ] Complete localization pass for all remaining frontend pages
+- [ ] Run frontend type/lint/build checks and targeted backend tests for touched flows
+- [ ] Produce bilingual QA evidence (Arabic + English) and sign-off checklist
 
 ---
 
@@ -274,5 +308,6 @@ Priority: LOW - requires business logic
 - Phase 7: 14/14 items ✅
 - Phase 8: 18/18 items ✅
 - Phase 9: 9/9 items ✅
-- Phase 10: 0/5 items (future)
-- Total: 155/155 items (excluding Phase 10)
+- Phase 10: 5/5 items ✅
+- Phase 11: 10/17 items 🚧
+- Total: 170/177 items 🚧

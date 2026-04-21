@@ -48,6 +48,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 
     // Leasing
     Route::resource('leases', LeaseController::class);
+    Route::get('leases/{lease}/subleases/create', [LeaseController::class, 'createSublease'])->name('leases.subleases.create');
+    Route::post('leases/{lease}/subleases', [LeaseController::class, 'storeSublease'])->name('leases.subleases.store');
 
     // Requests
     Route::resource('requests', ServiceRequestController::class)->parameters([

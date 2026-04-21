@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { Plus } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
+import { useI18n } from '@/composables/useI18n';
 
 defineProps<{
     title: string;
@@ -9,6 +10,8 @@ defineProps<{
     createHref?: string;
     createLabel?: string;
 }>();
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -24,7 +27,7 @@ defineProps<{
             <Button v-if="createHref" as-child>
                 <Link :href="createHref">
                     <Plus class="mr-2 h-4 w-4" />
-                    {{ createLabel || 'Create' }}
+                    {{ createLabel || t('app.actions.create') }}
                 </Link>
             </Button>
         </div>

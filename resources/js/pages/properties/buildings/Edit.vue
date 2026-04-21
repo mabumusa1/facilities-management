@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { computed, watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,15 +14,19 @@ const props = defineProps<{
     communities: Pick<Community, 'id' | 'name'>[];
 }>();
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Buildings', href: '/buildings' },
-            { title: 'Edit', href: '#' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.properties.buildings.pageTitle'), href: '/buildings' },
+            { title: t('app.properties.buildings.edit.breadcrumb'), href: '#' },
         ],
-    },
+    });
 });
+
+const pageTitle = computed(() => t('app.properties.buildings.edit.pageTitleWithName', { name: props.building.name }));
 
 const form = useForm({
     name: props.building.name,
@@ -37,22 +43,22 @@ function submit() {
 </script>
 
 <template>
-    <Head :title="`Edit ${building.name}`" />
+    <Head :title="pageTitle" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" :title="`Edit ${building.name}`" description="Update building details." />
+        <Heading variant="small" :title="pageTitle" :description="t('app.properties.buildings.edit.description')" />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-2">
-                <Label for="name">Building Name</Label>
+                <Label for="name">{{ t('app.properties.buildings.create.buildingName') }}</Label>
                 <Input id="name" v-model="form.name" required maxlength="20" />
                 <InputError :message="form.errors.name" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="rf_community_id">Community</Label>
+                <Label for="rf_community_id">{{ t('app.properties.buildings.create.community') }}</Label>
                 <select id="rf_community_id" v-model="form.rf_community_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                    <option value="" disabled>Select community</option>
+                    <option value="" disabled>{{ t('app.properties.buildings.create.selectCommunity') }}</option>
                     <option v-for="c in communities" :key="c.id" :value="c.id">{{ c.name }}</option>
                 </select>
                 <InputError :message="form.errors.rf_community_id" />
@@ -60,20 +66,20 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="no_floors">Number of Floors</Label>
+                    <Label for="no_floors">{{ t('app.properties.buildings.create.floors') }}</Label>
                     <Input id="no_floors" v-model="form.no_floors" type="number" min="0" />
                     <InputError :message="form.errors.no_floors" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="year_build">Year Built</Label>
+                    <Label for="year_build">{{ t('app.properties.buildings.create.yearBuilt') }}</Label>
                     <Input id="year_build" v-model="form.year_build" type="number" min="1900" max="2099" />
                     <InputError :message="form.errors.year_build" />
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Update Building</Button>
+                <Button :disabled="form.processing">{{ t('app.properties.buildings.edit.updateButton') }}</Button>
             </div>
         </form>
     </div>

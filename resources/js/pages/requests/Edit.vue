@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import type { Community, RequestCategory, ServiceRequest, Status, Unit } from '@/types';
+
+const { t } = useI18n();
 
 const props = defineProps<{
     serviceRequest: ServiceRequest;
@@ -17,15 +20,15 @@ const props = defineProps<{
     statuses: Pick<Status, 'id' | 'name' | 'name_en'>[];
 }>();
 
-defineOptions({
-    layout: {
+watch(() => t('app.requests.edit.pageTitle'), () => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Requests', href: '/requests' },
-            { title: 'Edit', href: '#' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.requests'), href: '/requests' },
+            { title: t('app.requests.edit.pageTitle'), href: '#' },
         ],
-    },
-});
+    });
+}, { immediate: true });
 
 const form = useForm({
     category_id: props.serviceRequest.category_id ? String(props.serviceRequest.category_id) : '',
@@ -55,18 +58,18 @@ function submit() {
 </script>
 
 <template>
-    <Head title="Edit Request" />
+    <Head :title="t('app.requests.edit.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Edit Request" description="Update the service request details." />
+        <Heading variant="small" :title="t('app.requests.edit.pageTitle')" :description="t('app.requests.edit.description')" />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>Category</Label>
+                    <Label>{{ t('app.requests.table.category') }}</Label>
                     <Select v-model="form.category_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select category" />
+                            <SelectValue :placeholder="t('app.requests.edit.selectCategory')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="cat in categories" :key="cat.id" :value="String(cat.id)">
@@ -78,10 +81,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Subcategory</Label>
+                    <Label>{{ t('app.requests.edit.subcategory') }}</Label>
                     <Select v-model="form.subcategory_id" :disabled="!form.category_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select subcategory" />
+                            <SelectValue :placeholder="t('app.requests.edit.selectSubcategory')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="sub in filteredSubcategories" :key="sub.id" :value="String(sub.id)">
@@ -95,10 +98,10 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>Community</Label>
+                    <Label>{{ t('app.requests.table.community') }}</Label>
                     <Select v-model="form.community_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select community" />
+                            <SelectValue :placeholder="t('app.requests.edit.selectCommunity')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="community in communities" :key="community.id" :value="String(community.id)">
@@ -110,10 +113,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Unit</Label>
+                    <Label>{{ t('app.requests.table.unit') }}</Label>
                     <Select v-model="form.unit_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select unit" />
+                            <SelectValue :placeholder="t('app.requests.edit.selectUnit')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="unit in units" :key="unit.id" :value="String(unit.id)">
@@ -127,26 +130,26 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>Priority</Label>
+                    <Label>{{ t('app.requests.table.priority') }}</Label>
                     <Select v-model="form.priority">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select priority" />
+                            <SelectValue :placeholder="t('app.requests.edit.selectPriority')" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="low">Low</SelectItem>
-                            <SelectItem value="medium">Medium</SelectItem>
-                            <SelectItem value="high">High</SelectItem>
-                            <SelectItem value="urgent">Urgent</SelectItem>
+                            <SelectItem value="low">{{ t('app.requests.filters.priority.low') }}</SelectItem>
+                            <SelectItem value="medium">{{ t('app.requests.filters.priority.medium') }}</SelectItem>
+                            <SelectItem value="high">{{ t('app.requests.filters.priority.high') }}</SelectItem>
+                            <SelectItem value="urgent">{{ t('app.requests.filters.priority.urgent') }}</SelectItem>
                         </SelectContent>
                     </Select>
                     <InputError :message="form.errors.priority" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Status</Label>
+                    <Label>{{ t('app.requests.table.status') }}</Label>
                     <Select v-model="form.status_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select status" />
+                            <SelectValue :placeholder="t('app.requests.edit.selectStatus')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="status in statuses" :key="status.id" :value="String(status.id)">
@@ -159,13 +162,13 @@ function submit() {
             </div>
 
             <div class="grid gap-2">
-                <Label for="description">Description</Label>
-                <Textarea id="description" v-model="form.description" placeholder="Describe the request..." />
+                <Label for="description">{{ t('app.requests.table.description') }}</Label>
+                <Textarea id="description" v-model="form.description" :placeholder="t('app.requests.edit.descriptionPlaceholder')" />
                 <InputError :message="form.errors.description" />
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Update Request</Button>
+                <Button :disabled="form.processing">{{ t('app.requests.edit.updateButton') }}</Button>
             </div>
         </form>
     </div>

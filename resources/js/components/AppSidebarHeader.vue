@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { Bell } from 'lucide-vue-next';
 import { computed } from 'vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,6 +14,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useI18n } from '@/composables/useI18n';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItem } from '@/types';
 
@@ -26,6 +28,7 @@ withDefaults(
 );
 
 const page = usePage();
+const { t } = useI18n();
 
 const unreadCount = computed(() => {
     const count = page.props.notifications?.unread_count;
@@ -45,24 +48,28 @@ const unreadCount = computed(() => {
             </template>
         </div>
 
-        <DropdownMenu>
-            <DropdownMenuTrigger as-child>
-                <Button variant="outline" size="sm" class="ml-auto">
-                    <Bell class="size-4" />
-                    <span>Notifications</span>
-                    <Badge v-if="unreadCount > 0" class="ml-1" variant="secondary">{{ unreadCount }}</Badge>
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" class="w-64">
-                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem as-child>
-                    <Link href="/notifications">Open Notifications Center</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem as-child>
-                    <Link href="/notifications/unread-count">Unread Count Endpoint</Link>
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <div class="ml-auto flex items-center gap-2">
+            <LanguageSwitcher />
+
+            <DropdownMenu>
+                <DropdownMenuTrigger as-child>
+                    <Button variant="outline" size="sm">
+                        <Bell class="size-4" />
+                        <span>{{ t('app.navigation.notifications') }}</span>
+                        <Badge v-if="unreadCount > 0" class="ml-1" variant="secondary">{{ unreadCount }}</Badge>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" class="w-64">
+                    <DropdownMenuLabel>{{ t('app.navigation.notifications') }}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem as-child>
+                        <Link href="/notifications">{{ t('app.notifications.openCenter') }}</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child>
+                        <Link href="/notifications/unread-count">{{ t('app.notifications.unreadCountEndpoint') }}</Link>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
     </header>
 </template>

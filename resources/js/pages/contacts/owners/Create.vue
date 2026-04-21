@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Owners', href: '/owners' },
-            { title: 'New Owner', href: '/owners/create' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.contacts.owners.pageTitle'), href: '/owners' },
+            { title: t('app.contacts.owners.newOwner'), href: '/owners/create' },
         ],
-    },
+    });
 });
 
 const form = useForm({
@@ -33,41 +37,41 @@ function submit() {
 </script>
 
 <template>
-    <Head title="New Owner" />
+    <Head :title="t('app.contacts.owners.newOwner')" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Create Owner" description="Add a new property owner." />
+        <Heading variant="small" :title="t('app.contacts.owners.createTitle')" :description="t('app.contacts.owners.createDescription')" />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="first_name">First Name</Label>
-                    <Input id="first_name" v-model="form.first_name" required placeholder="First name" />
+                    <Label for="first_name">{{ t('app.contacts.shared.firstName') }}</Label>
+                    <Input id="first_name" v-model="form.first_name" required :placeholder="t('app.contacts.shared.firstName')" />
                     <InputError :message="form.errors.first_name" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="last_name">Last Name</Label>
-                    <Input id="last_name" v-model="form.last_name" required placeholder="Last name" />
+                    <Label for="last_name">{{ t('app.contacts.shared.lastName') }}</Label>
+                    <Input id="last_name" v-model="form.last_name" required :placeholder="t('app.contacts.shared.lastName')" />
                     <InputError :message="form.errors.last_name" />
                 </div>
             </div>
 
             <div class="grid gap-2">
-                <Label for="email">Email</Label>
-                <Input id="email" v-model="form.email" type="email" placeholder="email@example.com" />
+                <Label for="email">{{ t('app.contacts.shared.email') }}</Label>
+                <Input id="email" v-model="form.email" type="email" :placeholder="t('app.auth.login.emailPlaceholder')" />
                 <InputError :message="form.errors.email" />
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="phone_country_code">Country Code</Label>
+                    <Label for="phone_country_code">{{ t('app.contacts.shared.countryCode') }}</Label>
                     <Input id="phone_country_code" v-model="form.phone_country_code" required placeholder="SA" maxlength="5" />
                     <InputError :message="form.errors.phone_country_code" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="phone_number">Phone Number</Label>
+                    <Label for="phone_number">{{ t('app.contacts.shared.phoneNumber') }}</Label>
                     <Input id="phone_number" v-model="form.phone_number" required placeholder="5XXXXXXXX" />
                     <InputError :message="form.errors.phone_number" />
                 </div>
@@ -75,30 +79,30 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="national_id">National ID</Label>
-                    <Input id="national_id" v-model="form.national_id" placeholder="National ID" />
+                    <Label for="national_id">{{ t('app.contacts.shared.nationalId') }}</Label>
+                    <Input id="national_id" v-model="form.national_id" :placeholder="t('app.contacts.shared.nationalId')" />
                     <InputError :message="form.errors.national_id" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="gender">Gender</Label>
+                    <Label for="gender">{{ t('app.contacts.shared.gender') }}</Label>
                     <select id="gender" v-model="form.gender" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                        <option value="">Select gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="">{{ t('app.contacts.shared.selectGender') }}</option>
+                        <option value="male">{{ t('app.contacts.shared.male') }}</option>
+                        <option value="female">{{ t('app.contacts.shared.female') }}</option>
                     </select>
                     <InputError :message="form.errors.gender" />
                 </div>
             </div>
 
             <div class="grid gap-2">
-                <Label for="georgian_birthdate">Date of Birth</Label>
+                <Label for="georgian_birthdate">{{ t('app.contacts.shared.dateOfBirth') }}</Label>
                 <Input id="georgian_birthdate" v-model="form.georgian_birthdate" type="date" />
                 <InputError :message="form.errors.georgian_birthdate" />
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Create Owner</Button>
+                <Button :disabled="form.processing">{{ t('app.contacts.owners.createButton') }}</Button>
             </div>
         </form>
     </div>

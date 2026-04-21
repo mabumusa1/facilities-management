@@ -1,5 +1,6 @@
 import { createInertiaApp } from '@inertiajs/vue3';
 import { initializeTheme } from '@/composables/useAppearance';
+import { initializeI18n } from '@/composables/useI18n';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
@@ -25,6 +26,9 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+// This applies locale, html lang, and document direction on page load...
+initializeI18n();
 
 // This will set light / dark mode on page load...
 initializeTheme();

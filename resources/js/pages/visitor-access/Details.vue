@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Badge } from '@/components/ui/badge';
@@ -7,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+
+const { t } = useI18n();
 
 const props = defineProps<{
     visit: {
@@ -32,59 +36,63 @@ function reject() {
     rejectForm.post(`/visitor-access/${props.visit.id}/reject`);
 }
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Visitor Access', href: '/visitor-access/history' },
-            { title: 'Details', href: '/visitor-access/history' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.visitorAccessHistory'), href: '/visitor-access/history' },
+            { title: t('app.visitorAccess.details.breadcrumb'), href: '/visitor-access/history' },
         ],
-    },
+    });
 });
 </script>
 
 <template>
-    <Head :title="`Visitor #${props.visit.id}`" />
+    <Head :title="t('app.visitorAccess.details.pageTitle', { id: props.visit.id })" />
 
     <div class="flex flex-col gap-6 p-4">
         <div class="flex items-center justify-between gap-4">
-            <Heading variant="small" :title="`Visitor Access #${props.visit.id}`" description="Approve or reject visitor access request." />
+            <Heading
+                variant="small"
+                :title="t('app.visitorAccess.details.heading', { id: props.visit.id })"
+                :description="t('app.visitorAccess.details.description')"
+            />
             <Button variant="outline" as-child>
-                <Link href="/visitor-access/history">Back</Link>
+                <Link href="/visitor-access/history">{{ t('app.actions.back') }}</Link>
             </Button>
         </div>
 
         <Card>
             <CardHeader>
-                <CardTitle>Request Details</CardTitle>
+                <CardTitle>{{ t('app.visitorAccess.details.requestDetails') }}</CardTitle>
             </CardHeader>
             <CardContent class="grid gap-2 text-sm md:grid-cols-2">
-                <p><span class="font-medium">Visitor:</span> {{ props.visit.visitor_name ?? 'N/A' }}</p>
-                <p><span class="font-medium">Phone:</span> {{ props.visit.visitor_phone ?? 'N/A' }}</p>
-                <p><span class="font-medium">Unit:</span> {{ props.visit.marketplace_unit?.unit?.name ?? 'N/A' }}</p>
-                <p><span class="font-medium">Scheduled:</span> {{ props.visit.scheduled_at ?? 'N/A' }}</p>
+                <p><span class="font-medium">{{ t('app.visitorAccess.details.visitor') }}:</span> {{ props.visit.visitor_name ?? t('app.common.notAvailable') }}</p>
+                <p><span class="font-medium">{{ t('app.visitorAccess.details.phone') }}:</span> {{ props.visit.visitor_phone ?? t('app.common.notAvailable') }}</p>
+                <p><span class="font-medium">{{ t('app.visitorAccess.details.unit') }}:</span> {{ props.visit.marketplace_unit?.unit?.name ?? t('app.common.notAvailable') }}</p>
+                <p><span class="font-medium">{{ t('app.visitorAccess.details.scheduled') }}:</span> {{ props.visit.scheduled_at ?? t('app.common.notAvailable') }}</p>
                 <p>
-                    <span class="font-medium">Status:</span>
-                    <Badge variant="secondary">{{ props.visit.status?.name_en ?? props.visit.status?.name ?? 'Unknown' }}</Badge>
+                    <span class="font-medium">{{ t('app.visitorAccess.details.status') }}:</span>
+                    <Badge variant="secondary">{{ props.visit.status?.name_en ?? props.visit.status?.name ?? t('app.visitorAccess.history.unknownStatus') }}</Badge>
                 </p>
-                <p class="md:col-span-2"><span class="font-medium">Notes:</span> {{ props.visit.notes ?? 'N/A' }}</p>
+                <p class="md:col-span-2"><span class="font-medium">{{ t('app.visitorAccess.details.notes') }}:</span> {{ props.visit.notes ?? t('app.common.notAvailable') }}</p>
             </CardContent>
         </Card>
 
         <Card>
             <CardHeader>
-                <CardTitle>Actions</CardTitle>
+                <CardTitle>{{ t('app.visitorAccess.details.actions') }}</CardTitle>
             </CardHeader>
             <CardContent class="space-y-4">
                 <div class="flex gap-2">
-                    <Button @click="approve">Approve</Button>
+                    <Button @click="approve">{{ t('app.visitorAccess.details.approve') }}</Button>
                 </div>
 
                 <form class="space-y-2" @submit.prevent="reject">
-                    <Label for="reject-notes">Reject Notes</Label>
+                    <Label for="reject-notes">{{ t('app.visitorAccess.details.rejectNotes') }}</Label>
                     <Textarea id="reject-notes" v-model="rejectForm.notes" rows="3" />
                     <InputError :message="rejectForm.errors.notes" />
-                    <Button variant="destructive" :disabled="rejectForm.processing">Reject</Button>
+                    <Button variant="destructive" :disabled="rejectForm.processing">{{ t('app.visitorAccess.details.reject') }}</Button>
                 </form>
             </CardContent>
         </Card>

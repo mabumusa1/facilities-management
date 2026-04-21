@@ -1,13 +1,25 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-defineOptions({ layout: { breadcrumbs: [{ title: 'Dashboard', href: '/dashboard' }, { title: 'Admins', href: '/admins' }, { title: 'New Admin', href: '/admins/create' }] } });
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
+        breadcrumbs: [
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.contacts.admins.pageTitle'), href: '/admins' },
+            { title: t('app.contacts.admins.newAdmin'), href: '/admins/create' },
+        ],
+    });
+});
 
 const form = useForm({ first_name: '', last_name: '', email: '', phone_number: '', phone_country_code: 'SA', role: 'Admins', national_id: '', gender: '' });
 
@@ -15,52 +27,52 @@ function submit() { form.post('/admins'); }
 </script>
 
 <template>
-    <Head title="New Admin" />
+    <Head :title="t('app.contacts.admins.newAdmin')" />
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Create Admin" description="Add a new administrator." />
+        <Heading variant="small" :title="t('app.contacts.admins.createTitle')" :description="t('app.contacts.admins.createDescription')" />
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-4 sm:grid-cols-2">
-                <div class="grid gap-2"><Label for="first_name">First Name</Label><Input id="first_name" v-model="form.first_name" required /><InputError :message="form.errors.first_name" /></div>
-                <div class="grid gap-2"><Label for="last_name">Last Name</Label><Input id="last_name" v-model="form.last_name" required /><InputError :message="form.errors.last_name" /></div>
+                <div class="grid gap-2"><Label for="first_name">{{ t('app.contacts.shared.firstName') }}</Label><Input id="first_name" v-model="form.first_name" required /><InputError :message="form.errors.first_name" /></div>
+                <div class="grid gap-2"><Label for="last_name">{{ t('app.contacts.shared.lastName') }}</Label><Input id="last_name" v-model="form.last_name" required /><InputError :message="form.errors.last_name" /></div>
             </div>
-            <div class="grid gap-2"><Label for="email">Email</Label><Input id="email" v-model="form.email" type="email" /><InputError :message="form.errors.email" /></div>
+            <div class="grid gap-2"><Label for="email">{{ t('app.contacts.shared.email') }}</Label><Input id="email" v-model="form.email" type="email" /><InputError :message="form.errors.email" /></div>
             <div class="grid gap-4 sm:grid-cols-2">
-                <div class="grid gap-2"><Label for="phone_country_code">Country Code</Label><Input id="phone_country_code" v-model="form.phone_country_code" required maxlength="5" /><InputError :message="form.errors.phone_country_code" /></div>
-                <div class="grid gap-2"><Label for="phone_number">Phone Number</Label><Input id="phone_number" v-model="form.phone_number" required /><InputError :message="form.errors.phone_number" /></div>
+                <div class="grid gap-2"><Label for="phone_country_code">{{ t('app.contacts.shared.countryCode') }}</Label><Input id="phone_country_code" v-model="form.phone_country_code" required maxlength="5" /><InputError :message="form.errors.phone_country_code" /></div>
+                <div class="grid gap-2"><Label for="phone_number">{{ t('app.contacts.shared.phoneNumber') }}</Label><Input id="phone_number" v-model="form.phone_number" required /><InputError :message="form.errors.phone_number" /></div>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="role">Role</Label>
+                    <Label for="role">{{ t('app.contacts.shared.role') }}</Label>
                     <Select v-model="form.role">
                         <SelectTrigger id="role" class="w-full">
-                            <SelectValue placeholder="Select role" />
+                            <SelectValue :placeholder="t('app.contacts.shared.select')" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="Admins">Admin</SelectItem>
-                            <SelectItem value="accountingManagers">Accounting Manager</SelectItem>
-                            <SelectItem value="serviceManagers">Service Manager</SelectItem>
-                            <SelectItem value="marketingManagers">Marketing Manager</SelectItem>
-                            <SelectItem value="salesAndLeasingManagers">Sales & Leasing Manager</SelectItem>
+                            <SelectItem value="Admins">{{ t('app.contacts.admins.roles.admin') }}</SelectItem>
+                            <SelectItem value="accountingManagers">{{ t('app.contacts.admins.roles.accountingManager') }}</SelectItem>
+                            <SelectItem value="serviceManagers">{{ t('app.contacts.admins.roles.serviceManager') }}</SelectItem>
+                            <SelectItem value="marketingManagers">{{ t('app.contacts.admins.roles.marketingManager') }}</SelectItem>
+                            <SelectItem value="salesAndLeasingManagers">{{ t('app.contacts.admins.roles.salesLeasingManager') }}</SelectItem>
                         </SelectContent>
                     </Select>
                     <InputError :message="form.errors.role" />
                 </div>
                 <div class="grid gap-2">
-                    <Label for="gender">Gender</Label>
+                    <Label for="gender">{{ t('app.contacts.shared.gender') }}</Label>
                     <Select v-model="form.gender">
                         <SelectTrigger id="gender" class="w-full">
-                            <SelectValue placeholder="Select gender" />
+                            <SelectValue :placeholder="t('app.contacts.shared.selectGender')" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="male">Male</SelectItem>
-                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="male">{{ t('app.contacts.shared.male') }}</SelectItem>
+                            <SelectItem value="female">{{ t('app.contacts.shared.female') }}</SelectItem>
                         </SelectContent>
                     </Select>
                     <InputError :message="form.errors.gender" />
                 </div>
             </div>
-            <div class="grid gap-2"><Label for="national_id">National ID</Label><Input id="national_id" v-model="form.national_id" /><InputError :message="form.errors.national_id" /></div>
-            <div class="flex items-center gap-4"><Button :disabled="form.processing">Create Admin</Button></div>
+            <div class="grid gap-2"><Label for="national_id">{{ t('app.contacts.shared.nationalId') }}</Label><Input id="national_id" v-model="form.national_id" /><InputError :message="form.errors.national_id" /></div>
+            <div class="flex items-center gap-4"><Button :disabled="form.processing">{{ t('app.contacts.admins.createButton') }}</Button></div>
         </form>
     </div>
 </template>

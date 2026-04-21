@@ -122,6 +122,7 @@ export type Community = {
     city?: City;
     district?: District;
     buildings?: Building[];
+    facilities?: Facility[];
     // Computed
     buildings_count?: number;
     units_count?: number;
@@ -241,6 +242,7 @@ export type Resident = {
     // Relationships
     units?: Unit[];
     leases?: Lease[];
+    dependents?: Dependent[];
     units_count?: number;
     leases_count?: number;
 };
@@ -416,6 +418,8 @@ export type Lease = {
     escalations?: LeaseEscalation[];
     created_by?: Admin;
     deal_owner?: Admin;
+    subleases?: Lease[];
+    parent_lease?: Lease | null;
     // Computed
     total_unpaid_amount?: string;
     unpaid_transactions_count?: number;

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { AlertCircle } from 'lucide-vue-next';
 import { computed } from 'vue';
+import { useI18n } from '@/composables/useI18n';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 type Props = {
@@ -8,9 +9,10 @@ type Props = {
     title?: string;
 };
 
-const props = withDefaults(defineProps<Props>(), {
-    title: 'Something went wrong.',
-});
+const { t } = useI18n();
+const props = defineProps<Props>();
+
+const title = computed(() => props.title ?? t('app.common.somethingWentWrong'));
 
 const uniqueErrors = computed(() => Array.from(new Set(props.errors)));
 </script>

@@ -8,6 +8,8 @@ use App\Models\Request as ServiceRequest;
 use App\Models\RequestCategory;
 use App\Models\Status;
 use App\Models\Unit;
+use App\Support\StatusWorkflow;
+use App\Support\WorkflowNotifier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -18,13 +20,52 @@ class ServiceRequestController extends Controller
 {
     public function index(Request $request): Response
     {
+        $search = trim((string) $request->input('search', ''));
+        $statusId = $request->input('status_id');
+        $categoryId = $request->input('category_id');
+        $priority = $request->input('priority');
+        $perPage = min(max((int) $request->integer('per_page', 15), 5), 50);
+
         $requests = ServiceRequest::query()
             ->with(['category', 'subcategory', 'status', 'unit', 'community'])
+            ->when($search !== '', function ($query) use ($search): void {
+                $query->where(function ($nestedQuery) use ($search): void {
+                    $nestedQuery->where('title', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%")
+                        ->orWhere('request_code', 'like', "%{$search}%");
+
+                    if (is_numeric($search)) {
+                        $nestedQuery->orWhere('id', (int) $search);
+                    }
+                });
+            })
+            ->when($statusId, fn ($query) => $query->where('status_id', (int) $statusId))
+            ->when($categoryId, fn ($query) => $query->where('category_id', (int) $categoryId))
+            ->when($priority, fn ($query) => $query->where('priority', (string) $priority))
             ->latest()
-            ->paginate(15);
+            ->paginate($perPage)
+            ->withQueryString();
 
         return Inertia::render('requests/Index', [
             'requests' => $requests,
+            'statuses' => Status::query()
+                ->where('type', 'request')
+                ->select('id', 'name', 'name_en')
+                ->orderBy('priority')
+                ->orderBy('id')
+                ->get(),
+            'categories' => RequestCategory::query()
+                ->select('id', 'name', 'name_en')
+                ->orderByRaw('COALESCE(name_en, name) asc')
+                ->get(),
+            'priorities' => ['low', 'medium', 'high', 'urgent'],
+            'filters' => [
+                'search' => $search,
+                'status_id' => $statusId ? (string) $statusId : '',
+                'category_id' => $categoryId ? (string) $categoryId : '',
+                'priority' => $priority ? (string) $priority : '',
+                'per_page' => (string) $perPage,
+            ],
         ]);
     }
 
@@ -54,7 +95,19 @@ class ServiceRequestController extends Controller
         $validated['requester_type'] = get_class($request->user());
         $validated['status_id'] = Status::query()
             ->where('type', 'request')
-            ->value('id') ?? Status::query()->value('id');
+            ->where(function ($query): void {
+                $query->where('name_en', 'New')
+                    ->orWhere('name', 'New')
+                    ->orWhere('name_en', 'Open')
+                    ->orWhere('name', 'Open');
+            })
+            ->value('id')
+            ?? Status::query()
+                ->where('type', 'request')
+                ->orderBy('priority')
+                ->orderBy('id')
+                ->value('id')
+            ?? Status::query()->value('id');
 
         if ($validated['status_id'] === null) {
             abort(422, 'Request status is not configured.');
@@ -92,8 +145,12 @@ class ServiceRequestController extends Controller
         ]);
     }
 
-    public function update(Request $request, ServiceRequest $serviceRequest): RedirectResponse
-    {
+    public function update(
+        Request $request,
+        ServiceRequest $serviceRequest,
+        StatusWorkflow $statusWorkflow,
+        WorkflowNotifier $workflowNotifier,
+    ): RedirectResponse {
         $validated = $request->validate([
             'title' => ['sometimes', 'string', 'max:255'],
             'status_id' => ['sometimes', 'integer', 'exists:rf_statuses,id'],
@@ -103,7 +160,32 @@ class ServiceRequestController extends Controller
             'description' => ['nullable', 'string'],
         ]);
 
+        $nextStatusId = array_key_exists('status_id', $validated)
+            ? (int) $validated['status_id']
+            : null;
+
+        $fromStatus = null;
+        $toStatus = null;
+
+        if ($nextStatusId !== null && $nextStatusId !== (int) $serviceRequest->status_id) {
+            $fromStatus = Status::query()->find($serviceRequest->status_id);
+            $statusWorkflow->ensureTransition('request', $serviceRequest->status_id, $nextStatusId);
+            $toStatus = Status::query()->find($nextStatusId);
+        }
+
         $serviceRequest->update($validated);
+
+        if ($toStatus instanceof Status) {
+            $workflowNotifier->notifyTenantUsers(
+                tenantId: (int) ($request->session()->get('tenant_id') ?: $serviceRequest->account_tenant_id),
+                module: 'service-request',
+                resourceId: $serviceRequest->id,
+                fromStatus: $fromStatus?->name_en ?? $fromStatus?->name,
+                toStatus: $toStatus->name_en ?? $toStatus->name ?? (string) $toStatus->id,
+                url: route('requests.show', $serviceRequest, false),
+                actor: $request->user()?->name,
+            );
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Request updated.')]);
 

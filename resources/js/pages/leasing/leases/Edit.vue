@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { computed, watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,14 +21,18 @@ const props = defineProps<{
     units: Pick<Unit, 'id' | 'name'>[];
 }>();
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+const leaseTitle = computed(() => t('app.leases.edit.pageTitleWithContract', { contract: props.lease.contract_number }));
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Leases', href: '/leases' },
-            { title: 'Edit', href: '#' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.leases.pageTitle'), href: '/leases' },
+            { title: t('app.leases.edit.breadcrumb'), href: '#' },
         ],
-    },
+    });
 });
 
 const form = useForm({
@@ -52,24 +58,24 @@ function submit() {
 </script>
 
 <template>
-    <Head :title="`Edit Lease ${lease.contract_number}`" />
+    <Head :title="leaseTitle" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" :title="`Edit ${lease.contract_number}`" description="Update lease details." />
+        <Heading variant="small" :title="leaseTitle" :description="t('app.leases.edit.description')" />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="contract_number">Contract Number</Label>
+                    <Label for="contract_number">{{ t('app.leases.create.contractNumber') }}</Label>
                     <Input id="contract_number" v-model="form.contract_number" required />
                     <InputError :message="form.errors.contract_number" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Tenant</Label>
+                    <Label>{{ t('app.leases.create.tenant') }}</Label>
                     <Select v-model="form.tenant_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select tenant" />
+                            <SelectValue :placeholder="t('app.leases.create.selectTenant')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="tenant in tenants" :key="tenant.id" :value="String(tenant.id)">
@@ -83,10 +89,10 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-3">
                 <div class="grid gap-2">
-                    <Label>Status</Label>
+                    <Label>{{ t('app.leases.create.status') }}</Label>
                     <Select v-model="form.status_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select status" />
+                            <SelectValue :placeholder="t('app.leases.create.selectStatus')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="status in statuses" :key="status.id" :value="String(status.id)">
@@ -98,28 +104,28 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Tenant Type</Label>
+                    <Label>{{ t('app.leases.create.tenantType') }}</Label>
                     <Select v-model="form.tenant_type">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select type" />
+                            <SelectValue :placeholder="t('app.leases.create.selectType')" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="individual">Individual</SelectItem>
-                            <SelectItem value="company">Company</SelectItem>
+                            <SelectItem value="individual">{{ t('app.leases.create.individual') }}</SelectItem>
+                            <SelectItem value="company">{{ t('app.leases.create.company') }}</SelectItem>
                         </SelectContent>
                     </Select>
                     <InputError :message="form.errors.tenant_type" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Rental Type</Label>
+                    <Label>{{ t('app.leases.create.rentalType') }}</Label>
                     <Select v-model="form.rental_type">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select type" />
+                            <SelectValue :placeholder="t('app.leases.create.selectType')" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="total">Total</SelectItem>
-                            <SelectItem value="detailed">Detailed</SelectItem>
+                            <SelectItem value="total">{{ t('app.leases.create.total') }}</SelectItem>
+                            <SelectItem value="detailed">{{ t('app.leases.create.detailed') }}</SelectItem>
                         </SelectContent>
                     </Select>
                     <InputError :message="form.errors.rental_type" />
@@ -128,10 +134,10 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-3">
                 <div class="grid gap-2">
-                    <Label>Unit Category</Label>
+                    <Label>{{ t('app.leases.create.unitCategory') }}</Label>
                     <Select v-model="form.lease_unit_type_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select category" />
+                            <SelectValue :placeholder="t('app.leases.create.selectCategory')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="cat in unitCategories" :key="cat.id" :value="String(cat.id)">
@@ -143,10 +149,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Contract Type</Label>
+                    <Label>{{ t('app.leases.create.contractType') }}</Label>
                     <Select v-model="form.rental_contract_type_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select contract type" />
+                            <SelectValue :placeholder="t('app.leases.create.selectContractType')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="type in rentalContractTypes" :key="type.id" :value="String(type.id)">
@@ -158,10 +164,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Payment Schedule</Label>
+                    <Label>{{ t('app.leases.create.paymentSchedule') }}</Label>
                     <Select v-model="form.payment_schedule_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select schedule" />
+                            <SelectValue :placeholder="t('app.leases.create.selectSchedule')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="schedule in paymentSchedules" :key="schedule.id" :value="String(schedule.id)">
@@ -175,19 +181,19 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-3">
                 <div class="grid gap-2">
-                    <Label for="start_date">Start Date</Label>
+                    <Label for="start_date">{{ t('app.leases.create.startDate') }}</Label>
                     <Input id="start_date" v-model="form.start_date" type="date" required />
                     <InputError :message="form.errors.start_date" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="end_date">End Date</Label>
+                    <Label for="end_date">{{ t('app.leases.create.endDate') }}</Label>
                     <Input id="end_date" v-model="form.end_date" type="date" required />
                     <InputError :message="form.errors.end_date" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="handover_date">Handover Date</Label>
+                    <Label for="handover_date">{{ t('app.leases.create.handoverDate') }}</Label>
                     <Input id="handover_date" v-model="form.handover_date" type="date" required />
                     <InputError :message="form.errors.handover_date" />
                 </div>
@@ -195,26 +201,41 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="rental_total_amount">Total Amount</Label>
-                    <Input id="rental_total_amount" v-model="form.rental_total_amount" type="number" step="0.01" min="0" required placeholder="0.00" />
+                    <Label for="rental_total_amount">{{ t('app.leases.create.totalAmount') }}</Label>
+                    <Input
+                        id="rental_total_amount"
+                        v-model="form.rental_total_amount"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        required
+                        :placeholder="t('app.leases.create.amountPlaceholder')"
+                    />
                     <InputError :message="form.errors.rental_total_amount" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="security_deposit_amount">Security Deposit</Label>
-                    <Input id="security_deposit_amount" v-model="form.security_deposit_amount" type="number" step="0.01" min="0" placeholder="0.00" />
+                    <Label for="security_deposit_amount">{{ t('app.leases.create.securityDeposit') }}</Label>
+                    <Input
+                        id="security_deposit_amount"
+                        v-model="form.security_deposit_amount"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        :placeholder="t('app.leases.create.amountPlaceholder')"
+                    />
                     <InputError :message="form.errors.security_deposit_amount" />
                 </div>
             </div>
 
             <div class="grid gap-2">
-                <Label for="terms_conditions">Terms & Conditions</Label>
-                <Textarea id="terms_conditions" v-model="form.terms_conditions" placeholder="Enter lease terms..." />
+                <Label for="terms_conditions">{{ t('app.leases.create.termsAndConditions') }}</Label>
+                <Textarea id="terms_conditions" v-model="form.terms_conditions" :placeholder="t('app.leases.create.termsPlaceholder')" />
                 <InputError :message="form.errors.terms_conditions" />
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Update Lease</Button>
+                <Button :disabled="form.processing">{{ t('app.leases.edit.updateButton') }}</Button>
             </div>
         </form>
     </div>

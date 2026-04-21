@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { computed, watch, watchEffect } from 'vue';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { City, Country, Currency, District } from '@/types';
+
+const { t } = useI18n();
 
 const props = defineProps<{
     countries: Pick<Country, 'id' | 'name' | 'name_en' | 'currency'>[];
@@ -16,14 +19,14 @@ const props = defineProps<{
     districts: (Pick<District, 'id' | 'name' | 'name_en'> & { city_id: number })[];
 }>();
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Communities', href: '/communities' },
-            { title: 'New Community', href: '/communities/create' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.properties.communities.pageTitle'), href: '/communities' },
+            { title: t('app.properties.communities.newCommunity'), href: '/communities/create' },
         ],
-    },
+    });
 });
 
 const form = useForm({
@@ -68,24 +71,28 @@ function submit() {
 </script>
 
 <template>
-    <Head title="New Community" />
+    <Head :title="t('app.properties.communities.create.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Create Community" description="Add a new community to your portfolio." />
+        <Heading
+            variant="small"
+            :title="t('app.properties.communities.create.heading')"
+            :description="t('app.properties.communities.create.description')"
+        />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-2">
-                <Label for="name">Community Name</Label>
-                <Input id="name" v-model="form.name" required placeholder="Enter community name" />
+                <Label for="name">{{ t('app.properties.communities.create.communityName') }}</Label>
+                <Input id="name" v-model="form.name" required :placeholder="t('app.properties.communities.create.communityNamePlaceholder')" />
                 <InputError :message="form.errors.name" />
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>Country</Label>
+                    <Label>{{ t('app.properties.communities.create.country') }}</Label>
                     <Select v-model="form.country_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select country" />
+                            <SelectValue :placeholder="t('app.properties.communities.create.selectCountry')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="country in countries" :key="country.id" :value="String(country.id)">
@@ -97,10 +104,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Currency</Label>
+                    <Label>{{ t('app.properties.communities.create.currency') }}</Label>
                     <Select v-model="form.currency_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select currency" />
+                            <SelectValue :placeholder="t('app.properties.communities.create.selectCurrency')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="currency in currencies" :key="currency.id" :value="String(currency.id)">
@@ -114,10 +121,10 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>City</Label>
+                    <Label>{{ t('app.properties.communities.create.city') }}</Label>
                     <Select v-model="form.city_id" :disabled="!form.country_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select city" />
+                            <SelectValue :placeholder="t('app.properties.communities.create.selectCity')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="city in filteredCities" :key="city.id" :value="String(city.id)">
@@ -129,10 +136,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>District</Label>
+                    <Label>{{ t('app.properties.communities.create.district') }}</Label>
                     <Select v-model="form.district_id" :disabled="!form.city_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select district" />
+                            <SelectValue :placeholder="t('app.properties.communities.create.selectDistrict')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="district in filteredDistricts" :key="district.id" :value="String(district.id)">
@@ -146,20 +153,36 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="sales_commission_rate">Sales Commission (%)</Label>
-                    <Input id="sales_commission_rate" v-model="form.sales_commission_rate" type="number" step="0.01" min="0" max="100" placeholder="0.00" />
+                    <Label for="sales_commission_rate">{{ t('app.properties.communities.create.salesCommission') }}</Label>
+                    <Input
+                        id="sales_commission_rate"
+                        v-model="form.sales_commission_rate"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        max="100"
+                        :placeholder="t('app.properties.communities.create.ratePlaceholder')"
+                    />
                     <InputError :message="form.errors.sales_commission_rate" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="rental_commission_rate">Rental Commission (%)</Label>
-                    <Input id="rental_commission_rate" v-model="form.rental_commission_rate" type="number" step="0.01" min="0" max="100" placeholder="0.00" />
+                    <Label for="rental_commission_rate">{{ t('app.properties.communities.create.rentalCommission') }}</Label>
+                    <Input
+                        id="rental_commission_rate"
+                        v-model="form.rental_commission_rate"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        max="100"
+                        :placeholder="t('app.properties.communities.create.ratePlaceholder')"
+                    />
                     <InputError :message="form.errors.rental_commission_rate" />
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Create Community</Button>
+                <Button :disabled="form.processing">{{ t('app.properties.communities.create.createButton') }}</Button>
             </div>
         </form>
     </div>

@@ -1,37 +1,39 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, router, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { computed, ref, watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useI18n } from '@/composables/useI18n';
 import type { Setting } from '@/types';
+
+const { t } = useI18n();
 
 defineProps<{
     settingGroups: Record<string, Setting[]>;
 }>();
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'App Settings', href: '/app-settings/general' },
-            { title: 'General Settings', href: '/app-settings/general' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.appSettings.common.appSettings'), href: '/app-settings/general' },
+            { title: t('app.appSettings.general.pageTitle'), href: '/app-settings/general' },
         ],
-    },
+    });
 });
 
-const groupLabels: Record<string, string> = {
-    rental_contract_type: 'Rental Contract Types',
-    payment_schedule: 'Payment Schedules',
-    transaction_category: 'Transaction Categories',
-    transaction_type: 'Transaction Types',
-};
+const groupLabels = computed<Record<string, string>>(() => ({
+    rental_contract_type: t('app.appSettings.general.rentalContractTypes'),
+    payment_schedule: t('app.appSettings.general.paymentSchedules'),
+    transaction_category: t('app.appSettings.general.transactionCategories'),
+    transaction_type: t('app.appSettings.general.transactionTypes'),
+}));
 
 const showAddForm = ref(false);
 const addForm = useForm({
@@ -52,7 +54,7 @@ function addSetting() {
 }
 
 function deleteSetting(id: number) {
-    if (confirm('Delete this setting?')) {
+    if (confirm(t('app.appSettings.general.deleteSettingConfirm'))) {
         router.delete(`/app-settings/general/${id}`, { preserveScroll: true });
     }
 }
@@ -79,12 +81,12 @@ function cancelEdit() {
 </script>
 
 <template>
-    <Head title="General Settings" />
+    <Head :title="t('app.appSettings.general.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
         <div class="flex items-center justify-between">
-            <Heading variant="small" title="General Settings" description="Manage lookup tables for contract types, payment schedules, and transaction categories." />
-            <Button @click="showAddForm = !showAddForm">{{ showAddForm ? 'Cancel' : 'Add Setting' }}</Button>
+            <Heading variant="small" :title="t('app.appSettings.general.heading')" :description="t('app.appSettings.general.description')" />
+            <Button @click="showAddForm = !showAddForm">{{ showAddForm ? t('app.appSettings.general.cancelAdd') : t('app.appSettings.general.addSetting') }}</Button>
         </div>
 
         <!-- Add form -->
@@ -93,20 +95,20 @@ function cancelEdit() {
                 <form @submit.prevent="addSetting" class="space-y-4">
                     <div class="grid gap-4 sm:grid-cols-3">
                         <div class="grid gap-2">
-                            <Label>Name (English)</Label>
-                            <Input v-model="addForm.name_en" required placeholder="Setting name" />
+                            <Label>{{ t('app.appSettings.general.nameEn') }}</Label>
+                            <Input v-model="addForm.name_en" required :placeholder="t('app.appSettings.general.settingNamePlaceholder')" />
                             <InputError :message="addForm.errors.name_en" />
                         </div>
                         <div class="grid gap-2">
-                            <Label>Name (Arabic)</Label>
-                            <Input v-model="addForm.name_ar" required placeholder="اسم الإعداد" dir="rtl" />
+                            <Label>{{ t('app.appSettings.general.nameAr') }}</Label>
+                            <Input v-model="addForm.name_ar" required :placeholder="t('app.appSettings.general.settingNameArPlaceholder')" dir="rtl" />
                             <InputError :message="addForm.errors.name_ar" />
                         </div>
                         <div class="grid gap-2">
-                            <Label>Type</Label>
+                            <Label>{{ t('app.appSettings.general.type') }}</Label>
                             <Select v-model="addForm.type">
                                 <SelectTrigger class="w-full">
-                                    <SelectValue placeholder="Select type" />
+                                    <SelectValue :placeholder="t('app.appSettings.general.selectType')" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem v-for="(label, key) in groupLabels" :key="key" :value="key">{{ label }}</SelectItem>
@@ -115,7 +117,7 @@ function cancelEdit() {
                             <InputError :message="addForm.errors.type" />
                         </div>
                     </div>
-                    <Button size="sm" :disabled="addForm.processing">Add Setting</Button>
+                    <Button size="sm" :disabled="addForm.processing">{{ t('app.appSettings.general.addSettingSubmit') }}</Button>
                 </form>
             </CardContent>
         </Card>
@@ -129,9 +131,9 @@ function cancelEdit() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Name (EN)</TableHead>
-                            <TableHead>Name (AR)</TableHead>
-                            <TableHead class="text-right">Actions</TableHead>
+                            <TableHead>{{ t('app.appSettings.general.nameEn') }}</TableHead>
+                            <TableHead>{{ t('app.appSettings.general.nameAr') }}</TableHead>
+                            <TableHead class="text-right">{{ t('app.appSettings.common.actions') }}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -140,16 +142,16 @@ function cancelEdit() {
                                 <TableCell><Input v-model="editForm.name_en" class="h-8" /></TableCell>
                                 <TableCell><Input v-model="editForm.name_ar" class="h-8" dir="rtl" /></TableCell>
                                 <TableCell class="text-right space-x-2">
-                                    <Button variant="default" size="sm" @click="saveEdit(setting.id)">Save</Button>
-                                    <Button variant="outline" size="sm" @click="cancelEdit">Cancel</Button>
+                                    <Button variant="default" size="sm" @click="saveEdit(setting.id)">{{ t('app.appSettings.common.save') }}</Button>
+                                    <Button variant="outline" size="sm" @click="cancelEdit">{{ t('app.appSettings.common.cancel') }}</Button>
                                 </TableCell>
                             </template>
                             <template v-else>
                                 <TableCell>{{ setting.name_en ?? setting.name }}</TableCell>
                                 <TableCell>{{ setting.name_ar ?? '—' }}</TableCell>
                                 <TableCell class="text-right space-x-2">
-                                    <Button variant="outline" size="sm" @click="startEdit(setting)">Edit</Button>
-                                    <Button variant="destructive" size="sm" @click="deleteSetting(setting.id)">Delete</Button>
+                                    <Button variant="outline" size="sm" @click="startEdit(setting)">{{ t('app.appSettings.common.edit') }}</Button>
+                                    <Button variant="destructive" size="sm" @click="deleteSetting(setting.id)">{{ t('app.appSettings.common.delete') }}</Button>
                                 </TableCell>
                             </template>
                         </TableRow>
@@ -158,6 +160,6 @@ function cancelEdit() {
             </CardContent>
         </Card>
 
-        <p v-if="Object.keys(settingGroups).length === 0" class="text-muted-foreground text-center">No settings configured yet. Add your first setting above.</p>
+        <p v-if="Object.keys(settingGroups).length === 0" class="text-muted-foreground text-center">{{ t('app.appSettings.general.noSettings') }}</p>
     </div>
 </template>

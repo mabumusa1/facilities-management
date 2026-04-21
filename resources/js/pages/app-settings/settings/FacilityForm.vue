@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { computed, watchEffect } from 'vue';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+
+const { t } = useI18n();
 
 type Option = {
     id: number;
@@ -39,14 +42,14 @@ const props = defineProps<{
 
 const isEdit = computed(() => Boolean(props.facility));
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Settings', href: '/settings/invoice' },
-            { title: 'Facilities', href: '/settings/facilities' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.settings'), href: '/settings/invoice' },
+            { title: t('app.navigation.facilities'), href: '/settings/facilities' },
         ],
-    },
+    });
 });
 
 const form = useForm({
@@ -75,35 +78,35 @@ function submit() {
 </script>
 
 <template>
-    <Head :title="isEdit ? 'Edit Facility' : 'Add Facility'" />
+    <Head :title="isEdit ? t('app.appSettings.facilities.editFacility') : t('app.appSettings.facilities.addFacility')" />
 
     <div class="flex flex-col gap-6 p-4">
         <Heading
             variant="small"
-            :title="isEdit ? 'Edit Facility' : 'Add Facility'"
-            description="Create or update settings facilities."
+            :title="isEdit ? t('app.appSettings.facilities.editFacility') : t('app.appSettings.facilities.addFacility')"
+            :description="t('app.appSettings.facilities.formDescription')"
         />
 
         <Card>
             <CardHeader>
-                <CardTitle>{{ isEdit ? 'Update Facility' : 'Create Facility' }}</CardTitle>
+                <CardTitle>{{ isEdit ? t('app.appSettings.facilities.updateFacility') : t('app.appSettings.facilities.createFacility') }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <form class="grid gap-4" @submit.prevent="submit">
                     <div class="grid gap-2">
-                        <Label for="name">Name</Label>
+                        <Label for="name">{{ t('app.appSettings.facilities.name') }}</Label>
                         <Input id="name" v-model="form.name" />
                         <InputError :message="form.errors.name" />
                     </div>
 
                     <div class="grid gap-4 md:grid-cols-2">
                         <div class="grid gap-2">
-                            <Label for="name_en">Name (EN)</Label>
+                            <Label for="name_en">{{ t('app.appSettings.facilities.nameEn') }}</Label>
                             <Input id="name_en" v-model="form.name_en" />
                             <InputError :message="form.errors.name_en" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="name_ar">Name (AR)</Label>
+                            <Label for="name_ar">{{ t('app.appSettings.facilities.nameAr') }}</Label>
                             <Input id="name_ar" v-model="form.name_ar" />
                             <InputError :message="form.errors.name_ar" />
                         </div>
@@ -111,9 +114,9 @@ function submit() {
 
                     <div class="grid gap-4 md:grid-cols-2">
                         <div class="grid gap-2">
-                            <Label for="category_id">Category</Label>
+                            <Label for="category_id">{{ t('app.appSettings.facilities.category') }}</Label>
                             <select id="category_id" v-model.number="form.category_id" class="rounded-md border border-input bg-background px-3 py-2">
-                                <option :value="0">Select category</option>
+                                <option :value="0">{{ t('app.appSettings.facilities.selectCategory') }}</option>
                                 <option v-for="category in props.categories" :key="category.id" :value="category.id">
                                     {{ category.name_en ?? category.name }}
                                 </option>
@@ -121,9 +124,9 @@ function submit() {
                             <InputError :message="form.errors.category_id" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="community_id">Community</Label>
+                            <Label for="community_id">{{ t('app.appSettings.facilities.community') }}</Label>
                             <select id="community_id" v-model.number="form.community_id" class="rounded-md border border-input bg-background px-3 py-2">
-                                <option :value="null">Select community</option>
+                                <option :value="null">{{ t('app.appSettings.facilities.selectCommunity') }}</option>
                                 <option v-for="community in props.communities" :key="community.id" :value="community.id">
                                     {{ community.name }}
                                 </option>
@@ -133,29 +136,29 @@ function submit() {
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="description">Description</Label>
+                        <Label for="description">{{ t('app.appSettings.facilities.descriptionLabel') }}</Label>
                         <Textarea id="description" v-model="form.description" rows="3" />
                         <InputError :message="form.errors.description" />
                     </div>
 
                     <div class="grid gap-4 md:grid-cols-4">
                         <div class="grid gap-2">
-                            <Label for="capacity">Capacity</Label>
+                            <Label for="capacity">{{ t('app.appSettings.facilities.capacity') }}</Label>
                             <Input id="capacity" v-model.number="form.capacity" type="number" min="1" />
                             <InputError :message="form.errors.capacity" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="open_time">Open Time</Label>
+                            <Label for="open_time">{{ t('app.appSettings.facilities.open') }}</Label>
                             <Input id="open_time" v-model="form.open_time" type="time" />
                             <InputError :message="form.errors.open_time" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="close_time">Close Time</Label>
+                            <Label for="close_time">{{ t('app.appSettings.facilities.close') }}</Label>
                             <Input id="close_time" v-model="form.close_time" type="time" />
                             <InputError :message="form.errors.close_time" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="booking_fee">Booking Fee</Label>
+                            <Label for="booking_fee">{{ t('app.appSettings.facilities.bookingFee') }}</Label>
                             <Input id="booking_fee" v-model="form.booking_fee" type="number" min="0" step="0.01" />
                             <InputError :message="form.errors.booking_fee" />
                         </div>
@@ -164,16 +167,16 @@ function submit() {
                     <div class="flex gap-6">
                         <label class="flex items-center gap-2 text-sm">
                             <input v-model="form.is_active" type="checkbox" />
-                            Active
+                            {{ t('app.common.active') }}
                         </label>
                         <label class="flex items-center gap-2 text-sm">
                             <input v-model="form.requires_approval" type="checkbox" />
-                            Requires Approval
+                            {{ t('app.appSettings.facilities.requiresApproval') }}
                         </label>
                     </div>
 
                     <div class="flex justify-end">
-                        <Button :disabled="form.processing">{{ isEdit ? 'Update Facility' : 'Create Facility' }}</Button>
+                        <Button :disabled="form.processing">{{ isEdit ? t('app.appSettings.facilities.updateFacility') : t('app.appSettings.facilities.createFacility') }}</Button>
                     </div>
                 </form>
             </CardContent>

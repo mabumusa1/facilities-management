@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
 import { edit as editRequestCategory } from '@/actions/App/Http/Controllers/AppSettings/RequestCategoryController';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { details as serviceRequestDetails } from '@/routes/settings/service-request';
@@ -11,6 +13,8 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
+
+const { t } = useI18n();
 
 type SettingsTab = {
     key: string;
@@ -100,13 +104,13 @@ const props = defineProps<{
     salesDetailsSetting?: SalesDetailsSetting | null;
 }>();
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Settings', href: '/settings/invoice' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.settings'), href: '/settings/invoice' },
         ],
-    },
+    });
 });
 
 const invoiceForm = useForm({
@@ -188,13 +192,13 @@ function categoryCode(value: string): string {
 </script>
 
 <template>
-    <Head :title="`Settings - ${props.pageTitle}`" />
+    <Head :title="t('app.appSettings.shell.pageTitle', { title: props.pageTitle })" />
 
     <div class="flex flex-col gap-6 p-4">
         <Heading
             variant="small"
-            :title="`Settings: ${props.pageTitle}`"
-            description="Use these tabs to navigate all settings modules from one shell."
+            :title="t('app.appSettings.shell.heading', { title: props.pageTitle })"
+            :description="t('app.appSettings.shell.description')"
         />
 
         <div class="flex flex-wrap gap-2">
@@ -212,62 +216,62 @@ function categoryCode(value: string): string {
             <CardHeader>
                 <CardTitle>{{ props.pageTitle }}</CardTitle>
                 <CardDescription>
-                    The settings tab shell is active. Detailed workflows for each module are implemented progressively by sprint ticket.
+                    {{ t('app.appSettings.shell.cardDescription') }}
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <div v-if="props.activeTab === 'invoice'" class="space-y-3 text-sm">
                     <form @submit.prevent="saveInvoiceSettings" class="space-y-4">
                         <div class="grid gap-2">
-                            <Label for="company_name">Company Name</Label>
-                            <Input id="company_name" v-model="invoiceForm.company_name" required placeholder="Your company name" />
+                            <Label for="company_name">{{ t('app.appSettings.shell.companyName') }}</Label>
+                            <Input id="company_name" v-model="invoiceForm.company_name" required :placeholder="t('app.appSettings.shell.companyNamePlaceholder')" />
                             <InputError :message="invoiceForm.errors.company_name" />
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="address">Address</Label>
-                            <Textarea id="address" v-model="invoiceForm.address" required placeholder="Company address" />
+                            <Label for="address">{{ t('app.appSettings.shell.address') }}</Label>
+                            <Textarea id="address" v-model="invoiceForm.address" required :placeholder="t('app.appSettings.shell.addressPlaceholder')" />
                             <InputError :message="invoiceForm.errors.address" />
                         </div>
 
                         <div class="grid gap-4 sm:grid-cols-3">
                             <div class="grid gap-2">
-                                <Label for="vat">VAT (%)</Label>
+                                <Label for="vat">{{ t('app.appSettings.shell.vat') }}</Label>
                                 <Input id="vat" v-model="invoiceForm.vat" type="number" step="0.01" min="0" max="100" required placeholder="15.00" />
                                 <InputError :message="invoiceForm.errors.vat" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="vat_number">VAT Number</Label>
-                                <Input id="vat_number" v-model="invoiceForm.vat_number" placeholder="VAT registration number" />
+                                <Label for="vat_number">{{ t('app.appSettings.shell.vatNumber') }}</Label>
+                                <Input id="vat_number" v-model="invoiceForm.vat_number" :placeholder="t('app.appSettings.shell.vatNumberPlaceholder')" />
                                 <InputError :message="invoiceForm.errors.vat_number" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="cr_number">CR Number</Label>
-                                <Input id="cr_number" v-model="invoiceForm.cr_number" placeholder="Commercial register number" />
+                                <Label for="cr_number">{{ t('app.appSettings.shell.crNumber') }}</Label>
+                                <Input id="cr_number" v-model="invoiceForm.cr_number" :placeholder="t('app.appSettings.shell.crNumberPlaceholder')" />
                                 <InputError :message="invoiceForm.errors.cr_number" />
                             </div>
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="instructions">Payment Instructions</Label>
-                            <Textarea id="instructions" v-model="invoiceForm.instructions" placeholder="Payment instructions shown on invoices..." />
+                            <Label for="instructions">{{ t('app.appSettings.shell.paymentInstructions') }}</Label>
+                            <Textarea id="instructions" v-model="invoiceForm.instructions" :placeholder="t('app.appSettings.shell.paymentInstructionsPlaceholder')" />
                             <InputError :message="invoiceForm.errors.instructions" />
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="notes">Notes</Label>
-                            <Textarea id="notes" v-model="invoiceForm.notes" placeholder="Additional notes for invoices..." />
+                            <Label for="notes">{{ t('app.appSettings.shell.notes') }}</Label>
+                            <Textarea id="notes" v-model="invoiceForm.notes" :placeholder="t('app.appSettings.shell.invoiceNotesPlaceholder')" />
                             <InputError :message="invoiceForm.errors.notes" />
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <Button :disabled="invoiceForm.processing">Save Invoice Settings</Button>
+                            <Button :disabled="invoiceForm.processing">{{ t('app.appSettings.shell.saveInvoiceSettings') }}</Button>
                         </div>
                     </form>
                 </div>
                 <div v-else-if="props.activeTab === 'service-request'" class="space-y-6 text-sm">
                     <div class="space-y-2">
-                        <p class="text-sm font-medium">Service Request Types</p>
+                        <p class="text-sm font-medium">{{ t('app.appSettings.shell.serviceRequestTypes') }}</p>
                         <div class="flex flex-wrap gap-2">
                             <Badge v-for="type in props.serviceRequestSettings?.types ?? []" :key="type.key" variant="secondary">
                                 {{ type.label }}
@@ -278,10 +282,10 @@ function categoryCode(value: string): string {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Category</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Subcategories</TableHead>
-                                <TableHead class="text-right">Navigation</TableHead>
+                                <TableHead>{{ t('app.appSettings.shell.category') }}</TableHead>
+                                <TableHead>{{ t('app.appSettings.shell.status') }}</TableHead>
+                                <TableHead>{{ t('app.appSettings.shell.subcategories') }}</TableHead>
+                                <TableHead class="text-right">{{ t('app.appSettings.shell.navigation') }}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -289,24 +293,24 @@ function categoryCode(value: string): string {
                                 <TableCell>{{ category.name_en ?? category.name }}</TableCell>
                                 <TableCell>
                                     <Badge :variant="category.status ? 'default' : 'secondary'">
-                                        {{ category.status ? 'Active' : 'Inactive' }}
+                                        {{ category.status ? t('app.common.active') : t('app.common.inactive') }}
                                     </Badge>
                                 </TableCell>
                                 <TableCell>{{ category.subcategories.length }}</TableCell>
                                 <TableCell class="text-right">
                                     <div class="flex justify-end gap-2">
                                         <Button size="sm" variant="outline" as-child>
-                                            <Link :href="serviceRequestDetails({ type: 'home-service', catCode: categoryCode(category.name_en ?? category.name), catId: category.id }).url">Details</Link>
+                                            <Link :href="serviceRequestDetails({ type: 'home-service', catCode: categoryCode(category.name_en ?? category.name), catId: category.id }).url">{{ t('app.appSettings.shell.details') }}</Link>
                                         </Button>
                                         <Button size="sm" variant="outline" as-child>
-                                            <Link :href="editRequestCategory(category.id).url">Open Category</Link>
+                                            <Link :href="editRequestCategory(category.id).url">{{ t('app.appSettings.shell.openCategory') }}</Link>
                                         </Button>
                                     </div>
                                 </TableCell>
                             </TableRow>
                             <TableRow v-if="(props.serviceRequestSettings?.categories ?? []).length === 0">
                                 <TableCell :colspan="4" class="text-muted-foreground text-center">
-                                    No service request categories found.
+                                    {{ t('app.appSettings.shell.noServiceRequestCategories') }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -317,65 +321,65 @@ function categoryCode(value: string): string {
                         <div class="flex flex-wrap gap-6">
                             <label class="flex items-center gap-2 text-sm">
                                 <input v-model="visitorRequestForm.enabled" type="checkbox" />
-                                Enabled
+                                {{ t('app.appSettings.shell.enabled') }}
                             </label>
                             <label class="flex items-center gap-2 text-sm">
                                 <input v-model="visitorRequestForm.require_pre_approval" type="checkbox" />
-                                Require Pre-Approval
+                                {{ t('app.appSettings.shell.requirePreApproval') }}
                             </label>
                         </div>
 
                         <div class="grid gap-4 sm:grid-cols-2">
                             <div class="grid gap-2">
-                                <Label for="max_visitors_per_request">Max Visitors Per Request</Label>
+                                <Label for="max_visitors_per_request">{{ t('app.appSettings.shell.maxVisitorsPerRequest') }}</Label>
                                 <Input id="max_visitors_per_request" v-model.number="visitorRequestForm.max_visitors_per_request" type="number" min="1" max="50" />
                                 <InputError :message="visitorRequestForm.errors.max_visitors_per_request" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="allowed_visit_duration_minutes">Allowed Visit Duration (Minutes)</Label>
+                                <Label for="allowed_visit_duration_minutes">{{ t('app.appSettings.shell.allowedVisitDurationMinutes') }}</Label>
                                 <Input id="allowed_visit_duration_minutes" v-model.number="visitorRequestForm.allowed_visit_duration_minutes" type="number" min="15" max="1440" />
                                 <InputError :message="visitorRequestForm.errors.allowed_visit_duration_minutes" />
                             </div>
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="visitor_notes">Notes</Label>
+                            <Label for="visitor_notes">{{ t('app.appSettings.shell.notes') }}</Label>
                             <Textarea id="visitor_notes" v-model="visitorRequestForm.notes" rows="3" />
                             <InputError :message="visitorRequestForm.errors.notes" />
                         </div>
 
-                        <Button :disabled="visitorRequestForm.processing">Save Visitor Request Settings</Button>
+                        <Button :disabled="visitorRequestForm.processing">{{ t('app.appSettings.shell.saveVisitorRequestSettings') }}</Button>
                     </form>
                 </div>
 
                 <div v-else-if="props.activeTab === 'bank-details'" class="space-y-3 text-sm">
                     <form @submit.prevent="saveBankDetailsSettings" class="space-y-4">
                         <div class="grid gap-2">
-                            <Label for="beneficiary_name">Beneficiary Name</Label>
+                            <Label for="beneficiary_name">{{ t('app.appSettings.shell.beneficiaryName') }}</Label>
                             <Input id="beneficiary_name" v-model="bankDetailsForm.beneficiary_name" />
                             <InputError :message="bankDetailsForm.errors.beneficiary_name" />
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="bank_name">Bank Name</Label>
+                            <Label for="bank_name">{{ t('app.appSettings.shell.bankName') }}</Label>
                             <Input id="bank_name" v-model="bankDetailsForm.bank_name" />
                             <InputError :message="bankDetailsForm.errors.bank_name" />
                         </div>
 
                         <div class="grid gap-4 sm:grid-cols-2">
                             <div class="grid gap-2">
-                                <Label for="account_number">Account Number</Label>
+                                <Label for="account_number">{{ t('app.appSettings.shell.accountNumber') }}</Label>
                                 <Input id="account_number" v-model="bankDetailsForm.account_number" />
                                 <InputError :message="bankDetailsForm.errors.account_number" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="iban">IBAN</Label>
+                                <Label for="iban">{{ t('app.appSettings.shell.iban') }}</Label>
                                 <Input id="iban" v-model="bankDetailsForm.iban" />
                                 <InputError :message="bankDetailsForm.errors.iban" />
                             </div>
                         </div>
 
-                        <Button :disabled="bankDetailsForm.processing">Save Bank Details</Button>
+                        <Button :disabled="bankDetailsForm.processing">{{ t('app.appSettings.shell.saveBankDetails') }}</Button>
                     </form>
                 </div>
 
@@ -383,11 +387,11 @@ function categoryCode(value: string): string {
                     <form @submit.prevent="saveVisitsDetailsSettings" class="space-y-4">
                         <label class="flex items-center gap-2 text-sm">
                             <input v-model="visitsDetailsForm.is_all_day" type="checkbox" />
-                            All Day Visits
+                            {{ t('app.appSettings.shell.allDayVisits') }}
                         </label>
 
                         <div class="grid gap-2">
-                            <Label for="days">Available Days (comma separated)</Label>
+                            <Label for="days">{{ t('app.appSettings.shell.availableDays') }}</Label>
                             <Input
                                 id="days"
                                 :model-value="visitsDetailsForm.days.join(', ')"
@@ -398,23 +402,23 @@ function categoryCode(value: string): string {
 
                         <div class="grid gap-4 sm:grid-cols-3">
                             <div class="grid gap-2">
-                                <Label for="start_time">Start Time</Label>
+                                <Label for="start_time">{{ t('app.appSettings.shell.startTime') }}</Label>
                                 <Input id="start_time" v-model="visitsDetailsForm.start_time" type="time" />
                                 <InputError :message="visitsDetailsForm.errors.start_time" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="end_time">End Time</Label>
+                                <Label for="end_time">{{ t('app.appSettings.shell.endTime') }}</Label>
                                 <Input id="end_time" v-model="visitsDetailsForm.end_time" type="time" />
                                 <InputError :message="visitsDetailsForm.errors.end_time" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="max_daily_visits">Max Daily Visits</Label>
+                                <Label for="max_daily_visits">{{ t('app.appSettings.shell.maxDailyVisits') }}</Label>
                                 <Input id="max_daily_visits" v-model.number="visitsDetailsForm.max_daily_visits" type="number" min="1" max="1000" />
                                 <InputError :message="visitsDetailsForm.errors.max_daily_visits" />
                             </div>
                         </div>
 
-                        <Button :disabled="visitsDetailsForm.processing">Save Visits Details</Button>
+                        <Button :disabled="visitsDetailsForm.processing">{{ t('app.appSettings.shell.saveVisitsDetails') }}</Button>
                     </form>
                 </div>
 
@@ -422,27 +426,27 @@ function categoryCode(value: string): string {
                     <form @submit.prevent="saveSalesDetailsSettings" class="space-y-4">
                         <div class="grid gap-4 sm:grid-cols-3">
                             <div class="grid gap-2">
-                                <Label for="deposit_time_limit_days">Deposit Time Limit (Days)</Label>
+                                <Label for="deposit_time_limit_days">{{ t('app.appSettings.shell.depositTimeLimitDays') }}</Label>
                                 <Input id="deposit_time_limit_days" v-model.number="salesDetailsForm.deposit_time_limit_days" type="number" min="1" max="365" />
                                 <InputError :message="salesDetailsForm.errors.deposit_time_limit_days" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="cash_contract_signing_days">Cash Contract Signing (Days)</Label>
+                                <Label for="cash_contract_signing_days">{{ t('app.appSettings.shell.cashContractSigningDays') }}</Label>
                                 <Input id="cash_contract_signing_days" v-model.number="salesDetailsForm.cash_contract_signing_days" type="number" min="1" max="365" />
                                 <InputError :message="salesDetailsForm.errors.cash_contract_signing_days" />
                             </div>
                             <div class="grid gap-2">
-                                <Label for="bank_contract_signing_days">Bank Contract Signing (Days)</Label>
+                                <Label for="bank_contract_signing_days">{{ t('app.appSettings.shell.bankContractSigningDays') }}</Label>
                                 <Input id="bank_contract_signing_days" v-model.number="salesDetailsForm.bank_contract_signing_days" type="number" min="1" max="365" />
                                 <InputError :message="salesDetailsForm.errors.bank_contract_signing_days" />
                             </div>
                         </div>
 
-                        <Button :disabled="salesDetailsForm.processing">Save Sales Details</Button>
+                        <Button :disabled="salesDetailsForm.processing">{{ t('app.appSettings.shell.saveSalesDetails') }}</Button>
                     </form>
                 </div>
 
-                <p v-else class="text-muted-foreground text-sm">Unsupported settings tab.</p>
+                <p v-else class="text-muted-foreground text-sm">{{ t('app.appSettings.shell.unsupportedSettingsTab') }}</p>
             </CardContent>
         </Card>
     </div>

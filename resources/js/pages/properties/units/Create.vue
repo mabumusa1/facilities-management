@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import type { Community, UnitCategory } from '@/types';
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Units', href: '/units' },
-            { title: 'New Unit', href: '/units/create' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.properties.units.pageTitle'), href: '/units' },
+            { title: t('app.properties.units.newUnit'), href: '/units/create' },
         ],
-    },
+    });
 });
 
 defineProps<{
@@ -42,22 +46,26 @@ function submit() {
 </script>
 
 <template>
-    <Head title="New Unit" />
+    <Head :title="t('app.properties.units.create.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Create Unit" description="Add a new unit to your property." />
+        <Heading
+            variant="small"
+            :title="t('app.properties.units.create.heading')"
+            :description="t('app.properties.units.create.description')"
+        />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-2">
-                <Label for="name">Unit Name</Label>
-                <Input id="name" v-model="form.name" required placeholder="e.g. A-101" />
+                <Label for="name">{{ t('app.properties.units.create.unitName') }}</Label>
+                <Input id="name" v-model="form.name" required :placeholder="t('app.properties.units.create.unitNamePlaceholder')" />
                 <InputError :message="form.errors.name" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="rf_community_id">Community</Label>
+                <Label for="rf_community_id">{{ t('app.properties.units.create.community') }}</Label>
                 <select id="rf_community_id" v-model="form.rf_community_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                    <option value="" disabled>Select community</option>
+                    <option value="" disabled>{{ t('app.properties.units.create.selectCommunity') }}</option>
                     <option v-for="c in communities" :key="c.id" :value="c.id">{{ c.name }}</option>
                 </select>
                 <InputError :message="form.errors.rf_community_id" />
@@ -65,18 +73,18 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="category_id">Category</Label>
+                    <Label for="category_id">{{ t('app.properties.units.create.category') }}</Label>
                     <select id="category_id" v-model="form.category_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                        <option value="" disabled>Select category</option>
+                        <option value="" disabled>{{ t('app.properties.units.create.selectCategory') }}</option>
                         <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
                     </select>
                     <InputError :message="form.errors.category_id" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="type_id">Type</Label>
+                    <Label for="type_id">{{ t('app.properties.units.create.type') }}</Label>
                     <select id="type_id" v-model="form.type_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                        <option value="" disabled>Select type</option>
+                        <option value="" disabled>{{ t('app.properties.units.create.selectType') }}</option>
                         <template v-for="cat in categories" :key="cat.id">
                             <option v-for="t in cat.types" :key="t.id" :value="t.id">{{ t.name }}</option>
                         </template>
@@ -87,32 +95,32 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-3">
                 <div class="grid gap-2">
-                    <Label for="net_area">Net Area (sqm)</Label>
-                    <Input id="net_area" v-model="form.net_area" type="number" step="0.01" min="0" placeholder="0.00" />
+                    <Label for="net_area">{{ t('app.properties.units.create.netArea') }}</Label>
+                    <Input id="net_area" v-model="form.net_area" type="number" step="0.01" min="0" :placeholder="t('app.properties.units.create.areaPlaceholder')" />
                     <InputError :message="form.errors.net_area" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="floor_no">Floor Number</Label>
-                    <Input id="floor_no" v-model="form.floor_no" type="number" placeholder="0" />
+                    <Label for="floor_no">{{ t('app.properties.units.create.floorNumber') }}</Label>
+                    <Input id="floor_no" v-model="form.floor_no" type="number" :placeholder="t('app.properties.units.create.floorPlaceholder')" />
                     <InputError :message="form.errors.floor_no" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="year_build">Year Built</Label>
-                    <Input id="year_build" v-model="form.year_build" type="number" min="1900" max="2099" placeholder="2024" />
+                    <Label for="year_build">{{ t('app.properties.units.create.yearBuilt') }}</Label>
+                    <Input id="year_build" v-model="form.year_build" type="number" min="1900" max="2099" :placeholder="t('app.properties.units.create.yearPlaceholder')" />
                     <InputError :message="form.errors.year_build" />
                 </div>
             </div>
 
             <div class="grid gap-2">
-                <Label for="about">Description</Label>
-                <Textarea id="about" v-model="form.about" placeholder="Unit description..." />
+                <Label for="about">{{ t('app.properties.units.create.descriptionLabel') }}</Label>
+                <Textarea id="about" v-model="form.about" :placeholder="t('app.properties.units.create.descriptionPlaceholder')" />
                 <InputError :message="form.errors.about" />
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Create Unit</Button>
+                <Button :disabled="form.processing">{{ t('app.properties.units.create.createButton') }}</Button>
             </div>
         </form>
     </div>

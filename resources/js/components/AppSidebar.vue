@@ -28,124 +28,128 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useI18n } from '@/composables/useI18n';
 import { dashboard } from '@/routes';
 import type { NavGroup, NavItem } from '@/types';
+import { computed } from 'vue';
 
-const mainNavItems: NavItem[] = [
+const { isArabic, t } = useI18n();
+
+const mainNavItems = computed<NavItem[]>(() => [
     {
-        title: 'Dashboard',
+        title: t('app.navigation.dashboard'),
         href: dashboard(),
         icon: LayoutGrid,
     },
-];
+]);
 
-const navGroups: NavGroup[] = [
+const navGroups = computed<NavGroup[]>(() => [
     {
-        title: 'Properties',
+        title: t('app.navigation.properties'),
         icon: Building2,
         items: [
-            { title: 'Communities', href: '/communities' },
-            { title: 'Buildings', href: '/buildings' },
-            { title: 'Units', href: '/units' },
+            { title: t('app.navigation.communities'), href: '/communities' },
+            { title: t('app.navigation.buildings'), href: '/buildings' },
+            { title: t('app.navigation.units'), href: '/units' },
         ],
     },
     {
-        title: 'Leasing',
+        title: t('app.navigation.leasing'),
         icon: FileText,
         items: [
-            { title: 'Leases', href: '/leases' },
+            { title: t('app.navigation.leases'), href: '/leases' },
         ],
     },
     {
-        title: 'Requests',
+        title: t('app.navigation.requests'),
         icon: ClipboardList,
         items: [
-            { title: 'All Requests', href: '/requests' },
+            { title: t('app.navigation.allRequests'), href: '/requests' },
         ],
     },
     {
-        title: 'Marketplace',
+        title: t('app.navigation.marketplace'),
         icon: Store,
         items: [
-            { title: 'Overview', href: '/marketplace' },
-            { title: 'Customers', href: '/marketplace/customers' },
-            { title: 'Listing', href: '/marketplace/listing' },
-            { title: 'Visits', href: '/marketplace/visits' },
+            { title: t('app.navigation.overview'), href: '/marketplace' },
+            { title: t('app.navigation.customers'), href: '/marketplace/customers' },
+            { title: t('app.navigation.listing'), href: '/marketplace/listing' },
+            { title: t('app.navigation.visits'), href: '/marketplace/visits' },
         ],
     },
     {
-        title: 'Facilities',
+        title: t('app.navigation.facilities'),
         icon: CalendarCheck,
         items: [
-            { title: 'Facilities', href: '/facilities' },
-            { title: 'Bookings', href: '/facility-bookings' },
+            { title: t('app.navigation.facilities'), href: '/facilities' },
+            { title: t('app.navigation.bookings'), href: '/facility-bookings' },
         ],
     },
     {
-        title: 'Accounting',
+        title: t('app.navigation.accounting'),
         icon: Receipt,
         items: [
-            { title: 'Transactions', href: '/transactions' },
+            { title: t('app.navigation.transactions'), href: '/transactions' },
         ],
     },
     {
-        title: 'Communication',
+        title: t('app.navigation.communication'),
         icon: Megaphone,
         items: [
-            { title: 'Announcements', href: '/announcements' },
+            { title: t('app.navigation.announcements'), href: '/announcements' },
         ],
     },
     {
-        title: 'Contacts',
+        title: t('app.navigation.contacts'),
         icon: Users,
         items: [
-            { title: 'Owners', href: '/owners' },
-            { title: 'Tenants', href: '/residents' },
-            { title: 'Admins', href: '/admins' },
-            { title: 'Professionals', href: '/professionals' },
+            { title: t('app.navigation.owners'), href: '/owners' },
+            { title: t('app.navigation.tenants'), href: '/residents' },
+            { title: t('app.navigation.admins'), href: '/admins' },
+            { title: t('app.navigation.professionals'), href: '/professionals' },
         ],
     },
     {
-        title: 'Visitor Access',
+        title: t('app.navigation.visitorAccess'),
         icon: DoorOpen,
         items: [
-            { title: 'Visitor Access History', href: '/visitor-access/history' },
+            { title: t('app.navigation.visitorAccessHistory'), href: '/visitor-access/history' },
         ],
     },
     {
-        title: 'Reports',
+        title: t('app.navigation.reports'),
         icon: ChartColumnBig,
         items: [
-            { title: 'Reports', href: '/dashboard/reports' },
-            { title: 'Power BI Reports', href: '/dashboard/power-bi-reports' },
-            { title: 'System Reports', href: '/dashboard/system-reports' },
+            { title: t('app.navigation.reports'), href: '/dashboard/reports' },
+            { title: t('app.navigation.powerBiReports'), href: '/dashboard/power-bi-reports' },
+            { title: t('app.navigation.systemReports'), href: '/dashboard/system-reports' },
         ],
     },
     {
-        title: 'App Settings',
+        title: t('app.navigation.appSettings'),
         icon: Settings,
         items: [
-            { title: 'Settings Shell', href: '/settings/invoice' },
-            { title: 'Settings Facilities', href: '/settings/facilities' },
-            { title: 'Settings Forms', href: '/settings/forms' },
-            { title: 'Request Categories', href: '/app-settings/request-categories' },
-            { title: 'Facility Categories', href: '/app-settings/facility-categories' },
-            { title: 'Invoice Settings', href: '/app-settings/invoice' },
-            { title: 'General Settings', href: '/app-settings/general' },
+            { title: t('app.navigation.settingsShell'), href: '/settings/invoice' },
+            { title: t('app.navigation.settingsFacilities'), href: '/settings/facilities' },
+            { title: t('app.navigation.settingsForms'), href: '/settings/forms' },
+            { title: t('app.navigation.requestCategories'), href: '/app-settings/request-categories' },
+            { title: t('app.navigation.facilityCategories'), href: '/app-settings/facility-categories' },
+            { title: t('app.navigation.invoiceSettings'), href: '/app-settings/invoice' },
+            { title: t('app.navigation.generalSettings'), href: '/app-settings/general' },
         ],
     },
     {
-        title: 'Shared',
+        title: t('app.navigation.shared'),
         icon: Bell,
         items: [
-            { title: 'Notifications', href: '/notifications' },
+            { title: t('app.navigation.notifications'), href: '/notifications' },
         ],
     },
-];
+]);
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar :dir="isArabic ? 'rtl' : 'ltr'" :side="isArabic ? 'right' : 'left'" collapsible="icon" variant="inset">
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
@@ -160,7 +164,7 @@ const navGroups: NavGroup[] = [
 
         <SidebarContent>
             <NavMain :items="mainNavItems" />
-            <NavGroups label="Modules" :items="navGroups" />
+            <NavGroups :label="t('app.navigation.modules')" :items="navGroups" />
         </SidebarContent>
 
         <SidebarFooter>

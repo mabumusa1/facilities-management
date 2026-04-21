@@ -1,14 +1,27 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, router, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
+import { useI18n } from '@/composables/useI18n';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Facility } from '@/types';
 
-const props = defineProps<{ facility: Facility }>();
-defineOptions({ layout: { breadcrumbs: [{ title: 'Dashboard', href: '/dashboard' }, { title: 'Facilities', href: '/facilities' }, { title: 'Details', href: '#' }] } });
+const { t } = useI18n();
 
-function deleteFacility() { if (confirm('Are you sure?')) { router.delete(`/facilities/${props.facility.id}`); } }
+const props = defineProps<{ facility: Facility }>();
+
+watchEffect(() => {
+    setLayoutProps({
+        breadcrumbs: [
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.facilities'), href: '/facilities' },
+            { title: t('app.facilities.details'), href: '#' },
+        ],
+    });
+});
+
+function deleteFacility() { if (confirm(t('app.common.warning'))) { router.delete(`/facilities/${props.facility.id}`); } }
 </script>
 
 <template>
@@ -20,19 +33,19 @@ function deleteFacility() { if (confirm('Are you sure?')) { router.delete(`/faci
                 <p class="text-muted-foreground text-sm">{{ facility.category?.name }} &middot; {{ facility.community?.name }}</p>
             </div>
             <div class="flex items-center gap-2">
-                <Button variant="outline" as-child><a :href="`/facilities/${facility.id}/edit`">Edit</a></Button>
-                <Button variant="destructive" @click="deleteFacility">Delete</Button>
+                <Button variant="outline" as-child><a :href="`/facilities/${facility.id}/edit`">{{ t('app.actions.edit') }}</a></Button>
+                <Button variant="destructive" @click="deleteFacility">{{ t('app.actions.delete') }}</Button>
             </div>
         </div>
 
         <div class="grid gap-4 md:grid-cols-3">
-            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Capacity</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ facility.capacity ?? '—' }}</div></CardContent></Card>
-            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Status</CardTitle></CardHeader><CardContent><Badge :variant="facility.is_active ? 'default' : 'secondary'">{{ facility.is_active ? 'Active' : 'Inactive' }}</Badge></CardContent></Card>
-            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Bookings</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ (facility as any).bookings_count ?? 0 }}</div></CardContent></Card>
+            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">{{ t('app.facilities.capacity') }}</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ facility.capacity ?? t('app.common.notAvailable') }}</div></CardContent></Card>
+            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">{{ t('app.facilities.status') }}</CardTitle></CardHeader><CardContent><Badge :variant="facility.is_active ? 'default' : 'secondary'">{{ facility.is_active ? t('app.common.active') : t('app.common.inactive') }}</Badge></CardContent></Card>
+            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">{{ t('app.facilities.bookings') }}</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ (facility as any).bookings_count ?? 0 }}</div></CardContent></Card>
         </div>
 
         <Card v-if="(facility as any).about">
-            <CardHeader><CardTitle>Description</CardTitle></CardHeader>
+            <CardHeader><CardTitle>{{ t('app.facilities.descriptionLabel') }}</CardTitle></CardHeader>
             <CardContent><p>{{ (facility as any).about }}</p></CardContent>
         </Card>
     </div>

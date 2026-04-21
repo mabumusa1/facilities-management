@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { computed, watch, watchEffect } from 'vue';
+import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -16,14 +17,16 @@ const props = defineProps<{
     statuses: Pick<Status, 'id' | 'name' | 'name_en'>[];
 }>();
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Requests', href: '/requests' },
-            { title: 'New Request', href: '/requests/create' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.requests.pageTitle'), href: '/requests' },
+            { title: t('app.requests.create.pageTitle'), href: '/requests/create' },
         ],
-    },
+    });
 });
 
 const form = useForm({
@@ -51,18 +54,22 @@ function submit() {
 </script>
 
 <template>
-    <Head title="New Request" />
+    <Head :title="t('app.requests.create.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
-        <Heading variant="small" title="Create Request" description="Submit a new service request." />
+        <Heading
+            variant="small"
+            :title="t('app.requests.create.heading')"
+            :description="t('app.requests.create.description')"
+        />
 
         <form @submit.prevent="submit" class="max-w-2xl space-y-6">
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>Category</Label>
+                    <Label>{{ t('app.requests.category') }}</Label>
                     <Select v-model="form.category_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select category" />
+                            <SelectValue :placeholder="t('app.requests.create.selectCategory')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="cat in categories" :key="cat.id" :value="String(cat.id)">
@@ -74,10 +81,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Subcategory</Label>
+                    <Label>{{ t('app.requests.table.subcategory') }}</Label>
                     <Select v-model="form.subcategory_id" :disabled="!form.category_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select subcategory" />
+                            <SelectValue :placeholder="t('app.requests.create.selectSubcategory')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="sub in filteredSubcategories" :key="sub.id" :value="String(sub.id)">
@@ -91,10 +98,10 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label>Community</Label>
+                    <Label>{{ t('app.requests.table.community') }}</Label>
                     <Select v-model="form.community_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select community" />
+                            <SelectValue :placeholder="t('app.requests.create.selectCommunity')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="community in communities" :key="community.id" :value="String(community.id)">
@@ -106,10 +113,10 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label>Unit</Label>
+                    <Label>{{ t('app.requests.show.unit') }}</Label>
                     <Select v-model="form.unit_id">
                         <SelectTrigger class="w-full">
-                            <SelectValue placeholder="Select unit" />
+                            <SelectValue :placeholder="t('app.requests.create.selectUnit')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="unit in units" :key="unit.id" :value="String(unit.id)">
@@ -122,29 +129,29 @@ function submit() {
             </div>
 
             <div class="grid gap-2">
-                <Label>Priority</Label>
+                <Label>{{ t('app.requests.priority') }}</Label>
                 <Select v-model="form.priority">
                     <SelectTrigger class="w-full">
-                        <SelectValue placeholder="Select priority" />
+                        <SelectValue :placeholder="t('app.requests.create.selectPriority')" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="low">Low</SelectItem>
-                        <SelectItem value="medium">Medium</SelectItem>
-                        <SelectItem value="high">High</SelectItem>
-                        <SelectItem value="urgent">Urgent</SelectItem>
+                        <SelectItem value="low">{{ t('app.requests.create.low') }}</SelectItem>
+                        <SelectItem value="medium">{{ t('app.requests.create.medium') }}</SelectItem>
+                        <SelectItem value="high">{{ t('app.requests.create.high') }}</SelectItem>
+                        <SelectItem value="urgent">{{ t('app.requests.create.urgent') }}</SelectItem>
                     </SelectContent>
                 </Select>
                 <InputError :message="form.errors.priority" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="description">Description</Label>
-                <Textarea id="description" v-model="form.description" placeholder="Describe the request..." />
+                <Label for="description">{{ t('app.requests.show.description') }}</Label>
+                <Textarea id="description" v-model="form.description" :placeholder="t('app.requests.create.descriptionPlaceholder')" />
                 <InputError :message="form.errors.description" />
             </div>
 
             <div class="flex items-center gap-4">
-                <Button :disabled="form.processing">Submit Request</Button>
+                <Button :disabled="form.processing">{{ t('app.requests.create.submitButton') }}</Button>
             </div>
         </form>
     </div>

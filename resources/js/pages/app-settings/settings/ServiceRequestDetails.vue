@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
 import { edit as editRequestCategory } from '@/actions/App/Http/Controllers/AppSettings/RequestCategoryController';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { serviceRequest as serviceRequestSettings } from '@/routes/settings';
+
+const { t } = useI18n();
 
 type SettingsTab = {
     key: string;
@@ -51,26 +55,26 @@ const props = defineProps<{
     serviceSetting: ServiceSetting | null;
 }>();
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Settings', href: '/settings/invoice' },
-            { title: 'Service Request', href: '/settings/service-request' },
-            { title: 'Details', href: '#' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.navigation.settings'), href: '/settings/invoice' },
+            { title: t('app.appSettings.shell.serviceRequestTitle'), href: '/settings/service-request' },
+            { title: t('app.appSettings.serviceRequestDetails.details'), href: '#' },
         ],
-    },
+    });
 });
 </script>
 
 <template>
-    <Head :title="`Service Request Details - ${props.category.name_en ?? props.category.name}`" />
+    <Head :title="t('app.appSettings.serviceRequestDetails.pageTitle', { name: props.category.name_en ?? props.category.name })" />
 
     <div class="flex flex-col gap-6 p-4">
         <Heading
             variant="small"
-            :title="`Service Request Details: ${props.category.name_en ?? props.category.name}`"
-            description="Review category configuration, subcategories, and effective service settings."
+            :title="t('app.appSettings.serviceRequestDetails.heading', { name: props.category.name_en ?? props.category.name })"
+            :description="t('app.appSettings.serviceRequestDetails.description')"
         />
 
         <div class="flex flex-wrap gap-2">
@@ -85,32 +89,32 @@ defineOptions({
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <Badge variant="secondary">Type: {{ props.requestType }}</Badge>
-            <Badge variant="secondary">Category Code: {{ props.categoryCode }}</Badge>
+            <Badge variant="secondary">{{ t('app.appSettings.serviceRequestDetails.type') }}: {{ props.requestType }}</Badge>
+            <Badge variant="secondary">{{ t('app.appSettings.serviceRequestDetails.categoryCode') }}: {{ props.categoryCode }}</Badge>
             <Badge :variant="props.category.status ? 'default' : 'secondary'">
-                {{ props.category.status ? 'Active' : 'Inactive' }}
+                {{ props.category.status ? t('app.common.active') : t('app.common.inactive') }}
             </Badge>
         </div>
 
         <div class="flex gap-2">
             <Button variant="outline" as-child>
-                <Link :href="serviceRequestSettings().url">Back To Service Request Settings</Link>
+                <Link :href="serviceRequestSettings().url">{{ t('app.appSettings.serviceRequestDetails.backToSettings') }}</Link>
             </Button>
             <Button as-child>
-                <Link :href="editRequestCategory(props.category.id).url">Open Category Editor</Link>
+                <Link :href="editRequestCategory(props.category.id).url">{{ t('app.appSettings.serviceRequestDetails.openCategoryEditor') }}</Link>
             </Button>
         </div>
 
         <Card>
             <CardHeader>
-                <CardTitle>Subcategories</CardTitle>
+                <CardTitle>{{ t('app.appSettings.serviceRequestDetails.subcategories') }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Status</TableHead>
+                            <TableHead>{{ t('app.appSettings.serviceRequestDetails.name') }}</TableHead>
+                            <TableHead>{{ t('app.appSettings.serviceRequestDetails.status') }}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -118,13 +122,13 @@ defineOptions({
                             <TableCell>{{ sub.name_en ?? sub.name }}</TableCell>
                             <TableCell>
                                 <Badge :variant="sub.status ? 'default' : 'secondary'">
-                                    {{ sub.status ? 'Active' : 'Inactive' }}
+                                    {{ sub.status ? t('app.common.active') : t('app.common.inactive') }}
                                 </Badge>
                             </TableCell>
                         </TableRow>
                         <TableRow v-if="props.category.subcategories.length === 0">
                             <TableCell :colspan="2" class="text-muted-foreground text-center">
-                                No subcategories configured.
+                                {{ t('app.appSettings.serviceRequestDetails.noSubcategories') }}
                             </TableCell>
                         </TableRow>
                     </TableBody>
@@ -134,16 +138,16 @@ defineOptions({
 
         <Card>
             <CardHeader>
-                <CardTitle>Service Setting Permissions</CardTitle>
+                <CardTitle>{{ t('app.appSettings.serviceRequestDetails.permissionsTitle') }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <div v-if="props.serviceSetting?.permissions" class="grid gap-2">
                     <div v-for="(value, key) in props.serviceSetting.permissions" :key="key" class="flex items-center justify-between rounded border p-2">
                         <span>{{ key }}</span>
-                        <Badge :variant="value ? 'default' : 'secondary'">{{ value ? 'Enabled' : 'Disabled' }}</Badge>
+                        <Badge :variant="value ? 'default' : 'secondary'">{{ value ? t('app.appSettings.serviceRequestDetails.enabled') : t('app.appSettings.serviceRequestDetails.disabled') }}</Badge>
                     </div>
                 </div>
-                <p v-else class="text-muted-foreground text-sm">No permissions configured for this category yet.</p>
+                <p v-else class="text-muted-foreground text-sm">{{ t('app.appSettings.serviceRequestDetails.noPermissions') }}</p>
             </CardContent>
         </Card>
     </div>

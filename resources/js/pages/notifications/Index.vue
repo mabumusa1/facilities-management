@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, router, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
+import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -20,6 +22,8 @@ const props = defineProps<{
     unreadCount: number;
 }>();
 
+const { t } = useI18n();
+
 function markAsRead(id: string) {
     router.post(`/notifications/${id}/mark-as-read`);
 }
@@ -28,31 +32,35 @@ function markAllAsRead() {
     router.post('/notifications/mark-all-as-read');
 }
 
-defineOptions({
-    layout: {
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Notifications', href: '/notifications' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.notifications.pageTitle'), href: '/notifications' },
         ],
-    },
+    });
 });
 </script>
 
 <template>
-    <Head title="Notifications" />
+    <Head :title="t('app.notifications.pageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
         <div class="flex items-center justify-between gap-4">
-            <Heading variant="small" title="Notifications" description="Track system activity and mark items as read." />
+            <Heading
+                variant="small"
+                :title="t('app.notifications.heading')"
+                :description="t('app.notifications.description')"
+            />
             <div class="flex items-center gap-2">
-                <Badge variant="secondary">Unread: {{ props.unreadCount }}</Badge>
-                <Button variant="outline" size="sm" @click="markAllAsRead">Mark All as Read</Button>
+                <Badge variant="secondary">{{ t('app.notifications.unread') }}: {{ props.unreadCount }}</Badge>
+                <Button variant="outline" size="sm" @click="markAllAsRead">{{ t('app.actions.markAllAsRead') }}</Button>
             </div>
         </div>
 
         <Card>
             <CardHeader>
-                <CardTitle>Recent Notifications</CardTitle>
+                <CardTitle>{{ t('app.notifications.recent') }}</CardTitle>
             </CardHeader>
             <CardContent class="space-y-3">
                 <div
@@ -70,12 +78,12 @@ defineOptions({
                         variant="outline"
                         @click="markAsRead(notification.id)"
                     >
-                        Mark Read
+                        {{ t('app.actions.markRead') }}
                     </Button>
-                    <Badge v-else variant="secondary">Read</Badge>
+                    <Badge v-else variant="secondary">{{ t('app.notifications.read') }}</Badge>
                 </div>
 
-                <p v-if="props.notifications.data.length === 0" class="text-muted-foreground text-sm">No notifications yet.</p>
+                <p v-if="props.notifications.data.length === 0" class="text-muted-foreground text-sm">{{ t('app.notifications.noNotificationsYet') }}</p>
             </CardContent>
         </Card>
     </div>

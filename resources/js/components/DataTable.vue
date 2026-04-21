@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends Record<string, unknown>">
 import { Link } from '@inertiajs/vue3';
 import {
     Table,
@@ -11,21 +11,21 @@ import {
 import type { PaginationLink } from '@/types';
 import { Button } from '@/components/ui/button';
 
-export type Column<T> = {
+export type Column<T extends Record<string, unknown> = Record<string, unknown>> = {
     key: string;
     label: string;
     render?: (row: T) => string | number;
 };
 
 defineProps<{
-    columns: Column<unknown>[];
-    rows: unknown[];
-    rowHref?: (row: unknown) => string;
+    columns: Column<T>[];
+    rows: T[];
+    rowHref?: (row: T) => string;
     links?: PaginationLink[];
     emptyMessage?: string;
 }>();
 
-function getCellValue(row: Record<string, unknown>, col: Column<unknown>): unknown {
+function getCellValue(row: T, col: Column<T>): unknown {
     if (col.render) {
         return col.render(row);
     }
@@ -71,13 +71,13 @@ function getCellValue(row: Record<string, unknown>, col: Column<unknown>): unkno
                                     :href="rowHref(row)"
                                     class="block"
                                 >
-                                    {{ getCellValue(row as Record<string, unknown>, col) }}
+                                    {{ getCellValue(row, col) }}
                                 </Link>
                             </TableCell>
                         </TableRow>
                         <TableRow v-else>
                             <TableCell v-for="col in columns" :key="col.key">
-                                {{ getCellValue(row as Record<string, unknown>, col) }}
+                                {{ getCellValue(row, col) }}
                             </TableCell>
                         </TableRow>
                     </template>

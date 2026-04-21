@@ -1,24 +1,28 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
+import { watchEffect } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useI18n } from '@/composables/useI18n';
 import type { Community } from '@/types';
 
 const props = defineProps<{ community: Community }>();
 
-defineOptions({
-    layout: {
+const { t } = useI18n();
+
+watchEffect(() => {
+    setLayoutProps({
         breadcrumbs: [
-            { title: 'Dashboard', href: '/dashboard' },
-            { title: 'Communities', href: '/communities' },
-            { title: 'Details', href: '#' },
+            { title: t('app.navigation.dashboard'), href: '/dashboard' },
+            { title: t('app.properties.communities.pageTitle'), href: '/communities' },
+            { title: t('app.properties.communities.show.breadcrumb'), href: '#' },
         ],
-    },
+    });
 });
 
 function deleteCommunity() {
-    if (confirm('Are you sure you want to delete this community?')) {
+    if (confirm(t('app.properties.communities.show.confirmDeletePrompt'))) {
         router.delete(`/communities/${props.community.id}`);
     }
 }
@@ -31,70 +35,70 @@ function deleteCommunity() {
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold tracking-tight">{{ community.name }}</h2>
-                <p class="text-muted-foreground text-sm">Community details and statistics</p>
+                <p class="text-muted-foreground text-sm">{{ t('app.properties.communities.show.detailsDescription') }}</p>
             </div>
             <div class="flex items-center gap-2">
                 <Button variant="outline" as-child>
-                    <Link :href="`/communities/${community.id}/edit`">Edit</Link>
+                    <Link :href="`/communities/${community.id}/edit`">{{ t('app.actions.edit') }}</Link>
                 </Button>
-                <Button variant="destructive" @click="deleteCommunity">Delete</Button>
+                <Button variant="destructive" @click="deleteCommunity">{{ t('app.actions.delete') }}</Button>
             </div>
         </div>
 
         <div class="grid gap-4 md:grid-cols-3">
             <Card>
-                <CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Buildings</CardTitle></CardHeader>
+                <CardHeader class="pb-2"><CardTitle class="text-sm font-medium">{{ t('app.properties.communities.show.buildings') }}</CardTitle></CardHeader>
                 <CardContent><div class="text-2xl font-bold">{{ community.buildings_count ?? 0 }}</div></CardContent>
             </Card>
             <Card>
-                <CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Units</CardTitle></CardHeader>
+                <CardHeader class="pb-2"><CardTitle class="text-sm font-medium">{{ t('app.properties.communities.show.units') }}</CardTitle></CardHeader>
                 <CardContent><div class="text-2xl font-bold">{{ community.units_count ?? 0 }}</div></CardContent>
             </Card>
             <Card>
-                <CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Requests</CardTitle></CardHeader>
+                <CardHeader class="pb-2"><CardTitle class="text-sm font-medium">{{ t('app.properties.communities.show.requests') }}</CardTitle></CardHeader>
                 <CardContent><div class="text-2xl font-bold">{{ community.requests_count ?? 0 }}</div></CardContent>
             </Card>
         </div>
 
         <div class="grid gap-4 md:grid-cols-2">
             <Card>
-                <CardHeader><CardTitle>Location</CardTitle></CardHeader>
+                <CardHeader><CardTitle>{{ t('app.properties.communities.show.location') }}</CardTitle></CardHeader>
                 <CardContent class="space-y-2">
-                    <div class="flex justify-between"><span class="text-muted-foreground">Country</span><span>{{ community.country?.name ?? '—' }}</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">City</span><span>{{ community.city?.name ?? '—' }}</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">District</span><span>{{ community.district?.name ?? '—' }}</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">{{ t('app.properties.communities.show.country') }}</span><span>{{ community.country?.name ?? '—' }}</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">{{ t('app.properties.communities.show.city') }}</span><span>{{ community.city?.name ?? '—' }}</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">{{ t('app.properties.communities.show.district') }}</span><span>{{ community.district?.name ?? '—' }}</span></div>
                 </CardContent>
             </Card>
             <Card>
-                <CardHeader><CardTitle>Financials</CardTitle></CardHeader>
+                <CardHeader><CardTitle>{{ t('app.properties.communities.show.financials') }}</CardTitle></CardHeader>
                 <CardContent class="space-y-2">
-                    <div class="flex justify-between"><span class="text-muted-foreground">Currency</span><span>{{ community.currency?.name ?? '—' }}</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Sales Commission</span><span>{{ community.sales_commission_rate ?? '—' }}%</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Rental Commission</span><span>{{ community.rental_commission_rate ?? '—' }}%</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Marketplace</span><Badge :variant="community.is_market_place ? 'default' : 'secondary'">{{ community.is_market_place ? 'Yes' : 'No' }}</Badge></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">{{ t('app.properties.communities.show.currency') }}</span><span>{{ community.currency?.name ?? '—' }}</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">{{ t('app.properties.communities.show.salesCommission') }}</span><span>{{ community.sales_commission_rate ?? '—' }}%</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">{{ t('app.properties.communities.show.rentalCommission') }}</span><span>{{ community.rental_commission_rate ?? '—' }}%</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">{{ t('app.properties.communities.show.marketplace') }}</span><Badge :variant="community.is_market_place ? 'default' : 'secondary'">{{ community.is_market_place ? t('app.common.yes') : t('app.common.no') }}</Badge></div>
                 </CardContent>
             </Card>
         </div>
 
         <Card v-if="community.buildings && community.buildings.length > 0">
-            <CardHeader><CardTitle>Buildings</CardTitle></CardHeader>
+            <CardHeader><CardTitle>{{ t('app.properties.communities.show.relatedBuildings') }}</CardTitle></CardHeader>
             <CardContent>
                 <div class="space-y-2">
                     <Link v-for="building in community.buildings" :key="building.id" :href="`/buildings/${building.id}`" class="flex items-center justify-between rounded-md border p-3 hover:bg-muted/50">
                         <span class="font-medium">{{ building.name }}</span>
-                        <span class="text-muted-foreground text-sm">{{ building.units_count ?? 0 }} units</span>
+                        <span class="text-muted-foreground text-sm">{{ t('app.properties.communities.show.buildingUnits', { count: building.units_count ?? 0 }) }}</span>
                     </Link>
                 </div>
             </CardContent>
         </Card>
 
         <Card v-if="community.facilities && community.facilities.length > 0">
-            <CardHeader><CardTitle>Facilities</CardTitle></CardHeader>
+            <CardHeader><CardTitle>{{ t('app.properties.communities.show.facilities') }}</CardTitle></CardHeader>
             <CardContent>
                 <div class="space-y-2">
                     <Link v-for="facility in community.facilities" :key="facility.id" :href="`/facilities/${facility.id}`" class="flex items-center justify-between rounded-md border p-3 hover:bg-muted/50">
                         <span class="font-medium">{{ facility.name }}</span>
-                        <Badge :variant="facility.is_active ? 'default' : 'secondary'">{{ facility.is_active ? 'Active' : 'Inactive' }}</Badge>
+                        <Badge :variant="facility.is_active ? 'default' : 'secondary'">{{ facility.is_active ? t('app.common.active') : t('app.common.inactive') }}</Badge>
                     </Link>
                 </div>
             </CardContent>

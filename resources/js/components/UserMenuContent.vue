@@ -7,6 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+import { useI18n } from '@/composables/useI18n';
 import UserInfo from '@/components/UserInfo.vue';
 import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
@@ -19,6 +20,8 @@ type Props = {
 const handleLogout = () => {
     router.flushAll();
 };
+
+const { currentLocale, setLocale, t } = useI18n();
 
 defineProps<Props>();
 </script>
@@ -34,8 +37,25 @@ defineProps<Props>();
         <DropdownMenuItem :as-child="true">
             <Link class="block w-full cursor-pointer" :href="edit()" prefetch>
                 <Settings class="mr-2 h-4 w-4" />
-                Settings
+                {{ t('app.navigation.settings') }}
             </Link>
+        </DropdownMenuItem>
+    </DropdownMenuGroup>
+    <DropdownMenuSeparator />
+    <DropdownMenuGroup>
+        <DropdownMenuItem
+            class="cursor-pointer"
+            :disabled="currentLocale === 'ar'"
+            @click="setLocale('ar')"
+        >
+            {{ t('app.language.arabic') }}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+            class="cursor-pointer"
+            :disabled="currentLocale === 'en'"
+            @click="setLocale('en')"
+        >
+            {{ t('app.language.english') }}
         </DropdownMenuItem>
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
@@ -48,7 +68,7 @@ defineProps<Props>();
             data-test="logout-button"
         >
             <LogOut class="mr-2 h-4 w-4" />
-            Log out
+            {{ t('app.actions.logout') }}
         </Link>
     </DropdownMenuItem>
 </template>
