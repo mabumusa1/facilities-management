@@ -8,13 +8,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type TemplateItem = {
     id: number;
     name: string;
     is_active: boolean;
-    request_category?: { name?: string | null; name_en?: string | null } | null;
+    request_category?: { name?: string | null; name_ar?: string | null; name_en?: string | null } | null;
     community?: { name?: string | null } | null;
     building?: { name?: string | null } | null;
 };
@@ -27,6 +27,18 @@ const props = defineProps<{
 
 function removeTemplate(id: number) {
     router.delete(`/settings/forms/${id}`);
+}
+
+function localizedCategoryName(category: TemplateItem['request_category']): string {
+    if (!category) {
+        return t('app.common.notAvailable');
+    }
+
+    if (isArabic.value) {
+        return category.name_ar ?? category.name ?? category.name_en ?? t('app.common.notAvailable');
+    }
+
+    return category.name_en ?? category.name ?? category.name_ar ?? t('app.common.notAvailable');
 }
 
 watchEffect(() => {
@@ -69,7 +81,7 @@ watchEffect(() => {
                     <TableBody>
                         <TableRow v-for="template in props.templates.data" :key="template.id">
                             <TableCell>{{ template.name }}</TableCell>
-                            <TableCell>{{ template.request_category?.name_en ?? template.request_category?.name ?? t('app.common.notAvailable') }}</TableCell>
+                            <TableCell>{{ localizedCategoryName(template.request_category) }}</TableCell>
                             <TableCell>{{ template.community?.name ?? t('app.common.notAvailable') }} / {{ template.building?.name ?? t('app.common.notAvailable') }}</TableCell>
                             <TableCell>
                                 <Badge :variant="template.is_active ? 'default' : 'secondary'">{{ template.is_active ? t('app.common.active') : t('app.common.inactive') }}</Badge>

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type FacilityBooking = {
     id: number;
@@ -30,12 +30,32 @@ type Facility = {
     booking_fee: string;
     is_active: boolean;
     requires_approval: boolean;
-    category?: { name?: string | null; name_en?: string | null } | null;
+    category?: { name?: string | null; name_ar?: string | null; name_en?: string | null } | null;
     community?: { name?: string | null } | null;
     bookings?: FacilityBooking[];
 };
 
 const props = defineProps<{ facility: Facility }>();
+
+function localizedName(item: { name: string; name_ar?: string | null; name_en?: string | null }): string {
+    if (isArabic.value) {
+        return item.name_ar ?? item.name ?? item.name_en ?? '';
+    }
+
+    return item.name_en ?? item.name ?? item.name_ar ?? '';
+}
+
+function localizedCategoryName(): string {
+    if (!props.facility.category) {
+        return t('app.common.notAvailable');
+    }
+
+    if (isArabic.value) {
+        return props.facility.category.name_ar ?? props.facility.category.name ?? props.facility.category.name_en ?? t('app.common.notAvailable');
+    }
+
+    return props.facility.category.name_en ?? props.facility.category.name ?? props.facility.category.name_ar ?? t('app.common.notAvailable');
+}
 
 watchEffect(() => {
     setLayoutProps({
@@ -49,13 +69,13 @@ watchEffect(() => {
 </script>
 
 <template>
-    <Head :title="t('app.appSettings.facilities.facilityTitle', { name: props.facility.name })" />
+    <Head :title="t('app.appSettings.facilities.facilityTitle', { name: localizedName(props.facility) })" />
 
     <div class="flex flex-col gap-6 p-4">
         <div class="flex items-center justify-between gap-4">
             <Heading
                 variant="small"
-                :title="props.facility.name_en ?? props.facility.name"
+                :title="localizedName(props.facility)"
                 :description="t('app.appSettings.facilities.detailsDescription')"
             />
             <div class="flex gap-2">
@@ -73,7 +93,7 @@ watchEffect(() => {
                 <CardTitle>{{ t('app.appSettings.facilities.details') }}</CardTitle>
             </CardHeader>
             <CardContent class="grid gap-3 text-sm md:grid-cols-2">
-                <p><span class="font-medium">{{ t('app.appSettings.facilities.category') }}:</span> {{ props.facility.category?.name_en ?? props.facility.category?.name ?? t('app.common.notAvailable') }}</p>
+                <p><span class="font-medium">{{ t('app.appSettings.facilities.category') }}:</span> {{ localizedCategoryName() }}</p>
                 <p><span class="font-medium">{{ t('app.appSettings.facilities.community') }}:</span> {{ props.facility.community?.name ?? t('app.common.notAvailable') }}</p>
                 <p><span class="font-medium">{{ t('app.appSettings.facilities.capacity') }}:</span> {{ props.facility.capacity ?? t('app.common.notAvailable') }}</p>
                 <p><span class="font-medium">{{ t('app.appSettings.facilities.open') }}:</span> {{ props.facility.open_time ?? t('app.common.notAvailable') }}</p>

@@ -11,13 +11,13 @@ import { Textarea } from '@/components/ui/textarea';
 import type { Community, RequestCategory, Status, Unit } from '@/types';
 
 const props = defineProps<{
-    categories: (Pick<RequestCategory, 'id' | 'name' | 'name_en'> & { subcategories: { id: number; name: string; name_en: string | null; category_id: number }[] })[];
+    categories: (Pick<RequestCategory, 'id' | 'name' | 'name_ar' | 'name_en'> & { subcategories: { id: number; name: string; name_ar: string | null; name_en: string | null; category_id: number }[] })[];
     communities: Pick<Community, 'id' | 'name'>[];
     units: Pick<Unit, 'id' | 'name'>[];
     statuses: Pick<Status, 'id' | 'name' | 'name_en'>[];
 }>();
 
-const { t } = useI18n();
+const { isArabic, t } = useI18n();
 
 watchEffect(() => {
     setLayoutProps({
@@ -51,6 +51,14 @@ watch(() => form.category_id, () => {
 function submit() {
     form.post('/requests');
 }
+
+function localizedOptionName(option: { name: string; name_ar?: string | null; name_en?: string | null }): string {
+    if (isArabic.value) {
+        return option.name_ar ?? option.name ?? option.name_en ?? '';
+    }
+
+    return option.name_en ?? option.name ?? option.name_ar ?? '';
+}
 </script>
 
 <template>
@@ -73,7 +81,7 @@ function submit() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="cat in categories" :key="cat.id" :value="String(cat.id)">
-                                {{ cat.name_en ?? cat.name }}
+                                {{ localizedOptionName(cat) }}
                             </SelectItem>
                         </SelectContent>
                     </Select>
@@ -88,7 +96,7 @@ function submit() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="sub in filteredSubcategories" :key="sub.id" :value="String(sub.id)">
-                                {{ sub.name_en ?? sub.name }}
+                                {{ localizedOptionName(sub) }}
                             </SelectItem>
                         </SelectContent>
                     </Select>

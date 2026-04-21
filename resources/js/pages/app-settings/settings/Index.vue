@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, setLayoutProps, useForm } from '@inertiajs/vue3';
-import { watchEffect } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { edit as editRequestCategory } from '@/actions/App/Http/Controllers/AppSettings/RequestCategoryController';
 import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
@@ -14,7 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type SettingsTab = {
     key: string;
@@ -104,6 +104,46 @@ const props = defineProps<{
     salesDetailsSetting?: SalesDetailsSetting | null;
 }>();
 
+const tabTranslationKeys: Record<string, string> = {
+    invoice: 'app.appSettings.shell.tabs.invoice',
+    'service-request': 'app.appSettings.shell.tabs.serviceRequest',
+    'visitor-request': 'app.appSettings.shell.tabs.visitorRequest',
+    'bank-details': 'app.appSettings.shell.tabs.bankDetails',
+    'visits-details': 'app.appSettings.shell.tabs.visitsDetails',
+    'sales-details': 'app.appSettings.shell.tabs.salesDetails',
+};
+
+const serviceRequestTypeTranslationKeys: Record<string, string> = {
+    'home-service': 'app.appSettings.shell.requestTypes.homeService',
+    'neighbourhood-service': 'app.appSettings.shell.requestTypes.neighbourhoodService',
+};
+
+const resolvedPageTitle = computed(() => {
+    const key = tabTranslationKeys[props.activeTab];
+
+    return key ? t(key) : props.pageTitle;
+});
+
+function tabLabel(key: string): string {
+    const translationKey = tabTranslationKeys[key];
+
+    return translationKey ? t(translationKey) : key;
+}
+
+function serviceRequestTypeLabel(key: string): string {
+    const translationKey = serviceRequestTypeTranslationKeys[key];
+
+    return translationKey ? t(translationKey) : key;
+}
+
+function localizedCategoryName(category: ServiceRequestCategory): string {
+    if (isArabic.value) {
+        return category.name_ar ?? category.name ?? category.name_en;
+    }
+
+    return category.name_en ?? category.name ?? category.name_ar;
+}
+
 watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
@@ -192,12 +232,12 @@ function categoryCode(value: string): string {
 </script>
 
 <template>
-    <Head :title="t('app.appSettings.shell.pageTitle', { title: props.pageTitle })" />
+    <Head :title="t('app.appSettings.shell.pageTitle', { title: resolvedPageTitle })" />
 
     <div class="flex flex-col gap-6 p-4">
         <Heading
             variant="small"
-            :title="t('app.appSettings.shell.heading', { title: props.pageTitle })"
+            :title="t('app.appSettings.shell.heading', { title: resolvedPageTitle })"
             :description="t('app.appSettings.shell.description')"
         />
 
@@ -208,13 +248,13 @@ function categoryCode(value: string): string {
                 :variant="tab.key === props.activeTab ? 'default' : 'outline'"
                 as-child
             >
-                <Link :href="tab.href">{{ tab.label }}</Link>
+                <Link :href="tab.href">{{ tabLabel(tab.key) }}</Link>
             </Button>
         </div>
 
         <Card>
             <CardHeader>
-                <CardTitle>{{ props.pageTitle }}</CardTitle>
+                <CardTitle>{{ resolvedPageTitle }}</CardTitle>
                 <CardDescription>
                     {{ t('app.appSettings.shell.cardDescription') }}
                 </CardDescription>
@@ -274,7 +314,7 @@ function categoryCode(value: string): string {
                         <p class="text-sm font-medium">{{ t('app.appSettings.shell.serviceRequestTypes') }}</p>
                         <div class="flex flex-wrap gap-2">
                             <Badge v-for="type in props.serviceRequestSettings?.types ?? []" :key="type.key" variant="secondary">
-                                {{ type.label }}
+                                {{ serviceRequestTypeLabel(type.key) }}
                             </Badge>
                         </div>
                     </div>
@@ -290,7 +330,7 @@ function categoryCode(value: string): string {
                         </TableHeader>
                         <TableBody>
                             <TableRow v-for="category in props.serviceRequestSettings?.categories ?? []" :key="category.id">
-                                <TableCell>{{ category.name_en ?? category.name }}</TableCell>
+                                <TableCell>{{ localizedCategoryName(category) }}</TableCell>
                                 <TableCell>
                                     <Badge :variant="category.status ? 'default' : 'secondary'">
                                         {{ category.status ? t('app.common.active') : t('app.common.inactive') }}

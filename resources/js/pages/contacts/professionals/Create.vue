@@ -37,7 +37,7 @@ function submit() { form.post('/professionals'); }
             <div class="grid gap-2"><Label for="email">{{ t('app.contacts.shared.email') }}</Label><Input id="email" v-model="form.email" type="email" :placeholder="t('app.auth.login.emailPlaceholder')" /><InputError :message="form.errors.email" /></div>
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2"><Label for="phone_country_code">{{ t('app.contacts.shared.countryCode') }}</Label><Input id="phone_country_code" v-model="form.phone_country_code" required maxlength="5" /><InputError :message="form.errors.phone_country_code" /></div>
-                <div class="grid gap-2"><Label for="phone_number">{{ t('app.contacts.shared.phoneNumber') }}</Label><Input id="phone_number" v-model="form.phone_number" required placeholder="5XXXXXXXX" /><InputError :message="form.errors.phone_number" /></div>
+                <div class="grid gap-2"><Label for="phone_number">{{ t('app.contacts.shared.phoneNumber') }}</Label><Input id="phone_number" v-model="form.phone_number" required :placeholder="t('app.contacts.shared.phoneNumberPlaceholder')" /><InputError :message="form.errors.phone_number" /></div>
             </div>
             <div class="grid gap-2"><Label for="national_id">{{ t('app.contacts.shared.nationalId') }}</Label><Input id="national_id" v-model="form.national_id" /><InputError :message="form.errors.national_id" /></div>
             <div class="flex items-center gap-4"><Button :disabled="form.processing">{{ t('app.contacts.professionals.createButton') }}</Button></div>

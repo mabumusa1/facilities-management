@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type Template = {
     id: number;
@@ -23,7 +23,7 @@ type Template = {
             placeholder?: string;
         }>;
     } | null;
-    request_category?: { name?: string | null; name_en?: string | null } | null;
+    request_category?: { name?: string | null; name_ar?: string | null; name_en?: string | null } | null;
     community?: { name?: string | null } | null;
     building?: { name?: string | null } | null;
 };
@@ -32,6 +32,20 @@ const props = defineProps<{
     template: Template;
     requiredFields: Array<Record<string, unknown>>;
 }>();
+
+function localizedCategoryName(): string {
+    const category = props.template.request_category;
+
+    if (!category) {
+        return t('app.common.notAvailable');
+    }
+
+    if (isArabic.value) {
+        return category.name_ar ?? category.name ?? category.name_en ?? t('app.common.notAvailable');
+    }
+
+    return category.name_en ?? category.name ?? category.name_ar ?? t('app.common.notAvailable');
+}
 
 watchEffect(() => {
     setLayoutProps({
@@ -74,7 +88,7 @@ watchEffect(() => {
                         {{ props.template.is_active ? t('app.common.active') : t('app.common.inactive') }}
                     </Badge>
                 </p>
-                <p><span class="font-medium">{{ t('app.settingsForms.category') }}:</span> {{ props.template.request_category?.name_en ?? props.template.request_category?.name ?? t('app.common.notAvailable') }}</p>
+                <p><span class="font-medium">{{ t('app.settingsForms.category') }}:</span> {{ localizedCategoryName() }}</p>
                 <p><span class="font-medium">{{ t('app.settingsForms.community') }}:</span> {{ props.template.community?.name ?? t('app.common.notAvailable') }}</p>
                 <p><span class="font-medium">{{ t('app.settingsForms.building') }}:</span> {{ props.template.building?.name ?? t('app.common.notAvailable') }}</p>
                 <p class="md:col-span-2"><span class="font-medium">{{ t('app.settingsForms.descriptionLabel') }}:</span> {{ props.template.description ?? t('app.common.notAvailable') }}</p>

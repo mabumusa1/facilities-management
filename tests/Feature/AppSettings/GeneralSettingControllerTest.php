@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class GeneralSettingControllerTest extends TestCase
@@ -49,6 +50,29 @@ class GeneralSettingControllerTest extends TestCase
         $response->assertOk();
     }
 
+    public function test_index_respects_locale_header_for_setting_name_values(): void
+    {
+        $this->authenticateUser();
+
+        Setting::factory()->create([
+            'name_ar' => 'إيجار',
+            'name_en' => 'Rental',
+            'type' => 'rental_contract_type',
+        ]);
+
+        $this->get(route('app-settings.general.index'), ['X-App-Locale' => 'en'])
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('settingGroups.rental_contract_type.0.name', 'Rental')
+            );
+
+        $this->get(route('app-settings.general.index'), ['X-App-Locale' => 'ar'])
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('settingGroups.rental_contract_type.0.name', 'إيجار')
+            );
+    }
+
     public function test_authenticated_user_can_create_setting(): void
     {
         $this->authenticateUser();
@@ -63,6 +87,23 @@ class GeneralSettingControllerTest extends TestCase
         $this->assertDatabaseHas('rf_settings', [
             'name_en' => 'Rental',
             'type' => 'rental_contract_type',
+        ]);
+    }
+
+    public function test_authenticated_user_can_create_setting_with_extended_type(): void
+    {
+        $this->authenticateUser();
+
+        $response = $this->post(route('app-settings.general.store'), [
+            'name_ar' => 'على المتر',
+            'name_en' => 'Per Square Meter',
+            'type' => 'calculation_basis',
+        ]);
+
+        $response->assertRedirect(route('app-settings.general.index'));
+        $this->assertDatabaseHas('rf_settings', [
+            'name_en' => 'Per Square Meter',
+            'type' => 'calculation_basis',
         ]);
     }
 

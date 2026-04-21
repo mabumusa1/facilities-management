@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Properties;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building;
+use App\Models\City;
 use App\Models\Community;
+use App\Models\District;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,6 +37,8 @@ class BuildingController extends Controller
     {
         return Inertia::render('properties/buildings/Create', [
             'communities' => Community::select('id', 'name')->get(),
+            'cities' => City::select('id', 'name', 'name_en', 'country_id')->orderBy('name')->get(),
+            'districts' => District::select('id', 'name', 'name_en', 'city_id')->orderBy('name')->get(),
         ]);
     }
 
@@ -80,6 +84,8 @@ class BuildingController extends Controller
         return Inertia::render('properties/buildings/Edit', [
             'building' => $building,
             'communities' => Community::select('id', 'name')->get(),
+            'cities' => City::select('id', 'name', 'name_en', 'country_id')->orderBy('name')->get(),
+            'districts' => District::select('id', 'name', 'name_en', 'city_id')->orderBy('name')->get(),
         ]);
     }
 

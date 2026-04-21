@@ -157,6 +157,8 @@ export type Unit = {
     category_id: number;
     type_id: number;
     status_id: number;
+    owner_id: number | null;
+    tenant_id: number | null;
     city_id: number | null;
     district_id: number | null;
     year_build: string | null;

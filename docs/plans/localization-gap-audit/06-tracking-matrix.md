@@ -1,5 +1,9 @@
 # Tracking Matrix
 
+> Archived reference: the active implementation status source of truth is `docs/plans/implementation-status.md`.
+>
+> This file is kept as a historical page-level snapshot and may contain stale status values.
+
 ## Status Legend
 - `NS`: Not started
 - `IP`: In progress

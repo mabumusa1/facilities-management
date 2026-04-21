@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
-import { watchEffect } from 'vue';
+import { computed, watch, watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { useI18n } from '@/composables/useI18n';
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import type { Community, UnitCategory } from '@/types';
+import type { Building, City, Community, District, Owner, Resident, Status, UnitCategory } from '@/types';
 
 const { t } = useI18n();
 
@@ -22,9 +22,15 @@ watchEffect(() => {
     });
 });
 
-defineProps<{
+const props = defineProps<{
     communities: Pick<Community, 'id' | 'name'>[];
+    buildings: (Pick<Building, 'id' | 'name'> & { rf_community_id: number })[];
     categories: UnitCategory[];
+    statuses: Pick<Status, 'id' | 'name' | 'name_en'>[];
+    owners: Pick<Owner, 'id' | 'first_name' | 'last_name'>[];
+    residents: Pick<Resident, 'id' | 'first_name' | 'last_name'>[];
+    cities: (Pick<City, 'id' | 'name' | 'name_en'> & { country_id: number })[];
+    districts: (Pick<District, 'id' | 'name' | 'name_en'> & { city_id: number })[];
 }>();
 
 const form = useForm({
@@ -33,11 +39,47 @@ const form = useForm({
     rf_building_id: '',
     category_id: '',
     type_id: '',
-    status_id: '23',
+    status_id: '',
+    owner_id: '',
+    tenant_id: '',
+    city_id: '',
+    district_id: '',
     net_area: '',
     floor_no: '',
     year_build: '',
     about: '',
+});
+
+const filteredBuildings = computed(() =>
+    form.rf_community_id
+        ? props.buildings.filter((building) => building.rf_community_id === Number(form.rf_community_id))
+        : [],
+);
+
+const filteredTypes = computed(() => {
+    if (!form.category_id) {
+        return [];
+    }
+
+    const selectedCategory = props.categories.find((category) => category.id === Number(form.category_id));
+
+    return selectedCategory?.types ?? [];
+});
+
+const filteredDistricts = computed(() =>
+    form.city_id ? props.districts.filter((district) => district.city_id === Number(form.city_id)) : [],
+);
+
+watch(() => form.rf_community_id, () => {
+    form.rf_building_id = '';
+});
+
+watch(() => form.category_id, () => {
+    form.type_id = '';
+});
+
+watch(() => form.city_id, () => {
+    form.district_id = '';
 });
 
 function submit() {
@@ -73,6 +115,26 @@ function submit() {
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
+                    <Label for="rf_building_id">{{ t('app.properties.units.create.building') }}</Label>
+                    <select id="rf_building_id" v-model="form.rf_building_id" :disabled="!form.rf_community_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="">{{ t('app.properties.units.create.selectBuilding') }}</option>
+                        <option v-for="building in filteredBuildings" :key="building.id" :value="building.id">{{ building.name }}</option>
+                    </select>
+                    <InputError :message="form.errors.rf_building_id" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="status_id">{{ t('app.properties.units.create.status') }}</Label>
+                    <select id="status_id" v-model="form.status_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="" disabled>{{ t('app.properties.units.create.selectStatus') }}</option>
+                        <option v-for="status in statuses" :key="status.id" :value="status.id">{{ status.name_en ?? status.name }}</option>
+                    </select>
+                    <InputError :message="form.errors.status_id" />
+                </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div class="grid gap-2">
                     <Label for="category_id">{{ t('app.properties.units.create.category') }}</Label>
                     <select id="category_id" v-model="form.category_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
                         <option value="" disabled>{{ t('app.properties.units.create.selectCategory') }}</option>
@@ -83,13 +145,51 @@ function submit() {
 
                 <div class="grid gap-2">
                     <Label for="type_id">{{ t('app.properties.units.create.type') }}</Label>
-                    <select id="type_id" v-model="form.type_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                    <select id="type_id" v-model="form.type_id" required :disabled="!form.category_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
                         <option value="" disabled>{{ t('app.properties.units.create.selectType') }}</option>
-                        <template v-for="cat in categories" :key="cat.id">
-                            <option v-for="t in cat.types" :key="t.id" :value="t.id">{{ t.name }}</option>
-                        </template>
+                        <option v-for="type in filteredTypes" :key="type.id" :value="type.id">{{ type.name }}</option>
                     </select>
                     <InputError :message="form.errors.type_id" />
+                </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div class="grid gap-2">
+                    <Label for="owner_id">{{ t('app.properties.units.create.owner') }}</Label>
+                    <select id="owner_id" v-model="form.owner_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="">{{ t('app.properties.units.create.selectOwner') }}</option>
+                        <option v-for="owner in owners" :key="owner.id" :value="owner.id">{{ owner.first_name }} {{ owner.last_name }}</option>
+                    </select>
+                    <InputError :message="form.errors.owner_id" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="tenant_id">{{ t('app.properties.units.create.tenant') }}</Label>
+                    <select id="tenant_id" v-model="form.tenant_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="">{{ t('app.properties.units.create.selectTenant') }}</option>
+                        <option v-for="resident in residents" :key="resident.id" :value="resident.id">{{ resident.first_name }} {{ resident.last_name }}</option>
+                    </select>
+                    <InputError :message="form.errors.tenant_id" />
+                </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div class="grid gap-2">
+                    <Label for="city_id">{{ t('app.properties.units.create.city') }}</Label>
+                    <select id="city_id" v-model="form.city_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="">{{ t('app.properties.units.create.selectCity') }}</option>
+                        <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name_en ?? city.name }}</option>
+                    </select>
+                    <InputError :message="form.errors.city_id" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="district_id">{{ t('app.properties.units.create.district') }}</Label>
+                    <select id="district_id" v-model="form.district_id" :disabled="!form.city_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="">{{ t('app.properties.units.create.selectDistrict') }}</option>
+                        <option v-for="district in filteredDistricts" :key="district.id" :value="district.id">{{ district.name_en ?? district.name }}</option>
+                    </select>
+                    <InputError :message="form.errors.district_id" />
                 </div>
             </div>
 

@@ -8,6 +8,8 @@
         "dev": "vite",
         "format": "prettier --write resources/",
         "format:check": "prettier --check resources/",
+        "i18n:check": "node scripts/check-translations.mjs",
+        "i18n:check:full": "node scripts/check-translations.mjs --full",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
         "types:check": "vue-tsc --noEmit"

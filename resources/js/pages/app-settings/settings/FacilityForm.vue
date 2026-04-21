@@ -10,11 +10,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type Option = {
     id: number;
     name?: string | null;
+    name_ar?: string | null;
     name_en?: string | null;
 };
 
@@ -67,6 +68,14 @@ const form = useForm({
     requires_approval: props.facility?.requires_approval ?? false,
 });
 
+function localizedOptionName(option: Option): string {
+    if (isArabic.value) {
+        return option.name_ar ?? option.name ?? option.name_en ?? '';
+    }
+
+    return option.name_en ?? option.name ?? option.name_ar ?? '';
+}
+
 function submit() {
     if (isEdit.value && props.facility) {
         form.put(`/settings/facilities/${props.facility.id}`);
@@ -118,7 +127,7 @@ function submit() {
                             <select id="category_id" v-model.number="form.category_id" class="rounded-md border border-input bg-background px-3 py-2">
                                 <option :value="0">{{ t('app.appSettings.facilities.selectCategory') }}</option>
                                 <option v-for="category in props.categories" :key="category.id" :value="category.id">
-                                    {{ category.name_en ?? category.name }}
+                                    {{ localizedOptionName(category) }}
                                 </option>
                             </select>
                             <InputError :message="form.errors.category_id" />

@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { Paginated, ServiceRequest } from '@/types';
 
-const { t } = useI18n();
+const { isArabic, t } = useI18n();
 
 watchEffect(() => {
     setLayoutProps({
@@ -23,8 +23,8 @@ watchEffect(() => {
 
 const props = defineProps<{
     requests: Paginated<ServiceRequest>;
-    statuses: Array<{ id: number; name: string; name_en: string | null }>;
-    categories: Array<{ id: number; name: string; name_en: string | null }>;
+    statuses: Array<{ id: number; name: string; name_ar: string | null; name_en: string | null }>;
+    categories: Array<{ id: number; name: string; name_ar: string | null; name_en: string | null }>;
     priorities: string[];
     filters: {
         search: string;
@@ -44,6 +44,14 @@ const filters = reactive({
 });
 
 const perPageOptions = ['10', '15', '25', '50'];
+
+function localizedOptionName(option: { name: string; name_ar?: string | null; name_en?: string | null }): string {
+    if (isArabic.value) {
+        return option.name_ar ?? option.name ?? option.name_en ?? '';
+    }
+
+    return option.name_en ?? option.name ?? option.name_ar ?? '';
+}
 
 function applyFilters() {
     router.get('/requests', { ...filters }, {
@@ -98,7 +106,7 @@ const columns = computed<Column<ServiceRequest>[]>(() => [
                 <select id="request-status" v-model="filters.status_id" class="rounded-md border border-input bg-background px-3 py-2 text-sm">
                     <option value="">{{ t('app.requests.allStatuses') }}</option>
                     <option v-for="status in props.statuses" :key="status.id" :value="String(status.id)">
-                        {{ status.name_en ?? status.name }}
+                        {{ localizedOptionName(status) }}
                     </option>
                 </select>
             </div>
@@ -108,7 +116,7 @@ const columns = computed<Column<ServiceRequest>[]>(() => [
                 <select id="request-category" v-model="filters.category_id" class="rounded-md border border-input bg-background px-3 py-2 text-sm">
                     <option value="">{{ t('app.requests.allCategories') }}</option>
                     <option v-for="category in props.categories" :key="category.id" :value="String(category.id)">
-                        {{ category.name_en ?? category.name }}
+                        {{ localizedOptionName(category) }}
                     </option>
                 </select>
             </div>

@@ -7,7 +7,7 @@ import { useI18n } from '@/composables/useI18n';
 import PageHeader from '@/components/PageHeader.vue';
 import type { Facility, Paginated } from '@/types';
 
-const { t } = useI18n();
+const { isArabic, t } = useI18n();
 
 watchEffect(() => {
     setLayoutProps({
@@ -22,9 +22,21 @@ const props = defineProps<{
     facilities: Paginated<Facility>;
 }>();
 
+function localizedCategoryName(facility: Facility): string {
+    if (!facility.category) {
+        return t('app.common.notAvailable');
+    }
+
+    if (isArabic.value) {
+        return facility.category.name_ar ?? facility.category.name ?? facility.category.name_en ?? t('app.common.notAvailable');
+    }
+
+    return facility.category.name_en ?? facility.category.name ?? facility.category.name_ar ?? t('app.common.notAvailable');
+}
+
 const columns = computed<Column<Facility>[]>(() => [
     { key: 'name', label: t('app.facilities.name') },
-    { key: 'category.name', label: t('app.facilities.category') },
+    { key: 'category.name', label: t('app.facilities.category'), render: (row: Facility) => localizedCategoryName(row) },
     { key: 'community.name', label: t('app.facilities.community') },
     { key: 'capacity', label: t('app.facilities.capacity') },
     { key: 'is_active', label: t('app.facilities.status'), render: (row: Facility) => row.is_active ? t('app.common.active') : t('app.common.inactive') },

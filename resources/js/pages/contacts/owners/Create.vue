@@ -66,13 +66,13 @@ function submit() {
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
                     <Label for="phone_country_code">{{ t('app.contacts.shared.countryCode') }}</Label>
-                    <Input id="phone_country_code" v-model="form.phone_country_code" required placeholder="SA" maxlength="5" />
+                    <Input id="phone_country_code" v-model="form.phone_country_code" required :placeholder="t('app.contacts.shared.countryCodePlaceholder')" maxlength="5" />
                     <InputError :message="form.errors.phone_country_code" />
                 </div>
 
                 <div class="grid gap-2">
                     <Label for="phone_number">{{ t('app.contacts.shared.phoneNumber') }}</Label>
-                    <Input id="phone_number" v-model="form.phone_number" required placeholder="5XXXXXXXX" />
+                    <Input id="phone_number" v-model="form.phone_number" required :placeholder="t('app.contacts.shared.phoneNumberPlaceholder')" />
                     <InputError :message="form.errors.phone_number" />
                 </div>
             </div>

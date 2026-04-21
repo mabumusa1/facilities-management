@@ -269,6 +269,35 @@ class Phase1ImplementationTest extends TestCase
         $this->assertNotEmpty($props['admins']);
     }
 
+    public function test_building_create_passes_location_form_data(): void
+    {
+        $this->authenticateUser();
+        $this->createCommunityWithDeps();
+
+        $response = $this->get(route('buildings.create'));
+        $response->assertOk();
+
+        $props = $response->original->getData()['page']['props'];
+        $this->assertArrayHasKey('communities', $props);
+        $this->assertArrayHasKey('cities', $props);
+        $this->assertArrayHasKey('districts', $props);
+    }
+
+    public function test_building_edit_passes_location_form_data(): void
+    {
+        $this->authenticateUser();
+        $community = $this->createCommunityWithDeps();
+        $building = Building::factory()->recycle($community)->create();
+
+        $response = $this->get(route('buildings.edit', $building));
+        $response->assertOk();
+
+        $props = $response->original->getData()['page']['props'];
+        $this->assertArrayHasKey('communities', $props);
+        $this->assertArrayHasKey('cities', $props);
+        $this->assertArrayHasKey('districts', $props);
+    }
+
     public function test_unit_create_passes_full_form_data(): void
     {
         $this->authenticateUser();
@@ -277,6 +306,41 @@ class Phase1ImplementationTest extends TestCase
         Resident::factory()->create();
 
         $response = $this->get(route('units.create'));
+        $response->assertOk();
+
+        $props = $response->original->getData()['page']['props'];
+        $this->assertArrayHasKey('buildings', $props);
+        $this->assertArrayHasKey('statuses', $props);
+        $this->assertArrayHasKey('owners', $props);
+        $this->assertArrayHasKey('residents', $props);
+        $this->assertArrayHasKey('cities', $props);
+        $this->assertArrayHasKey('districts', $props);
+    }
+
+    public function test_unit_edit_passes_full_form_data(): void
+    {
+        $this->authenticateUser();
+        $community = $this->createCommunityWithDeps();
+        $building = Building::factory()->recycle($community)->create();
+        $category = UnitCategory::factory()->create();
+        $type = UnitType::factory()->recycle($category)->create();
+        $status = Status::factory()->create(['type' => 'unit']);
+        $owner = Owner::factory()->create();
+        $resident = Resident::factory()->create();
+
+        $unit = Unit::factory()->create([
+            'rf_community_id' => $community->id,
+            'rf_building_id' => $building->id,
+            'category_id' => $category->id,
+            'type_id' => $type->id,
+            'status_id' => $status->id,
+            'owner_id' => $owner->id,
+            'tenant_id' => $resident->id,
+            'city_id' => $community->city_id,
+            'district_id' => $community->district_id,
+        ]);
+
+        $response = $this->get(route('units.edit', $unit));
         $response->assertOk();
 
         $props = $response->original->getData()['page']['props'];

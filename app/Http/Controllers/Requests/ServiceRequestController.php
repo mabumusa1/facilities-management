@@ -50,12 +50,12 @@ class ServiceRequestController extends Controller
             'requests' => $requests,
             'statuses' => Status::query()
                 ->where('type', 'request')
-                ->select('id', 'name', 'name_en')
+                ->select('id', 'name', 'name_ar', 'name_en')
                 ->orderBy('priority')
                 ->orderBy('id')
                 ->get(),
             'categories' => RequestCategory::query()
-                ->select('id', 'name', 'name_en')
+                ->select('id', 'name', 'name_ar', 'name_en')
                 ->orderByRaw('COALESCE(name_en, name) asc')
                 ->get(),
             'priorities' => ['low', 'medium', 'high', 'urgent'],
@@ -72,10 +72,13 @@ class ServiceRequestController extends Controller
     public function create(): Response
     {
         return Inertia::render('requests/Create', [
-            'categories' => RequestCategory::with('subcategories')->select('id', 'name', 'name_en')->get(),
+            'categories' => RequestCategory::query()
+                ->with(['subcategories:id,category_id,name,name_ar,name_en'])
+                ->select('id', 'name', 'name_ar', 'name_en')
+                ->get(),
             'communities' => Community::select('id', 'name')->orderBy('name')->get(),
             'units' => Unit::select('id', 'name')->orderBy('name')->get(),
-            'statuses' => Status::where('type', 'request')->select('id', 'name', 'name_en')->get(),
+            'statuses' => Status::where('type', 'request')->select('id', 'name', 'name_ar', 'name_en')->get(),
         ]);
     }
 
@@ -138,10 +141,13 @@ class ServiceRequestController extends Controller
     {
         return Inertia::render('requests/Edit', [
             'serviceRequest' => $serviceRequest->load(['category', 'subcategory', 'status', 'unit', 'community']),
-            'categories' => RequestCategory::with('subcategories')->select('id', 'name', 'name_en')->get(),
+            'categories' => RequestCategory::query()
+                ->with(['subcategories:id,category_id,name,name_ar,name_en'])
+                ->select('id', 'name', 'name_ar', 'name_en')
+                ->get(),
             'communities' => Community::select('id', 'name')->orderBy('name')->get(),
             'units' => Unit::select('id', 'name')->orderBy('name')->get(),
-            'statuses' => Status::where('type', 'request')->select('id', 'name', 'name_en')->get(),
+            'statuses' => Status::where('type', 'request')->select('id', 'name', 'name_ar', 'name_en')->get(),
         ]);
     }
 

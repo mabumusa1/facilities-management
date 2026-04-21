@@ -8,6 +8,8 @@ type TranslationParams = Record<string, string | number | boolean | null | undef
 type MessageTree = Record<string, unknown>;
 
 const LOCALE_STORAGE_KEY = 'locale';
+const LOCALE_COOKIE_KEY = 'locale';
+const LOCALE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 const DEFAULT_LOCALE: SupportedLocale = 'ar';
 const FALLBACK_LOCALE: SupportedLocale = 'en';
 
@@ -121,6 +123,12 @@ function persistLocale(activeLocale: SupportedLocale): void {
     }
 
     localStorage.setItem(LOCALE_STORAGE_KEY, activeLocale);
+
+    if (!hasDocument()) {
+        return;
+    }
+
+    document.cookie = `${LOCALE_COOKIE_KEY}=${activeLocale}; path=/; max-age=${LOCALE_COOKIE_MAX_AGE_SECONDS}; SameSite=Lax`;
 }
 
 function setLocale(nextLocale: SupportedLocale): void {
@@ -152,7 +160,12 @@ function t(key: string, params?: TranslationParams, fallback?: string): string {
 }
 
 export function initializeI18n(): void {
+    persistLocale(locale.value);
     syncDocumentLocale(locale.value);
+}
+
+export function getCurrentLocale(): SupportedLocale {
+    return locale.value;
 }
 
 export function useI18n() {

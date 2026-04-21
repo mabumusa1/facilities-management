@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type Template = {
     id: number;
@@ -35,7 +35,7 @@ type TemplateFormState = {
 
 const props = defineProps<{
     template: Template | null;
-    categories: { id: number; name?: string | null; name_en?: string | null }[];
+    categories: { id: number; name?: string | null; name_ar?: string | null; name_en?: string | null }[];
     communities: { id: number; name: string }[];
     buildings: { id: number; name: string; rf_community_id: number }[];
     selectedCommunityId: number | null;
@@ -54,6 +54,14 @@ const form = useForm<TemplateFormState>({
     is_active: props.template?.is_active ?? true,
     schema: JSON.stringify(initialSchema, null, 2),
 });
+
+function localizedCategoryName(category: { name?: string | null; name_ar?: string | null; name_en?: string | null }): string {
+    if (isArabic.value) {
+        return category.name_ar ?? category.name ?? category.name_en ?? '';
+    }
+
+    return category.name_en ?? category.name ?? category.name_ar ?? '';
+}
 
 function submit() {
     schemaParseError.value = null;
@@ -135,7 +143,7 @@ watchEffect(() => {
                             <select id="request_category_id" v-model.number="form.request_category_id" class="rounded-md border border-input bg-background px-3 py-2">
                                 <option :value="null">{{ t('app.settingsForms.selectCategory') }}</option>
                                 <option v-for="category in props.categories" :key="category.id" :value="category.id">
-                                    {{ category.name_en ?? category.name }}
+                                    {{ localizedCategoryName(category) }}
                                 </option>
                             </select>
                             <InputError :message="form.errors.request_category_id" />

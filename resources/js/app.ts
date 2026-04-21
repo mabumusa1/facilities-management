@@ -1,6 +1,6 @@
 import { createInertiaApp } from '@inertiajs/vue3';
 import { initializeTheme } from '@/composables/useAppearance';
-import { initializeI18n } from '@/composables/useI18n';
+import { getCurrentLocale, initializeI18n } from '@/composables/useI18n';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
@@ -22,6 +22,15 @@ createInertiaApp({
     },
     progress: {
         color: '#4B5563',
+    },
+    defaults: {
+        visitOptions: (_href, options) => ({
+            ...options,
+            headers: {
+                ...options.headers,
+                'X-App-Locale': getCurrentLocale(),
+            },
+        }),
     },
 });
 

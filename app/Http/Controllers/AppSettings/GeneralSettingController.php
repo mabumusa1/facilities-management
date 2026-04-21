@@ -25,7 +25,7 @@ class GeneralSettingController extends Controller
         $validated = $request->validate([
             'name_ar' => ['required', 'string', 'max:255'],
             'name_en' => ['required', 'string', 'max:255'],
-            'type' => ['required', 'string', 'in:rental_contract_type,payment_schedule,transaction_category,transaction_type'],
+            'type' => ['required', 'string', 'in:rental_contract_type,payment_schedule,transaction_category,transaction_type,calculation_basis,fit_out_status,payment_frequency'],
             'parent_id' => ['nullable', 'integer', 'exists:rf_settings,id'],
         ]);
 

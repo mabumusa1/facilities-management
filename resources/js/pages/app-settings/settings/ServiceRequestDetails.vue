@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { serviceRequest as serviceRequestSettings } from '@/routes/settings';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type SettingsTab = {
     key: string;
@@ -55,6 +55,40 @@ const props = defineProps<{
     serviceSetting: ServiceSetting | null;
 }>();
 
+const tabTranslationKeys: Record<string, string> = {
+    invoice: 'app.appSettings.shell.tabs.invoice',
+    'service-request': 'app.appSettings.shell.tabs.serviceRequest',
+    'visitor-request': 'app.appSettings.shell.tabs.visitorRequest',
+    'bank-details': 'app.appSettings.shell.tabs.bankDetails',
+    'visits-details': 'app.appSettings.shell.tabs.visitsDetails',
+    'sales-details': 'app.appSettings.shell.tabs.salesDetails',
+};
+
+const serviceRequestTypeTranslationKeys: Record<string, string> = {
+    'home-service': 'app.appSettings.shell.requestTypes.homeService',
+    'neighbourhood-service': 'app.appSettings.shell.requestTypes.neighbourhoodService',
+};
+
+function tabLabel(key: string): string {
+    const translationKey = tabTranslationKeys[key];
+
+    return translationKey ? t(translationKey) : key;
+}
+
+function requestTypeLabel(type: string): string {
+    const translationKey = serviceRequestTypeTranslationKeys[type];
+
+    return translationKey ? t(translationKey) : type;
+}
+
+function localizedName(item: { name: string; name_ar?: string | null; name_en?: string | null }): string {
+    if (isArabic.value) {
+        return item.name_ar ?? item.name ?? item.name_en ?? '';
+    }
+
+    return item.name_en ?? item.name ?? item.name_ar ?? '';
+}
+
 watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
@@ -68,12 +102,12 @@ watchEffect(() => {
 </script>
 
 <template>
-    <Head :title="t('app.appSettings.serviceRequestDetails.pageTitle', { name: props.category.name_en ?? props.category.name })" />
+    <Head :title="t('app.appSettings.serviceRequestDetails.pageTitle', { name: localizedName(props.category) })" />
 
     <div class="flex flex-col gap-6 p-4">
         <Heading
             variant="small"
-            :title="t('app.appSettings.serviceRequestDetails.heading', { name: props.category.name_en ?? props.category.name })"
+            :title="t('app.appSettings.serviceRequestDetails.heading', { name: localizedName(props.category) })"
             :description="t('app.appSettings.serviceRequestDetails.description')"
         />
 
@@ -84,12 +118,12 @@ watchEffect(() => {
                 :variant="tab.key === 'service-request' ? 'default' : 'outline'"
                 as-child
             >
-                <Link :href="tab.href">{{ tab.label }}</Link>
+                <Link :href="tab.href">{{ tabLabel(tab.key) }}</Link>
             </Button>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <Badge variant="secondary">{{ t('app.appSettings.serviceRequestDetails.type') }}: {{ props.requestType }}</Badge>
+            <Badge variant="secondary">{{ t('app.appSettings.serviceRequestDetails.type') }}: {{ requestTypeLabel(props.requestType) }}</Badge>
             <Badge variant="secondary">{{ t('app.appSettings.serviceRequestDetails.categoryCode') }}: {{ props.categoryCode }}</Badge>
             <Badge :variant="props.category.status ? 'default' : 'secondary'">
                 {{ props.category.status ? t('app.common.active') : t('app.common.inactive') }}
@@ -119,7 +153,7 @@ watchEffect(() => {
                     </TableHeader>
                     <TableBody>
                         <TableRow v-for="sub in props.category.subcategories" :key="sub.id">
-                            <TableCell>{{ sub.name_en ?? sub.name }}</TableCell>
+                            <TableCell>{{ localizedName(sub) }}</TableCell>
                             <TableCell>
                                 <Badge :variant="sub.status ? 'default' : 'secondary'">
                                     {{ sub.status ? t('app.common.active') : t('app.common.inactive') }}

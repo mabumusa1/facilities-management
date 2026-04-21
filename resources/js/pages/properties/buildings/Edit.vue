@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { Head, setLayoutProps, useForm } from '@inertiajs/vue3';
-import { computed, watchEffect } from 'vue';
+import { computed, watch, watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { useI18n } from '@/composables/useI18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import type { Building, Community } from '@/types';
+import type { Building, City, Community, District } from '@/types';
 
 const props = defineProps<{
     building: Building;
     communities: Pick<Community, 'id' | 'name'>[];
+    cities: (Pick<City, 'id' | 'name' | 'name_en'> & { country_id: number })[];
+    districts: (Pick<District, 'id' | 'name' | 'name_en'> & { city_id: number })[];
 }>();
 
 const { t } = useI18n();
@@ -35,6 +37,14 @@ const form = useForm({
     district_id: props.building.district_id ? String(props.building.district_id) : '',
     no_floors: props.building.no_floors != null ? String(props.building.no_floors) : '',
     year_build: props.building.year_build ?? '',
+});
+
+const filteredDistricts = computed(() =>
+    form.city_id ? props.districts.filter((district) => district.city_id === Number(form.city_id)) : [],
+);
+
+watch(() => form.city_id, () => {
+    form.district_id = '';
 });
 
 function submit() {
@@ -62,6 +72,26 @@ function submit() {
                     <option v-for="c in communities" :key="c.id" :value="c.id">{{ c.name }}</option>
                 </select>
                 <InputError :message="form.errors.rf_community_id" />
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div class="grid gap-2">
+                    <Label for="city_id">{{ t('app.properties.buildings.create.city') }}</Label>
+                    <select id="city_id" v-model="form.city_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="">{{ t('app.properties.buildings.create.selectCity') }}</option>
+                        <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name_en ?? city.name }}</option>
+                    </select>
+                    <InputError :message="form.errors.city_id" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="district_id">{{ t('app.properties.buildings.create.district') }}</Label>
+                    <select id="district_id" v-model="form.district_id" :disabled="!form.city_id" class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
+                        <option value="">{{ t('app.properties.buildings.create.selectDistrict') }}</option>
+                        <option v-for="district in filteredDistricts" :key="district.id" :value="district.id">{{ district.name_en ?? district.name }}</option>
+                    </select>
+                    <InputError :message="form.errors.district_id" />
+                </div>
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2">

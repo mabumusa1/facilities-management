@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Facility } from '@/types';
 
-const { t } = useI18n();
+const { isArabic, t } = useI18n();
 
 const props = defineProps<{ facility: Facility }>();
 
@@ -22,6 +22,18 @@ watchEffect(() => {
 });
 
 function deleteFacility() { if (confirm(t('app.common.warning'))) { router.delete(`/facilities/${props.facility.id}`); } }
+
+function localizedCategoryName(): string {
+    if (!props.facility.category) {
+        return t('app.common.notAvailable');
+    }
+
+    if (isArabic.value) {
+        return props.facility.category.name_ar ?? props.facility.category.name ?? props.facility.category.name_en ?? t('app.common.notAvailable');
+    }
+
+    return props.facility.category.name_en ?? props.facility.category.name ?? props.facility.category.name_ar ?? t('app.common.notAvailable');
+}
 </script>
 
 <template>
@@ -30,7 +42,7 @@ function deleteFacility() { if (confirm(t('app.common.warning'))) { router.delet
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold tracking-tight">{{ facility.name }}</h2>
-                <p class="text-muted-foreground text-sm">{{ facility.category?.name }} &middot; {{ facility.community?.name }}</p>
+                <p class="text-muted-foreground text-sm">{{ localizedCategoryName() }} &middot; {{ facility.community?.name }}</p>
             </div>
             <div class="flex items-center gap-2">
                 <Button variant="outline" as-child><a :href="`/facilities/${facility.id}/edit`">{{ t('app.actions.edit') }}</a></Button>

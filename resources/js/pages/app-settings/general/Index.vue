@@ -33,7 +33,15 @@ const groupLabels = computed<Record<string, string>>(() => ({
     payment_schedule: t('app.appSettings.general.paymentSchedules'),
     transaction_category: t('app.appSettings.general.transactionCategories'),
     transaction_type: t('app.appSettings.general.transactionTypes'),
+    calculation_basis: t('app.appSettings.general.calculationBasis'),
+    fit_out_status: t('app.appSettings.general.fitOutStatus'),
+    payment_frequency: t('app.appSettings.general.paymentFrequency'),
 }));
+
+function resolveGroupLabel(groupKey: string): string {
+    return groupLabels.value[groupKey]
+        ?? t('app.appSettings.general.unknownType', { type: groupKey.replaceAll('_', ' ') });
+}
 
 const showAddForm = ref(false);
 const addForm = useForm({
@@ -125,7 +133,7 @@ function cancelEdit() {
         <!-- Settings grouped by type -->
         <Card v-for="(settings, groupKey) in settingGroups" :key="groupKey">
             <CardHeader>
-                <CardTitle>{{ groupLabels[groupKey as string] ?? groupKey }}</CardTitle>
+                <CardTitle>{{ resolveGroupLabel(String(groupKey)) }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <Table>

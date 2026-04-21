@@ -8,16 +8,28 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 type FacilityItem = {
     id: number;
     name: string;
-    category?: { name?: string | null; name_en?: string | null } | null;
+    category?: { name?: string | null; name_ar?: string | null; name_en?: string | null } | null;
     community?: { name?: string | null } | null;
     is_active: boolean;
     bookings_count: number;
 };
+
+function localizedCategoryName(category: FacilityItem['category']): string {
+    if (!category) {
+        return t('app.common.notAvailable');
+    }
+
+    if (isArabic.value) {
+        return category.name_ar ?? category.name ?? category.name_en ?? t('app.common.notAvailable');
+    }
+
+    return category.name_en ?? category.name ?? category.name_ar ?? t('app.common.notAvailable');
+}
 
 watchEffect(() => {
     setLayoutProps({
@@ -70,7 +82,7 @@ const props = defineProps<{
                     <TableBody>
                         <TableRow v-for="facility in props.facilities.data" :key="facility.id">
                             <TableCell>{{ facility.name }}</TableCell>
-                            <TableCell>{{ facility.category?.name_en ?? facility.category?.name ?? t('app.common.notAvailable') }}</TableCell>
+                            <TableCell>{{ localizedCategoryName(facility.category) }}</TableCell>
                             <TableCell>{{ facility.community?.name ?? t('app.common.notAvailable') }}</TableCell>
                             <TableCell>
                                 <Badge :variant="facility.is_active ? 'default' : 'secondary'">

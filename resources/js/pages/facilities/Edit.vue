@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { Community, Facility, FacilityCategory } from '@/types';
 
-const { t } = useI18n();
+const { isArabic, t } = useI18n();
 
 const props = defineProps<{
     facility: Facility;
@@ -37,6 +37,14 @@ const form = useForm({
 });
 
 function submit() { form.put(`/facilities/${props.facility.id}`); }
+
+function localizedCategoryName(category: FacilityCategory): string {
+    if (isArabic.value) {
+        return category.name_ar ?? category.name ?? category.name_en ?? '';
+    }
+
+    return category.name_en ?? category.name ?? category.name_ar ?? '';
+}
 </script>
 
 <template>
@@ -54,7 +62,7 @@ function submit() { form.put(`/facilities/${props.facility.id}`); }
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="cat in categories" :key="cat.id" :value="String(cat.id)">
-                                {{ cat.name }}
+                                {{ localizedCategoryName(cat) }}
                             </SelectItem>
                         </SelectContent>
                     </Select>

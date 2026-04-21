@@ -28,7 +28,10 @@ class FacilityController extends Controller
     public function create(): Response
     {
         return Inertia::render('facilities/Create', [
-            'categories' => FacilityCategory::all(),
+            'categories' => FacilityCategory::query()
+                ->select('id', 'name', 'name_ar', 'name_en')
+                ->orderByRaw('COALESCE(name_en, name) asc')
+                ->get(),
             'communities' => Community::select('id', 'name')->orderBy('name')->get(),
         ]);
     }
@@ -62,7 +65,10 @@ class FacilityController extends Controller
     {
         return Inertia::render('facilities/Edit', [
             'facility' => $facility,
-            'categories' => FacilityCategory::all(),
+            'categories' => FacilityCategory::query()
+                ->select('id', 'name', 'name_ar', 'name_en')
+                ->orderByRaw('COALESCE(name_en, name) asc')
+                ->get(),
             'communities' => Community::select('id', 'name')->orderBy('name')->get(),
         ]);
     }
