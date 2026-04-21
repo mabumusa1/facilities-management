@@ -48,7 +48,7 @@ function isGroupActive(group: NavGroup): boolean {
                             <component :is="group.icon" v-if="group.icon" />
                             <span>{{ group.title }}</span>
                             <ChevronRight
-                                class="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                                class="ms-auto transition-transform duration-200 rtl:-scale-x-100 group-data-[state=open]/collapsible:rotate-90"
                             />
                         </SidebarMenuButton>
                     </CollapsibleTrigger>

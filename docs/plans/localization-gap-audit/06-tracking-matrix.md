@@ -11,9 +11,9 @@
 
 | Workstream | Owner | Status | Target Date | Notes |
 |---|---|---|---|---|
-| Foundation (i18n, locale, RTL) |  | NS |  |  |
-| Shared UI and Navigation |  | NS |  |  |
-| Auth and User Settings |  | NS |  |  |
+| Foundation (i18n, locale, RTL) | Engineering | IP |  | Runtime i18n, locale persistence, and RTL/LTR sync are in place; guardrails remain pending. |
+| Shared UI and Navigation | Engineering | RV |  | Shared navigation and header are key-based; final parity review is pending. |
+| Auth and User Settings | Engineering | DN |  | Auth and settings surfaces are localized and integrated with runtime locale switching. |
 | Core Domain Modules |  | NS |  |  |
 | Operations Modules |  | NS |  |  |
 | Marketplace/Reports/App Settings |  | NS |  |  |
@@ -23,33 +23,33 @@
 
 | Gap ID | Module | Page/Component | Type | Severity | Status | Evidence Ref |
 |---|---|---|---|---|---|---|
-| GAP- |  |  |  |  | NS |  |
+| GAP-SHARED-001 | Shared/Auth/System | resources/js/pages/Welcome.vue | Localization | High | DN | Removed from app surface on 2026-04-21. |
 
 ## Page-Level Scan Tracker
 
 ### Shared/Auth/System
 | Path | Localization | Parity | Severity | Status | Notes |
 |---|---|---|---|---|---|
-| resources/js/components/AppSidebar.vue |  |  |  | NS |  |
-| resources/js/components/AppHeader.vue |  |  |  | NS |  |
-| resources/js/components/NavMain.vue |  |  |  | NS |  |
-| resources/js/components/NavGroups.vue |  |  |  | NS |  |
-| resources/js/components/Breadcrumbs.vue |  |  |  | NS |  |
-| resources/js/components/PageHeader.vue |  |  |  | NS |  |
-| resources/js/components/UserMenuContent.vue |  |  |  | NS |  |
-| resources/js/pages/auth/Login.vue |  |  |  | NS |  |
-| resources/js/pages/auth/Register.vue |  |  |  | NS |  |
-| resources/js/pages/auth/ForgotPassword.vue |  |  |  | NS |  |
-| resources/js/pages/auth/ResetPassword.vue |  |  |  | NS |  |
-| resources/js/pages/auth/VerifyEmail.vue |  |  |  | NS |  |
-| resources/js/pages/auth/ConfirmPassword.vue |  |  |  | NS |  |
-| resources/js/pages/auth/TwoFactorChallenge.vue |  |  |  | NS |  |
-| resources/js/pages/settings/Profile.vue |  |  |  | NS |  |
-| resources/js/pages/settings/Security.vue |  |  |  | NS |  |
-| resources/js/pages/settings/Appearance.vue |  |  |  | NS |  |
-| resources/js/pages/Dashboard.vue |  |  |  | NS |  |
-| resources/js/pages/notifications/Index.vue |  |  |  | NS |  |
-| resources/js/pages/Welcome.vue |  |  |  | NS |  |
+| resources/js/components/AppSidebar.vue | Key-based | Pending contract parity audit | Low | RV | Runtime locale integration verified. |
+| resources/js/components/AppHeader.vue | Key-based | Pending contract parity audit | Low | RV | Runtime locale integration verified. |
+| resources/js/components/NavMain.vue | Key-based | Pending contract parity audit | Low | RV | Runtime locale integration verified. |
+| resources/js/components/NavGroups.vue | Key-driven labels from parent | Pending contract parity audit | Low | RV | Receives localized labels and titles via props. |
+| resources/js/components/Breadcrumbs.vue | Key-driven labels from parent | Pending contract parity audit | Low | RV | Receives localized breadcrumb titles via props. |
+| resources/js/components/PageHeader.vue | Key-based | Pending contract parity audit | Low | RV | Runtime locale integration verified. |
+| resources/js/components/UserMenuContent.vue | Key-based | Pending contract parity audit | Low | RV | Includes active locale switch controls. |
+| resources/js/pages/auth/Login.vue | Key-based | Pending contract parity audit | Low | RV | Auth copy localized through runtime i18n keys. |
+| resources/js/pages/auth/Register.vue | Key-based | Pending contract parity audit | Low | RV | Auth copy localized through runtime i18n keys. |
+| resources/js/pages/auth/ForgotPassword.vue | Key-based | Pending contract parity audit | Low | RV | Auth copy localized through runtime i18n keys. |
+| resources/js/pages/auth/ResetPassword.vue | Key-based | Pending contract parity audit | Low | RV | Auth copy localized through runtime i18n keys. |
+| resources/js/pages/auth/VerifyEmail.vue | Key-based | Pending contract parity audit | Low | RV | Auth copy localized through runtime i18n keys. |
+| resources/js/pages/auth/ConfirmPassword.vue | Key-based | Pending contract parity audit | Low | RV | Auth copy localized through runtime i18n keys. |
+| resources/js/pages/auth/TwoFactorChallenge.vue | Key-based | Pending contract parity audit | Low | RV | Auth copy localized through runtime i18n keys. |
+| resources/js/pages/settings/Profile.vue | Key-based | Pending contract parity audit | Low | RV | Settings copy localized through runtime i18n keys. |
+| resources/js/pages/settings/Security.vue | Key-based | Pending contract parity audit | Low | RV | Settings copy localized through runtime i18n keys. |
+| resources/js/pages/settings/Appearance.vue | Key-based | Pending contract parity audit | Low | RV | Settings copy localized through runtime i18n keys. |
+| resources/js/pages/Dashboard.vue | Key-based | Pending contract parity audit | Low | RV | Dashboard labels localized through runtime i18n keys. |
+| resources/js/pages/notifications/Index.vue | Key-based | Pending contract parity audit | Low | RV | Notification labels localized through runtime i18n keys. |
+| resources/js/pages/Welcome.vue (removed) | N/A | N/A | N/A | DN | Removed from route surface and page inventory on 2026-04-21. |
 
 ### Core Domain
 | Path | Localization | Parity | Severity | Status | Notes |

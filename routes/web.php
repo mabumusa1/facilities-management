@@ -32,11 +32,14 @@ use App\Http\Controllers\Shared\LookupController;
 use App\Http\Controllers\Shared\NotificationController;
 use App\Http\Controllers\VisitorAccess\VisitorAccessController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 
-Route::inertia('/', 'Welcome', [
-    'canRegister' => Features::enabled(Features::registration()),
-])->name('home');
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return redirect()->route('login');
+})->name('home');
 
 Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');

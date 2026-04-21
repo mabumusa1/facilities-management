@@ -2,7 +2,9 @@
 import type { Component } from "vue"
 import type { SidebarMenuButtonProps } from "./SidebarMenuButtonChild.vue"
 import { reactiveOmit } from "@vueuse/core"
+import { computed } from "vue"
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { useI18n } from "@/composables/useI18n"
 import SidebarMenuButtonChild from "./SidebarMenuButtonChild.vue"
 import { useSidebar } from "./utils"
 
@@ -19,6 +21,8 @@ const props = withDefaults(defineProps<SidebarMenuButtonProps & {
 })
 
 const { isMobile, state } = useSidebar()
+const { isArabic } = useI18n()
+const tooltipSide = computed(() => isArabic.value ? 'left' : 'right')
 
 const delegatedProps = reactiveOmit(props, "tooltip")
 </script>
@@ -35,7 +39,7 @@ const delegatedProps = reactiveOmit(props, "tooltip")
       </SidebarMenuButtonChild>
     </TooltipTrigger>
     <TooltipContent
-      side="right"
+      :side="tooltipSide"
       align="center"
       :hidden="state !== 'collapsed' || isMobile"
     >

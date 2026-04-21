@@ -42,13 +42,13 @@ const unreadCount = computed(() => {
         class="flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/70 px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4"
     >
         <div class="flex items-center gap-2">
-            <SidebarTrigger class="-ml-1" />
+            <SidebarTrigger class="-ms-1" />
             <template v-if="breadcrumbs && breadcrumbs.length > 0">
                 <Breadcrumbs :breadcrumbs="breadcrumbs" />
             </template>
         </div>
 
-        <div class="ml-auto flex items-center gap-2">
+        <div class="ms-auto flex items-center gap-2">
             <LanguageSwitcher />
 
             <DropdownMenu>
@@ -56,7 +56,7 @@ const unreadCount = computed(() => {
                     <Button variant="outline" size="sm">
                         <Bell class="size-4" />
                         <span>{{ t('app.navigation.notifications') }}</span>
-                        <Badge v-if="unreadCount > 0" class="ml-1" variant="secondary">{{ unreadCount }}</Badge>
+                        <Badge v-if="unreadCount > 0" class="ms-1" variant="secondary">{{ unreadCount }}</Badge>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" class="w-64">
