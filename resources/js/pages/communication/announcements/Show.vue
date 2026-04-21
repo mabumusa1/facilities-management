@@ -18,7 +18,7 @@ function deleteAnnouncement() { if (confirm('Are you sure?')) { router.delete(`/
             <div>
                 <h2 class="text-2xl font-bold tracking-tight">{{ announcement.title }}</h2>
                 <div class="mt-1 flex items-center gap-2">
-                    <Badge :variant="announcement.is_published ? 'default' : 'secondary'">{{ announcement.is_published ? 'Published' : 'Draft' }}</Badge>
+                    <Badge :variant="announcement.published_at ? 'default' : 'secondary'">{{ announcement.published_at ? 'Published' : 'Draft' }}</Badge>
                     <span class="text-muted-foreground text-sm">{{ announcement.created_at }}</span>
                 </div>
             </div>

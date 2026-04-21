@@ -5,6 +5,7 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 defineOptions({ layout: { breadcrumbs: [{ title: 'Dashboard', href: '/dashboard' }, { title: 'Admins', href: '/admins' }, { title: 'New Admin', href: '/admins/create' }] } });
 
@@ -27,17 +28,38 @@ function submit() { form.post('/admins'); }
                 <div class="grid gap-2"><Label for="phone_country_code">Country Code</Label><Input id="phone_country_code" v-model="form.phone_country_code" required maxlength="5" /><InputError :message="form.errors.phone_country_code" /></div>
                 <div class="grid gap-2"><Label for="phone_number">Phone Number</Label><Input id="phone_number" v-model="form.phone_number" required /><InputError :message="form.errors.phone_number" /></div>
             </div>
-            <div class="grid gap-2">
-                <Label for="role">Role</Label>
-                <select id="role" v-model="form.role" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                    <option value="Admins">Admin</option>
-                    <option value="accountingManagers">Accounting Manager</option>
-                    <option value="serviceManagers">Service Manager</option>
-                    <option value="marketingManagers">Marketing Manager</option>
-                    <option value="salesAndLeasingManagers">Sales & Leasing Manager</option>
-                </select>
-                <InputError :message="form.errors.role" />
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div class="grid gap-2">
+                    <Label for="role">Role</Label>
+                    <Select v-model="form.role">
+                        <SelectTrigger id="role" class="w-full">
+                            <SelectValue placeholder="Select role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Admins">Admin</SelectItem>
+                            <SelectItem value="accountingManagers">Accounting Manager</SelectItem>
+                            <SelectItem value="serviceManagers">Service Manager</SelectItem>
+                            <SelectItem value="marketingManagers">Marketing Manager</SelectItem>
+                            <SelectItem value="salesAndLeasingManagers">Sales & Leasing Manager</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="form.errors.role" />
+                </div>
+                <div class="grid gap-2">
+                    <Label for="gender">Gender</Label>
+                    <Select v-model="form.gender">
+                        <SelectTrigger id="gender" class="w-full">
+                            <SelectValue placeholder="Select gender" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="male">Male</SelectItem>
+                            <SelectItem value="female">Female</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="form.errors.gender" />
+                </div>
             </div>
+            <div class="grid gap-2"><Label for="national_id">National ID</Label><Input id="national_id" v-model="form.national_id" /><InputError :message="form.errors.national_id" /></div>
             <div class="flex items-center gap-4"><Button :disabled="form.processing">Create Admin</Button></div>
         </form>
     </div>

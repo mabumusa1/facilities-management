@@ -7,6 +7,7 @@ use Database\Factories\ProfessionalFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Professional extends Model
 {
@@ -42,5 +43,11 @@ class Professional extends Model
     public function subcategories(): BelongsToMany
     {
         return $this->belongsToMany(RequestSubcategory::class, 'professional_subcategories', 'professional_id', 'subcategory_id');
+    }
+
+    /** @return HasMany<Request, $this> */
+    public function requests(): HasMany
+    {
+        return $this->hasMany(Request::class, 'professional_id');
     }
 }

@@ -141,6 +141,12 @@ class Unit extends Model
         return $this->hasMany(MarketplaceUnit::class);
     }
 
+    /** @return HasMany<MarketplaceOffer, $this> */
+    public function marketplaceOffers(): HasMany
+    {
+        return $this->hasMany(MarketplaceOffer::class);
+    }
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class);

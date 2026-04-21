@@ -87,5 +87,17 @@ function deleteCommunity() {
                 </div>
             </CardContent>
         </Card>
+
+        <Card v-if="community.facilities && community.facilities.length > 0">
+            <CardHeader><CardTitle>Facilities</CardTitle></CardHeader>
+            <CardContent>
+                <div class="space-y-2">
+                    <Link v-for="facility in community.facilities" :key="facility.id" :href="`/facilities/${facility.id}`" class="flex items-center justify-between rounded-md border p-3 hover:bg-muted/50">
+                        <span class="font-medium">{{ facility.name }}</span>
+                        <Badge :variant="facility.is_active ? 'default' : 'secondary'">{{ facility.is_active ? 'Active' : 'Inactive' }}</Badge>
+                    </Link>
+                </div>
+            </CardContent>
+        </Card>
     </div>
 </template>

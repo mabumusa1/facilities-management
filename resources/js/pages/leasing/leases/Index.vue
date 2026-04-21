@@ -20,8 +20,9 @@ const props = defineProps<{
 
 const columns: Column<Lease>[] = [
     { key: 'contract_number', label: 'Contract #' },
-    { key: 'tenant.name', label: 'Tenant' },
+    { key: 'tenant', label: 'Tenant', render: (row: Lease) => row.tenant ? `${row.tenant.first_name} ${row.tenant.last_name}` : '—' },
     { key: 'status.name', label: 'Status' },
+    { key: 'tenant_type', label: 'Type' },
     { key: 'start_date', label: 'Start Date' },
     { key: 'end_date', label: 'End Date' },
     { key: 'rental_total_amount', label: 'Total Amount' },

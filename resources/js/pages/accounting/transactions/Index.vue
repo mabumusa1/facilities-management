@@ -22,9 +22,11 @@ const columns: Column<Transaction>[] = [
     { key: 'id', label: 'ID' },
     { key: 'lease.contract_number', label: 'Lease' },
     { key: 'unit.name', label: 'Unit' },
+    { key: 'category', label: 'Category', render: (row: any) => row.category?.name_en ?? row.category?.name ?? '—' },
+    { key: 'type', label: 'Type', render: (row: any) => row.type?.name_en ?? row.type?.name ?? '—' },
     { key: 'status.name', label: 'Status' },
     { key: 'amount', label: 'Amount' },
-    { key: 'due_date', label: 'Due Date' },
+    { key: 'due_on', label: 'Due Date' },
     { key: 'is_paid', label: 'Paid', render: (row: Transaction) => row.is_paid ? 'Yes' : 'No' },
 ];
 </script>

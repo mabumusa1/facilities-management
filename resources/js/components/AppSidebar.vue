@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import {
+    Bell,
+    ChartColumnBig,
     Building2,
     CalendarCheck,
     ClipboardList,
@@ -8,7 +10,9 @@ import {
     FileText,
     LayoutGrid,
     Megaphone,
+    Store,
     Receipt,
+    Settings,
     Users,
 } from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
@@ -60,6 +64,16 @@ const navGroups: NavGroup[] = [
         ],
     },
     {
+        title: 'Marketplace',
+        icon: Store,
+        items: [
+            { title: 'Overview', href: '/marketplace' },
+            { title: 'Customers', href: '/marketplace/customers' },
+            { title: 'Listing', href: '/marketplace/listing' },
+            { title: 'Visits', href: '/marketplace/visits' },
+        ],
+    },
+    {
         title: 'Facilities',
         icon: CalendarCheck,
         items: [
@@ -95,7 +109,36 @@ const navGroups: NavGroup[] = [
         title: 'Visitor Access',
         icon: DoorOpen,
         items: [
-            { title: 'Visitor Access', href: '/requests?category=visitor-access' },
+            { title: 'Visitor Access History', href: '/visitor-access/history' },
+        ],
+    },
+    {
+        title: 'Reports',
+        icon: ChartColumnBig,
+        items: [
+            { title: 'Reports', href: '/dashboard/reports' },
+            { title: 'Power BI Reports', href: '/dashboard/power-bi-reports' },
+            { title: 'System Reports', href: '/dashboard/system-reports' },
+        ],
+    },
+    {
+        title: 'App Settings',
+        icon: Settings,
+        items: [
+            { title: 'Settings Shell', href: '/settings/invoice' },
+            { title: 'Settings Facilities', href: '/settings/facilities' },
+            { title: 'Settings Forms', href: '/settings/forms' },
+            { title: 'Request Categories', href: '/app-settings/request-categories' },
+            { title: 'Facility Categories', href: '/app-settings/facility-categories' },
+            { title: 'Invoice Settings', href: '/app-settings/invoice' },
+            { title: 'General Settings', href: '/app-settings/general' },
+        ],
+    },
+    {
+        title: 'Shared',
+        icon: Bell,
+        items: [
+            { title: 'Notifications', href: '/notifications' },
         ],
     },
 ];

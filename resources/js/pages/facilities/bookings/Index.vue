@@ -21,11 +21,12 @@ const props = defineProps<{
 const columns: Column<FacilityBooking>[] = [
     { key: 'id', label: 'ID' },
     { key: 'facility.name', label: 'Facility' },
-    { key: 'resident.name', label: 'Resident' },
+    { key: 'booker', label: 'Booked By', render: (row: any) => row.booker ? `${row.booker.first_name ?? ''} ${row.booker.last_name ?? ''}`.trim() || row.booker.name || '—' : '—' },
     { key: 'status.name', label: 'Status' },
     { key: 'booking_date', label: 'Date' },
     { key: 'start_time', label: 'Start' },
     { key: 'end_time', label: 'End' },
+    { key: 'number_of_guests', label: 'Guests' },
 ];
 </script>
 
@@ -36,6 +37,8 @@ const columns: Column<FacilityBooking>[] = [
         <PageHeader
             title="Facility Bookings"
             description="View and manage facility reservations."
+            create-href="/facility-bookings/create"
+            create-label="New Booking"
         />
 
         <DataTable

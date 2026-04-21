@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Contacts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class OwnerController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('contacts/owners/Create');
+        return Inertia::render('contacts/owners/Create', [
+            'countries' => Country::select('id', 'name', 'name_en')->orderBy('name')->get(),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -37,8 +40,10 @@ class OwnerController extends Controller
             'phone_number' => ['required', 'string', 'max:20'],
             'phone_country_code' => ['required', 'string', 'max:5'],
             'national_id' => ['nullable', 'string', 'max:50'],
+            'nationality_id' => ['nullable', 'integer', 'exists:countries,id'],
             'gender' => ['nullable', 'in:male,female'],
             'georgian_birthdate' => ['nullable', 'date'],
+            'active' => ['sometimes', 'boolean'],
         ]);
 
         $owner = Owner::create($validated);
@@ -50,7 +55,7 @@ class OwnerController extends Controller
 
     public function show(Owner $owner): Response
     {
-        $owner->loadCount('units')->load('units');
+        $owner->loadCount('units')->load(['units.community', 'units.building']);
 
         return Inertia::render('contacts/owners/Show', [
             'owner' => $owner,
@@ -61,6 +66,7 @@ class OwnerController extends Controller
     {
         return Inertia::render('contacts/owners/Edit', [
             'owner' => $owner,
+            'countries' => Country::select('id', 'name', 'name_en')->orderBy('name')->get(),
         ]);
     }
 
@@ -73,8 +79,10 @@ class OwnerController extends Controller
             'phone_number' => ['required', 'string', 'max:20'],
             'phone_country_code' => ['required', 'string', 'max:5'],
             'national_id' => ['nullable', 'string', 'max:50'],
+            'nationality_id' => ['nullable', 'integer', 'exists:countries,id'],
             'gender' => ['nullable', 'in:male,female'],
             'georgian_birthdate' => ['nullable', 'date'],
+            'active' => ['sometimes', 'boolean'],
         ]);
 
         $owner->update($validated);

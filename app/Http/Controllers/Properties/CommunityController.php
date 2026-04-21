@@ -21,7 +21,7 @@ class CommunityController extends Controller
     public function index(Request $request): Response
     {
         $communities = Community::query()
-            ->withCount(['buildings', 'units'])
+            ->withCount(['buildings', 'units', 'requests'])
             ->with(['country', 'city', 'district', 'currency'])
             ->latest()
             ->paginate(15);
@@ -71,8 +71,8 @@ class CommunityController extends Controller
      */
     public function show(Community $community): Response
     {
-        $community->loadCount(['buildings', 'units'])
-            ->load(['country', 'city', 'district', 'currency', 'buildings']);
+        $community->loadCount(['buildings', 'units', 'requests'])
+            ->load(['country', 'city', 'district', 'currency', 'buildings', 'facilities']);
 
         return Inertia::render('properties/communities/Show', [
             'community' => $community,

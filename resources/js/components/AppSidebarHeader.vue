@@ -1,5 +1,18 @@
 <script setup lang="ts">
+import { Link, usePage } from '@inertiajs/vue3';
+import { Bell } from 'lucide-vue-next';
+import { computed } from 'vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItem } from '@/types';
 
@@ -11,6 +24,14 @@ withDefaults(
         breadcrumbs: () => [],
     },
 );
+
+const page = usePage();
+
+const unreadCount = computed(() => {
+    const count = page.props.notifications?.unread_count;
+
+    return typeof count === 'number' ? count : 0;
+});
 </script>
 
 <template>
@@ -23,5 +44,25 @@ withDefaults(
                 <Breadcrumbs :breadcrumbs="breadcrumbs" />
             </template>
         </div>
+
+        <DropdownMenu>
+            <DropdownMenuTrigger as-child>
+                <Button variant="outline" size="sm" class="ml-auto">
+                    <Bell class="size-4" />
+                    <span>Notifications</span>
+                    <Badge v-if="unreadCount > 0" class="ml-1" variant="secondary">{{ unreadCount }}</Badge>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" class="w-64">
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem as-child>
+                    <Link href="/notifications">Open Notifications Center</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem as-child>
+                    <Link href="/notifications/unread-count">Unread Count Endpoint</Link>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     </header>
 </template>

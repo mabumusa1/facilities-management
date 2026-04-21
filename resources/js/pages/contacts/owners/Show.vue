@@ -51,6 +51,7 @@ function deleteOwner() { if (confirm('Are you sure?')) { router.delete(`/owners/
                 <div class="space-y-2">
                     <Link v-for="unit in owner.units" :key="unit.id" :href="`/units/${unit.id}`" class="flex items-center justify-between rounded-md border p-3 hover:bg-muted/50">
                         <span class="font-medium">{{ unit.name }}</span>
+                        <span class="text-muted-foreground text-sm">{{ unit.community?.name ?? '' }} {{ unit.building?.name ? `/ ${unit.building.name}` : '' }}</span>
                     </Link>
                 </div>
             </CardContent>

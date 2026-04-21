@@ -121,6 +121,12 @@ class Community extends Model
         return $this->belongsToMany(Amenity::class, 'community_amenities');
     }
 
+    /** @return HasMany<Facility, $this> */
+    public function facilities(): HasMany
+    {
+        return $this->hasMany(Facility::class);
+    }
+
     /** @return HasMany<Request, $this> */
     public function requests(): HasMany
     {

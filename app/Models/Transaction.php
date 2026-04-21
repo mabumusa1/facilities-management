@@ -50,6 +50,11 @@ class Transaction extends Model
         'is_old' => false,
     ];
 
+    protected $appends = [
+        'due_date',
+        'notes',
+    ];
+
     protected function casts(): array
     {
         return [
@@ -72,6 +77,21 @@ class Transaction extends Model
     public function lease(): BelongsTo
     {
         return $this->belongsTo(Lease::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Setting::class, 'category_id');
+    }
+
+    public function subcategory(): BelongsTo
+    {
+        return $this->belongsTo(Setting::class, 'subcategory_id');
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Setting::class, 'type_id');
     }
 
     public function unit(): BelongsTo
@@ -110,6 +130,20 @@ class Transaction extends Model
     {
         return Attribute::get(
             fn () => number_format((float) $this->amount - (float) $this->paid, 2, '.', ''),
+        );
+    }
+
+    protected function dueDate(): Attribute
+    {
+        return Attribute::get(
+            fn () => $this->due_on?->toDateString(),
+        );
+    }
+
+    protected function notes(): Attribute
+    {
+        return Attribute::get(
+            fn () => $this->details,
         );
     }
 }

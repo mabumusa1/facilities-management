@@ -27,7 +27,7 @@ function deleteRequest() { if (confirm('Are you sure?')) { router.delete(`/reque
 
         <div class="grid gap-4 md:grid-cols-3">
             <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Status</CardTitle></CardHeader><CardContent><Badge>{{ serviceRequest.status?.name ?? '—' }}</Badge></CardContent></Card>
-            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Priority</CardTitle></CardHeader><CardContent><Badge variant="secondary">{{ serviceRequest.priority?.name ?? '—' }}</Badge></CardContent></Card>
+            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Priority</CardTitle></CardHeader><CardContent><Badge variant="secondary">{{ serviceRequest.priority ?? '—' }}</Badge></CardContent></Card>
             <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Created</CardTitle></CardHeader><CardContent><span>{{ serviceRequest.created_at }}</span></CardContent></Card>
         </div>
 
@@ -42,8 +42,8 @@ function deleteRequest() { if (confirm('Are you sure?')) { router.delete(`/reque
             <Card>
                 <CardHeader><CardTitle>People</CardTitle></CardHeader>
                 <CardContent class="space-y-2">
-                    <div class="flex justify-between"><span class="text-muted-foreground">Requester</span><span>{{ serviceRequest.requester?.first_name }} {{ serviceRequest.requester?.last_name }}</span></div>
-                    <div class="flex justify-between"><span class="text-muted-foreground">Assignee</span><span>{{ serviceRequest.assignee ? `${serviceRequest.assignee.first_name} ${serviceRequest.assignee.last_name}` : '—' }}</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">Requester</span><span>{{ (serviceRequest as any).requester?.first_name }} {{ (serviceRequest as any).requester?.last_name }}</span></div>
+                    <div class="flex justify-between"><span class="text-muted-foreground">Assignee</span><span>{{ (serviceRequest as any).assignee ? `${(serviceRequest as any).assignee.first_name} ${(serviceRequest as any).assignee.last_name}` : '—' }}</span></div>
                 </CardContent>
             </Card>
         </div>

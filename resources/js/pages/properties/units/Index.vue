@@ -23,8 +23,11 @@ const columns: Column<Unit>[] = [
     { key: 'community.name', label: 'Community' },
     { key: 'building.name', label: 'Building' },
     { key: 'category.name', label: 'Category' },
-    { key: 'type.name', label: 'Type' },
     { key: 'status.name', label: 'Status' },
+    { key: 'floor_no', label: 'Floor' },
+    { key: 'net_area', label: 'Area (sqm)' },
+    { key: 'owner', label: 'Owner', render: (row: Unit) => row.owner ? `${row.owner.first_name} ${row.owner.last_name}` : '—' },
+    { key: 'tenant', label: 'Tenant', render: (row: Unit) => row.tenant ? `${row.tenant.first_name} ${row.tenant.last_name}` : '—' },
 ];
 </script>
 

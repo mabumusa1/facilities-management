@@ -5,11 +5,15 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import type { FacilityCategory } from '@/types';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import type { Community, FacilityCategory } from '@/types';
 
 defineOptions({ layout: { breadcrumbs: [{ title: 'Dashboard', href: '/dashboard' }, { title: 'Facilities', href: '/facilities' }, { title: 'New Facility', href: '/facilities/create' }] } });
 
-defineProps<{ categories: FacilityCategory[] }>();
+defineProps<{
+    categories: FacilityCategory[];
+    communities: Pick<Community, 'id' | 'name'>[];
+}>();
 
 const form = useForm({ name: '', category_id: '', community_id: '', capacity: '' });
 
@@ -24,14 +28,33 @@ function submit() { form.post('/facilities'); }
             <div class="grid gap-2"><Label for="name">Facility Name</Label><Input id="name" v-model="form.name" required placeholder="e.g. Swimming Pool" /><InputError :message="form.errors.name" /></div>
             <div class="grid gap-4 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <Label for="category_id">Category</Label>
-                    <select id="category_id" v-model="form.category_id" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                        <option value="" disabled>Select category</option>
-                        <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
-                    </select>
+                    <Label>Category</Label>
+                    <Select v-model="form.category_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="cat in categories" :key="cat.id" :value="String(cat.id)">
+                                {{ cat.name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
                     <InputError :message="form.errors.category_id" />
                 </div>
-                <div class="grid gap-2"><Label for="community_id">Community ID</Label><Input id="community_id" v-model="form.community_id" type="number" required /><InputError :message="form.errors.community_id" /></div>
+                <div class="grid gap-2">
+                    <Label>Community</Label>
+                    <Select v-model="form.community_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select community" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="community in communities" :key="community.id" :value="String(community.id)">
+                                {{ community.name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="form.errors.community_id" />
+                </div>
             </div>
             <div class="grid gap-2"><Label for="capacity">Capacity</Label><Input id="capacity" v-model="form.capacity" type="number" min="1" placeholder="Maximum occupancy" /><InputError :message="form.errors.capacity" /></div>
             <div class="flex items-center gap-4"><Button :disabled="form.processing">Create Facility</Button></div>

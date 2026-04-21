@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Communication;
 
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
+use App\Models\Building;
+use App\Models\Community;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -25,16 +27,20 @@ class AnnouncementController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('communication/announcements/Create');
+        return Inertia::render('communication/announcements/Create', [
+            'communities' => Community::select('id', 'name')->orderBy('name')->get(),
+            'buildings' => Building::select('id', 'name', 'rf_community_id')->orderBy('name')->get(),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'body' => ['required', 'string'],
+            'content' => ['required', 'string'],
             'community_id' => ['nullable', 'integer', 'exists:rf_communities,id'],
             'building_id' => ['nullable', 'integer', 'exists:rf_buildings,id'],
+            'published_at' => ['nullable', 'date'],
         ]);
 
         $announcement = Announcement::create($validated);
@@ -57,6 +63,8 @@ class AnnouncementController extends Controller
     {
         return Inertia::render('communication/announcements/Edit', [
             'announcement' => $announcement,
+            'communities' => Community::select('id', 'name')->orderBy('name')->get(),
+            'buildings' => Building::select('id', 'name', 'rf_community_id')->orderBy('name')->get(),
         ]);
     }
 
@@ -64,9 +72,10 @@ class AnnouncementController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'body' => ['required', 'string'],
+            'content' => ['required', 'string'],
             'community_id' => ['nullable', 'integer', 'exists:rf_communities,id'],
             'building_id' => ['nullable', 'integer', 'exists:rf_buildings,id'],
+            'published_at' => ['nullable', 'date'],
         ]);
 
         $announcement->update($validated);

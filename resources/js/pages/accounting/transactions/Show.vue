@@ -17,7 +17,7 @@ function deleteTransaction() { if (confirm('Are you sure?')) { router.delete(`/t
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold tracking-tight">Transaction #{{ transaction.id }}</h2>
-                <p class="text-muted-foreground text-sm">{{ transaction.category?.name }} &middot; {{ transaction.type?.name }}</p>
+                <p class="text-muted-foreground text-sm">{{ transaction.category?.name ?? '—' }} &middot; {{ transaction.type?.name ?? '—' }}</p>
             </div>
             <div class="flex items-center gap-2">
                 <Button variant="outline" as-child><a :href="`/transactions/${transaction.id}/edit`">Edit</a></Button>

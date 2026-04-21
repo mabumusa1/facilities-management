@@ -5,7 +5,18 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import type { Resident, Status, UnitCategory, Unit } from '@/types';
+
+const props = defineProps<{
+    tenants: Pick<Resident, 'id' | 'first_name' | 'last_name'>[];
+    statuses: Pick<Status, 'id' | 'name' | 'name_en'>[];
+    unitCategories: Pick<UnitCategory, 'id' | 'name' | 'name_en'>[];
+    rentalContractTypes: { id: number; name: string; name_en: string | null }[];
+    paymentSchedules: { id: number; name: string; name_en: string | null; parent_id: number | null }[];
+    units: Pick<Unit, 'id' | 'name'>[];
+}>();
 
 defineOptions({
     layout: {
@@ -54,29 +65,110 @@ function submit() {
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="tenant_id">Tenant ID</Label>
-                    <Input id="tenant_id" v-model="form.tenant_id" type="number" required placeholder="Tenant ID" />
+                    <Label>Tenant</Label>
+                    <Select v-model="form.tenant_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select tenant" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="tenant in tenants" :key="tenant.id" :value="String(tenant.id)">
+                                {{ tenant.first_name }} {{ tenant.last_name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
                     <InputError :message="form.errors.tenant_id" />
                 </div>
             </div>
 
-            <div class="grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-4 sm:grid-cols-3">
                 <div class="grid gap-2">
-                    <Label for="tenant_type">Tenant Type</Label>
-                    <select id="tenant_type" v-model="form.tenant_type" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                        <option value="individual">Individual</option>
-                        <option value="company">Company</option>
-                    </select>
+                    <Label>Status</Label>
+                    <Select v-model="form.status_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="status in statuses" :key="status.id" :value="String(status.id)">
+                                {{ status.name_en ?? status.name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="form.errors.status_id" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label>Tenant Type</Label>
+                    <Select v-model="form.tenant_type">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="individual">Individual</SelectItem>
+                            <SelectItem value="company">Company</SelectItem>
+                        </SelectContent>
+                    </Select>
                     <InputError :message="form.errors.tenant_type" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="rental_type">Rental Type</Label>
-                    <select id="rental_type" v-model="form.rental_type" required class="border-input bg-background ring-offset-background flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none">
-                        <option value="total">Total</option>
-                        <option value="detailed">Detailed</option>
-                    </select>
+                    <Label>Rental Type</Label>
+                    <Select v-model="form.rental_type">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="total">Total</SelectItem>
+                            <SelectItem value="detailed">Detailed</SelectItem>
+                        </SelectContent>
+                    </Select>
                     <InputError :message="form.errors.rental_type" />
+                </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-3">
+                <div class="grid gap-2">
+                    <Label>Unit Category</Label>
+                    <Select v-model="form.lease_unit_type_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="cat in unitCategories" :key="cat.id" :value="String(cat.id)">
+                                {{ cat.name_en ?? cat.name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="form.errors.lease_unit_type_id" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label>Contract Type</Label>
+                    <Select v-model="form.rental_contract_type_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select contract type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="type in rentalContractTypes" :key="type.id" :value="String(type.id)">
+                                {{ type.name_en ?? type.name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="form.errors.rental_contract_type_id" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label>Payment Schedule</Label>
+                    <Select v-model="form.payment_schedule_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Select schedule" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="schedule in paymentSchedules" :key="schedule.id" :value="String(schedule.id)">
+                                {{ schedule.name_en ?? schedule.name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="form.errors.payment_schedule_id" />
                 </div>
             </div>
 

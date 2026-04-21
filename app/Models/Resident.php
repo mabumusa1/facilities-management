@@ -65,4 +65,10 @@ class Resident extends Model
     {
         return $this->morphMany(Dependent::class, 'dependable');
     }
+
+    /** @return HasMany<Unit, $this> */
+    public function units(): HasMany
+    {
+        return $this->hasMany(Unit::class, 'tenant_id');
+    }
 }

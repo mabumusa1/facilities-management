@@ -61,5 +61,44 @@ function deleteLease() { if (confirm('Are you sure?')) { router.delete(`/leases/
                 </div>
             </CardContent>
         </Card>
+
+        <Card v-if="lease.additional_fees && lease.additional_fees.length > 0">
+            <CardHeader><CardTitle>Additional Fees</CardTitle></CardHeader>
+            <CardContent>
+                <div class="space-y-2">
+                    <div v-for="fee in lease.additional_fees" :key="fee.id" class="flex items-center justify-between rounded-md border p-3">
+                        <span class="font-medium">{{ fee.name ?? fee.description ?? `Fee #${fee.id}` }}</span>
+                        <span class="text-muted-foreground text-sm">{{ fee.amount ?? '—' }}</span>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+
+        <Card v-if="lease.escalations && lease.escalations.length > 0">
+            <CardHeader><CardTitle>Escalations</CardTitle></CardHeader>
+            <CardContent>
+                <div class="space-y-2">
+                    <div v-for="esc in lease.escalations" :key="esc.id" class="flex items-center justify-between rounded-md border p-3">
+                        <span class="font-medium">{{ esc.type ?? `Escalation #${esc.id}` }}</span>
+                        <span class="text-muted-foreground text-sm">{{ esc.rate ?? esc.amount ?? '—' }}{{ esc.rate ? '%' : '' }}</span>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+
+        <div class="grid gap-4 md:grid-cols-2">
+            <Card v-if="lease.created_by">
+                <CardHeader><CardTitle>Created By</CardTitle></CardHeader>
+                <CardContent>
+                    <span>{{ lease.created_by.first_name }} {{ lease.created_by.last_name }}</span>
+                </CardContent>
+            </Card>
+            <Card v-if="lease.deal_owner">
+                <CardHeader><CardTitle>Deal Owner</CardTitle></CardHeader>
+                <CardContent>
+                    <span>{{ lease.deal_owner.first_name }} {{ lease.deal_owner.last_name }}</span>
+                </CardContent>
+            </Card>
+        </div>
     </div>
 </template>

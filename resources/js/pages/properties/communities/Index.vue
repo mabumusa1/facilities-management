@@ -22,9 +22,12 @@ const columns: Column<Community>[] = [
     { key: 'name', label: 'Name' },
     { key: 'country.name', label: 'Country' },
     { key: 'city.name', label: 'City' },
-    { key: 'district.name', label: 'District' },
+    { key: 'currency.code', label: 'Currency' },
     { key: 'buildings_count', label: 'Buildings' },
     { key: 'units_count', label: 'Units' },
+    { key: 'requests_count', label: 'Requests' },
+    { key: 'sales_commission_rate', label: 'Sales %' },
+    { key: 'rental_commission_rate', label: 'Rental %' },
 ];
 </script>
 

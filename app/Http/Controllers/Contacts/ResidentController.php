@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Contacts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Resident;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class ResidentController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('contacts/tenants/Create');
+        return Inertia::render('contacts/tenants/Create', [
+            'countries' => Country::select('id', 'name', 'name_en')->orderBy('name')->get(),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -37,8 +40,11 @@ class ResidentController extends Controller
             'phone_number' => ['required', 'string', 'max:20'],
             'phone_country_code' => ['required', 'string', 'max:5'],
             'national_id' => ['nullable', 'string', 'max:50'],
+            'nationality_id' => ['nullable', 'integer', 'exists:countries,id'],
             'gender' => ['nullable', 'in:male,female'],
             'georgian_birthdate' => ['nullable', 'date'],
+            'source_id' => ['nullable', 'integer'],
+            'active' => ['sometimes', 'boolean'],
         ]);
 
         $resident = Resident::create($validated);
@@ -50,7 +56,7 @@ class ResidentController extends Controller
 
     public function show(Resident $resident): Response
     {
-        $resident->loadCount(['units', 'leases'])->load(['units', 'leases']);
+        $resident->loadCount(['units', 'leases'])->load(['units.community', 'units.building', 'leases.status', 'dependents']);
 
         return Inertia::render('contacts/tenants/Show', [
             'resident' => $resident,
@@ -61,6 +67,7 @@ class ResidentController extends Controller
     {
         return Inertia::render('contacts/tenants/Edit', [
             'resident' => $resident,
+            'countries' => Country::select('id', 'name', 'name_en')->orderBy('name')->get(),
         ]);
     }
 
@@ -73,8 +80,11 @@ class ResidentController extends Controller
             'phone_number' => ['required', 'string', 'max:20'],
             'phone_country_code' => ['required', 'string', 'max:5'],
             'national_id' => ['nullable', 'string', 'max:50'],
+            'nationality_id' => ['nullable', 'integer', 'exists:countries,id'],
             'gender' => ['nullable', 'in:male,female'],
             'georgian_birthdate' => ['nullable', 'date'],
+            'source_id' => ['nullable', 'integer'],
+            'active' => ['sometimes', 'boolean'],
         ]);
 
         $resident->update($validated);

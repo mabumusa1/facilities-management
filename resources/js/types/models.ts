@@ -42,7 +42,10 @@ export type Status = {
     name: string;
     name_ar: string | null;
     name_en: string | null;
-    group: string | null;
+    priority?: number | null;
+    type?: string | null;
+    group?: string | null;
+    created_at?: string;
 };
 
 export type Setting = {
@@ -52,6 +55,23 @@ export type Setting = {
     name_en: string | null;
     type: string;
     parent_id: number | null;
+    created_at?: string;
+};
+
+export type CommonList = {
+    id: number;
+    name: string;
+    name_ar: string | null;
+    name_en: string | null;
+    type: string | null;
+    priority: number | null;
+    created_at?: string;
+};
+
+export type Module = {
+    id: number;
+    title: string;
+    is_active: string | boolean;
 };
 
 // ---------------------------------------------------------------------------
@@ -159,6 +179,14 @@ export type Unit = {
     district?: District;
     owner?: Owner;
     tenant?: Resident;
+    specifications?: UnitSpecification[];
+    rooms?: UnitRoom[];
+    areas?: UnitArea[];
+    features?: Feature[];
+    photos?: Media[];
+    floor_plans?: Media[];
+    documents?: Media[];
+    marketplace_listings?: MarketplaceUnit[];
 };
 
 // ---------------------------------------------------------------------------
@@ -254,6 +282,26 @@ export type Professional = {
     name?: string;
 };
 
+export type Lead = {
+    id: number;
+    name: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    phone_number: string;
+    email: string | null;
+    source_id: number | null;
+    status_id: number | null;
+    priority_id: number | null;
+    lead_owner_id: number | null;
+    interested: string | null;
+    lead_last_contact_at: string | null;
+    created_at: string;
+    updated_at: string;
+    source?: Setting | { id: number | null; value: string | null };
+    status?: Status | { id: number | null; value: string | null };
+    lead_owner?: Admin | string | null;
+};
+
 export type Dependent = {
     id: number;
     first_name: string;
@@ -271,6 +319,56 @@ export type Dependent = {
 // ---------------------------------------------------------------------------
 // Lease & Finance Models
 // ---------------------------------------------------------------------------
+
+export type LeaseUnit = {
+    id: number;
+    lease_id: number;
+    unit_id: number;
+    rental_annual_type: string | null;
+    annual_rental_amount: string | null;
+    net_area: string | null;
+    meter_cost: string | null;
+    created_at: string;
+    updated_at: string;
+    unit?: Unit;
+};
+
+export type LeaseAdditionalFee = {
+    id: number;
+    lease_id: number;
+    name: string | null;
+    description: string | null;
+    amount: string | null;
+    calculation_basis_id: number | null;
+    frequency_id: number | null;
+    status_id: number | null;
+    created_at: string;
+    updated_at: string;
+    calculation_basis?: Setting;
+    frequency?: Setting;
+    status?: Status;
+};
+
+export type LeaseEscalation = {
+    id: number;
+    lease_id: number;
+    type: string | null;
+    amount: string | null;
+    rate: string | null;
+    start_at: string | null;
+    end_at: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type TransactionAdditionalFee = {
+    id: number;
+    transaction_id: number;
+    name: string;
+    amount: string;
+    created_at: string;
+    updated_at: string;
+};
 
 export type Lease = {
     id: number;
@@ -312,7 +410,12 @@ export type Lease = {
     tenant?: Resident;
     status?: Status;
     units?: Unit[];
+    lease_units?: LeaseUnit[];
     transactions?: Transaction[];
+    additional_fees?: LeaseAdditionalFee[];
+    escalations?: LeaseEscalation[];
+    created_by?: Admin;
+    deal_owner?: Admin;
     // Computed
     total_unpaid_amount?: string;
     unpaid_transactions_count?: number;
@@ -330,7 +433,8 @@ export type Transaction = {
     amount: string;
     tax_amount: string;
     rental_amount: string | null;
-    due_date: string;
+    due_on?: string;
+    due_date?: string;
     is_paid: boolean;
     paid_date: string | null;
     notes: string | null;
@@ -340,6 +444,10 @@ export type Transaction = {
     lease?: Lease;
     unit?: Unit;
     status?: Status;
+    category?: Setting;
+    subcategory?: Setting;
+    type?: Setting;
+    additional_fees?: TransactionAdditionalFee[];
     // Computed
     paid?: string;
     left?: string;
@@ -370,6 +478,7 @@ export type RequestCategory = {
     name_en: string | null;
     icon: string | null;
     subcategories?: RequestSubcategory[];
+    serviceSettings?: ServiceSetting[];
 };
 
 export type RequestSubcategory = {
@@ -383,6 +492,20 @@ export type RequestSubcategory = {
     requests_count?: number;
 };
 
+export type ServiceSetting = {
+    id: number;
+    category_id: number;
+    visibilities: Record<string, boolean> | null;
+    permissions: Record<string, boolean> | null;
+    submit_request_before_type: string | null;
+    submit_request_before_value: number | null;
+    capacity_type: string | null;
+    capacity_value: number | null;
+    created_at: string;
+    updated_at: string;
+    category?: RequestCategory;
+};
+
 export type ServiceRequest = {
     id: number;
     title: string | null;
@@ -394,10 +517,14 @@ export type ServiceRequest = {
     unit_id: number | null;
     community_id: number | null;
     building_id: number | null;
+    professional_id: number | null;
     requester_id: number;
     requester_type: string;
     assignee_id: number | null;
     assignee_type: string | null;
+    request_code: string | null;
+    admin_notes: string | null;
+    assigned_at: string | null;
     scheduled_date: string | null;
     completed_date: string | null;
     created_at: string;
@@ -408,6 +535,10 @@ export type ServiceRequest = {
     status?: Status;
     unit?: Unit;
     community?: Community;
+    building?: Building;
+    requester?: Resident | Owner | Admin | Professional;
+    assignee?: Admin | Professional | null;
+    professional?: Professional | null;
 };
 
 // ---------------------------------------------------------------------------
@@ -429,7 +560,7 @@ export type Facility = {
     category_id: number;
     community_id: number;
     capacity: number | null;
-    status: boolean;
+    is_active: boolean;
     created_at: string;
     updated_at: string;
     // Relationships
@@ -440,17 +571,21 @@ export type Facility = {
 export type FacilityBooking = {
     id: number;
     facility_id: number;
-    resident_id: number;
     status_id: number;
+    booker_type: string;
+    booker_id: number;
     booking_date: string;
     start_time: string;
     end_time: string;
+    number_of_guests: number | null;
     notes: string | null;
+    approved_at: string | null;
     created_at: string;
     updated_at: string;
     // Relationships
     facility?: Facility;
     resident?: Resident;
+    booker?: Resident | Owner | Admin | Professional;
     status?: Status;
 };
 
@@ -461,15 +596,160 @@ export type FacilityBooking = {
 export type Announcement = {
     id: number;
     title: string;
-    body: string;
+    body?: string;
+    content?: string;
     community_id: number | null;
     building_id: number | null;
+    status?: boolean;
+    is_published?: boolean;
     published_at: string | null;
     created_at: string;
     updated_at: string;
     // Relationships
     community?: Community;
     building?: Building;
+};
+
+export type WorkingDay = {
+    id: number;
+    subcategory_id: number;
+    day_name: string;
+    from_time: string | null;
+    to_time: string | null;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+};
+
+export type FeaturedService = {
+    id: number;
+    subcategory_id: number;
+    name: string;
+    status: boolean;
+    icon_id: number | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type Feature = {
+    id: number;
+    name: string;
+    name_ar: string | null;
+    name_en: string | null;
+    icon: string | null;
+    active: boolean;
+    created_at: string;
+    updated_at: string;
+};
+
+export type Amenity = {
+    id: number;
+    name: string;
+    name_ar: string | null;
+    name_en: string | null;
+    icon: string | null;
+    active: boolean;
+    created_at: string;
+    updated_at: string;
+};
+
+export type MarketplaceUnit = {
+    id: number;
+    unit_id: number;
+    listing_type: 'rent' | 'sale' | 'both';
+    price: string;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+    unit?: Unit;
+    visits?: MarketplaceVisit[];
+};
+
+export type MarketplaceVisit = {
+    id: number;
+    marketplace_unit_id: number;
+    status_id: number | null;
+    visitor_name: string | null;
+    visitor_phone: string | null;
+    scheduled_at: string | null;
+    notes: string | null;
+    created_at: string;
+    updated_at: string;
+    marketplace_unit?: MarketplaceUnit;
+    status?: Status;
+};
+
+export type Media = {
+    id: number;
+    url: string;
+    name: string;
+    notes: string | null;
+    collection: string;
+    mediable_type: string;
+    mediable_id: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type UnitSpecification = {
+    id: number;
+    unit_id: number;
+    key: string;
+    value: string;
+    created_at: string;
+    updated_at: string;
+};
+
+export type UnitRoom = {
+    id: number;
+    unit_id: number;
+    room_type: string;
+    count: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type UnitArea = {
+    id: number;
+    unit_id: number;
+    area_type: string;
+    value: string;
+    created_at: string;
+    updated_at: string;
+};
+
+export type InvoiceSetting = {
+    id: number;
+    company_name: string;
+    logo: string | null;
+    address: string | null;
+    vat: string | null;
+    vat_number: string | null;
+    cr_number: string | null;
+    instructions: string | null;
+    notes: string | null;
+    created_at: string;
+    updated_at: string;
+};
+
+export type Notification = {
+    id: string;
+    text: string;
+    data: Record<string, unknown>;
+    type: string;
+    read: string | null;
+    created_at: string;
+};
+
+export type NotificationUnreadCount = {
+    count: number;
+};
+
+export type DashboardRequiresAttention = {
+    key: string;
+    title: string;
+    count: number;
+    href: string;
 };
 
 // ---------------------------------------------------------------------------

@@ -26,14 +26,14 @@ function deleteFacility() { if (confirm('Are you sure?')) { router.delete(`/faci
         </div>
 
         <div class="grid gap-4 md:grid-cols-3">
-            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Capacity</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ facility.max_capacity ?? '—' }}</div></CardContent></Card>
-            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Status</CardTitle></CardHeader><CardContent><Badge :variant="facility.active ? 'default' : 'secondary'">{{ facility.active ? 'Active' : 'Inactive' }}</Badge></CardContent></Card>
-            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Bookings</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ facility.bookings_count ?? 0 }}</div></CardContent></Card>
+            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Capacity</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ facility.capacity ?? '—' }}</div></CardContent></Card>
+            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Status</CardTitle></CardHeader><CardContent><Badge :variant="facility.is_active ? 'default' : 'secondary'">{{ facility.is_active ? 'Active' : 'Inactive' }}</Badge></CardContent></Card>
+            <Card><CardHeader class="pb-2"><CardTitle class="text-sm font-medium">Bookings</CardTitle></CardHeader><CardContent><div class="text-2xl font-bold">{{ (facility as any).bookings_count ?? 0 }}</div></CardContent></Card>
         </div>
 
-        <Card v-if="facility.about">
+        <Card v-if="(facility as any).about">
             <CardHeader><CardTitle>Description</CardTitle></CardHeader>
-            <CardContent><p>{{ facility.about }}</p></CardContent>
+            <CardContent><p>{{ (facility as any).about }}</p></CardContent>
         </Card>
     </div>
 </template>

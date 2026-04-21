@@ -144,6 +144,16 @@ class Lease extends Model
         return $this->belongsTo(self::class, 'parent_lease_id');
     }
 
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'created_by_id');
+    }
+
+    public function dealOwner(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'deal_owner_id');
+    }
+
     public function getTotalUnpaidAmountAttribute(): string
     {
         return number_format(

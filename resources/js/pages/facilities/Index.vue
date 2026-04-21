@@ -23,7 +23,7 @@ const columns: Column<Facility>[] = [
     { key: 'category.name', label: 'Category' },
     { key: 'community.name', label: 'Community' },
     { key: 'capacity', label: 'Capacity' },
-    { key: 'status', label: 'Status', render: (row: Facility) => row.status ? 'Active' : 'Inactive' },
+    { key: 'is_active', label: 'Status', render: (row: Facility) => row.is_active ? 'Active' : 'Inactive' },
 ];
 </script>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Facilities;
 
 use App\Http\Controllers\Controller;
+use App\Models\Community;
 use App\Models\Facility;
 use App\Models\FacilityCategory;
 use Illuminate\Http\RedirectResponse;
@@ -28,6 +29,7 @@ class FacilityController extends Controller
     {
         return Inertia::render('facilities/Create', [
             'categories' => FacilityCategory::all(),
+            'communities' => Community::select('id', 'name')->orderBy('name')->get(),
         ]);
     }
 
@@ -61,6 +63,7 @@ class FacilityController extends Controller
         return Inertia::render('facilities/Edit', [
             'facility' => $facility,
             'categories' => FacilityCategory::all(),
+            'communities' => Community::select('id', 'name')->orderBy('name')->get(),
         ]);
     }
 
@@ -69,8 +72,9 @@ class FacilityController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'integer', 'exists:rf_facility_categories,id'],
+            'community_id' => ['required', 'integer', 'exists:rf_communities,id'],
             'capacity' => ['nullable', 'integer', 'min:1'],
-            'status' => ['sometimes', 'boolean'],
+            'is_active' => ['sometimes', 'boolean'],
         ]);
 
         $facility->update($validated);

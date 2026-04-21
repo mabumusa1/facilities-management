@@ -51,5 +51,24 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user->assignRole(RolesEnum::ACCOUNT_ADMINS);
+
+        $tenant->makeCurrent();
+
+        $this->call([
+            CommunitySeeder::class,
+            BuildingSeeder::class,
+            OwnerSeeder::class,
+            ResidentSeeder::class,
+            AdminSeeder::class,
+            ProfessionalSeeder::class,
+            UnitSeeder::class,
+            LeaseSeeder::class,
+            TransactionSeeder::class,
+            RequestSubcategorySeeder::class,
+            RequestSeeder::class,
+            AnnouncementSeeder::class,
+            FacilitySeeder::class,
+            FacilityBookingSeeder::class,
+        ]);
     }
 }
