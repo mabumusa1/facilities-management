@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import {
     Bell,
     ChartColumnBig,
@@ -34,6 +35,17 @@ import type { NavGroup, NavItem } from '@/types';
 import { computed } from 'vue';
 
 const { isArabic, t } = useI18n();
+const page = usePage();
+
+const canManageAccountAdministration = computed(() => {
+    const roles = page.props.auth?.roles;
+
+    if (!Array.isArray(roles)) {
+        return false;
+    }
+
+    return roles.includes('accountAdmins') || roles.includes('admins');
+});
 
 const mainNavItems = computed<NavItem[]>(() => [
     {
@@ -121,7 +133,6 @@ const navGroups = computed<NavGroup[]>(() => [
         icon: ChartColumnBig,
         items: [
             { title: t('app.navigation.reports'), href: '/dashboard/reports' },
-            { title: t('app.navigation.powerBiReports'), href: '/dashboard/power-bi-reports' },
             { title: t('app.navigation.systemReports'), href: '/dashboard/system-reports' },
         ],
     },
@@ -136,6 +147,12 @@ const navGroups = computed<NavGroup[]>(() => [
             { title: t('app.navigation.facilityCategories'), href: '/app-settings/facility-categories' },
             { title: t('app.navigation.invoiceSettings'), href: '/app-settings/invoice' },
             { title: t('app.navigation.generalSettings'), href: '/app-settings/general' },
+            ...(canManageAccountAdministration.value
+                ? [
+                    { title: t('app.navigation.userManagement'), href: '/admin/users' },
+                    { title: t('app.navigation.accountSubscriptions'), href: '/admin/subscriptions' },
+                ]
+                : []),
         ],
     },
     {

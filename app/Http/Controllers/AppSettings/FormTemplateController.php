@@ -36,9 +36,7 @@ class FormTemplateController extends Controller
             'template' => null,
             'categories' => $this->requestCategories(),
             'communities' => $this->communities(),
-            'buildings' => $communityId
-                ? $this->buildingsByCommunity($communityId)
-                : collect(),
+            'buildings' => $this->buildings(),
             'selectedCommunityId' => $communityId,
         ]);
     }
@@ -97,9 +95,7 @@ class FormTemplateController extends Controller
             'template' => $formTemplate,
             'categories' => $this->requestCategories(),
             'communities' => $this->communities(),
-            'buildings' => $formTemplate->community_id
-                ? $this->buildingsByCommunity($formTemplate->community_id)
-                : collect(),
+            'buildings' => $this->buildings(),
             'selectedCommunityId' => $formTemplate->community_id,
         ]);
     }
@@ -154,6 +150,14 @@ class FormTemplateController extends Controller
     {
         return Community::query()
             ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
+    }
+
+    private function buildings()
+    {
+        return Building::query()
+            ->select('id', 'name', 'rf_community_id')
             ->orderBy('name')
             ->get();
     }

@@ -27,7 +27,7 @@ class PermissionsSeeder extends Seeder
         'contactUs', 'superAdmins', 'visitorSettings',
         'sub-categories', 'bookingUnitsComments', 'bookingUnitsDiscounts',
         'leaseStatementReports', 'maintenanceRequestReports',
-        'tenantReports', 'systemReports', 'powerBiReports',
+        'tenantReports', 'systemReports',
     ];
 
     /** @var list<string> */

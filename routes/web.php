@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Accounting\TransactionController;
+use App\Http\Controllers\Admin\AccountSubscriptionController;
+use App\Http\Controllers\Admin\AccountUserController;
 use App\Http\Controllers\AppSettings\FacilityCategoryController as AppFacilityCategoryController;
 use App\Http\Controllers\AppSettings\FormTemplateController;
 use App\Http\Controllers\AppSettings\GeneralSettingController;
@@ -104,6 +106,19 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::resource('residents', ResidentController::class);
     Route::resource('admins', AdminController::class);
     Route::resource('professionals', ProfessionalController::class);
+
+    // Account Management
+    Route::prefix('admin')->name('admin.')->middleware('admin.manage')->group(function () {
+        Route::get('users', [AccountUserController::class, 'index'])->name('users.index');
+        Route::post('users', [AccountUserController::class, 'store'])->name('users.store');
+        Route::put('users/{membership}', [AccountUserController::class, 'update'])->name('users.update');
+        Route::delete('users/{membership}', [AccountUserController::class, 'destroy'])->name('users.destroy');
+
+        Route::get('subscriptions', [AccountSubscriptionController::class, 'index'])->name('subscriptions.index');
+        Route::post('subscriptions/{tenant}/activate', [AccountSubscriptionController::class, 'activate'])->name('subscriptions.activate');
+        Route::post('subscriptions/{tenant}/cancel', [AccountSubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
+        Route::post('subscriptions/{tenant}/cancel-now', [AccountSubscriptionController::class, 'cancelNow'])->name('subscriptions.cancel-now');
+    });
 
     // App Settings
     Route::prefix('app-settings')->name('app-settings.')->group(function () {
@@ -364,7 +379,6 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('requires-attention', [DashboardController::class, 'requiresAttention'])->name('requires-attention');
         Route::get('statistics', [DashboardController::class, 'statistics'])->name('statistics');
-        Route::get('power-bi-reports', [ReportsController::class, 'powerBiReports'])->name('power-bi-reports');
         Route::get('reports', [ReportsController::class, 'reports'])->name('reports');
         Route::get('system-reports', [ReportsController::class, 'systemReports'])->name('system-reports');
         Route::get('system-reports/lease', [ReportsController::class, 'leaseReports'])->name('system-reports.lease');

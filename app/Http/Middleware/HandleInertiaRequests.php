@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+                'roles' => fn (): array => $request->user()?->getRoleNames()->values()->all() ?? [],
             ],
             'notifications' => [
                 'unread_count' => fn () => $request->user()?->unreadNotifications()->count() ?? 0,

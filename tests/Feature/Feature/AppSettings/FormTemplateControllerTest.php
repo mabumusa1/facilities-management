@@ -145,6 +145,39 @@ class FormTemplateControllerTest extends TestCase
             );
     }
 
+    public function test_create_includes_all_buildings_for_client_side_filtering(): void
+    {
+        $tenant = $this->authenticateUser();
+        [, $community] = $this->formDependencies($tenant->id);
+
+        $otherCommunity = Community::factory()->create([
+            'name' => 'Green Village',
+            'account_tenant_id' => $tenant->id,
+        ]);
+
+        Building::factory()->create([
+            'name' => 'Zeta Tower',
+            'rf_community_id' => $otherCommunity->id,
+            'account_tenant_id' => $tenant->id,
+        ]);
+
+        $response = $this
+            ->withSession(['tenant_id' => $tenant->id])
+            ->get(route('settings.forms.create', ['community_id' => $community->id]));
+
+        $response
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('app-settings/settings/forms/Create')
+                ->where('selectedCommunityId', $community->id)
+                ->has('buildings', 2)
+                ->where('buildings.0.name', 'Tower A')
+                ->where('buildings.0.rf_community_id', $community->id)
+                ->where('buildings.1.name', 'Zeta Tower')
+                ->where('buildings.1.rf_community_id', $otherCommunity->id)
+            );
+    }
+
     public function test_destroy_removes_template_record(): void
     {
         $tenant = $this->authenticateUser();

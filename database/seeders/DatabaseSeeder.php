@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             AmenitySeeder::class,
             CommonListSeeder::class,
             RolesSeeder::class,
+            SubscriptionPlanSeeder::class,
         ]);
 
         $user = User::factory()->create([

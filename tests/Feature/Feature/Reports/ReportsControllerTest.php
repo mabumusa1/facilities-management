@@ -80,6 +80,17 @@ class ReportsControllerTest extends TestCase
             );
     }
 
+    public function test_power_bi_reports_route_is_not_available(): void
+    {
+        $tenant = $this->authenticateUserWithMembership();
+
+        $response = $this
+            ->withSession(['tenant_id' => $tenant->id])
+            ->get('/dashboard/power-bi-reports');
+
+        $response->assertNotFound();
+    }
+
     public function test_reports_json_endpoints_return_expected_payloads(): void
     {
         $tenant = $this->authenticateUserWithMembership();

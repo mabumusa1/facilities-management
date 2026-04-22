@@ -15,16 +15,6 @@ use Inertia\Response;
 
 class ReportsController extends Controller
 {
-    public function powerBiReports(Request $request): Response
-    {
-        $this->authorizeReportsAccess($request);
-
-        return Inertia::render('reports/Index', [
-            'reportMode' => 'power-bi',
-            'title' => 'Power BI Reports',
-        ]);
-    }
-
     public function reports(Request $request): Response
     {
         $this->authorizeReportsAccess($request);
