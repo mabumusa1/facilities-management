@@ -90,27 +90,63 @@ class MarketplaceController extends Controller
         ]);
     }
 
-    public function storeListing(Request $request): RedirectResponse
+    public function storeListing(Request $request): JsonResponse|RedirectResponse
     {
-        MarketplaceUnit::create($this->validateListingPayload($request));
+        $listing = MarketplaceUnit::create($this->validateListingPayload($request));
+
+        if ($request->expectsJson() || $request->routeIs('marketplace-admin.*')) {
+            return response()->json([
+                'data' => [
+                    'id' => $listing->id,
+                    'unit_id' => $listing->unit_id,
+                    'listing_type' => $listing->listing_type,
+                    'price' => $listing->price,
+                    'is_active' => $listing->is_active,
+                ],
+                'message' => __('Marketplace listing created.'),
+            ]);
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Marketplace listing created.')]);
 
         return to_route('marketplace.listing');
     }
 
-    public function updateListing(Request $request, MarketplaceUnit $marketplaceUnit): RedirectResponse
+    public function updateListing(Request $request, MarketplaceUnit $marketplaceUnit): JsonResponse|RedirectResponse
     {
         $marketplaceUnit->update($this->validateListingPayload($request));
+
+        if ($request->expectsJson() || $request->routeIs('marketplace-admin.*')) {
+            return response()->json([
+                'data' => [
+                    'id' => $marketplaceUnit->id,
+                    'unit_id' => $marketplaceUnit->unit_id,
+                    'listing_type' => $marketplaceUnit->listing_type,
+                    'price' => $marketplaceUnit->price,
+                    'is_active' => $marketplaceUnit->is_active,
+                ],
+                'message' => __('Marketplace listing updated.'),
+            ]);
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Marketplace listing updated.')]);
 
         return to_route('marketplace.listing');
     }
 
-    public function destroyListing(MarketplaceUnit $marketplaceUnit): RedirectResponse
+    public function destroyListing(Request $request, MarketplaceUnit $marketplaceUnit): JsonResponse|RedirectResponse
     {
+        $marketplaceUnitId = $marketplaceUnit->id;
         $marketplaceUnit->delete();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'data' => [
+                    'id' => $marketplaceUnitId,
+                ],
+                'message' => __('Marketplace listing deleted.'),
+            ]);
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Marketplace listing deleted.')]);
 
@@ -225,7 +261,7 @@ class MarketplaceController extends Controller
         MarketplaceVisit $marketplaceVisit,
         StatusWorkflow $statusWorkflow,
         WorkflowNotifier $workflowNotifier,
-    ): RedirectResponse {
+    ): JsonResponse|RedirectResponse {
         $fromStatus = Status::query()->find($marketplaceVisit->status_id);
 
         $cancelStatus = Status::query()
@@ -259,6 +295,17 @@ class MarketplaceController extends Controller
                 url: route('marketplace.visits.show', $marketplaceVisit, false),
                 actor: $request->user()?->name,
             );
+        }
+
+        if ($request->expectsJson() || $request->routeIs('marketplace-admin.*')) {
+            return response()->json([
+                'data' => [
+                    'id' => $marketplaceVisit->id,
+                    'status_id' => $marketplaceVisit->status_id,
+                    'notes' => $marketplaceVisit->notes,
+                ],
+                'message' => __('Visit canceled.'),
+            ]);
         }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Visit canceled.')]);
@@ -319,6 +366,16 @@ class MarketplaceController extends Controller
             'data' => $visits->items(),
             'meta' => $this->meta($visits),
         ]);
+    }
+
+    public function communitiesApi(Request $request): JsonResponse
+    {
+        return $this->communitiesResponse($request);
+    }
+
+    public function listedCommunitiesApi(Request $request): JsonResponse
+    {
+        return $this->communitiesResponse($request, true);
     }
 
     public function listCommunity(Request $request, Community $community): JsonResponse
@@ -386,15 +443,28 @@ class MarketplaceController extends Controller
 
     public function updateUnitPricesVisibility(Request $request, MarketplaceUnit $marketplaceUnit): JsonResponse
     {
-        $validated = $request->validate([
-            'price' => ['required', 'numeric', 'min:0'],
-            'is_active' => ['required', 'boolean'],
-        ]);
+        if ($request->has('show_price')) {
+            $validated = $request->validate([
+                'show_price' => ['required', 'boolean'],
+            ]);
 
-        $marketplaceUnit->update($validated);
+            $marketplaceUnit->update([
+                'is_active' => (bool) $validated['show_price'],
+            ]);
+        } else {
+            $validated = $request->validate([
+                'price' => ['required', 'numeric', 'min:0'],
+                'is_active' => ['required', 'boolean'],
+            ]);
+
+            $marketplaceUnit->update($validated);
+        }
 
         return response()->json([
-            'data' => $marketplaceUnit->only(['id', 'price', 'is_active']),
+            'data' => [
+                ...$marketplaceUnit->only(['id', 'price', 'is_active']),
+                'show_price' => (bool) $marketplaceUnit->is_active,
+            ],
             'message' => __('Unit listing visibility updated.'),
         ]);
     }
@@ -458,6 +528,58 @@ class MarketplaceController extends Controller
     private function perPage(Request $request): int
     {
         return min(max((int) $request->integer('per_page', 10), 1), 50);
+    }
+
+    private function communitiesResponse(Request $request, ?bool $forceMarketplace = null): JsonResponse
+    {
+        $query = Community::query()
+            ->select([
+                'id',
+                'name',
+                'is_market_place',
+                'is_off_plan_sale',
+                'allow_cash_sale',
+                'allow_bank_financing',
+                'listed_percentage',
+                'created_at',
+            ])
+            ->when(
+                $forceMarketplace !== null,
+                fn ($builder) => $builder->where('is_market_place', $forceMarketplace),
+                fn ($builder) => $builder->when(
+                    $request->filled('is_market_place'),
+                    fn ($nestedBuilder) => $nestedBuilder->where('is_market_place', (bool) $request->integer('is_market_place')),
+                ),
+            )
+            ->when(
+                $request->filled('is_off_plan_sale'),
+                fn ($builder) => $builder->where('is_off_plan_sale', (bool) $request->integer('is_off_plan_sale')),
+            )
+            ->when(
+                trim((string) $request->input('query', '')) !== '',
+                fn ($builder) => $builder->where('name', 'like', '%'.trim((string) $request->input('query')).'%'),
+            )
+            ->orderBy('name');
+
+        $shouldPaginate = (int) $request->integer('is_paginate', 1) === 1;
+
+        if (! $shouldPaginate) {
+            return response()->json([
+                'data' => [
+                    'list' => $query->get(),
+                    'paginator' => [],
+                ],
+            ]);
+        }
+
+        $communities = $query->paginate($this->perPage($request));
+
+        return response()->json([
+            'data' => [
+                'list' => $communities->items(),
+                'paginator' => $this->meta($communities),
+            ],
+        ]);
     }
 
     /**

@@ -3,10 +3,17 @@
 namespace App\Http\Controllers\Shared;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\CommonList;
 use App\Models\Country;
+use App\Models\InvoiceSetting;
 use App\Models\Lead;
+use App\Models\LeadSource;
+use App\Models\Owner;
+use App\Models\Professional;
+use App\Models\Resident;
 use App\Models\Status;
+use App\Models\SystemSetting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -134,6 +141,174 @@ class LookupController extends Controller
                 'currency' => $country->currency,
             ]),
             'meta' => $this->meta($countries),
+        ]);
+    }
+
+    public function companyProfile(): JsonResponse
+    {
+        $invoiceSetting = InvoiceSetting::query()
+            ->select([
+                'id',
+                'company_name',
+                'logo',
+                'address',
+                'vat',
+                'instructions',
+                'notes',
+                'vat_number',
+                'cr_number',
+            ])
+            ->first();
+
+        /** @var array<string, mixed>|null $bankDetails */
+        $bankDetails = SystemSetting::query()
+            ->where('key', 'bank-details')
+            ->value('payload');
+
+        return response()->json([
+            'data' => [
+                'id' => $invoiceSetting?->id,
+                'company_name' => $invoiceSetting?->company_name,
+                'logo' => $invoiceSetting?->logo,
+                'address' => $invoiceSetting?->address,
+                'vat' => $invoiceSetting?->vat,
+                'vat_number' => $invoiceSetting?->vat_number,
+                'cr_number' => $invoiceSetting?->cr_number,
+                'instructions' => $invoiceSetting?->instructions,
+                'notes' => $invoiceSetting?->notes,
+                'beneficiary_name' => $bankDetails['beneficiary_name'] ?? null,
+                'bank_name' => $bankDetails['bank_name'] ?? null,
+                'account_number' => $bankDetails['account_number'] ?? null,
+                'iban' => $bankDetails['iban'] ?? null,
+            ],
+        ]);
+    }
+
+    public function contactsStatistics(): JsonResponse
+    {
+        $tenants = Resident::query()->count();
+        $owners = Owner::query()->count();
+        $professionals = Professional::query()->count();
+        $admins = Admin::query()->count();
+        $leads = Lead::query()->count();
+
+        return response()->json([
+            'data' => [
+                'tenants' => $tenants,
+                'owners' => $owners,
+                'professionals' => $professionals,
+                'admins' => $admins,
+                'leads' => $leads,
+                'total_contacts' => $tenants + $owners + $professionals + $admins + $leads,
+            ],
+        ]);
+    }
+
+    public function leadCreate(): JsonResponse
+    {
+        $statuses = Status::query()
+            ->whereIn('type', ['lead', 'lead_status'])
+            ->select('id', 'name', 'name_ar', 'name_en')
+            ->orderBy('priority')
+            ->orderBy('id')
+            ->get();
+
+        $statusData = $statuses->map(fn (Status $status): array => [
+            'id' => $status->id,
+            'name' => $status->name,
+            'name_ar' => $status->name_ar,
+            'name_en' => $status->name_en,
+        ])->values();
+
+        if ($statusData->isEmpty()) {
+            $statusData = collect([
+                ['id' => 1, 'name' => 'New', 'name_ar' => 'جديد', 'name_en' => 'New'],
+                ['id' => 2, 'name' => 'Contacted', 'name_ar' => 'تم التواصل', 'name_en' => 'Contacted'],
+                ['id' => 3, 'name' => 'No Response', 'name_ar' => 'لا يوجد رد', 'name_en' => 'No Response'],
+                ['id' => 4, 'name' => 'Follow-up', 'name_ar' => 'متابعة', 'name_en' => 'Follow-up'],
+                ['id' => 5, 'name' => 'Interested', 'name_ar' => 'مهتم', 'name_en' => 'Interested'],
+                ['id' => 6, 'name' => 'Not Interested', 'name_ar' => 'غير مهتم', 'name_en' => 'Not Interested'],
+                ['id' => 7, 'name' => 'Future Interest', 'name_ar' => 'اهتمام مستقبلي', 'name_en' => 'Future Interest'],
+            ]);
+        }
+
+        $sources = LeadSource::query()
+            ->select('id', 'name', 'name_ar', 'name_en')
+            ->orderBy('id')
+            ->get()
+            ->map(fn (LeadSource $source): array => [
+                'id' => $source->id,
+                'name' => $source->name,
+                'name_ar' => $source->name_ar,
+                'name_en' => $source->name_en,
+            ])
+            ->values();
+
+        return response()->json([
+            'data' => [
+                'statuses' => $statusData,
+                'sources' => $sources,
+                'priorities' => [
+                    ['id' => 1, 'name_ar' => 'عالي', 'name_en' => 'High'],
+                    ['id' => 2, 'name_ar' => 'متوسط', 'name_en' => 'Medium'],
+                    ['id' => 3, 'name_ar' => 'منخفض', 'name_en' => 'Low'],
+                ],
+            ],
+        ]);
+    }
+
+    public function storeLead(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => ['nullable', 'string', 'max:255'],
+            'first_name' => ['nullable', 'string', 'max:255'],
+            'last_name' => ['nullable', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:50'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'source_id' => ['nullable', 'integer', 'exists:rf_lead_sources,id'],
+            'status_id' => ['nullable', 'integer', 'exists:rf_statuses,id'],
+            'priority_id' => ['nullable', 'integer'],
+            'lead_owner_id' => ['nullable', 'integer', 'exists:rf_admins,id'],
+            'interested' => ['nullable', 'string', 'max:50'],
+            'lead_last_contact_at' => ['nullable', 'date'],
+        ]);
+
+        if (! array_key_exists('status_id', $validated) || $validated['status_id'] === null) {
+            $validated['status_id'] = Status::query()
+                ->whereIn('type', ['lead', 'lead_status'])
+                ->orderBy('priority')
+                ->orderBy('id')
+                ->value('id');
+        }
+
+        $lead = Lead::create($validated);
+
+        $lead->load([
+            'status:id,name,name_ar,name_en',
+            'source:id,name,name_ar,name_en',
+            'leadOwner:id,first_name,last_name',
+        ]);
+
+        return response()->json([
+            'data' => [
+                'id' => $lead->id,
+                'name' => $lead->name ?: trim(($lead->first_name ?? '').' '.($lead->last_name ?? '')),
+                'phone_number' => $lead->phone_number,
+                'email' => $lead->email,
+                'interested' => $lead->interested,
+                'status' => [
+                    'id' => $lead->status?->id,
+                    'value' => $lead->status?->name_en ?? $lead->status?->name,
+                ],
+                'source' => [
+                    'id' => $lead->source?->id,
+                    'value' => $lead->source?->name_en ?? $lead->source?->name,
+                ],
+                'lead_owner' => $lead->leadOwner
+                    ? trim($lead->leadOwner->first_name.' '.$lead->leadOwner->last_name)
+                    : null,
+            ],
+            'message' => __('Lead created.'),
         ]);
     }
 

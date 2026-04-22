@@ -12,14 +12,16 @@ use App\Models\Transaction;
 use App\Models\Unit;
 use App\Support\StatusWorkflow;
 use App\Support\WorkflowNotifier;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class TransactionController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request): JsonResponse|Response
     {
         $search = trim((string) $request->input('search', ''));
         $statusId = $request->input('status_id');
@@ -47,6 +49,58 @@ class TransactionController extends Controller
             ->latest()
             ->paginate($perPage)
             ->withQueryString();
+
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            return response()->json([
+                'data' => collect($transactions->items())->map(fn (Transaction $transaction): array => [
+                    'id' => $transaction->id,
+                    'amount' => $transaction->amount,
+                    'tax_amount' => $transaction->tax_amount,
+                    'is_paid' => $transaction->is_paid ? '1' : '0',
+                    'due_on' => $transaction->due_on?->toDateString(),
+                    'details' => $transaction->details,
+                    'lease' => $transaction->lease
+                        ? [
+                            'id' => $transaction->lease->id,
+                            'contract_number' => $transaction->lease->contract_number,
+                        ]
+                        : null,
+                    'unit' => $transaction->unit
+                        ? [
+                            'id' => $transaction->unit->id,
+                            'name' => $transaction->unit->name,
+                        ]
+                        : null,
+                    'status' => $transaction->status
+                        ? [
+                            'id' => $transaction->status->id,
+                            'name' => $transaction->status->name_en ?? $transaction->status->name,
+                        ]
+                        : null,
+                    'category' => $transaction->category
+                        ? [
+                            'id' => $transaction->category->id,
+                            'name' => $transaction->category->name_en ?? $transaction->category->name,
+                        ]
+                        : null,
+                    'subcategory' => $transaction->subcategory
+                        ? [
+                            'id' => $transaction->subcategory->id,
+                            'name' => $transaction->subcategory->name_en ?? $transaction->subcategory->name,
+                        ]
+                        : null,
+                    'type' => $transaction->type
+                        ? [
+                            'id' => $transaction->type->id,
+                            'name' => $transaction->type->name_en ?? $transaction->type->name,
+                        ]
+                        : null,
+                    'created_at' => $transaction->created_at?->toJSON(),
+                    'updated_at' => $transaction->updated_at?->toJSON(),
+                ]),
+                'meta' => $this->meta($transactions),
+            ]);
+        }
 
         return Inertia::render('accounting/transactions/Index', [
             'transactions' => $transactions,
@@ -85,7 +139,7 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'lease_id' => ['nullable', 'integer', 'exists:rf_leases,id'],
@@ -109,6 +163,26 @@ class TransactionController extends Controller
 
         $transaction = Transaction::create($validated);
 
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $transaction->load([
+                'lease',
+                'unit',
+                'status',
+                'payments',
+                'category',
+                'subcategory',
+                'type',
+                'additionalFees',
+                'assignee',
+                'images',
+            ]);
+
+            return response()->json([
+                'data' => $this->rfTransactionPayload($transaction),
+                'message' => __('Transaction created.'),
+            ]);
+        }
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Transaction created.')]);
 
         return to_route('transactions.show', $transaction);
@@ -120,6 +194,16 @@ class TransactionController extends Controller
 
         return Inertia::render('accounting/transactions/Show', [
             'transaction' => $transaction,
+        ]);
+    }
+
+    public function rfShow(Transaction $transaction): JsonResponse
+    {
+        $transaction->load(['lease', 'unit', 'status', 'payments', 'category', 'subcategory', 'type', 'additionalFees', 'assignee', 'images']);
+
+        return response()->json([
+            'data' => $this->rfTransactionPayload($transaction),
+            'message' => __('Transaction retrieved.'),
         ]);
     }
 
@@ -143,7 +227,7 @@ class TransactionController extends Controller
         Transaction $transaction,
         StatusWorkflow $statusWorkflow,
         WorkflowNotifier $workflowNotifier,
-    ): RedirectResponse {
+    ): JsonResponse|RedirectResponse {
         $validated = $request->validate([
             'status_id' => ['sometimes', 'integer', 'exists:rf_statuses,id'],
             'amount' => ['sometimes', 'numeric', 'min:0'],
@@ -151,6 +235,7 @@ class TransactionController extends Controller
             'due_on' => ['sometimes', 'date'],
             'notes' => ['nullable', 'string'],
             'details' => ['nullable', 'string'],
+            'description' => ['nullable', 'string'],
         ]);
 
         $nextStatusId = array_key_exists('status_id', $validated)
@@ -174,7 +259,11 @@ class TransactionController extends Controller
             $validated['details'] = $validated['notes'];
         }
 
-        unset($validated['due_date'], $validated['notes']);
+        if (array_key_exists('description', $validated) && ! array_key_exists('details', $validated)) {
+            $validated['details'] = $validated['description'];
+        }
+
+        unset($validated['due_date'], $validated['notes'], $validated['description']);
 
         $transaction->update($validated);
 
@@ -185,9 +274,20 @@ class TransactionController extends Controller
                 resourceId: $transaction->id,
                 fromStatus: $fromStatus?->name_en ?? $fromStatus?->name,
                 toStatus: $toStatus->name_en ?? $toStatus->name ?? (string) $toStatus->id,
-                url: route('transactions.show', $transaction, false),
+                url: $request->routeIs('rf.*')
+                    ? route('rf.transactions.show', $transaction, false)
+                    : route('transactions.show', $transaction, false),
                 actor: $request->user()?->name,
             );
+        }
+
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $transaction->load(['lease', 'unit', 'status', 'payments', 'category', 'subcategory', 'type', 'additionalFees', 'assignee', 'images']);
+
+            return response()->json([
+                'data' => $this->rfTransactionPayload($transaction),
+                'message' => __('Transaction updated.'),
+            ]);
         }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Transaction updated.')]);
@@ -195,12 +295,118 @@ class TransactionController extends Controller
         return to_route('transactions.show', $transaction);
     }
 
-    public function destroy(Transaction $transaction): RedirectResponse
+    public function destroy(Request $request, Transaction $transaction): JsonResponse|RedirectResponse
     {
+        $transactionId = $transaction->id;
         $transaction->delete();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'data' => [
+                    'id' => $transactionId,
+                ],
+                'message' => __('Transaction deleted.'),
+            ]);
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Transaction deleted.')]);
 
         return to_route('transactions.index');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function meta(LengthAwarePaginator $paginator): array
+    {
+        return [
+            'current_page' => $paginator->currentPage(),
+            'from' => $paginator->firstItem(),
+            'last_page' => $paginator->lastPage(),
+            'path' => $paginator->path(),
+            'per_page' => $paginator->perPage(),
+            'to' => $paginator->lastItem(),
+            'total' => $paginator->total(),
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function rfTransactionPayload(Transaction $transaction): array
+    {
+        $paidAmount = (float) $transaction->payments->sum('amount');
+        $leftAmount = max((float) $transaction->amount - $paidAmount, 0);
+
+        return [
+            'id' => $transaction->id,
+            'images' => $transaction->images->map(fn ($image): array => [
+                'id' => $image->id,
+                'name' => $image->name,
+            ])->values()->all(),
+            'payments' => $transaction->payments->map(fn ($payment): array => [
+                'id' => $payment->id,
+                'amount' => $payment->amount,
+            ])->values()->all(),
+            'unit' => $transaction->unit
+                ? [
+                    'id' => $transaction->unit->id,
+                    'name' => $transaction->unit->name,
+                ]
+                : null,
+            'amount' => (float) $transaction->amount,
+            'tax_amount' => number_format((float) $transaction->tax_amount, 2, '.', ''),
+            'rental_amount' => number_format((float) $transaction->rental_amount, 2, '.', ''),
+            'additional_fees_amount' => number_format((float) $transaction->additional_fees_amount, 2, '.', ''),
+            'vat' => number_format((float) $transaction->vat, 2, '.', ''),
+            'lease_number' => $transaction->lease_number,
+            'additional_fees' => $transaction->additionalFees->map(fn ($additionalFee): array => [
+                'id' => $additionalFee->id,
+                'name' => $additionalFee->name,
+                'amount' => $additionalFee->amount,
+            ])->values()->all(),
+            'amount_fmt' => number_format((float) $transaction->amount, 2, '.', ','),
+            'category' => $transaction->category
+                ? [
+                    'id' => (string) $transaction->category->id,
+                    'name' => $transaction->category->name_en ?? $transaction->category->name,
+                ]
+                : ['id' => null, 'name' => ''],
+            'subcategory' => $transaction->subcategory
+                ? [
+                    'id' => $transaction->subcategory->id,
+                    'name' => $transaction->subcategory->name_en ?? $transaction->subcategory->name,
+                ]
+                : ['id' => null, 'name' => ''],
+            'due_on' => $transaction->due_on?->toDateString(),
+            'assignee' => $transaction->assignee?->name
+                ?? trim(((string) ($transaction->assignee?->first_name ?? '')).' '.((string) ($transaction->assignee?->last_name ?? '')))
+                ?: null,
+            'assignee_id' => $transaction->assignee_id,
+            'assignee_active' => $transaction->assignee?->active !== null
+                ? (((bool) $transaction->assignee?->active) ? '1' : '0')
+                : null,
+            'details' => $transaction->details,
+            'payments_sum' => number_format($paidAmount, 2, '.', ''),
+            'paid_fmt' => number_format($paidAmount, 2, '.', ''),
+            'left_fmt' => number_format($leftAmount, 2, '.', ''),
+            'paid' => $paidAmount,
+            'left' => $leftAmount,
+            'type' => $transaction->type
+                ? [
+                    'id' => $transaction->type->id,
+                    'name' => $transaction->type->name_en ?? $transaction->type->name,
+                ]
+                : ['id' => null, 'name' => ''],
+            'status' => $transaction->status
+                ? [
+                    'id' => $transaction->status->id,
+                    'name' => $transaction->status->name_en ?? $transaction->status->name,
+                ]
+                : ['id' => null, 'name' => ''],
+            'is_paid' => (bool) $transaction->is_paid,
+            'created_at' => $transaction->created_at?->toDateString(),
+            'is_old' => $transaction->is_old ? '1' : '0',
+        ];
     }
 }

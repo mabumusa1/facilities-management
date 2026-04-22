@@ -12,13 +12,112 @@ use App\Models\Resident;
 use App\Models\Status;
 use App\Models\Unit;
 use App\Models\UnitCategory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class UnitController extends Controller
 {
+    public function rfIndex(Request $request): JsonResponse
+    {
+        $perPage = min(max((int) $request->integer('per_page', 10), 1), 50);
+        $statusId = (int) $request->integer('status_id', 0);
+        $search = trim((string) $request->input('search', ''));
+
+        $units = Unit::query()
+            ->with([
+                'community:id,name,city_id,district_id,is_market_place,is_buy,community_marketplace_type,is_off_plan_sale,sales_commission_rate,rental_commission_rate,total_income,count_selected_property,is_selected_property',
+                'community.city:id,name',
+                'community.district:id,name',
+                'building:id,name',
+                'category:id,name,name_ar,name_en,icon',
+                'type:id,name,name_ar,name_en,icon',
+                'status:id,name,name_ar,name_en,priority',
+                'owner:id,first_name,last_name',
+                'tenant:id,first_name,last_name',
+                'city:id,name',
+                'district:id,name',
+            ])
+            ->when($statusId > 0, fn ($query) => $query->where('status_id', $statusId))
+            ->when($search !== '', function ($query) use ($search): void {
+                $query->where(function ($nestedQuery) use ($search): void {
+                    $nestedQuery->where('name', 'like', "%{$search}%");
+
+                    if (is_numeric($search)) {
+                        $nestedQuery->orWhere('id', (int) $search);
+                    }
+                });
+            })
+            ->latest()
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'messages.units_retrieved',
+            'data' => collect($units->items())
+                ->map(fn (Unit $unit): array => $this->rfUnitListPayload($unit))
+                ->values()
+                ->all(),
+            'meta' => $this->meta($units),
+        ]);
+    }
+
+    public function rfCreate(): JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'communities' => Community::select('id', 'name')->orderBy('name')->get(),
+                'buildings' => Building::select('id', 'name', 'rf_community_id')->orderBy('name')->get(),
+                'categories' => UnitCategory::with('types')->get(),
+                'statuses' => Status::where('type', 'unit')->select('id', 'name', 'name_en')->get(),
+                'owners' => Owner::select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
+                'residents' => Resident::select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
+                'cities' => City::select('id', 'name', 'name_en', 'country_id')->orderBy('name')->get(),
+                'districts' => District::select('id', 'name', 'name_en', 'city_id')->orderBy('name')->get(),
+            ],
+            'meta' => [],
+        ]);
+    }
+
+    public function rfShow(Unit $unit): JsonResponse
+    {
+        $unit->load([
+            'community:id,name,city_id,district_id,is_market_place,is_buy,community_marketplace_type,is_off_plan_sale,sales_commission_rate,rental_commission_rate,total_income,count_selected_property,is_selected_property',
+            'community.city:id,name',
+            'community.district:id,name',
+            'building:id,name',
+            'category:id,name,name_ar,name_en,icon',
+            'type:id,name,name_ar,name_en,icon',
+            'status:id,name,name_ar,name_en,priority,created_at',
+            'owner:id,first_name,last_name',
+            'tenant:id,first_name,last_name',
+            'city:id,name',
+            'district:id,name',
+            'photos:id,mediable_id,mediable_type,name',
+            'floorPlans:id,mediable_id,mediable_type,name',
+            'documents:id,mediable_id,mediable_type,name',
+            'specifications:id,unit_id,key,value,name_ar,name_en',
+            'rooms:id,unit_id,name,name_ar,name_en,count',
+            'areas:id,unit_id,type,name_ar,name_en,size',
+        ]);
+
+        if ($unit->community !== null) {
+            $unit->community->loadCount(['buildings', 'units']);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'messages.unit_show',
+            'data' => $this->rfUnitDetailsPayload($unit),
+            'meta' => [],
+        ]);
+    }
+
     public function index(Request $request): Response
     {
         $units = Unit::query()
@@ -45,7 +144,7 @@ class UnitController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -69,9 +168,115 @@ class UnitController extends Controller
 
         $unit = Unit::create($validated);
 
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $unit->load([
+                'community:id,name,city_id,district_id,is_market_place,is_buy,community_marketplace_type,is_off_plan_sale,sales_commission_rate,rental_commission_rate,total_income,count_selected_property,is_selected_property',
+                'community.city:id,name',
+                'community.district:id,name',
+                'building:id,name',
+                'category:id,name,name_ar,name_en,icon',
+                'type:id,name,name_ar,name_en,icon',
+                'status:id,name,name_ar,name_en,priority,created_at',
+                'owner:id,first_name,last_name',
+                'tenant:id,first_name,last_name',
+                'city:id,name',
+                'district:id,name',
+                'photos:id,mediable_id,mediable_type,name',
+                'floorPlans:id,mediable_id,mediable_type,name',
+                'documents:id,mediable_id,mediable_type,name',
+                'specifications:id,unit_id,key,value,name_ar,name_en',
+                'rooms:id,unit_id,name,name_ar,name_en,count',
+                'areas:id,unit_id,type,name_ar,name_en,size',
+            ]);
+
+            if ($unit->community !== null) {
+                $unit->community->loadCount(['buildings', 'units']);
+            }
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'messages.unit_created',
+                'data' => $this->rfUnitDetailsPayload($unit),
+                'meta' => [],
+            ]);
+        }
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Unit created.')]);
 
         return to_route('units.show', $unit);
+    }
+
+    public function bulkDelete(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'unit_ids' => ['required', 'array', 'min:1'],
+            'unit_ids.*' => ['integer', 'exists:rf_units,id'],
+        ]);
+
+        $unitIds = collect($validated['unit_ids'])
+            ->map(fn (mixed $unitId): int => (int) $unitId)
+            ->unique()
+            ->values()
+            ->all();
+
+        Unit::query()->whereIn('id', $unitIds)->delete();
+
+        return response()->json([
+            'data' => [
+                'ids' => $unitIds,
+                'deleted_count' => count($unitIds),
+            ],
+            'message' => __('Units deleted.'),
+        ]);
+    }
+
+    public function bulkUpdate(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'unit_ids' => ['required', 'array', 'min:1'],
+            'unit_ids.*' => ['integer', 'exists:rf_units,id'],
+            'status_id' => ['nullable', 'integer', 'exists:rf_statuses,id'],
+            'owner_id' => ['nullable', 'integer', 'exists:rf_owners,id'],
+            'tenant_id' => ['nullable', 'integer', 'exists:rf_tenants,id'],
+            'rf_community_id' => ['nullable', 'integer', 'exists:rf_communities,id'],
+            'rf_building_id' => ['nullable', 'integer', 'exists:rf_buildings,id'],
+            'category_id' => ['nullable', 'integer', 'exists:rf_unit_categories,id'],
+            'type_id' => ['nullable', 'integer', 'exists:rf_unit_types,id'],
+            'city_id' => ['nullable', 'integer', 'exists:cities,id'],
+            'district_id' => ['nullable', 'integer', 'exists:districts,id'],
+            'is_market_place' => ['nullable', 'boolean'],
+            'is_buy' => ['nullable', 'boolean'],
+            'is_off_plan_sale' => ['nullable', 'boolean'],
+        ]);
+
+        $unitIds = collect($validated['unit_ids'])
+            ->map(fn (mixed $unitId): int => (int) $unitId)
+            ->unique()
+            ->values()
+            ->all();
+
+        $updates = collect($validated)
+            ->except(['unit_ids'])
+            ->filter(fn (mixed $value): bool => $value !== null)
+            ->all();
+
+        if ($updates === []) {
+            throw ValidationException::withMessages([
+                'updates' => __('At least one field must be provided for bulk update.'),
+            ]);
+        }
+
+        Unit::query()
+            ->whereIn('id', $unitIds)
+            ->update($updates);
+
+        return response()->json([
+            'data' => [
+                'ids' => $unitIds,
+                'updated_count' => count($unitIds),
+            ],
+            'message' => __('Units updated.'),
+        ]);
     }
 
     public function show(Unit $unit): Response
@@ -98,8 +303,62 @@ class UnitController extends Controller
         ]);
     }
 
-    public function update(Request $request, Unit $unit): RedirectResponse
+    public function update(Request $request, Unit $unit): JsonResponse|RedirectResponse
     {
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $validated = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'rf_community_id' => ['required', 'integer', 'exists:rf_communities,id'],
+                'rf_building_id' => ['nullable', 'integer', 'exists:rf_buildings,id'],
+                'category_id' => ['required', 'integer', 'exists:rf_unit_categories,id'],
+                'type_id' => ['required', 'integer', 'exists:rf_unit_types,id'],
+                'status_id' => ['nullable', 'integer', 'exists:rf_statuses,id'],
+                'owner_id' => ['nullable', 'integer', 'exists:rf_owners,id'],
+                'tenant_id' => ['nullable', 'integer', 'exists:rf_tenants,id'],
+                'city_id' => ['nullable', 'integer', 'exists:cities,id'],
+                'district_id' => ['nullable', 'integer', 'exists:districts,id'],
+                'net_area' => ['nullable', 'numeric', 'min:0'],
+                'floor_no' => ['nullable', 'integer'],
+                'year_build' => ['nullable', 'digits:4'],
+                'about' => ['nullable', 'string'],
+                'is_market_place' => ['sometimes', 'boolean'],
+                'is_buy' => ['sometimes', 'boolean'],
+                'is_off_plan_sale' => ['sometimes', 'boolean'],
+            ]);
+
+            $unit->update($validated);
+            $unit->load([
+                'community:id,name,city_id,district_id,is_market_place,is_buy,community_marketplace_type,is_off_plan_sale,sales_commission_rate,rental_commission_rate,total_income,count_selected_property,is_selected_property',
+                'community.city:id,name',
+                'community.district:id,name',
+                'building:id,name',
+                'category:id,name,name_ar,name_en,icon',
+                'type:id,name,name_ar,name_en,icon',
+                'status:id,name,name_ar,name_en,priority,created_at',
+                'owner:id,first_name,last_name',
+                'tenant:id,first_name,last_name',
+                'city:id,name',
+                'district:id,name',
+                'photos:id,mediable_id,mediable_type,name',
+                'floorPlans:id,mediable_id,mediable_type,name',
+                'documents:id,mediable_id,mediable_type,name',
+                'specifications:id,unit_id,key,value,name_ar,name_en',
+                'rooms:id,unit_id,name,name_ar,name_en,count',
+                'areas:id,unit_id,type,name_ar,name_en,size',
+            ]);
+
+            if ($unit->community !== null) {
+                $unit->community->loadCount(['buildings', 'units']);
+            }
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'messages.unit_updated',
+                'data' => $this->rfUnitDetailsPayload($unit),
+                'meta' => [],
+            ]);
+        }
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'rf_community_id' => ['required', 'integer', 'exists:rf_communities,id'],
@@ -127,12 +386,175 @@ class UnitController extends Controller
         return to_route('units.show', $unit);
     }
 
-    public function destroy(Unit $unit): RedirectResponse
+    public function destroy(Request $request, Unit $unit): JsonResponse|RedirectResponse
     {
+        $unitId = $unit->id;
         $unit->delete();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'data' => [
+                    'id' => $unitId,
+                ],
+                'message' => __('Unit deleted.'),
+            ]);
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Unit deleted.')]);
 
         return to_route('units.index');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function rfUnitListPayload(Unit $unit): array
+    {
+        return [
+            'id' => $unit->id,
+            'name' => $unit->name,
+            'category' => [
+                'id' => $unit->category?->id,
+                'name' => $unit->category?->name_en ?? $unit->category?->name,
+                'icon' => $unit->category?->icon,
+            ],
+            'type' => [
+                'id' => $unit->type?->id,
+                'name' => $unit->type?->name_en ?? $unit->type?->name,
+                'icon' => $unit->type?->icon,
+            ],
+            'rf_community' => [
+                'id' => $unit->community?->id,
+                'name' => $unit->community?->name,
+            ],
+            'rf_building' => [
+                'id' => $unit->building?->id,
+                'name' => $unit->building?->name,
+            ],
+            'owner' => $unit->owner
+                ? [
+                    'id' => $unit->owner->id,
+                    'name' => trim($unit->owner->first_name.' '.$unit->owner->last_name),
+                ]
+                : null,
+            'tenant' => $unit->tenant
+                ? [
+                    'id' => $unit->tenant->id,
+                    'name' => trim($unit->tenant->first_name.' '.$unit->tenant->last_name),
+                ]
+                : null,
+            'status' => [
+                'id' => $unit->status?->id,
+                'name' => $unit->status?->name_en ?? $unit->status?->name,
+            ],
+            'photos' => [],
+            'is_market_place' => $unit->is_market_place ? '1' : '0',
+            'city' => [
+                'id' => $unit->city?->id,
+                'name' => $unit->city?->name,
+            ],
+            'district' => [
+                'id' => $unit->district?->id,
+                'name' => $unit->district?->name,
+            ],
+            'market_rent' => null,
+            'net_area' => $unit->net_area,
+            'floor_no' => $unit->floor_no,
+            'map' => $unit->map,
+            'is_off_plan_sale' => $unit->is_off_plan_sale ? '1' : '0',
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function rfUnitDetailsPayload(Unit $unit): array
+    {
+        return [
+            ...$this->rfUnitListPayload($unit),
+            'status' => [
+                'id' => $unit->status?->id,
+                'name' => $unit->status?->name_en ?? $unit->status?->name,
+                'created_at' => $unit->status?->created_at?->toJSON(),
+                'priority' => $unit->status?->priority !== null ? (string) $unit->status->priority : null,
+            ],
+            'rf_community' => [
+                'id' => $unit->community?->id,
+                'name' => $unit->community?->name,
+                'city' => [
+                    'id' => $unit->community?->city?->id,
+                    'name' => $unit->community?->city?->name,
+                ],
+                'district' => [
+                    'id' => $unit->community?->district?->id,
+                    'name' => $unit->community?->district?->name,
+                ],
+                'sales_commission_rate' => $unit->community?->sales_commission_rate,
+                'rental_commission_rate' => $unit->community?->rental_commission_rate,
+                'buildings_count' => (int) ($unit->community?->buildings_count ?? 0),
+                'units_count' => (int) ($unit->community?->units_count ?? 0),
+                'map' => $unit->community?->map,
+                'images' => [],
+                'is_selected_property' => (bool) ($unit->community?->is_selected_property ?? false),
+                'count_selected_property' => (int) ($unit->community?->count_selected_property ?? 0),
+                'requests_count' => null,
+                'total_income' => (float) ($unit->community?->total_income ?? 0),
+                'is_market_place' => ($unit->community?->is_market_place ?? false) ? '1' : '0',
+                'is_buy' => ($unit->community?->is_buy ?? false) ? 1 : 0,
+                'community_marketplace_type' => $unit->community?->community_marketplace_type?->value
+                    ?? $unit->community?->community_marketplace_type
+                    ?? 'rent',
+                'is_off_plan_sale' => ($unit->community?->is_off_plan_sale ?? false) ? '1' : '0',
+            ],
+            'year_build' => (string) $unit->year_build,
+            'photos' => $unit->photos->map(fn ($photo): array => [
+                'id' => $photo->id,
+                'name' => $photo->name,
+            ])->values()->all(),
+            'floor_plans' => $unit->floorPlans->map(fn ($plan): array => [
+                'id' => $plan->id,
+                'name' => $plan->name,
+            ])->values()->all(),
+            'documents' => $unit->documents->map(fn ($document): array => [
+                'id' => $document->id,
+                'name' => $document->name,
+            ])->values()->all(),
+            'specifications' => $unit->specifications->map(fn ($specification): array => [
+                'id' => $specification->id,
+                'name' => $specification->name_en ?? $specification->name_ar ?? $specification->key,
+                'value' => $specification->value,
+            ])->values()->all(),
+            'marketplace' => [
+                'sale' => null,
+                'rent' => null,
+            ],
+            'rooms' => $unit->rooms->map(fn ($room): array => [
+                'id' => $room->id,
+                'name' => $room->name,
+                'value' => $room->count,
+            ])->values()->all(),
+            'areas' => $unit->areas->map(fn ($area): array => [
+                'id' => $area->id,
+                'name' => $area->name_en ?? $area->name_ar ?? $area->type,
+                'value' => $area->size,
+            ])->values()->all(),
+            'merge_document' => [],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function meta(LengthAwarePaginator $paginator): array
+    {
+        return [
+            'current_page' => $paginator->currentPage(),
+            'from' => $paginator->firstItem(),
+            'last_page' => $paginator->lastPage(),
+            'path' => $paginator->path(),
+            'per_page' => $paginator->perPage(),
+            'to' => $paginator->lastItem(),
+            'total' => $paginator->total(),
+        ];
     }
 }

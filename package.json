@@ -8,6 +8,7 @@
         "dev": "vite",
         "format": "prettier --write resources/",
         "format:check": "prettier --check resources/",
+        "api:agents": "node scripts/agent-endpoint-tracker.mjs",
         "i18n:check": "node scripts/check-translations.mjs",
         "i18n:check:full": "node scripts/check-translations.mjs --full",
         "lint": "eslint . --fix",

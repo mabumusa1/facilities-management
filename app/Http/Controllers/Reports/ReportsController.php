@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
 use App\Models\AccountMembership;
+use App\Models\Transaction;
+use App\Models\Unit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -207,6 +211,155 @@ class ReportsController extends Controller
         return $this->jsonOk('Zoom updated.', [
             'value' => (float) ($validated['value'] ?? 1),
         ]);
+    }
+
+    public function expenses(Request $request): JsonResponse
+    {
+        $this->authorizeReportsAccess($request);
+
+        $transactions = Transaction::query()
+            ->with(['category:id,name,name_ar,name_en'])
+            ->select(['id', 'category_id', 'amount', 'is_paid'])
+            ->get();
+
+        $expenses = $transactions->filter(fn (Transaction $transaction): bool => $this->isExpenseTransaction($transaction));
+
+        return response()->json([
+            'success' => true,
+            'data' => $this->transactionSummary($expenses),
+            'message' => 'تمت العمليه بنجاح.',
+        ]);
+    }
+
+    public function income(Request $request): JsonResponse
+    {
+        $this->authorizeReportsAccess($request);
+
+        $transactions = Transaction::query()
+            ->with(['category:id,name,name_ar,name_en'])
+            ->select(['id', 'category_id', 'amount', 'is_paid'])
+            ->get();
+
+        $income = $transactions->reject(fn (Transaction $transaction): bool => $this->isExpenseTransaction($transaction));
+
+        return response()->json([
+            'success' => true,
+            'data' => $this->transactionSummary($income),
+            'message' => 'تمت العمليه بنجاح.',
+        ]);
+    }
+
+    public function performanceUnits(Request $request): JsonResponse
+    {
+        $this->authorizeReportsAccess($request);
+
+        $units = Unit::query()
+            ->with(['status:id,name,name_en'])
+            ->select(['id', 'status_id', 'tenant_id', 'is_buy'])
+            ->get();
+
+        $counts = [
+            'vacant' => 0,
+            'sold' => 0,
+            'leased' => 0,
+            'soldAndLeased' => 0,
+        ];
+
+        foreach ($units as $unit) {
+            $bucket = $this->performanceBucket($unit);
+            $counts[$bucket] += 1;
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $counts,
+            'message' => 'تمت العمليه بنجاح.',
+        ]);
+    }
+
+    private function performanceBucket(Unit $unit): string
+    {
+        $statusName = Str::lower(trim((string) ($unit->status?->name_en ?? $unit->status?->name ?? '')));
+
+        $hasSold = $statusName !== ''
+            && (str_contains($statusName, 'sold') || str_contains($statusName, 'بيع'));
+
+        $hasLeased = $statusName !== ''
+            && (
+                str_contains($statusName, 'leased')
+                || str_contains($statusName, 'lease')
+                || str_contains($statusName, 'rent')
+                || str_contains($statusName, 'إيجار')
+                || str_contains($statusName, 'ايجار')
+                || str_contains($statusName, 'مؤجر')
+            );
+
+        if ($hasSold && $hasLeased) {
+            return 'soldAndLeased';
+        }
+
+        if ($hasSold) {
+            return 'sold';
+        }
+
+        if ($hasLeased) {
+            return 'leased';
+        }
+
+        if ($unit->tenant_id !== null && $unit->is_buy) {
+            return 'soldAndLeased';
+        }
+
+        if ($unit->tenant_id !== null) {
+            return 'leased';
+        }
+
+        if ($unit->is_buy) {
+            return 'sold';
+        }
+
+        return 'vacant';
+    }
+
+    private function isExpenseTransaction(Transaction $transaction): bool
+    {
+        $categoryName = Str::lower(trim((string) ($transaction->category?->name_en ?? $transaction->category?->name ?? $transaction->category?->name_ar ?? '')));
+
+        if ($categoryName === '') {
+            return false;
+        }
+
+        return str_contains($categoryName, 'expense')
+            || str_contains($categoryName, 'cost')
+            || str_contains($categoryName, 'fee')
+            || str_contains($categoryName, 'maintenance')
+            || str_contains($categoryName, 'مصروف')
+            || str_contains($categoryName, 'تكلفة')
+            || str_contains($categoryName, 'رسوم');
+    }
+
+    /**
+     * @param  Collection<int, Transaction>  $transactions
+     * @return array<string, int|float>
+     */
+    private function transactionSummary(Collection $transactions): array
+    {
+        $count = $transactions->count();
+        $total = round($transactions->sum(fn (Transaction $transaction): float => (float) $transaction->amount), 2);
+
+        $paid = round(
+            $transactions
+                ->where('is_paid', true)
+                ->sum(fn (Transaction $transaction): float => (float) $transaction->amount),
+            2,
+        );
+
+        return [
+            'count' => $count,
+            'total' => $total,
+            'paid' => $paid,
+            'unpaid' => round(max($total - $paid, 0), 2),
+        ];
     }
 
     private function authorizeReportsAccess(Request $request): void

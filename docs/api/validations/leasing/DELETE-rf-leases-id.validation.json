@@ -1,7 +1,0 @@
-{
-  "endpoint": "rf/leases/{id}",
-  "method": "DELETE",
-  "fields": {},
-  "requiredFields": [],
-  "optionalFields": []
-}

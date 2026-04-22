@@ -22,16 +22,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request): Response
     {
         return Inertia::render('Dashboard', [
-            'stats' => Inertia::defer(fn () => [
-                'communities' => Community::count(),
-                'buildings' => Building::count(),
-                'units' => Unit::count(),
-                'tenants' => Resident::count(),
-                'activeLeases' => Lease::whereHas('status', fn ($q) => $q->where('name_en', 'Active'))->count(),
-                'openRequests' => ServiceRequest::whereHas('status', fn ($q) => $q->whereIn('name_en', ['Open', 'In Progress', 'New']))->count(),
-                'pendingTransactions' => Transaction::where('is_paid', false)->count(),
-                'totalRevenue' => Transaction::where('is_paid', true)->sum('amount'),
-            ]),
+            'stats' => Inertia::defer(fn () => $this->statisticsItems()),
             'recentLeases' => Inertia::defer(fn () => Lease::with(['tenant', 'status'])
                 ->latest()
                 ->take(5)
@@ -65,6 +56,46 @@ class DashboardController extends Controller
         return response()->json([
             'data' => $this->requiresAttentionItems(),
         ]);
+    }
+
+    public function statistics(Request $request): JsonResponse
+    {
+        $stats = $this->statisticsItems();
+
+        return response()->json([
+            'data' => [
+                'requests_approval' => $stats['openRequests'],
+                'pending_complaints' => 0,
+                'expiring_leases' => $stats['expiringLeases'],
+                'overdue_recipes' => $stats['overdueTransactions'],
+                ...$stats,
+            ],
+        ]);
+    }
+
+    /**
+     * @return array<string, int|float|string>
+     */
+    private function statisticsItems(): array
+    {
+        return [
+            'communities' => Community::count(),
+            'buildings' => Building::count(),
+            'units' => Unit::count(),
+            'tenants' => Resident::count(),
+            'activeLeases' => Lease::whereHas('status', fn ($q) => $q->where('name_en', 'Active'))->count(),
+            'openRequests' => ServiceRequest::whereHas('status', fn ($q) => $q->whereIn('name_en', ['Open', 'In Progress', 'New']))->count(),
+            'pendingTransactions' => Transaction::where('is_paid', false)->count(),
+            'totalRevenue' => (float) Transaction::where('is_paid', true)->sum('amount'),
+            'expiringLeases' => Lease::query()
+                ->whereDate('end_date', '>=', now()->toDateString())
+                ->whereDate('end_date', '<=', now()->addDays(30)->toDateString())
+                ->count(),
+            'overdueTransactions' => Transaction::query()
+                ->where('is_paid', false)
+                ->whereDate('due_on', '<', now()->toDateString())
+                ->count(),
+        ];
     }
 
     /**

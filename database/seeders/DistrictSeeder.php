@@ -11,8 +11,8 @@ class DistrictSeeder extends Seeder
 {
     public function run(): void
     {
-        $enPath = database_path('../docs/api/seeder-raw/en/districts.json');
-        $arPath = database_path('../docs/api/seeder-raw/ar/districts.json');
+        $enPath = database_path('seeders/raw/en/districts.json');
+        $arPath = database_path('seeders/raw/ar/districts.json');
 
         if (! file_exists($enPath) || ! file_exists($arPath)) {
             $this->command?->warn('District JSON files not found, seeding sample data only.');
@@ -22,7 +22,7 @@ class DistrictSeeder extends Seeder
         }
 
         // Load city_id mapping if available (captured via fetch-district-mapping.js)
-        $mappingPath = database_path('../docs/api/seeder-raw/district-city-mapping.json');
+        $mappingPath = database_path('seeders/raw/district-city-mapping.json');
         /** @var array<int, int> $cityMapping */
         $cityMapping = file_exists($mappingPath)
             ? json_decode((string) file_get_contents($mappingPath), true)

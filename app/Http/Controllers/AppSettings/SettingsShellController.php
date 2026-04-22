@@ -297,6 +297,56 @@ class SettingsShellController extends Controller
         ]);
     }
 
+    public function destroyMarketplaceBankSetting(SystemSetting $systemSetting): JsonResponse
+    {
+        if ($systemSetting->key !== 'bank-details') {
+            return response()->json([
+                'success' => false,
+                'message' => __('Bank settings not found.'),
+            ], 404);
+        }
+
+        $settingId = $systemSetting->id;
+        $systemSetting->delete();
+
+        return response()->json([
+            'data' => [
+                'id' => $settingId,
+            ],
+            'success' => true,
+            'message' => __('Bank settings deleted successfully.'),
+        ]);
+    }
+
+    public function updateMarketplaceBankSetting(Request $request, SystemSetting $systemSetting): JsonResponse
+    {
+        if ($systemSetting->key !== 'bank-details') {
+            return response()->json([
+                'success' => false,
+                'message' => __('Bank settings not found.'),
+            ], 404);
+        }
+
+        $validated = $request->validate([
+            'beneficiary_name' => ['required', 'string', 'max:255'],
+            'bank_name' => ['required', 'string', 'max:255'],
+            'account_number' => ['required', 'string', 'regex:/^[0-9]+$/', 'min:14', 'max:34'],
+            'iban' => ['required', 'string', 'max:34'],
+        ]);
+
+        $systemSetting->payload = $validated;
+        $systemSetting->save();
+
+        return response()->json([
+            'data' => [
+                'id' => $systemSetting->id,
+                ...$validated,
+            ],
+            'success' => true,
+            'message' => __('Bank settings updated successfully.'),
+        ]);
+    }
+
     public function marketplaceSalesSettings(): JsonResponse
     {
         return response()->json([

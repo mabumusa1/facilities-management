@@ -56,6 +56,11 @@ class RequestSubcategory extends Model
         return $this->hasMany(FeaturedService::class, 'subcategory_id');
     }
 
+    public function requests(): HasMany
+    {
+        return $this->hasMany(Request::class, 'subcategory_id');
+    }
+
     /** @return BelongsToMany<Community, $this> */
     public function communities(): BelongsToMany
     {

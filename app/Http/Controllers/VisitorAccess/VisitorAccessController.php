@@ -7,13 +7,50 @@ use App\Models\MarketplaceVisit;
 use App\Models\Status;
 use App\Support\StatusWorkflow;
 use App\Support\WorkflowNotifier;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class VisitorAccessController extends Controller
 {
+    public function rfIndex(Request $request): JsonResponse
+    {
+        $perPage = min(max((int) $request->integer('per_page', 10), 1), 50);
+
+        $visits = MarketplaceVisit::query()
+            ->with(['marketplaceUnit.unit:id,name', 'status:id,name,name_ar,name_en'])
+            ->latest()
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return response()->json([
+            'data' => collect($visits->items())->map(fn (MarketplaceVisit $visit): array => [
+                'id' => $visit->id,
+                'marketplace_unit_id' => $visit->marketplace_unit_id,
+                'unit' => $visit->marketplaceUnit?->unit
+                    ? [
+                        'id' => $visit->marketplaceUnit->unit->id,
+                        'name' => $visit->marketplaceUnit->unit->name,
+                    ]
+                    : null,
+                'status' => $visit->status
+                    ? [
+                        'id' => $visit->status->id,
+                        'name' => $visit->status->name_en ?? $visit->status->name,
+                    ]
+                    : null,
+                'visitor_name' => $visit->visitor_name,
+                'visitor_phone' => $visit->visitor_phone,
+                'scheduled_at' => $visit->scheduled_at?->toJSON(),
+                'notes' => $visit->notes,
+            ])->values()->all(),
+            'meta' => $this->meta($visits),
+        ]);
+    }
+
     public function history(): Response
     {
         return Inertia::render('visitor-access/History', [
@@ -126,5 +163,21 @@ class VisitorAccessController extends Controller
                 }
             })
             ->value('id');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function meta(LengthAwarePaginator $paginator): array
+    {
+        return [
+            'current_page' => $paginator->currentPage(),
+            'from' => $paginator->firstItem(),
+            'last_page' => $paginator->lastPage(),
+            'path' => $paginator->path(),
+            'per_page' => $paginator->perPage(),
+            'to' => $paginator->lastItem(),
+            'total' => $paginator->total(),
+        ];
     }
 }

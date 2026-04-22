@@ -8,8 +8,10 @@ use App\Models\Community;
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\District;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,8 +20,27 @@ class CommunityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): Response
+    public function index(Request $request): JsonResponse|Response
     {
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $communities = Community::query()
+                ->withCount(['buildings', 'units', 'requests'])
+                ->with([
+                    'city:id,name,name_en',
+                    'district:id,name,name_en',
+                    'images:id,mediable_id,mediable_type,name,url,collection',
+                ])
+                ->latest()
+                ->paginate($this->perPage($request));
+
+            return response()->json([
+                'data' => collect($communities->items())->map(
+                    fn (Community $community): array => $this->communityListItem($community)
+                ),
+                'meta' => $this->meta($communities),
+            ]);
+        }
+
         $communities = Community::query()
             ->withCount(['buildings', 'units', 'requests'])
             ->with(['country', 'city', 'district', 'currency'])
@@ -47,7 +68,7 @@ class CommunityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -61,6 +82,20 @@ class CommunityController extends Controller
 
         $community = Community::create($validated);
 
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $community->loadCount(['buildings', 'units', 'requests'])
+                ->load([
+                    'city:id,name,name_en',
+                    'district:id,name,name_en',
+                    'images:id,mediable_id,mediable_type,name,url,collection',
+                ]);
+
+            return response()->json([
+                'data' => $this->communityListItem($community),
+                'message' => __('Community created.'),
+            ]);
+        }
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Community created.')]);
 
         return to_route('communities.show', $community);
@@ -69,13 +104,70 @@ class CommunityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Community $community): Response
+    public function show(Request $request, Community $community): JsonResponse|Response
     {
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $community->loadCount(['buildings', 'units', 'requests'])
+                ->load([
+                    'country:id,name,iso2',
+                    'currency:id,name,code',
+                    'city:id,name,name_en',
+                    'district:id,name,name_en',
+                    'amenities:id,name,name_en',
+                    'images:id,mediable_id,mediable_type,name,url,collection',
+                ]);
+
+            return response()->json([
+                'data' => $this->communityDetails($community),
+                'message' => __('Community retrieved.'),
+            ]);
+        }
+
         $community->loadCount(['buildings', 'units', 'requests'])
             ->load(['country', 'city', 'district', 'currency', 'buildings', 'facilities']);
 
         return Inertia::render('properties/communities/Show', [
             'community' => $community,
+        ]);
+    }
+
+    public function edaatProductCodes(Request $request): JsonResponse
+    {
+        $communities = Community::query()
+            ->select('id', 'name', 'product_code')
+            ->whereNotNull('product_code')
+            ->where('product_code', '!=', '')
+            ->orderBy('name')
+            ->paginate($this->perPage($request));
+
+        return response()->json([
+            'data' => collect($communities->items())->map(fn (Community $community): array => [
+                'id' => $community->id,
+                'name' => $community->name,
+                'product_code' => $community->product_code,
+            ]),
+            'meta' => $this->meta($communities),
+        ]);
+    }
+
+    public function offPlanSale(Request $request): JsonResponse
+    {
+        $communities = Community::query()
+            ->where('is_off_plan_sale', true)
+            ->withCount(['buildings', 'units', 'requests'])
+            ->with([
+                'city:id,name,name_en',
+                'district:id,name,name_en',
+                'images:id,mediable_id,mediable_type,name,url,collection',
+            ])
+            ->latest()
+            ->paginate($this->perPage($request));
+
+        return response()->json([
+            'data' => collect($communities->items())->map(
+                fn (Community $community): array => $this->communityListItem($community)
+            ),
+            'meta' => $this->meta($communities),
         ]);
     }
 
@@ -96,7 +188,7 @@ class CommunityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Community $community): RedirectResponse
+    public function update(Request $request, Community $community): JsonResponse|RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -110,6 +202,20 @@ class CommunityController extends Controller
 
         $community->update($validated);
 
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $community->loadCount(['buildings', 'units', 'requests'])
+                ->load([
+                    'city:id,name,name_en',
+                    'district:id,name,name_en',
+                    'images:id,mediable_id,mediable_type,name,url,collection',
+                ]);
+
+            return response()->json([
+                'data' => $this->communityListItem($community),
+                'message' => __('Community updated.'),
+            ]);
+        }
+
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Community updated.')]);
 
         return to_route('communities.show', $community);
@@ -118,12 +224,168 @@ class CommunityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Community $community): RedirectResponse
+    public function destroy(Request $request, Community $community): JsonResponse|RedirectResponse
     {
+        $communityId = $community->id;
         $community->delete();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'data' => [
+                    'id' => $communityId,
+                ],
+                'message' => __('Community deleted.'),
+            ]);
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Community deleted.')]);
 
         return to_route('communities.index');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function communityListItem(Community $community): array
+    {
+        return [
+            'id' => $community->id,
+            'name' => $community->name,
+            'city' => $community->city
+                ? [
+                    'id' => $community->city->id,
+                    'name' => $community->city->name,
+                ]
+                : null,
+            'district' => $community->district
+                ? [
+                    'id' => $community->district->id,
+                    'name' => $community->district->name,
+                ]
+                : null,
+            'sales_commission_rate' => $this->decimalString($community->sales_commission_rate),
+            'rental_commission_rate' => $this->decimalString($community->rental_commission_rate),
+            'buildings_count' => (string) ($community->buildings_count ?? 0),
+            'units_count' => (string) ($community->units_count ?? 0),
+            'map' => $community->map,
+            'images' => $this->mediaItems($community->images),
+            'is_selected_property' => (bool) $community->is_selected_property,
+            'count_selected_property' => (int) $community->count_selected_property,
+            'requests_count' => (string) ($community->requests_count ?? 0),
+            'total_income' => (float) ($community->total_income ?? 0),
+            'is_market_place' => $community->is_market_place ? '1' : '0',
+            'is_buy' => (int) $community->is_buy,
+            'community_marketplace_type' => $community->community_marketplace_type?->value
+                ?? ($community->community_marketplace_type ?: 'rent'),
+            'is_off_plan_sale' => $community->is_off_plan_sale ? '1' : '0',
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function communityDetails(Community $community): array
+    {
+        return [
+            'id' => $community->id,
+            'name' => $community->name,
+            'description' => $community->description,
+            'country' => $community->country
+                ? [
+                    'id' => $community->country->id,
+                    'name' => $community->country->name,
+                    'code' => $community->country->iso2,
+                ]
+                : null,
+            'currency' => $community->currency
+                ? [
+                    'id' => $community->currency->id,
+                    'name' => $community->currency->name,
+                    'code' => $community->currency->code,
+                ]
+                : null,
+            'city' => $community->city
+                ? [
+                    'id' => $community->city->id,
+                    'name' => $community->city->name,
+                ]
+                : null,
+            'district' => $community->district
+                ? [
+                    'id' => $community->district->id,
+                    'name' => $community->district->name,
+                ]
+                : null,
+            'amenities' => $community->amenities
+                ->map(fn ($amenity): array => [
+                    'id' => $amenity->id,
+                    'name' => $amenity->name,
+                ])
+                ->values()
+                ->all(),
+            'map' => $community->map,
+            'images' => $this->mediaItems($community->images),
+            'documents' => [],
+            'buildings_count' => (int) ($community->buildings_count ?? 0),
+            'units_count' => (int) ($community->units_count ?? 0),
+            'requests_count' => (int) ($community->requests_count ?? 0),
+            'total_income' => (float) ($community->total_income ?? 0),
+            'sales_commission_rate' => $this->decimalString($community->sales_commission_rate),
+            'rental_commission_rate' => $this->decimalString($community->rental_commission_rate),
+            'product_code' => $community->product_code,
+            'license_number' => $community->license_number,
+            'license_issue_date' => $community->license_issue_date?->toDateString(),
+            'license_expiry_date' => $community->license_expiry_date?->toDateString(),
+            'record_payments' => [],
+            'additional_payments' => [],
+            'completion_percent' => (int) $community->completion_percent,
+            'allow_cash_sale' => (int) $community->allow_cash_sale,
+            'allow_bank_financing' => (int) $community->allow_bank_financing,
+            'listed_percentage' => (float) $community->listed_percentage,
+            'is_market_place' => $community->is_market_place ? '1' : '0',
+            'is_buy' => (int) $community->is_buy,
+            'community_marketplace_type' => $community->community_marketplace_type?->value
+                ?? ($community->community_marketplace_type ?: 'rent'),
+            'is_off_plan_sale' => $community->is_off_plan_sale ? '1' : '0',
+        ];
+    }
+
+    private function perPage(Request $request): int
+    {
+        return min(max((int) $request->integer('per_page', 10), 1), 50);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function meta(LengthAwarePaginator $paginator): array
+    {
+        return [
+            'current_page' => $paginator->currentPage(),
+            'from' => $paginator->firstItem(),
+            'last_page' => $paginator->lastPage(),
+            'path' => $paginator->path(),
+            'per_page' => $paginator->perPage(),
+            'to' => $paginator->lastItem(),
+            'total' => $paginator->total(),
+        ];
+    }
+
+    /**
+     * @param  iterable<int, mixed>  $media
+     * @return array<int, array<string, mixed>>
+     */
+    private function mediaItems(iterable $media): array
+    {
+        return collect($media)->map(fn ($item): array => [
+            'id' => $item->id,
+            'name' => $item->name,
+            'url' => $item->url,
+        ])->values()->all();
+    }
+
+    private function decimalString(float|int|string|null $value): string
+    {
+        return number_format((float) ($value ?? 0), 2, '.', '');
     }
 }
