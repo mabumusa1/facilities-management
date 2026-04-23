@@ -49,3 +49,4 @@ Sending `X-Inertia: true` without a matching `X-Inertia-Version` causes a 409 (v
 ## Past work index
 _(append one line per PR: `PR #N — <branch> — <key learning or gotcha>`)_
 - PR #120 — feat/permission-enforcement-112 — multi-tenant test needs withSession(['tenant_id']), Inertia version mismatch causes 409 in tests
+- PR #120 bugfix — AuthorizationException is converted to AccessDeniedHttpException before renderable callbacks fire; register renderable on the Symfony exception type. Use X-Locale header (not cookie, not App::setLocale) to set locale in feature tests because SetLocale middleware reads it reliably pre-exception.
