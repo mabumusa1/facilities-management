@@ -202,4 +202,170 @@ class MigrateAdminRolesTest extends TestCase
         $this->artisan('rbac:migrate-admin-roles')
             ->assertFailed();
     }
+
+    // ── Inserted rows reference system roles (account_tenant_id IS NULL) ─────
+
+    public function test_inserted_rows_point_to_system_roles_with_null_tenant(): void
+    {
+        $this->seedRoles();
+        $tenant = $this->createTenantWithAdmins();
+
+        $this->artisan('rbac:migrate-admin-roles')->assertSuccessful();
+
+        // Every role_id referenced in model_has_roles must belong to a system role.
+        $roleIds = DB::table('model_has_roles')
+            ->where('model_type', $this->morphType)
+            ->pluck('role_id')
+            ->unique()
+            ->all();
+
+        foreach ($roleIds as $roleId) {
+            $this->assertDatabaseHas('roles', [
+                'id' => $roleId,
+                'account_tenant_id' => null,
+            ]);
+        }
+    }
+
+    // ── Already-assigned admin: skip, not upsert ──────────────────────────────
+
+    public function test_already_assigned_admin_is_skipped_not_duplicated(): void
+    {
+        $this->seedRoles();
+        $tenant = Tenant::create(['name' => 'Test Tenant '.uniqid()]);
+        $admin = Admin::factory()->create([
+            'account_tenant_id' => $tenant->id,
+            'role' => AdminRole::Admins,
+        ]);
+
+        // Pre-insert the assignment manually.
+        $roleId = Role::withoutGlobalScopes()
+            ->whereNull('account_tenant_id')
+            ->where('name', AdminRole::Admins->value)
+            ->value('id');
+
+        DB::table('model_has_roles')->insert([
+            'role_id' => $roleId,
+            'model_type' => $this->morphType,
+            'model_id' => $admin->id,
+        ]);
+
+        $this->artisan('rbac:migrate-admin-roles')->assertSuccessful();
+
+        // Still only 1 row — no duplication.
+        $this->assertSame(
+            1,
+            DB::table('model_has_roles')
+                ->where('model_type', $this->morphType)
+                ->where('model_id', $admin->id)
+                ->where('role_id', $roleId)
+                ->count(),
+        );
+    }
+
+    // ── Summary output counts ─────────────────────────────────────────────────
+
+    public function test_summary_output_contains_inserted_count(): void
+    {
+        $this->seedRoles();
+        $this->createTenantWithAdmins(); // 5 admins
+
+        $this->artisan('rbac:migrate-admin-roles')
+            ->assertSuccessful()
+            ->expectsOutputToContain('5 inserted');
+    }
+
+    public function test_summary_output_contains_skipped_existing_count(): void
+    {
+        $this->seedRoles();
+        $tenant = Tenant::create(['name' => 'Test Tenant '.uniqid()]);
+        $admin = Admin::factory()->create([
+            'account_tenant_id' => $tenant->id,
+            'role' => AdminRole::Admins,
+        ]);
+
+        $roleId = Role::withoutGlobalScopes()
+            ->whereNull('account_tenant_id')
+            ->where('name', AdminRole::Admins->value)
+            ->value('id');
+
+        DB::table('model_has_roles')->insert([
+            'role_id' => $roleId,
+            'model_type' => $this->morphType,
+            'model_id' => $admin->id,
+        ]);
+
+        $this->artisan('rbac:migrate-admin-roles')
+            ->assertSuccessful()
+            ->expectsOutputToContain('1 skipped (already existed)');
+    }
+
+    public function test_summary_output_contains_invalid_skipped_count(): void
+    {
+        $this->seedRoles();
+        $tenant = Tenant::create(['name' => 'Test Tenant '.uniqid()]);
+        $admin = Admin::factory()->create(['account_tenant_id' => $tenant->id]);
+
+        DB::table('rf_admins')->where('id', $admin->id)->update(['role' => 'bogusRole']);
+
+        $this->artisan('rbac:migrate-admin-roles')
+            ->assertSuccessful()
+            ->expectsOutputToContain('1 skipped (null/invalid role)');
+    }
+
+    // ── Dry-run reports counts but writes nothing ─────────────────────────────
+
+    public function test_dry_run_outputs_would_be_inserted_count(): void
+    {
+        $this->seedRoles();
+        $this->createTenantWithAdmins(); // 5 admins
+
+        $this->artisan('rbac:migrate-admin-roles', ['--dry-run' => true])
+            ->assertSuccessful()
+            ->expectsOutputToContain('5 inserted')
+            ->expectsOutputToContain('Dry-run mode');
+
+        $this->assertSame(0, $this->modelHasRolesCount());
+    }
+
+    // ── Invalid role is logged with admin ID ─────────────────────────────────
+
+    public function test_invalid_role_warning_log_contains_admin_id(): void
+    {
+        $this->seedRoles();
+        $tenant = Tenant::create(['name' => 'Test Tenant '.uniqid()]);
+        $admin = Admin::factory()->create(['account_tenant_id' => $tenant->id]);
+
+        DB::table('rf_admins')->where('id', $admin->id)->update(['role' => 'unknownRole']);
+
+        Log::spy();
+
+        $this->artisan('rbac:migrate-admin-roles')->assertSuccessful();
+
+        Log::shouldHaveReceived('warning')
+            ->withArgs(fn (string $msg) => str_contains($msg, (string) $admin->id));
+    }
+
+    // ── Large dataset: chunked processing integrity ───────────────────────────
+
+    public function test_large_dataset_all_rows_inserted_across_chunks(): void
+    {
+        $this->seedRoles();
+
+        // Create 210 admins (crosses the 200-row chunk boundary).
+        $tenant = Tenant::create(['name' => 'Test Tenant '.uniqid()]);
+        $roles = AdminRole::cases();
+        $roleCount = count($roles);
+
+        for ($i = 0; $i < 210; $i++) {
+            Admin::factory()->create([
+                'account_tenant_id' => $tenant->id,
+                'role' => $roles[$i % $roleCount],
+            ]);
+        }
+
+        $this->artisan('rbac:migrate-admin-roles')->assertSuccessful();
+
+        $this->assertSame(210, $this->modelHasRolesCount());
+    }
 }
