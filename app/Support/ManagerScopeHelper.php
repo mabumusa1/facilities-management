@@ -168,7 +168,7 @@ class ManagerScopeHelper
     private static function unitInScope(int $unitId, array $communityIds, array $buildingIds): bool
     {
         if (empty($communityIds) && empty($buildingIds)) {
-            return true;
+            return false;
         }
 
         return \DB::table('rf_units')
@@ -187,7 +187,7 @@ class ManagerScopeHelper
     private static function transactionInScope(int $transactionId, array $communityIds, array $buildingIds): bool
     {
         if (empty($communityIds) && empty($buildingIds)) {
-            return true;
+            return false;
         }
 
         $unitId = \DB::table('rf_transactions')->where('id', $transactionId)->value('unit_id');
@@ -201,7 +201,7 @@ class ManagerScopeHelper
     private static function leaseInScope(int $leaseId, array $communityIds, array $buildingIds): bool
     {
         if (empty($communityIds) && empty($buildingIds)) {
-            return true;
+            return false;
         }
 
         return \DB::table('lease_units')
@@ -221,7 +221,7 @@ class ManagerScopeHelper
     private static function residentInScope(int $residentId, array $communityIds, array $buildingIds): bool
     {
         if (empty($communityIds) && empty($buildingIds)) {
-            return true;
+            return false;
         }
 
         return \DB::table('rf_leases')
@@ -242,7 +242,7 @@ class ManagerScopeHelper
     private static function ownerInScope(int $ownerId, array $communityIds, array $buildingIds): bool
     {
         if (empty($communityIds) && empty($buildingIds)) {
-            return true;
+            return false;
         }
 
         return \DB::table('rf_units')
@@ -261,7 +261,7 @@ class ManagerScopeHelper
     private static function marketplaceVisitInScope(int $marketplaceUnitId, array $communityIds, array $buildingIds): bool
     {
         if (empty($communityIds) && empty($buildingIds)) {
-            return true;
+            return false;
         }
 
         $unitId = \DB::table('rf_marketplace_units')->where('id', $marketplaceUnitId)->value('unit_id');

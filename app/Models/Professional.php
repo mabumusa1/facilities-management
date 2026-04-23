@@ -29,7 +29,11 @@ class Professional extends Model
      */
     public function scopeForManager(Builder $query, User $user): Builder
     {
-        // intentionally unrestricted — no FK path available in schema
+        /**
+         * Intentionally unrestricted: no FK path from professionals
+         * to communities or buildings exists in the current schema.
+         * All managers within the tenant see all professionals.
+         */
         return $query;
     }
 

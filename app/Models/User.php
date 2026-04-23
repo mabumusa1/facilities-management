@@ -83,9 +83,16 @@ class User extends Authenticatable
      */
     public function removeRole(...$role): static
     {
-        // Detect if ANY of the collected roles has scoped rows for this user.
-        // collectRoles() returns an array of role primary keys.
-        $roleIds = $this->collectRoles($role);
+        /**
+         * Resolve each variadic argument to its role primary key.
+         * We cannot call collectRoles() here because Spatie declares it private.
+         *
+         * @var int[]
+         */
+        $roleIds = collect($role)
+            ->flatten()
+            ->map(fn ($r): int|string => $this->getStoredRole($r)->getKey())
+            ->all();
         $table = config('permission.table_names.model_has_roles');
 
         foreach ($roleIds as $roleId) {

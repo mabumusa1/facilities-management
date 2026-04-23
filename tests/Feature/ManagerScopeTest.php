@@ -5,8 +5,14 @@ namespace Tests\Feature;
 use App\Models\Announcement;
 use App\Models\Building;
 use App\Models\Community;
+use App\Models\Lease;
+use App\Models\MarketplaceVisit;
+use App\Models\Owner;
 use App\Models\Professional;
+use App\Models\Resident;
 use App\Models\Tenant;
+use App\Models\Transaction;
+use App\Models\Unit;
 use App\Models\User;
 use App\Support\ManagerScopeHelper;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
@@ -504,9 +510,11 @@ class ManagerScopeTest extends TestCase
         // Make tenant A current to activate the BelongsToAccountTenant global scope.
         $tenantA->makeCurrent();
 
-        $results = Community::query()->forManager($userA)->get();
-
-        Tenant::forgetCurrent();
+        try {
+            $results = Community::query()->forManager($userA)->get();
+        } finally {
+            Tenant::forgetCurrent();
+        }
 
         // User sees their in-scope community in their tenant.
         $this->assertTrue($results->contains('id', $communityA->id));
@@ -533,9 +541,11 @@ class ManagerScopeTest extends TestCase
         // Make tenant B current — communityA is NOT visible under tenant B scope.
         $tenantB->makeCurrent();
 
-        $results = Community::query()->forManager($userA)->get();
-
-        Tenant::forgetCurrent();
+        try {
+            $results = Community::query()->forManager($userA)->get();
+        } finally {
+            Tenant::forgetCurrent();
+        }
 
         $this->assertFalse($results->contains('id', $communityA->id));
     }
@@ -677,6 +687,47 @@ class ManagerScopeTest extends TestCase
         $this->expectExceptionMessageMatches('/syncRoles/');
 
         $user->syncRoles('managers');
+    }
+
+    // -------------------------------------------------------------------------
+    // Blocker fix: service-type-only manager (empty community + building IDs)
+    //              must be denied access to unit/transaction/lease/resident/
+    //              owner/marketplaceVisit subjects — not granted full access.
+    // -------------------------------------------------------------------------
+
+    public function test_service_type_only_manager_cannot_access_spatial_subjects(): void
+    {
+        [, $user] = $this->makeTenantAndUser();
+
+        // Only a service-type scope row — no community_id or building_id.
+        $this->assignServiceTypeScope($user, 7);
+
+        // Unit: inline check — both arrays empty → false.
+        $unit = new Unit(['rf_community_id' => 1, 'rf_building_id' => null]);
+        $this->assertFalse(ManagerScopeHelper::userCanAccessModel($user, $unit));
+
+        // Transaction: delegates to unitInScope(empty, empty) → false.
+        $transaction = new Transaction(['unit_id' => 1]);
+        $this->assertFalse(ManagerScopeHelper::userCanAccessModel($user, $transaction));
+
+        // Lease: delegates to leaseInScope(empty, empty) → false.
+        $lease = new Lease;
+        $lease->id = 0;
+        $this->assertFalse(ManagerScopeHelper::userCanAccessModel($user, $lease));
+
+        // Resident: delegates to residentInScope(empty, empty) → false.
+        $resident = new Resident;
+        $resident->id = 0;
+        $this->assertFalse(ManagerScopeHelper::userCanAccessModel($user, $resident));
+
+        // Owner: delegates to ownerInScope(empty, empty) → false.
+        $owner = new Owner;
+        $owner->id = 0;
+        $this->assertFalse(ManagerScopeHelper::userCanAccessModel($user, $owner));
+
+        // MarketplaceVisit: delegates to marketplaceVisitInScope(empty, empty) → false.
+        $visit = new MarketplaceVisit(['marketplace_unit_id' => 1]);
+        $this->assertFalse(ManagerScopeHelper::userCanAccessModel($user, $visit));
     }
 
     // -------------------------------------------------------------------------
