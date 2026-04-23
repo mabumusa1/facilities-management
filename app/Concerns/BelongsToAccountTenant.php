@@ -13,10 +13,11 @@ trait BelongsToAccountTenant
     {
         static::addGlobalScope('account_tenant', function (Builder $builder) {
             if ($tenant = Tenant::current()) {
-                $builder->where(
-                    $builder->getModel()->qualifyColumn('account_tenant_id'),
-                    $tenant->id,
-                );
+                $column = $builder->getModel()->qualifyColumn('account_tenant_id');
+                $builder->where(function (Builder $q) use ($column, $tenant) {
+                    $q->where($column, $tenant->id)
+                        ->orWhereNull($column);
+                });
             }
         });
 
