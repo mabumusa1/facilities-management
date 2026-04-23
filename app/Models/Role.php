@@ -75,6 +75,14 @@ class Role extends SpatieRole
     }
 
     /**
+     * Returns true when this is a system-wide role (not tied to any tenant).
+     */
+    public function isSystemRole(): bool
+    {
+        return $this->account_tenant_id === null;
+    }
+
+    /**
      * @return array<string, mixed>
      */
     protected function casts(): array
