@@ -35,3 +35,9 @@ Append concise notes as you learn. Keep this under 200 lines via curation.
 
 ## Past work index
 _(append one line per QA report: `PR #N — <AC count / tests added> — <any persistent issue>`)_
+- PR #118 — 5 ACs / 5 gap tests added — PermissionSubject has 31 cases (issue says 30); PermissionAction has EXPORT/IMPORT (issue says RESTORE/FORCE_DELETE): both flagged for PM/Tech Lead sign-off.
+- PR #119 — 5 ACs / 4 gap tests added — 186 vs 180 permission count discrepancy persists (31 subjects, issue says 30); flagged again for PM sign-off. All 28 tests pass.
+
+## Migration rollback tests
+- Use `Artisan::call('migrate:rollback', ['--step' => N, '--force' => true])` then re-apply with `Artisan::call('migrate', ['--force' => true])` to restore DB for subsequent tests. Use Schema::hasColumn() to assert before/after.
+- Only works reliably when migrations are the last N in the batch — verify step count against actual migration files.
