@@ -101,7 +101,7 @@ function close() {
 
 function handleOpenChange(value: boolean) {
     if (!value && form.isDirty) {
-        if (!confirm(t('app.admin.users.cancelConfirm') || 'Discard changes?')) {
+        if (!confirm(t('app.admin.users.cancelConfirm'))) {
             return;
         }
     }

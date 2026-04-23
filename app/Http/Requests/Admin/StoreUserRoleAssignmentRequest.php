@@ -47,17 +47,23 @@ class StoreUserRoleAssignmentRequest extends FormRequest
         $tenant = Tenant::current();
         $scopeLevel = $this->resolvedScopeLevel ?? 'none';
 
-        $communityRule = $scopeLevel === 'manager' || $scopeLevel === 'serviceManager'
-            ? ['required', 'integer', Rule::exists('rf_communities', 'id')->where('account_tenant_id', $tenant?->id)]
-            : ['nullable', 'integer'];
+        $communityRule = match ($scopeLevel) {
+            'manager', 'serviceManager' => ['required', 'integer', Rule::exists('rf_communities', 'id')->where('account_tenant_id', $tenant?->id)],
+            'none' => [Rule::prohibitedIf(true)],
+            default => ['nullable', 'integer'],
+        };
 
-        $buildingRule = $scopeLevel === 'manager' || $scopeLevel === 'serviceManager'
-            ? ['nullable', 'integer', Rule::exists('rf_buildings', 'id')->where('account_tenant_id', $tenant?->id)]
-            : ['nullable', 'integer'];
+        $buildingRule = match ($scopeLevel) {
+            'manager', 'serviceManager' => ['nullable', 'integer', Rule::exists('rf_buildings', 'id')->where('account_tenant_id', $tenant?->id)],
+            'none' => [Rule::prohibitedIf(true)],
+            default => ['nullable', 'integer'],
+        };
 
-        $serviceTypeRule = $scopeLevel === 'serviceManager'
-            ? ['required', 'integer', Rule::exists('rf_service_manager_types', 'id')]
-            : ['nullable', 'integer'];
+        $serviceTypeRule = match ($scopeLevel) {
+            'serviceManager' => ['required', 'integer', Rule::exists('rf_service_manager_types', 'id')],
+            'none' => [Rule::prohibitedIf(true)],
+            default => ['nullable', 'integer'],
+        };
 
         return [
             'role_id' => ['required', 'integer', Rule::exists('roles', 'id')],

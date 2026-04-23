@@ -398,8 +398,7 @@ class UserRoleAssignmentControllerTest extends TestCase
         $role = Role::where('name', RolesEnum::OWNERS->value)->first();
         $this->assertNotNull($role);
 
-        // Owners role has scopeLevel 'none' — community_id is nullable so FK existence is not checked.
-        // The assignment should succeed (community_id stored as null because it's nullable).
+        // Owners role has scopeLevel 'none' — community_id is prohibited for non-scoped roles.
         $response = $this->actingAs($admin)
             ->withSession(['tenant_id' => $tenant->id])
             ->post(route('admin.users.role-assignments.store', $target), [
@@ -407,15 +406,8 @@ class UserRoleAssignmentControllerTest extends TestCase
                 'community_id' => $foreignCommunity->id,
             ]);
 
-        // community_id is nullable integer for non-manager roles, so it passes but is accepted.
-        // The key AC here is that scope selectors for non-manager roles don't enforce FK tenant check.
-        $response->assertRedirect(route('admin.users.show', $target));
-
-        // The row is stored with the passed community_id (no constraint on non-manager role scope).
-        $this->assertDatabaseHas(config('permission.table_names.model_has_roles'), [
-            'role_id' => $role->id,
-            'model_id' => $target->id,
-        ]);
+        // community_id must be rejected for roles with scopeLevel 'none'.
+        $response->assertSessionHasErrors('community_id');
     }
 
     /** AC: scope FKs must belong to current tenant — cross-tenant community_id rejected for manager role. */
