@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, setLayoutProps } from '@inertiajs/vue3';
 import { computed, ref, watch, watchEffect } from 'vue';
+import { toast } from 'vue-sonner';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -237,6 +238,7 @@ async function save(): Promise<void> {
         }
 
         initialSnapshot.value = JSON.stringify(matrix.value);
+        toast.success(t('app.admin.roles.permissions.permissionsSaved'));
     } catch {
         saveError.value = t('app.admin.roles.permissions.saveError');
     } finally {
@@ -357,7 +359,7 @@ const selectedPreset = ref<string>('');
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow v-for="i in 8" :key="i">
+                    <TableRow v-for="i in 31" :key="i">
                         <TableCell class="sticky inset-inline-start-0 bg-background">
                             <div class="h-4 animate-pulse rounded bg-muted w-32" />
                         </TableCell>
@@ -475,7 +477,7 @@ const selectedPreset = ref<string>('');
                                 :class="{ 'cursor-pointer': ! role.is_system, 'cursor-not-allowed': role.is_system }"
                                 :checked="matrix[subject]?.[action] ?? false"
                                 :disabled="role.is_system"
-                                :aria-label="`${actionLabel(action)} ${t('app.admin.roles.permissions.allSubjects')} ${subjectLabel(subject)}`"
+                                :aria-label="`${actionLabel(action)} ${subjectLabel(subject)}`"
                                 :aria-disabled="role.is_system ? 'true' : undefined"
                                 @change="toggleCell(subject, action, ($event.target as HTMLInputElement).checked)"
                             />

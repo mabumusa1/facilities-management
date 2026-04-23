@@ -281,10 +281,8 @@ class RolePermissionsTest extends TestCase
             ->withSession(['tenant_id' => $tenantB->id])
             ->get(route('admin.roles.permissions', $roleA));
 
-        // viewAny only checks roles.VIEW permission — no tenant check on the GET route.
-        // The page is expected to render (200) but is_system is false.
-        // The sync (PUT) is what enforces the tenant boundary.
-        $response->assertOk();
+        // The view policy enforces belongsToCurrentTenant for non-system roles.
+        $response->assertForbidden();
     }
 
     // -------------------------------------------------------------------------

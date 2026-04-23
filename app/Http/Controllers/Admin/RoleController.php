@@ -116,7 +116,7 @@ class RoleController extends Controller
 
     public function permissions(Role $role): Response
     {
-        $this->authorize('viewAny', Role::class);
+        $this->authorize('view', $role);
 
         $role->load('permissions');
 

@@ -34,6 +34,16 @@ class RolePolicy
             && $this->belongsToCurrentTenant($role);
     }
 
+    public function view(User $user, Role $role): bool
+    {
+        if ($role->isSystemRole()) {
+            return $user->can('roles.VIEW');
+        }
+
+        return $user->can('roles.VIEW')
+            && $this->belongsToCurrentTenant($role);
+    }
+
     public function managePermissions(User $user, Role $role): bool
     {
         return ! $role->isSystemRole()
