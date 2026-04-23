@@ -18,6 +18,8 @@ class AnnouncementController extends Controller
 {
     public function index(Request $request): JsonResponse|Response
     {
+        $this->authorize('viewAny', Announcement::class);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $announcements = Announcement::query()
                 ->with(['community:id,name', 'building:id,name'])
@@ -60,6 +62,8 @@ class AnnouncementController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', Announcement::class);
+
         return Inertia::render('communication/announcements/Create', [
             'communities' => Community::select('id', 'name')->orderBy('name')->get(),
             'buildings' => Building::select('id', 'name', 'rf_community_id')->orderBy('name')->get(),
@@ -68,6 +72,8 @@ class AnnouncementController extends Controller
 
     public function store(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Announcement::class);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $validated = $request->validate([
                 'title' => ['required', 'string', 'max:255'],
@@ -128,6 +134,8 @@ class AnnouncementController extends Controller
 
     public function show(Announcement $announcement): Response
     {
+        $this->authorize('view', $announcement);
+
         $announcement->load(['community', 'building']);
 
         return Inertia::render('communication/announcements/Show', [

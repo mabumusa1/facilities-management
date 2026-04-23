@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,6 +19,8 @@ class VisitorAccessController extends Controller
 {
     public function rfIndex(Request $request): JsonResponse
     {
+        Gate::authorize('visitorAccess.VIEW');
+
         $perPage = min(max((int) $request->integer('per_page', 10), 1), 50);
 
         $visits = MarketplaceVisit::query()
@@ -53,6 +56,8 @@ class VisitorAccessController extends Controller
 
     public function history(): Response
     {
+        Gate::authorize('visitorAccess.VIEW');
+
         return Inertia::render('visitor-access/History', [
             'visits' => MarketplaceVisit::query()
                 ->with(['marketplaceUnit.unit:id,name', 'status:id,name,name_ar,name_en'])
@@ -63,6 +68,8 @@ class VisitorAccessController extends Controller
 
     public function details(MarketplaceVisit $marketplaceVisit): Response
     {
+        Gate::authorize('visitorAccess.VIEW');
+
         $marketplaceVisit->load([
             'marketplaceUnit.unit:id,name',
             'status:id,name,name_ar,name_en',
@@ -79,6 +86,8 @@ class VisitorAccessController extends Controller
         StatusWorkflow $statusWorkflow,
         WorkflowNotifier $workflowNotifier,
     ): RedirectResponse {
+        Gate::authorize('visitorAccess.UPDATE');
+
         $fromStatus = Status::query()->find($marketplaceVisit->status_id);
 
         $statusId = $this->resolveStatusId(['Approved']);
@@ -116,6 +125,8 @@ class VisitorAccessController extends Controller
         StatusWorkflow $statusWorkflow,
         WorkflowNotifier $workflowNotifier,
     ): RedirectResponse {
+        Gate::authorize('visitorAccess.UPDATE');
+
         $validated = $request->validate([
             'notes' => ['nullable', 'string'],
         ]);

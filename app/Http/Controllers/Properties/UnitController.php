@@ -120,6 +120,8 @@ class UnitController extends Controller
 
     public function index(Request $request): Response
     {
+        $this->authorize('viewAny', Unit::class);
+
         $units = Unit::query()
             ->with(['community', 'building', 'category', 'type', 'status', 'owner', 'tenant'])
             ->latest()
@@ -132,6 +134,8 @@ class UnitController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', Unit::class);
+
         return Inertia::render('properties/units/Create', [
             'communities' => Community::select('id', 'name')->get(),
             'buildings' => Building::select('id', 'name', 'rf_community_id')->orderBy('name')->get(),
@@ -146,6 +150,8 @@ class UnitController extends Controller
 
     public function store(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Unit::class);
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'rf_community_id' => ['required', 'integer', 'exists:rf_communities,id'],
@@ -281,6 +287,8 @@ class UnitController extends Controller
 
     public function show(Unit $unit): Response
     {
+        $this->authorize('view', $unit);
+
         $unit->load(['community', 'building', 'category', 'type', 'status', 'owner', 'tenant']);
 
         return Inertia::render('properties/units/Show', [
@@ -290,6 +298,8 @@ class UnitController extends Controller
 
     public function edit(Unit $unit): Response
     {
+        $this->authorize('update', $unit);
+
         return Inertia::render('properties/units/Edit', [
             'unit' => $unit->load(['owner', 'tenant']),
             'communities' => Community::select('id', 'name')->get(),
@@ -305,6 +315,8 @@ class UnitController extends Controller
 
     public function update(Request $request, Unit $unit): JsonResponse|RedirectResponse
     {
+        $this->authorize('update', $unit);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $validated = $request->validate([
                 'name' => ['required', 'string', 'max:255'],
@@ -388,6 +400,8 @@ class UnitController extends Controller
 
     public function destroy(Request $request, Unit $unit): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $unit);
+
         $unitId = $unit->id;
         $unit->delete();
 

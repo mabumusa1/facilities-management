@@ -26,6 +26,8 @@ class LeaseController extends Controller
 {
     public function index(Request $request): JsonResponse|Response
     {
+        $this->authorize('viewAny', Lease::class);
+
         $search = trim((string) $request->input('search', ''));
         $statusId = $request->input('status_id');
         $tenantId = $request->input('tenant_id');
@@ -85,6 +87,8 @@ class LeaseController extends Controller
 
     public function subLeases(Request $request): JsonResponse
     {
+        $this->authorize('viewAny', Lease::class);
+
         $subLeases = Lease::query()
             ->where('is_sub_lease', true)
             ->with(['tenant', 'status', 'units.status', 'leaseUnitType'])
@@ -102,6 +106,8 @@ class LeaseController extends Controller
 
     public function create(Request $request): JsonResponse|Response
     {
+        $this->authorize('create', Lease::class);
+
         $tenants = Resident::select('id', 'first_name', 'last_name')->orderBy('first_name')->get();
         $statuses = Status::where('type', 'lease')->select('id', 'name', 'name_ar', 'name_en')->get();
         $unitCategories = UnitCategory::select('id', 'name', 'name_ar', 'name_en', 'icon')->get();
@@ -170,6 +176,8 @@ class LeaseController extends Controller
 
     public function store(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Lease::class);
+
         $validated = $request->validate([
             'contract_number' => ['nullable', 'string', 'unique:rf_leases,contract_number'],
             'autoGenerateLeaseNumber' => ['nullable'],
@@ -257,16 +265,22 @@ class LeaseController extends Controller
 
     public function storeFromCreateAlias(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Lease::class);
+
         return $this->store($request);
     }
 
     public function stepFour(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Lease::class);
+
         return $this->store($request);
     }
 
     public function renewStore(Request $request): JsonResponse
     {
+        $this->authorize('update', Lease::class);
+
         $validated = $request->validate([
             'rf_lease_id' => ['required', 'integer', 'exists:rf_leases,id'],
             'rental_contract_type_id' => ['required', 'integer'],
@@ -350,6 +364,8 @@ class LeaseController extends Controller
 
     public function addendum(Request $request, Lease $lease): JsonResponse
     {
+        $this->authorize('update', $lease);
+
         $validated = $request->validate([
             'type' => ['required', 'string', 'max:100'],
             'description' => ['required', 'string'],
@@ -379,6 +395,8 @@ class LeaseController extends Controller
 
     public function changeStatusMoveOut(Request $request): JsonResponse
     {
+        $this->authorize('update', Lease::class);
+
         $validated = $request->validate([
             'rf_lease_id' => ['required', 'integer', 'exists:rf_leases,id'],
             'end_at' => ['required', 'date'],
@@ -412,6 +430,8 @@ class LeaseController extends Controller
 
     public function changeStatusTerminate(Request $request): JsonResponse
     {
+        $this->authorize('update', Lease::class);
+
         $validated = $request->validate([
             'rf_lease_id' => ['required', 'integer', 'exists:rf_leases,id'],
             'end_at' => ['required', 'date'],
@@ -452,6 +472,8 @@ class LeaseController extends Controller
 
     public function changeStatusSuspend(Request $request): JsonResponse
     {
+        $this->authorize('update', Lease::class);
+
         $validated = $request->validate([
             'lease_id' => ['required', 'integer', 'exists:rf_leases,id'],
             'effective_date' => ['nullable', 'date'],
@@ -484,6 +506,8 @@ class LeaseController extends Controller
 
     public function changeStatusReactivate(Request $request): JsonResponse
     {
+        $this->authorize('update', Lease::class);
+
         $validated = $request->validate([
             'lease_id' => ['required', 'integer', 'exists:rf_leases,id'],
             'effective_date' => ['nullable', 'date'],
@@ -511,6 +535,8 @@ class LeaseController extends Controller
 
     public function show(Request $request, Lease $lease): JsonResponse|Response
     {
+        $this->authorize('view', $lease);
+
         $lease->load([
             'tenant',
             'status',
@@ -549,6 +575,8 @@ class LeaseController extends Controller
 
     public function expiring(Request $request): JsonResponse
     {
+        $this->authorize('viewAny', Lease::class);
+
         $leases = Lease::query()
             ->with(['tenant', 'status'])
             ->whereDate('end_date', '>=', now()->toDateString())
@@ -580,6 +608,8 @@ class LeaseController extends Controller
 
     public function statistics(): JsonResponse
     {
+        $this->authorize('viewAny', Lease::class);
+
         $totalLeases = Lease::query()->count();
         $newLeases = $this->countLeasesByStatusNames(['new']);
         $activeLeases = $this->countLeasesByStatusNames(['active']);
@@ -688,6 +718,8 @@ class LeaseController extends Controller
 
     public function createSublease(Lease $lease): Response
     {
+        $this->authorize('create', Lease::class);
+
         return Inertia::render('leasing/leases/SubleaseCreate', [
             'parentLease' => $lease->load(['tenant', 'status']),
             'statuses' => Status::where('type', 'lease')->select('id', 'name', 'name_en')->get(),
@@ -697,6 +729,8 @@ class LeaseController extends Controller
 
     public function storeSublease(Request $request, Lease $lease): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Lease::class);
+
         $validated = $request->validate([
             'contract_number' => ['nullable', 'string', 'unique:rf_leases,contract_number'],
             'autoGenerateLeaseNumber' => ['nullable'],
@@ -784,6 +818,8 @@ class LeaseController extends Controller
 
     public function storeSubleaseAlias(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Lease::class);
+
         $validated = $request->validate([
             'rf_lease_id' => ['required', 'integer', 'exists:rf_leases,id'],
         ]);
@@ -795,6 +831,8 @@ class LeaseController extends Controller
 
     public function edit(Lease $lease): Response
     {
+        $this->authorize('update', $lease);
+
         return Inertia::render('leasing/leases/Edit', [
             'lease' => $lease->load(['tenant', 'units']),
             'tenants' => Resident::select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
@@ -813,6 +851,8 @@ class LeaseController extends Controller
         StatusWorkflow $statusWorkflow,
         WorkflowNotifier $workflowNotifier,
     ): JsonResponse|RedirectResponse {
+        $this->authorize('update', $lease);
+
         $validated = $request->validate([
             'contract_number' => ['required', 'string', 'unique:rf_leases,contract_number,'.$lease->id],
             'tenant_id' => ['sometimes', 'integer', 'exists:rf_tenants,id'],
@@ -897,6 +937,8 @@ class LeaseController extends Controller
 
     public function destroy(Request $request, Lease $lease): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $lease);
+
         $leaseId = $lease->id;
         $lease->delete();
 
@@ -916,6 +958,8 @@ class LeaseController extends Controller
 
     public function destroySublease(Request $request, Lease $lease): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $lease);
+
         if (! $lease->is_sub_lease) {
             abort(404);
         }

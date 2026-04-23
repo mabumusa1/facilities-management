@@ -21,6 +21,8 @@ class BuildingController extends Controller
      */
     public function index(Request $request): JsonResponse|Response
     {
+        $this->authorize('viewAny', Building::class);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $buildings = Building::query()
                 ->withCount('units')
@@ -57,6 +59,8 @@ class BuildingController extends Controller
      */
     public function create(): Response
     {
+        $this->authorize('create', Building::class);
+
         return Inertia::render('properties/buildings/Create', [
             'communities' => Community::select('id', 'name')->get(),
             'cities' => City::select('id', 'name', 'name_en', 'country_id')->orderBy('name')->get(),
@@ -69,6 +73,8 @@ class BuildingController extends Controller
      */
     public function store(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Building::class);
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:20'],
             'rf_community_id' => ['required', 'integer', 'exists:rf_communities,id'],
@@ -105,6 +111,8 @@ class BuildingController extends Controller
      */
     public function show(Request $request, Building $building): JsonResponse|Response
     {
+        $this->authorize('view', $building);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $building->loadCount('units')
                 ->load([
@@ -140,6 +148,8 @@ class BuildingController extends Controller
      */
     public function edit(Building $building): Response
     {
+        $this->authorize('update', $building);
+
         return Inertia::render('properties/buildings/Edit', [
             'building' => $building,
             'communities' => Community::select('id', 'name')->get(),
@@ -153,6 +163,8 @@ class BuildingController extends Controller
      */
     public function update(Request $request, Building $building): JsonResponse|RedirectResponse
     {
+        $this->authorize('update', $building);
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:20'],
             'rf_community_id' => ['required', 'integer', 'exists:rf_communities,id'],
@@ -189,6 +201,8 @@ class BuildingController extends Controller
      */
     public function destroy(Request $request, Building $building): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $building);
+
         $buildingId = $building->id;
         $building->delete();
 

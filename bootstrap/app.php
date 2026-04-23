@@ -5,13 +5,16 @@ use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\ResolveTenant;
 use App\Http\Middleware\SetLocale;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Request;
 use Spatie\Multitenancy\Exceptions\NoCurrentTenant;
 use Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession;
 use Spatie\Multitenancy\Http\Middleware\NeedsTenant;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -43,5 +46,15 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->renderable(function (NoCurrentTenant $e) {
             return redirect()->route('login');
+        });
+
+        // AuthorizationException is converted to AccessDeniedHttpException by the
+        // framework before renderables fire, so we must listen on the converted type.
+        $exceptions->renderable(function (AccessDeniedHttpException $e, Request $request) {
+            if ($request->hasHeader('X-Inertia')) {
+                return response()->json([
+                    'message' => __('errors.forbidden'),
+                ], 403);
+            }
         });
     })->create();
