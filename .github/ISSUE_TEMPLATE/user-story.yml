@@ -1,0 +1,47 @@
+name: User Story
+description: A single deliverable user story with Gherkin acceptance criteria — owned by the PM agent.
+title: "Story: <user-value title>"
+labels: ["type:story", "state:ready-for-ux", "agent:pm"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Mike Cohn format + one Gherkin scenario. If you need more than one When/Then, split the story
+        via the `user-story-splitting` skill.
+
+  - type: input
+    id: parent
+    attributes:
+      label: Part of (PRD / Epic)
+      description: Issue number this story belongs to (e.g., `#42`).
+      placeholder: "#NNN"
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: |
+        - **As a** [user / persona / role]
+        - **I want to** [action]
+        - **so that** [outcome]
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria (Gherkin)
+      description: |
+        - **Scenario:** [Brief, human-readable scenario]
+        - **Given:** [Initial context]
+        - **and Given:** [Additional context as needed]
+        - **When:** [Triggering event] (exactly one)
+        - **Then:** [Expected outcome] (exactly one)
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Edge cases, constraints, links to related context.

@@ -38,6 +38,35 @@ This project has domain-specific skills available. You MUST activate the relevan
 - `inertia-vue-development` — Develops Inertia.js v3 Vue client-side applications. Activates when creating Vue pages, forms, or navigation; using <Link>, <Form>, useForm, useHttp, setLayoutProps, or router; working with deferred props, prefetching, optimistic updates, instant visits, or polling; or when user mentions Vue with Inertia, Vue pages, Vue forms, or Vue navigation.
 - `tailwindcss-development` — Always invoke when the user's message includes 'tailwind' in any form. Also invoke for: building responsive grid layouts (multi-column card grids, product grids), flex/grid page structures (dashboards with sidebars, fixed topbars, mobile-toggle navs), styling UI components (cards, tables, navbars, pricing sections, forms, inputs, badges), adding dark mode variants, fixing spacing or typography, and Tailwind v3/v4 work. The core use case: writing or fixing Tailwind utility classes in HTML templates (Blade, JSX, Vue). Skip for backend PHP logic, database queries, API routes, JavaScript with no HTML/CSS component, CSS file audits, build tool configuration, and vanilla CSS.
 
+## Product Council
+
+This repo ships a seven-agent **Product Council** of Claude Code subagents that drive feature work end-to-end. GitHub is the only system of record. The council is human-in-the-loop only — nothing fires automatically. Full details: [`docs/council/README.md`](docs/council/README.md).
+
+**Agents** (in `.claude/agents/`):
+- `pm` (blue) — discovery, PRDs, user stories, prioritization
+- `tech-lead` (purple) — technical designs, architecture
+- `designer` (pink) — UX flows, wireframes, microcopy, RTL/Arabic
+- `delivery-pm` (cyan) — project board, sprint planning, status, blockers
+- `engineer` (green) — implementation, PRs, happy-path tests
+- `qa` (yellow) — AC-mapped tests, failure paths, edge cases
+- `reviewer` (orange) — code review, security, conventions
+
+**Slash commands** (in `.claude/commands/`):
+- Atomic: `/pm-prd`, `/pm-stories`, `/design-flow`, `/tl-design`, `/eng-implement`, `/qa-test`, `/review`, `/dpm-status`, `/dpm-plan`
+- Conductor: `/feature <topic>` (full chain w/ checkpoints), `/handoff <issue#>` (auto-route by `state:` label)
+
+**Hard rules:**
+- Reviewer never merges. Humans always merge.
+- PM never writes code. Tech Lead never opens PRs. Engineer never approves own PR. QA never merges. Delivery PM never modifies issue bodies.
+- All artifacts live in GitHub or `.claude/agent-memory/`. Do not create ad-hoc markdown in `docs/`.
+- Each agent updates only its own memory directory.
+
+**GitHub conventions:** issue templates in `.github/ISSUE_TEMPLATE/` (`prd.yml`, `epic.yml`, `user-story.yml`, `tech-design.yml`, `ux-flow.yml`, `bug.yml`); label taxonomy documented in `docs/council/labels.md` (`type:`, `area:`, `state:`, `priority:`, `agent:` namespaces); PR template at `.github/PULL_REQUEST_TEMPLATE.md`.
+
+**Memory:** every agent has `memory: project` → `.claude/agent-memory/<agent>/MEMORY.md`. The first ≤200 lines auto-inject into the agent's system prompt at session start. Files are committed to git so institutional knowledge follows the repo.
+
+**One-time setup:** `gh auth login && gh auth refresh -s project`, `gh repo set-default`, `bash docs/council/setup.sh`, then 4 manual project views per [`docs/council/project-views.md`](docs/council/project-views.md).
+
 ## Conventions
 
 - You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, and naming.

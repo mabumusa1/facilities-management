@@ -1,0 +1,57 @@
+name: UX Flow
+description: A standalone UX flow document — used for cross-cutting flows. Story-level UX flows go as comments on the story issue.
+title: "UX: <topic>"
+labels: ["type:ux-flow", "state:draft", "agent:designer"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template only for cross-cutting UX work (design system, navigation overhaul, etc.).
+        Story-level UX flows are normally posted as **comments** on the user-story issue by the
+        Designer agent — not as standalone issues.
+
+  - type: textarea
+    id: flow
+    attributes:
+      label: User flow
+      description: Numbered steps from entry to exit.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screens
+    attributes:
+      label: Key screens
+      description: Markdown wireframes (ASCII boxes or labeled blocks) for each screen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: microcopy
+    attributes:
+      label: Microcopy
+      description: Exact strings — buttons, headings, errors, empty states. Include English + Arabic for bilingual surfaces.
+    validations:
+      required: true
+
+  - type: textarea
+    id: states
+    attributes:
+      label: States
+      description: Empty, loading (skeleton), error, success.
+    validations:
+      required: true
+
+  - type: textarea
+    id: a11y
+    attributes:
+      label: Accessibility
+      description: Keyboard order, ARIA roles, focus management, screen-reader text.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rtl
+    attributes:
+      label: RTL / Arabic notes
+      description: Anything that flips, mirrors, or behaves differently in Arabic.

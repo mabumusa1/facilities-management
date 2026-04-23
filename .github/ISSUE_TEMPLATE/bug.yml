@@ -1,0 +1,50 @@
+name: Bug
+description: Report a defect in the application.
+title: "Bug: <short summary>"
+labels: ["type:bug", "state:draft"]
+body:
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps anyone can follow.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, language (EN/AR), tenant, user role.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - "p0 — outage / data loss / security"
+        - "p1 — broken core flow"
+        - "p2 — broken non-core flow or workaround exists"
+        - "p3 — cosmetic / minor"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      description: Paste relevant logs (`storage/logs/laravel.log`), browser console output, screenshots.

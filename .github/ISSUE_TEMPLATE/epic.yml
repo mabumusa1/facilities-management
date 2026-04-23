@@ -1,0 +1,46 @@
+name: Epic
+description: A testable hypothesis grouping related stories — owned by the PM agent.
+title: "Epic: <name>"
+labels: ["type:epic", "state:draft", "agent:pm"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        File an epic when several user stories share a common hypothesis.
+        Format mirrors the `epic-hypothesis` skill template.
+
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: If/Then Hypothesis
+      description: |
+        **If we** [action or solution on behalf of the target persona]
+        **for** [target persona]
+        **Then we will** [desirable outcome or job-to-be-done]
+    validations:
+      required: true
+
+  - type: textarea
+    id: experiments
+    attributes:
+      label: Tiny Acts of Discovery — Experiments
+      description: Bullets — how will we test the assumption?
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation Measures
+      description: |
+        Within [timeframe], we observe:
+        - [Quantitative measurable outcome]
+        - [Qualitative measurable outcome]
+    validations:
+      required: true
+
+  - type: textarea
+    id: stories
+    attributes:
+      label: Stories breakdown
+      description: Linked story issues (`#NNN — title`) that compose this epic.

@@ -1,0 +1,82 @@
+name: PRD
+description: Product Requirements Document — owned by the PM agent.
+title: "PRD: <feature name>"
+labels: ["type:prd", "state:draft", "agent:pm"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        File a PRD when you're ready to commit a problem + a target outcome to the council.
+        The PM agent normally owns this template — humans can also file PRDs and ask the PM agent to refine.
+
+  - type: textarea
+    id: executive-summary
+    attributes:
+      label: 1. Executive Summary
+      description: One paragraph — problem + solution + impact.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 2. Problem Statement
+      description: Who has the problem? What is it? Why is it painful? Evidence (quotes, data).
+    validations:
+      required: true
+
+  - type: textarea
+    id: personas
+    attributes:
+      label: 3. Target Users & Personas
+      description: Primary persona(s), secondary persona(s), jobs-to-be-done.
+    validations:
+      required: true
+
+  - type: textarea
+    id: strategic-context
+    attributes:
+      label: 4. Strategic Context
+      description: Business goals (OKRs), market opportunity, competitive landscape, why now.
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 5. Solution Overview
+      description: High-level description, user flows, key features.
+    validations:
+      required: true
+
+  - type: textarea
+    id: metrics
+    attributes:
+      label: 6. Success Metrics
+      description: Primary metric (with baseline → target), secondary metrics.
+    validations:
+      required: true
+
+  - type: textarea
+    id: stories
+    attributes:
+      label: 7. User Stories & Requirements
+      description: Epic hypothesis, user stories with AC, edge cases.
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: 8. Out of Scope
+      description: What we are NOT building (and why).
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies-risks
+    attributes:
+      label: 9. Dependencies & Risks
+      description: Technical deps, external deps, risks + mitigations.
+
+  - type: textarea
+    id: open-questions
+    attributes:
+      label: 10. Open Questions
+      description: Unresolved decisions, areas needing discovery.

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Product Council overview
+    url: https://github.com/mabumusa1/facilities-management/blob/1.x/docs/council/README.md
+    about: How the Product Council of Claude Code agents builds this app.
+  - name: Council workflow
+    url: https://github.com/mabumusa1/facilities-management/blob/1.x/docs/council/workflow.md
+    about: PRD → Stories → UX → Design → Implementation → QA → Review.
+  - name: Label taxonomy
+    url: https://github.com/mabumusa1/facilities-management/blob/1.x/docs/council/labels.md
+    about: type / area / state / priority / agent labels.

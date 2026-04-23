@@ -1,0 +1,53 @@
+name: Tech Design
+description: A standalone technical design document — used when a design isn't tied to one story (e.g., refactors, infra). Story-level designs go as comments on the story issue.
+title: "Design: <topic>"
+labels: ["type:design", "state:draft", "agent:tech-lead"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template only for cross-cutting designs (refactors, infra, shared libraries).
+        Story-level technical designs are normally posted as **comments** on the user-story issue
+        by the Tech Lead agent — not as standalone issues.
+
+  - type: textarea
+    id: approach
+    attributes:
+      label: Approach
+      description: One paragraph — the chosen approach and the key tradeoff.
+    validations:
+      required: true
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Files to touch
+      description: Bulleted list with file paths.
+    validations:
+      required: true
+
+  - type: textarea
+    id: data-model
+    attributes:
+      label: Data model changes
+      description: Migrations, model additions/changes, relationships.
+
+  - type: textarea
+    id: api
+    attributes:
+      label: API / contract changes
+      description: Routes added/removed, controller signatures, request/response shapes, Wayfinder regen needs.
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks
+      description: N+1, tenant boundaries, perf, security, migrations on large tables, etc.
+
+  - type: textarea
+    id: test-plan
+    attributes:
+      label: Test plan
+      description: Specific feature tests — happy path + at least one failure path + at least one edge case.
+    validations:
+      required: true
