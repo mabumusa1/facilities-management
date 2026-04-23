@@ -4,6 +4,7 @@ use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\FacilityCategoryController as AppFacilityCategoryController;
 use App\Http\Controllers\AppSettings\FormTemplateController;
 use App\Http\Controllers\AppSettings\GeneralSettingController;
@@ -112,8 +113,12 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::prefix('admin')->name('admin.')->middleware('admin.manage')->group(function () {
         Route::get('users', [AccountUserController::class, 'index'])->name('users.index');
         Route::post('users', [AccountUserController::class, 'store'])->name('users.store');
+        Route::get('users/{user}', [AccountUserController::class, 'show'])->name('users.show');
         Route::put('users/{membership}', [AccountUserController::class, 'update'])->name('users.update');
         Route::delete('users/{membership}', [AccountUserController::class, 'destroy'])->name('users.destroy');
+
+        Route::post('users/{user}/role-assignments', [UserRoleAssignmentController::class, 'store'])->name('users.role-assignments.store');
+        Route::delete('users/{user}/role-assignments/{assignment}', [UserRoleAssignmentController::class, 'destroy'])->name('users.role-assignments.destroy');
 
         Route::get('subscriptions', [AccountSubscriptionController::class, 'index'])->name('subscriptions.index');
         Route::post('subscriptions/{tenant}/activate', [AccountSubscriptionController::class, 'activate'])->name('subscriptions.activate');
