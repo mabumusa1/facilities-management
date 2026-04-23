@@ -124,6 +124,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
         Route::put('roles/{role}', [RoleController::class, 'update'])->name('roles.update');
         Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+        Route::get('roles/{role}/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
+        Route::put('roles/{role}/permissions', [RoleController::class, 'syncPermissions'])->name('roles.permissions.sync');
     });
 
     // App Settings

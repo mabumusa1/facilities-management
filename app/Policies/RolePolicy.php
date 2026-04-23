@@ -33,4 +33,11 @@ class RolePolicy
             && $user->can('roles.DELETE')
             && $this->belongsToCurrentTenant($role);
     }
+
+    public function managePermissions(User $user, Role $role): bool
+    {
+        return ! $role->isSystemRole()
+            && $user->can('roles.UPDATE')
+            && $this->belongsToCurrentTenant($role);
+    }
 }
