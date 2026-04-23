@@ -8,6 +8,6 @@ enum PermissionAction: string
     case Create = 'CREATE';
     case Update = 'UPDATE';
     case Delete = 'DELETE';
-    case Export = 'EXPORT';
-    case Import = 'IMPORT';
+    case Restore = 'RESTORE';
+    case ForceDelete = 'FORCE_DELETE';
 }

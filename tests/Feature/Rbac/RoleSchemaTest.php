@@ -271,7 +271,7 @@ class RoleSchemaTest extends TestCase
     }
 
     // -------------------------------------------------------------------------
-    // Edge: PermissionAction enum values match expected CRUD+Export/Import set
+    // Edge: PermissionAction enum values match expected CRUD+Restore/ForceDelete set
     // -------------------------------------------------------------------------
 
     public function test_permission_action_enum_has_correct_values(): void
@@ -279,7 +279,7 @@ class RoleSchemaTest extends TestCase
         $values = array_column(PermissionAction::cases(), 'value');
         sort($values);
 
-        $this->assertSame(['CREATE', 'DELETE', 'EXPORT', 'IMPORT', 'UPDATE', 'VIEW'], $values);
+        $this->assertSame(['CREATE', 'DELETE', 'FORCE_DELETE', 'RESTORE', 'UPDATE', 'VIEW'], $values);
     }
 
     // -------------------------------------------------------------------------
