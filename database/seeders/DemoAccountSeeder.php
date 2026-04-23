@@ -74,7 +74,7 @@ class DemoAccountSeeder extends Seeder
             FeatureSeeder::class,
             AmenitySeeder::class,
             CommonListSeeder::class,
-            RolesSeeder::class,
+            RbacSeeder::class,
             SubscriptionPlanSeeder::class,
         ]);
     }
