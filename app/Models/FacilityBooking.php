@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Concerns\HasManagerScope;
+use App\Support\ManagerScopeHelper;
 use Database\Factories\FacilityBookingFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,9 +15,38 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class FacilityBooking extends Model
 {
     /** @use HasFactory<FacilityBookingFactory> */
-    use HasFactory, SoftDeletes;
+    use HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_facility_bookings';
+
+    /**
+     * FacilityBookings: filter via facility_id → rf_facilities.community_id.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeForManager(Builder $query, User $user): Builder
+    {
+        $scopes = ManagerScopeHelper::scopesForUser($user);
+
+        if ($scopes['is_unrestricted']) {
+            return $query;
+        }
+
+        $communityIds = $scopes['community_ids'];
+
+        if (empty($communityIds)) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->whereIn(
+            $this->getTable().'.facility_id',
+            fn ($sub) => $sub
+                ->select('id')
+                ->from('rf_facilities')
+                ->whereIn('community_id', $communityIds)
+        );
+    }
 
     protected $fillable = [
         'facility_id',

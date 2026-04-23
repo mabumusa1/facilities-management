@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
+use App\Concerns\HasManagerScope;
+use App\Support\ManagerScopeHelper;
 use Database\Factories\BuildingFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +16,38 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class Building extends Model
 {
     /** @use HasFactory<BuildingFactory> */
-    use BelongsToAccountTenant, HasFactory;
+    use BelongsToAccountTenant, HasFactory, HasManagerScope;
+
+    /**
+     * Buildings: match by direct building_id OR via community (rf_community_id).
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeForManager(Builder $query, User $user): Builder
+    {
+        $scopes = ManagerScopeHelper::scopesForUser($user);
+
+        if ($scopes['is_unrestricted']) {
+            return $query;
+        }
+
+        $communityIds = $scopes['community_ids'];
+        $buildingIds = $scopes['building_ids'];
+
+        if (empty($communityIds) && empty($buildingIds)) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->where(function (Builder $q) use ($communityIds, $buildingIds): void {
+            if (! empty($buildingIds)) {
+                $q->orWhereIn($this->getTable().'.id', $buildingIds);
+            }
+            if (! empty($communityIds)) {
+                $q->orWhereIn($this->getTable().'.rf_community_id', $communityIds);
+            }
+        });
+    }
 
     protected $table = 'rf_buildings';
 

@@ -4,7 +4,10 @@ namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
 use App\Concerns\HasContactInfo;
+use App\Concerns\HasManagerScope;
+use App\Support\ManagerScopeHelper;
 use Database\Factories\OwnerFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,9 +17,47 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Owner extends Model
 {
     /** @use HasFactory<OwnerFactory> */
-    use BelongsToAccountTenant, HasContactInfo, HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasContactInfo, HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_owners';
+
+    /**
+     * Owners: filter via rf_units.owner_id → community/building FK.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeForManager(Builder $query, User $user): Builder
+    {
+        $scopes = ManagerScopeHelper::scopesForUser($user);
+
+        if ($scopes['is_unrestricted']) {
+            return $query;
+        }
+
+        $communityIds = $scopes['community_ids'];
+        $buildingIds = $scopes['building_ids'];
+
+        if (empty($communityIds) && empty($buildingIds)) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->whereIn(
+            $this->getTable().'.id',
+            fn ($sub) => $sub
+                ->select('owner_id')
+                ->from('rf_units')
+                ->whereNotNull('owner_id')
+                ->where(function ($q) use ($communityIds, $buildingIds): void {
+                    if (! empty($communityIds)) {
+                        $q->orWhereIn('rf_community_id', $communityIds);
+                    }
+                    if (! empty($buildingIds)) {
+                        $q->orWhereIn('rf_building_id', $buildingIds);
+                    }
+                })
+        );
+    }
 
     protected $fillable = [
         'first_name',

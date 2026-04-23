@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
+use App\Concerns\HasManagerScope;
 use App\Enums\LeaseEscalationType;
 use App\Enums\RentalType;
 use App\Enums\TenantType;
+use App\Support\ManagerScopeHelper;
 use Database\Factories\LeaseFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,9 +20,47 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Lease extends Model
 {
     /** @use HasFactory<LeaseFactory> */
-    use BelongsToAccountTenant, HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_leases';
+
+    /**
+     * Leases: filter via lease_units pivot → rf_units community/building FK.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeForManager(Builder $query, User $user): Builder
+    {
+        $scopes = ManagerScopeHelper::scopesForUser($user);
+
+        if ($scopes['is_unrestricted']) {
+            return $query;
+        }
+
+        $communityIds = $scopes['community_ids'];
+        $buildingIds = $scopes['building_ids'];
+
+        if (empty($communityIds) && empty($buildingIds)) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->whereIn(
+            $this->getTable().'.id',
+            fn ($sub) => $sub
+                ->select('lease_units.lease_id')
+                ->from('lease_units')
+                ->join('rf_units', 'rf_units.id', '=', 'lease_units.unit_id')
+                ->where(function ($q) use ($communityIds, $buildingIds): void {
+                    if (! empty($communityIds)) {
+                        $q->orWhereIn('rf_units.rf_community_id', $communityIds);
+                    }
+                    if (! empty($buildingIds)) {
+                        $q->orWhereIn('rf_units.rf_building_id', $buildingIds);
+                    }
+                })
+        );
+    }
 
     protected $fillable = [
         'contract_number',

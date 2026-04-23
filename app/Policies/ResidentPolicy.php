@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Concerns\ChecksTenantOwnership;
 use App\Models\Resident;
 use App\Models\User;
+use App\Support\ManagerScopeHelper;
 
 class ResidentPolicy
 {
@@ -18,7 +19,8 @@ class ResidentPolicy
     public function view(User $user, Resident $resident): bool
     {
         return $user->can('tenants.VIEW')
-            && $this->belongsToCurrentTenant($resident);
+            && $this->belongsToCurrentTenant($resident)
+            && ManagerScopeHelper::userCanAccessModel($user, $resident);
     }
 
     public function create(User $user): bool
@@ -29,24 +31,28 @@ class ResidentPolicy
     public function update(User $user, Resident $resident): bool
     {
         return $user->can('tenants.UPDATE')
-            && $this->belongsToCurrentTenant($resident);
+            && $this->belongsToCurrentTenant($resident)
+            && ManagerScopeHelper::userCanAccessModel($user, $resident);
     }
 
     public function delete(User $user, Resident $resident): bool
     {
         return $user->can('tenants.DELETE')
-            && $this->belongsToCurrentTenant($resident);
+            && $this->belongsToCurrentTenant($resident)
+            && ManagerScopeHelper::userCanAccessModel($user, $resident);
     }
 
     public function restore(User $user, Resident $resident): bool
     {
         return $user->can('tenants.RESTORE')
-            && $this->belongsToCurrentTenant($resident);
+            && $this->belongsToCurrentTenant($resident)
+            && ManagerScopeHelper::userCanAccessModel($user, $resident);
     }
 
     public function forceDelete(User $user, Resident $resident): bool
     {
         return $user->can('tenants.FORCE_DELETE')
-            && $this->belongsToCurrentTenant($resident);
+            && $this->belongsToCurrentTenant($resident)
+            && ManagerScopeHelper::userCanAccessModel($user, $resident);
     }
 }

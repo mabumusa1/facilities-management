@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
+use App\Concerns\HasManagerScope;
 use Database\Factories\AnnouncementFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +13,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Announcement extends Model
 {
     /** @use HasFactory<AnnouncementFactory> */
-    use BelongsToAccountTenant, HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_announcements';
+
+    protected function hasBuildingIdColumn(): bool
+    {
+        return true;
+    }
 
     protected $fillable = [
         'community_id',

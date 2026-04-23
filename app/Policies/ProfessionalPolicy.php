@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Concerns\ChecksTenantOwnership;
 use App\Models\Professional;
 use App\Models\User;
+use App\Support\ManagerScopeHelper;
 
 class ProfessionalPolicy
 {
@@ -18,7 +19,8 @@ class ProfessionalPolicy
     public function view(User $user, Professional $professional): bool
     {
         return $user->can('professionals.VIEW')
-            && $this->belongsToCurrentTenant($professional);
+            && $this->belongsToCurrentTenant($professional)
+            && ManagerScopeHelper::userCanAccessModel($user, $professional);
     }
 
     public function create(User $user): bool
@@ -29,24 +31,28 @@ class ProfessionalPolicy
     public function update(User $user, Professional $professional): bool
     {
         return $user->can('professionals.UPDATE')
-            && $this->belongsToCurrentTenant($professional);
+            && $this->belongsToCurrentTenant($professional)
+            && ManagerScopeHelper::userCanAccessModel($user, $professional);
     }
 
     public function delete(User $user, Professional $professional): bool
     {
         return $user->can('professionals.DELETE')
-            && $this->belongsToCurrentTenant($professional);
+            && $this->belongsToCurrentTenant($professional)
+            && ManagerScopeHelper::userCanAccessModel($user, $professional);
     }
 
     public function restore(User $user, Professional $professional): bool
     {
         return $user->can('professionals.RESTORE')
-            && $this->belongsToCurrentTenant($professional);
+            && $this->belongsToCurrentTenant($professional)
+            && ManagerScopeHelper::userCanAccessModel($user, $professional);
     }
 
     public function forceDelete(User $user, Professional $professional): bool
     {
         return $user->can('professionals.FORCE_DELETE')
-            && $this->belongsToCurrentTenant($professional);
+            && $this->belongsToCurrentTenant($professional)
+            && ManagerScopeHelper::userCanAccessModel($user, $professional);
     }
 }

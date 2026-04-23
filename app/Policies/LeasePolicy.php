@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Concerns\ChecksTenantOwnership;
 use App\Models\Lease;
 use App\Models\User;
+use App\Support\ManagerScopeHelper;
 
 class LeasePolicy
 {
@@ -18,7 +19,8 @@ class LeasePolicy
     public function view(User $user, Lease $lease): bool
     {
         return $user->can('leases.VIEW')
-            && $this->belongsToCurrentTenant($lease);
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 
     public function create(User $user): bool
@@ -29,24 +31,28 @@ class LeasePolicy
     public function update(User $user, Lease $lease): bool
     {
         return $user->can('leases.UPDATE')
-            && $this->belongsToCurrentTenant($lease);
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 
     public function delete(User $user, Lease $lease): bool
     {
         return $user->can('leases.DELETE')
-            && $this->belongsToCurrentTenant($lease);
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 
     public function restore(User $user, Lease $lease): bool
     {
         return $user->can('leases.RESTORE')
-            && $this->belongsToCurrentTenant($lease);
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 
     public function forceDelete(User $user, Lease $lease): bool
     {
         return $user->can('leases.FORCE_DELETE')
-            && $this->belongsToCurrentTenant($lease);
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 }

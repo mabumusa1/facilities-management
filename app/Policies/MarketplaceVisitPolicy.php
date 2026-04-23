@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Concerns\ChecksTenantOwnership;
 use App\Models\MarketplaceVisit;
 use App\Models\User;
+use App\Support\ManagerScopeHelper;
 
 class MarketplaceVisitPolicy
 {
@@ -18,7 +19,8 @@ class MarketplaceVisitPolicy
     public function view(User $user, MarketplaceVisit $marketplaceVisit): bool
     {
         return $user->can('marketPlaceVisits.VIEW')
-            && $this->belongsToCurrentTenant($marketplaceVisit);
+            && $this->belongsToCurrentTenant($marketplaceVisit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceVisit);
     }
 
     public function create(User $user): bool
@@ -29,24 +31,28 @@ class MarketplaceVisitPolicy
     public function update(User $user, MarketplaceVisit $marketplaceVisit): bool
     {
         return $user->can('marketPlaceVisits.UPDATE')
-            && $this->belongsToCurrentTenant($marketplaceVisit);
+            && $this->belongsToCurrentTenant($marketplaceVisit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceVisit);
     }
 
     public function delete(User $user, MarketplaceVisit $marketplaceVisit): bool
     {
         return $user->can('marketPlaceVisits.DELETE')
-            && $this->belongsToCurrentTenant($marketplaceVisit);
+            && $this->belongsToCurrentTenant($marketplaceVisit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceVisit);
     }
 
     public function restore(User $user, MarketplaceVisit $marketplaceVisit): bool
     {
         return $user->can('marketPlaceVisits.RESTORE')
-            && $this->belongsToCurrentTenant($marketplaceVisit);
+            && $this->belongsToCurrentTenant($marketplaceVisit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceVisit);
     }
 
     public function forceDelete(User $user, MarketplaceVisit $marketplaceVisit): bool
     {
         return $user->can('marketPlaceVisits.FORCE_DELETE')
-            && $this->belongsToCurrentTenant($marketplaceVisit);
+            && $this->belongsToCurrentTenant($marketplaceVisit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceVisit);
     }
 }

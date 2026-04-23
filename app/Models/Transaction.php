@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
+use App\Concerns\HasManagerScope;
+use App\Support\ManagerScopeHelper;
 use Database\Factories\TransactionFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,9 +19,46 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction extends Model
 {
     /** @use HasFactory<TransactionFactory> */
-    use BelongsToAccountTenant, HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_transactions';
+
+    /**
+     * Transactions: filter via unit_id → rf_units community/building FK.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeForManager(Builder $query, User $user): Builder
+    {
+        $scopes = ManagerScopeHelper::scopesForUser($user);
+
+        if ($scopes['is_unrestricted']) {
+            return $query;
+        }
+
+        $communityIds = $scopes['community_ids'];
+        $buildingIds = $scopes['building_ids'];
+
+        if (empty($communityIds) && empty($buildingIds)) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->whereIn(
+            $this->getTable().'.unit_id',
+            fn ($sub) => $sub
+                ->select('id')
+                ->from('rf_units')
+                ->where(function ($q) use ($communityIds, $buildingIds): void {
+                    if (! empty($communityIds)) {
+                        $q->orWhereIn('rf_community_id', $communityIds);
+                    }
+                    if (! empty($buildingIds)) {
+                        $q->orWhereIn('rf_building_id', $buildingIds);
+                    }
+                })
+        );
+    }
 
     protected $fillable = [
         'lease_id',
