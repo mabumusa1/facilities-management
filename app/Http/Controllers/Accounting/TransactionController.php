@@ -23,6 +23,8 @@ class TransactionController extends Controller
 {
     public function index(Request $request): JsonResponse|Response
     {
+        $this->authorize('viewAny', Transaction::class);
+
         $search = trim((string) $request->input('search', ''));
         $statusId = $request->input('status_id');
         $categoryId = $request->input('category_id');
@@ -127,6 +129,8 @@ class TransactionController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', Transaction::class);
+
         return Inertia::render('accounting/transactions/Create', [
             'leases' => Lease::select('id', 'contract_number')->orderBy('contract_number')->get(),
             'units' => Unit::select('id', 'name')->orderBy('name')->get(),
@@ -141,6 +145,8 @@ class TransactionController extends Controller
 
     public function store(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Transaction::class);
+
         $validated = $request->validate([
             'lease_id' => ['nullable', 'integer', 'exists:rf_leases,id'],
             'unit_id' => ['nullable', 'integer', 'exists:rf_units,id'],
@@ -190,6 +196,8 @@ class TransactionController extends Controller
 
     public function show(Transaction $transaction): Response
     {
+        $this->authorize('view', $transaction);
+
         $transaction->load(['lease', 'unit', 'status', 'payments', 'category', 'subcategory', 'type']);
 
         return Inertia::render('accounting/transactions/Show', [
@@ -209,6 +217,8 @@ class TransactionController extends Controller
 
     public function edit(Transaction $transaction): Response
     {
+        $this->authorize('update', $transaction);
+
         return Inertia::render('accounting/transactions/Edit', [
             'transaction' => $transaction->load(['lease', 'unit', 'status']),
             'leases' => Lease::select('id', 'contract_number')->orderBy('contract_number')->get(),
@@ -228,6 +238,8 @@ class TransactionController extends Controller
         StatusWorkflow $statusWorkflow,
         WorkflowNotifier $workflowNotifier,
     ): JsonResponse|RedirectResponse {
+        $this->authorize('update', $transaction);
+
         $validated = $request->validate([
             'status_id' => ['sometimes', 'integer', 'exists:rf_statuses,id'],
             'amount' => ['sometimes', 'numeric', 'min:0'],
@@ -297,6 +309,8 @@ class TransactionController extends Controller
 
     public function destroy(Request $request, Transaction $transaction): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $transaction);
+
         $transactionId = $transaction->id;
         $transaction->delete();
 

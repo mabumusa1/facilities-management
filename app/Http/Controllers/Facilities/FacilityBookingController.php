@@ -16,6 +16,8 @@ class FacilityBookingController extends Controller
 {
     public function index(Request $request): Response
     {
+        $this->authorize('viewAny', FacilityBooking::class);
+
         $bookings = FacilityBooking::query()
             ->with(['facility', 'booker', 'status'])
             ->latest()
@@ -28,6 +30,8 @@ class FacilityBookingController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', FacilityBooking::class);
+
         return Inertia::render('facilities/bookings/Create', [
             'facilities' => Facility::where('is_active', true)->select('id', 'name', 'name_en')->orderBy('name')->get(),
             'residents' => Resident::select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
@@ -37,6 +41,8 @@ class FacilityBookingController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $this->authorize('create', FacilityBooking::class);
+
         $validated = $request->validate([
             'facility_id' => ['required', 'integer', 'exists:rf_facilities,id'],
             'booker_id' => ['required', 'integer'],
@@ -58,6 +64,8 @@ class FacilityBookingController extends Controller
 
     public function show(FacilityBooking $facilityBooking): Response
     {
+        $this->authorize('view', $facilityBooking);
+
         $facilityBooking->load(['facility', 'booker', 'status']);
 
         return Inertia::render('facilities/bookings/Show', [
@@ -67,6 +75,8 @@ class FacilityBookingController extends Controller
 
     public function edit(FacilityBooking $facilityBooking): Response
     {
+        $this->authorize('update', $facilityBooking);
+
         $facilityBooking->load(['facility', 'booker', 'status']);
 
         return Inertia::render('facilities/bookings/Edit', [
@@ -79,6 +89,8 @@ class FacilityBookingController extends Controller
 
     public function update(Request $request, FacilityBooking $facilityBooking): RedirectResponse
     {
+        $this->authorize('update', $facilityBooking);
+
         $validated = $request->validate([
             'status_id' => ['sometimes', 'integer', 'exists:rf_statuses,id'],
             'booking_date' => ['sometimes', 'date'],
@@ -97,6 +109,8 @@ class FacilityBookingController extends Controller
 
     public function destroy(FacilityBooking $facilityBooking): RedirectResponse
     {
+        $this->authorize('delete', $facilityBooking);
+
         $facilityBooking->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Booking cancelled.')]);

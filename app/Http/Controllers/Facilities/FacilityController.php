@@ -17,6 +17,8 @@ class FacilityController extends Controller
 {
     public function index(Request $request): JsonResponse|Response
     {
+        $this->authorize('viewAny', Facility::class);
+
         $query = Facility::query()
             ->with(['category', 'community'])
             ->latest();
@@ -67,6 +69,8 @@ class FacilityController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', Facility::class);
+
         return Inertia::render('facilities/Create', [
             'categories' => FacilityCategory::query()
                 ->select('id', 'name', 'name_ar', 'name_en')
@@ -78,6 +82,8 @@ class FacilityController extends Controller
 
     public function store(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Facility::class);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $validated = $request->validate([
                 'name_ar' => ['required', 'string', 'max:255'],
@@ -139,6 +145,8 @@ class FacilityController extends Controller
 
     public function show(Facility $facility): Response
     {
+        $this->authorize('view', $facility);
+
         $facility->load(['category', 'community', 'bookings']);
 
         return Inertia::render('facilities/Show', [
@@ -148,6 +156,8 @@ class FacilityController extends Controller
 
     public function edit(Facility $facility): Response
     {
+        $this->authorize('update', $facility);
+
         return Inertia::render('facilities/Edit', [
             'facility' => $facility,
             'categories' => FacilityCategory::query()
@@ -160,6 +170,8 @@ class FacilityController extends Controller
 
     public function update(Request $request, Facility $facility): JsonResponse|RedirectResponse
     {
+        $this->authorize('update', $facility);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $validated = $request->validate([
                 'name_ar' => ['required', 'string', 'max:255'],
@@ -221,6 +233,8 @@ class FacilityController extends Controller
 
     public function destroy(Request $request, Facility $facility): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $facility);
+
         $facilityId = $facility->id;
         $facility->delete();
 

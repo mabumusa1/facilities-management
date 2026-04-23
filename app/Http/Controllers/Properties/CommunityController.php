@@ -22,6 +22,8 @@ class CommunityController extends Controller
      */
     public function index(Request $request): JsonResponse|Response
     {
+        $this->authorize('viewAny', Community::class);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $communities = Community::query()
                 ->withCount(['buildings', 'units', 'requests'])
@@ -57,6 +59,8 @@ class CommunityController extends Controller
      */
     public function create(): Response
     {
+        $this->authorize('create', Community::class);
+
         return Inertia::render('properties/communities/Create', [
             'countries' => Country::query()->select('id', 'name', 'name_en', 'currency')->orderBy('id')->get(),
             'currencies' => Currency::query()->select('id', 'name', 'code', 'symbol')->orderBy('name')->get(),
@@ -70,6 +74,8 @@ class CommunityController extends Controller
      */
     public function store(Request $request): JsonResponse|RedirectResponse
     {
+        $this->authorize('create', Community::class);
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'country_id' => ['required', 'integer', 'exists:countries,id'],
@@ -106,6 +112,8 @@ class CommunityController extends Controller
      */
     public function show(Request $request, Community $community): JsonResponse|Response
     {
+        $this->authorize('view', $community);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $community->loadCount(['buildings', 'units', 'requests'])
                 ->load([
@@ -176,6 +184,8 @@ class CommunityController extends Controller
      */
     public function edit(Community $community): Response
     {
+        $this->authorize('update', $community);
+
         return Inertia::render('properties/communities/Edit', [
             'community' => $community,
             'countries' => Country::query()->select('id', 'name', 'name_en', 'currency')->orderBy('id')->get(),
@@ -190,6 +200,8 @@ class CommunityController extends Controller
      */
     public function update(Request $request, Community $community): JsonResponse|RedirectResponse
     {
+        $this->authorize('update', $community);
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'country_id' => ['required', 'integer', 'exists:countries,id'],
@@ -226,6 +238,8 @@ class CommunityController extends Controller
      */
     public function destroy(Request $request, Community $community): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $community);
+
         $communityId = $community->id;
         $community->delete();
 
