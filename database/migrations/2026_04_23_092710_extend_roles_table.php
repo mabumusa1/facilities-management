@@ -33,7 +33,7 @@ return new class extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             $table->dropUnique('roles_tenant_name_guard_unique');
-            $table->unique(['name', 'guard_name']);
+            $table->unique(['name', 'guard_name'], 'roles_name_guard_name_unique');
             $table->dropIndex('roles_account_tenant_id_index');
             $table->dropColumn(['name_ar', 'name_en', 'type', 'account_tenant_id']);
         });

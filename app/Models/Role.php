@@ -43,7 +43,7 @@ class Role extends SpatieRole
             throw RoleAlreadyExists::create($attributes['name'], $attributes['guard_name']);
         }
 
-        return static::query()->create($attributes);
+        return static::withoutGlobalScopes()->create($attributes);
     }
 
     /**
