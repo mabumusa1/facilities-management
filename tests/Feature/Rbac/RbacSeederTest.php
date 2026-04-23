@@ -243,6 +243,90 @@ class RbacSeederTest extends TestCase
         $this->assertFalse($hasNonNullTenant, 'All 12 default roles must have account_tenant_id = NULL');
     }
 
+    public function test_deleted_permission_is_recreated_on_reseed(): void
+    {
+        $this->runSeeder();
+
+        Permission::withoutGlobalScopes()
+            ->where('name', 'communities.VIEW')
+            ->whereNull('account_tenant_id')
+            ->delete();
+
+        $this->runSeeder();
+
+        $exists = Permission::withoutGlobalScopes()
+            ->where('name', 'communities.VIEW')
+            ->whereNull('account_tenant_id')
+            ->exists();
+
+        $this->assertTrue($exists, 'Deleted system permission must be recreated on re-seed');
+    }
+
+    public function test_deleted_role_is_recreated_on_reseed(): void
+    {
+        $this->runSeeder();
+
+        Role::withoutGlobalScopes()
+            ->where('name', 'managers')
+            ->whereNull('account_tenant_id')
+            ->delete();
+
+        $this->runSeeder();
+
+        $role = Role::withoutGlobalScopes()
+            ->where('name', 'managers')
+            ->whereNull('account_tenant_id')
+            ->first();
+
+        $this->assertNotNull($role, 'Deleted default role must be recreated on re-seed');
+        $this->assertSame(150, $role->permissions()->count());
+    }
+
+    public function test_all_12_roles_have_at_least_one_permission(): void
+    {
+        $this->runSeeder();
+
+        $roleNames = [
+            'accountAdmins', 'admins', 'managers', 'owners', 'tenants',
+            'dependents', 'professionals', 'Admins', 'accountingManagers',
+            'serviceManagers', 'marketingManagers', 'salesAndLeasingManagers',
+        ];
+
+        foreach ($roleNames as $roleName) {
+            $role = Role::withoutGlobalScopes()
+                ->where('name', $roleName)
+                ->whereNull('account_tenant_id')
+                ->firstOrFail();
+
+            $this->assertGreaterThan(
+                0,
+                $role->permissions()->count(),
+                "Role '{$roleName}' must have at least one permission assigned"
+            );
+        }
+    }
+
+    public function test_all_12_roles_have_valid_type(): void
+    {
+        $this->runSeeder();
+
+        $validTypes = RoleType::cases();
+
+        $roles = Role::withoutGlobalScopes()
+            ->whereNull('account_tenant_id')
+            ->get();
+
+        $this->assertCount(12, $roles);
+
+        foreach ($roles as $role) {
+            $this->assertContains(
+                $role->type,
+                $validTypes,
+                "Role '{$role->name}' has invalid type"
+            );
+        }
+    }
+
     public function test_permission_name_format_is_subject_dot_action(): void
     {
         $this->runSeeder();
