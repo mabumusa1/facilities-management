@@ -620,6 +620,66 @@ class ManagerScopeTest extends TestCase
     }
 
     // -------------------------------------------------------------------------
+    // Fix: removeScopedRole only removes the targeted scope row, leaving others
+    // -------------------------------------------------------------------------
+
+    public function test_remove_scoped_role_leaves_sibling_scope_rows_intact(): void
+    {
+        [$tenant, $user] = $this->makeTenantAndUser();
+        $communityA = Community::factory()->create(['account_tenant_id' => $tenant->id]);
+        $communityB = Community::factory()->create(['account_tenant_id' => $tenant->id]);
+
+        $this->assignCommunityScope($user, $communityA->id);
+        $this->assignCommunityScope($user, $communityB->id);
+
+        // Both rows exist before removal.
+        $this->assertSame(2, \DB::table('model_has_roles')
+            ->where('model_type', User::class)
+            ->where('model_id', $user->id)
+            ->count());
+
+        // Remove only the communityA scope row.
+        $user->removeScopedRole('managers', communityId: $communityA->id);
+
+        // communityB row must still be present.
+        $this->assertSame(1, \DB::table('model_has_roles')
+            ->where('model_type', User::class)
+            ->where('model_id', $user->id)
+            ->count());
+
+        $remaining = \DB::table('model_has_roles')
+            ->where('model_type', User::class)
+            ->where('model_id', $user->id)
+            ->first();
+
+        $this->assertSame($communityB->id, (int) $remaining->community_id);
+    }
+
+    public function test_remove_role_throws_when_scoped_rows_exist(): void
+    {
+        [$tenant, $user] = $this->makeTenantAndUser();
+        $community = Community::factory()->create(['account_tenant_id' => $tenant->id]);
+        $this->assignCommunityScope($user, $community->id);
+
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessageMatches('/removeScopedRole/');
+
+        $user->removeRole('managers');
+    }
+
+    public function test_sync_roles_throws_when_scoped_rows_exist(): void
+    {
+        [$tenant, $user] = $this->makeTenantAndUser();
+        $community = Community::factory()->create(['account_tenant_id' => $tenant->id]);
+        $this->assignCommunityScope($user, $community->id);
+
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessageMatches('/syncRoles/');
+
+        $user->syncRoles('managers');
+    }
+
+    // -------------------------------------------------------------------------
     // Failure path: userCanAccessModel returns false when building-only manager
     //               tries to access a community (different model type)
     // -------------------------------------------------------------------------

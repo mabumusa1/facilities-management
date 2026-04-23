@@ -31,7 +31,10 @@ class ManagerScopeHelper
      */
     public static function scopesForUser(User $user): array
     {
-        return once(function () use ($user): array {
+        /** @var array<int, array{community_ids: int[], building_ids: int[], service_type_ids: int[], is_unrestricted: bool}> $cache */
+        static $cache = [];
+
+        return $cache[$user->id] ??= (function () use ($user): array {
             // accountAdmins bypass is already enforced via Gate::before in AppServiceProvider.
             // Additionally, treat accountAdmins as unrestricted here so controllers
             // don't need to call ->forManager() at all.
@@ -90,7 +93,7 @@ class ManagerScopeHelper
                     ->all(),
                 'is_unrestricted' => false,
             ];
-        });
+        })();
     }
 
     /**
@@ -146,14 +149,14 @@ class ManagerScopeHelper
 
             MarketplaceVisit::class => static::marketplaceVisitInScope($model->marketplace_unit_id, $communityIds, $buildingIds),
 
-            default => true,
+            default => false,
         };
     }
 
     private static function facilityInScope(int $facilityId, array $communityIds): bool
     {
         if (empty($communityIds)) {
-            return true;
+            return false;
         }
 
         return \DB::table('rf_facilities')
