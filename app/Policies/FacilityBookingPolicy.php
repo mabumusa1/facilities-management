@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Concerns\ChecksTenantOwnership;
 use App\Models\FacilityBooking;
 use App\Models\User;
+use App\Support\ManagerScopeHelper;
 
 class FacilityBookingPolicy
 {
@@ -18,7 +19,8 @@ class FacilityBookingPolicy
     public function view(User $user, FacilityBooking $facilityBooking): bool
     {
         return $user->can('facilityBookings.VIEW')
-            && $this->belongsToCurrentTenant($facilityBooking);
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
     }
 
     public function create(User $user): bool
@@ -29,24 +31,28 @@ class FacilityBookingPolicy
     public function update(User $user, FacilityBooking $facilityBooking): bool
     {
         return $user->can('facilityBookings.UPDATE')
-            && $this->belongsToCurrentTenant($facilityBooking);
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
     }
 
     public function delete(User $user, FacilityBooking $facilityBooking): bool
     {
         return $user->can('facilityBookings.DELETE')
-            && $this->belongsToCurrentTenant($facilityBooking);
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
     }
 
     public function restore(User $user, FacilityBooking $facilityBooking): bool
     {
         return $user->can('facilityBookings.RESTORE')
-            && $this->belongsToCurrentTenant($facilityBooking);
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
     }
 
     public function forceDelete(User $user, FacilityBooking $facilityBooking): bool
     {
         return $user->can('facilityBookings.FORCE_DELETE')
-            && $this->belongsToCurrentTenant($facilityBooking);
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
     }
 }

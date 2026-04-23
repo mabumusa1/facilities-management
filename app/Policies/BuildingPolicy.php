@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Concerns\ChecksTenantOwnership;
 use App\Models\Building;
 use App\Models\User;
+use App\Support\ManagerScopeHelper;
 
 class BuildingPolicy
 {
@@ -18,7 +19,8 @@ class BuildingPolicy
     public function view(User $user, Building $building): bool
     {
         return $user->can('buildings.VIEW')
-            && $this->belongsToCurrentTenant($building);
+            && $this->belongsToCurrentTenant($building)
+            && ManagerScopeHelper::userCanAccessModel($user, $building);
     }
 
     public function create(User $user): bool
@@ -29,24 +31,28 @@ class BuildingPolicy
     public function update(User $user, Building $building): bool
     {
         return $user->can('buildings.UPDATE')
-            && $this->belongsToCurrentTenant($building);
+            && $this->belongsToCurrentTenant($building)
+            && ManagerScopeHelper::userCanAccessModel($user, $building);
     }
 
     public function delete(User $user, Building $building): bool
     {
         return $user->can('buildings.DELETE')
-            && $this->belongsToCurrentTenant($building);
+            && $this->belongsToCurrentTenant($building)
+            && ManagerScopeHelper::userCanAccessModel($user, $building);
     }
 
     public function restore(User $user, Building $building): bool
     {
         return $user->can('buildings.RESTORE')
-            && $this->belongsToCurrentTenant($building);
+            && $this->belongsToCurrentTenant($building)
+            && ManagerScopeHelper::userCanAccessModel($user, $building);
     }
 
     public function forceDelete(User $user, Building $building): bool
     {
         return $user->can('buildings.FORCE_DELETE')
-            && $this->belongsToCurrentTenant($building);
+            && $this->belongsToCurrentTenant($building)
+            && ManagerScopeHelper::userCanAccessModel($user, $building);
     }
 }

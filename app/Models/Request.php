@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
+use App\Concerns\HasManagerScope;
 use Database\Factories\RequestFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,9 +14,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Request extends Model
 {
     /** @use HasFactory<RequestFactory> */
-    use BelongsToAccountTenant, HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_requests';
+
+    protected function hasBuildingIdColumn(): bool
+    {
+        return true;
+    }
 
     protected $fillable = [
         'category_id',

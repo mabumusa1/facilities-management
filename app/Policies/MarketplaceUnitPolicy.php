@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Concerns\ChecksTenantOwnership;
 use App\Models\MarketplaceUnit;
 use App\Models\User;
+use App\Support\ManagerScopeHelper;
 
 class MarketplaceUnitPolicy
 {
@@ -18,7 +19,8 @@ class MarketplaceUnitPolicy
     public function view(User $user, MarketplaceUnit $marketplaceUnit): bool
     {
         return $user->can('marketPlaces.VIEW')
-            && $this->belongsToCurrentTenant($marketplaceUnit);
+            && $this->belongsToCurrentTenant($marketplaceUnit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceUnit);
     }
 
     public function create(User $user): bool
@@ -29,24 +31,28 @@ class MarketplaceUnitPolicy
     public function update(User $user, MarketplaceUnit $marketplaceUnit): bool
     {
         return $user->can('marketPlaces.UPDATE')
-            && $this->belongsToCurrentTenant($marketplaceUnit);
+            && $this->belongsToCurrentTenant($marketplaceUnit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceUnit);
     }
 
     public function delete(User $user, MarketplaceUnit $marketplaceUnit): bool
     {
         return $user->can('marketPlaces.DELETE')
-            && $this->belongsToCurrentTenant($marketplaceUnit);
+            && $this->belongsToCurrentTenant($marketplaceUnit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceUnit);
     }
 
     public function restore(User $user, MarketplaceUnit $marketplaceUnit): bool
     {
         return $user->can('marketPlaces.RESTORE')
-            && $this->belongsToCurrentTenant($marketplaceUnit);
+            && $this->belongsToCurrentTenant($marketplaceUnit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceUnit);
     }
 
     public function forceDelete(User $user, MarketplaceUnit $marketplaceUnit): bool
     {
         return $user->can('marketPlaces.FORCE_DELETE')
-            && $this->belongsToCurrentTenant($marketplaceUnit);
+            && $this->belongsToCurrentTenant($marketplaceUnit)
+            && ManagerScopeHelper::userCanAccessModel($user, $marketplaceUnit);
     }
 }

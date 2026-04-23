@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
 use App\Concerns\HasBilingualName;
+use App\Concerns\HasManagerScope;
 use Database\Factories\FacilityFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Facility extends Model
 {
     /** @use HasFactory<FacilityFactory> */
-    use BelongsToAccountTenant, HasBilingualName, HasFactory, SoftDeletes;
+    use BelongsToAccountTenant, HasBilingualName, HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_facilities';
 
