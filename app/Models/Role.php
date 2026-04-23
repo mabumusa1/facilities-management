@@ -5,7 +5,9 @@ namespace App\Models;
 use App\Concerns\BelongsToAccountTenant;
 use App\Enums\RoleType;
 use Database\Factories\RoleFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Exceptions\RoleAlreadyExists;
 use Spatie\Permission\Guard;
 use Spatie\Permission\Models\Role as SpatieRole;
@@ -14,6 +16,32 @@ class Role extends SpatieRole
 {
     /** @use HasFactory<RoleFactory> */
     use BelongsToAccountTenant, HasFactory;
+
+    /**
+     * Override the shared tenant scope so that system-wide roles
+     * (account_tenant_id IS NULL) are visible in every tenant context,
+     * while tenant-specific roles remain isolated to their own tenant.
+     *
+     * Only Role uses this logic — other tenant-scoped models keep strict isolation.
+     */
+    public static function bootBelongsToAccountTenant(): void
+    {
+        static::addGlobalScope('account_tenant', function (Builder $builder) {
+            if ($tenant = Tenant::current()) {
+                $column = $builder->getModel()->qualifyColumn('account_tenant_id');
+                $builder->where(function (Builder $q) use ($column, $tenant) {
+                    $q->where($column, $tenant->id)
+                        ->orWhereNull($column);
+                });
+            }
+        });
+
+        static::creating(function (Model $model) {
+            if (! $model->account_tenant_id && $tenant = Tenant::current()) {
+                $model->account_tenant_id = $tenant->id;
+            }
+        });
+    }
 
     /**
      * Override Spatie's create() to scope uniqueness by account_tenant_id
