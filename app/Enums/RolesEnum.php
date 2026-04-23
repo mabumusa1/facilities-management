@@ -24,4 +24,19 @@ enum RolesEnum: string
             self::PROFESSIONALS => 'Service professionals/technicians',
         };
     }
+
+    /**
+     * Returns the scope level for this role.
+     *
+     * 'none'           — global role, no scope selectors needed.
+     * 'manager'        — requires community; building is optional.
+     * 'serviceManager' — requires community + service type; building is optional.
+     */
+    public function scopeLevel(): string
+    {
+        return match ($this) {
+            self::MANAGERS => 'manager',
+            default => 'none',
+        };
+    }
 }

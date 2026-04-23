@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Enums\RolesEnum;
+use App\Models\AccountMembership;
+use App\Models\Tenant;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -41,6 +43,22 @@ class AppServiceProvider extends ServiceProvider
         // permission checks, so no Gate::define() loops are needed here.
         Gate::before(function (User $user, string $ability): ?bool {
             return $user->hasRole(RolesEnum::ACCOUNT_ADMINS->value) ? true : null;
+        });
+
+        Gate::define('manage-user-role-assignments', function (User $authUser, User $targetUser): bool {
+            $tenant = Tenant::current();
+
+            if ($tenant === null) {
+                return false;
+            }
+
+            if (! $authUser->hasAnyRole([RolesEnum::ACCOUNT_ADMINS->value, RolesEnum::ADMINS->value])) {
+                return false;
+            }
+
+            return AccountMembership::where('user_id', $targetUser->id)
+                ->where('account_tenant_id', $tenant->id)
+                ->exists();
         });
     }
 
