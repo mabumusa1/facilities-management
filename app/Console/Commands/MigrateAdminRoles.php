@@ -54,7 +54,6 @@ class MigrateAdminRoles extends Command
         }
 
         // 2. Resolve morph alias for Admin model once.
-        $morphAlias = Relation::getMorphedModel(Admin::class) ?? Admin::class;
         // Reverse lookup: morphMap maps alias→FQCN; we need FQCN→alias.
         $map = Relation::morphMap();
         $morphType = array_search(Admin::class, $map);

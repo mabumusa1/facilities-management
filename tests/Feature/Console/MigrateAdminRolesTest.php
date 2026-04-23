@@ -248,6 +248,9 @@ class MigrateAdminRolesTest extends TestCase
             'role_id' => $roleId,
             'model_type' => $this->morphType,
             'model_id' => $admin->id,
+            'community_id' => null,
+            'building_id' => null,
+            'service_type_id' => null,
         ]);
 
         $this->artisan('rbac:migrate-admin-roles')->assertSuccessful();
@@ -293,6 +296,9 @@ class MigrateAdminRolesTest extends TestCase
             'role_id' => $roleId,
             'model_type' => $this->morphType,
             'model_id' => $admin->id,
+            'community_id' => null,
+            'building_id' => null,
+            'service_type_id' => null,
         ]);
 
         $this->artisan('rbac:migrate-admin-roles')
