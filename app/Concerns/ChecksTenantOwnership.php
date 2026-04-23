@@ -16,7 +16,7 @@ trait ChecksTenantOwnership
         $tenantId = $model->getAttribute('account_tenant_id');
 
         if ($tenantId === null) {
-            return true;
+            return false;
         }
 
         $currentTenant = Tenant::current();
