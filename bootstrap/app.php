@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Spatie\Multitenancy\Exceptions\NoCurrentTenant;
 use Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession;
 use Spatie\Multitenancy\Http\Middleware\NeedsTenant;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -47,8 +48,10 @@ return Application::configure(basePath: dirname(__DIR__))
             return redirect()->route('login');
         });
 
-        $exceptions->renderable(function (AuthorizationException $e, Request $request) {
-            if ($request->header('X-Inertia')) {
+        // AuthorizationException is converted to AccessDeniedHttpException by the
+        // framework before renderables fire, so we must listen on the converted type.
+        $exceptions->renderable(function (AccessDeniedHttpException $e, Request $request) {
+            if ($request->hasHeader('X-Inertia')) {
                 return response()->json([
                     'message' => __('errors.forbidden'),
                 ], 403);

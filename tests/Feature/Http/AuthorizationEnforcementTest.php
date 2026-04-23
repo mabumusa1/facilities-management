@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http;
 
 use App\Enums\RolesEnum;
+use App\Http\Middleware\HandleInertiaRequests;
 use App\Models\Tenant;
 use App\Models\User;
 use Database\Seeders\RbacSeeder;
@@ -232,25 +233,31 @@ class AuthorizationEnforcementTest extends TestCase
 
     public function test_inertia_request_returns_json_403_with_english_message(): void
     {
-        // BUG FOUND: Without a matching X-Inertia-Version header the middleware returns
-        // 409 (version mismatch) before authorization is checked, so the original test
-        // was never verifying the renderable handler. When the correct version hash IS
-        // sent, the AuthorizationException propagates unhandled — the renderable callback
-        // in bootstrap/app.php does not intercept it. Engineer must fix the renderable
-        // handler to return the JSON 403 for Inertia requests before this test can pass.
-        $this->markTestSkipped(
-            'Inertia 403 JSON handler not firing — see bootstrap/app.php renderable bug. '.
-            'Engineer fix required before this assertion can be verified.'
-        );
+        $user = User::factory()->create();
+        $user->assignRole(RolesEnum::PROFESSIONALS->value);
+
+        $this->withoutMiddleware(HandleInertiaRequests::class)
+            ->actingAs($user)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->withHeaders(['X-Inertia' => 'true', 'Accept' => 'application/json'])
+            ->get(route('communities.index'))
+            ->assertStatus(403)
+            ->assertJson(['message' => __('errors.forbidden', [], 'en')]);
     }
 
     public function test_inertia_request_returns_json_403_with_arabic_message(): void
     {
-        // BUG FOUND: Same renderable handler issue as English-message test above.
-        $this->markTestSkipped(
-            'Inertia 403 JSON handler not firing — see bootstrap/app.php renderable bug. '.
-            'Engineer fix required before this assertion can be verified.'
-        );
+        $user = User::factory()->create();
+        $user->assignRole(RolesEnum::PROFESSIONALS->value);
+
+        // Send X-Locale header so SetLocale middleware switches app locale to Arabic.
+        $this->withoutMiddleware(HandleInertiaRequests::class)
+            ->actingAs($user)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->withHeaders(['X-Inertia' => 'true', 'Accept' => 'application/json', 'X-Locale' => 'ar'])
+            ->get(route('communities.index'))
+            ->assertStatus(403)
+            ->assertJson(['message' => __('errors.forbidden', [], 'ar')]);
     }
 
     public function test_arabic_forbidden_message_is_non_empty_and_differs_from_english(): void
