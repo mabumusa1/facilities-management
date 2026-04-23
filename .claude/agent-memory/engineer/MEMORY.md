@@ -36,5 +36,16 @@ Append concise notes as you learn. Keep this under 200 lines via curation.
 - Single-root rule violated in new Vue component.
 - Vue component with deferred prop but no skeleton empty state.
 
+## Multi-tenant test setup pattern
+For HTTP feature tests hitting tenant-scoped routes, always:
+1. `Tenant::create(['name' => '...'])` in setUp
+2. Use `->withSession(['tenant_id' => $tenant->id])` on each request
+3. Without the session, `NeedsTenant` middleware returns 302→login, masking the real assertion
+Reference: `tests/Feature/DashboardTest.php::authenticateUserWithTenant()`
+
+## Inertia version negotiation in tests
+Sending `X-Inertia: true` without a matching `X-Inertia-Version` causes a 409 (version mismatch) instead of passing through to the controller. Without a built manifest, server version is `null`; `'' !== null` triggers 409. Use `withoutMiddleware(HandleInertiaRequests::class)` only when the goal is to test a renderable, not Inertia behavior itself.
+
 ## Past work index
 _(append one line per PR: `PR #N — <branch> — <key learning or gotcha>`)_
+- PR #120 — feat/permission-enforcement-112 — multi-tenant test needs withSession(['tenant_id']), Inertia version mismatch causes 409 in tests
