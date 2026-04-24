@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Sign-in — role-based post-login redirect; admins and managers land on the admin dashboard, all other roles land on home ([#325](https://github.com/mabumusa1/facilities-management/pull/325))
+- Sign-in — rate-limit banner now detects throttling via the HTTP 429 `Retry-After` header and shows a clear countdown message in English and Arabic ([#325](https://github.com/mabumusa1/facilities-management/pull/325))
+- Sign-in — password show/hide toggle, language switcher, and inline error messages now follow right-to-left layout correctly in Arabic ([#325](https://github.com/mabumusa1/facilities-management/pull/325))
+- Sign-in — inline validation errors are now announced by screen readers via `aria-live` ([#325](https://github.com/mabumusa1/facilities-management/pull/325))
+
 ### Deprecated
 
 ### Removed

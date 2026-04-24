@@ -10,6 +10,17 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Sign-in improvements — April 2026
+
+Signing in now takes you to the right page for your role automatically, handles rate-limit cooldowns more clearly, and works correctly in Arabic right-to-left.
+
+- **Role-based landing.** Admins and Managers land on the Admin dashboard after sign-in. Owners and Residents land on the shared home today; dedicated portals are coming.
+- **Clearer "too many attempts" message.** If you type the wrong password several times, the platform shows a clear amber banner with a countdown (in English and Arabic) telling you how many seconds remain before you can try again.
+- **Right-to-left sign-in.** The password show/hide toggle, language switcher, and error messages are now positioned correctly when the page is in Arabic.
+- **Screen-reader support.** Validation errors in the sign-in form are announced live by screen readers, so users on assistive tech get immediate feedback.
+
+Learn more: [Sign in to your account](./guides/auth/login.md).
+
 ### Roles and permissions — April 2026
 
 We added a full role-based access system so you can control exactly what each person on your team can see and do.

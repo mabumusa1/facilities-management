@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form, Head, setLayoutProps } from '@inertiajs/vue3';
-import { watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useI18n } from '@/composables/useI18n';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
@@ -28,6 +28,21 @@ defineProps<{
     canResetPassword: boolean;
     canRegister: boolean;
 }>();
+
+const isThrottled = ref(false);
+const retryAfterSeconds = ref<number | null>(null);
+
+function handleHttpException(response: { status: number; headers: Record<string, string>; data: string }) {
+    if (response.status === 429) {
+        isThrottled.value = true;
+        const retryAfter = response.headers['retry-after'];
+        retryAfterSeconds.value = retryAfter ? parseInt(retryAfter, 10) : null;
+    }
+}
+
+function handleStart() {
+    isThrottled.value = false;
+}
 </script>
 
 <template>
@@ -43,23 +58,44 @@ defineProps<{
     <Form
         v-bind="store.form()"
         :reset-on-success="['password']"
+        :on-start="handleStart"
+        :options="{ onHttpException: handleHttpException }"
         v-slot="{ errors, processing }"
         class="flex flex-col gap-6"
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
                 <Label for="email">{{ t('app.auth.login.emailAddress') }}</Label>
+                <!-- Gap 4: dir="ltr" prevents RTL browsers from mirroring email addresses -->
                 <Input
                     id="email"
                     type="email"
                     name="email"
+                    dir="ltr"
                     required
                     autofocus
                     :tabindex="1"
                     autocomplete="email"
                     :placeholder="t('app.auth.login.emailPlaceholder')"
                 />
-                <InputError :message="errors.email" />
+                <!--
+                    Gap 7: Throttle detection via HTTP 429 + Retry-After header.
+                    The named 'login' rate limiter in config/fortify.php is enforced by
+                    Laravel's ThrottleRequests middleware, which returns a bare 429 before
+                    Fortify's pipeline runs — no session errors are written. Inertia's <Form>
+                    only populates errors on 422; for all other non-2xx status codes it calls
+                    onHttpException. We detect 429 there, set isThrottled, and read the
+                    Retry-After header for the seconds countdown.
+                -->
+                <div
+                    v-if="isThrottled"
+                    class="rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200"
+                    role="alert"
+                    aria-live="assertive"
+                >
+                    {{ t('app.auth.login.throttled', { seconds: retryAfterSeconds ?? '…' }) }}
+                </div>
+                <InputError v-else :message="errors.email" />
             </div>
 
             <div class="grid gap-2">
@@ -85,8 +121,9 @@ defineProps<{
                 <InputError :message="errors.password" />
             </div>
 
+            <!-- Gap 8: gap-3 replaces space-x-3 (RTL-safe, consistent with rest of form) -->
             <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-3">
+                <Label for="remember" class="flex items-center gap-3">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
                     <span>{{ t('app.auth.login.rememberMe') }}</span>
                 </Label>
