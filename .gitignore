@@ -1,11 +1,15 @@
 /.phpunit.cache
 /bootstrap/ssr
 /node_modules
+/.yarn
 /public/build
 /public/hot
 /public/storage
+/playwright-report
 /storage/*.key
 /storage/pail
+/test-results
+/tests/e2e/.auth
 /resources/js/actions
 /resources/js/routes
 /resources/js/wayfinder
@@ -20,6 +24,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/.pnp.cjs
+/.pnp.loader.mjs
 /auth.json
 /.fleet
 /.idea

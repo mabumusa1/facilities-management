@@ -54,6 +54,18 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'e2e' => [
+        /**
+         * Prefix for test endpoints used by Playwright.
+         */
+        'prefix' => 'playwright',
+
+        /**
+         * Restrict E2E test endpoints to safe environments.
+         */
+        'environments' => ['local', 'testing'],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
