@@ -40,7 +40,7 @@ This project has domain-specific skills available. You MUST activate the relevan
 
 ## Product Council
 
-This repo ships a seven-agent **Product Council** of Claude Code subagents that drive feature work end-to-end. GitHub is the only system of record. The council is human-in-the-loop only — nothing fires automatically. Full details: [`docs/council/README.md`](docs/council/README.md).
+This repo ships an eight-agent **Product Council** of Claude Code subagents that drive feature work end-to-end. GitHub is the only system of record. The council is human-in-the-loop only — nothing fires automatically. Full details: [`docs/council/README.md`](docs/council/README.md).
 
 **Agents** (in `.claude/agents/`):
 - `pm` (blue) — discovery, PRDs, user stories, prioritization
@@ -50,22 +50,27 @@ This repo ships a seven-agent **Product Council** of Claude Code subagents that 
 - `engineer` (green) — implementation, PRs, happy-path tests
 - `qa` (yellow) — AC-mapped tests, failure paths, edge cases
 - `reviewer` (orange) — code review, security, conventions
+- `docs` (red) — user-facing guides on GitHub Pages, `CHANGELOG.md`, bilingual EN/AR; mandatory chain step between Reviewer approval and human merge
+
+**Chain:** `PM (PRD) → PM (stories) → Designer → Tech Lead → Engineer → QA → Reviewer → Docs → human merges → Delivery PM sync`. The PRD cannot close until every story has shipped user docs.
 
 **Slash commands** (in `.claude/commands/`):
-- Atomic: `/pm-prd`, `/pm-stories`, `/design-flow`, `/tl-design`, `/eng-implement`, `/qa-test`, `/review`, `/dpm-status`, `/dpm-plan`
+- Atomic: `/pm-prd`, `/pm-stories`, `/design-flow`, `/tl-design`, `/eng-implement`, `/qa-test`, `/review`, `/docs-feature`, `/docs-guide`, `/docs-changelog`, `/dpm-status`, `/dpm-plan`
 - Conductor: `/feature <topic>` (full chain w/ checkpoints), `/handoff <issue#>` (auto-route by `state:` label)
 
 **Hard rules:**
-- Reviewer never merges. Humans always merge.
-- PM never writes code. Tech Lead never opens PRs. Engineer never approves own PR. QA never merges. Delivery PM never modifies issue bodies.
-- All artifacts live in GitHub or `.claude/agent-memory/`. Do not create ad-hoc markdown in `docs/`.
+- Reviewer never merges. Docs never merges. Humans always merge.
+- PM never writes code. Tech Lead never opens PRs. Engineer never approves own PR. QA never merges. Delivery PM never modifies issue bodies. Docs never modifies PHP/Vue source.
+- PRD cannot close without docs. Every story must pass through the Docs step.
+- Council process artifacts (PRDs, designs, UX flows) live in GitHub issues or `.claude/agent-memory/`. Do not create ad-hoc markdown for those in `docs/`.
+- **Exception (user-facing documentation):** `docs/guides/`, `docs/ar/`, `docs/index.md`, `docs/changelog.md`, `docs/_config.yml`, and the repo-root `CHANGELOG.md` are the published help center + changelog maintained by the Docs agent. GitHub Pages serves from `main` branch, `/docs` folder, with `docs/council/` excluded by `docs/_config.yml`.
 - Each agent updates only its own memory directory.
 
 **GitHub conventions:** issue templates in `.github/ISSUE_TEMPLATE/` (`prd.yml`, `epic.yml`, `user-story.yml`, `tech-design.yml`, `ux-flow.yml`, `bug.yml`); label taxonomy documented in `docs/council/labels.md` (`type:`, `area:`, `state:`, `priority:`, `agent:` namespaces); PR template at `.github/PULL_REQUEST_TEMPLATE.md`.
 
 **Memory:** every agent has `memory: project` → `.claude/agent-memory/<agent>/MEMORY.md`. The first ≤200 lines auto-inject into the agent's system prompt at session start. Files are committed to git so institutional knowledge follows the repo.
 
-**One-time setup:** `gh auth login && gh auth refresh -s project`, `gh repo set-default`, `bash docs/council/setup.sh`, then 4 manual project views per [`docs/council/project-views.md`](docs/council/project-views.md).
+**One-time setup:** `gh auth login && gh auth refresh -s project`, `gh repo set-default`, `bash docs/council/setup.sh`, then 4 manual project views per [`docs/council/project-views.md`](docs/council/project-views.md). Enable GitHub Pages: repo Settings → Pages → Source = `main`, folder = `/docs`.
 
 ## Conventions
 
@@ -89,6 +94,7 @@ This repo ships a seven-agent **Product Council** of Claude Code subagents that 
 ## Documentation Files
 
 - You must only create documentation files if explicitly requested by the user.
+- **Exception:** the `docs` council agent creates and maintains user-facing documentation under `docs/guides/`, `docs/ar/guides/`, `docs/changelog.md`, and the repo-root `CHANGELOG.md` as part of its charter — no additional explicit request is needed when invoked via `/docs-feature`, `/docs-guide`, or `/docs-changelog`.
 
 ## Replies
 

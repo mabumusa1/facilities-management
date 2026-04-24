@@ -1,6 +1,6 @@
 # Product Council
 
-A council of seven Claude Code subagents that collaborate to build features for this Laravel real estate management platform. GitHub is the only system of record — all work flows through issues, PRs, labels, and a Projects v2 board.
+A council of eight Claude Code subagents that collaborate to build features for this Laravel real estate management platform. GitHub is the only system of record — all work flows through issues, PRs, labels, and a Projects v2 board.
 
 The council is **human-in-the-loop only**: nothing fires automatically. You invoke an agent from an interactive Claude Code session, review the result, and invoke the next.
 
@@ -15,17 +15,18 @@ The council is **human-in-the-loop only**: nothing fires automatically. You invo
 | `engineer` | Code implementation, PRs, happy-path tests | 🟢 green |
 | `qa` | AC-mapped tests, failure paths, edge cases, validation reports | 🟡 yellow |
 | `reviewer` | Code review, security, conventions, architecture critique | 🟠 orange |
+| `docs` | User-facing guides (GitHub Pages), CHANGELOG, bilingual EN/AR | 🔴 red |
 
 Definitions: `.claude/agents/<name>.md`. Each has its own system prompt, tool allowlist, and project-scoped memory at `.claude/agent-memory/<name>/MEMORY.md` (committed to git so institutional knowledge follows the repo).
 
 ## How a feature flows
 
 ```
-PM ─→ PM ─→ Designer ─→ Tech Lead ─→ Engineer ─→ QA ─→ Reviewer ─→ (human merges) ─→ Delivery PM
-PRD   stories  UX flow    design       PR         tests   review
+PM ─→ PM ─→ Designer ─→ Tech Lead ─→ Engineer ─→ QA ─→ Reviewer ─→ Docs ─→ (human merges) ─→ Delivery PM
+PRD   stories  UX flow    design       PR         tests   review    guide+CHANGELOG
 ```
 
-See [`workflow.md`](./workflow.md) for the full lifecycle.
+Docs is a **mandatory chain step**: the PRD cannot close until every one of its stories has shipped user-facing documentation on the same PR branch. See [`workflow.md`](./workflow.md) for the full lifecycle.
 
 ## Quick start
 
@@ -47,13 +48,17 @@ See [`workflow.md`](./workflow.md) for the full lifecycle.
    /pm-prd <topic>                     # PM agent only
    /handoff <issue#>                   # auto-route to the right next agent
    ```
-   See [`agents.md`](./agents.md) for all 11 slash commands.
+   See [`agents.md`](./agents.md) for all 14 slash commands.
+
+6. **Enable GitHub Pages** (one time) — repo Settings → Pages → Source: `main` branch, `/docs` folder. The Docs agent publishes user guides and release notes there. `docs/council/` is excluded by `docs/_config.yml`.
 
 ## Hard rules
 
 - **Reviewer never merges.** Humans always merge.
-- **PM never writes code.** Tech Lead never opens PRs. Engineer never approves own PR. QA never merges. Delivery PM never modifies issue bodies.
-- **All artifacts live in GitHub or `.claude/agent-memory/`.** No ad-hoc markdown in `docs/`.
+- **Docs never merges.** Docs commits to the PR branch; humans merge.
+- **PM never writes code.** Tech Lead never opens PRs. Engineer never approves own PR. QA never merges. Delivery PM never modifies issue bodies. Docs never modifies PHP/Vue source.
+- **PRD cannot close without docs.** Every story in a PRD must pass through the Docs step before its PR merges.
+- **Council process artifacts live in GitHub or `.claude/agent-memory/`.** Do not create ad-hoc markdown for PRDs/designs in `docs/`. **Exception:** user-facing documentation under `docs/guides/`, `docs/ar/`, `docs/index.md`, `docs/changelog.md`, and `docs/_config.yml` is the published help center and is maintained by the Docs agent.
 - **Each agent updates only its own memory directory.**
 
 ## Why this design

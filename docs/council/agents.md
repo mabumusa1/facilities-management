@@ -14,7 +14,10 @@ Quick reference for each agent and the slash commands that invoke them.
 | `/tl-design <story#>` | tech-lead | Technical design comment on the story |
 | `/eng-implement <story#>` | engineer | PR closing the story, with happy-path tests |
 | `/qa-test <pr#>` | qa | Additional tests + AC-mapped report comment on PR |
-| `/review <pr#>` | reviewer | `gh pr review` (approve or request-changes) |
+| `/review <pr#>` | reviewer | `gh pr review` (approve or request-changes); on approve, relabels to `state:ready-for-docs` |
+| `/docs-feature <story#>` | docs | User guide (EN+AR) + CHANGELOG entry pushed to the story PR branch (chain mode) |
+| `/docs-guide <topic-or-area>` | docs | Standalone user guide in a dedicated docs PR |
+| `/docs-changelog <version>` | docs | Release cut — moves `[Unreleased]` into a versioned section |
 | `/dpm-status` | delivery-pm | Project board status report (in-message) |
 | `/dpm-plan <milestone>` | delivery-pm | Sprint plan proposal table (in-message) |
 
@@ -64,10 +67,16 @@ Quick reference for each agent and the slash commands that invoke them.
 - **Invokes:** `/qa-test`
 
 ### `reviewer` (Code Reviewer) 🟠
-- **Charter:** review PRs, post inline feedback, request changes or approve. Never merges, never modifies code.
+- **Charter:** review PRs, post inline feedback, request changes or approve. Never merges, never modifies code. On approve, relabels story to `state:ready-for-docs` and hands off to Docs.
 - **Tools:** Read, Glob, Grep, Bash
 - **Skills loaded:** `laravel-best-practices`
 - **Invokes:** `/review`
+
+### `docs` (Documentation Writer) 🔴
+- **Charter:** mandatory chain step between Reviewer approval and human merge. Writes user-facing guides (EN + AR) on GitHub Pages, maintains `CHANGELOG.md`. Never modifies PHP/Vue source, never merges. The PRD cannot close until every story passes through this step.
+- **Tools:** Read, Glob, Grep, Bash, Write, Edit
+- **Skills loaded:** `press-release`, `eol-message`, `tailwindcss-development`
+- **Invokes:** `/docs-feature` (chain mode — pushes to the story's PR branch), `/docs-guide` (standalone guide PR), `/docs-changelog` (cut a release)
 
 ## Memory
 
