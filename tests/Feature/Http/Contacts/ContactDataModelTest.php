@@ -250,6 +250,17 @@ class ContactDataModelTest extends TestCase
         $this->assertEquals('سارة الراشدي', $dependent->name);
     }
 
+    public function test_dependent_arabic_only_state_stores_with_null_english_first_name(): void
+    {
+        $dependent = Dependent::factory()->arabicOnly()->create();
+
+        $this->assertModelExists($dependent);
+        $this->assertNull($dependent->first_name);
+        $this->assertNull($dependent->last_name);
+        $this->assertNotEmpty($dependent->first_name_ar);
+        $this->assertNotEmpty($dependent->last_name_ar);
+    }
+
     // ── Tenant scoping ──
 
     public function test_resident_is_scoped_to_current_tenant(): void

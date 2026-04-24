@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('rf_dependents', function (Blueprint $table) {
+            $table->string('first_name')->nullable()->change();
             $table->string('first_name_ar')->nullable()->after('first_name');
             $table->string('last_name_ar')->nullable()->after('last_name');
         });
@@ -24,6 +25,7 @@ return new class extends Migration
     {
         Schema::table('rf_dependents', function (Blueprint $table) {
             $table->dropColumn(['first_name_ar', 'last_name_ar']);
+            $table->string('first_name')->nullable(false)->change();
         });
     }
 };

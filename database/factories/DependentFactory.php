@@ -32,4 +32,14 @@ class DependentFactory extends Factory
             'relationship' => $this->faker->randomElement(['spouse', 'child', 'parent', 'sibling']),
         ];
     }
+
+    public function arabicOnly(): static
+    {
+        return $this->state(fn () => [
+            'first_name' => null,
+            'last_name' => null,
+            'first_name_ar' => fake()->firstName(),
+            'last_name_ar' => fake()->lastName(),
+        ]);
+    }
 }
