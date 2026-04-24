@@ -139,3 +139,7 @@ _(append one line per sprint plan or status report: `2026-MM-DD status — <N co
 - 2026-04-24 sync — Batch 1 PRDs #132-#136 added to project #4 (Phase 2 of backlog buildout); Status=Backlog, Type=prd, Area per issue, Agent=pm; Priority + Iteration left unset. Project #5 was empty — no cleanup needed.
 - 2026-04-24 sync — Batch 2 PRDs #137-#141 added to project #4 (documents, marketplace, facilities, communication, visitor-access); Status=Backlog, Type=prd, Area per issue, Agent=pm; Priority + Iteration left unset. Project #5 clean — no cleanup needed.
 - 2026-04-24 sync — Batch 3 PRDs #142-#146 added to project #4 (settings, auth, admin, reports x2); Phase 2 complete — 15 PRDs (#132-#146) filed and synced to project #4. Project #5 clean — no cleanup needed.
+- 2026-04-24 sync — Phase 3 session 1 stories #147-#168 (22 stories: 11 Contacts, 11 Properties) synced to project #4 with Status=Ready, Type=story, Area per PRD, Agent=pm.
+
+## Environment notes
+- **jq is NOT installed in this shell.** Never pipe `gh ... --format json | jq '...'` — it will fail with `/bin/bash: jq: command not found`. Always use the built-in `--jq` flag on `gh` commands (e.g. `gh project item-list 4 --owner mabumusa1 --format json --jq '.items[] | ...'`). Works identically for filtering and produces text or JSON output.
