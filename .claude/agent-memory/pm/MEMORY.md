@@ -25,4 +25,8 @@ Append concise notes as you learn. Keep this under 200 lines via curation.
 _(populate as you learn — writing voice, level of detail, tolerance for discovery depth, preferred persona format, etc.)_
 
 ## Past work index
-_(append one line per completed PRD: `PRD #N — <title> — <area> — <key insight>`)_
+- PRD #109 — RBAC: Roles, Permissions & Admin UI — area:admin + area:auth — enterprise sales blocker; 30 subjects × 6 actions = 180 permission matrix (source: all.json); 7 UserRole types (accountAdmins, admins, managers, owners, tenants, dependents, professionals); 5 AdminRole sub-types stored in rf_admins.role (Admins, accountingManagers, serviceManagers, marketingManagers, salesAndLeasingManagers); managers have community/building scope; serviceManagers also scoped by ServiceType; existing rf_admins.role enum must be migrated to new Role records without breaking auth; Arabic RTL + bilingual name_ar/name_en required.
+  - Stories: #110 (data model), #111 (seeders), #112 (enforcement layer), #113 (scoped access), #114 (roles list UI), #115 (permission matrix UI), #116 (assign roles UI), #117 (migration).
+
+## Story-splitting patterns used
+- RBAC split seam: data model → seeders → enforcement → scope → UI (list) → UI (matrix) → UI (assignment) → data migration. Each seam is independently deployable without breaking the running system.

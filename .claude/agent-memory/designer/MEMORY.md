@@ -26,5 +26,42 @@ Append concise notes as you learn. Keep this under 200 lines via curation.
 ## Microcopy voice
 _(refine as user gives feedback — direct? friendly? formal? use plain English or property-mgmt jargon? populate here)_
 
+## RTL-specific patterns discovered
+- Name (Arabic) inputs: always force `dir="rtl"` regardless of page locale; Name (EN) inputs force `dir="ltr"`. Critical for bilingual forms.
+- Drawers/Sheets: use `inset-inline-end: 0` (not `right: 0`) for automatic RTL mirroring.
+- Pagination chevrons: use `rtl:scale-x-[-1]` transform on icon SVG.
+- Tooltips: prefer `placement="bottom"` on action icons to avoid off-edge clipping in both directions.
+
+## Admin area component inventory (from `resources/js/pages/admin/users/Index.vue`)
+- Table, TableHeader, TableBody, TableCell, TableHead, TableRow — all available from `@/components/ui/table`
+- Badge (variants: `secondary`, `outline`) — `@/components/ui/badge`
+- Button (variants: `destructive`, default) — `@/components/ui/button`
+- Heading (variant `small` with title + description props)
+- Input, Label, InputError
+- `useI18n` composable from `@/composables/useI18n`
+- Pagination: `PaginationLink[]` array passed as prop, rendered as links
+- Wayfinder route functions imported from `@/routes/admin/<resource>`
+
+## Grid/matrix UI patterns
+- Wide grids (31 rows × 6 cols) are full pages, not drawers — Sheet/Drawer is too narrow.
+- Use `<table role="grid">` + `role="gridcell"` for ARIA grid keyboard navigation (arrow keys within grid, Tab exits grid).
+- Sticky column uses `position: sticky; inset-inline-start: 0` (NOT `left: 0`) so RTL auto-resolves.
+- Column "all" and row checkboxes use indeterminate state (−) when partially selected.
+- Arabic column headers: never abbreviate — allow two-line wrap with `min-width: 72px`.
+- Dirty-state bar: dot indicator + text on inline-start; CTAs on inline-end; `justify-between` flips correctly under RTL.
+- Deferred props + skeleton for heavy matrix data (animate-pulse cells).
+
+## Role-assignment UI patterns (from Flow #116)
+- Role assignment lives on a User Detail page (Show.vue), not the index — too many rows for inline.
+- Conditional scope selectors use `v-if` transition: show community + building multi-selects only when `manager_scope = true`; add service-type multi-select for `serviceManager`.
+- Info note ("This role applies globally") shown for non-scoped roles so the UI never looks empty/broken.
+- Remove uses an inline popover (`role="alertdialog"`), not a full-screen dialog — lighter weight for row-level destructive actions.
+- Remove popover: default focus on [Cancel] (safer), `placement="bottom"` to avoid RTL clipping.
+- Scope chips in table cells: Badge `variant="secondary"`, stacked vertically, multiple per cell.
+- Deferred prop + skeleton for role assignment list (same pattern as permissions matrix).
+- Arabic numeric dates: decide whether to force `numberingSystem: 'latn'` or allow Eastern Arabic — project has not standardised this yet.
+
 ## Past work index
-_(append one line per UX flow: `Flow #issue — <area> — <screens> — <key interaction>`)_
+- Flow #114 — admin — 5 screens (index, create drawer, edit drawer, delete dialog, empty/skeleton) — system-role read-only enforcement with disabled actions + tooltips
+- Flow #115 — admin — permissions matrix — 5 screens (full-page grid, system-role read-only, skeleton, save error, preset apply) — 31 subjects × 6 actions, sticky header/col, column/row bulk-toggle, preset dropdown, dirty-state bar, RTL column reversal
+- Flow #116 — admin — role assignment — 8 screens (detail/roles tab, empty, skeleton, assign drawer non-scope, assign drawer manager, assign drawer serviceManager, validation, remove popover) — conditional scope selectors, deferred list, per-row remove with popover confirm, bilingual
