@@ -52,9 +52,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // framework before renderables fire, so we must listen on the converted type.
         $exceptions->renderable(function (AccessDeniedHttpException $e, Request $request) {
             if ($request->hasHeader('X-Inertia')) {
-                return response()->json([
-                    'message' => __('errors.forbidden'),
-                ], 403);
+                return back()->with('error', __('errors.forbidden'))->setStatusCode(303);
             }
         });
     })->create();

@@ -21,7 +21,12 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, HasRoles {
+        HasRoles::syncRoles as protected traitSyncRoles;
+        HasRoles::removeRole as protected traitRemoveRole;
+    }
+
+    use Notifiable, TwoFactorAuthenticatable;
 
     /**
      * Get the attributes that should be cast.
@@ -115,7 +120,7 @@ class User extends Authenticatable
             }
         }
 
-        return parent::removeRole(...$role);
+        return $this->traitRemoveRole(...$role);
     }
 
     /**
@@ -147,7 +152,7 @@ class User extends Authenticatable
             );
         }
 
-        return parent::syncRoles(...$roles);
+        return $this->traitSyncRoles(...$roles);
     }
 
     /**

@@ -5,9 +5,11 @@ Append concise notes as you learn. Keep this under 200 lines via curation.
 ## Project board
 - Owner: `mabumusa1` (user scope)
 - Title: `@mabumusa1's Pillar One`
-- Project number: `4`
-- Project ID (GraphQL node): `PVT_kwHOAMCuys4BVdbX`
+- Project number: 4
+- Project ID (GraphQL node): PVT_kwHOAMCuys4BVdbX
 - URL: https://github.com/users/mabumusa1/projects/4
+
+**HARD RULE (user preference, 2026-04-24):** Never use project #5 ("Product Council", ID `PVT_kwHOAMCuys4BVilj`). The only council board is **project #4**. If you find items auto-attached to #5, remove them (`gh project item-delete 5 --owner mabumusa1 --id <item-id>`). Never add items to #5, never sync fields on #5, never even read from #5 unless cleaning it up.
 
 ## Field IDs (cached — no lookups needed at runtime)
 
@@ -133,3 +135,7 @@ _(append as you encounter: "Issues blocked waiting on X happen every sprint — 
 
 ## Past work index
 _(append one line per sprint plan or status report: `2026-MM-DD status — <N committed / M delivered / K blocked>`)_
+- 2026-04-24 sync — #130 (PRD: Admin Audit Log) + #131 (Story: RBAC audit log) added to project #4; fields synced (Status, Type, Area=admin, Agent=pm); Priority + Iteration left unset pending sprint planning.
+- 2026-04-24 sync — Batch 1 PRDs #132-#136 added to project #4 (Phase 2 of backlog buildout); Status=Backlog, Type=prd, Area per issue, Agent=pm; Priority + Iteration left unset. Project #5 was empty — no cleanup needed.
+- 2026-04-24 sync — Batch 2 PRDs #137-#141 added to project #4 (documents, marketplace, facilities, communication, visitor-access); Status=Backlog, Type=prd, Area per issue, Agent=pm; Priority + Iteration left unset. Project #5 clean — no cleanup needed.
+- 2026-04-24 sync — Batch 3 PRDs #142-#146 added to project #4 (settings, auth, admin, reports x2); Phase 2 complete — 15 PRDs (#132-#146) filed and synced to project #4. Project #5 clean — no cleanup needed.
