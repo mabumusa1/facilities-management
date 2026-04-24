@@ -60,6 +60,9 @@ class Community extends Model
         'sales_commission_rate',
         'rental_commission_rate',
         'map',
+        'working_days',
+        'latitude',
+        'longitude',
         'is_market_place',
         'is_buy',
         'community_marketplace_type',
@@ -90,6 +93,9 @@ class Community extends Model
     {
         return [
             'map' => 'array',
+            'working_days' => 'array',
+            'latitude' => 'decimal:7',
+            'longitude' => 'decimal:7',
             'is_market_place' => 'boolean',
             'is_buy' => 'boolean',
             'community_marketplace_type' => MarketplaceType::class,

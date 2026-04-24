@@ -107,6 +107,9 @@ export type Community = {
     sales_commission_rate: string | null;
     rental_commission_rate: string | null;
     map: Record<string, unknown> | null;
+    working_days: string[] | null;
+    latitude: string | null;
+    longitude: string | null;
     is_market_place: boolean;
     is_buy: boolean;
     community_marketplace_type: 'rent' | 'sale' | 'both' | null;
@@ -123,6 +126,7 @@ export type Community = {
     district?: District;
     buildings?: Building[];
     facilities?: Facility[];
+    amenities?: Pick<Amenity, 'id' | 'name' | 'name_en' | 'name_ar'>[];
     // Computed
     buildings_count?: number;
     units_count?: number;

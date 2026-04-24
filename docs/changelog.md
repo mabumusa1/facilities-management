@@ -10,6 +10,18 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Community metadata — April 2026
+
+You can now set a community's amenities, weekly working days, and map location from a single edit form.
+
+- **Amenities.** Pick from a standard 26-item catalog — gym, pool, parking, children's play area, and more. Click the × on any selected chip to remove it.
+- **Working days.** Toggle each day of the week. The strip starts on Saturday per the GCC calendar. Amber highlights working days, grey marks non-working days. Leave everything off to mark the community as closed every day.
+- **Map location.** Enter latitude and longitude as decimals, or click "Use my location" to auto-fill. Both values must be set together.
+- **Bilingual.** The whole form works in English and Arabic. The day strip stays Saturday-first in Arabic; geographical coordinates are not flipped.
+- **Amenity safety.** Updating other fields won't wipe your selected amenities — only explicit changes to the amenity list are saved.
+
+Learn more: [Configure community metadata](./guides/properties/community-metadata.md).
+
 ### Sign-in improvements — April 2026
 
 Signing in now takes you to the right page for your role automatically, handles rate-limit cooldowns more clearly, and works correctly in Arabic right-to-left.

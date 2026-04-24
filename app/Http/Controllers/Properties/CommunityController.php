@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Properties;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Properties\UpdateCommunityRequest;
+use App\Models\Amenity;
 use App\Models\City;
 use App\Models\Community;
 use App\Models\Country;
@@ -132,7 +134,7 @@ class CommunityController extends Controller
         }
 
         $community->loadCount(['buildings', 'units', 'requests'])
-            ->load(['country', 'city', 'district', 'currency', 'buildings', 'facilities']);
+            ->load(['country', 'city', 'district', 'currency', 'buildings', 'facilities', 'amenities:id,name,name_en,name_ar']);
 
         return Inertia::render('properties/communities/Show', [
             'community' => $community,
@@ -186,33 +188,32 @@ class CommunityController extends Controller
     {
         $this->authorize('update', $community);
 
+        $community->load('amenities:id,name,name_en,name_ar');
+
         return Inertia::render('properties/communities/Edit', [
             'community' => $community,
             'countries' => Country::query()->select('id', 'name', 'name_en', 'currency')->orderBy('id')->get(),
             'currencies' => Currency::query()->select('id', 'name', 'code', 'symbol')->orderBy('name')->get(),
             'cities' => City::query()->select('id', 'name', 'name_en', 'country_id')->orderBy('name')->get(),
             'districts' => District::query()->select('id', 'name', 'name_en', 'city_id')->orderBy('name')->get(),
+            'all_amenities' => Amenity::query()->select('id', 'name', 'name_en', 'name_ar')->orderBy('name_en')->get(),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Community $community): JsonResponse|RedirectResponse
+    public function update(UpdateCommunityRequest $request, Community $community): JsonResponse|RedirectResponse
     {
         $this->authorize('update', $community);
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'country_id' => ['required', 'integer', 'exists:countries,id'],
-            'currency_id' => ['required', 'integer', 'exists:currencies,id'],
-            'city_id' => ['required', 'integer', 'exists:cities,id'],
-            'district_id' => ['required', 'integer', 'exists:districts,id'],
-            'sales_commission_rate' => ['nullable', 'numeric', 'min:0', 'max:100'],
-            'rental_commission_rate' => ['nullable', 'numeric', 'min:0', 'max:100'],
-        ]);
+        $community->update($request->safe()->except('amenity_ids'));
 
-        $community->update($validated);
+        // Only sync amenities when the key is explicitly present in the payload.
+        // Omitting amenity_ids entirely leaves the existing pivot rows untouched.
+        if ($request->has('amenity_ids')) {
+            $community->amenities()->sync($request->validated()['amenity_ids'] ?? []);
+        }
 
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $community->loadCount(['buildings', 'units', 'requests'])
@@ -338,6 +339,9 @@ class CommunityController extends Controller
                 ->values()
                 ->all(),
             'map' => $community->map,
+            'working_days' => $community->working_days,
+            'latitude' => $community->latitude,
+            'longitude' => $community->longitude,
             'images' => $this->mediaItems($community->images),
             'documents' => [],
             'buildings_count' => (int) ($community->buildings_count ?? 0),
