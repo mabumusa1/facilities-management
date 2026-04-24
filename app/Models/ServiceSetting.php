@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\BelongsToAccountTenant;
 use Database\Factories\ServiceSettingFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,11 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ServiceSetting extends Model
 {
     /** @use HasFactory<ServiceSettingFactory> */
-    use HasFactory;
+    use BelongsToAccountTenant, HasFactory;
 
     protected $table = 'rf_service_settings';
 
     protected $fillable = [
+        'account_tenant_id',
         'category_id',
         'visibilities',
         'permissions',

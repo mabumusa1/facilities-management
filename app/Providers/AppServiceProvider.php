@@ -6,6 +6,7 @@ use App\Enums\RolesEnum;
 use App\Models\AccountMembership;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Observers\TenantObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,15 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
         $this->loadMigrationsFrom(database_path('migrations/landlord'));
         $this->configureAuthorization();
+        $this->registerObservers();
+    }
+
+    /**
+     * Register Eloquent model observers.
+     */
+    protected function registerObservers(): void
+    {
+        Tenant::observe(TenantObserver::class);
     }
 
     /**

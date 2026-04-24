@@ -19,6 +19,7 @@ class ServiceSettingFactory extends Factory
     public function definition(): array
     {
         return [
+            'account_tenant_id' => null,
             'category_id' => RequestCategory::factory(),
             'visibilities' => ['tenant', 'owner'],
             'permissions' => ['create', 'view'],
