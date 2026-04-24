@@ -2,7 +2,18 @@
 
 > Phase 1 skeleton. One file per run. Do not file GitHub issues from this document — it feeds Phase 2 (PRDs) and Phase 3 (stories).
 > Last updated: 2026-04-24
-> Phase 2 Batch 1 PRDs filed: 2026-04-24
+> **PHASE 3 COMPLETE** — all 15 PRDs broken into stories. 177 stories filed (#147–#322, GitHub skipped #174).
+> Phase 2 COMPLETE: all 15 PRDs filed (#132–#146).
+> Phase 3 complete (8 sessions, 2026-04-24):
+>   - Session 1: #132 Contacts → #147–#157 (11); #133 Properties → #158–#168 (11)
+>   - Session 2: #134 Leasing → #169–#184 (15, GH skipped #174); #135 Accounting → #185–#198 (14)
+>   - Session 3: #137 Documents → #199–#208 (10); #136 SR → #209–#223 (15)
+>   - Session 4: #142 Settings → #224–#234 (11); #143 Auth → #235–#245 (11)
+>   - Session 5: #139 Facilities → #246–#256 (11); #141 Visitor Access → #257–#264 (8)
+>   - Session 6: #138 Marketplace → #265–#278 (14); #140 Communication → #279–#290 (12)
+>   - Session 7: #144 Admin → #291–#302 (12)
+>   - Session 8: #145 Reports-System → #303–#313 (11); #146 Reports-PowerBI → #314–#322 (9)
+>   - TOTAL: 177 stories (#147–#322, GitHub skipped #174). Ready for Designer handoff.
 
 ---
 
@@ -1066,3 +1077,330 @@ Priority order for drafting PRDs:
 ---
 
 *Phase 2 Batch 3 PRDs filed 2026-04-24. Phase 2 complete.*
+
+---
+
+## Phase 3 Progress — Story Breakdown
+
+### Session 1 — Filed 2026-04-24
+
+#### PRD #132 — Contacts (11 stories: #147–#157)
+
+| # | Issue | Story Title |
+|---|---|---|
+| 1 | [#147](https://github.com/mabumusa1/facilities-management/issues/147) | Contact data model — Resident, Owner, Dependent, and Professional entities |
+| 2 | [#148](https://github.com/mabumusa1/facilities-management/issues/148) | Create and search Resident contacts with duplicate detection |
+| 3 | [#149](https://github.com/mabumusa1/facilities-management/issues/149) | Attach and manage KYC documents on a Resident contact |
+| 4 | [#150](https://github.com/mabumusa1/facilities-management/issues/150) | Create and manage Unit Owner contacts with unit ownership assignments |
+| 5 | [#151](https://github.com/mabumusa1/facilities-management/issues/151) | Create and manage Dependent contacts linked to a Resident |
+| 6 | [#152](https://github.com/mabumusa1/facilities-management/issues/152) | Create and manage Professional contacts with service category assignments |
+| 7 | [#153](https://github.com/mabumusa1/facilities-management/issues/153) | Bulk import contacts from Excel (Residents, Owners, or Professionals) |
+| 8 | [#154](https://github.com/mabumusa1/facilities-management/issues/154) | View 360-degree activity history for any contact |
+| 9 | [#155](https://github.com/mabumusa1/facilities-management/issues/155) | Archive, merge duplicate, and reactivate contact records |
+| 10 | [#156](https://github.com/mabumusa1/facilities-management/issues/156) | Contacts list — search, filter by type and status, and export to Excel |
+| 11 | [#157](https://github.com/mabumusa1/facilities-management/issues/157) | Migrate existing resident and owner records to the unified Contacts data model |
+
+#### PRD #133 — Properties (11 stories: #158–#168)
+
+| # | Issue | Story Title |
+|---|---|---|
+| 1 | [#158](https://github.com/mabumusa1/facilities-management/issues/158) | Unit lifecycle state machine — valid status transitions and enforcement |
+| 2 | [#159](https://github.com/mabumusa1/facilities-management/issues/159) | View unit status history — who changed status, when, and why |
+| 3 | [#160](https://github.com/mabumusa1/facilities-management/issues/160) | Bulk import units from Excel with column mapping and row-level validation |
+| 4 | [#161](https://github.com/mabumusa1/facilities-management/issues/161) | Review import errors and re-attempt failed rows after unit bulk import |
+| 5 | [#162](https://github.com/mabumusa1/facilities-management/issues/162) | Upload, reorder, and set primary photo per community, building, and unit |
+| 6 | [#163](https://github.com/mabumusa1/facilities-management/issues/163) | Global unit search and filter across the portfolio |
+| 7 | [#164](https://github.com/mabumusa1/facilities-management/issues/164) | Export filtered unit list to Excel |
+| 8 | [#165](https://github.com/mabumusa1/facilities-management/issues/165) | Complete community metadata management — amenities, working days, and map coordinates |
+| 9 | [#166](https://github.com/mabumusa1/facilities-management/issues/166) | Complete building metadata management — floors, construction year, and documents |
+| 10 | [#167](https://github.com/mabumusa1/facilities-management/issues/167) | Bulk status change — mark multiple units as under-maintenance or available in one action |
+| 11 | [#168](https://github.com/mabumusa1/facilities-management/issues/168) | Unit detail page — complete unit metadata management (type, specs, amenities, pricing reference) |
+
+### Session 2 — Filed 2026-04-24
+
+#### PRD #134 — Leasing (15 stories: #169–#184; GitHub skipped #174)
+
+| # | Issue | Story Title |
+|---|---|---|
+| 1 | [#169](https://github.com/mabumusa1/facilities-management/issues/169) | Quote data model and status machine |
+| 2 | [#170](https://github.com/mabumusa1/facilities-management/issues/170) | Create and send a leasing quote to a prospect |
+| 3 | [#171](https://github.com/mabumusa1/facilities-management/issues/171) | Revise, re-send, and expire quotes |
+| 4 | [#172](https://github.com/mabumusa1/facilities-management/issues/172) | Convert accepted quote to lease application with KYC checklist |
+| 5 | [#173](https://github.com/mabumusa1/facilities-management/issues/173) | Lease application approval workflow |
+| 6 | [#175](https://github.com/mabumusa1/facilities-management/issues/175) | Lease activation: unit assignment, status change, and Accounting trigger (**cross-domain seam**) |
+| 7 | [#176](https://github.com/mabumusa1/facilities-management/issues/176) | Generate lease contract and send for e-signature |
+| 8 | [#177](https://github.com/mabumusa1/facilities-management/issues/177) | Tenancy management: escalation rules and additional fees |
+| 9 | [#178](https://github.com/mabumusa1/facilities-management/issues/178) | Amend lease terms with history trail |
+| 10 | [#179](https://github.com/mabumusa1/facilities-management/issues/179) | Send tenant notices from the lease record |
+| 11 | [#180](https://github.com/mabumusa1/facilities-management/issues/180) | Create and manage subleases |
+| 12 | [#181](https://github.com/mabumusa1/facilities-management/issues/181) | Move-out workflow: inspection and deposit deductions |
+| 13 | [#182](https://github.com/mabumusa1/facilities-management/issues/182) | Move-out settlement: process refund or charge and release unit |
+| 14 | [#183](https://github.com/mabumusa1/facilities-management/issues/183) | Generate and track lease renewal offers |
+| 15 | [#184](https://github.com/mabumusa1/facilities-management/issues/184) | Lease pipeline view, expiry alerts, and bulk export |
+
+#### PRD #135 — Accounting (14 stories: #185–#198)
+
+| # | Issue | Story Title |
+|---|---|---|
+| 1 | [#185](https://github.com/mabumusa1/facilities-management/issues/185) | Transaction category configuration |
+| 2 | [#186](https://github.com/mabumusa1/facilities-management/issues/186) | Record money-in transactions with auto-generated receipt |
+| 3 | [#187](https://github.com/mabumusa1/facilities-management/issues/187) | Record money-out transactions with category and document attachment |
+| 4 | [#188](https://github.com/mabumusa1/facilities-management/issues/188) | Auto-create transaction schedule when lease is activated (**cross-domain seam**) |
+| 5 | [#189](https://github.com/mabumusa1/facilities-management/issues/189) | Manager review and confirm generated transaction schedule |
+| 6 | [#190](https://github.com/mabumusa1/facilities-management/issues/190) | Generate invoice from schedule or on-demand with InvoiceSetting branding |
+| 7 | [#191](https://github.com/mabumusa1/facilities-management/issues/191) | Record full and partial payments against an invoice |
+| 8 | [#192](https://github.com/mabumusa1/facilities-management/issues/192) | Overdue invoice detection and automated payment reminder rules |
+| 9 | [#193](https://github.com/mabumusa1/facilities-management/issues/193) | Aging report: overdue receivables by age bucket |
+| 10 | [#194](https://github.com/mabumusa1/facilities-management/issues/194) | Configure InvoiceSetting: branding, terms, and invoice numbering (read/enforce) |
+| 11 | [#195](https://github.com/mabumusa1/facilities-management/issues/195) | Add and manage bank account details; set default per community |
+| 12 | [#196](https://github.com/mabumusa1/facilities-management/issues/196) | Transaction reconciliation: mark reconciled and view summary |
+| 13 | [#197](https://github.com/mabumusa1/facilities-management/issues/197) | Export transaction history to Excel with active filters |
+| 14 | [#198](https://github.com/mabumusa1/facilities-management/issues/198) | Financial summary views: per contact and per unit/community |
+
+### Session 3 — Filed 2026-04-24
+
+#### PRD #137 — Documents (10 stories: #199–#208)
+
+| # | Issue | Story Title |
+|---|---|---|
+| 1 | [#199](https://github.com/mabumusa1/facilities-management/issues/199) | Document data model: DocumentTemplate, DocumentRecord, DocumentSignature, and DocumentVersion entities |
+| 2 | [#200](https://github.com/mabumusa1/facilities-management/issues/200) | Create and version document templates with merge field definitions (admin-authored) |
+| 3 | [#201](https://github.com/mabumusa1/facilities-management/issues/201) | Preview a generated document from a template before sending |
+| 4 | [#202](https://github.com/mabumusa1/facilities-management/issues/202) | Generate a document from a template and payload (Leasing, Facilities, Accounting consumers) |
+| 5 | [#203](https://github.com/mabumusa1/facilities-management/issues/203) | E-signature flow: send for signing, OTP verification, and signature recording |
+| 6 | [#204](https://github.com/mabumusa1/facilities-management/issues/204) | Download and retrieve generated and signed documents from parent domain records |
+| 7 | [#205](https://github.com/mabumusa1/facilities-management/issues/205) | ExcelSheet import template: define structure, make downloadable, and track import history |
+| 8 | [#206](https://github.com/mabumusa1/facilities-management/issues/206) | Bulk data export to Excel from any list view with active filter scope |
+| 9 | [#207](https://github.com/mabumusa1/facilities-management/issues/207) | Document template format: Word upload vs. in-platform editor (Tech Lead decision gate) |
+| 10 | [#208](https://github.com/mabumusa1/facilities-management/issues/208) | Historical version pinning: audit trail of template versions used for each generated document |
+
+#### PRD #136 — Service Requests (15 stories: #209–#223; #222 is data model — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#222](https://github.com/mabumusa1/facilities-management/issues/222) | SR data model: ServiceRequest, ServiceRequestMessage, and supporting entities | **1st** |
+| 2 | [#209](https://github.com/mabumusa1/facilities-management/issues/209) | Service category and SLA configuration (admin) | 2nd |
+| 3 | [#210](https://github.com/mabumusa1/facilities-management/issues/210) | Resident submits a service request with category, location, photos, and urgency | 3rd |
+| 4 | [#211](https://github.com/mabumusa1/facilities-management/issues/211) | Admin triages incoming requests, assigns to technician, and sets priority | 4th |
+| 5 | [#212](https://github.com/mabumusa1/facilities-management/issues/212) | Technician views work queue and accepts or declines assigned requests (mobile-optimized) | 5th |
+| 6 | [#213](https://github.com/mabumusa1/facilities-management/issues/213) | Technician updates status, adds completion notes and photos, and closes the request | 6th |
+| 7 | [#214](https://github.com/mabumusa1/facilities-management/issues/214) | SLA tracking: overdue detection, breach flags, and escalation alerts | parallel to 4–6 |
+| 8 | [#215](https://github.com/mabumusa1/facilities-management/issues/215) | Resident rates completed request and provides feedback | 7th |
+| 9 | [#216](https://github.com/mabumusa1/facilities-management/issues/216) | Create a Service Request from a Complaint (Option B manual conversion with back-link) | after Communication complaint story |
+| 10 | [#217](https://github.com/mabumusa1/facilities-management/issues/217) | Bulk admin view: search, filter, and sort all requests across communities | after #210–#215 |
+| 11 | [#218](https://github.com/mabumusa1/facilities-management/issues/218) | Configure home services catalog: featured services with pricing and provider details | parallel to #210+ |
+| 12 | [#219](https://github.com/mabumusa1/facilities-management/issues/219) | Neighbourhood services: resident reports common-area issues and manager resolves | parallel to #210+ |
+| 13 | [#220](https://github.com/mabumusa1/facilities-management/issues/220) | SR detail page: full timeline and all-parties communication thread | after #210–#215 |
+| 14 | [#221](https://github.com/mabumusa1/facilities-management/issues/221) | Resident re-submits or follows up on a closed request | after #213, #215 |
+| 15 | [#223](https://github.com/mabumusa1/facilities-management/issues/223) | SR operational reporting: volume, resolution time, SLA compliance, and technician performance basics | last |
+
+### Session 4 — Filed 2026-04-24
+
+#### PRD #142 — Settings (11 stories: #224–#234; #234 is data model — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#234](https://github.com/mabumusa1/facilities-management/issues/234) | Settings data model and seed: AppSettings, InvoiceSetting, ServiceSetting, ContractType, FormTemplate entities | **1st** |
+| 2 | [#224](https://github.com/mabumusa1/facilities-management/issues/224) | Settings ownership matrix: define which domain owns which configuration object (TL decision gate) | 2nd |
+| 3 | [#225](https://github.com/mabumusa1/facilities-management/issues/225) | Company profile: name, logo, VAT number, timezone, and brand configuration | 3rd |
+| 4 | [#226](https://github.com/mabumusa1/facilities-management/issues/226) | Contract types: define, activate, and manage leasing contract categories | 3rd (unblocks Leasing #169) |
+| 5 | [#227](https://github.com/mabumusa1/facilities-management/issues/227) | InvoiceSetting: invoice branding, numbering, payment terms, and late penalty rules | 4th (unblocks Accounting #190, #194) |
+| 6 | [#228](https://github.com/mabumusa1/facilities-management/issues/228) | Regional settings: currency, locale, date format, and working-days defaults | 4th (unblocks SR #214 SLA) |
+| 7 | [#229](https://github.com/mabumusa1/facilities-management/issues/229) | Form templates: create and manage reusable form definitions for service requests and contracts | 5th |
+| 8 | [#230](https://github.com/mabumusa1/facilities-management/issues/230) | ServiceSetting: configure service fee rules, penalty rates, and home service pricing defaults | 5th |
+| 9 | [#231](https://github.com/mabumusa1/facilities-management/issues/231) | Notification preferences: configure platform-wide email and SMS notification templates and triggers | 6th |
+| 10 | [#232](https://github.com/mabumusa1/facilities-management/issues/232) | App appearance: white-label logo, sidebar color, and navigation labels | 6th |
+| 11 | [#233](https://github.com/mabumusa1/facilities-management/issues/233) | Settings audit trail: log who changed which setting and when | 7th |
+
+#### PRD #143 — Auth (11 stories: #235–#245; #243 is gap audit — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#243](https://github.com/mabumusa1/facilities-management/issues/243) | Auth data model and Fortify gap audit: identify and close gaps against PRD #143 requirements | **1st** |
+| 2 | [#235](https://github.com/mabumusa1/facilities-management/issues/235) | Login flow: email/password authentication with remember-me and post-login redirect | 2nd |
+| 3 | [#244](https://github.com/mabumusa1/facilities-management/issues/244) | Logout: single session logout and redirect to login page | 2nd (alongside #235) |
+| 4 | [#236](https://github.com/mabumusa1/facilities-management/issues/236) | Password reset: request reset link, set new password, and enforce password policy | 3rd |
+| 5 | [#237](https://github.com/mabumusa1/facilities-management/issues/237) | Email verification: verify email on account creation and re-send verification link | 3rd |
+| 6 | [#238](https://github.com/mabumusa1/facilities-management/issues/238) | Two-factor authentication: enable TOTP, QR code setup, recovery codes, and login challenge | 4th |
+| 7 | [#245](https://github.com/mabumusa1/facilities-management/issues/245) | 2FA recovery codes: regenerate, view count, and low-code warning | 4th (alongside #238) |
+| 8 | [#241](https://github.com/mabumusa1/facilities-management/issues/241) | Password confirmation: re-confirm password before sensitive actions (2FA disable, session revoke) | 4th (prerequisite for #238, #239) |
+| 9 | [#239](https://github.com/mabumusa1/facilities-management/issues/239) | Session management: view active sessions by device and revoke individual or all sessions | 5th (blocked on TL session driver confirm) |
+| 10 | [#240](https://github.com/mabumusa1/facilities-management/issues/240) | Profile self-service: update name, email, phone, locale, avatar, and change password | 5th |
+| 11 | [#242](https://github.com/mabumusa1/facilities-management/issues/242) | Admin user management: create, deactivate, and reset credentials for platform users | 6th |
+
+### Session 7 — Filed 2026-04-24
+
+#### PRD #144 — Admin (12 stories: #291–#302; #291 is data model — implement first, #302 is dashboard — implement last)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#291](https://github.com/mabumusa1/facilities-management/issues/291) | Admin data model: AccountSubscription, SubscriptionTier, Lead, LeadSource, and OwnerRegistration entities | **1st** |
+| 2 | [#292](https://github.com/mabumusa1/facilities-management/issues/292) | Subscription overview: view current plan, seat usage, and billing period | 2nd |
+| 3 | [#293](https://github.com/mabumusa1/facilities-management/issues/293) | Plan change request: Property Manager requests upgrade or downgrade, Operator fulfills | 3rd |
+| 4 | [#294](https://github.com/mabumusa1/facilities-management/issues/294) | Billing history: view past subscription invoices and download PDF | 3rd (parallel with #293) |
+| 5 | [#295](https://github.com/mabumusa1/facilities-management/issues/295) | Seat management: invite and remove admin users within subscription seat limit | 4th |
+| 6 | [#296](https://github.com/mabumusa1/facilities-management/issues/296) | Leads list: view all leads with source and status filters, and add a lead manually | 2nd (parallel track) |
+| 7 | [#297](https://github.com/mabumusa1/facilities-management/issues/297) | Lead detail: assign to team member, update status, and log activity notes | after #296 |
+| 8 | [#298](https://github.com/mabumusa1/facilities-management/issues/298) | Lead import: upload Excel, preview row-level validation errors, and confirm import | after #296 |
+| 9 | [#299](https://github.com/mabumusa1/facilities-management/issues/299) | Lead conversion: convert a qualified lead to an Owner or Resident contact record | after #296, Contacts #148+#150 |
+| 10 | [#300](https://github.com/mabumusa1/facilities-management/issues/300) | Owner registration queue: review, approve (create Owner contact + unit link), or reject | after #291, Contacts #150 |
+| 11 | [#301](https://github.com/mabumusa1/facilities-management/issues/301) | Platform feature flags: super-admin enables or disables features per tenant | after #291 (TL decision gate) |
+| 12 | [#302](https://github.com/mabumusa1/facilities-management/issues/302) | Admin operations dashboard: subscription status, open leads, and pending registrations | **last** |
+
+### Session 5 — Filed 2026-04-24
+
+#### PRD #139 — Facilities (11 stories: #246–#256; #246 is data model — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#246](https://github.com/mabumusa1/facilities-management/issues/246) | Facilities data model: Facility, FacilityBooking, availability rules, and booking contracts | **1st** |
+| 2 | [#247](https://github.com/mabumusa1/facilities-management/issues/247) | Facility configuration CRUD: create, edit, enable/disable facility with rules | 2nd |
+| 3 | [#248](https://github.com/mabumusa1/facilities-management/issues/248) | Resident browses and books a facility slot | 3rd |
+| 4 | [#249](https://github.com/mabumusa1/facilities-management/issues/249) | Admin calendar view: approve, reject, and manage all bookings | 3rd (parallel with #248) |
+| 5 | [#250](https://github.com/mabumusa1/facilities-management/issues/250) | Booking cancellation and refund policy enforcement | after #248 |
+| 6 | [#251](https://github.com/mabumusa1/facilities-management/issues/251) | Waitlist: resident joins waitlist when slot is full | after #248 |
+| 7 | [#252](https://github.com/mabumusa1/facilities-management/issues/252) | Gate check-in/check-out for facility bookings | after #248 |
+| 8 | [#253](https://github.com/mabumusa1/facilities-management/issues/253) | Booking contracts: generate, send for signature, and store (depends on Documents chain) | **last** — requires #199→#207→#200→#202→#203→#204 |
+| 9 | [#254](https://github.com/mabumusa1/facilities-management/issues/254) | Booking fee invoice: generate invoice for paid facilities (cross-domain: Accounting) | after #248, requires Accounting #188+#190 |
+| 10 | [#255](https://github.com/mabumusa1/facilities-management/issues/255) | My Bookings: resident views their booking history and status | after #248 |
+| 11 | [#256](https://github.com/mabumusa1/facilities-management/issues/256) | Facility operational reporting: utilisation, peak hours, revenue, no-show rate | last in Facilities |
+
+#### PRD #141 — Visitor Access (8 stories: #257–#264; #257 is data model — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#257](https://github.com/mabumusa1/facilities-management/issues/257) | Visitor Access data model: Invitation, VisitorLog, and QR token design | **1st** |
+| 2 | [#258](https://github.com/mabumusa1/facilities-management/issues/258) | Resident pre-registers expected visitor and generates access QR code | 2nd |
+| 3 | [#259](https://github.com/mabumusa1/facilities-management/issues/259) | Gate Officer view: today's expected visitor queue | 3rd |
+| 4 | [#260](https://github.com/mabumusa1/facilities-management/issues/260) | Gate check-in: scan QR or enter code manually, record arrival | 4th |
+| 5 | [#261](https://github.com/mabumusa1/facilities-management/issues/261) | Gate check-out: record departure and visit duration | after #260 |
+| 6 | [#262](https://github.com/mabumusa1/facilities-management/issues/262) | Walk-in visitor: gate officer registers unannounced guest | after #260 |
+| 7 | [#263](https://github.com/mabumusa1/facilities-management/issues/263) | Overstay and expired QR detection and alert | after #260 |
+| 8 | [#264](https://github.com/mabumusa1/facilities-management/issues/264) | Visitor log and reporting: manager view of all visits, filter, and export | last |
+
+### Session 6 — Filed 2026-04-24
+
+#### PRD #138 — Marketplace (14 stories: #265–#278; #265 is data model — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#265](https://github.com/mabumusa1/facilities-management/issues/265) | Marketplace data model: MarketplaceUnit, Offer, Visit, and listing status machine | **1st** |
+| 2 | [#266](https://github.com/mabumusa1/facilities-management/issues/266) | Listing eligibility: rules for which units can be listed | 2nd |
+| 3 | [#267](https://github.com/mabumusa1/facilities-management/issues/267) | Seller creates and publishes a listing | 3rd |
+| 4 | [#268](https://github.com/mabumusa1/facilities-management/issues/268) | Seller manages listings: edit, pause, unpublish, duplicate | after #267 |
+| 5 | [#269](https://github.com/mabumusa1/facilities-management/issues/269) | Buyer browses, searches, and views listing detail | after #267 |
+| 6 | [#270](https://github.com/mabumusa1/facilities-management/issues/270) | Buyer inquiry creates a Lead in Admin domain | after #269 |
+| 7 | [#271](https://github.com/mabumusa1/facilities-management/issues/271) | Seller manages inquiry queue and responds | after #270 |
+| 8 | [#272](https://github.com/mabumusa1/facilities-management/issues/272) | Buyer requests a visit; seller confirms appointment | after #270 |
+| 9 | [#273](https://github.com/mabumusa1/facilities-management/issues/273) | Seller records visit outcome | after #272 |
+| 10 | [#274](https://github.com/mabumusa1/facilities-management/issues/274) | Buyer submits an offer | after #272 |
+| 11 | [#275](https://github.com/mabumusa1/facilities-management/issues/275) | Seller accepts, counters, or rejects offer | after #274 |
+| 12 | [#276](https://github.com/mabumusa1/facilities-management/issues/276) | Accepted offer triggers Leasing quote creation (cross-domain seam) | after #275 |
+| 13 | [#277](https://github.com/mabumusa1/facilities-management/issues/277) | Featured listings: promote and display promoted units | after #267 |
+| 14 | [#278](https://github.com/mabumusa1/facilities-management/issues/278) | Marketplace conversion analytics (domain-scoped funnel) | last |
+
+#### PRD #140 — Communication (12 stories: #279–#290; #279 is data model — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#279](https://github.com/mabumusa1/facilities-management/issues/279) | Communication data model: Announcement, Complaint, Suggestion, DirectoryEntry entities | **1st** |
+| 2 | [#280](https://github.com/mabumusa1/facilities-management/issues/280) | Admin creates announcement with scheduling and audience targeting | 2nd |
+| 3 | [#281](https://github.com/mabumusa1/facilities-management/issues/281) | Announcement read-receipt tracking | after #280 |
+| 4 | [#282](https://github.com/mabumusa1/facilities-management/issues/282) | Resident views announcements feed | after #280 |
+| 5 | [#283](https://github.com/mabumusa1/facilities-management/issues/283) | Resident submits complaint | after #279 |
+| 6 | [#284](https://github.com/mabumusa1/facilities-management/issues/284) | Admin triages and responds to complaint | after #283 |
+| 7 | [#285](https://github.com/mabumusa1/facilities-management/issues/285) | Admin converts complaint to Service Request | after #284, requires SR #216 |
+| 8 | [#286](https://github.com/mabumusa1/facilities-management/issues/286) | Complaint analytics: volume, resolution time, recurring issues | after #283+ |
+| 9 | [#287](https://github.com/mabumusa1/facilities-management/issues/287) | Resident submits suggestion with community upvote | after #279 |
+| 10 | [#288](https://github.com/mabumusa1/facilities-management/issues/288) | Admin reviews and responds to suggestions | after #287 |
+| 11 | [#289](https://github.com/mabumusa1/facilities-management/issues/289) | Community directory: admin CRUD for entries and categories | after #279 |
+| 12 | [#290](https://github.com/mabumusa1/facilities-management/issues/290) | Community directory: resident browse and search | after #289 |
+
+### Session 8 — Filed 2026-04-24 (PHASE 3 COMPLETE)
+
+#### PRD #145 — Reports-System (11 stories: #303–#313; #303 is data model + domain boundary — implement first, #313 is dashboard — implement last)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#303](https://github.com/mabumusa1/facilities-management/issues/303) | Reports data model, access control, and domain boundary definition | **1st** — TL Q1 (RBAC scope propagation) must be resolved here |
+| 2 | [#304](https://github.com/mabumusa1/facilities-management/issues/304) | Financial summary: revenue, collected, and outstanding by period | after #303 |
+| 3 | [#305](https://github.com/mabumusa1/facilities-management/issues/305) | Occupancy report: per-community, per-building, and historical trend | after #303 |
+| 4 | [#306](https://github.com/mabumusa1/facilities-management/issues/306) | Lease pipeline: expiring leases by month and renewal rate | after #303 |
+| 5 | [#307](https://github.com/mabumusa1/facilities-management/issues/307) | VAT return summary: generic tax period report | after #303 |
+| 6 | [#308](https://github.com/mabumusa1/facilities-management/issues/308) | Portfolio receivables aging (extends Accounting #193 to cross-community) | after #303, Accounting #193 |
+| 7 | [#309](https://github.com/mabumusa1/facilities-management/issues/309) | Property portfolio health: maintenance, off-plan, and occupancy rate | after #303 |
+| 8 | [#310](https://github.com/mabumusa1/facilities-management/issues/310) | Report export engine: PDF, Excel, CSV for all report types | after #303 |
+| 9 | [#311](https://github.com/mabumusa1/facilities-management/issues/311) | Scheduled reports: generate and email on a cadence | after #310, #312 |
+| 10 | [#312](https://github.com/mabumusa1/facilities-management/issues/312) | Async report generation engine: queue-based execution | after #303 |
+| 11 | [#313](https://github.com/mabumusa1/facilities-management/issues/313) | Executive dashboard: top-line KPIs from all report types | **last** — after #304–#309 |
+
+**Domain-scoped operational reports (NOT in Reports #145):**
+- #223 SR reporting (service-requests domain)
+- #256 Facilities reporting (facilities domain)
+- #264 Visitor log (visitor-access domain)
+- #278 Marketplace analytics (marketplace domain)
+- #286 Complaint analytics (communication domain)
+- #302 Admin ops dashboard (admin domain)
+
+#### PRD #146 — Reports-PowerBI (9 stories: #314–#322; #314 is TL decision gate — implement first)
+
+| # | Issue | Story Title | Implement order |
+|---|---|---|---|
+| 1 | [#314](https://github.com/mabumusa1/facilities-management/issues/314) | PowerBI data model decision gate: live DB vs. read replica, OData vs. REST, credential pattern | **1st** — all downstream blocked until TL ADR posted |
+| 2 | [#315](https://github.com/mabumusa1/facilities-management/issues/315) | Feature flag enforcement: tenant-level BI access gate | after #314, Admin #301 |
+| 3 | [#316](https://github.com/mabumusa1/facilities-management/issues/316) | API credentials: create, rotate, and revoke BI access tokens | after #314, #315 |
+| 4 | [#317](https://github.com/mabumusa1/facilities-management/issues/317) | Endpoint catalog and schema discovery: OData service document or REST API spec | after #314, #316 |
+| 5 | [#318](https://github.com/mabumusa1/facilities-management/issues/318) | Operational endpoints: Units, Leases, Residents, Service Requests | after #317 |
+| 6 | [#319](https://github.com/mabumusa1/facilities-management/issues/319) | Financial endpoints: Invoices, Transactions, Owners (elevated scope) | after #317, #318 |
+| 7 | [#320](https://github.com/mabumusa1/facilities-management/issues/320) | Connector UX: connection string, token discovery, and Data Analyst onboarding | after #317 |
+| 8 | [#321](https://github.com/mabumusa1/facilities-management/issues/321) | Rate limiting and API call audit log | after #318, #319 |
+| 9 | [#322](https://github.com/mabumusa1/facilities-management/issues/322) | Super-admin BI tenant view: enabled tenants and API usage summary | after #314, #321 |
+
+---
+
+## Phase 3 Complete — Full Story Roll-Up
+
+**As of 2026-04-24: Phase 3 backlog buildout COMPLETE.**
+
+| Domain | PRD # | Stories | Issue Range | Notes |
+|---|---|---|---|---|
+| Contacts | #132 | 11 | #147–#157 | Migration (#157) is highest-risk; last to implement |
+| Properties | #133 | 11 | #158–#168 | Unit state machine (#158) is foundational to Marketplace + Leasing |
+| Leasing | #134 | 15 | #169–#184 | GH skipped #174; activation (#175) is highest cross-domain risk |
+| Accounting | #135 | 14 | #185–#198 | InvoiceSetting read (#194) blocked on Settings #227+#234 |
+| Documents | #137 | 10 | #199–#208 | Template format gate (#207) blocks authoring UI (#200) |
+| Service Requests | #136 | 15 | #209–#223 | Data model #222 filed last but implement first |
+| Settings | #142 | 11 | #224–#234 | Seed #234 implement first; unblocks Leasing + Accounting |
+| Auth | #143 | 11 | #235–#245 | Gap audit #243 implement first |
+| Facilities | #139 | 11 | #246–#256 | Booking contracts (#253) depend on Documents chain |
+| Visitor Access | #141 | 8 | #257–#264 | Fully self-contained; parallel delivery candidate |
+| Marketplace | #138 | 14 | #265–#278 | Offer→Leasing trigger (#276) is cross-domain seam |
+| Communication | #140 | 12 | #279–#290 | Complaint→SR (#285) coordinates with SR #216 |
+| Admin | #144 | 12 | #291–#302 | Feature flags (#301) unblocks PowerBI #315 |
+| Reports-System | #145 | 11 | #303–#313 | RBAC scope TL gate in #303; exec dashboard #313 implement last |
+| Reports-PowerBI | #146 | 9 | #314–#322 | All blocked on TL ADR in #314 |
+| **TOTAL** | **15** | **177** | **#147–#322** | GH skipped #174 = 176 actual issues |
+
+**Total TL decision gates (blocking, not yet resolved at time of filing):**
+1. #303 Q1 — RBAC scope propagation to report filters
+2. #303 Q2 — Live query vs. snapshot table for reports
+3. #307 Q1 — VAT jurisdiction (product decision, planted)
+4. #309 Q1 — Maintenance threshold configurability (product decision, planted)
+5. #310 Q1 — Report export reuse Documents #206 vs. separate pipeline
+6. #312 Q1 — Async threshold definition
+7. #312 Q2 — Queue driver isolation for report jobs
+8. #314 Q1 — Live DB vs. read replica for PowerBI
+9. #314 Q2 — OData v4 vs. REST JSON
+10. #314 Q3 — Credential pattern (Sanctum vs. dedicated model)
+11. #316 Q1 — Default credential expiry policy (product decision, planted)
+12. #317 Q1 — National ID masking in BI endpoints (product decision, planted)
+13. #321 Q1 — Per-credential rate limit threshold
+
+**Recommended Designer handoff order (start here):**
+1. **Contacts #132** — stories #147–#157. Entity contract is foundational; unblocks Leasing, Marketplace, and Accounting UX.
+2. **Auth #143** — stories #235–#245. Login, 2FA, and profile are used on every page; UX must be consistent across all domains.
+3. **Settings #142** — stories #224–#234. Company profile and branding UX needed early for login page and document headers.
+4. **Properties #133** — stories #158–#168. Unit state machine and portfolio views are referenced in Reports and Marketplace.
+5. All others can follow in any order after the above four are in flight.
+
+*Phase 3 complete. 2026-04-24.*
