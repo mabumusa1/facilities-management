@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form, Head, setLayoutProps } from '@inertiajs/vue3';
-import { watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useI18n } from '@/composables/useI18n';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
@@ -28,6 +28,21 @@ defineProps<{
     canResetPassword: boolean;
     canRegister: boolean;
 }>();
+
+const isThrottled = ref(false);
+const retryAfterSeconds = ref<number | null>(null);
+
+function handleHttpException(response: { status: number; headers: Record<string, string>; data: string }) {
+    if (response.status === 429) {
+        isThrottled.value = true;
+        const retryAfter = response.headers['retry-after'];
+        retryAfterSeconds.value = retryAfter ? parseInt(retryAfter, 10) : null;
+    }
+}
+
+function handleStart() {
+    isThrottled.value = false;
+}
 </script>
 
 <template>
@@ -43,6 +58,8 @@ defineProps<{
     <Form
         v-bind="store.form()"
         :reset-on-success="['password']"
+        :on-start="handleStart"
+        :options="{ onHttpException: handleHttpException }"
         v-slot="{ errors, processing }"
         class="flex flex-col gap-6"
     >
@@ -62,21 +79,21 @@ defineProps<{
                     :placeholder="t('app.auth.login.emailPlaceholder')"
                 />
                 <!--
-                    Gap 7: Throttle detection via error message content.
-                    Fortify returns the throttle message on the `email` key (same as invalid credentials).
-                    We detect it by checking whether the error string contains 'seconds' (EN) or
-                    'ثانية' (AR) — the seconds count is already embedded in the Fortify message,
-                    so we display it verbatim rather than interpolating a separate variable.
-                    NOTE: This approach is intentionally simple for this story. If Fortify's
-                    throttle message wording changes, only this condition needs updating.
+                    Gap 7: Throttle detection via HTTP 429 + Retry-After header.
+                    The named 'login' rate limiter in config/fortify.php is enforced by
+                    Laravel's ThrottleRequests middleware, which returns a bare 429 before
+                    Fortify's pipeline runs — no session errors are written. Inertia's <Form>
+                    only populates errors on 422; for all other non-2xx status codes it calls
+                    onHttpException. We detect 429 there, set isThrottled, and read the
+                    Retry-After header for the seconds countdown.
                 -->
                 <div
-                    v-if="errors.email && (errors.email.includes('seconds') || errors.email.includes('ثانية'))"
+                    v-if="isThrottled"
                     class="rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200"
                     role="alert"
                     aria-live="assertive"
                 >
-                    {{ errors.email }}
+                    {{ t('app.auth.login.throttled', { seconds: retryAfterSeconds ?? '…' }) }}
                 </div>
                 <InputError v-else :message="errors.email" />
             </div>

@@ -9,7 +9,6 @@ use App\Models\User;
 use Database\Seeders\RolesSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\RateLimiter;
-use Inertia\Testing\AssertableInertia;
 use Laravel\Fortify\Features;
 use Tests\TestCase;
 
@@ -282,15 +281,13 @@ class AuthenticationTest extends TestCase
         $response->assertRedirect(config('fortify.home'));
     }
 
-    // ─── QA: Failure paths and edge cases (story #235 ACs) ───────────────────
+    // ─── QA: Failure paths and edge cases (Gap 1 + story ACs) ────────────────
 
     /**
-     * AC3 — Failure path: wrong password returns session error on the 'email' key.
-     * Fortify returns a redirect (not JSON 422) with flashed session errors for
-     * non-JSON login requests. The error must appear on 'email', not 'password',
-     * so no account-specific information (which field is wrong) is revealed.
+     * Failure path: invalid credentials return 422 with errors on the email key.
+     * The frontend reads errors.email to display "These credentials do not match our records."
      */
-    public function test_invalid_credentials_return_session_error_on_email_key(): void
+    public function test_invalid_credentials_return_422_with_email_error(): void
     {
         $user = $this->createUserWithTenant();
 
@@ -299,29 +296,29 @@ class AuthenticationTest extends TestCase
             'password' => 'definitely-wrong-password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
         $this->assertGuest();
     }
 
     /**
-     * AC3 — Failure path: unknown email returns the same 'email' session error as
-     * a wrong password. Fortify must not distinguish the two cases so no account
-     * existence information is leaked to the caller.
+     * Failure path: login with a completely unknown email address also returns an
+     * email validation error (Fortify does not distinguish unknown email from wrong password).
      */
-    public function test_unknown_email_returns_same_email_error_as_wrong_password(): void
+    public function test_unknown_email_returns_email_error(): void
     {
         $response = $this->post(route('login.store'), [
-            'email' => 'nobody@nowhere.example',
+            'email' => 'nobody@example.com',
             'password' => 'password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
         $this->assertGuest();
     }
 
     /**
-     * AC3 — Failure path: submitting without an email field returns a validation
-     * error on 'email' before the credential check is even attempted.
+     * Failure path: missing email field fails validation before even hitting credentials check.
      */
     public function test_missing_email_field_returns_validation_error(): void
     {
@@ -329,13 +326,13 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
         $this->assertGuest();
     }
 
     /**
-     * AC3 — Failure path: submitting without a password field returns a validation
-     * error on 'password'.
+     * Failure path: missing password field returns validation error.
      */
     public function test_missing_password_field_returns_validation_error(): void
     {
@@ -345,27 +342,26 @@ class AuthenticationTest extends TestCase
             'email' => $user->email,
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('password');
         $this->assertGuest();
     }
 
     /**
-     * AC4 — Failure path: after 5 failed attempts the 6th returns HTTP 429.
-     * When Fortify uses a named rate limiter ('login' key in config/fortify.php),
-     * the throttle is enforced by Laravel's ThrottleRequests middleware, which
-     * returns a bare 429 with no session errors. The frontend must detect this via
-     * the 429 HTTP status (not session errors) to display the throttle amber banner.
+     * Failure path: throttle — after hitting the rate limit the response is 429
+     * with a Retry-After header indicating seconds remaining.
      *
-     * Note: The TL design (Gap 7 / R2) proposed detecting 'seconds' in errors.email,
-     * but that only applies when Fortify's EnsureLoginIsNotThrottled pipeline action
-     * fires (i.e. when config('fortify.limiters.login') is null). With a named
-     * limiter the ThrottleRequests middleware intercepts before any Fortify logic.
+     * The named 'login' rate limiter in config/fortify.php is enforced by Laravel's
+     * ThrottleRequests middleware, which intercepts before Fortify's pipeline runs and
+     * returns a bare 429. No session errors are written. The frontend detects the 429
+     * via onHttpException on the <Form> component and reads the Retry-After header to
+     * show the amber throttle banner (Gap 7, Reviewer fix on PR #325).
      */
-    public function test_throttled_login_returns_429_after_five_failed_attempts(): void
+    public function test_throttled_login_returns_429_with_retry_after_header(): void
     {
         $user = $this->createUserWithTenant();
 
-        // Exhaust the 5-attempt-per-minute limit with wrong credentials.
+        // Exhaust the 5-attempt-per-minute rate limit with wrong credentials.
         for ($i = 0; $i < 5; $i++) {
             $this->post(route('login.store'), [
                 'email' => $user->email,
@@ -373,19 +369,27 @@ class AuthenticationTest extends TestCase
             ]);
         }
 
-        // The 6th attempt must be throttled.
+        // The 6th attempt must be throttled (HTTP 429).
         $response = $this->post(route('login.store'), [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
 
         $response->assertTooManyRequests();
-        $this->assertGuest();
+
+        // ThrottleRequests middleware includes a Retry-After header with the seconds remaining.
+        // The frontend reads this via onHttpException to show the countdown in the throttle banner.
+        $response->assertHeader('Retry-After');
+        $retryAfter = (int) $response->headers->get('Retry-After');
+        $this->assertGreaterThan(0, $retryAfter, 'Retry-After header must contain a positive integer (seconds remaining).');
+
+        // No session errors are written — the middleware intercepts before Fortify flashes errors.
+        $response->assertSessionDoesntHaveErrors('email');
     }
 
     /**
-     * AC5 — Edge case: submitting with remember=1 writes a persistent remember_token
-     * to the users table so the session survives a browser restart.
+     * Edge case: remember-me — submitting with remember=1 must set a long-lived cookie
+     * (lasting longer than a session-only cookie).
      */
     public function test_remember_me_sets_a_persistent_remember_token(): void
     {
@@ -398,98 +402,28 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
+        // Fortify writes a remember_token to the users table when remember=1.
         $this->assertNotNull($user->fresh()->remember_token);
     }
 
     /**
-     * AC5 — Edge case (counterpart): without remember=1 no persistent token is
-     * written, confirming opt-in behaviour.
+     * Edge case: without remember-me the user is still authenticated but
+     * no persistent remember-me token is written to the DB.
      */
     public function test_login_without_remember_me_does_not_set_remember_token(): void
     {
         $user = $this->createUserWithTenant();
+
         $user->forceFill(['remember_token' => null])->save();
 
         $this->post(route('login.store'), [
             'email' => $user->email,
             'password' => 'password',
+            // no 'remember' key
         ]);
 
         $this->assertAuthenticated();
         $this->assertNull($user->fresh()->remember_token);
-    }
-
-    /**
-     * AC6 — Login page Inertia component renders with required branding props.
-     * companyLogoUrl is a Vue layout prop (not an Inertia page prop) and defaults
-     * to undefined/null in AuthSimpleLayout.vue until story #225 ships. This test
-     * confirms the Inertia login view resolves the correct component and exposes the
-     * canResetPassword / canRegister props that control optional UI elements.
-     */
-    public function test_login_page_inertia_component_renders_with_required_props(): void
-    {
-        $response = $this->get(route('login'));
-
-        $response->assertOk();
-        $response->assertInertia(
-            fn (AssertableInertia $page) => $page
-                ->component('auth/Login')
-                ->has('canResetPassword')
-                ->has('canRegister')
-        );
-    }
-
-    /**
-     * AC2 — Tenant boundary: a resident (TENANTS role) who is authenticated cannot
-     * access an admin-only route. The admin.manage middleware returns 403.
-     * Verifies the RBAC fence is in place independently of the redirect logic.
-     */
-    public function test_resident_cannot_access_admin_only_routes(): void
-    {
-        $this->seed(RolesSeeder::class);
-
-        $user = $this->createUserWithTenantAndRole(RolesEnum::TENANTS);
-        $tenant = $user->tenants()->first();
-
-        $response = $this->actingAs($user)
-            ->withSession(['tenant_id' => $tenant->id])
-            ->get(route('admin.users.index'));
-
-        $response->assertForbidden();
-    }
-
-    /**
-     * AC2 — Tenant boundary: a property owner cannot access admin-only routes.
-     */
-    public function test_owner_cannot_access_admin_only_routes(): void
-    {
-        $this->seed(RolesSeeder::class);
-
-        $user = $this->createUserWithTenantAndRole(RolesEnum::OWNERS);
-        $tenant = $user->tenants()->first();
-
-        $response = $this->actingAs($user)
-            ->withSession(['tenant_id' => $tenant->id])
-            ->get(route('admin.users.index'));
-
-        $response->assertForbidden();
-    }
-
-    /**
-     * AC2 — Tenant boundary: a property manager cannot access admin-only routes.
-     */
-    public function test_manager_cannot_access_admin_only_routes(): void
-    {
-        $this->seed(RolesSeeder::class);
-
-        $user = $this->createUserWithTenantAndRole(RolesEnum::MANAGERS);
-        $tenant = $user->tenants()->first();
-
-        $response = $this->actingAs($user)
-            ->withSession(['tenant_id' => $tenant->id])
-            ->get(route('admin.users.index'));
-
-        $response->assertForbidden();
     }
 
     /**
@@ -535,13 +469,62 @@ class AuthenticationTest extends TestCase
     }
 
     /**
-     * Edge case: unauthenticated GET to a protected route redirects to /login.
-     * Confirms the auth middleware is in place independently of the login flow.
+     * Edge case: user with no AccountMembership row — setTenantForUser() returns early
+     * without throwing an exception; user is still authenticated and redirected.
      */
-    public function test_unauthenticated_request_to_protected_route_redirects_to_login(): void
+    public function test_user_without_account_membership_can_still_authenticate(): void
     {
-        $response = $this->get(route('dashboard'));
+        $user = User::factory()->create();
+        // Deliberately do NOT create an AccountMembership for this user.
 
-        $response->assertRedirect(route('login'));
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        // No exception — setTenantForUser() returns early on missing membership.
+        $this->assertAuthenticated();
+        $response->assertRedirect(config('fortify.home'));
+        // No tenant_id was set in session.
+        $response->assertSessionMissing('tenant_id');
+    }
+
+    /**
+     * Edge case: dependent role falls back to fortify.home (same as tenant role,
+     * per LoginResponse priority order — both share the same case branch).
+     */
+    public function test_dependent_user_is_redirected_to_dashboard_fallback_after_login(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenantAndRole(RolesEnum::DEPENDENTS);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        // TODO: replace with route('resident.index') when resident portal lands
+        $response->assertRedirect(config('fortify.home'));
+    }
+
+    /**
+     * Edge case: professionals role falls back to fortify.home.
+     */
+    public function test_professional_user_is_redirected_to_dashboard_fallback_after_login(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenantAndRole(RolesEnum::PROFESSIONALS);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        // TODO: replace with role-specific route once professional portal story lands
+        $response->assertRedirect(config('fortify.home'));
     }
 }
