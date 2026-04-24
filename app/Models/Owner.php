@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
+use App\Concerns\HasBilingualName;
 use App\Concerns\HasContactInfo;
 use App\Concerns\HasManagerScope;
 use App\Support\ManagerScopeHelper;
@@ -17,7 +18,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Owner extends Model
 {
     /** @use HasFactory<OwnerFactory> */
-    use BelongsToAccountTenant, HasContactInfo, HasFactory, HasManagerScope, SoftDeletes;
+    use BelongsToAccountTenant, HasFactory, HasManagerScope, SoftDeletes;
+
+    use HasBilingualName, HasContactInfo {
+        HasContactInfo::name insteadof HasBilingualName;
+    }
 
     protected $table = 'rf_owners';
 
@@ -60,19 +65,6 @@ class Owner extends Model
     }
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone_number',
-        'national_phone_number',
-        'phone_country_code',
-        'national_id',
-        'nationality_id',
-        'gender',
-        'georgian_birthdate',
-        'image',
-        'active',
-        'last_active',
         'relation',
         'relation_key',
         'account_tenant_id',
