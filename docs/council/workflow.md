@@ -14,6 +14,8 @@ The full lifecycle of a feature, end-to-end, with the artifacts each step produc
 | `state:ready-for-impl` | Story is ready for the Engineer | Tech Lead |
 | `state:in-progress` | Engineer is working on it | Engineer |
 | `state:in-review` | PR is open, QA + Reviewer act here | Engineer |
+| `state:ready-for-docs` | Reviewer approved — Docs's turn | Reviewer (on approve) |
+| `state:ready-to-merge` | Docs committed — human merges next | Docs |
 | `state:blocked` | Something is preventing progress | Anyone (with comment) |
 | `state:done` | PR merged, issue auto-closed | (auto via `Closes #N`) |
 
@@ -85,12 +87,27 @@ If QA is red → ping Engineer to fix; loop.
 **Trigger:** `/review <pr#>`
 **Reads:** PR diff, linked issue, design comment, QA report
 **Produces:** structured review via `gh pr review --approve` or `--request-changes`, with file:line citations
+**On approve:** relabels story `state:in-review` → `state:ready-for-docs,agent:reviewer` and hands off to Docs.
 **Output:** review URL
 
 If `request-changes` → Engineer addresses; loop.
-If `approve` → 🛑 **human merges the PR** (Reviewer never merges).
+If `approve` → Docs's turn (step 8).
 
-### 8. Project sync — Delivery PM
+### 8. User documentation — Docs (mandatory, chain mode)
+**Trigger:** `/docs-feature <story#>`
+**Reads:** story, UX comment, tech design, QA report, PR diff
+**Produces (on the existing PR branch — NOT a new PR):**
+- `docs/guides/<area>/<slug>.md` (English) and `docs/ar/guides/<area>/<slug>.md` (Arabic) if the change is user-visible.
+- A bullet in `CHANGELOG.md` under `## [Unreleased]` (Keep a Changelog sections), linking the PR.
+- A plain-language entry in `docs/changelog.md` (user-facing site changelog).
+- If the change is internal-only (refactor, infra): one line under `_Internal_` in `CHANGELOG.md`; no guide.
+
+**Relabels story:** `state:ready-for-docs` → `state:ready-to-merge`, `agent:docs`
+**Output:** commit URL + docs paths
+
+🛑 **Checkpoint:** human merges the PR (Docs never merges). The PRD is not closable until every one of its stories reaches `state:done` through this path.
+
+### 9. Project sync — Delivery PM
 **Trigger:** any time after the above (or `/dpm-status`, `/dpm-plan`)
 **Reads:** Product Council project, all open issues
 **Produces:**
@@ -125,3 +142,5 @@ This reads the issue's `state:*` label and dispatches to the correct next agent.
 - **Engineer disagrees with design** → comments on the issue, waits for Tech Lead response (does not silently diverge).
 - **QA is red** → comments diagnosis, pings Engineer; PR remains `state:in-review` until tests are green.
 - **Reviewer requests changes** → Engineer fixes; loop until approved.
+- **Docs cannot describe the feature** (UI missing, UX comment stale) → relabels `state:blocked,agent:docs` and pings Designer/Engineer with what's unclear.
+- **Change is internal-only** → Docs adds a `_Internal_` CHANGELOG line and skips the guide; advances to `state:ready-to-merge` as normal.

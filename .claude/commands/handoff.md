@@ -13,6 +13,8 @@ Look up the current `state:*` label on issue #$ARGUMENTS and dispatch to the cor
    - `state:ready-for-impl` → use **engineer** subagent via `/eng-implement $ARGUMENTS`.
    - `state:in-progress` → report "issue is in progress with engineer; nothing to dispatch."
    - `state:in-review` → check if there is a linked PR; if yes, use **qa** subagent via `/qa-test <pr#>` then **reviewer** via `/review <pr#>`.
+   - `state:ready-for-docs` → use **docs** subagent via `/docs-feature <issue#>` (chain-mode — pushes docs onto the existing PR branch).
+   - `state:ready-to-merge` → report "docs committed; human merges the PR next. Nothing to dispatch."
    - `state:blocked` → use **delivery-pm** subagent to surface the blocker.
    - `state:done` → report "issue already done; nothing to dispatch."
 3. If no `state:*` label is set, ask me which state the issue is in and whether to set it.

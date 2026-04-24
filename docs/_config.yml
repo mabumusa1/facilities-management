@@ -1,0 +1,47 @@
+title: Real Estate Platform Docs
+description: User guides and release notes for the real estate management platform.
+theme: minima
+lang: en
+
+# Exclude internal process docs and repo junk from the published site.
+exclude:
+  - council/
+  - council
+  - setup.sh
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - README.md
+
+# Collections for guides and Arabic mirror.
+collections:
+  guides:
+    output: true
+    permalink: /guides/:path/
+  ar_guides:
+    output: true
+    permalink: /ar/guides/:path/
+
+defaults:
+  - scope:
+      path: guides
+    values:
+      layout: guide
+      lang: en
+  - scope:
+      path: ar
+    values:
+      layout: guide
+      lang: ar
+      dir: rtl
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap

@@ -58,6 +58,7 @@ create_label "type:design"     "5319E7" "Standalone tech design"
 create_label "type:ux-flow"    "FBCA04" "Standalone UX flow"
 create_label "type:task"       "C5DEF5" "Maintenance, refactor, infra"
 create_label "type:bug"        "D93F0B" "Defect"
+create_label "type:docs"       "006B75" "User-facing documentation / changelog"
 
 # area:
 for area in properties leasing marketplace facilities service-requests accounting communication admin reports settings auth visitor-access documents contacts; do
@@ -71,6 +72,8 @@ create_label "state:ready-for-design"  "FEF2C0" "Ready for Tech Lead"
 create_label "state:ready-for-impl"    "FEF2C0" "Ready for Engineer"
 create_label "state:in-progress"       "1D76DB" "Engineer working"
 create_label "state:in-review"         "5319E7" "PR open, QA + Reviewer act"
+create_label "state:ready-for-docs"    "FEF2C0" "Reviewer approved — Docs's turn"
+create_label "state:ready-to-merge"    "0EA5E9" "Docs committed — human merges next"
 create_label "state:blocked"           "D93F0B" "Stuck — see comments"
 create_label "state:done"              "0E8A16" "Merged"
 
@@ -88,6 +91,7 @@ create_label "agent:delivery-pm" "0EA5E9" "Last touched by Delivery PM"
 create_label "agent:engineer"    "0E8A16" "Last touched by Engineer"
 create_label "agent:qa"          "FBCA04" "Last touched by QA"
 create_label "agent:reviewer"    "FB8C00" "Last touched by Reviewer"
+create_label "agent:docs"        "B91C1C" "Last touched by Docs"
 
 # -- project ------------------------------------------------------------------
 

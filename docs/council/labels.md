@@ -13,6 +13,7 @@ The council uses five label namespaces. All labels are created idempotently by `
 | `type:ux-flow` | `#FBCA04` | Standalone UX flow (rare — most go on the story) |
 | `type:task` | `#C5DEF5` | Maintenance, refactor, infra |
 | `type:bug` | `#D93F0B` | Defect |
+| `type:docs` | `#006B75` | User-facing documentation / changelog |
 
 ## `area:` — which domain of the app
 
@@ -45,6 +46,8 @@ Mirrors the Laravel app's main areas. Use one or more, primary first.
 | `state:ready-for-impl` | `#FEF2C0` | Tech Lead | Ready |
 | `state:in-progress` | `#1D76DB` | Engineer | In Progress |
 | `state:in-review` | `#5319E7` | Engineer | In Review |
+| `state:ready-for-docs` | `#FEF2C0` | Reviewer (on approve) | In Review |
+| `state:ready-to-merge` | `#0EA5E9` | Docs | In Review |
 | `state:blocked` | `#D93F0B` | Any agent (+ comment) | Blocked |
 | `state:done` | `#0E8A16` | (auto on PR merge) | Done |
 
@@ -68,6 +71,7 @@ Mirrors the Laravel app's main areas. Use one or more, primary first.
 | `agent:engineer` | `#0E8A16` (green) |
 | `agent:qa` | `#FBCA04` (yellow) |
 | `agent:reviewer` | `#FB8C00` (orange) |
+| `agent:docs` | `#B91C1C` (red) |
 
 ## How agents apply labels
 
