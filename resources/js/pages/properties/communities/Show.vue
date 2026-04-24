@@ -127,13 +127,13 @@ function deleteCommunity() {
             <CardHeader><CardTitle>{{ t('app.properties.communities.show.workingDays') }}</CardTitle></CardHeader>
             <CardContent>
                 <div
-                    v-if="community.working_days !== null && community.working_days !== undefined"
+                    v-if="community.working_days && community.working_days.length > 0"
                     class="grid grid-cols-7 gap-1"
                 >
                     <div
                         v-for="day in WORKING_DAY_KEYS"
                         :key="day"
-                        :aria-label="`${dayLabel(day)}: ${isDayWorking(day) ? 'working' : 'not a working day'}`"
+                        :aria-label="`${dayLabel(day)}: ${isDayWorking(day) ? t('app.properties.communities.show.aria.working_day') : t('app.properties.communities.show.aria.non_working_day')}`"
                         :class="[
                             'flex min-w-[40px] flex-col items-center rounded-md border px-1 py-2 text-xs font-medium',
                             isDayWorking(day)

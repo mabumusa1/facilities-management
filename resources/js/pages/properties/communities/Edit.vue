@@ -265,11 +265,13 @@ function submit() {
                             @keydown.backspace="isAmenitySelected(amenity.id) && toggleAmenity(amenity.id)"
                         >
                             <span :dir="isArabic ? 'rtl' : 'ltr'">{{ amenityDisplayName(amenity) }}</span>
-                            <span
+                            <button
                                 v-if="isAmenitySelected(amenity.id)"
-                                class="ms-1 text-primary-foreground/70"
-                                :aria-label="`Remove ${amenityDisplayName(amenity)}`"
-                            >×</span>
+                                type="button"
+                                class="ms-1 text-primary-foreground/70 focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
+                                :aria-label="t('app.properties.communities.edit.amenities.remove', { name: amenityDisplayName(amenity) })"
+                                @click.stop="toggleAmenity(amenity.id)"
+                            >×</button>
                         </button>
                         <p v-if="all_amenities.length === 0" class="text-muted-foreground text-sm">
                             {{ t('app.properties.communities.edit.amenities.noAmenities') }}

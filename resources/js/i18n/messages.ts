@@ -528,6 +528,7 @@ const appEn: MessageTree = {
                         sectionTitle: 'Amenities',
                         sectionDescription: 'Select the shared amenities available in this community.',
                         noAmenities: 'No amenities configured',
+                        remove: 'Remove {{name}}',
                     },
                     workingDays: {
                         sectionTitle: 'Working Days',
@@ -588,6 +589,10 @@ const appEn: MessageTree = {
                     wed: 'Wed',
                     thu: 'Thu',
                     fri: 'Fri',
+                    aria: {
+                        working_day: 'Working day',
+                        non_working_day: 'Non-working day',
+                    },
                 },
             },
             buildings: {
@@ -1841,6 +1846,7 @@ const appAr: MessageTree = {
                         sectionTitle: 'المرافق',
                         sectionDescription: 'حدد المرافق المشتركة المتاحة في هذا المجمع.',
                         noAmenities: 'لم يتم تحديد أي مرافق',
+                        remove: 'إزالة {{name}}',
                     },
                     workingDays: {
                         sectionTitle: 'أيام العمل',
@@ -1901,6 +1907,10 @@ const appAr: MessageTree = {
                     wed: 'الأربعاء',
                     thu: 'الخميس',
                     fri: 'الجمعة',
+                    aria: {
+                        working_day: 'يوم عمل',
+                        non_working_day: 'يوم عطلة',
+                    },
                 },
             },
             buildings: {
