@@ -38,3 +38,4 @@ _Internal_
 <!-- One-line notes for internal refactors that have no user-visible impact. They do not trigger a release. -->
 
 - Migrated existing `rf_admins.role` enum values into the new role assignment table without breaking any existing admin session ([#125](https://github.com/mabumusa1/facilities-management/pull/125))
+- Contact data model — additive `first_name_ar` / `last_name_ar` / `id_type` columns on Resident, Owner, Professional, and Dependent tables; new `IdType` backed enum; `(account_tenant_id, national_phone_number)` composite unique index for fast duplicate detection. Unblocks the Contacts UI chain (#148–#157) ([#326](https://github.com/mabumusa1/facilities-management/pull/326))
