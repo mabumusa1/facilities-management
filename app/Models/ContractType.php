@@ -49,8 +49,8 @@ class ContractType extends Model
      *
      * @param  Builder<ContractType>  $query
      */
-    public function scopeActive(Builder $query): void
+    public function scopeActive(Builder $query): Builder
     {
-        $query->where('is_active', true)->orderBy('sort_order');
+        return $query->where('is_active', true)->orderBy('sort_order');
     }
 }

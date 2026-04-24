@@ -113,4 +113,85 @@ class ServiceSettingControllerTest extends TestCase
 
         $response->assertSessionHasErrors(['rf_category_id', 'permissions']);
     }
+
+    /**
+     * Regression: cross-tenant write vulnerability fix (#328 review).
+     *
+     * Tenant B must NOT overwrite Tenant A's ServiceSetting row for the same
+     * category. After both tenants post to the endpoint, the DB must contain
+     * exactly two rows — one per tenant.
+     */
+    public function test_cross_tenant_write_creates_separate_rows_not_overwrite(): void
+    {
+        $category = RequestCategory::factory()->create();
+
+        $payload = [
+            'rf_category_id' => $category->id,
+            'permissions' => [
+                'manager_close_Request' => true,
+                'not_require_professional_enter_request_code' => false,
+                'not_require_professional_upload_request_photo' => false,
+                'attachments_required' => true,
+                'allow_professional_reschedule' => false,
+            ],
+        ];
+
+        // — Tenant A creates its ServiceSetting —
+        $userA = User::factory()->create();
+        $tenantA = Tenant::create(['name' => 'Cross-Tenant A']);
+        AccountMembership::create([
+            'user_id' => $userA->id,
+            'account_tenant_id' => $tenantA->id,
+            'role' => 'account_admins',
+        ]);
+
+        $this->actingAs($userA);
+        $this->withSession(['tenant_id' => $tenantA->id])
+            ->post(route('app-settings.service-settings.update-or-create'), $payload)
+            ->assertRedirect();
+
+        Tenant::forgetCurrent();
+
+        $this->assertDatabaseCount('rf_service_settings', 1);
+        $rowA = ServiceSetting::withoutGlobalScopes()->where('account_tenant_id', $tenantA->id)->first();
+        $this->assertNotNull($rowA);
+        $this->assertTrue($rowA->permissions['attachments_required']);
+
+        // — Tenant B posts the same category —
+        $userB = User::factory()->create();
+        $tenantB = Tenant::create(['name' => 'Cross-Tenant B']);
+        AccountMembership::create([
+            'user_id' => $userB->id,
+            'account_tenant_id' => $tenantB->id,
+            'role' => 'account_admins',
+        ]);
+
+        $payloadB = array_merge($payload, [
+            'permissions' => array_merge($payload['permissions'], ['attachments_required' => false]),
+        ]);
+
+        // Reset the EnsureValidTenantSession key so the tenant switch is accepted.
+        $this->flushSession();
+
+        $this->actingAs($userB);
+        $this->withSession(['tenant_id' => $tenantB->id])
+            ->post(route('app-settings.service-settings.update-or-create'), $payloadB)
+            ->assertRedirect();
+
+        Tenant::forgetCurrent();
+
+        // Guard: two separate rows, NOT one overwritten row
+        $this->assertDatabaseCount('rf_service_settings', 2);
+
+        // Tenant A's row is untouched
+        $rowA->refresh();
+        $this->assertTrue($rowA->permissions['attachments_required'], 'Tenant A\'s row must not be overwritten by Tenant B');
+        $this->assertSame($tenantA->id, $rowA->account_tenant_id);
+
+        // Tenant B has its own row
+        $rowB = ServiceSetting::withoutGlobalScopes()->where('account_tenant_id', $tenantB->id)->first();
+        $this->assertNotNull($rowB);
+        $this->assertFalse($rowB->permissions['attachments_required']);
+        $this->assertSame($tenantB->id, $rowB->account_tenant_id);
+    }
 }

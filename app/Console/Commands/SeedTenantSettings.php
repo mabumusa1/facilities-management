@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\AppSetting;
 use App\Models\InvoiceSetting;
+use App\Models\ServiceSetting;
 use App\Models\Tenant;
 use App\Services\SettingsSeedService;
 use Illuminate\Console\Command;
@@ -32,13 +33,20 @@ class SeedTenantSettings extends Command
 
         // Only process tenants that are missing at least one settings record.
         // Use withoutGlobalScopes because BelongsToAccountTenant scopes by current tenant.
-        $tenantsMissingSettings = Tenant::query()
-            ->whereNotIn('id', InvoiceSetting::withoutGlobalScopes()->pluck('account_tenant_id')->filter()->all())
-            ->orWhereNotIn('id', AppSetting::withoutGlobalScopes()->pluck('account_tenant_id')->filter()->all())
-            ->pluck('id', 'name');
+        // We pick tenants missing from ANY of the three settings tables.
+        // "Fully covered" means present in ALL three; only those are excluded.
+        $withInvoiceSettings = InvoiceSetting::withoutGlobalScopes()->pluck('account_tenant_id')->filter()->all();
+        $withServiceSettings = ServiceSetting::withoutGlobalScopes()->pluck('account_tenant_id')->filter()->all();
+        $withAppSettings = AppSetting::withoutGlobalScopes()->pluck('account_tenant_id')->filter()->all();
+        $fullyCovered = array_intersect($withInvoiceSettings, $withServiceSettings, $withAppSettings);
+
+        $tenantsMissingSettings = Tenant::when(
+            ! empty($fullyCovered),
+            fn ($q) => $q->whereNotIn('id', $fullyCovered),
+        )->pluck('id', 'name');
 
         if ($tenantsMissingSettings->isEmpty()) {
-            $this->info('All tenants already have settings rows. Nothing to do.');
+            $this->info('Nothing to do — all tenants have settings.');
 
             return self::SUCCESS;
         }
