@@ -6,6 +6,7 @@ use App\Enums\RolesEnum;
 use App\Models\AccountMembership;
 use App\Models\Tenant;
 use App\Models\User;
+use Database\Seeders\RolesSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Features;
@@ -28,6 +29,18 @@ class AuthenticationTest extends TestCase
             'account_tenant_id' => $tenant->id,
             'role' => RolesEnum::ACCOUNT_ADMINS->value,
         ]);
+
+        return $user;
+    }
+
+    /**
+     * Create a user with a tenant and assign a specific Spatie role.
+     * Requires RolesSeeder to have been run first.
+     */
+    protected function createUserWithTenantAndRole(RolesEnum $role, array $overrides = []): User
+    {
+        $user = $this->createUserWithTenant($overrides);
+        $user->assignRole($role->value);
 
         return $user;
     }
@@ -135,5 +148,136 @@ class AuthenticationTest extends TestCase
         $response = $this->actingAs($user)->get(route('dashboard'));
 
         $response->assertRedirect(route('login'));
+    }
+
+    // ─── Role-based post-login redirect tests (Gap 1 — #235) ─────────────────
+
+    /**
+     * @test Happy path: admin role redirects to dashboard.
+     */
+    public function test_admin_user_is_redirected_to_dashboard_after_login(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenantAndRole(RolesEnum::ADMINS);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('dashboard', absolute: false));
+    }
+
+    /**
+     * @test Happy path: account admin role redirects to dashboard.
+     */
+    public function test_account_admin_user_is_redirected_to_dashboard_after_login(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenantAndRole(RolesEnum::ACCOUNT_ADMINS);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('dashboard', absolute: false));
+    }
+
+    /**
+     * @test Happy path: manager role redirects to dashboard.
+     */
+    public function test_manager_user_is_redirected_to_dashboard_after_login(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenantAndRole(RolesEnum::MANAGERS);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('dashboard', absolute: false));
+    }
+
+    /**
+     * @test Owner role falls back to /dashboard until owner portal route lands (#225).
+     */
+    public function test_owner_user_is_redirected_to_dashboard_fallback_after_login(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenantAndRole(RolesEnum::OWNERS);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        // TODO: assert redirect to route('owner.index') once the owner-portal story lands
+        $response->assertRedirect(config('fortify.home'));
+    }
+
+    /**
+     * @test Resident (tenant) role falls back to /dashboard until resident portal route lands.
+     */
+    public function test_tenant_user_is_redirected_to_dashboard_fallback_after_login(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenantAndRole(RolesEnum::TENANTS);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        // TODO: assert redirect to route('resident.index') once the resident-portal story lands
+        $response->assertRedirect(config('fortify.home'));
+    }
+
+    /**
+     * @test Multi-role user: admin takes priority over tenant role.
+     */
+    public function test_user_with_admin_and_tenant_roles_is_redirected_to_dashboard(): void
+    {
+        $this->seed(RolesSeeder::class);
+
+        $user = $this->createUserWithTenant();
+        // Assign both roles — admin should win per priority order in LoginResponse
+        $user->assignRole(RolesEnum::ADMINS->value);
+        $user->assignRole(RolesEnum::TENANTS->value);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('dashboard', absolute: false));
+    }
+
+    /**
+     * @test No-role user falls back to fortify.home (/dashboard).
+     */
+    public function test_user_with_no_role_is_redirected_to_fortify_home(): void
+    {
+        $user = $this->createUserWithTenant();
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(config('fortify.home'));
     }
 }

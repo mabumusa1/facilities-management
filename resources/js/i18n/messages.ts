@@ -133,6 +133,10 @@ const appEn: MessageTree = {
                 noAccount: "Don't have an account?",
                 signUp: 'Sign up',
                 emailPlaceholder: 'email@example.com',
+                invalidCredentials: 'These credentials do not match our records.',
+                throttled: 'Too many login attempts. Please try again in {{seconds}} seconds.',
+                showPassword: 'Show password',
+                hidePassword: 'Hide password',
             },
             register: {
                 headTitle: 'Register',
@@ -1398,6 +1402,10 @@ const appAr: MessageTree = {
                 noAccount: 'ليس لديك حساب؟',
                 signUp: 'إنشاء حساب',
                 emailPlaceholder: 'email@example.com',
+                invalidCredentials: 'بيانات الاعتماد هذه غير متطابقة مع سجلاتنا.',
+                throttled: 'لقد تجاوزت الحد المسموح به من محاولات تسجيل الدخول. يرجى المحاولة مرة أخرى خلال {{seconds}} ثانية.',
+                showPassword: 'إظهار كلمة المرور',
+                hidePassword: 'إخفاء كلمة المرور',
             },
             register: {
                 headTitle: 'إنشاء حساب',

@@ -49,17 +49,36 @@ defineProps<{
         <div class="grid gap-6">
             <div class="grid gap-2">
                 <Label for="email">{{ t('app.auth.login.emailAddress') }}</Label>
+                <!-- Gap 4: dir="ltr" prevents RTL browsers from mirroring email addresses -->
                 <Input
                     id="email"
                     type="email"
                     name="email"
+                    dir="ltr"
                     required
                     autofocus
                     :tabindex="1"
                     autocomplete="email"
                     :placeholder="t('app.auth.login.emailPlaceholder')"
                 />
-                <InputError :message="errors.email" />
+                <!--
+                    Gap 7: Throttle detection via error message content.
+                    Fortify returns the throttle message on the `email` key (same as invalid credentials).
+                    We detect it by checking whether the error string contains 'seconds' (EN) or
+                    'ثانية' (AR) — the seconds count is already embedded in the Fortify message,
+                    so we display it verbatim rather than interpolating a separate variable.
+                    NOTE: This approach is intentionally simple for this story. If Fortify's
+                    throttle message wording changes, only this condition needs updating.
+                -->
+                <div
+                    v-if="errors.email && (errors.email.includes('seconds') || errors.email.includes('ثانية'))"
+                    class="rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-200"
+                    role="alert"
+                    aria-live="assertive"
+                >
+                    {{ errors.email }}
+                </div>
+                <InputError v-else :message="errors.email" />
             </div>
 
             <div class="grid gap-2">
@@ -85,8 +104,9 @@ defineProps<{
                 <InputError :message="errors.password" />
             </div>
 
+            <!-- Gap 8: gap-3 replaces space-x-3 (RTL-safe, consistent with rest of form) -->
             <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-3">
+                <Label for="remember" class="flex items-center gap-3">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
                     <span>{{ t('app.auth.login.rememberMe') }}</span>
                 </Label>
