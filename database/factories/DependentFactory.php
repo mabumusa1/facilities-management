@@ -22,12 +22,24 @@ class DependentFactory extends Factory
             'dependable_type' => Resident::class,
             'dependable_id' => Resident::factory(),
             'first_name' => $this->faker->firstName(),
+            'first_name_ar' => null,
             'last_name' => $this->faker->lastName(),
+            'last_name_ar' => null,
             'phone_number' => $this->faker->phoneNumber(),
             'email' => $this->faker->safeEmail(),
             'gender' => $this->faker->randomElement(['male', 'female']),
             'birthdate' => $this->faker->date(),
             'relationship' => $this->faker->randomElement(['spouse', 'child', 'parent', 'sibling']),
         ];
+    }
+
+    public function arabicOnly(): static
+    {
+        return $this->state(fn () => [
+            'first_name' => null,
+            'last_name' => null,
+            'first_name_ar' => fake()->firstName(),
+            'last_name_ar' => fake()->lastName(),
+        ]);
     }
 }

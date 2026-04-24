@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
+use App\Concerns\HasBilingualName;
 use App\Concerns\HasManagerScope;
+use App\Enums\IdType;
 use Database\Factories\ProfessionalFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Professional extends Model
 {
     /** @use HasFactory<ProfessionalFactory> */
-    use BelongsToAccountTenant, HasFactory, HasManagerScope;
+    use BelongsToAccountTenant, HasBilingualName, HasFactory, HasManagerScope;
 
     protected $table = 'rf_professionals';
 
@@ -39,11 +42,15 @@ class Professional extends Model
 
     protected $fillable = [
         'first_name',
+        'first_name_ar',
         'last_name',
+        'last_name_ar',
         'email',
         'phone_number',
+        'national_phone_number',
         'phone_country_code',
         'national_id',
+        'id_type',
         'image',
         'active',
         'account_tenant_id',
@@ -57,7 +64,26 @@ class Professional extends Model
     {
         return [
             'active' => 'boolean',
+            'id_type' => IdType::class,
         ];
+    }
+
+    /**
+     * Locale-aware full name virtual attribute.
+     */
+    protected function name(): Attribute
+    {
+        return Attribute::get(function () {
+            if (app()->getLocale() === 'ar') {
+                $ar = trim(($this->first_name_ar ?? '').' '.($this->last_name_ar ?? ''));
+
+                return $ar !== '' ? $ar : trim(($this->first_name ?? '').' '.($this->last_name ?? ''));
+            }
+
+            $en = trim(($this->first_name ?? '').' '.($this->last_name ?? ''));
+
+            return $en !== '' ? $en : trim(($this->first_name_ar ?? '').' '.($this->last_name_ar ?? ''));
+        });
     }
 
     /** @return BelongsToMany<RequestSubcategory, $this> */
