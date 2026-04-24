@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AppSettings;
 
 use App\Http\Controllers\Controller;
 use App\Models\ServiceSetting;
+use App\Models\Tenant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -65,7 +66,10 @@ class ServiceSettingController extends Controller
         $categoryId = (int) ($validated['rf_category_id'] ?? $validated['category_id']);
 
         $serviceSetting = ServiceSetting::updateOrCreate(
-            ['category_id' => $categoryId],
+            [
+                'category_id' => $categoryId,
+                'account_tenant_id' => Tenant::current()?->id,
+            ],
             [
                 'permissions' => $validated['permissions'],
                 'visibilities' => $validated['visibilities'] ?? null,

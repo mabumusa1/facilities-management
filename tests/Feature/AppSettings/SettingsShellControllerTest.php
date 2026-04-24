@@ -86,16 +86,18 @@ class SettingsShellControllerTest extends TestCase
     {
         $this->authenticateUser();
 
-        InvoiceSetting::create([
-            'company_name' => 'Acme Corp',
-            'address' => '123 Main St',
-            'vat' => 15,
-            'vat_number' => 'VAT123456',
-            'cr_number' => 'CR789',
-            'instructions' => 'Pay within 30 days',
-            'notes' => 'Thank you for your business',
-            'account_tenant_id' => $this->tenantId,
-        ]);
+        InvoiceSetting::withoutGlobalScopes()
+            ->where('account_tenant_id', $this->tenantId)
+            ->first()
+            ->update([
+                'company_name' => 'Acme Corp',
+                'address' => '123 Main St',
+                'vat' => 15,
+                'vat_number' => 'VAT123456',
+                'cr_number' => 'CR789',
+                'instructions' => 'Pay within 30 days',
+                'notes' => 'Thank you for your business',
+            ]);
 
         $response = $this->get(route('settings.invoice'));
 
@@ -233,6 +235,7 @@ class SettingsShellControllerTest extends TestCase
 
         ServiceSetting::factory()->create([
             'category_id' => $category->id,
+            'account_tenant_id' => $this->tenantId,
             'permissions' => [
                 'attachments_required' => true,
             ],
