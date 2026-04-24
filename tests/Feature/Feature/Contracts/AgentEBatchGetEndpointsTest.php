@@ -495,6 +495,7 @@ class AgentEBatchGetEndpointsTest extends TestCase
 
         $serviceSetting = ServiceSetting::factory()->create([
             'category_id' => $category->id,
+            'account_tenant_id' => $tenant->id,
             'visibilities' => [
                 'hide_resident_number' => false,
                 'hide_resident_name' => false,

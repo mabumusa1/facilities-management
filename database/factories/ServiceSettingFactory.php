@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\RequestCategory;
 use App\Models\ServiceSetting;
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class ServiceSettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'account_tenant_id' => null,
+            'account_tenant_id' => Tenant::current()?->id,
             'category_id' => RequestCategory::factory(),
             'visibilities' => ['tenant', 'owner'],
             'permissions' => ['create', 'view'],

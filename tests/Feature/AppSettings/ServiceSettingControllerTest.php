@@ -14,6 +14,8 @@ class ServiceSettingControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private int $tenantId;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,6 +26,7 @@ class ServiceSettingControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $tenant = Tenant::create(['name' => 'Test Account']);
+        $this->tenantId = $tenant->id;
         AccountMembership::create([
             'user_id' => $user->id,
             'account_tenant_id' => $tenant->id,
@@ -78,6 +81,7 @@ class ServiceSettingControllerTest extends TestCase
 
         $setting = ServiceSetting::factory()->create([
             'category_id' => $category->id,
+            'account_tenant_id' => $this->tenantId,
             'permissions' => ['attachments_required' => false],
         ]);
 
