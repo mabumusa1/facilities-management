@@ -411,4 +411,187 @@ class CommunityMetadataTest extends TestCase
         $this->assertIsArray($this->community->working_days);
         $this->assertEmpty($this->community->working_days);
     }
+
+    // -------------------------------------------------------------------------
+    // QA gap tests — failure paths
+    // -------------------------------------------------------------------------
+
+    public function test_unauthenticated_request_is_redirected_to_login(): void
+    {
+        // Log out the user that setUp() authenticated, then send the PUT as a guest
+        auth()->logout();
+
+        $response = $this
+            ->put("/communities/{$this->community->id}", $this->validPayload());
+
+        // The 'auth' middleware redirects unauthenticated web requests to the login page
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_user_without_update_permission_receives_403(): void
+    {
+        // Create a user with no role (no permissions at all)
+        $unprivileged = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $unprivileged->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
+        ]);
+
+        // Do NOT assign any role — user has zero permissions
+        $response = $this
+            ->actingAs($unprivileged)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->put("/communities/{$this->community->id}", $this->validPayload());
+
+        $response->assertForbidden();
+    }
+
+    public function test_user_from_different_tenant_cannot_update_community(): void
+    {
+        // Create a separate tenant and a fully-privileged admin that belongs to it
+        $otherTenant = Tenant::create(['name' => 'Other Account']);
+
+        $otherUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $otherUser->id,
+            'account_tenant_id' => $otherTenant->id,
+            'role' => 'account_admins',
+        ]);
+        $this->ensureAccountAdminsRoleExists();
+        $otherUser->assignRole('accountAdmins');
+
+        // The community belongs to $this->tenant. Even an admin on $otherTenant
+        // must be refused because belongsToCurrentTenant() will return false.
+        $otherTenant->makeCurrent();
+
+        $response = $this
+            ->actingAs($otherUser)
+            ->withSession(['tenant_id' => $otherTenant->id])
+            ->put("/communities/{$this->community->id}", $this->validPayload());
+
+        // Community belongs to a different tenant — policy must deny (403 or 404)
+        $this->assertTrue(
+            $response->status() === 403 || $response->status() === 404,
+            "Expected 403 or 404 for cross-tenant update, got {$response->status()}"
+        );
+
+        // Restore original tenant for teardown
+        $this->tenant->makeCurrent();
+    }
+
+    // -------------------------------------------------------------------------
+    // QA gap tests — coordinate boundary values
+    // -------------------------------------------------------------------------
+
+    public function test_latitude_at_exact_upper_boundary_is_accepted(): void
+    {
+        // Use put() (not putJson()) so success is a redirect, not a JSON 200
+        $response = $this
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->put("/communities/{$this->community->id}", $this->validPayload([
+                'latitude' => 90,
+                'longitude' => 0,
+            ]));
+
+        $response->assertRedirect();
+    }
+
+    public function test_latitude_at_exact_lower_boundary_is_accepted(): void
+    {
+        $response = $this
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->put("/communities/{$this->community->id}", $this->validPayload([
+                'latitude' => -90,
+                'longitude' => 0,
+            ]));
+
+        $response->assertRedirect();
+    }
+
+    public function test_longitude_at_exact_upper_boundary_is_accepted(): void
+    {
+        $response = $this
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->put("/communities/{$this->community->id}", $this->validPayload([
+                'latitude' => 0,
+                'longitude' => 180,
+            ]));
+
+        $response->assertRedirect();
+    }
+
+    public function test_longitude_at_exact_lower_boundary_is_accepted(): void
+    {
+        $response = $this
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->put("/communities/{$this->community->id}", $this->validPayload([
+                'latitude' => 0,
+                'longitude' => -180,
+            ]));
+
+        $response->assertRedirect();
+    }
+
+    public function test_latitude_just_above_upper_boundary_is_rejected(): void
+    {
+        $response = $this
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->putJson("/communities/{$this->community->id}", $this->validPayload([
+                'latitude' => 90.000001,
+                'longitude' => 0,
+            ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['latitude']);
+    }
+
+    public function test_longitude_just_above_upper_boundary_is_rejected(): void
+    {
+        $response = $this
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->putJson("/communities/{$this->community->id}", $this->validPayload([
+                'latitude' => 0,
+                'longitude' => 180.000001,
+            ]));
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['longitude']);
+    }
+
+    // -------------------------------------------------------------------------
+    // QA gap tests — amenity pivot regression (3 amenities, update other field)
+    // -------------------------------------------------------------------------
+
+    public function test_updating_name_only_preserves_all_three_attached_amenities(): void
+    {
+        $amenity1 = Amenity::factory()->create();
+        $amenity2 = Amenity::factory()->create();
+        $amenity3 = Amenity::factory()->create();
+
+        $this->community->amenities()->sync([$amenity1->id, $amenity2->id, $amenity3->id]);
+
+        // PUT without amenity_ids key — only name changes
+        $response = $this
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->put("/communities/{$this->community->id}", [
+                'name' => 'New Name',
+                'country_id' => $this->community->country_id,
+                'currency_id' => $this->community->currency_id,
+                'city_id' => $this->community->city_id,
+                'district_id' => $this->community->district_id,
+            ]);
+
+        $response->assertRedirect();
+
+        foreach ([$amenity1, $amenity2, $amenity3] as $amenity) {
+            $this->assertDatabaseHas('community_amenities', [
+                'community_id' => $this->community->id,
+                'amenity_id' => $amenity->id,
+            ]);
+        }
+
+        $this->community->refresh();
+        $this->assertEquals('New Name', $this->community->name);
+    }
 }
