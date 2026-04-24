@@ -37,6 +37,25 @@ Append concise notes as you learn. Keep this under 200 lines via curation.
 _(append one line per QA report: `PR #N — <AC count / tests added> — <any persistent issue>`)_
 - PR #118 — 5 ACs / 5 gap tests added — PermissionSubject has 31 cases (issue says 30); PermissionAction has EXPORT/IMPORT (issue says RESTORE/FORCE_DELETE): both flagged for PM/Tech Lead sign-off.
 - PR #119 — 5 ACs / 4 gap tests added — 186 vs 180 permission count discrepancy persists (31 subjects, issue says 30); flagged again for PM sign-off. All 28 tests pass.
+- PR #120 — 5 ACs / 17 gap tests added — Inertia 403 handler bug found (renderable not firing for Inertia requests); 2 tests marked skipped pending Engineer fix. All other tests pass.
+- PR #121 — 6 ACs / 14 gap tests added — all 26 tests pass. Note: null-null-null model_has_roles row = system-wide (unrestricted), not "no scope". Tenant boundary tested via makeCurrent()/forgetCurrent().
+- PR #122 — 4 ACs / 22 gap tests added — 33 total, all pass. Tenant isolation via withSession(['tenant_id']), system roles (account_tenant_id=NULL) correctly 403 on update/delete. Cross-tenant name uniqueness: same name_en/name_ar is allowed across different tenants (scoped unique rule).
+- PR #123 — 5 ACs / 16 gap tests added — 24 total, all pass. Note: GET permissions route uses viewAny (no tenant check); only syncPermissions enforces tenant ownership. Empty permissions array is valid (clears all). Preset data accessible via `$response->original->getData()['page']['props']` in Inertia tests.
+- PR #124 — 7 ACs / 9 gap tests added — 25 total, all pass. Note: non-manager roles use nullable community_id (no tenant FK check); serviceManager scope deferred (no RolesEnum case yet). Gate::before(accountAdmins) bypasses manage-user-role-assignments check.
+- PR #125 — 1 AC (idempotent migration command) / 8 gap tests added — 16 total, all pass. Notes: NULL role path uses unrecognised string (NOT NULL column constraint); large-dataset test uses 210 admins to cross 200-row chunkById boundary; serviceManager scope (community_id/building_id) not implemented in command — deferred, flagged for PM.
+
+## Inertia request testing (version header)
+- Inertia middleware checks `X-Inertia-Version` header against `hash_file('xxh128', public_path('build/manifest.json'))` on every GET request.
+- If version mismatches, returns 409 before any controller/auth logic runs.
+- For tests: compute version with `file_exists($manifest) ? hash_file('xxh128', $manifest) : ''` and send as `X-Inertia-Version` header.
+- If no manifest built in CI, version is `''` and omitting the header is fine.
+- Note: `withHeaders(['X-Inertia' => 'true'])` alone WILL get 409 if a built manifest exists.
+
+## Inertia 403 handler bug (PR #120)
+- The `renderable(function (AuthorizationException $e, Request $request)` in bootstrap/app.php does NOT intercept AuthorizationException for Inertia requests.
+- The exception propagates unhandled to PHPUnit as an error.
+- Root cause unknown — may be Laravel 13 / Inertia v3 renderable callback signature issue.
+- Engineer must fix before Inertia JSON 403 AC can be verified.
 
 ## Migration rollback tests
 - Use `Artisan::call('migrate:rollback', ['--step' => N, '--force' => true])` then re-apply with `Artisan::call('migrate', ['--force' => true])` to restore DB for subsequent tests. Use Schema::hasColumn() to assert before/after.
