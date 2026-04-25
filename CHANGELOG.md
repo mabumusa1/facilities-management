@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Service Requests — auto-generated reference codes (`SR-YYYY-NNNNN`, unique per account per year) now appear on every service request record; adds scheduled-date and completed-date fields; lays foundation for upcoming messaging threads and activity-timeline view ([#335](https://github.com/mabumusa1/facilities-management/pull/335))
 - Contacts → Residents — create new resident contacts with bilingual EN/AR name fields, phone-based duplicate detection with an inline warning and "create anyway" override, and a debounced search across English names, Arabic names, phone, and email ([#330](https://github.com/mabumusa1/facilities-management/pull/330))
 - Company Profile — configure company identity, logo and brand, regional timezone, and brand colours from a single settings page under App Settings; logo upload with PNG/SVG client-side validation; removable logo with disk cleanup; bilingual (EN/AR) with deferred skeleton loading and sticky unsaved-changes bar ([#329](https://github.com/mabumusa1/facilities-management/pull/329))
 - Properties → Communities — edit amenities, working days, and map coordinates from a single form; Saturday-first day strip; optional geolocation auto-fill; bilingual (EN/AR) with RTL layout ([#327](https://github.com/mabumusa1/facilities-management/pull/327))
