@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RbacSeeder::class);
         $this->call(DemoAccountSeeder::class);
+        $this->call(VisitorAccessSettingsSeeder::class);
     }
 }
