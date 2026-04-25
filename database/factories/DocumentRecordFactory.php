@@ -17,7 +17,7 @@ class DocumentRecordFactory extends Factory
     public function definition(): array
     {
         return [
-            'account_tenant_id' => Tenant::factory(),
+            'account_tenant_id' => fn () => Tenant::create(['name' => fake()->unique()->company()]),
             'document_template_version_id' => DocumentVersion::factory(),
             'generated_at' => fake()->dateTime(),
             'file_path' => fake()->filePath(),
