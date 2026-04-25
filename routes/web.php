@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
@@ -100,6 +101,16 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 
     // Accounting
     Route::resource('transactions', TransactionController::class);
+
+    Route::prefix('accounting')->name('accounting.')->group(function () {
+        Route::prefix('settings')->name('settings.')->group(function () {
+            Route::get('categories', [TransactionCategoryController::class, 'index'])->name('categories.index');
+            Route::post('categories', [TransactionCategoryController::class, 'store'])->name('categories.store');
+            Route::put('categories/{setting}', [TransactionCategoryController::class, 'update'])->name('categories.update');
+            Route::post('categories/{setting}/toggle', [TransactionCategoryController::class, 'toggleActive'])->name('categories.toggle');
+            Route::delete('categories/{setting}', [TransactionCategoryController::class, 'destroy'])->name('categories.destroy');
+        });
+    });
 
     // Communication
     Route::resource('announcements', AnnouncementController::class);

@@ -25,6 +25,27 @@ The screens to create, revise, and convert quotes are arriving in the next few r
 
 Learn more: [Understanding lease quotes](./guides/leasing/lease-quotes.md).
 
+### Transaction categories — April 25, 2026
+
+You can now configure the income and expense categories used when recording transactions.
+
+- **Default categories included.** Your account starts with six pre-built categories: Rent, Late Fee, and Service Fee on the income side; Maintenance, Utility, and Repairs on the expense side. They are ready to use immediately.
+- **Add custom categories.** Go to **Accounting → Settings → Transaction Categories** and click **Add Category**. Give the category a name in English and Arabic, choose Income or Expense as the type, and save.
+- **Edit names.** Click **Edit** on any category to update the English or Arabic name. The Income/Expense type cannot be changed after creation.
+- **Deactivate when no longer needed.** Click **Deactivate** to hide a category from new transaction forms. Existing transactions keep their category reference — nothing is lost. You can reactivate at any time.
+- **Default categories are protected.** The six built-in defaults carry a **Default** badge and cannot be deleted. Deactivate them if you do not need them.
+- **Bilingual.** All category names are stored in English and Arabic and display in both languages.
+
+Learn more: [Configure transaction categories](./guides/accounting/transaction-categories.md).
+
+### Service request reference codes — April 25, 2026
+
+Every service request now has a unique reference code in the format `SR-YYYY-NNNNN` (for example, `SR-2026-00042`). The code appears in the request header and in all list views, making it easy to quote a specific request to a resident or in a support conversation without sharing internal IDs. The sequence restarts each calendar year and is guaranteed unique within your account.
+
+This release also puts in place the infrastructure for two features coming soon: a per-request messaging thread (resident and staff chat, with internal-only notes) and an activity timeline that logs every status change and key action on a request.
+
+Learn more: [Service request reference codes](./guides/service-requests/service-request-reference-codes.md).
+
 ### Resident contacts — April 25, 2026
 
 You can now create resident contact records and search the full list by name (English or Arabic) or phone number.
