@@ -78,6 +78,7 @@ Learn more: [Service request reference codes](./guides/service-requests/service-
 ### Backend — April 25, 2026
 
 Backend: Fortify authentication features expanded to support upcoming profile management and password self-service.
+Backend: New Documents infrastructure for contract, invoice, and receipt generation across Leasing, Facilities, and Accounting modules.
 
 ### Resident contacts — April 25, 2026
 

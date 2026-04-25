@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Admin → Users — drawer-based role assignment with community, building, and service-type scope selectors ([#124](https://github.com/mabumusa1/facilities-management/pull/124))
 - Enabled Fortify update-profile-information and update-passwords features for future auth stories ([#331](https://github.com/mabumusa1/facilities-management/pull/331))
 - Added locale and avatar_path columns to users table for profile self-service ([#331](https://github.com/mabumusa1/facilities-management/pull/331))
+- Added Documents data model (templates, versions, records, signatures) for cross-domain document generation ([#332](https://github.com/mabumusa1/facilities-management/pull/332))
 
 ### Changed
 
