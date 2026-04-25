@@ -10,6 +10,12 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Reports — access control — April 25, 2026
+
+Access to all report types is now controlled by the `reports.VIEW` permission. Account Admins, System Admins, and Accounting Managers have this permission by default. If you need access and cannot open the Reports section, ask your System Admin to add the permission to your role.
+
+The report viewer pages are in development and will ship soon. Learn more: [Reports — snapshots overview](./guides/reports/snapshots-overview.md).
+
 ### Visitor access — April 25, 2026
 
 The platform now has the data foundation for QR-coded visitor gate passes. The screens for creating invitations, scanning at the gate, and viewing the logbook are coming in the next several releases. Here is what is being put in place behind the scenes:
