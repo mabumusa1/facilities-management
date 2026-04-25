@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Enums\PermissionAction;
-use App\Enums\PermissionSubject;
 use App\Enums\RolesEnum;
 use App\Models\AccountMembership;
 use App\Models\Tenant;
@@ -52,18 +50,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Super-admin bypass: accountAdmins role always passes every check.
         // Spatie's PermissionRegistrar registers its own Gate::before that resolves
-        // permission checks, so no Gate::define() loops are needed here.
+        // permission strings (including reports.VIEW) — no Gate::define() needed.
         Gate::before(function (User $user, string $ability): ?bool {
             return $user->hasRole(RolesEnum::ACCOUNT_ADMINS->value) ? true : null;
-        });
-
-        // Reports access: any user with the reports.VIEW permission within the current tenant.
-        // Manager-scope filtering (community/building restriction) is applied at the query
-        // level in each report controller method via ->forManager($user) — not here.
-        Gate::define('reports.VIEW', function (User $user): bool {
-            $permission = PermissionSubject::Reports->value.'.'.PermissionAction::VIEW->value;
-
-            return $user->can($permission);
         });
 
         Gate::define('manage-user-role-assignments', function (User $authUser, User $targetUser): bool {

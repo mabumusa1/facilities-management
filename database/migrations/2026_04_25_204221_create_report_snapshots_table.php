@@ -12,11 +12,7 @@ return new class extends Migration
             $table->id();
 
             // Tenant isolation — every row belongs to exactly one tenant
-            $table->unsignedBigInteger('account_tenant_id');
-            $table->foreign('account_tenant_id')
-                ->references('id')
-                ->on('tenants')
-                ->cascadeOnDelete();
+            $table->unsignedBigInteger('account_tenant_id')->nullable()->index();
 
             // The type of report this snapshot represents
             $table->string('report_type')->index();
