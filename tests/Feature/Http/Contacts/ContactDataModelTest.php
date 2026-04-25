@@ -9,7 +9,6 @@ use App\Models\Professional;
 use App\Models\Resident;
 use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
@@ -389,17 +388,20 @@ class ContactDataModelTest extends TestCase
         $this->tenant->makeCurrent();
     }
 
-    public function test_duplicate_phone_within_same_tenant_violates_unique_index(): void
+    public function test_duplicate_phone_within_same_tenant_is_allowed_at_db_layer(): void
     {
-        // Two residents in the same tenant with the same non-null national_phone_number
-        // must trigger a DB-level unique constraint violation.
+        // Story #148 relaxed the composite unique index to a regular index so the
+        // application layer (StoreResidentRequest::withValidator + force_create flag)
+        // can offer an explicit "create anyway" override. Two rows with the same
+        // national_phone_number in one tenant must therefore persist successfully.
         $phone = '+966501234000';
 
-        Resident::factory()->withPhone($phone)->create();
+        $first = Resident::factory()->withPhone($phone)->create();
+        $second = Resident::factory()->withPhone($phone)->create();
 
-        $this->expectException(QueryException::class);
-
-        Resident::factory()->withPhone($phone)->create();
+        $this->assertModelExists($first);
+        $this->assertModelExists($second);
+        $this->assertNotSame($first->id, $second->id);
     }
 
     // ── QA gap: arabicOnly() factory state ──
@@ -548,14 +550,18 @@ class ContactDataModelTest extends TestCase
         $this->tenant->makeCurrent();
     }
 
-    public function test_duplicate_owner_phone_within_same_tenant_violates_unique_index(): void
+    public function test_duplicate_owner_phone_within_same_tenant_is_allowed_at_db_layer(): void
     {
+        // Owners share the rf_tenants table with Residents, so the index relaxation
+        // from story #148 also applies here. Application-level dedup for Owner is a
+        // separate story; at the DB layer, two rows are allowed.
         $phone = '+966507654000';
 
-        Owner::factory()->withPhone($phone)->create();
+        $first = Owner::factory()->withPhone($phone)->create();
+        $second = Owner::factory()->withPhone($phone)->create();
 
-        $this->expectException(QueryException::class);
-
-        Owner::factory()->withPhone($phone)->create();
+        $this->assertModelExists($first);
+        $this->assertModelExists($second);
+        $this->assertNotSame($first->id, $second->id);
     }
 }

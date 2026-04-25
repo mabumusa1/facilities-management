@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Contacts → Residents — create new resident contacts with bilingual EN/AR name fields, phone-based duplicate detection with an inline warning and "create anyway" override, and a debounced search across English names, Arabic names, phone, and email ([#330](https://github.com/mabumusa1/facilities-management/pull/330))
 - Properties → Communities — edit amenities, working days, and map coordinates from a single form; Saturday-first day strip; optional geolocation auto-fill; bilingual (EN/AR) with RTL layout ([#327](https://github.com/mabumusa1/facilities-management/pull/327))
 - Roles and permissions — 12 default roles (7 user roles + 5 admin roles) and 186 permissions seeded on every account ([#119](https://github.com/mabumusa1/facilities-management/pull/119))
 - Manager scope — managers are now restricted to their assigned communities, buildings, and service types across 16 models ([#121](https://github.com/mabumusa1/facilities-management/pull/121))
