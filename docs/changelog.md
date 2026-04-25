@@ -10,7 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
-<<<<<<< HEAD
+### Document templates — April 26, 2026
+
+You can now create and manage document templates with named merge fields for lease contracts, invoices, receipts, and booking documents.
+
+- **Create templates.** Go to **Admin → Document Templates**, click **Create template**, give it a name (English required, Arabic optional), choose a type (Lease, Booking, Invoice, Receipt, or Custom), and save. The template starts as a draft.
+- **Bilingual body.** Switch between English and Arabic tabs in the editor to author content for each language. Use `{{merge_field_key}}` placeholders where variable data should be inserted.
+- **Merge fields.** Define which data points the platform should pull — resident name, lease start date, invoice amount — each with a key, English/Arabic label, data type (text, date, currency, number), and source path. Click **Add field** to build the list.
+- **Version history.** Every save creates a new version. The right-hand sidebar shows all versions in descending order. Click any version to preview its body and merge fields. Existing generated documents stay pinned to the version that was current at generation time.
+- **Activate and archive.** Click **Activate** to make a draft template selectable when generating documents in Leasing, Facilities, or Accounting. Click **Archive** to retire a template from new use — existing documents remain intact.
+- **Admin-only access.** The Document Templates area is available only to Account Admins. Users without the `documents.VIEW` permission see a 403 error.
+
+Learn more: [Manage document templates](./guides/documents/document-templates.md).
+
 ### Facility availability and waitlist — April 25, 2026
 
 The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.
