@@ -145,6 +145,7 @@ const navGroups = computed<NavGroup[]>(() => [
             { title: t('app.navigation.settingsForms'), href: '/settings/forms' },
             { title: t('app.navigation.requestCategories'), href: '/app-settings/request-categories' },
             { title: t('app.navigation.facilityCategories'), href: '/app-settings/facility-categories' },
+            { title: t('app.navigation.companyProfile'), href: '/app-settings/company-profile' },
             { title: t('app.navigation.invoiceSettings'), href: '/app-settings/invoice' },
             { title: t('app.navigation.generalSettings'), href: '/app-settings/general' },
             ...(canManageAccountAdministration.value

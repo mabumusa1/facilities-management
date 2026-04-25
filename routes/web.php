@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
+use App\Http\Controllers\AppSettings\CompanyProfileController;
 use App\Http\Controllers\AppSettings\FacilityCategoryController as AppFacilityCategoryController;
 use App\Http\Controllers\AppSettings\FormTemplateController;
 use App\Http\Controllers\AppSettings\GeneralSettingController;
@@ -141,6 +142,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::resource('facility-categories', AppFacilityCategoryController::class)->except(['show']);
         Route::get('invoice', [InvoiceSettingController::class, 'edit'])->name('invoice.edit');
         Route::put('invoice', [InvoiceSettingController::class, 'update'])->name('invoice.update');
+        Route::get('company-profile', [CompanyProfileController::class, 'edit'])->name('company-profile.edit');
+        Route::put('company-profile', [CompanyProfileController::class, 'update'])->name('company-profile.update');
         Route::get('general', [GeneralSettingController::class, 'index'])->name('general.index');
         Route::post('general', [GeneralSettingController::class, 'store'])->name('general.store');
         Route::put('general/{setting}', [GeneralSettingController::class, 'update'])->name('general.update');
