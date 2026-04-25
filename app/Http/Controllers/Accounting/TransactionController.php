@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Accounting;
 use App\Http\Controllers\Controller;
 use App\Models\Lease;
 use App\Models\Owner;
+use App\Models\Receipt;
 use App\Models\Resident;
 use App\Models\Setting;
 use App\Models\Status;
 use App\Models\Transaction;
 use App\Models\Unit;
+use App\Services\Accounting\InvoiceSettingGate;
+use App\Services\Accounting\ReceiptService;
 use App\Support\StatusWorkflow;
 use App\Support\WorkflowNotifier;
 use Illuminate\Http\JsonResponse;
@@ -18,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class TransactionController extends Controller
 {
@@ -127,7 +131,7 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function create(): Response
+    public function create(InvoiceSettingGate $gate): Response
     {
         $this->authorize('create', Transaction::class);
 
@@ -137,15 +141,23 @@ class TransactionController extends Controller
             'statuses' => Status::where('type', 'invoice')->select('id', 'name', 'name_en')->get(),
             'tenants' => Resident::select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
             'owners' => Owner::select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
-            'transactionCategories' => Setting::where('type', 'transaction_category')->select('id', 'name', 'name_en')->get(),
+            'transactionCategories' => Setting::where('type', 'transaction_category')
+                ->where('subtype', 'income')
+                ->select('id', 'name', 'name_en')
+                ->orderByRaw('COALESCE(name_en, name) asc')
+                ->get(),
             'transactionSubcategories' => Setting::where('type', 'transaction_subcategory')->select('id', 'name', 'name_en', 'parent_id')->get(),
             'transactionTypes' => Setting::where('type', 'transaction_type')->select('id', 'name', 'name_en')->get(),
+            'invoiceSettingComplete' => $gate->isComplete(),
         ]);
     }
 
-    public function store(Request $request): JsonResponse|RedirectResponse
+    public function store(Request $request, ReceiptService $receiptService): JsonResponse|RedirectResponse
     {
         $this->authorize('create', Transaction::class);
+
+        // Parse payer composite value: "resident:1" or "owner:1" → assignee_type + assignee_id
+        $this->resolvePayerFromRequest($request);
 
         $validated = $request->validate([
             'lease_id' => ['nullable', 'integer', 'exists:rf_leases,id'],
@@ -154,18 +166,23 @@ class TransactionController extends Controller
             'type_id' => ['required', 'integer'],
             'status_id' => ['required', 'integer', 'exists:rf_statuses,id'],
             'assignee_id' => ['required', 'integer'],
-            'amount' => ['required', 'numeric', 'min:0'],
+            'assignee_type' => ['required', 'string', 'in:App\Models\Resident,App\Models\Owner'],
+            'amount' => ['required', 'numeric', 'min:0.01'],
             'tax_amount' => ['nullable', 'numeric', 'min:0'],
             'due_date' => ['nullable', 'date', 'required_without:due_on'],
             'due_on' => ['nullable', 'date', 'required_without:due_date'],
             'notes' => ['nullable', 'string'],
             'details' => ['nullable', 'string'],
+            'direction' => ['required', 'string', 'in:money_in'],
+            'payment_method' => ['required', 'string', 'in:cash,bank_transfer,cheque'],
+            'reference_number' => ['nullable', 'string', 'max:100'],
+            'generate_receipt' => ['nullable', 'boolean'],
         ]);
 
         $validated['due_on'] = $validated['due_on'] ?? $validated['due_date'] ?? null;
         $validated['details'] = $validated['details'] ?? $validated['notes'] ?? null;
 
-        unset($validated['due_date'], $validated['notes']);
+        unset($validated['due_date'], $validated['notes'], $validated['generate_receipt']);
 
         $transaction = Transaction::create($validated);
 
@@ -189,19 +206,26 @@ class TransactionController extends Controller
             ]);
         }
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Transaction created.')]);
+        $receipt = $receiptService->generateOrBlock($transaction);
+
+        if ($receipt->status === 'generated') {
+            Inertia::flash('toast', ['type' => 'success', 'message' => __('Transaction saved — receipt generated.')]);
+        } else {
+            Inertia::flash('toast', ['type' => 'success', 'message' => __('Transaction saved.')]);
+        }
 
         return to_route('transactions.show', $transaction);
     }
 
-    public function show(Transaction $transaction): Response
+    public function show(Transaction $transaction, InvoiceSettingGate $gate): Response
     {
         $this->authorize('view', $transaction);
 
-        $transaction->load(['lease', 'unit', 'status', 'payments', 'category', 'subcategory', 'type']);
+        $transaction->load(['lease', 'unit', 'status', 'payments', 'category', 'subcategory', 'type', 'receipt', 'assignee']);
 
         return Inertia::render('accounting/transactions/Show', [
             'transaction' => $transaction,
+            'invoiceSettingComplete' => $gate->isComplete(),
         ]);
     }
 
@@ -326,6 +350,62 @@ class TransactionController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Transaction deleted.')]);
 
         return to_route('transactions.index');
+    }
+
+    public function downloadReceipt(Transaction $transaction): BinaryFileResponse|RedirectResponse
+    {
+        $this->authorize('view', $transaction);
+
+        $receipt = $transaction->receipt;
+
+        if ($receipt === null || $receipt->pdf_path === null || $receipt->status !== 'generated') {
+            return to_route('transactions.show', $transaction)->with('error', __('Receipt is not available for download.'));
+        }
+
+        return response()->download(storage_path("app/{$receipt->pdf_path}"));
+    }
+
+    public function sendReceipt(Transaction $transaction, Request $request, ReceiptService $receiptService): JsonResponse|RedirectResponse
+    {
+        $this->authorize('view', $transaction);
+
+        $receipt = $transaction->receipt;
+
+        if ($receipt === null || $receipt->status !== 'generated') {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => __('Receipt is not ready to send.')], 422);
+            }
+
+            return to_route('transactions.show', $transaction)->with('error', __('Receipt is not ready to send.'));
+        }
+
+        $receiptService->send($receipt);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Receipt sent to :email.', ['email' => $receipt->sent_to_email])]);
+
+        return to_route('transactions.show', $transaction);
+    }
+
+    /**
+     * Parse the composite payer value (e.g. "resident:42" or "owner:7") into
+     * separate assignee_id and assignee_type request fields.
+     * Falls back gracefully when the value is already a plain integer.
+     */
+    private function resolvePayerFromRequest(Request $request): void
+    {
+        $payerValue = (string) $request->input('assignee_id', '');
+
+        if (str_starts_with($payerValue, 'resident:')) {
+            $request->merge([
+                'assignee_id' => (int) str_replace('resident:', '', $payerValue),
+                'assignee_type' => Resident::class,
+            ]);
+        } elseif (str_starts_with($payerValue, 'owner:')) {
+            $request->merge([
+                'assignee_id' => (int) str_replace('owner:', '', $payerValue),
+                'assignee_type' => Owner::class,
+            ]);
+        }
     }
 
     /**
