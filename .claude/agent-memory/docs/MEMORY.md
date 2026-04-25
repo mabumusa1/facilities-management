@@ -59,4 +59,4 @@ _(append guide slugs where Arabic was skipped or machine-stubbed, with a reason)
 _(populate as you learn — voice corrections, screenshot preferences, publishing cadence, etc.)_
 
 ## Past work index
-_(append one line per merged docs PR: `#PR — <title> — <areas> — <EN|AR|both>`)_
+- #330 — Resident create & search with phone duplicate detection (#148) — contacts — both

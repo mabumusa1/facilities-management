@@ -43,6 +43,7 @@ _(append one line per QA report: `PR #N — <AC count / tests added> — <any pe
 - PR #123 — 5 ACs / 16 gap tests added — 24 total, all pass. Note: GET permissions route uses viewAny (no tenant check); only syncPermissions enforces tenant ownership. Empty permissions array is valid (clears all). Preset data accessible via `$response->original->getData()['page']['props']` in Inertia tests.
 - PR #124 — 7 ACs / 9 gap tests added — 25 total, all pass. Note: non-manager roles use nullable community_id (no tenant FK check); serviceManager scope deferred (no RolesEnum case yet). Gate::before(accountAdmins) bypasses manage-user-role-assignments check.
 - PR #125 — 1 AC (idempotent migration command) / 8 gap tests added — 16 total, all pass. Notes: NULL role path uses unrecognised string (NOT NULL column constraint); large-dataset test uses 210 admins to cross 200-row chunkById boundary; serviceManager scope (community_id/building_id) not implemented in command — deferred, flagged for PM.
+- PR #330 — 4 ACs / 25 gap tests added — 40 total, all pass. Note: duplicate-check uses inline $request->validate() on a GET route — requires `Accept: application/json` header to get 422 instead of a redirect; use withHeaders(['Accept' => 'application/json']) for those assertions.
 
 ## Inertia request testing (version header)
 - Inertia middleware checks `X-Inertia-Version` header against `hash_file('xxh128', public_path('build/manifest.json'))` on every GET request.

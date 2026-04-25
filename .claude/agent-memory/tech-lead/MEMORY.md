@@ -74,3 +74,45 @@ Append concise notes as you learn. Keep this under 200 lines via curation.
 - Design #115 — Permission Matrix UI — Two new routes (GET/PUT admin/roles/{role}/permissions) added to RoleController; new SyncRolePermissionsRequest; RolePolicy::managePermissions() (only blocks PUT, not GET). Sync: full-replace via Permission::whereIn + ->permissions()->sync($ids) (NOT Spatie syncPermissions() — it N+1s per name). Deferred prop for permissions array (flat string[] of "subject.ACTION" names). Presets built server-side from enums (7 presets, no DB table). Permissions.vue: 31×6 grid, sticky subject column (inset-inline-start:0), sticky header row, sticky action bar, auto-check VIEW rule, useHttp for PUT (no redirect). System role: checkboxes disabled, info banner, no action bar, GET still allowed via viewAny policy. Wayfinder regen required.
 - Design #117 — Admin role data migration — Artisan command `rbac:migrate-admin-roles`; reads rf_admins.role enum, maps to system-wide Role by name, bulk-inserts model_has_roles rows per chunk. Idempotent (pre-fetch existing pairs per chunk). rf_admins.role column preserved. Risks: morph alias mismatch, RbacSeeder prerequisite, Spatie cache invalidation needed after run. No migrations, no routes, no frontend changes.
 - Design #116 — Role Assignment UI — New UserRoleAssignmentController (store + destroy), AccountUserController::show(), 4 new routes in admin.manage group. model_has_roles rows addressed by surrogate PK id. Assign uses raw DB::table insert (no assignScopedRole()). Detach uses User::removeScopedRole(). RolesEnum gains scopeLevel() returning 'none'|'manager'|'serviceManager'. Gate::define('manage-user-role-assignments') in AppServiceProvider. Deferred prop for assignments (single join query). Show.vue + RolesTab.vue + AssignRoleDrawer.vue. Pre-existing bug: AccountUserController::update() calls syncRoles() which throws when scoped rows exist — fix required in scope. Wayfinder regen required. PM must confirm scalar vs batch insert and serviceManager RolesEnum case. — Two new routes (GET/PUT admin/roles/{role}/permissions) added to RoleController; new SyncRolePermissionsRequest; RolePolicy::managePermissions() (only blocks PUT, not GET). Sync: full-replace via Permission::whereIn + ->permissions()->sync($ids) (NOT Spatie syncPermissions() — it N+1s per name). Deferred prop for permissions array (flat string[] of "subject.ACTION" names). Presets built server-side from enums (7 presets, no DB table). Permissions.vue: 31×6 grid, sticky subject column (inset-inline-start:0), sticky header row, sticky action bar, auto-check VIEW rule, useHttp for PUT (no redirect). System role: checkboxes disabled, info banner, no action bar, GET still allowed via viewAny policy. Wayfinder regen required.
+
+## Subscription Architecture (from admin batch #291-#302)
+- **Dual-model approach:** The `laravelcm/subscriptions` package handles time-based lifecycle (active/trial/canceled). A new companion `AccountSubscription` model stores tier/seat/billing metadata the package does not track. NEVER use `AccountSubscription.status` as source of truth -- always derive status from the package's `plan_subscriptions` row.
+- `Tenant` hasOne `AccountSubscription`; `AccountSubscription` belongsTo `SubscriptionTier`.
+- `billing_cycle` lives on `AccountSubscription` (per-tenant), NOT on `SubscriptionTier`.
+- Subscription tiers: 3 tiers (Starter/Pro/Enterprise) with identical `feature_flags` (all ON) in v1; differ only by `max_units` and `seat_limit`.
+- Plan changes auto-trigger from `Unit` observer when unit count crosses a bracket boundary (event-driven, not nightly job).
+- Seat count: compute live from `AccountMembership::count()`, denormalise to `AccountSubscription.seats_used` for cache warmth.
+- Seat deactivation on downgrade: set `AccountMembership.deactivated_at` (never delete), notify affected users.
+
+## Leads Domain (from admin batch #297-#299)
+- Existing `Lead` model at `app/Models/Lead.php` (table `rf_leads`). Controller: new `app/Http/Controllers/Admin/LeadController.php`.
+- Lead status pipeline: New -> Contacted -> Qualified -> Converted/Lost. Stored via `status_id` FK to `Status` model.
+- Lead conversion creates Owner or Resident contact records cross-domain via `ConvertLeadToContact` Action class.
+- Converted leads: `lead.converted_contact_id`/`_type` polymorphic; excluded from default list views.
+- Lead import: polishes existing `documents/LeadsImportErrors.vue`; row limit 500, file limit 5MB, synchronous for <=500 rows.
+- Lead activity feed: dedicated `lead_activities` table (not reusable notifications); types: assigned/unassigned/status_change/note.
+
+## Feature Flags Infrastructure (from #301)
+- Flags stored in `SubscriptionTier.feature_flags` (JSON, all ON in v1) with per-tenant overrides in `feature_flag_overrides` table.
+- Effective flag = tier default OR override if one exists. Resolved via `FeatureFlagService`.
+- Audit log: `feature_flag_audit_logs` table (actor_id, flag_key, action, timestamp).
+- Must add `@/components/ui/switch/Switch.vue` before engineer implements #301 (shadcn-vue Switch pattern).
+- Permission: only `RolesEnum::ACCOUNT_ADMINS` can toggle flags; 403 for others.
+
+## Owner Registration (from #300)
+- New model `OwnerRegistration` (tenant-scoped via `BelongsToAccountTenant`) with status (pending/approved/rejected).
+- Document types: configurable via `rf_settings` table (type='owner_registration_document_type'), not hardcoded.
+- Approval: checks unit conflicts pre-fetch (not at PATCH time); locks units with `lockForUpdate()` in transaction.
+- Portal login is NOT auto-created on approval (separate Auth #242 concern).
+- Documents via morphMany `Media` on OwnerRegistration; signed URLs with 5-min lifetime.
+
+## Missing UI Components to Add
+- `resources/js/components/ui/switch/Switch.vue` — needed for #301 feature flags (shadcn-vue pattern).
+- Sheet/Drawer component — referenced by UX flows but not yet in UI lib. Check if `@/components/ui/sheet` exists or needs adding.
+- Progress bar — build inline (simple `<div role="progressbar">`) until shadcn needed.
+
+## New Admin Routes Pattern
+- All admin routes live under `Route::prefix('admin')->name('admin.')->middleware('admin.manage')`.
+- New resources: `admin/leads`, `admin/dashboard`, `admin/subscription` (singular), `admin/owner-registrations`.
+- Tenant-scoped vs super-admin: same route, role-based conditional rendering in controller. Check `$user->hasRole(RolesEnum::ACCOUNT_ADMINS->value)`.
+- Wayfinder must be regenerated after ALL route changes.
