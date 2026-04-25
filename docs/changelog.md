@@ -10,6 +10,17 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Facility availability and waitlist — April 25, 2026
+
+The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.
+
+- **Availability rules.** Each facility will support a separate opening window for each day of the week — including open time, close time, session length, and the maximum number of overlapping bookings. A sample Gym facility is active with Monday–Saturday 06:00–22:00 hours so testing can begin immediately.
+- **Waitlist.** When a slot is fully booked, residents will be able to join a first-in, first-out queue. If a confirmed booking is cancelled, the first resident in the queue receives a notification and a time-limited window to claim the slot.
+- **Booking time ranges.** Bookings will record an exact start and end time so the calendar view and conflict checks work correctly.
+- **Cancellation tracking.** Bookings will track the cancellation time, the reason, and whether it was cancelled by a resident or an admin.
+
+The booking and facility-configuration UI is coming in upcoming releases. Learn more: [Facility availability and waitlist](./guides/facilities/availability-and-waitlist.md).
+
 ### Resident contacts — April 25, 2026
 
 You can now create resident contact records and search the full list by name (English or Arabic) or phone number.
