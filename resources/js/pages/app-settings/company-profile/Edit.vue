@@ -161,12 +161,16 @@ function submit() {
 
     form.post('/app-settings/company-profile', {
         onSuccess: () => {
+            serverError.value = null;
             form.remove_logo = false;
             form.remove_logo_ar = false;
             logoFile.value = null;
             logoPreview.value = null;
             logoArFile.value = null;
             logoArPreview.value = null;
+        },
+        onError: () => {
+            serverError.value = t('app.appSettings.companyProfile.toastError');
         },
     });
 }

@@ -10,6 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Company profile — April 2026
+
+You can now configure your company identity, logo, timezone, and brand colour from one settings page. These details appear consistently on all contracts, invoices, and the sign-in page.
+
+- **Identity.** Set your company name in English and Arabic, VAT registration number (15 digits, appears on invoices), and commercial registration number.
+- **Logo & brand.** Upload a primary logo for English documents and an optional Arabic variant for Arabic documents. Accepted formats: PNG or SVG, 2 MB max. Click **Remove** to delete a logo — the file is cleaned from storage on save.
+- **Regional.** Pick a timezone from a Gulf-pinned list. Affects lease dates, invoice due dates, and booking slots across the platform.
+- **Brand colours.** Enter a hex colour code (e.g. `#1A73E8`) with a live swatch preview. Applied to email notification headers and document template accents — it does **not** change the sidebar.
+- **Unsaved changes.** A sticky bar slides up from the bottom whenever you modify a field, keeping you aware of uncommitted changes. Click **Save changes** or **Discard**.
+- **Bilingual.** The full page works in English and Arabic (RTL) with proper `dir` attributes on directional inputs.
+
+Learn more: [Configure your company profile](./guides/app-settings/company-profile.md).
+
 ### Community metadata — April 2026
 
 You can now set a community's amenities, weekly working days, and map location from a single edit form.

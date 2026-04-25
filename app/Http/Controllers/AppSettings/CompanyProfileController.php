@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AppSettings;
 
 use App\Http\Controllers\Controller;
 use App\Models\InvoiceSetting;
+use App\Models\Tenant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -58,7 +59,9 @@ class CompanyProfileController extends Controller
         ]);
 
         $settings = InvoiceSetting::query()->firstOrNew();
-        $settings->fill($request->except(['logo', 'logo_ar', 'remove_logo', 'remove_logo_ar']));
+        $settings->fill(collect($validated)->except(['logo', 'logo_ar', 'remove_logo', 'remove_logo_ar'])->toArray());
+
+        $tenantId = Tenant::current()?->id;
 
         if ($request->hasFile('logo')) {
             if ($settings->logo_path) {
@@ -66,7 +69,7 @@ class CompanyProfileController extends Controller
             }
 
             $settings->logo_path = $request->file('logo')->store(
-                'uploads/logos/'.$settings->accountTenant?->id,
+                'uploads/logos/'.$tenantId,
                 'public',
             );
         }
@@ -77,7 +80,7 @@ class CompanyProfileController extends Controller
             }
 
             $settings->logo_ar_path = $request->file('logo_ar')->store(
-                'uploads/logos/'.$settings->accountTenant?->id,
+                'uploads/logos/'.$tenantId,
                 'public',
             );
         }
