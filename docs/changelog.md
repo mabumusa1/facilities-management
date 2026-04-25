@@ -10,6 +10,12 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Reports — access control — April 25, 2026
+
+Access to all report types is now controlled by the `reports.VIEW` permission. Account Admins, System Admins, and Accounting Managers have this permission by default. If you need access and cannot open the Reports section, ask your System Admin to add the permission to your role.
+
+The report viewer pages are in development and will ship soon. Learn more: [Reports — snapshots overview](./guides/reports/snapshots-overview.md).
+
 ### Resident contacts — April 25, 2026
 
 You can now create resident contact records and search the full list by name (English or Arabic) or phone number.
