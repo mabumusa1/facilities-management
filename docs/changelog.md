@@ -10,6 +10,7 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+<<<<<<< HEAD
 ### Facility availability and waitlist — April 25, 2026
 
 The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.
@@ -73,6 +74,10 @@ Every service request now has a unique reference code in the format `SR-YYYY-NNN
 This release also puts in place the infrastructure for two features coming soon: a per-request messaging thread (resident and staff chat, with internal-only notes) and an activity timeline that logs every status change and key action on a request.
 
 Learn more: [Service request reference codes](./guides/service-requests/service-request-reference-codes.md).
+
+### Backend — April 25, 2026
+
+Backend: Fortify authentication features expanded to support upcoming profile management and password self-service.
 
 ### Resident contacts — April 25, 2026
 

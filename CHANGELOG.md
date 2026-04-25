@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Admin → Roles — list, search, create, edit, and delete custom roles with bilingual English/Arabic names ([#122](https://github.com/mabumusa1/facilities-management/pull/122))
 - Admin → Roles — permission matrix editor (31 subjects × 6 actions) with presets and a "View is required when any other action is enabled" rule ([#123](https://github.com/mabumusa1/facilities-management/pull/123))
 - Admin → Users — drawer-based role assignment with community, building, and service-type scope selectors ([#124](https://github.com/mabumusa1/facilities-management/pull/124))
+- Enabled Fortify update-profile-information and update-passwords features for future auth stories ([#331](https://github.com/mabumusa1/facilities-management/pull/331))
+- Added locale and avatar_path columns to users table for profile self-service ([#331](https://github.com/mabumusa1/facilities-management/pull/331))
 
 ### Changed
 
