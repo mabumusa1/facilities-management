@@ -10,6 +10,17 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Visitor access — April 25, 2026
+
+The platform now has the data foundation for QR-coded visitor gate passes. The screens for creating invitations, scanning at the gate, and viewing the logbook are coming in the next several releases. Here is what is being put in place behind the scenes:
+
+- **Visitor invitations.** Residents will be able to invite a named guest, specify the visit purpose (Visit, Delivery, Service, or Other), set an expected arrival time, and receive a unique QR code to share with the visitor.
+- **Gate logbook.** Every entry and exit is recorded alongside the gate officer who processed it and whether ID was verified. Visitors without a prior invitation can be admitted as walk-ins — these are also logged.
+- **Per-community settings.** Admins can configure whether ID verification is required, whether walk-ins are allowed, how long a QR code stays valid (default: 24 hours), and how many times a single invitation code may be scanned at the gate (default: once).
+- **Gate Officers role.** A new **Gate Officers** admin role is available in **Admin → Users**. Assign it to security staff so they can access the gate check-in and check-out screens.
+
+Learn more: [Visitor access — overview](./guides/visitor-access/overview.md).
+
 ### Resident contacts — April 25, 2026
 
 You can now create resident contact records and search the full list by name (English or Arabic) or phone number.
