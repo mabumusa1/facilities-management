@@ -10,6 +10,21 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Lease quotes — April 25, 2026
+
+The platform now supports the concept of a **lease quote**: a formal, time-limited tenancy offer you send to a prospective resident before a binding lease is created. Lease quotes will be manageable from **Leasing → Quotes** in an upcoming release.
+
+Key things to know now:
+
+- **Six statuses.** A quote starts as a draft, gets sent, can be marked viewed, then ends as accepted, rejected, or expired.
+- **Automatic expiry.** If the prospect has not responded by the valid-until date, the platform marks the quote expired overnight — no manual action needed.
+- **Revision history.** Revising a quote creates a new version instead of overwriting the original, preserving the full offer history.
+- **One-click conversion.** An accepted quote converts to a lease with all fields pre-filled.
+
+The screens to create, revise, and convert quotes are arriving in the next few releases.
+
+Learn more: [Understanding lease quotes](./guides/leasing/lease-quotes.md).
+
 ### Resident contacts — April 25, 2026
 
 You can now create resident contact records and search the full list by name (English or Arabic) or phone number.
