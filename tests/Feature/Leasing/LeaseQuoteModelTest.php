@@ -12,6 +12,7 @@ use App\Models\Status;
 use App\Models\Tenant;
 use App\Models\Unit;
 use App\Models\User;
+use Database\Seeders\StatusSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -108,34 +109,33 @@ class LeaseQuoteModelTest extends TestCase
         [, $tenant] = $this->authenticateUserWithTenant();
         $tenant->makeCurrent();
 
-        $draftStatus = Status::factory()->create(['type' => 'lease_quote', 'name_en' => 'draft']);
-        $sentStatus = Status::factory()->create(['type' => 'lease_quote', 'name_en' => 'sent']);
-        $expiredStatus = Status::factory()->create(['type' => 'lease_quote', 'name_en' => 'expired']);
-        $acceptedStatus = Status::factory()->create(['type' => 'lease_quote', 'name_en' => 'accepted']);
+        // Seed the reserved lease_quote status rows (IDs 70-75) so the command
+        // can reference them by their reserved primary keys.
+        $this->seed(StatusSeeder::class);
 
         // Non-terminal quote whose valid_until is in the past — should be expired.
         $staleQuote = LeaseQuote::factory()->create([
-            'status_id' => $draftStatus->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_DRAFT,
             'valid_until' => now()->subDay(),
         ]);
 
         // Non-terminal quote still within validity — should remain unchanged.
         $activeQuote = LeaseQuote::factory()->create([
-            'status_id' => $sentStatus->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_SENT,
             'valid_until' => now()->addDay(),
         ]);
 
         // Terminal quote (accepted) past valid_until — expiry must NOT touch it.
         $terminalQuote = LeaseQuote::factory()->create([
-            'status_id' => $acceptedStatus->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_ACCEPTED,
             'valid_until' => now()->subDay(),
         ]);
 
         $this->artisan(ExpireLeaseQuotes::class)->assertSuccessful();
 
-        $this->assertSame($expiredStatus->id, $staleQuote->fresh()->status_id);
-        $this->assertSame($sentStatus->id, $activeQuote->fresh()->status_id);
-        $this->assertSame($acceptedStatus->id, $terminalQuote->fresh()->status_id);
+        $this->assertSame(ExpireLeaseQuotes::STATUS_EXPIRED, $staleQuote->fresh()->status_id);
+        $this->assertSame(ExpireLeaseQuotes::STATUS_SENT, $activeQuote->fresh()->status_id);
+        $this->assertSame(ExpireLeaseQuotes::STATUS_ACCEPTED, $terminalQuote->fresh()->status_id);
     }
 
     public function test_additional_charges_and_special_conditions_cast_to_array(): void
