@@ -8,6 +8,7 @@ use Database\Factories\RequestFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -17,6 +18,37 @@ class Request extends Model
     use BelongsToAccountTenant, HasFactory, HasManagerScope, SoftDeletes;
 
     protected $table = 'rf_requests';
+
+    /**
+     * Auto-generate a unique request_code (SR-YYYY-NNNNN) on first create.
+     *
+     * Sequence is scoped per tenant per year. Resolves after
+     * BelongsToAccountTenant sets account_tenant_id in the creating event.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (self $model): void {
+            if (! $model->request_code) {
+                // Prefer the already-set account_tenant_id; fall back to current tenant.
+                $tenantId = $model->account_tenant_id
+                    ?? (Tenant::current()?->id);
+
+                if (! $tenantId) {
+                    return;
+                }
+
+                $year = now()->year;
+
+                $count = static::withoutGlobalScopes()
+                    ->where('account_tenant_id', $tenantId)
+                    ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$year])
+                    ->whereNull('deleted_at')
+                    ->count();
+
+                $model->request_code = 'SR-'.$year.'-'.str_pad((string) ($count + 1), 5, '0', STR_PAD_LEFT);
+            }
+        });
+    }
 
     protected function hasBuildingIdColumn(): bool
     {
@@ -43,6 +75,8 @@ class Request extends Model
         'resolved_at',
         'assigned_at',
         'completed_at',
+        'scheduled_date',
+        'completed_date',
         'account_tenant_id',
     ];
 
@@ -50,10 +84,24 @@ class Request extends Model
     {
         return [
             'preferred_date' => 'date',
+            'scheduled_date' => 'date',
+            'completed_date' => 'date',
             'resolved_at' => 'datetime',
             'assigned_at' => 'datetime',
             'completed_at' => 'datetime',
         ];
+    }
+
+    /** @return HasMany<ServiceRequestMessage, $this> */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(ServiceRequestMessage::class, 'service_request_id');
+    }
+
+    /** @return HasMany<ServiceRequestTimelineEvent, $this> */
+    public function timelineEvents(): HasMany
+    {
+        return $this->hasMany(ServiceRequestTimelineEvent::class, 'service_request_id');
     }
 
     /** @return BelongsTo<RequestCategory, $this> */

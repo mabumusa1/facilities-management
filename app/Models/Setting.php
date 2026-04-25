@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Concerns\HasBilingualName;
 use Database\Factories\SettingFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,8 +22,40 @@ class Setting extends Model
         'name_ar',
         'name_en',
         'type',
+        'subtype',
         'parent_id',
+        'is_active',
+        'is_default',
     ];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'is_default' => 'boolean',
+        ];
+    }
+
+    /**
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeInactive(Builder $query): Builder
+    {
+        return $query->where('is_active', false);
+    }
 
     public function parent(): BelongsTo
     {
