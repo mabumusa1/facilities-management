@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
-use App\Models\AccountMembership;
 use App\Models\Transaction;
 use App\Models\Unit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,7 +17,7 @@ class ReportsController extends Controller
 {
     public function reports(Request $request): Response
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return Inertia::render('reports/Index', [
             'reportMode' => 'reports',
@@ -27,7 +27,7 @@ class ReportsController extends Controller
 
     public function systemReports(Request $request): Response
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return Inertia::render('reports/Index', [
             'reportMode' => 'system-reports',
@@ -37,7 +37,7 @@ class ReportsController extends Controller
 
     public function leaseReports(Request $request): Response
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return Inertia::render('reports/Index', [
             'reportMode' => 'system-reports-lease',
@@ -47,7 +47,7 @@ class ReportsController extends Controller
 
     public function maintenanceReports(Request $request): Response
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return Inertia::render('reports/Index', [
             'reportMode' => 'system-reports-maintenance',
@@ -57,7 +57,7 @@ class ReportsController extends Controller
 
     public function load(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return $this->jsonOk('Report loaded.', [
             'reportId' => (string) $request->input('reportId', 'default-report'),
@@ -66,7 +66,7 @@ class ReportsController extends Controller
 
     public function prepare(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return $this->jsonOk('Report prepared.', [
             'prepared' => true,
@@ -75,7 +75,7 @@ class ReportsController extends Controller
 
     public function renderReport(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return $this->jsonOk('Report rendered.', [
             'rendered' => true,
@@ -85,7 +85,7 @@ class ReportsController extends Controller
 
     public function pages(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return response()->json([
             'data' => [
@@ -98,7 +98,7 @@ class ReportsController extends Controller
 
     public function activePage(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return response()->json([
             'data' => [
@@ -110,7 +110,7 @@ class ReportsController extends Controller
 
     public function filters(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return response()->json([
             'data' => [
@@ -123,7 +123,7 @@ class ReportsController extends Controller
 
     public function bookmarks(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return response()->json([
             'data' => [],
@@ -132,7 +132,7 @@ class ReportsController extends Controller
 
     public function settings(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return response()->json([
             'data' => [
@@ -145,28 +145,28 @@ class ReportsController extends Controller
 
     public function print(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return $this->jsonOk('Print queued.', ['queued' => true]);
     }
 
     public function refresh(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return $this->jsonOk('Report refreshed.', ['refreshed' => true]);
     }
 
     public function save(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         return $this->jsonOk('Report saved.', ['saved' => true]);
     }
 
     public function saveAs(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         $validated = $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
@@ -179,7 +179,7 @@ class ReportsController extends Controller
 
     public function theme(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         $validated = $request->validate([
             'theme' => ['nullable', 'string', 'max:50'],
@@ -192,7 +192,7 @@ class ReportsController extends Controller
 
     public function zoom(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         $validated = $request->validate([
             'value' => ['nullable', 'numeric', 'min:0.25', 'max:4'],
@@ -205,7 +205,7 @@ class ReportsController extends Controller
 
     public function expenses(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         $transactions = Transaction::query()
             ->with(['category:id,name,name_ar,name_en'])
@@ -223,7 +223,7 @@ class ReportsController extends Controller
 
     public function income(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         $transactions = Transaction::query()
             ->with(['category:id,name,name_ar,name_en'])
@@ -241,7 +241,7 @@ class ReportsController extends Controller
 
     public function performanceUnits(Request $request): JsonResponse
     {
-        $this->authorizeReportsAccess($request);
+        Gate::authorize('reports.VIEW');
 
         $units = Unit::query()
             ->with(['status:id,name,name_en'])
@@ -350,19 +350,6 @@ class ReportsController extends Controller
             'paid' => $paid,
             'unpaid' => round(max($total - $paid, 0), 2),
         ];
-    }
-
-    private function authorizeReportsAccess(Request $request): void
-    {
-        $user = $request->user();
-
-        abort_unless($user !== null, 401);
-
-        $hasMembership = AccountMembership::query()
-            ->where('user_id', $user->id)
-            ->exists();
-
-        abort_unless($hasMembership, 403);
     }
 
     /**

@@ -31,6 +31,8 @@ class RequestFactory extends Factory
             'description' => $this->faker->paragraph(),
             'preferred_date' => $this->faker->dateTimeBetween('now', '+30 days'),
             'priority' => $this->faker->randomElement(['low', 'medium', 'high']),
+            'scheduled_date' => null,
+            'completed_date' => null,
         ];
     }
 }

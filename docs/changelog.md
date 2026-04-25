@@ -21,6 +21,59 @@ The groundwork for facility bookings is now in place. Property Managers will soo
 
 The booking and facility-configuration UI is coming in upcoming releases. Learn more: [Facility availability and waitlist](./guides/facilities/availability-and-waitlist.md).
 
+### Reports — access control — April 25, 2026
+
+Access to all report types is now controlled by the `reports.VIEW` permission. Account Admins, System Admins, and Accounting Managers have this permission by default. If you need access and cannot open the Reports section, ask your System Admin to add the permission to your role.
+
+The report viewer pages are in development and will ship soon. Learn more: [Reports — snapshots overview](./guides/reports/snapshots-overview.md).
+
+### Visitor access — April 25, 2026
+
+The platform now has the data foundation for QR-coded visitor gate passes. The screens for creating invitations, scanning at the gate, and viewing the logbook are coming in the next several releases. Here is what is being put in place behind the scenes:
+
+- **Visitor invitations.** Residents will be able to invite a named guest, specify the visit purpose (Visit, Delivery, Service, or Other), set an expected arrival time, and receive a unique QR code to share with the visitor.
+- **Gate logbook.** Every entry and exit is recorded alongside the gate officer who processed it and whether ID was verified. Visitors without a prior invitation can be admitted as walk-ins — these are also logged.
+- **Per-community settings.** Admins can configure whether ID verification is required, whether walk-ins are allowed, how long a QR code stays valid (default: 24 hours), and how many times a single invitation code may be scanned at the gate (default: once).
+- **Gate Officers role.** A new **Gate Officers** admin role is available in **Admin → Users**. Assign it to security staff so they can access the gate check-in and check-out screens.
+
+Learn more: [Visitor access — overview](./guides/visitor-access/overview.md).
+
+### Lease quotes — April 25, 2026
+
+The platform now supports the concept of a **lease quote**: a formal, time-limited tenancy offer you send to a prospective resident before a binding lease is created. Lease quotes will be manageable from **Leasing → Quotes** in an upcoming release.
+
+Key things to know now:
+
+- **Six statuses.** A quote starts as a draft, gets sent, can be marked viewed, then ends as accepted, rejected, or expired.
+- **Automatic expiry.** If the prospect has not responded by the valid-until date, the platform marks the quote expired overnight — no manual action needed.
+- **Revision history.** Revising a quote creates a new version instead of overwriting the original, preserving the full offer history.
+- **One-click conversion.** An accepted quote converts to a lease with all fields pre-filled.
+
+The screens to create, revise, and convert quotes are arriving in the next few releases.
+
+Learn more: [Understanding lease quotes](./guides/leasing/lease-quotes.md).
+
+### Transaction categories — April 25, 2026
+
+You can now configure the income and expense categories used when recording transactions.
+
+- **Default categories included.** Your account starts with six pre-built categories: Rent, Late Fee, and Service Fee on the income side; Maintenance, Utility, and Repairs on the expense side. They are ready to use immediately.
+- **Add custom categories.** Go to **Accounting → Settings → Transaction Categories** and click **Add Category**. Give the category a name in English and Arabic, choose Income or Expense as the type, and save.
+- **Edit names.** Click **Edit** on any category to update the English or Arabic name. The Income/Expense type cannot be changed after creation.
+- **Deactivate when no longer needed.** Click **Deactivate** to hide a category from new transaction forms. Existing transactions keep their category reference — nothing is lost. You can reactivate at any time.
+- **Default categories are protected.** The six built-in defaults carry a **Default** badge and cannot be deleted. Deactivate them if you do not need them.
+- **Bilingual.** All category names are stored in English and Arabic and display in both languages.
+
+Learn more: [Configure transaction categories](./guides/accounting/transaction-categories.md).
+
+### Service request reference codes — April 25, 2026
+
+Every service request now has a unique reference code in the format `SR-YYYY-NNNNN` (for example, `SR-2026-00042`). The code appears in the request header and in all list views, making it easy to quote a specific request to a resident or in a support conversation without sharing internal IDs. The sequence restarts each calendar year and is guaranteed unique within your account.
+
+This release also puts in place the infrastructure for two features coming soon: a per-request messaging thread (resident and staff chat, with internal-only notes) and an activity timeline that logs every status change and key action on a request.
+
+Learn more: [Service request reference codes](./guides/service-requests/service-request-reference-codes.md).
+
 ### Resident contacts — April 25, 2026
 
 You can now create resident contact records and search the full list by name (English or Arabic) or phone number.

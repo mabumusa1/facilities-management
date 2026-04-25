@@ -17,7 +17,10 @@ class SettingFactory extends Factory
             'name_ar' => fake()->word(),
             'name_en' => fake()->word(),
             'type' => fake()->randomElement(['rental_contract_type', 'payment_schedule', 'lease_setting', 'invoice_setting']),
+            'subtype' => null,
             'parent_id' => null,
+            'is_active' => true,
+            'is_default' => false,
         ];
     }
 
@@ -26,6 +29,14 @@ class SettingFactory extends Factory
         return $this->state(fn () => [
             'parent_id' => $parent->id,
             'type' => $parent->type,
+        ]);
+    }
+
+    public function transactionCategory(string $subtype = 'income'): static
+    {
+        return $this->state(fn () => [
+            'type' => 'transaction_category',
+            'subtype' => $subtype,
         ]);
     }
 }
