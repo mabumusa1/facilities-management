@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Contacts;
 
+use App\Enums\IdType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Contacts\StoreResidentRequest;
 use App\Models\Country;
 use App\Models\Dependent;
 use App\Models\Request as ServiceRequest;
 use App\Models\Resident;
 use App\Models\Transaction;
+use App\Support\PhoneNumberNormalizer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +22,8 @@ class ResidentController extends Controller
 {
     public function index(Request $request): JsonResponse|Response
     {
+        $this->authorize('viewAny', Resident::class);
+
         $search = trim((string) $request->input('search', ''));
         $perPage = min(max((int) $request->integer('per_page', 10), 1), 50);
 
@@ -26,11 +31,15 @@ class ResidentController extends Controller
             ->withCount(['units', 'leases'])
             ->with(['units:id,tenant_id,name'])
             ->when($search !== '', function ($query) use ($search): void {
-                $query->where(function ($nestedQuery) use ($search): void {
-                    $nestedQuery->where('first_name', 'like', "%{$search}%")
-                        ->orWhere('last_name', 'like', "%{$search}%")
-                        ->orWhere('phone_number', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
+                $like = config('database.default') === 'pgsql' ? 'ilike' : 'like';
+                $query->where(function ($nestedQuery) use ($search, $like): void {
+                    $nestedQuery->where('first_name', $like, "%{$search}%")
+                        ->orWhere('last_name', $like, "%{$search}%")
+                        ->orWhere('first_name_ar', $like, "%{$search}%")
+                        ->orWhere('last_name_ar', $like, "%{$search}%")
+                        ->orWhere('phone_number', $like, "%{$search}%")
+                        ->orWhere('national_phone_number', $like, "%{$search}%")
+                        ->orWhere('email', $like, "%{$search}%");
 
                     if (is_numeric($search)) {
                         $nestedQuery->orWhere('id', (int) $search);
@@ -50,35 +59,73 @@ class ResidentController extends Controller
             ]);
         }
 
-        return Inertia::render('contacts/tenants/Index', [
+        return Inertia::render('contacts/residents/Index', [
             'residents' => $residents,
+            'filters' => [
+                'search' => $search,
+            ],
         ]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('contacts/tenants/Create', [
+        $this->authorize('create', Resident::class);
+
+        return Inertia::render('contacts/residents/Create', [
             'countries' => Country::select('id', 'name', 'name_en')->orderBy('name')->get(),
+            'idTypes' => collect(IdType::cases())->map(fn (IdType $type): array => [
+                'value' => $type->value,
+                'label' => $type->name,
+            ])->values(),
         ]);
     }
 
-    public function store(Request $request): JsonResponse|RedirectResponse
+    public function duplicateCheck(Request $request): JsonResponse
     {
+        $this->authorize('viewAny', Resident::class);
+
         $validated = $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255'],
-            'phone_number' => ['required', 'string', 'max:20'],
             'phone_country_code' => ['required', 'string', 'max:5'],
-            'national_id' => ['nullable', 'string', 'max:50'],
-            'nationality_id' => ['nullable', 'integer', 'exists:countries,id'],
-            'gender' => ['nullable', 'in:male,female'],
-            'georgian_birthdate' => ['nullable', 'date'],
-            'source_id' => ['nullable', 'integer'],
-            'active' => ['sometimes', 'boolean'],
+            'phone_number' => ['required', 'string', 'max:20'],
         ]);
 
-        $resident = Resident::create($validated);
+        $normalized = PhoneNumberNormalizer::normalize(
+            $validated['phone_number'],
+            $validated['phone_country_code'],
+        );
+
+        if ($normalized === null) {
+            return response()->json(['duplicate' => false]);
+        }
+
+        $match = Resident::query()
+            ->where('national_phone_number', $normalized)
+            ->with(['units:id,tenant_id,name,rf_building_id,rf_community_id', 'units.building:id,name', 'units.community:id,name'])
+            ->first();
+
+        if ($match === null) {
+            return response()->json(['duplicate' => false]);
+        }
+
+        $unit = $match->units->first();
+
+        return response()->json([
+            'duplicate' => true,
+            'match' => [
+                'id' => $match->id,
+                'name' => trim(($match->first_name ?? '').' '.($match->last_name ?? ''))
+                    ?: trim(($match->first_name_ar ?? '').' '.($match->last_name_ar ?? '')),
+                'unit' => $unit?->name,
+                'building' => $unit?->building?->name,
+                'community' => $unit?->community?->name,
+            ],
+        ]);
+    }
+
+    public function store(StoreResidentRequest $request): JsonResponse|RedirectResponse
+    {
+        // Authorization runs inside StoreResidentRequest::authorize().
+        $resident = Resident::create($request->persistedAttributes());
 
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $resident->load([
@@ -89,17 +136,19 @@ class ResidentController extends Controller
 
             return response()->json([
                 'data' => $this->residentDetails($resident),
-                'message' => __('Tenant created.'),
+                'message' => __('Resident created.'),
             ]);
         }
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Tenant created.')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Resident created.')]);
 
         return to_route('residents.show', $resident);
     }
 
     public function storeFamilyMember(Request $request, Resident $resident): JsonResponse
     {
+        $this->authorize('update', $resident);
+
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['nullable', 'string', 'max:255'],
@@ -133,6 +182,8 @@ class ResidentController extends Controller
 
     public function show(Resident $resident): Response
     {
+        $this->authorize('view', $resident);
+
         $resident->loadCount(['units', 'leases'])->load(['units.community', 'units.building', 'leases.status', 'dependents']);
 
         return Inertia::render('contacts/tenants/Show', [
@@ -142,6 +193,8 @@ class ResidentController extends Controller
 
     public function rfShow(Request $request, Resident $resident): JsonResponse
     {
+        $this->authorize('view', $resident);
+
         $resident->load([
             'units:id,tenant_id,name',
             'leases:id,tenant_id,contract_number,status_id',
@@ -150,12 +203,14 @@ class ResidentController extends Controller
 
         return response()->json([
             'data' => $this->residentDetails($resident),
-            'message' => __('Tenant retrieved.'),
+            'message' => __('Resident retrieved.'),
         ]);
     }
 
     public function edit(Resident $resident): Response
     {
+        $this->authorize('update', $resident);
+
         return Inertia::render('contacts/tenants/Edit', [
             'resident' => $resident,
             'countries' => Country::select('id', 'name', 'name_en')->orderBy('name')->get(),
@@ -164,6 +219,8 @@ class ResidentController extends Controller
 
     public function update(Request $request, Resident $resident): JsonResponse|RedirectResponse
     {
+        $this->authorize('update', $resident);
+
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
             $validated = $request->validate([
                 'first_name' => ['sometimes', 'string', 'max:255'],
@@ -188,7 +245,7 @@ class ResidentController extends Controller
 
             return response()->json([
                 'data' => $this->residentDetails($resident),
-                'message' => __('Tenant updated.'),
+                'message' => __('Resident updated.'),
             ]);
         }
 
@@ -208,13 +265,15 @@ class ResidentController extends Controller
 
         $resident->update($validated);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Tenant updated.')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Resident updated.')]);
 
         return to_route('residents.show', $resident);
     }
 
     public function destroy(Request $request, Resident $resident): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $resident);
+
         $residentId = $resident->id;
         $resident->delete();
 
@@ -223,17 +282,19 @@ class ResidentController extends Controller
                 'data' => [
                     'id' => $residentId,
                 ],
-                'message' => __('Tenant deleted.'),
+                'message' => __('Resident deleted.'),
             ]);
         }
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Tenant deleted.')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Resident deleted.')]);
 
         return to_route('residents.index');
     }
 
     public function destroyFamilyMember(Request $request, Resident $resident, Dependent $dependent): JsonResponse|RedirectResponse
     {
+        $this->authorize('delete', $resident);
+
         if (
             $dependent->dependable_type !== Resident::class
             || (int) $dependent->dependable_id !== $resident->id
@@ -357,11 +418,14 @@ class ResidentController extends Controller
             'name' => trim($resident->first_name.' '.$resident->last_name),
             'first_name' => $resident->first_name,
             'last_name' => $resident->last_name,
+            'first_name_ar' => $resident->first_name_ar,
+            'last_name_ar' => $resident->last_name_ar,
             'image' => $resident->image,
             'email' => $resident->email,
             'georgian_birthdate' => $resident->georgian_birthdate?->toDateString(),
             'gender' => $resident->gender,
             'national_id' => $resident->national_id,
+            'id_type' => $resident->id_type?->value,
             'phone_number' => $this->fullPhoneNumber($resident),
             'national_phone_number' => $resident->national_phone_number,
             'phone_country_code' => $resident->phone_country_code,

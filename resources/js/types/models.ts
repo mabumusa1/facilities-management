@@ -226,13 +226,16 @@ export type Owner = {
 
 export type Resident = {
     id: number;
-    first_name: string;
-    last_name: string;
+    first_name: string | null;
+    first_name_ar: string | null;
+    last_name: string | null;
+    last_name_ar: string | null;
     email: string | null;
     phone_number: string;
     national_phone_number: string | null;
     phone_country_code: string;
     national_id: string | null;
+    id_type: string | null;
     nationality_id: number | null;
     gender: 'male' | 'female' | null;
     georgian_birthdate: string | null;
