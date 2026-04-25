@@ -17,8 +17,7 @@ Guides, how-tos, and release notes for the real estate management platform.
 
 ## Popular topics
 
-*(Guides will appear here as they are written. Run `/docs-feature <pr#>` after a feature ships to populate.)*
-
+- [Contacts — create and search residents](./guides/contacts/create-and-search-residents.md)
 - [Leasing](./guides/leasing/)
 - [Marketplace](./guides/marketplace/)
 - [Facilities](./guides/facilities/)

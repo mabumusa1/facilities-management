@@ -10,6 +10,18 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Resident contacts — April 25, 2026
+
+You can now create resident contact records and search the full list by name (English or Arabic) or phone number.
+
+- **Create a resident.** Go to **Contacts → Residents** and click **New Resident**. Fill in the English and Arabic name fields, phone number, email, ID type, and ID number.
+- **Bilingual name fields.** The form has separate fields for the English name and the Arabic name. Arabic fields type right-to-left automatically.
+- **Duplicate phone check.** As soon as you leave the phone number field, the platform checks whether that number is already on file. If a match exists, an amber banner shows the matched resident's name and unit so you can go to the existing record instead of creating a duplicate.
+- **Create anyway.** If two people genuinely share a phone number, tick the confirmation checkbox in the banner to unlock the save button and proceed.
+- **Search by name or phone.** The search box on the Residents list filters in real time across English names, Arabic names, phone numbers, and email addresses.
+
+Learn more: [Create and search resident contacts](./guides/contacts/create-and-search-residents.md).
+
 ### Community metadata — April 2026
 
 You can now set a community's amenities, weekly working days, and map location from a single edit form.
