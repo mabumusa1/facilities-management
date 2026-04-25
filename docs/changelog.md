@@ -10,6 +10,14 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Service request reference codes — April 25, 2026
+
+Every service request now has a unique reference code in the format `SR-YYYY-NNNNN` (for example, `SR-2026-00042`). The code appears in the request header and in all list views, making it easy to quote a specific request to a resident or in a support conversation without sharing internal IDs. The sequence restarts each calendar year and is guaranteed unique within your account.
+
+This release also puts in place the infrastructure for two features coming soon: a per-request messaging thread (resident and staff chat, with internal-only notes) and an activity timeline that logs every status change and key action on a request.
+
+Learn more: [Service request reference codes](./guides/service-requests/service-request-reference-codes.md).
+
 ### Resident contacts — April 25, 2026
 
 You can now create resident contact records and search the full list by name (English or Arabic) or phone number.
