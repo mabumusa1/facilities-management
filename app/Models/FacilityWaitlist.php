@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Tenant scope is delegated through facility_id — this model carries no direct
+ * account_tenant_id FK. Always join or load the parent Facility to enforce
+ * tenant isolation; any query on this table alone will be cross-tenant.
+ */
 class FacilityWaitlist extends Model
 {
     /** @use HasFactory<FacilityWaitlistFactory> */

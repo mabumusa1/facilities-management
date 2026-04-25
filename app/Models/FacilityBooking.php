@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -99,12 +98,6 @@ class FacilityBooking extends Model
     public function booker(): MorphTo
     {
         return $this->morphTo();
-    }
-
-    /** @return HasMany<FacilityWaitlist, $this> */
-    public function waitlist(): HasMany
-    {
-        return $this->hasMany(FacilityWaitlist::class, 'facility_id', 'facility_id');
     }
 
     /**
