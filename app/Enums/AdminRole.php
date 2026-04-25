@@ -9,4 +9,5 @@ enum AdminRole: string
     case ServiceManagers = 'serviceManagers';
     case MarketingManagers = 'marketingManagers';
     case SalesAndLeasingManagers = 'salesAndLeasingManagers';
+    case GateOfficers = 'gateOfficers';
 }
