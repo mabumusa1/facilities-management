@@ -106,6 +106,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 
     // Contacts
     Route::resource('owners', OwnerController::class);
+    Route::get('residents/duplicate-check', [ResidentController::class, 'duplicateCheck'])->name('residents.duplicate-check');
     Route::resource('residents', ResidentController::class);
     Route::resource('admins', AdminController::class);
     Route::resource('professionals', ProfessionalController::class);

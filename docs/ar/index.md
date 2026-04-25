@@ -18,8 +18,7 @@ dir: rtl
 
 ## المواضيع الشائعة
 
-*(ستظهر الأدلة هنا مع كتابتها.)*
-
+- [جهات الاتصال — إنشاء المقيمين والبحث عنهم](./guides/contacts/create-and-search-residents.md)
 - [الإيجار](./guides/leasing/)
 - [السوق](./guides/marketplace/)
 - [المرافق](./guides/facilities/)
