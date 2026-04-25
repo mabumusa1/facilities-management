@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Accounting;
 
+use App\Enums\RolesEnum;
 use App\Models\AccountMembership;
 use App\Models\Setting;
 use App\Models\Tenant;
 use App\Models\User;
+use Database\Seeders\RbacSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,9 +19,12 @@ class TransactionCategoryConfigTest extends TestCase
     {
         parent::setUp();
         $this->withoutVite();
+        $this->seed(RbacSeeder::class);
     }
 
     /**
+     * Creates an account-admin user with full settings permissions.
+     *
      * @return array{0: User, 1: Tenant}
      */
     private function authenticateUserWithTenant(): array
@@ -33,6 +38,29 @@ class TransactionCategoryConfigTest extends TestCase
             'role' => 'account_admins',
         ]);
 
+        $user->assignRole(RolesEnum::ACCOUNT_ADMINS->value);
+        $this->actingAs($user);
+
+        return [$user, $tenant];
+    }
+
+    /**
+     * Creates a tenant member with no Spatie role (zero permissions).
+     *
+     * @return array{0: User, 1: Tenant}
+     */
+    private function authenticateUnprivilegedUser(): array
+    {
+        $user = User::factory()->create();
+        $tenant = Tenant::create(['name' => 'Accounting Test Account']);
+
+        AccountMembership::create([
+            'user_id' => $user->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        // No assignRole() call — user has zero Spatie permissions
         $this->actingAs($user);
 
         return [$user, $tenant];
@@ -348,5 +376,86 @@ class TransactionCategoryConfigTest extends TestCase
             'subtype' => 'income',
             'is_active' => true,
         ]);
+    }
+
+    // ── Authorization (SettingPolicy) ────────────────────────────────────────
+
+    public function test_non_admin_user_receives_403_on_index(): void
+    {
+        [, $tenant] = $this->authenticateUnprivilegedUser();
+
+        $response = $this
+            ->withSession(['tenant_id' => $tenant->id])
+            ->get(route('accounting.settings.categories.index'));
+
+        $response->assertForbidden();
+    }
+
+    public function test_non_admin_user_receives_403_on_store(): void
+    {
+        [, $tenant] = $this->authenticateUnprivilegedUser();
+
+        $response = $this
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('accounting.settings.categories.store'), [
+                'name_en' => 'Test',
+                'name_ar' => 'اختبار',
+                'category_type' => 'income',
+            ]);
+
+        $response->assertForbidden();
+    }
+
+    public function test_non_admin_user_receives_403_on_update(): void
+    {
+        [, $tenant] = $this->authenticateUnprivilegedUser();
+
+        $category = Setting::factory()->create([
+            'type' => 'transaction_category',
+            'subtype' => 'income',
+        ]);
+
+        $response = $this
+            ->withSession(['tenant_id' => $tenant->id])
+            ->put(route('accounting.settings.categories.update', $category), [
+                'name_en' => 'New Name',
+                'name_ar' => 'اسم جديد',
+            ]);
+
+        $response->assertForbidden();
+    }
+
+    public function test_non_admin_user_receives_403_on_toggle(): void
+    {
+        [, $tenant] = $this->authenticateUnprivilegedUser();
+
+        $category = Setting::factory()->create([
+            'type' => 'transaction_category',
+            'subtype' => 'income',
+            'is_active' => true,
+        ]);
+
+        $response = $this
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('accounting.settings.categories.toggle', $category));
+
+        $response->assertForbidden();
+    }
+
+    public function test_non_admin_user_receives_403_on_destroy(): void
+    {
+        [, $tenant] = $this->authenticateUnprivilegedUser();
+
+        $category = Setting::factory()->create([
+            'type' => 'transaction_category',
+            'subtype' => 'expense',
+            'is_default' => false,
+        ]);
+
+        $response = $this
+            ->withSession(['tenant_id' => $tenant->id])
+            ->delete(route('accounting.settings.categories.destroy', $category));
+
+        $response->assertForbidden();
     }
 }

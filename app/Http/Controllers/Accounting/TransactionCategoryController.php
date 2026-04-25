@@ -13,6 +13,8 @@ class TransactionCategoryController extends Controller
 {
     public function index(): Response
     {
+        $this->authorize('viewAny', Setting::class);
+
         $categories = Setting::query()
             ->where('type', 'transaction_category')
             ->orderBy('name_en')
@@ -25,6 +27,8 @@ class TransactionCategoryController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $this->authorize('create', Setting::class);
+
         $validated = $request->validate([
             'name_en' => ['required', 'string', 'max:255'],
             'name_ar' => ['required', 'string', 'max:255'],
@@ -48,6 +52,7 @@ class TransactionCategoryController extends Controller
 
     public function update(Request $request, Setting $setting): RedirectResponse
     {
+        $this->authorize('update', $setting);
         $this->abortIfNotTransactionCategory($setting);
 
         $validated = $request->validate([
@@ -68,6 +73,7 @@ class TransactionCategoryController extends Controller
 
     public function toggleActive(Setting $setting): RedirectResponse
     {
+        $this->authorize('update', $setting);
         $this->abortIfNotTransactionCategory($setting);
 
         $setting->update(['is_active' => ! $setting->is_active]);
@@ -83,6 +89,7 @@ class TransactionCategoryController extends Controller
 
     public function destroy(Setting $setting): RedirectResponse
     {
+        $this->authorize('delete', $setting);
         $this->abortIfNotTransactionCategory($setting);
 
         if ($setting->is_default) {
