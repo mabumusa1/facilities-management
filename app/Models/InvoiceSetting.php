@@ -4,8 +4,10 @@ namespace App\Models;
 
 use App\Concerns\BelongsToAccountTenant;
 use Database\Factories\InvoiceSettingFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Tenant-level invoice and company branding settings.
@@ -80,5 +82,27 @@ class InvoiceSetting extends Model
             'payment_terms_days' => 'integer',
             'late_payment_grace_days' => 'integer',
         ];
+    }
+
+    protected function logoUrl(): Attribute
+    {
+        return Attribute::get(function (): ?string {
+            if (empty($this->logo_path)) {
+                return null;
+            }
+
+            return Storage::disk('public')->url($this->logo_path);
+        });
+    }
+
+    protected function logoArUrl(): Attribute
+    {
+        return Attribute::get(function (): ?string {
+            if (empty($this->logo_ar_path)) {
+                return null;
+            }
+
+            return Storage::disk('public')->url($this->logo_ar_path);
+        });
     }
 }

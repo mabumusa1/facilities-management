@@ -21,6 +21,7 @@ Guides, how-tos, and release notes for the real estate management platform.
 - [Leasing](./guides/leasing/)
 - [Marketplace](./guides/marketplace/)
 - [Facilities](./guides/facilities/)
+- [App settings](./guides/app-settings/)
 - [Service requests](./guides/service-requests/)
 - [Accounting](./guides/accounting/)
 

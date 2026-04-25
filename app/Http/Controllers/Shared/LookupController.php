@@ -157,6 +157,12 @@ class LookupController extends Controller
                 'notes',
                 'vat_number',
                 'cr_number',
+                'name_en',
+                'name_ar',
+                'logo_path',
+                'logo_ar_path',
+                'timezone',
+                'primary_color',
             ])
             ->first();
 
@@ -169,13 +175,19 @@ class LookupController extends Controller
             'data' => [
                 'id' => $invoiceSetting?->id,
                 'company_name' => $invoiceSetting?->company_name,
+                'name_en' => $invoiceSetting?->name_en,
+                'name_ar' => $invoiceSetting?->name_ar,
                 'logo' => $invoiceSetting?->logo,
+                'logo_url' => $invoiceSetting?->logo_url,
+                'logo_ar_url' => $invoiceSetting?->logo_ar_url,
                 'address' => $invoiceSetting?->address,
                 'vat' => $invoiceSetting?->vat,
                 'vat_number' => $invoiceSetting?->vat_number,
                 'cr_number' => $invoiceSetting?->cr_number,
                 'instructions' => $invoiceSetting?->instructions,
                 'notes' => $invoiceSetting?->notes,
+                'timezone' => $invoiceSetting?->timezone,
+                'primary_color' => $invoiceSetting?->primary_color,
                 'beneficiary_name' => $bankDetails['beneficiary_name'] ?? null,
                 'bank_name' => $bankDetails['bank_name'] ?? null,
                 'account_number' => $bankDetails['account_number'] ?? null,
