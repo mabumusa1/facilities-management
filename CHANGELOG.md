@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Leasing → Quotes — lease quote data model: six-status lifecycle (draft → sent → viewed → accepted | rejected | expired), auto-expiry by valid-until date, revision chain with versioning, and quote-to-lease conversion link; foundation for create (#170), revise (#171), and convert (#172) UI stories ([#334](https://github.com/mabumusa1/facilities-management/pull/334))
 - Accounting → Settings → Transaction Categories — admins can configure income and expense categories for transactions; bilingual EN/AR names; six seeded defaults (Rent, Late Fee, Service Fee for income; Maintenance, Utility, Repairs for expense); deactivate/reactivate without losing historical data; default categories are protected from deletion ([#333](https://github.com/mabumusa1/facilities-management/pull/333))
 - Service Requests — auto-generated reference codes (`SR-YYYY-NNNNN`, unique per account per year) now appear on every service request record; adds scheduled-date and completed-date fields; lays foundation for upcoming messaging threads and activity-timeline view ([#335](https://github.com/mabumusa1/facilities-management/pull/335))
 - Contacts → Residents — create new resident contacts with bilingual EN/AR name fields, phone-based duplicate detection with an inline warning and "create anyway" override, and a debounced search across English names, Arabic names, phone, and email ([#330](https://github.com/mabumusa1/facilities-management/pull/330))
