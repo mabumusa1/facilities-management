@@ -28,6 +28,7 @@ use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Leasing\LeaseController;
+use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
 use App\Http\Controllers\Properties\BuildingController;
 use App\Http\Controllers\Properties\CommunityController;
@@ -85,7 +86,11 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::resource('buildings', BuildingController::class);
     Route::resource('units', UnitController::class);
 
-    // Leasing
+    // Leasing — Lease Quotes (registered before leases resource to avoid {lease} catch-all conflict)
+    Route::resource('leases/quotes', QuoteController::class)->only(['index', 'create', 'store', 'show'])->names('quotes');
+    Route::post('leases/quotes/{quote}/send', [QuoteController::class, 'send'])->name('quotes.send');
+
+    // Leasing — Leases
     Route::resource('leases', LeaseController::class);
     Route::get('leases/{lease}/subleases/create', [LeaseController::class, 'createSublease'])->name('leases.subleases.create');
     Route::post('leases/{lease}/subleases', [LeaseController::class, 'storeSublease'])->name('leases.subleases.store');
@@ -430,5 +435,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('zoom', [ReportsController::class, 'zoom'])->name('zoom');
     });
 });
+
+// Public lease quote preview — no auth required. Prospect opens link from email.
+Route::get('quotes/{token}', [QuoteController::class, 'preview'])->name('quotes.preview');
 
 require __DIR__.'/settings.php';

@@ -1,0 +1,241 @@
+<?php
+
+namespace Tests\Feature\Leasing;
+
+use App\Models\AccountMembership;
+use App\Models\Admin;
+use App\Models\LeaseQuote;
+use App\Models\Resident;
+use App\Models\Setting;
+use App\Models\Status;
+use App\Models\Tenant;
+use App\Models\Unit;
+use App\Models\User;
+use Database\Seeders\RolesSeeder;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Tests\TestCase;
+
+class QuoteControllerTest extends TestCase
+{
+    use LazilyRefreshDatabase;
+
+    private User $user;
+
+    private Tenant $tenant;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed(RolesSeeder::class);
+
+        $this->user = User::factory()->create();
+        $this->tenant = Tenant::create(['name' => 'Leasing Test Account']);
+
+        AccountMembership::create([
+            'user_id' => $this->user->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
+        ]);
+
+        $this->actingAs($this->user);
+    }
+
+    private function withTenant(): array
+    {
+        return ['tenant_id' => $this->tenant->id];
+    }
+
+    // -----------------------------------------------------------------------
+    // Happy-path: store a draft quote
+    // -----------------------------------------------------------------------
+
+    public function test_store_creates_draft_lease_quote_and_redirects_to_show(): void
+    {
+        $draftStatus = Status::factory()->create([
+            'type' => 'lease_quote',
+            'name_en' => 'draft',
+        ]);
+
+        $unit = Unit::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $contact = Resident::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $paymentFrequency = Setting::factory()->create([
+            'type' => 'payment_frequency',
+            'name_en' => 'Monthly',
+        ]);
+        $admin = Admin::factory()->create(['account_tenant_id' => $this->tenant->id]);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->post(route('quotes.store'), [
+                'unit_id' => $unit->id,
+                'contact_id' => $contact->id,
+                'contract_type_id' => null,
+                'duration_months' => 12,
+                'start_date' => now()->addDay()->format('Y-m-d'),
+                'rent_amount' => 5000.00,
+                'payment_frequency_id' => $paymentFrequency->id,
+                'security_deposit' => 2500.00,
+                'valid_until' => now()->addDays(30)->format('Y-m-d'),
+                'additional_charges' => [],
+                'special_conditions' => ['en' => 'No pets', 'ar' => 'لا حيوانات'],
+                'action' => 'save_draft',
+            ]);
+
+        $response->assertRedirect();
+
+        $quote = LeaseQuote::query()
+            ->where('unit_id', $unit->id)
+            ->where('contact_id', $contact->id)
+            ->first();
+
+        $this->assertNotNull($quote, 'LeaseQuote should have been created.');
+        $this->assertEquals($draftStatus->id, $quote->status_id);
+        $this->assertEquals(12, $quote->duration_months);
+        $this->assertEquals('5000.00', $quote->rent_amount);
+        $this->assertNotNull($quote->public_token, 'public_token should be auto-generated on create.');
+        $this->assertEquals(['en' => 'No pets', 'ar' => 'لا حيوانات'], $quote->special_conditions);
+    }
+
+    // -----------------------------------------------------------------------
+    // Happy-path: store and send quote
+    // -----------------------------------------------------------------------
+
+    public function test_store_with_send_action_transitions_to_sent_status(): void
+    {
+        Status::factory()->create([
+            'type' => 'lease_quote',
+            'name_en' => 'draft',
+        ]);
+        $sentStatus = Status::factory()->create([
+            'type' => 'lease_quote',
+            'name_en' => 'sent',
+        ]);
+
+        $unit = Unit::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $contact = Resident::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $paymentFrequency = Setting::factory()->create([
+            'type' => 'payment_frequency',
+            'name_en' => 'Quarterly',
+        ]);
+
+        $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->post(route('quotes.store'), [
+                'unit_id' => $unit->id,
+                'contact_id' => $contact->id,
+                'duration_months' => 6,
+                'start_date' => now()->addDay()->format('Y-m-d'),
+                'rent_amount' => 10000.00,
+                'payment_frequency_id' => $paymentFrequency->id,
+                'valid_until' => now()->addDays(14)->format('Y-m-d'),
+                'action' => 'send',
+            ]);
+
+        $quote = LeaseQuote::query()
+            ->where('unit_id', $unit->id)
+            ->where('contact_id', $contact->id)
+            ->first();
+
+        $this->assertNotNull($quote);
+        $this->assertEquals($sentStatus->id, $quote->status_id);
+    }
+
+    // -----------------------------------------------------------------------
+    // Validation: required fields
+    // -----------------------------------------------------------------------
+
+    public function test_store_returns_validation_errors_for_missing_required_fields(): void
+    {
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->post(route('quotes.store'), []);
+
+        $response->assertSessionHasErrors([
+            'unit_id',
+            'contact_id',
+            'duration_months',
+            'start_date',
+            'rent_amount',
+            'payment_frequency_id',
+            'valid_until',
+            'action',
+        ]);
+    }
+
+    // -----------------------------------------------------------------------
+    // Authorization: guest is redirected
+    // -----------------------------------------------------------------------
+
+    public function test_guests_are_redirected_from_create_page(): void
+    {
+        $response = $this->withoutVite()->get(route('quotes.create'));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    // -----------------------------------------------------------------------
+    // Index renders correctly
+    // -----------------------------------------------------------------------
+
+    public function test_index_renders_inertia_page_for_authenticated_user(): void
+    {
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('quotes.index'));
+
+        $response->assertOk();
+    }
+
+    // -----------------------------------------------------------------------
+    // Create page renders
+    // -----------------------------------------------------------------------
+
+    public function test_create_page_renders_for_authenticated_user(): void
+    {
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('quotes.create'));
+
+        $response->assertOk();
+    }
+
+    // -----------------------------------------------------------------------
+    // Public preview: token-based lookup
+    // -----------------------------------------------------------------------
+
+    public function test_preview_returns_ok_for_valid_token(): void
+    {
+        $draftStatus = Status::factory()->create([
+            'type' => 'lease_quote',
+            'name_en' => 'sent',
+        ]);
+
+        $unit = Unit::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $contact = Resident::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $paymentFrequency = Setting::factory()->create(['type' => 'payment_frequency']);
+        $admin = Admin::factory()->create(['account_tenant_id' => $this->tenant->id]);
+
+        $quote = LeaseQuote::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'unit_id' => $unit->id,
+            'contact_id' => $contact->id,
+            'status_id' => $draftStatus->id,
+            'payment_frequency_id' => $paymentFrequency->id,
+            'created_by_id' => $admin->id,
+        ]);
+
+        $response = $this->withoutVite()
+            ->get(route('quotes.preview', ['token' => $quote->public_token]));
+
+        $response->assertOk();
+    }
+
+    public function test_preview_returns_404_for_invalid_token(): void
+    {
+        $response = $this->withoutVite()
+            ->get(route('quotes.preview', ['token' => 'invalid-token']));
+
+        $response->assertNotFound();
+    }
+}
