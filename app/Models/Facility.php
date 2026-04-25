@@ -6,6 +6,7 @@ use App\Concerns\BelongsToAccountTenant;
 use App\Concerns\HasBilingualName;
 use App\Concerns\HasManagerScope;
 use Database\Factories\FacilityFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,6 +34,16 @@ class Facility extends Model
         'is_active',
         'requires_approval',
         'account_tenant_id',
+        'currency',
+        'type',
+        'pricing_mode',
+        'requires_booking',
+        'booking_horizon_days',
+        'cancellation_hours_before',
+        'min_booking_duration_minutes',
+        'max_booking_duration_minutes',
+        'contract_required',
+        'notes',
     ];
 
     protected function casts(): array
@@ -41,6 +52,12 @@ class Facility extends Model
             'booking_fee' => 'decimal:2',
             'is_active' => 'boolean',
             'requires_approval' => 'boolean',
+            'requires_booking' => 'boolean',
+            'contract_required' => 'boolean',
+            'booking_horizon_days' => 'integer',
+            'cancellation_hours_before' => 'integer',
+            'min_booking_duration_minutes' => 'integer',
+            'max_booking_duration_minutes' => 'integer',
         ];
     }
 
@@ -60,5 +77,33 @@ class Facility extends Model
     public function bookings(): HasMany
     {
         return $this->hasMany(FacilityBooking::class);
+    }
+
+    /** @return HasMany<FacilityAvailabilityRule, $this> */
+    public function availabilityRules(): HasMany
+    {
+        return $this->hasMany(FacilityAvailabilityRule::class);
+    }
+
+    /**
+     * Scope to only active facilities.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * Scope to facilities belonging to a specific community.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeForCommunity(Builder $query, int $communityId): Builder
+    {
+        return $query->where('community_id', $communityId);
     }
 }

@@ -30,6 +30,16 @@ class FacilityFactory extends Factory
             'booking_fee' => $this->faker->randomFloat(2, 0, 500),
             'is_active' => true,
             'requires_approval' => $this->faker->boolean(),
+            'currency' => 'SAR',
+            'type' => $this->faker->randomElement(['gym', 'pool', 'hall', 'court', 'other']),
+            'pricing_mode' => $this->faker->randomElement(['free', 'per_session', 'per_hour']),
+            'requires_booking' => $this->faker->boolean(),
+            'booking_horizon_days' => 14,
+            'cancellation_hours_before' => 2,
+            'min_booking_duration_minutes' => 30,
+            'max_booking_duration_minutes' => null,
+            'contract_required' => false,
+            'notes' => null,
         ];
     }
 }
