@@ -17,7 +17,7 @@ return new class extends Migration
             $table->morphs('sender');
             $table->text('body');
             $table->boolean('is_internal')->default(false);
-            $table->unsignedBigInteger('account_tenant_id')->index();
+            $table->unsignedBigInteger('account_tenant_id')->nullable()->index();
             $table->timestamps();
 
             $table->index(['service_request_id', 'created_at']);

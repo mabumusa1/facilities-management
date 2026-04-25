@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('event_type', 50);
             $table->nullableMorphs('actor');
             $table->json('metadata')->nullable();
-            $table->unsignedBigInteger('account_tenant_id')->index();
+            $table->unsignedBigInteger('account_tenant_id')->nullable()->index();
             $table->timestamp('created_at')->useCurrent();
 
             $table->index(['service_request_id', 'created_at']);

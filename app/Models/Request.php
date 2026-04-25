@@ -42,6 +42,7 @@ class Request extends Model
                 $count = static::withoutGlobalScopes()
                     ->where('account_tenant_id', $tenantId)
                     ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [$year])
+                    ->whereNull('deleted_at')
                     ->count();
 
                 $model->request_code = 'SR-'.$year.'-'.str_pad((string) ($count + 1), 5, '0', STR_PAD_LEFT);
