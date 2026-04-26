@@ -92,6 +92,22 @@ Learn more: [Manage document templates](./guides/documents/document-templates.md
 
 Backend: New document generation engine produces filled contracts and invoices from templates when triggered by Leasing, Facilities, or Accounting.
 
+### Manage facilities — April 25, 2026
+
+Property Managers and Admins can now create, configure, and manage facilities from the Facilities area.
+
+- **Create a facility.** Go to **Facilities** and click **New Facility**. Enter the facility name in English and Arabic, choose a community and category, and set the capacity.
+- **Pricing.** Pick Free, Per Session, or Per Hour. When a paid mode is selected, enter the price and currency (default: SAR).
+- **Booking Constraints.** Set how far ahead residents can book (days), how close to the slot they can cancel (hours), and the minimum (and optional maximum) session length in minutes.
+- **7-day availability grid.** Toggle each day of the week on or off, then set the opening time, closing time, slot duration, and maximum concurrent bookings for each active day. Monday–Saturday are on by default; Sunday and Friday are off.
+- **Contract required.** Tick the Contract required checkbox if residents must sign a contract before their booking is confirmed.
+- **Safe deactivation.** If a facility has upcoming confirmed bookings, a yellow banner shows the count when you open the edit form. Click **Deactivate Facility** in the banner and confirm in the dialog. Existing bookings remain valid — no new bookings can be created after deactivation. To reactivate, click **Reactivate & Save**.
+- **Facility detail page.** Click any facility name to see its status, pricing, upcoming booking count, active availability schedule, and constraint summary in a read-only view.
+- **Permission-gated.** Creating facilities requires `facilities.CREATE`; editing requires `facilities.UPDATE`. Users without these permissions see a 403 error.
+- **Bilingual.** All screens work in English and Arabic, including the Arabic name field with right-to-left input.
+
+Learn more: [Configure a facility](./guides/facilities/configure-facility.md).
+
 ### Facility availability and waitlist — April 25, 2026
 
 The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.

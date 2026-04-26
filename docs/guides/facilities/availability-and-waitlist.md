@@ -30,16 +30,9 @@ Each facility can have a separate opening window for each day of the week. For e
 - Days without an availability rule are treated as closed — residents cannot book on those days.
 - By default, a sample Gym facility is seeded with Monday–Saturday availability (06:00–22:00) so you can test bookings immediately after installation.
 
-### What admins will configure (upcoming — Facilities configuration story #247)
+### What admins configure
 
-The full availability editor is coming in a future release. When it ships, Property Managers will be able to:
-
-1. Go to **Facilities → [Facility name] → Availability**.
-2. Toggle each day of the week on or off.
-3. Set the **Opening time** and **Closing time** for each active day.
-4. Set the **Slot duration** in minutes (for example, 60 minutes per session).
-5. Set the **Maximum concurrent bookings** — how many residents can book the same slot at the same time.
-6. Save changes.
+Property Managers with the `facilities.UPDATE` permission can configure the availability grid from the **Edit Facility** form. See [Configure a facility](./configure-facility.md) for the full step-by-step guide.
 
 ## Waitlist
 
@@ -54,7 +47,7 @@ When every slot in a time window is already booked, residents can join the waitl
 
 ### What residents will see (upcoming — Resident booking story #248)
 
-The full booking and waitlist UI is coming in a future release. When it ships, residents will be able to:
+The resident booking and waitlist UI is coming in a future release. When it ships, residents will be able to:
 
 1. Go to **Facilities → [Facility name]**.
 2. Select a date and a time slot.
@@ -64,7 +57,7 @@ The full booking and waitlist UI is coming in a future release. When it ships, r
 
 ## What you'll see
 
-These features are not yet visible in the interface — the booking and facility configuration UI ships in upcoming stories (#247 and #248). However, the underlying availability rules and waitlist are in place. The sample Gym facility is available in the system with Monday–Saturday 06:00–22:00 opening hours so development and testing can proceed.
+The facility configuration UI is now live — admins can create and edit facilities with full availability rules today. The resident booking and waitlist UI is coming in story #248. The sample Gym facility is available in the system with Monday–Saturday 06:00–22:00 opening hours so testing can proceed immediately.
 
 ## Common issues
 
@@ -74,5 +67,5 @@ These features are not yet visible in the interface — the booking and facility
 
 ## Related
 
+- [Configure a facility](./configure-facility.md)
 - [Book a facility (coming soon)](./book-a-facility.md)
-- [Configure a facility (coming soon)](./configure-a-facility.md)

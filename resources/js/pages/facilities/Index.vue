@@ -34,11 +34,24 @@ function localizedCategoryName(facility: Facility): string {
     return facility.category.name_en ?? facility.category.name ?? facility.category.name_ar ?? t('app.common.notAvailable');
 }
 
+function localizedPricingMode(facility: Facility): string {
+    if (facility.pricing_mode === 'per_session') {
+        return t('app.facilities.pricingPerSession');
+    }
+
+    if (facility.pricing_mode === 'per_hour') {
+        return t('app.facilities.pricingPerHour');
+    }
+
+    return t('app.facilities.pricingFree');
+}
+
 const columns = computed<Column<Facility>[]>(() => [
     { key: 'name', label: t('app.facilities.name') },
     { key: 'category.name', label: t('app.facilities.category'), render: (row: Facility) => localizedCategoryName(row) },
     { key: 'community.name', label: t('app.facilities.community') },
     { key: 'capacity', label: t('app.facilities.capacity') },
+    { key: 'pricing_mode', label: t('app.facilities.pricing'), render: (row: Facility) => localizedPricingMode(row) },
     { key: 'is_active', label: t('app.facilities.status'), render: (row: Facility) => row.is_active ? t('app.common.active') : t('app.common.inactive') },
 ]);
 </script>
