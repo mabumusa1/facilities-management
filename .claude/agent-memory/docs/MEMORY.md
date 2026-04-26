@@ -61,3 +61,5 @@ _(populate as you learn — voice corrections, screenshot preferences, publishin
 ## Past work index
 - #330 — Resident create & search with phone duplicate detection (#148) — contacts — both
 - #210 — Resident submits a service request (#355) — service-requests — both EN+AR
+- #211 — Admin triage view: queue, assign, priority, internal notes (#375) — service-requests — both EN+AR
+- #173 — Lease application approval workflow (#377) — leasing — both EN+AR; new guide approve-or-reject-lease.md; cross-reference added to convert-and-kyc.md
