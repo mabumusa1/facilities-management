@@ -4,6 +4,7 @@ use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
+use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Documents\DocumentCenterController;
 use App\Http\Controllers\Documents\ExcelSheetController;
 use App\Http\Controllers\Documents\FileController;
+use App\Http\Controllers\Documents\SigningController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Leasing\LeaseController;
@@ -164,6 +166,17 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('documents/{documentTemplate}/activate', [DocumentTemplateController::class, 'activate'])->name('documents.activate');
         Route::post('documents/{documentTemplate}/archive', [DocumentTemplateController::class, 'archive'])->name('documents.archive');
         Route::post('documents/{documentTemplate}/preview', [DocumentTemplateController::class, 'preview'])->name('documents.preview');
+
+        Route::get('documents/records/{documentRecord}', [DocumentRecordController::class, 'show'])->name('documents.records.show');
+        Route::post('documents/records/{documentRecord}/send', [DocumentRecordController::class, 'sendForSignature'])->name('documents.records.send');
+        Route::post('documents/records/{documentRecord}/resend', [DocumentRecordController::class, 'resendLink'])->name('documents.records.resend');
+    });
+
+    // Public signing (no auth)
+    Route::prefix('sign')->name('signing.')->group(function () {
+        Route::get('{token}', [SigningController::class, 'show'])->name('show');
+        Route::post('{token}/otp', [SigningController::class, 'requestOtp'])->name('requestOtp');
+        Route::post('{token}/sign', [SigningController::class, 'sign'])->name('sign');
     });
 
     // App Settings
