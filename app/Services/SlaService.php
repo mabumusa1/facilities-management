@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Request as ServiceRequest;
+
 class SlaService
 {
-    public function calculate(Request $request): void
+    public function calculate(ServiceRequest $request): void
     {
         $category = $request->category;
 
@@ -19,7 +21,7 @@ class SlaService
     /**
      * Check SLA breaches for a specific request.
      */
-    public function check(Request $request): void
+    public function check(ServiceRequest $request): void
     {
         if ($request->sla_response_due_at && ! $request->sla_breach_response && now()->gt($request->sla_response_due_at)) {
             $request->sla_breach_response = true;
@@ -39,7 +41,7 @@ class SlaService
      */
     public function checkAll(): int
     {
-        $requests = Request::query()
+        $requests = ServiceRequest::query()
             ->whereNull('completed_date')
             ->where(function ($q): void {
                 $q->where(function ($sq): void {

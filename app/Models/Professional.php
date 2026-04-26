@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Professional extends Model
 {
@@ -101,5 +102,10 @@ class Professional extends Model
     public function activities(): MorphMany
     {
         return $this->morphMany(ContactActivity::class, 'contact');
+    }
+
+    public function kycDocuments(): MorphMany
+    {
+        return $this->morphMany(ContactDocument::class, 'contact');
     }
 }

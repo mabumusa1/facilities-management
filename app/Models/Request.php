@@ -84,6 +84,11 @@ class Request extends Model
         'completed_date',
         'sla_response_due_at',
         'sla_resolution_due_at',
+        'sla_breach_response',
+        'sla_breach_resolution',
+        'rating',
+        'feedback',
+        'source_complaint_id',
         'account_tenant_id',
     ];
 
@@ -98,6 +103,9 @@ class Request extends Model
             'completed_at' => 'datetime',
             'sla_response_due_at' => 'datetime',
             'sla_resolution_due_at' => 'datetime',
+            'sla_breach_response' => 'boolean',
+            'sla_breach_resolution' => 'boolean',
+            'rating' => 'integer',
         ];
     }
 
