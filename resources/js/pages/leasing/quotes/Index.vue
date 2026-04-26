@@ -115,7 +115,7 @@ const columns = computed<Column<QuoteRow>[]>(() => [
             </div>
 
             <div class="grid gap-2">
-                <Label for="quote-status">{{ t('app.quotes.status') }}</Label>
+                <Label for="quote-status">{{ t('app.quotes.statusLabel') }}</Label>
                 <select
                     id="quote-status"
                     v-model="filters.status_id"

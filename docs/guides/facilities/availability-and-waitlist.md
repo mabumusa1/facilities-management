@@ -67,5 +67,5 @@ The facility configuration UI is now live — admins can create and edit facilit
 
 ## Related
 
+- [Book a facility](./book-a-facility.md)
 - [Configure a facility](./configure-facility.md)
-- [Book a facility (coming soon)](./book-a-facility.md)

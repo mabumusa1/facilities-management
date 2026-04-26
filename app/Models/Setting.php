@@ -26,6 +26,8 @@ class Setting extends Model
         'parent_id',
         'is_active',
         'is_default',
+        'metadata',
+        'sort_order',
     ];
 
     /**
@@ -36,6 +38,8 @@ class Setting extends Model
         return [
             'is_active' => 'boolean',
             'is_default' => 'boolean',
+            'metadata' => 'array',
+            'sort_order' => 'integer',
         ];
     }
 

@@ -68,5 +68,5 @@ dir: rtl
 
 ## ذات صلة
 
+- [حجز مرفق](./book-a-facility.md)
 - [إعداد مرفق](./configure-facility.md)
-- [حجز مرفق (قادم قريبًا)](./book-a-facility.md)
