@@ -9,14 +9,19 @@ use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
+use App\Http\Controllers\AppSettings\AppSettingController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
+use App\Http\Controllers\AppSettings\ContractTypeController;
 use App\Http\Controllers\AppSettings\FacilityCategoryController as AppFacilityCategoryController;
 use App\Http\Controllers\AppSettings\FormTemplateController;
 use App\Http\Controllers\AppSettings\GeneralSettingController;
 use App\Http\Controllers\AppSettings\InvoiceSettingController;
+use App\Http\Controllers\AppSettings\NotificationPreferenceController;
+use App\Http\Controllers\AppSettings\RegionalSettingController;
 use App\Http\Controllers\AppSettings\RequestCategoryController;
 use App\Http\Controllers\AppSettings\RequestSubcategoryController;
 use App\Http\Controllers\AppSettings\ServiceSettingController;
+use App\Http\Controllers\AppSettings\SettingsAuditLogController;
 use App\Http\Controllers\AppSettings\SettingsFacilityController;
 use App\Http\Controllers\AppSettings\SettingsShellController;
 use App\Http\Controllers\Communication\AnnouncementController;
@@ -29,6 +34,7 @@ use App\Http\Controllers\Documents\DocumentCenterController;
 use App\Http\Controllers\Documents\ExcelSheetController;
 use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Documents\SigningController;
+use App\Http\Controllers\Facilities\BookingManagementController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
@@ -49,6 +55,7 @@ use App\Http\Controllers\Services\SubcategoryController as ServiceSubcategoryCon
 use App\Http\Controllers\Shared\LegacyCompatibilityController;
 use App\Http\Controllers\Shared\LookupController;
 use App\Http\Controllers\Shared\NotificationController;
+use App\Http\Controllers\VisitorAccess\GateController;
 use App\Http\Controllers\VisitorAccess\VisitorAccessController;
 use App\Http\Controllers\VisitorAccess\VisitorInvitationController;
 use Illuminate\Support\Facades\Route;
@@ -211,6 +218,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('subscriptions/{tenant}/activate', [AccountSubscriptionController::class, 'activate'])->name('subscriptions.activate');
         Route::post('subscriptions/{tenant}/cancel', [AccountSubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
         Route::post('subscriptions/{tenant}/cancel-now', [AccountSubscriptionController::class, 'cancelNow'])->name('subscriptions.cancel-now');
+        Route::get('subscriptions/billing', [AccountSubscriptionController::class, 'billingHistory'])->name('subscriptions.billing');
 
         Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
         Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
@@ -262,6 +270,19 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('general', [GeneralSettingController::class, 'store'])->name('general.store');
         Route::put('general/{setting}', [GeneralSettingController::class, 'update'])->name('general.update');
         Route::delete('general/{setting}', [GeneralSettingController::class, 'destroy'])->name('general.destroy');
+
+        Route::resource('contract-types', ContractTypeController::class)->except(['show', 'create', 'edit']);
+
+        Route::get('appearance', [AppSettingController::class, 'edit'])->name('appearance.edit');
+        Route::put('appearance', [AppSettingController::class, 'update'])->name('appearance.update');
+
+        Route::get('regional', [RegionalSettingController::class, 'edit'])->name('regional.edit');
+        Route::put('regional', [RegionalSettingController::class, 'update'])->name('regional.update');
+
+        Route::get('notifications', [NotificationPreferenceController::class, 'index'])->name('notifications.index');
+        Route::put('notifications/{preference}', [NotificationPreferenceController::class, 'update'])->name('notifications.update');
+
+        Route::get('audit-log', [SettingsAuditLogController::class, 'index'])->name('audit-log.index');
     });
 
     Route::prefix('settings')->name('settings.')->group(function () {
@@ -331,6 +352,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('buildings', [BuildingController::class, 'index'])->name('buildings.index');
         Route::post('buildings', [BuildingController::class, 'store'])->name('buildings.store');
         Route::put('buildings/{building}', [BuildingController::class, 'update'])->name('buildings.update');
+        Route::post('buildings/{building}/documents', [BuildingController::class, 'uploadDocument'])->name('buildings.upload-document');
         Route::get('buildings/{building}', [BuildingController::class, 'show'])->name('buildings.show');
         Route::get('communities/edaat-product-codes', [CommunityController::class, 'edaatProductCodes'])->name('communities.edaat-product-codes');
         Route::get('communities/edaat/product-codes', [CommunityController::class, 'edaatProductCodes'])->name('communities.edaat.product-codes');
@@ -383,7 +405,14 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('units/bulk-delete', [UnitController::class, 'bulkDelete'])->name('units.bulk-delete');
         Route::post('units/bulk-update', [UnitController::class, 'bulkUpdate'])->name('units.bulk-update');
         Route::get('units/create', [UnitController::class, 'rfCreate'])->name('units.create');
+        Route::get('units/export', [UnitController::class, 'rfExport'])->name('units.export');
         Route::get('units/{unit}', [UnitController::class, 'rfShow'])->name('units.show');
+        Route::post('units/{unit}/status', [UnitController::class, 'updateStatus'])->name('units.update-status');
+        Route::get('units/{unit}/status-history', [UnitController::class, 'statusHistory'])->name('units.status-history');
+        Route::post('units/{unit}/photos', [UnitController::class, 'uploadPhoto'])->name('units.upload-photo');
+        Route::put('units/{unit}/photos/reorder', [UnitController::class, 'reorderPhotos'])->name('units.reorder-photos');
+        Route::put('units/{unit}/photos/primary', [UnitController::class, 'setPrimaryPhoto'])->name('units.set-primary-photo');
+        Route::delete('units/{unit}/photos/{photo_id}', [UnitController::class, 'deletePhoto'])->name('units.delete-photo');
         Route::get('requests', [ServiceRequestController::class, 'index'])->name('requests.index');
         Route::post('requests', [ServiceRequestController::class, 'store'])->name('requests.store');
         Route::put('requests/{serviceRequest}', [ServiceRequestController::class, 'update'])->name('requests.update');
@@ -393,12 +422,20 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('requests/change-status/in-progress', [ServiceRequestController::class, 'changeStatusInProgress'])->name('requests.change-status.in-progress');
         Route::post('requests/change-status/pending', [ServiceRequestController::class, 'changeStatusPending'])->name('requests.change-status.pending');
         Route::post('requests/change-status/rejected', [ServiceRequestController::class, 'changeStatusRejected'])->name('requests.change-status.rejected');
+        Route::post('requests/{serviceRequest}/rate', [ServiceRequestController::class, 'rate'])->name('requests.rate');
+        Route::get('requests/{serviceRequest}/check-sla', [ServiceRequestController::class, 'checkSla'])->name('requests.check-sla');
+        Route::post('complaints/{complaint}/convert-to-sr', [ServiceRequestController::class, 'convertFromComplaint'])->name('requests.convert-from-complaint');
         Route::post('requests/{serviceRequest}/assign', [ServiceRequestController::class, 'assign'])->name('requests.assign');
         Route::post('requests/{serviceRequest}/reassign', [ServiceRequestController::class, 'reassign'])->name('requests.reassign');
         Route::get('users/requests', [ServiceRequestController::class, 'index'])->name('users.requests.index');
         Route::get('users/requests/categories', [RequestCategoryController::class, 'index'])->name('users.requests.categories');
         Route::get('users/requests/types', [RequestSubcategoryController::class, 'typesIndex'])->name('users.requests.types');
         Route::get('users/visitor-access', [VisitorAccessController::class, 'rfIndex'])->name('users.visitor-access');
+        Route::get('gate/today', [GateController::class, 'gateView'])->name('gate.view');
+        Route::post('gate/check-in', [GateController::class, 'checkIn'])->name('gate.check-in');
+        Route::post('gate/check-out', [GateController::class, 'checkOut'])->name('gate.check-out');
+        Route::get('gate/log-report', [GateController::class, 'logReport'])->name('gate.log-report');
+        Route::get('gate/overstay', [GateController::class, 'overstayReport'])->name('gate.overstay');
         Route::get('requests/categories', [RequestCategoryController::class, 'index'])->name('requests.categories.index');
         Route::post('requests/categories', [RequestCategoryController::class, 'store'])->name('requests.categories.store');
         Route::put('requests/categories/{requestCategory}', [RequestCategoryController::class, 'update'])->name('requests.categories.update');
@@ -432,6 +469,13 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('buildings/{building}', [BuildingController::class, 'destroy'])->name('buildings.destroy');
         Route::delete('communities/{community}', [CommunityController::class, 'destroy'])->name('communities.destroy');
         Route::delete('facilities/{facility}', [FacilityController::class, 'destroy'])->name('facilities.destroy');
+
+        Route::get('bookings/calendar', [BookingManagementController::class, 'calendar'])->name('bookings.calendar');
+        Route::post('bookings/{booking}/check-in', [BookingManagementController::class, 'checkIn'])->name('bookings.check-in');
+        Route::post('bookings/{booking}/check-out', [BookingManagementController::class, 'checkOut'])->name('bookings.check-out');
+        Route::post('waitlist/join', [BookingManagementController::class, 'waitlistJoin'])->name('waitlist.join');
+        Route::delete('waitlist/leave', [BookingManagementController::class, 'waitlistLeave'])->name('waitlist.leave');
+        Route::get('facilities/report/operational', [BookingManagementController::class, 'operationalReport'])->name('facilities.report.operational');
         Route::delete('leases/{lease}', [LeaseController::class, 'destroy'])->name('leases.destroy');
         Route::delete('owners/{owner}', [OwnerController::class, 'destroy'])->name('owners.destroy');
         Route::delete('professionals/{professional}', [ProfessionalController::class, 'destroy'])->name('professionals.destroy');
@@ -445,6 +489,18 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('excel-sheets/land', [ExcelSheetController::class, 'storeLand'])->name('excel-sheets.land');
         Route::post('excel-sheets/leads', [ExcelSheetController::class, 'storeLeads'])->name('excel-sheets.leads');
         Route::get('excel-sheets/leads/errors', [ExcelSheetController::class, 'leadsErrors'])->name('excel-sheets.leads.errors');
+
+        Route::get('contract-types', [ContractTypeController::class, 'index'])->name('contract-types.index');
+        Route::post('contract-types', [ContractTypeController::class, 'store'])->name('contract-types.store');
+        Route::put('contract-types/{contractType}', [ContractTypeController::class, 'update'])->name('contract-types.update');
+        Route::delete('contract-types/{contractType}', [ContractTypeController::class, 'destroy'])->name('contract-types.destroy');
+
+        Route::put('regional-settings', [RegionalSettingController::class, 'update'])->name('regional-settings.update');
+
+        Route::get('notification-preferences', [NotificationPreferenceController::class, 'index'])->name('notification-preferences.index');
+        Route::put('notification-preferences/{preference}', [NotificationPreferenceController::class, 'update'])->name('notification-preferences.update');
+
+        Route::get('settings-audit-log', [SettingsAuditLogController::class, 'index'])->name('settings-audit-log.index');
     });
 
     Route::prefix('marketplace')->name('marketplace.')->group(function () {
@@ -513,6 +569,13 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
             Route::get('{visitorInvitation}', [VisitorInvitationController::class, 'show'])->name('show');
             Route::post('{visitorInvitation}/cancel', [VisitorInvitationController::class, 'cancel'])->name('cancel');
         });
+
+        // Gate Officer endpoints
+        Route::get('gate', [GateController::class, 'gateView'])->name('gate.view');
+        Route::post('gate/check-in', [GateController::class, 'checkIn'])->name('gate.check-in');
+        Route::post('gate/check-out', [GateController::class, 'checkOut'])->name('gate.check-out');
+        Route::get('gate/log-report', [GateController::class, 'logReport'])->name('gate.log-report');
+        Route::get('gate/overstay', [GateController::class, 'overstayReport'])->name('gate.overstay');
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {

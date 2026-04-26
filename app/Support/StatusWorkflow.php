@@ -28,6 +28,8 @@ class StatusWorkflow
             'new_contract' => ['active_contract', 'canceled_contract'],
             'active_contract' => ['expired_contract', 'canceled_contract', 'closed_contract'],
             'expired_contract' => ['active_contract', 'closed_contract'],
+            // Lease application sub-machine: pending → approved | rejected
+            'pending_application' => ['approved_application', 'rejected_application'],
         ],
         'property_visit' => [
             'new' => ['pending', 'approved', 'rejected', 'canceled'],
@@ -86,6 +88,13 @@ class StatusWorkflow
             'cancelled-contract' => 'canceled_contract',
             'closed' => 'closed_contract',
             'closed-contract' => 'closed_contract',
+            // Application sub-machine aliases
+            'pending_application' => 'pending_application',
+            'pending-application' => 'pending_application',
+            'approved_application' => 'approved_application',
+            'approved-application' => 'approved_application',
+            'rejected_application' => 'rejected_application',
+            'rejected-application' => 'rejected_application',
         ],
         'property_visit' => [
             'new' => 'new',
