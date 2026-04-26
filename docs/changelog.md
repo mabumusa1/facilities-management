@@ -10,6 +10,17 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Submit a service request — April 25, 2026
+
+Residents can now report a maintenance or service issue directly from the platform.
+
+- **New request form.** Go to **Services → Submit Request** and choose a category and subcategory from the list your property manager has configured. Pick your urgency level (Normal or Urgent), confirm your unit, select the affected room, and write a description of the issue. You can also attach up to five photos.
+- **Reference number.** After you submit, the platform generates a unique reference number in the format `SR-2026-NNNNN`. A **Copy** button lets you save it to your clipboard so you can quote it when following up with your property manager.
+- **SLA due dates.** The confirmation page shows when a technician must respond and when the issue must be resolved, based on the category's time targets.
+- **My Requests list.** Go to **Services → My Requests** to see all your submitted requests with their status and SLA due dates. The list updates automatically as the property team works on your request.
+
+Learn more: [Submit a service request](./guides/service-requests/submit-a-request.md).
+
 ### Configure service request categories and SLA targets — April 25, 2026
 
 Admins can now build the category tree that residents see when they submit a service request, and set time targets for how quickly each category must be acknowledged and resolved.
