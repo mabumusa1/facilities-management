@@ -41,6 +41,11 @@ class StatusWorkflow
             'approved' => ['paid', 'canceled'],
             'rejected' => ['pending', 'canceled'],
         ],
+        'lease_quote' => [
+            'draft' => ['sent'],
+            'sent' => ['viewed', 'expired'],
+            'viewed' => ['accepted', 'rejected', 'expired'],
+        ],
     ];
 
     /**
@@ -100,6 +105,14 @@ class StatusWorkflow
             'paid' => 'paid',
             'canceled' => 'canceled',
             'cancelled' => 'canceled',
+        ],
+        'lease_quote' => [
+            'draft' => 'draft',
+            'sent' => 'sent',
+            'viewed' => 'viewed',
+            'accepted' => 'accepted',
+            'rejected' => 'rejected',
+            'expired' => 'expired',
         ],
     ];
 

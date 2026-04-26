@@ -10,6 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Lease quotes — create and send — April 25, 2026
+
+Property Managers and Admins can now create lease quotes and send them to prospective residents directly from the platform.
+
+- **Create a quote.** Go to **Leasing → Quotes** and click **New Quote**. Select an available unit, pick the prospective resident from Contacts, set the contract type, lease duration, start date, rent amount, payment frequency, security deposit, and a valid-until deadline. Add optional extra charges (parking fee, etc.) with bilingual labels in English and Arabic. Add special conditions in both languages.
+- **Save as Draft or send immediately.** Click **Save as Draft** to keep the quote private while you finalise the terms. Click **Send Quote** to dispatch it to the prospect in one step — no separate send action needed.
+- **Send a draft later.** Open any Draft quote from the Quotes list and click **Send** on the detail page. The status moves from **Draft** to **Sent** and the prospect receives an email.
+- **Secure prospect preview.** The email contains a link gated by a unique, cryptographically random token — the prospect can view the full quote without creating an account or logging in.
+- **Automatic status tracking.** When the prospect opens the link, the quote status moves to **Viewed** automatically. The Quotes list reflects this in real time so you always know where each deal stands.
+- **Status at a glance.** Every quote shows its current status — Draft, Sent, Viewed, Accepted, Rejected, or Expired — on both the list and the detail page.
+
+Learn more: [Create and send a lease quote](./guides/leasing/lease-quotes.md).
+
 ### Document templates — April 26, 2026
 
 You can now create and manage document templates with named merge fields for lease contracts, invoices, receipts, and booking documents.
