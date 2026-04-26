@@ -55,4 +55,30 @@ class RequestPolicy
             && $this->belongsToCurrentTenant($request)
             && ManagerScopeHelper::userCanAccessModel($user, $request);
     }
+
+    /**
+     * Any authenticated tenant member (resident or manager) can submit their own request.
+     */
+    public function createOwn(User $user): bool
+    {
+        return $user->can('managerRequests.CREATE') || $user->memberships()->exists();
+    }
+
+    /**
+     * A user can view their own submission.
+     */
+    public function viewOwn(User $user, Request $request): bool
+    {
+        return $this->belongsToCurrentTenant($request)
+            && (string) $request->requester_type === $user::class
+            && (int) $request->requester_id === $user->id;
+    }
+
+    /**
+     * Any authenticated tenant member can list their own submitted requests.
+     */
+    public function viewAnyOwn(User $user): bool
+    {
+        return $user->memberships()->exists();
+    }
 }

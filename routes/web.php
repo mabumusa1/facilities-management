@@ -42,6 +42,7 @@ use App\Http\Controllers\Properties\UnitController;
 use App\Http\Controllers\Reports\ReportsController;
 use App\Http\Controllers\Requests\ServiceRequestController;
 use App\Http\Controllers\Services\CategoryController as ServiceCategoryController;
+use App\Http\Controllers\Services\ResidentServiceRequestController;
 use App\Http\Controllers\Services\SubcategoryController as ServiceSubcategoryController;
 use App\Http\Controllers\Shared\LegacyCompatibilityController;
 use App\Http\Controllers\Shared\LookupController;
@@ -121,9 +122,13 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         'requests' => 'serviceRequest',
     ]);
 
-    // Facilities — resident booking flow (must be before resource to avoid {facility} catch-all)
-    Route::get('/facilities/resident', [ResidentFacilityController::class, 'index'])
-        ->name('facilities.resident.index');
+    // Service Requests — Resident-facing (must be before admin categories to avoid route conflicts)
+    Route::prefix('service-requests')->name('service-requests.')->group(function () {
+        Route::get('/', [ResidentServiceRequestController::class, 'index'])->name('index');
+        Route::get('create', [ResidentServiceRequestController::class, 'create'])->name('create');
+        Route::post('/', [ResidentServiceRequestController::class, 'store'])->name('store');
+        Route::get('{serviceRequest}/created', [ResidentServiceRequestController::class, 'created'])->name('created');
+    });
 
     // Service Categories (admin configuration)
     Route::prefix('services')->name('services.')->group(function () {
