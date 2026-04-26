@@ -106,4 +106,14 @@ class Resident extends Model
     {
         return $this->hasMany(Unit::class, 'tenant_id');
     }
+
+    public function activities(): MorphMany
+    {
+        return $this->morphMany(ContactActivity::class, 'contact');
+    }
+
+    public function kycDocuments(): MorphMany
+    {
+        return $this->morphMany(ContactDocument::class, 'contact');
+    }
 }
