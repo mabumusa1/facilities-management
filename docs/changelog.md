@@ -36,6 +36,18 @@ Residents can now create visitor invitations and share a QR code directly from t
 
 Learn more: [Register a visitor](./guides/visitor-access/register-a-visitor.md).
 
+### Lease quotes — revise, reject, and expire — April 25, 2026
+
+Property Managers and Admins can now revise sent quotes, reject offers, and manually expire quotes from the quote detail page.
+
+- **Revise a quote.** Open any Draft, Sent, or Viewed quote and click **Revise** (مراجعة). The revision form opens with all current values pre-filled — fields that changed from the previous version are highlighted with a **Changed** badge so you can spot what is different at a glance. Edit any term, add an optional revision note, choose an email subject prefix (for example, "Updated Quote"), and click **Save Revision**. A new version is created and the prospect receives a fresh email automatically. The **Revision History** panel on the right of the detail page lists all versions in newest-first order; click any entry to open that version.
+- **Reject a quote.** On any Sent or Viewed quote, click **Reject** (رفض). Enter a rejection reason (required) and confirm. The status moves to **Rejected** and no further emails are sent for this quote.
+- **Expire manually.** If a unit has already been leased by another channel, use the **Expire** action on the detail page to close the quote immediately rather than waiting for the overnight job.
+- **Read-only terminal states.** Accepted, Rejected, and Expired quotes show a banner explaining the current state and disable all edit controls — there is nothing further you can do on those quotes.
+- **Automatic nightly expiry** remains in place: any open quote (Draft, Sent, Viewed) whose valid-until date has passed is moved to Expired overnight with no manual action needed.
+
+Learn more: [Create, send, and revise lease quotes](./guides/leasing/lease-quotes.md).
+
 ### Lease quotes — create and send — April 25, 2026
 
 Property Managers and Admins can now create lease quotes and send them to prospective residents directly from the platform.
