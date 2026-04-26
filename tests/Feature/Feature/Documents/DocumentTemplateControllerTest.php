@@ -472,4 +472,283 @@ class DocumentTemplateControllerTest extends TestCase
 
         $this->get("/admin/documents/{$template->id}")->assertForbidden();
     }
+
+    public function test_preview_renders_template_with_sample_data(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'Test', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        DocumentVersion::create([
+            'document_template_id' => $template->id,
+            'version_number' => 1,
+            'body' => json_encode(['en' => 'Hello {{name}}, rent is {{amount}}.', 'ar' => '']),
+            'merge_fields' => [
+                ['key' => 'name', 'label_en' => 'Name', 'label_ar' => null, 'type' => 'string', 'source_path' => 'resident.name'],
+                ['key' => 'amount', 'label_en' => 'Amount', 'label_ar' => null, 'type' => 'currency', 'source_path' => 'lease.amount'],
+            ],
+            'published_at' => now(),
+            'created_by' => User::factory()->create()->id,
+        ]);
+        $template->update(['current_version_id' => DocumentVersion::first()->id]);
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'en',
+        ]);
+
+        $response->assertOk();
+        $response->assertJsonPath('unresolved_count', 0);
+        $this->assertStringContainsString('Hello', $response->json('rendered'));
+    }
+
+    public function test_preview_warns_on_missing_merge_field(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'Test', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        DocumentVersion::create([
+            'document_template_id' => $template->id,
+            'version_number' => 1,
+            'body' => json_encode(['en' => 'Hello {{missing_field}}.', 'ar' => '']),
+            'merge_fields' => [
+                ['key' => '', 'label_en' => '', 'label_ar' => null, 'type' => 'string', 'source_path' => ''],
+            ],
+            'published_at' => now(),
+            'created_by' => User::factory()->create()->id,
+        ]);
+        $template->update(['current_version_id' => DocumentVersion::first()->id]);
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'en',
+        ]);
+
+        $response->assertOk();
+        $this->assertGreaterThan(0, $response->json('unresolved_count'));
+    }
+
+    public function test_preview_uses_real_data_from_context(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'Lease', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        DocumentVersion::create([
+            'document_template_id' => $template->id,
+            'version_number' => 1,
+            'body' => json_encode(['en' => 'Tenant: {{name}}', 'ar' => '']),
+            'merge_fields' => [
+                ['key' => 'name', 'label_en' => 'Name', 'label_ar' => null, 'type' => 'string', 'source_path' => 'resident.name'],
+            ],
+            'published_at' => now(),
+            'created_by' => User::factory()->create()->id,
+        ]);
+        $template->update(['current_version_id' => DocumentVersion::first()->id]);
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'en',
+            'context' => ['name' => 'Sarah Ahmad'],
+        ]);
+
+        $response->assertOk();
+        $this->assertStringContainsString('Sarah Ahmad', $response->json('rendered'));
+    }
+
+    public function test_preview_requires_authentication(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'X', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        \Auth::logout();
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", ['lang' => 'en']);
+
+        $this->assertNotEquals(404, $response->status());
+    }
+
+    public function test_preview_with_ar_language_returns_arabic_content(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'AR Preview', 'ar' => 'معاينة عربية'],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        DocumentVersion::create([
+            'document_template_id' => $template->id,
+            'version_number' => 1,
+            'body' => json_encode(['en' => 'Hello {{name}}', 'ar' => 'مرحبا {{name}}']),
+            'merge_fields' => [
+                ['key' => 'name', 'label_en' => 'Name', 'label_ar' => 'الاسم', 'type' => 'string', 'source_path' => 'resident.name'],
+            ],
+            'published_at' => now(),
+            'created_by' => User::factory()->create()->id,
+        ]);
+        $template->update(['current_version_id' => DocumentVersion::first()->id]);
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'ar',
+        ]);
+
+        $response->assertOk();
+        $this->assertStringContainsString('مرحبا', $response->json('rendered'));
+        $this->assertMatchesRegularExpression('/[\x{0600}-\x{06FF}]/u', $response->json('rendered'));
+    }
+
+    public function test_preview_with_no_published_version_returns_422(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'No Version', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'en',
+        ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonPath('error', 'No published version');
+    }
+
+    public function test_preview_with_no_merge_fields_returns_resolved_count_zero(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'No Fields', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        DocumentVersion::create([
+            'document_template_id' => $template->id,
+            'version_number' => 1,
+            'body' => json_encode(['en' => 'Static text only.', 'ar' => '']),
+            'merge_fields' => [],
+            'published_at' => now(),
+            'created_by' => User::factory()->create()->id,
+        ]);
+        $template->update(['current_version_id' => DocumentVersion::first()->id]);
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'en',
+        ]);
+
+        $response->assertOk();
+        $response->assertJsonPath('resolved_count', 0);
+        $response->assertJsonPath('unresolved_count', 0);
+    }
+
+    public function test_preview_with_empty_body_returns_empty_rendered_text(): void
+    {
+        $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'Empty Body', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => User::factory()->create()->id,
+        ]);
+
+        DocumentVersion::create([
+            'document_template_id' => $template->id,
+            'version_number' => 1,
+            'body' => json_encode(['en' => '', 'ar' => '']),
+            'merge_fields' => [],
+            'published_at' => now(),
+            'created_by' => User::factory()->create()->id,
+        ]);
+        $template->update(['current_version_id' => DocumentVersion::first()->id]);
+
+        $response = $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'en',
+        ]);
+
+        $response->assertOk();
+        $this->assertSame('', $response->json('rendered'));
+    }
+
+    public function test_preview_non_admin_gets_403(): void
+    {
+        $admin = $this->authenticateAdmin();
+        $tenant = Tenant::find(session('tenant_id'));
+        $tenant?->makeCurrent();
+
+        $template = DocumentTemplate::create([
+            'account_tenant_id' => $tenant->id,
+            'name' => ['en' => 'Preview Denied', 'ar' => null],
+            'type' => 'lease',
+            'format' => 'in_platform',
+            'created_by' => $admin->id,
+        ]);
+
+        DocumentVersion::create([
+            'document_template_id' => $template->id,
+            'version_number' => 1,
+            'body' => json_encode(['en' => 'Hello', 'ar' => '']),
+            'merge_fields' => [],
+            'published_at' => now(),
+            'created_by' => $admin->id,
+        ]);
+        $template->update(['current_version_id' => DocumentVersion::first()->id]);
+
+        $this->authenticateNonAdmin();
+
+        $this->post("/admin/documents/{$template->id}/preview", [
+            'lang' => 'en',
+        ])->assertForbidden();
+    }
 }
