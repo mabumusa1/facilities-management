@@ -133,6 +133,7 @@ const appEnFallback: Record<string, string> = {
     'app.appSettings.shell.vatNumberPlaceholder': 'VAT Number Placeholder',
     'app.common.delete': 'Delete',
     'app.common.edit': 'Edit',
+    'app.common.optional': 'Optional',
     'app.documents.collection': 'Collection',
     'app.documents.collectionPlaceholder': 'e.g. contracts',
     'app.documents.community': 'Community',

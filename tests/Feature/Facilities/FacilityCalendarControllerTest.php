@@ -336,4 +336,48 @@ class FacilityCalendarControllerTest extends TestCase
         $returnedIds = collect($response->json('bookings'))->pluck('id');
         $this->assertEmpty($returnedIds);
     }
+
+    /** show() returns 403 when the booking belongs to a different tenant. */
+    public function test_show_is_forbidden_for_booking_from_another_tenant(): void
+    {
+        $tenantB = Tenant::create(['name' => 'Tenant B Cross Show']);
+        $facilityB = Facility::factory()->create([
+            'account_tenant_id' => $tenantB->id,
+            'is_active' => true,
+        ]);
+
+        $bookingB = FacilityBooking::factory()->create([
+            'facility_id' => $facilityB->id,
+            'account_tenant_id' => $tenantB->id,
+            'status_id' => FacilityBookingStatus::BOOKED,
+            'booking_date' => Carbon::today()->toDateString(),
+            'start_time' => '09:00',
+            'end_time' => '10:00',
+        ]);
+
+        // Tenant A admin requests Tenant B booking detail.
+        $response = $this->getJson(route('facilities.calendar.show', $bookingB));
+
+        $response->assertForbidden();
+    }
+
+    /** store() rejects a facility_id that belongs to a different tenant. */
+    public function test_store_rejects_cross_tenant_facility_id(): void
+    {
+        $tenantB = Tenant::create(['name' => 'Tenant B Cross Store']);
+        $facilityB = Facility::factory()->create([
+            'account_tenant_id' => $tenantB->id,
+            'is_active' => true,
+        ]);
+
+        $response = $this->postJson(route('facilities.calendar.store'), [
+            'facility_id' => $facilityB->id,
+            'booking_date' => Carbon::tomorrow()->toDateString(),
+            'start_time' => '10:00',
+            'end_time' => '11:00',
+        ]);
+
+        $response->assertUnprocessable()
+            ->assertJsonValidationErrors(['facility_id']);
+    }
 }

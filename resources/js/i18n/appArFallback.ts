@@ -35,6 +35,7 @@ const appArFallback: Record<string, string> = {
     'app.announcements.updateButton': 'تحديث',
     'app.common.delete': 'حذف',
     'app.common.edit': 'تعديل',
+    'app.common.optional': 'اختياري',
     'app.documents.collection': 'المجموعة',
     'app.documents.collectionPlaceholder': 'أدخل اسم المجموعة',
     'app.documents.community': 'المجتمع',

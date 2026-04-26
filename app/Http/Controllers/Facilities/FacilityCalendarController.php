@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Facilities;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FacilityCalendarBookingRequest;
 use App\Models\Facility;
 use App\Models\FacilityBooking;
 use App\Models\Resident;
@@ -137,23 +138,19 @@ class FacilityCalendarController extends Controller
     /**
      * Admin creates a booking from the calendar modal.
      */
-    public function store(Request $request): JsonResponse
+    public function store(FacilityCalendarBookingRequest $request): JsonResponse
     {
         $this->authorize('create', FacilityBooking::class);
 
-        $validated = $request->validate([
-            'facility_id' => ['required', 'integer', 'exists:rf_facilities,id'],
-            'booking_date' => ['required', 'date'],
-            'start_time' => ['required', 'date_format:H:i'],
-            'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
-            'resident_id' => ['nullable', 'integer', 'exists:rf_residents,id'],
-            'notes' => ['nullable', 'string', 'max:1000'],
-        ]);
+        $validated = $request->validated();
 
         /** @var Facility $facility */
         $facility = Facility::findOrFail($validated['facility_id']);
 
         $booking = DB::transaction(function () use ($validated, $facility): FacilityBooking {
+            // Lock the facility row to prevent concurrent double-booking races.
+            Facility::where('id', $facility->id)->lockForUpdate()->firstOrFail();
+
             $conflict = $this->conflictService->check(
                 $facility,
                 $validated['booking_date'],
