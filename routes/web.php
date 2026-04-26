@@ -385,9 +385,14 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('units/bulk-delete', [UnitController::class, 'bulkDelete'])->name('units.bulk-delete');
         Route::post('units/bulk-update', [UnitController::class, 'bulkUpdate'])->name('units.bulk-update');
         Route::get('units/create', [UnitController::class, 'rfCreate'])->name('units.create');
+        Route::get('units/export', [UnitController::class, 'rfExport'])->name('units.export');
         Route::get('units/{unit}', [UnitController::class, 'rfShow'])->name('units.show');
         Route::post('units/{unit}/status', [UnitController::class, 'updateStatus'])->name('units.update-status');
         Route::get('units/{unit}/status-history', [UnitController::class, 'statusHistory'])->name('units.status-history');
+        Route::post('units/{unit}/photos', [UnitController::class, 'uploadPhoto'])->name('units.upload-photo');
+        Route::put('units/{unit}/photos/reorder', [UnitController::class, 'reorderPhotos'])->name('units.reorder-photos');
+        Route::put('units/{unit}/photos/primary', [UnitController::class, 'setPrimaryPhoto'])->name('units.set-primary-photo');
+        Route::delete('units/{unit}/photos/{photo_id}', [UnitController::class, 'deletePhoto'])->name('units.delete-photo');
         Route::get('requests', [ServiceRequestController::class, 'index'])->name('requests.index');
         Route::post('requests', [ServiceRequestController::class, 'store'])->name('requests.store');
         Route::put('requests/{serviceRequest}', [ServiceRequestController::class, 'update'])->name('requests.update');
