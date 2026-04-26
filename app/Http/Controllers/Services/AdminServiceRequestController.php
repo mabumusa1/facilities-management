@@ -10,6 +10,7 @@ use App\Models\Request as ServiceRequest;
 use App\Models\ServiceCategory;
 use App\Models\ServiceRequestMessage;
 use App\Models\Status;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -140,11 +141,12 @@ class AdminServiceRequestController extends Controller
                 'created_at' => $m->created_at?->toISOString(),
             ]);
 
-        // Users eligible for assignment: scoped to current tenant via membership.
+        // Users eligible for assignment: scoped to current tenant via membership join.
         $assignees = User::query()
-            ->whereHas('memberships', fn ($q) => $q->whereColumn('account_tenant_id', 'account_tenant_id'))
-            ->select('id', 'name')
-            ->orderBy('name')
+            ->select('users.id', 'users.name')
+            ->join('account_memberships', 'account_memberships.user_id', '=', 'users.id')
+            ->where('account_memberships.account_tenant_id', Tenant::current()?->id)
+            ->orderBy('users.name')
             ->get();
 
         $requester = $serviceRequest->requester;

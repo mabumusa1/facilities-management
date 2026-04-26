@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Service Requests — admins can triage all incoming requests from **Services → Service Requests**: four-tab queue (All / Unassigned / Overdue / SLA Breach) with filters by status, category, community, and urgency; overdue rows highlighted in red; request detail page shows resident info, location, category, urgency, and description; admins assign a technician (tenant-scoped dropdown) and set priority (Low / Medium / High / Urgent) then click **Assign & Save**; internal notes thread on the detail page is admin-only and never visible to residents; access is gated to Admin and Manager roles (residents receive 403) ([#375](https://github.com/mabumusa1/facilities-management/pull/375))
 - Facilities — admin calendar view: browse all bookings in a date range filtered by facility or community; prevents double-booking with overlapping slot detection ([#378](https://github.com/mabumusa1/facilities-management/pull/378))
 - Facilities — booking check-in/check-out: mark a reservation as arrived or departed; records timestamps and officer identity; checkout auto-notifies the next person on the waitlist when a slot frees up ([#378](https://github.com/mabumusa1/facilities-management/pull/378))
 - Facilities — waitlist management: join a queue for a full facility slot with date and time selection; leave the waitlist at any time; auto-notification when a slot opens via checkout ([#378](https://github.com/mabumusa1/facilities-management/pull/378))
