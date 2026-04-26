@@ -21,6 +21,8 @@ return new class extends Migration
             if (! Schema::hasColumn('rf_facility_bookings', 'purpose')) {
                 $table->string('purpose')->nullable()->after('notes');
             }
+            // Make status_id nullable for new booking creation
+            $table->unsignedBigInteger('status_id')->nullable()->change();
         });
 
         Schema::table('rf_facility_waitlist', function (Blueprint $table) {

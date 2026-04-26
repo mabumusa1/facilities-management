@@ -12,9 +12,6 @@ use Illuminate\Validation\ValidationException;
 
 class BookingManagementController extends Controller
 {
-    /**
-     * Admin calendar — bookings in a date range for double-booking prevention.
-     */
     public function calendar(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -24,16 +21,12 @@ class BookingManagementController extends Controller
             'community_id' => ['nullable', 'integer', 'exists:rf_communities,id'],
         ]);
 
-        $from = $validated['from'];
-        $to = $validated['to'];
-
         $bookings = FacilityBooking::query()
-            ->with(['facility:id,name,community_id', 'facility.community:id,name', 'user:id,name'])
-            ->whereBetween('date', [$from, $to])
+            ->with(['facility:id,name,community_id', 'facility.community:id,name'])
+            ->whereBetween('booking_date', [$validated['from'], $validated['to']])
             ->when($validated['facility_id'] ?? null, fn ($q) => $q->where('facility_id', (int) $validated['facility_id']))
             ->when($validated['community_id'] ?? null, fn ($q) => $q->whereHas('facility', fn ($sq) => $sq->where('community_id', (int) $validated['community_id'])))
-            ->whereNotIn('status', ['cancelled'])
-            ->orderBy('date')
+            ->orderBy('booking_date')
             ->orderBy('start_time')
             ->get();
 
@@ -42,131 +35,46 @@ class BookingManagementController extends Controller
                 'id' => $b->id,
                 'facility' => $b->facility?->name,
                 'community' => $b->facility?->community?->name,
-                'user' => $b->user?->name,
-                'date' => $b->date,
+                'date' => $b->booking_date,
                 'start_time' => $b->start_time,
                 'end_time' => $b->end_time,
-                'status' => $b->status,
+                'status_id' => $b->status_id,
                 'purpose' => $b->purpose,
             ]),
         ]);
     }
 
-    /**
-     * Waitlist — join queue for a full slot.
-     */
-    public function waitlistJoin(Request $request): JsonResponse
-    {
-        $validated = $request->validate([
-            'facility_id' => ['required', 'integer', 'exists:rf_facilities,id'],
-            'date' => ['required', 'date', 'after_or_equal:today'],
-            'start_time' => ['required', 'date_format:H:i'],
-            'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
-        ]);
-
-        $exists = FacilityWaitlist::query()
-            ->where('facility_id', $validated['facility_id'])
-            ->where('date', $validated['date'])
-            ->where('start_time', $validated['start_time'])
-            ->where('user_id', $request->user()?->id)
-            ->whereNull('notified_at')
-            ->exists();
-
-        if ($exists) {
-            throw ValidationException::withMessages([
-                'facility_id' => 'You are already on the waitlist for this slot.',
-            ]);
-        }
-
-        FacilityWaitlist::create([
-            'account_tenant_id' => Tenant::current()?->id,
-            'facility_id' => $validated['facility_id'],
-            'user_id' => $request->user()?->id,
-            'date' => $validated['date'],
-            'start_time' => $validated['start_time'],
-            'end_time' => $validated['end_time'],
-        ]);
-
-        return response()->json([
-            'message' => 'Joined waitlist. You will be notified if a slot opens.',
-        ]);
-    }
-
-    /**
-     * Waitlist — leave the queue.
-     */
-    public function waitlistLeave(Request $request): JsonResponse
-    {
-        $validated = $request->validate([
-            'waitlist_id' => ['required', 'integer', 'exists:rf_facility_waitlist,id'],
-        ]);
-
-        FacilityWaitlist::whereKey($validated['waitlist_id'])
-            ->where('user_id', $request->user()?->id)
-            ->delete();
-
-        return response()->json(['message' => 'Removed from waitlist.']);
-    }
-
-    /**
-     * Booking check-in — mark booking as arrived.
-     */
     public function checkIn(Request $request, FacilityBooking $booking): JsonResponse
     {
-        if ($booking->status === 'cancelled') {
-            throw ValidationException::withMessages([
-                'booking' => 'Cannot check in a cancelled booking.',
-            ]);
-        }
-
         if ($booking->checked_in_at !== null) {
-            throw ValidationException::withMessages([
-                'booking' => 'Already checked in.',
-            ]);
+            throw ValidationException::withMessages(['booking' => 'Already checked in.']);
         }
 
         $booking->update([
-            'status' => 'active',
             'checked_in_at' => now(),
             'checked_in_by' => $request->user()?->id,
         ]);
 
         return response()->json([
-            'data' => [
-                'id' => $booking->id,
-                'checked_in_at' => $booking->checked_in_at->toJSON(),
-            ],
             'message' => 'Booking checked in.',
         ]);
     }
 
-    /**
-     * Booking check-out — mark booking as departed.
-     */
     public function checkOut(Request $request, FacilityBooking $booking): JsonResponse
     {
         if ($booking->checked_in_at === null) {
-            throw ValidationException::withMessages([
-                'booking' => 'Cannot check out — not yet checked in.',
-            ]);
+            throw ValidationException::withMessages(['booking' => 'Cannot check out — not yet checked in.']);
         }
 
         if ($booking->checked_out_at !== null) {
-            throw ValidationException::withMessages([
-                'booking' => 'Already checked out.',
-            ]);
+            throw ValidationException::withMessages(['booking' => 'Already checked out.']);
         }
 
-        $booking->update([
-            'status' => 'completed',
-            'checked_out_at' => now(),
-        ]);
+        $booking->update(['checked_out_at' => now()]);
 
-        // Notify next person on waitlist
+        // Notify next on waitlist
         $next = FacilityWaitlist::query()
             ->where('facility_id', $booking->facility_id)
-            ->where('date', $booking->date)
-            ->where('start_time', $booking->start_time)
             ->whereNull('notified_at')
             ->oldest()
             ->first();
@@ -176,49 +84,71 @@ class BookingManagementController extends Controller
         }
 
         return response()->json([
-            'data' => [
-                'id' => $booking->id,
-                'checked_in_at' => $booking->checked_in_at?->toJSON(),
-                'checked_out_at' => $booking->checked_out_at->toJSON(),
-                'waitlist_spot_opened' => $next !== null,
-            ],
             'message' => 'Booking checked out.',
         ]);
     }
 
-    /**
-     * Operational reporting — utilisation rate, peak hours, no-show rate.
-     */
+    public function waitlistJoin(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'facility_id' => ['required', 'integer', 'exists:rf_facilities,id'],
+            'date' => ['required', 'date', 'after_or_equal:today'],
+            'start_time' => ['required', 'date_format:H:i'],
+            'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
+        ]);
+
+        $startAt = "{$validated['date']} {$validated['start_time']}:00";
+        $endAt = "{$validated['date']} {$validated['end_time']}:00";
+
+        FacilityWaitlist::create([
+            'account_tenant_id' => Tenant::current()?->id,
+            'facility_id' => $validated['facility_id'],
+            'resident_id' => $request->user()?->id,
+            'requested_start_at' => $startAt,
+            'requested_end_at' => $endAt,
+        ]);
+
+        return response()->json(['message' => 'Joined waitlist.']);
+    }
+
+    public function waitlistLeave(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'waitlist_id' => ['required', 'integer', 'exists:rf_facility_waitlist,id'],
+        ]);
+
+        FacilityWaitlist::whereKey($validated['waitlist_id'])
+            ->where('resident_id', $request->user()?->id)
+            ->delete();
+
+        return response()->json(['message' => 'Removed from waitlist.']);
+    }
+
     public function operationalReport(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'from' => ['required', 'date'],
             'to' => ['required', 'date', 'after_or_equal:from'],
-            'facility_id' => ['nullable', 'integer', 'exists:rf_facilities,id'],
-            'community_id' => ['nullable', 'integer', 'exists:rf_communities,id'],
+            'facility_id' => ['nullable', 'integer'],
+            'community_id' => ['nullable', 'integer'],
         ]);
-
-        $from = $validated['from'];
-        $to = $validated['to'];
 
         $bookings = FacilityBooking::query()
             ->with('facility:id,name,community_id')
-            ->whereBetween('date', [$from, $to])
+            ->whereBetween('booking_date', [$validated['from'], $validated['to']])
             ->when($validated['facility_id'] ?? null, fn ($q) => $q->where('facility_id', (int) $validated['facility_id']))
             ->when($validated['community_id'] ?? null, fn ($q) => $q->whereHas('facility', fn ($sq) => $sq->where('community_id', (int) $validated['community_id'])))
             ->get();
 
         $total = $bookings->count();
         $checkedIn = $bookings->whereNotNull('checked_in_at')->count();
-        $cancelled = $bookings->where('status', 'cancelled')->count();
-        $noShow = $bookings->where('status', 'confirmed')->whereNull('checked_in_at')
-            ->filter(fn ($b) => $b->date.' '.($b->start_time ?? '00:00') < now()->toDateTimeString())->count();
+        $cancelled = $bookings->where('status_id', 0)->count();
+        $noShow = $bookings->filter(fn ($b) => $b->booking_date < now()->toDateString() && $b->checked_in_at === null && $b->status_id !== 0)->count();
 
-        // Peak hours
         $hourDistribution = $bookings
             ->filter(fn ($b) => $b->start_time !== null)
             ->groupBy(fn ($b) => substr($b->start_time, 0, 2))
-            ->map(fn ($group) => $group->count())
+            ->map(fn ($g) => $g->count())
             ->sortDesc()
             ->take(5);
 
@@ -230,10 +160,7 @@ class BookingManagementController extends Controller
                 'no_show' => $noShow,
                 'utilisation_rate_pct' => $total > 0 ? round(($checkedIn / $total) * 100, 1) : 0,
                 'no_show_rate_pct' => $total > 0 ? round(($noShow / $total) * 100, 1) : 0,
-                'peak_hours' => $hourDistribution->map(fn ($count, $hour) => [
-                    'hour' => sprintf('%s:00', $hour),
-                    'bookings' => $count,
-                ])->values(),
+                'peak_hours' => $hourDistribution->map(fn ($c, $h) => ['hour' => sprintf('%s:00', $h), 'bookings' => $c])->values(),
             ],
         ]);
     }
