@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { Head, router, setLayoutProps } from '@inertiajs/vue3';
-import { watchEffect } from 'vue';
-import { index as quotesIndex, send as quotesSend, preview as quotesPreview } from '@/actions/App/Http/Controllers/Leasing/QuoteController';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
+import { computed, watchEffect } from 'vue';
+import {
+    index as quotesIndex,
+    show as quotesShow,
+    send as quotesSend,
+    preview as quotesPreview,
+    revise as quotesRevise,
+    reject as quotesReject,
+    expire as quotesExpire,
+} from '@/actions/App/Http/Controllers/Leasing/QuoteController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,9 +17,22 @@ import { useI18n } from '@/composables/useI18n';
 
 const { t } = useI18n();
 
+// Terminal status name_en values — used only for the readonly message (not for action gating).
+const TERMINAL_STATUS_ACCEPTED = 'accepted';
+const TERMINAL_STATUS_REJECTED = 'rejected';
+const TERMINAL_STATUS_EXPIRED = 'expired';
+
 type AdditionalCharge = {
     label: { en: string; ar: string };
     amount: string | number;
+};
+
+type RevisionItem = {
+    id: number;
+    quote_number: string | null;
+    version: number;
+    status: { id: number; name: string; name_en: string | null } | null;
+    created_at: string;
 };
 
 type QuoteDetail = {
@@ -32,10 +53,18 @@ type QuoteDetail = {
     additional_charges: AdditionalCharge[] | null;
     version: number;
     created_at: string;
+    revisions: RevisionItem[];
+    parent_quote: RevisionItem | null;
 };
 
 const props = defineProps<{
     quote: QuoteDetail;
+    can: {
+        send: boolean;
+        revise: boolean;
+        reject: boolean;
+        expire: boolean;
+    };
 }>();
 
 watchEffect(() => {
@@ -48,9 +77,47 @@ watchEffect(() => {
     });
 });
 
+const statusNameEn = computed(() => props.quote.status?.name_en ?? '');
+
+const readonlyMessage = computed(() => {
+    if (statusNameEn.value === TERMINAL_STATUS_ACCEPTED) {
+        return t('app.quotes.show.acceptedReadonly');
+    }
+    if (statusNameEn.value === TERMINAL_STATUS_EXPIRED) {
+        return t('app.quotes.show.expiredReadonly');
+    }
+    if (statusNameEn.value === TERMINAL_STATUS_REJECTED) {
+        return t('app.quotes.show.rejectedReadonly');
+    }
+    return null;
+});
+
+const hasRevisionHistory = computed(() =>
+    props.quote.parent_quote !== null || props.quote.revisions.length > 0,
+);
+
+const latestRevisionVersion = computed(() => {
+    if (props.quote.revisions.length > 0) {
+        return Math.max(...props.quote.revisions.map((r) => r.version));
+    }
+    return props.quote.version;
+});
+
 function sendQuote() {
     if (confirm(t('app.quotes.show.confirmSend'))) {
         router.post(quotesSend.url(props.quote.id));
+    }
+}
+
+function rejectQuote() {
+    if (confirm(t('app.quotes.show.confirmReject'))) {
+        router.post(quotesReject.url(props.quote.id));
+    }
+}
+
+function expireQuote() {
+    if (confirm(t('app.quotes.show.confirmExpire'))) {
+        router.patch(quotesExpire.url(props.quote.id));
     }
 }
 
@@ -77,16 +144,41 @@ function previewUrl(): string | null {
                 </p>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
                 <Badge v-if="quote.status" variant="secondary">
                     {{ quote.status.name_en ?? quote.status.name }}
                 </Badge>
 
                 <Button
-                    v-if="quote.status?.name_en === 'draft' || quote.status?.name_en === 'sent'"
+                    v-if="can.send"
                     @click="sendQuote"
                 >
                     {{ t('app.quotes.create.send') }}
+                </Button>
+
+                <Button
+                    v-if="can.revise"
+                    variant="outline"
+                    as="a"
+                    :href="quotesRevise.url(quote.id)"
+                >
+                    {{ t('app.quotes.action.revise') }}
+                </Button>
+
+                <Button
+                    v-if="can.reject"
+                    variant="destructive"
+                    @click="rejectQuote"
+                >
+                    {{ t('app.quotes.action.markRejected') }}
+                </Button>
+
+                <Button
+                    v-if="can.expire"
+                    variant="ghost"
+                    @click="expireQuote"
+                >
+                    {{ t('app.quotes.action.expireQuote') }}
                 </Button>
 
                 <a
@@ -191,6 +283,92 @@ function previewUrl(): string | null {
                     <p class="text-muted-foreground mb-1 font-medium">AR</p>
                     <p class="whitespace-pre-wrap">{{ quote.special_conditions.ar }}</p>
                 </div>
+            </CardContent>
+        </Card>
+
+        <!-- Read-only banner for terminal statuses -->
+        <div
+            v-if="readonlyMessage"
+            role="status"
+            class="bg-muted rounded-md p-3 text-sm"
+        >
+            {{ readonlyMessage }}
+        </div>
+
+        <!-- Revision history -->
+        <Card v-if="hasRevisionHistory">
+            <CardHeader>
+                <CardTitle>{{ t('app.quotes.show.revisionHistory') }}</CardTitle>
+            </CardHeader>
+            <CardContent class="text-sm">
+                <p class="text-muted-foreground mb-3 text-xs">
+                    {{ t('app.quotes.show.latestVisible', { version: latestRevisionVersion }) }}
+                </p>
+
+                <table class="w-full">
+                    <tbody>
+                        <!-- Parent quote row if this is a revision -->
+                        <tr
+                            v-if="quote.parent_quote"
+                            class="hover:bg-muted/50 border-b"
+                            tabindex="0"
+                        >
+                            <td class="py-2 font-medium">v{{ quote.parent_quote.version }}</td>
+                            <td class="py-2">
+                                <Badge variant="secondary">
+                                    {{ quote.parent_quote.status?.name_en ?? quote.parent_quote.status?.name ?? '—' }}
+                                </Badge>
+                            </td>
+                            <td class="py-2">{{ quote.parent_quote.created_at }}</td>
+                            <td class="py-2 text-end">
+                                <Link
+                                    :href="quotesShow.url(quote.parent_quote.id)"
+                                    class="text-primary text-xs underline"
+                                >
+                                    {{ quote.parent_quote.quote_number ?? `#${quote.parent_quote.id}` }}
+                                </Link>
+                            </td>
+                        </tr>
+
+                        <!-- Current quote row -->
+                        <tr class="bg-muted/30 border-b font-medium" tabindex="0">
+                            <td class="py-2">v{{ quote.version }}</td>
+                            <td class="py-2">
+                                <Badge variant="secondary">
+                                    {{ quote.status?.name_en ?? quote.status?.name ?? '—' }}
+                                </Badge>
+                            </td>
+                            <td class="py-2">{{ quote.created_at }}</td>
+                            <td class="py-2 text-end text-xs">
+                                {{ quote.quote_number ?? `#${quote.id}` }}
+                            </td>
+                        </tr>
+
+                        <!-- Child revisions -->
+                        <tr
+                            v-for="revision in quote.revisions"
+                            :key="revision.id"
+                            class="hover:bg-muted/50 border-b"
+                            tabindex="0"
+                        >
+                            <td class="py-2 font-medium">v{{ revision.version }}</td>
+                            <td class="py-2">
+                                <Badge variant="secondary">
+                                    {{ revision.status?.name_en ?? revision.status?.name ?? '—' }}
+                                </Badge>
+                            </td>
+                            <td class="py-2">{{ revision.created_at }}</td>
+                            <td class="py-2 text-end">
+                                <Link
+                                    :href="quotesShow.url(revision.id)"
+                                    class="text-primary text-xs underline"
+                                >
+                                    {{ revision.quote_number ?? `#${revision.id}` }}
+                                </Link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </CardContent>
         </Card>
     </div>
