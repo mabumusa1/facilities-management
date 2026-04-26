@@ -34,6 +34,7 @@ use App\Http\Controllers\Documents\DocumentCenterController;
 use App\Http\Controllers\Documents\ExcelSheetController;
 use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Documents\SigningController;
+use App\Http\Controllers\Facilities\BookingManagementController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
@@ -468,6 +469,13 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('buildings/{building}', [BuildingController::class, 'destroy'])->name('buildings.destroy');
         Route::delete('communities/{community}', [CommunityController::class, 'destroy'])->name('communities.destroy');
         Route::delete('facilities/{facility}', [FacilityController::class, 'destroy'])->name('facilities.destroy');
+
+        Route::get('bookings/calendar', [BookingManagementController::class, 'calendar'])->name('bookings.calendar');
+        Route::post('bookings/{booking}/check-in', [BookingManagementController::class, 'checkIn'])->name('bookings.check-in');
+        Route::post('bookings/{booking}/check-out', [BookingManagementController::class, 'checkOut'])->name('bookings.check-out');
+        Route::post('waitlist/join', [BookingManagementController::class, 'waitlistJoin'])->name('waitlist.join');
+        Route::delete('waitlist/leave', [BookingManagementController::class, 'waitlistLeave'])->name('waitlist.leave');
+        Route::get('facilities/report/operational', [BookingManagementController::class, 'operationalReport'])->name('facilities.report.operational');
         Route::delete('leases/{lease}', [LeaseController::class, 'destroy'])->name('leases.destroy');
         Route::delete('owners/{owner}', [OwnerController::class, 'destroy'])->name('owners.destroy');
         Route::delete('professionals/{professional}', [ProfessionalController::class, 'destroy'])->name('professionals.destroy');
