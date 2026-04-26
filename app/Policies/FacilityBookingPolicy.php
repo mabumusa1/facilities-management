@@ -55,4 +55,25 @@ class FacilityBookingPolicy
             && $this->belongsToCurrentTenant($facilityBooking)
             && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
     }
+
+    public function cancel(User $user, FacilityBooking $facilityBooking): bool
+    {
+        return $user->can('facilityBookings.UPDATE')
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
+    }
+
+    public function checkin(User $user, FacilityBooking $facilityBooking): bool
+    {
+        return $user->can('facilityBookings.UPDATE')
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
+    }
+
+    public function noshow(User $user, FacilityBooking $facilityBooking): bool
+    {
+        return $user->can('facilityBookings.UPDATE')
+            && $this->belongsToCurrentTenant($facilityBooking)
+            && ManagerScopeHelper::userCanAccessModel($user, $facilityBooking);
+    }
 }

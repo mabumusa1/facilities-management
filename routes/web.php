@@ -4,6 +4,7 @@ use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
+use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Leasing\LeaseController;
+use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
 use App\Http\Controllers\Properties\BuildingController;
 use App\Http\Controllers\Properties\CommunityController;
@@ -86,7 +88,11 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::resource('buildings', BuildingController::class);
     Route::resource('units', UnitController::class);
 
-    // Leasing
+    // Leasing — Lease Quotes (registered before leases resource to avoid {lease} catch-all conflict)
+    Route::resource('leases/quotes', QuoteController::class)->only(['index', 'create', 'store', 'show'])->names('quotes');
+    Route::post('leases/quotes/{quote}/send', [QuoteController::class, 'send'])->name('quotes.send');
+
+    // Leasing — Leases
     Route::resource('leases', LeaseController::class);
     Route::get('leases/{lease}/subleases/create', [LeaseController::class, 'createSublease'])->name('leases.subleases.create');
     Route::post('leases/{lease}/subleases', [LeaseController::class, 'storeSublease'])->name('leases.subleases.store');
@@ -145,6 +151,15 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
         Route::get('roles/{role}/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
         Route::put('roles/{role}/permissions', [RoleController::class, 'syncPermissions'])->name('roles.permissions.sync');
+
+        Route::get('documents', [DocumentTemplateController::class, 'index'])->name('documents.index');
+        Route::post('documents', [DocumentTemplateController::class, 'store'])->name('documents.store');
+        Route::get('documents/{documentTemplate}', [DocumentTemplateController::class, 'show'])->name('documents.show');
+        Route::put('documents/{documentTemplate}', [DocumentTemplateController::class, 'update'])->name('documents.update');
+        Route::delete('documents/{documentTemplate}', [DocumentTemplateController::class, 'destroy'])->name('documents.destroy');
+        Route::post('documents/{documentTemplate}/activate', [DocumentTemplateController::class, 'activate'])->name('documents.activate');
+        Route::post('documents/{documentTemplate}/archive', [DocumentTemplateController::class, 'archive'])->name('documents.archive');
+        Route::post('documents/{documentTemplate}/preview', [DocumentTemplateController::class, 'preview'])->name('documents.preview');
     });
 
     // App Settings
@@ -440,5 +455,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('zoom', [ReportsController::class, 'zoom'])->name('zoom');
     });
 });
+
+// Public lease quote preview — no auth required. Prospect opens link from email.
+Route::get('quotes/{token}', [QuoteController::class, 'preview'])->name('quotes.preview');
 
 require __DIR__.'/settings.php';

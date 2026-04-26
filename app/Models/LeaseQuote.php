@@ -13,11 +13,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class LeaseQuote extends Model
 {
     /** @use HasFactory<LeaseQuoteFactory> */
     use BelongsToAccountTenant, HasFactory, HasManagerScope, SoftDeletes;
+
+    protected static function booted(): void
+    {
+        static::creating(function (self $quote): void {
+            if (empty($quote->public_token)) {
+                $quote->public_token = (string) Str::uuid();
+            }
+        });
+    }
 
     /**
      * LeaseQuotes: filter via unit_id → rf_units community/building FK.
@@ -59,6 +69,7 @@ class LeaseQuote extends Model
     protected $fillable = [
         'account_tenant_id',
         'quote_number',
+        'public_token',
         'unit_id',
         'contact_id',
         'contract_type_id',

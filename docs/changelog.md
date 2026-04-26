@@ -23,6 +23,50 @@ Residents can now create visitor invitations and share a QR code directly from t
 
 Learn more: [Register a visitor](./guides/visitor-access/register-a-visitor.md).
 
+### Lease quotes — create and send — April 25, 2026
+
+Property Managers and Admins can now create lease quotes and send them to prospective residents directly from the platform.
+
+- **Create a quote.** Go to **Leasing → Quotes** and click **New Quote**. Select an available unit, pick the prospective resident from Contacts, set the contract type, lease duration, start date, rent amount, payment frequency, security deposit, and a valid-until deadline. Add optional extra charges (parking fee, etc.) with bilingual labels in English and Arabic. Add special conditions in both languages.
+- **Save as Draft or send immediately.** Click **Save as Draft** to keep the quote private while you finalise the terms. Click **Send Quote** to dispatch it to the prospect in one step — no separate send action needed.
+- **Send a draft later.** Open any Draft quote from the Quotes list and click **Send** on the detail page. The status moves from **Draft** to **Sent** and the prospect receives an email.
+- **Secure prospect preview.** The email contains a link gated by a unique, cryptographically random token — the prospect can view the full quote without creating an account or logging in.
+- **Automatic status tracking.** When the prospect opens the link, the quote status moves to **Viewed** automatically. The Quotes list reflects this in real time so you always know where each deal stands.
+- **Status at a glance.** Every quote shows its current status — Draft, Sent, Viewed, Accepted, Rejected, or Expired — on both the list and the detail page.
+
+Learn more: [Create and send a lease quote](./guides/leasing/lease-quotes.md).
+
+### Document templates — April 26, 2026
+
+You can now create and manage document templates with named merge fields for lease contracts, invoices, receipts, and booking documents.
+
+- **Create templates.** Go to **Admin → Document Templates**, click **Create template**, give it a name (English required, Arabic optional), choose a type (Lease, Booking, Invoice, Receipt, or Custom), and save. The template starts as a draft.
+- **Bilingual body.** Switch between English and Arabic tabs in the editor to author content for each language. Use `{{merge_field_key}}` placeholders where variable data should be inserted.
+- **Merge fields.** Define which data points the platform should pull — resident name, lease start date, invoice amount — each with a key, English/Arabic label, data type (text, date, currency, number), and source path. Click **Add field** to build the list.
+- **Version history.** Every save creates a new version. The right-hand sidebar shows all versions in descending order. Click any version to preview its body and merge fields. Existing generated documents stay pinned to the version that was current at generation time.
+- **Activate and archive.** Click **Activate** to make a draft template selectable when generating documents in Leasing, Facilities, or Accounting. Click **Archive** to retire a template from new use — existing documents remain intact.
+- **Admin-only access.** The Document Templates area is available only to Account Admins. Users without the `documents.VIEW` permission see a 403 error.
+- **Template preview.** Click the eye icon on any template to preview it with sample data before generating and sending. Switch between English and Arabic tabs — Arabic previews render right-to-left. Unresolved merge fields show an amber warning. The preview is ephemeral (no DocumentRecord is created). Preview is also available from the generation context in consumer modules with real data.
+
+Learn more: [Manage document templates](./guides/documents/document-templates.md) and [Preview a document](./guides/documents/preview-document.md).
+
+### Facility availability and waitlist — April 25, 2026
+
+The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.
+
+- **Availability rules.** Each facility will support a separate opening window for each day of the week — including open time, close time, session length, and the maximum number of overlapping bookings. A sample Gym facility is active with Monday–Saturday 06:00–22:00 hours so testing can begin immediately.
+- **Waitlist.** When a slot is fully booked, residents will be able to join a first-in, first-out queue. If a confirmed booking is cancelled, the first resident in the queue receives a notification and a time-limited window to claim the slot.
+- **Booking time ranges.** Bookings will record an exact start and end time so the calendar view and conflict checks work correctly.
+- **Cancellation tracking.** Bookings will track the cancellation time, the reason, and whether it was cancelled by a resident or an admin.
+
+The booking and facility-configuration UI is coming in upcoming releases. Learn more: [Facility availability and waitlist](./guides/facilities/availability-and-waitlist.md).
+
+### Reports — access control — April 25, 2026
+
+Access to all report types is now controlled by the `reports.VIEW` permission. Account Admins, System Admins, and Accounting Managers have this permission by default. If you need access and cannot open the Reports section, ask your System Admin to add the permission to your role.
+
+The report viewer pages are in development and will ship soon. Learn more: [Reports — snapshots overview](./guides/reports/snapshots-overview.md).
+
 ### Visitor access — April 25, 2026
 
 The platform now has the data foundation for QR-coded visitor gate passes. The screens for creating invitations, scanning at the gate, and viewing the logbook are coming in the next several releases. Here is what is being put in place behind the scenes:
@@ -69,6 +113,11 @@ Every service request now has a unique reference code in the format `SR-YYYY-NNN
 This release also puts in place the infrastructure for two features coming soon: a per-request messaging thread (resident and staff chat, with internal-only notes) and an activity timeline that logs every status change and key action on a request.
 
 Learn more: [Service request reference codes](./guides/service-requests/service-request-reference-codes.md).
+
+### Backend — April 25, 2026
+
+Backend: Fortify authentication features expanded to support upcoming profile management and password self-service.
+Backend: New Documents infrastructure for contract, invoice, and receipt generation across Leasing, Facilities, and Accounting modules.
 
 ### Resident contacts — April 25, 2026
 
