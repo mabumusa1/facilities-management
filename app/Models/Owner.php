@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -88,6 +89,11 @@ class Owner extends Model
     public function dependents(): MorphMany
     {
         return $this->morphMany(Dependent::class, 'dependable');
+    }
+
+    public function kycDocuments(): MorphMany
+    {
+        return $this->morphMany(ContactDocument::class, 'contact');
     }
 
     /** @return HasMany<UnitOwnership, $this> */
