@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
-import { watchEffect } from 'vue';
+import { Head, Link, router, setLayoutProps, useForm, useHttp } from '@inertiajs/vue3';
+import { computed, ref, watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useI18n } from '@/composables/useI18n';
 import type { PaginationLink } from '@/types';
-import { activate, archive, destroy, index, store } from '@/routes/admin/documents';
+import { activate, archive, destroy, index, preview, store } from '@/routes/admin/documents';
 import {
     Sheet,
     SheetContent,
@@ -18,8 +18,8 @@ import {
     SheetHeader,
     SheetTitle,
 } from '@/components/ui/sheet';
-import { ref } from 'vue';
 import InputError from '@/components/InputError.vue';
+import { AlertCircle, Eye } from 'lucide-vue-next';
 
 const { t } = useI18n();
 
@@ -105,6 +105,35 @@ function statusLabel(status: string): string {
           ? t('app.admin.documents.statusDraft')
           : t('app.admin.documents.statusArchived');
 }
+
+// --- Preview ---
+const previewOpen = ref(false);
+const previewLang = ref<'en' | 'ar'>('en');
+const previewRendered = ref('');
+const previewUnresolved = ref<any[]>([]);
+const previewLoading = ref(false);
+
+const previewHasWarnings = computed(() => previewUnresolved.value.length > 0);
+
+async function openPreview(template: Template) {
+    previewLoading.value = true;
+    previewOpen.value = true;
+    previewRendered.value = '';
+    previewUnresolved.value = [];
+
+    try {
+        const res = await useHttp().post(preview.url({ documentTemplate: template.id }), {
+            lang: previewLang.value,
+            context: {},
+        });
+        previewRendered.value = res.rendered;
+        previewUnresolved.value = res.unresolved ?? [];
+    } catch {
+        previewRendered.value = 'Error generating preview.';
+    } finally {
+        previewLoading.value = false;
+    }
+}
 </script>
 
 <template>
@@ -173,6 +202,9 @@ function statusLabel(status: string): string {
                         >
                             {{ t('app.admin.documents.archive') }}
                         </Button>
+                        <Button variant="ghost" size="icon" @click="openPreview(template)">
+                            <Eye class="h-4 w-4" />
+                        </Button>
                         <Button variant="ghost" size="sm" @click="confirmDelete(template)">
                             Delete
                         </Button>
@@ -229,6 +261,42 @@ function statusLabel(status: string): string {
                         {{ t('app.admin.documents.create') }}
                     </Button>
                 </div>
+            </div>
+        </SheetContent>
+    </Sheet>
+
+    <Sheet v-model:open="previewOpen">
+        <SheetContent class="overflow-y-auto max-h-screen w-[600px] sm:max-w-[600px]">
+            <SheetHeader>
+                <SheetTitle>Preview</SheetTitle>
+                <SheetDescription>Template rendered with sample values</SheetDescription>
+            </SheetHeader>
+
+            <div class="mt-4 flex gap-2">
+                <Button variant="outline" size="sm" :class="previewLang === 'en' ? 'bg-primary/10' : ''" @click="previewLang = 'en'">
+                    English
+                </Button>
+                <Button variant="outline" size="sm" :class="previewLang === 'ar' ? 'bg-primary/10' : ''" @click="previewLang = 'ar'">
+                    العربية
+                </Button>
+            </div>
+
+            <div v-if="previewHasWarnings" class="mt-4 border border-amber-200 bg-amber-50 rounded-lg p-3 flex gap-2 text-sm text-amber-800">
+                <AlertCircle class="h-4 w-4 mt-0.5 shrink-0" />
+                <div>
+                    <p class="font-medium">Unresolved merge fields</p>
+                    <p class="text-xs mt-1">
+                        <span v-for="(f, i) in previewUnresolved" :key="i">
+                            <code>{{ `{{${f.key}}}` }}</code>{{ i < previewUnresolved.length - 1 ? ', ' : '' }}
+                        </span>
+                    </p>
+                    <p class="text-xs mt-1 text-amber-600">These fields have no data or reference. Proceed or cancel.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 border rounded-lg bg-muted/30 min-h-[200px] text-sm whitespace-pre-wrap font-mono" :dir="previewLang === 'ar' ? 'rtl' : 'ltr'">
+                <span v-if="previewLoading">Loading...</span>
+                <template v-else>{{ previewRendered || '(empty preview)' }}</template>
             </div>
         </SheetContent>
     </Sheet>

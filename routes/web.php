@@ -153,6 +153,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('documents/{documentTemplate}', [DocumentTemplateController::class, 'destroy'])->name('documents.destroy');
         Route::post('documents/{documentTemplate}/activate', [DocumentTemplateController::class, 'activate'])->name('documents.activate');
         Route::post('documents/{documentTemplate}/archive', [DocumentTemplateController::class, 'archive'])->name('documents.archive');
+        Route::post('documents/{documentTemplate}/preview', [DocumentTemplateController::class, 'preview'])->name('documents.preview');
     });
 
     // App Settings
