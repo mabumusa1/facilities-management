@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Accounting;
 use App\Http\Controllers\Controller;
 use App\Models\Lease;
 use App\Models\Owner;
-use App\Models\Receipt;
 use App\Models\Resident;
 use App\Models\Setting;
 use App\Models\Status;
@@ -367,7 +366,7 @@ class TransactionController extends Controller
 
     public function sendReceipt(Transaction $transaction, Request $request, ReceiptService $receiptService): JsonResponse|RedirectResponse
     {
-        $this->authorize('view', $transaction);
+        $this->authorize('sendReceipt', $transaction);
 
         $receipt = $transaction->receipt;
 

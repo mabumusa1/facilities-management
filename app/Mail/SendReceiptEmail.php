@@ -18,13 +18,13 @@ class SendReceiptEmail extends Mailable implements ShouldQueue
     public function __construct(
         public readonly Receipt $receipt,
         public readonly string $payerName,
+        public readonly ?InvoiceSetting $invoiceSetting,
     ) {}
 
     public function envelope(): Envelope
     {
-        $setting = InvoiceSetting::first();
-        $subject = $setting?->company_name
-            ? "Receipt from {$setting->company_name}"
+        $subject = $this->invoiceSetting?->company_name
+            ? "Receipt from {$this->invoiceSetting->company_name}"
             : 'Your Receipt';
 
         return new Envelope(subject: $subject);
@@ -32,6 +32,11 @@ class SendReceiptEmail extends Mailable implements ShouldQueue
 
     public function content(): Content
     {
-        return new Content(view: 'receipts.receipt-email');
+        return new Content(
+            view: 'receipts.receipt-email',
+            with: [
+                'setting' => $this->invoiceSetting,
+            ],
+        );
     }
 }

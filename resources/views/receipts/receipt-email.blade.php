@@ -22,9 +22,6 @@
 <body>
 <div class="container">
     <div class="header">
-        @php
-            $setting = \App\Models\InvoiceSetting::first();
-        @endphp
         <h1>{{ $setting?->company_name ?? config('app.name') }}</h1>
         @if($setting?->address)
             <p>{{ $setting->address }}</p>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { downloadReceipt, sendReceipt as sendReceiptRoute } from '@/actions/App/Http/Controllers/Accounting/TransactionController';
 import { computed, ref, watchEffect } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -97,7 +98,7 @@ function deleteTransaction() {
 
 function confirmSend() {
     showSendDialog.value = false;
-    sendForm.post(`/transactions/${props.transaction.id}/receipt/send`);
+    sendForm.post(sendReceiptRoute.url(props.transaction.id));
 }
 
 function formatPaymentMethod(method: string | null | undefined): string {
@@ -221,7 +222,7 @@ function formatPaymentMethod(method: string | null | undefined): string {
                         <Badge>{{ t('app.transactions.show.receiptGenerated') }}</Badge>
                         <a
                             v-if="receipt?.pdf_path"
-                            :href="`/transactions/${transaction.id}/receipt/download`"
+                            :href="downloadReceipt.url(transaction.id)"
                             class="text-sm underline underline-offset-4"
                             :aria-label="t('app.transactions.show.downloadPdf') + ' for Transaction #' + transaction.id"
                         >

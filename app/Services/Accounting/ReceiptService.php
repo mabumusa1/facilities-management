@@ -3,6 +3,7 @@
 namespace App\Services\Accounting;
 
 use App\Mail\SendReceiptEmail;
+use App\Models\InvoiceSetting;
 use App\Models\Receipt;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Mail;
@@ -50,12 +51,15 @@ class ReceiptService
      */
     public function send(Receipt $receipt): void
     {
-        $transaction = $receipt->transaction()->with('assignee')->first();
+        $receipt->load('transaction.assignee');
+        $transaction = $receipt->transaction;
 
         $payerName = $this->resolvePayerName($transaction);
         $payerEmail = $this->resolvePayerEmail($transaction);
 
-        Mail::to($payerEmail)->queue(new SendReceiptEmail($receipt, $payerName));
+        $invoiceSetting = InvoiceSetting::where('account_tenant_id', $receipt->account_tenant_id)->first();
+
+        Mail::to($payerEmail)->queue(new SendReceiptEmail($receipt, $payerName, $invoiceSetting));
 
         $receipt->update([
             'sent_at' => now(),
