@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Accounting;
 
+use App\Enums\RolesEnum;
 use App\Models\AccountMembership;
 use App\Models\InvoiceSetting;
+use App\Models\Receipt;
 use App\Models\Resident;
 use App\Models\Setting;
 use App\Models\Status;
@@ -12,6 +14,7 @@ use App\Models\Transaction;
 use App\Models\Unit;
 use App\Models\User;
 use App\Services\Accounting\InvoiceSettingGate;
+use Database\Seeders\RbacSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Tests\TestCase;
 
@@ -283,5 +286,35 @@ class TransactionMoneyInTest extends TestCase
             ->post(route('transactions.store'), $payload);
 
         $response->assertSessionHasErrors('payment_method');
+    }
+
+    // -----------------------------------------------------------------------
+    // Authorization — sendReceipt endpoint enforces SEND_RECEIPT permission
+    // -----------------------------------------------------------------------
+
+    public function test_user_without_send_receipt_permission_gets_403_on_send_receipt_endpoint(): void
+    {
+        $this->seed(RbacSeeder::class);
+
+        // Create a tenant-scoped transaction and receipt
+        $transaction = Transaction::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'direction' => 'money_in',
+        ]);
+        Receipt::factory()->create([
+            'transaction_id' => $transaction->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status' => 'generated',
+        ]);
+
+        // User with 'tenants' role has no transactions.SEND_RECEIPT permission
+        $unpermissioned = User::factory()->create();
+        $unpermissioned->assignRole(RolesEnum::TENANTS->value);
+
+        $response = $this->actingAs($unpermissioned)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->post(route('transactions.receipt.send', $transaction));
+
+        $response->assertForbidden();
     }
 }

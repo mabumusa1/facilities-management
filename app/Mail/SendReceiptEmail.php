@@ -32,10 +32,13 @@ class SendReceiptEmail extends Mailable implements ShouldQueue
 
     public function content(): Content
     {
+        $transaction = $this->receipt->transaction->loadMissing(['category', 'unit', 'lease']);
+
         return new Content(
             view: 'receipts.receipt-email',
             with: [
                 'setting' => $this->invoiceSetting,
+                'transaction' => $transaction,
             ],
         );
     }

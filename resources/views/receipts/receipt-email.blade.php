@@ -32,10 +32,6 @@
         <p class="greeting">Dear {{ $payerName }},</p>
         <p>Please find below your payment receipt.</p>
 
-        @php
-            $transaction = $receipt->transaction()->with(['category', 'unit', 'lease'])->first();
-        @endphp
-
         @if($transaction)
         <table class="details-table">
             <thead>
