@@ -242,11 +242,29 @@ class FacilityController extends Controller
 
         $updateRules = array_merge($this->facilityWebRules(), [
             'is_active' => ['boolean'],
+            'deactivation_confirmed' => ['boolean'],
         ]);
         $validated = $request->validate($updateRules);
+
+        if (
+            isset($validated['is_active'])
+            && ! $validated['is_active']
+            && $facility->is_active
+        ) {
+            $upcomingBookingsCount = FacilityBooking::where('facility_id', $facility->id)
+                ->where('start_at', '>', now())
+                ->count();
+
+            if ($upcomingBookingsCount > 0 && ! ($validated['deactivation_confirmed'] ?? false)) {
+                return back()->withErrors([
+                    'is_active' => __('Confirmation required to deactivate a facility with upcoming bookings.'),
+                ]);
+            }
+        }
+
         $availabilityRules = $validated['availability_rules'] ?? [];
         $priceAmount = $validated['price_amount'] ?? null;
-        unset($validated['availability_rules'], $validated['price_amount']);
+        unset($validated['availability_rules'], $validated['price_amount'], $validated['deactivation_confirmed']);
 
         DB::transaction(function () use ($validated, $availabilityRules, $priceAmount, $facility): void {
             $facility->update(array_merge($validated, [

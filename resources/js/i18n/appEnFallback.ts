@@ -234,6 +234,7 @@ const appEnFallback: Record<string, string> = {
     'app.facilities.friday': 'Friday',
     'app.facilities.saturday': 'Saturday',
     'app.facilities.upcomingBookings': '{count} upcoming bookings',
+    'app.facilities.deactivationWarning': 'This facility is active — {count} upcoming bookings',
     'app.facilities.pricingBanner': '{mode} · {currency} {amount}',
     'app.facilities.availabilitySummary': 'Availability',
     'app.facilities.constraintsSummary': 'Booking Constraints',

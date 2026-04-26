@@ -6,6 +6,7 @@ use App\Models\AccountMembership;
 use App\Models\Community;
 use App\Models\Facility;
 use App\Models\FacilityAvailabilityRule;
+use App\Models\FacilityBooking;
 use App\Models\FacilityCategory;
 use App\Models\Tenant;
 use App\Models\User;
@@ -297,5 +298,137 @@ class FacilityCrudConfigTest extends TestCase
         $response = $this->get(route('facilities.create'));
 
         $response->assertRedirect();
+    }
+
+    public function test_user_without_permission_cannot_store_facility(): void
+    {
+        $unprivilegedUser = User::factory()->create();
+
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->post(route('facilities.store'), [
+                'name_en' => 'Forbidden Facility',
+                'name_ar' => 'مرفق محظور',
+                'category_id' => $this->category->id,
+                'community_id' => $this->community->id,
+                'pricing_mode' => 'free',
+                'booking_horizon_days' => 14,
+                'cancellation_hours_before' => 2,
+                'min_booking_duration_minutes' => 30,
+                'availability_rules' => [],
+            ]);
+
+        $response->assertForbidden();
+    }
+
+    public function test_user_without_permission_cannot_update_facility(): void
+    {
+        $facility = Facility::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'community_id' => $this->community->id,
+            'category_id' => $this->category->id,
+        ]);
+
+        $unprivilegedUser = User::factory()->create();
+
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->put(route('facilities.update', $facility), [
+                'name_en' => 'Updated Name',
+                'name_ar' => 'اسم محدث',
+                'category_id' => $this->category->id,
+                'community_id' => $this->community->id,
+                'pricing_mode' => 'free',
+                'booking_horizon_days' => 14,
+                'cancellation_hours_before' => 2,
+                'min_booking_duration_minutes' => 30,
+                'availability_rules' => [],
+            ]);
+
+        $response->assertForbidden();
+    }
+
+    public function test_update_rejects_deactivation_without_confirmation_when_upcoming_bookings_exist(): void
+    {
+        $facility = Facility::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'community_id' => $this->community->id,
+            'category_id' => $this->category->id,
+            'is_active' => true,
+        ]);
+
+        // Create an upcoming booking for this facility
+        FacilityBooking::factory()->create([
+            'facility_id' => $facility->id,
+            'account_tenant_id' => $this->tenant->id,
+            'start_at' => now()->addDays(3),
+        ]);
+
+        $payload = [
+            'name_en' => $facility->name_en,
+            'name_ar' => $facility->name_ar,
+            'category_id' => $this->category->id,
+            'community_id' => $this->community->id,
+            'is_active' => false,
+            'pricing_mode' => 'free',
+            'booking_horizon_days' => 14,
+            'cancellation_hours_before' => 2,
+            'min_booking_duration_minutes' => 30,
+            'availability_rules' => [],
+            // deactivation_confirmed intentionally omitted
+        ];
+
+        $response = $this->put(route('facilities.update', $facility), $payload);
+
+        $response->assertSessionHasErrors(['is_active']);
+        $this->assertTrue($facility->fresh()->is_active);
+    }
+
+    public function test_update_allows_deactivation_with_confirmation_when_upcoming_bookings_exist(): void
+    {
+        $facility = Facility::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'community_id' => $this->community->id,
+            'category_id' => $this->category->id,
+            'is_active' => true,
+        ]);
+
+        // Create an upcoming booking for this facility
+        FacilityBooking::factory()->create([
+            'facility_id' => $facility->id,
+            'account_tenant_id' => $this->tenant->id,
+            'start_at' => now()->addDays(3),
+        ]);
+
+        $payload = [
+            'name_en' => $facility->name_en,
+            'name_ar' => $facility->name_ar,
+            'category_id' => $this->category->id,
+            'community_id' => $this->community->id,
+            'is_active' => false,
+            'deactivation_confirmed' => true,
+            'pricing_mode' => 'free',
+            'booking_horizon_days' => 14,
+            'cancellation_hours_before' => 2,
+            'min_booking_duration_minutes' => 30,
+            'availability_rules' => [],
+        ];
+
+        $response = $this->put(route('facilities.update', $facility), $payload);
+
+        $response->assertRedirect();
+        $this->assertFalse($facility->fresh()->is_active);
     }
 }

@@ -67,6 +67,7 @@ const form = useForm({
     community_id: String(props.facility.community_id ?? ''),
     capacity: props.facility.capacity ?? ('' as string | number | null),
     is_active: props.facility.is_active ?? true,
+    deactivation_confirmed: false,
     pricing_mode: props.facility.pricing_mode ?? ('free' as 'free' | 'per_session' | 'per_hour'),
     price_amount: props.facility.booking_fee ?? ('' as string | null),
     currency: props.facility.currency ?? 'SAR',
@@ -108,6 +109,7 @@ const showDeactivateConfirm = ref(false);
 
 function confirmDeactivate() {
     form.is_active = false;
+    form.deactivation_confirmed = true;
     showDeactivateConfirm.value = false;
     form.put(`/facilities/${props.facility.id}`);
 }
@@ -132,7 +134,7 @@ const saveLabel = computed(() => {
         <div v-if="facility.is_active && upcomingBookingsCount > 0" class="rounded-lg border border-yellow-200 bg-yellow-50 p-4 dark:border-yellow-800 dark:bg-yellow-950">
             <div class="flex items-center justify-between gap-4">
                 <p class="text-sm text-yellow-800 dark:text-yellow-200">
-                    This facility is <strong>active</strong> — {{ upcomingBookingsCount }} upcoming bookings
+                    {{ t('app.facilities.deactivationWarning').replace('{count}', String(upcomingBookingsCount)) }}
                 </p>
                 <Button type="button" variant="outline" size="sm" @click="showDeactivateConfirm = true">
                     {{ t('app.facilities.deactivate') }}
