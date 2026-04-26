@@ -71,6 +71,16 @@ class FacilityCalendarControllerTest extends TestCase
 
     // ── index ─────────────────────────────────────────────────────────────────
 
+    /**
+     * Regression guard: hit the literal URL (not the named route) so that a future
+     * route-ordering regression — where GET /facilities/calendar is swallowed by the
+     * Route::resource 'facilities/{facility}' wildcard — will be caught immediately.
+     */
+    public function test_index_is_reachable_via_literal_url_not_only_named_route(): void
+    {
+        $this->get('/facilities/calendar')->assertOk();
+    }
+
     /** Admin calendar page renders with facilities and currentWeekStart. */
     public function test_index_renders_calendar_page_for_authorised_admin(): void
     {

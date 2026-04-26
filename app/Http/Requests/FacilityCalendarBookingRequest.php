@@ -37,7 +37,11 @@ class FacilityCalendarBookingRequest extends FormRequest
             'booking_date' => ['required', 'date'],
             'start_time' => ['required', 'date_format:H:i'],
             'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
-            'resident_id' => ['nullable', 'integer', 'exists:rf_residents,id'],
+            'resident_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('rf_residents', 'id')->where('account_tenant_id', $tenantId),
+            ],
             'notes' => ['nullable', 'string', 'max:1000'],
         ];
     }

@@ -143,11 +143,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'destroy'])->name('categories.subcategories.destroy')->scopeBindings();
     });
 
-    // Facilities
-    Route::resource('facilities', FacilityController::class);
-    Route::resource('facility-bookings', FacilityBookingController::class);
-
-    // Admin calendar view
+    // Facilities — calendar routes MUST be registered before Route::resource('facilities')
+    // so that GET /facilities/calendar is not swallowed by the {facility} show wildcard.
     Route::get('/facilities/calendar', [FacilityCalendarController::class, 'index'])
         ->name('facilities.calendar');
     Route::get('/facilities/calendar/bookings', [FacilityCalendarController::class, 'bookings'])
@@ -156,6 +153,9 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         ->name('facilities.calendar.store');
     Route::get('/facilities/calendar/bookings/{facilityBooking}', [FacilityCalendarController::class, 'show'])
         ->name('facilities.calendar.show');
+
+    Route::resource('facilities', FacilityController::class);
+    Route::resource('facility-bookings', FacilityBookingController::class);
 
     // Resident-facing slot picker and booking actions
     Route::get('/facilities/{facility}/slots-picker', [ResidentFacilityController::class, 'slotPicker'])

@@ -7,6 +7,7 @@ use App\Http\Requests\FacilityCalendarBookingRequest;
 use App\Models\Facility;
 use App\Models\FacilityBooking;
 use App\Models\Resident;
+use App\Models\Tenant;
 use App\Models\User;
 use App\Services\Facilities\BookingConflictService;
 use App\Support\FacilityBookingStatus;
@@ -15,6 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -64,7 +66,11 @@ class FacilityCalendarController extends Controller
 
         $request->validate([
             'week_start' => ['required', 'date'],
-            'facility_id' => ['nullable', 'integer', 'exists:rf_facilities,id'],
+            'facility_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('rf_facilities', 'id')->where('account_tenant_id', Tenant::current()?->id),
+            ],
         ]);
 
         $weekStart = Carbon::parse($request->query('week_start'))->startOfDay();
