@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Accounting\AccountingReportController;
 use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
@@ -399,6 +400,18 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
         Route::put('transactions/{transaction}', [TransactionController::class, 'update'])->name('transactions.update');
         Route::get('transactions/{transaction}', [TransactionController::class, 'rfShow'])->name('transactions.show');
+
+        Route::get('aging-report', [AccountingReportController::class, 'agingReport'])->name('aging-report');
+        Route::post('payments', [AccountingReportController::class, 'recordPayment'])->name('payments.record');
+        Route::post('transactions/{transaction}/reconcile', [AccountingReportController::class, 'reconcile'])->name('transactions.reconcile');
+        Route::get('reconciliation-summary', [AccountingReportController::class, 'reconciliationSummary'])->name('reconciliation.summary');
+        Route::get('transactions/export', [AccountingReportController::class, 'export'])->name('transactions.export');
+        Route::get('financial-summary', [AccountingReportController::class, 'financialSummary'])->name('financial-summary');
+
+        Route::get('bank-accounts', [AccountingReportController::class, 'bankAccounts'])->name('bank-accounts.index');
+        Route::post('bank-accounts', [AccountingReportController::class, 'storeBankAccount'])->name('bank-accounts.store');
+        Route::put('bank-accounts/{bankAccount}', [AccountingReportController::class, 'updateBankAccount'])->name('bank-accounts.update');
+        Route::delete('bank-accounts/{bankAccount}', [AccountingReportController::class, 'destroyBankAccount'])->name('bank-accounts.destroy');
         Route::get('units', [UnitController::class, 'rfIndex'])->name('units.index');
         Route::post('units', [UnitController::class, 'store'])->name('units.store');
         Route::put('units/{unit}', [UnitController::class, 'update'])->name('units.update');
