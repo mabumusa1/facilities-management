@@ -91,6 +91,10 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Leasing — Lease Quotes (registered before leases resource to avoid {lease} catch-all conflict)
     Route::resource('leases/quotes', QuoteController::class)->only(['index', 'create', 'store', 'show'])->names('quotes');
     Route::post('leases/quotes/{quote}/send', [QuoteController::class, 'send'])->name('quotes.send');
+    Route::get('leases/quotes/{quote}/revise', [QuoteController::class, 'revise'])->name('quotes.revise');
+    Route::post('leases/quotes/{quote}/revise', [QuoteController::class, 'storeRevision'])->name('quotes.revise.store');
+    Route::post('leases/quotes/{quote}/reject', [QuoteController::class, 'reject'])->name('quotes.reject');
+    Route::patch('leases/quotes/{quote}/expire', [QuoteController::class, 'expire'])->name('quotes.expire');
 
     // Leasing — Leases
     Route::resource('leases', LeaseController::class);

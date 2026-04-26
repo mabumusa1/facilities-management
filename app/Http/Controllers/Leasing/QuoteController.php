@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Leasing;
 
 use App\Console\Commands\ExpireLeaseQuotes;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Leasing\QuoteReviseRequest;
 use App\Http\Requests\Leasing\QuoteStoreRequest;
 use App\Models\ContractType;
 use App\Models\LeaseQuote;
@@ -151,6 +152,106 @@ class QuoteController extends Controller
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Quote sent to prospect.')]);
+
+        return to_route('quotes.show', $quote);
+    }
+
+    public function revise(LeaseQuote $quote): Response
+    {
+        $this->authorize('revise', $quote);
+
+        $quote->load([
+            'unit',
+            'contact',
+            'contractType',
+            'status',
+            'paymentFrequency',
+            'parentQuote',
+        ]);
+
+        /** @var LeaseQuote $previous */
+        $previous = $quote->parentQuote ?? $quote;
+
+        $diff = [
+            'rent_amount' => ['old' => $previous->rent_amount, 'new' => $quote->rent_amount],
+            'security_deposit' => ['old' => $previous->security_deposit, 'new' => $quote->security_deposit],
+            'duration_months' => ['old' => $previous->duration_months, 'new' => $quote->duration_months],
+            'valid_until' => ['old' => $previous->valid_until, 'new' => $quote->valid_until],
+            'special_conditions' => ['old' => $previous->special_conditions, 'new' => $quote->special_conditions],
+        ];
+
+        return Inertia::render('leasing/quotes/Revise', [
+            'quote' => $quote,
+            'diff' => $diff,
+            'units' => Unit::query()
+                ->select('id', 'name')
+                ->orderBy('name')
+                ->get(),
+            'contacts' => Resident::query()
+                ->select('id', 'first_name', 'last_name')
+                ->orderBy('first_name')
+                ->orderBy('last_name')
+                ->get(),
+            'contractTypes' => ContractType::query()
+                ->select('id', 'name_en', 'name_ar')
+                ->orderByRaw('COALESCE(name_en, name_ar) asc')
+                ->get(),
+            'paymentFrequencies' => Setting::query()
+                ->where('type', 'payment_frequency')
+                ->select('id', 'name', 'name_en', 'name_ar')
+                ->orderByRaw('COALESCE(name_en, name) asc')
+                ->get(),
+        ]);
+    }
+
+    public function storeRevision(QuoteReviseRequest $request, LeaseQuote $quote, StatusWorkflow $statusWorkflow): RedirectResponse
+    {
+        $this->authorize('revise', $quote);
+
+        $validated = $request->validated();
+
+        $revision = LeaseQuote::create([
+            ...$validated,
+            'parent_quote_id' => $quote->id,
+            'version' => $quote->version + 1,
+            'status_id' => ExpireLeaseQuotes::STATUS_DRAFT,
+            'created_by_id' => $request->user()->id,
+            'security_deposit' => $validated['security_deposit'] ?? 0,
+        ]);
+
+        $this->sendQuote($revision, $statusWorkflow);
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Revision sent to prospect.'),
+        ]);
+
+        return to_route('quotes.show', $revision);
+    }
+
+    public function reject(Request $request, LeaseQuote $quote): RedirectResponse
+    {
+        $this->authorize('reject', $quote);
+
+        $quote->update([
+            'status_id' => ExpireLeaseQuotes::STATUS_REJECTED,
+            'rejection_reason' => $request->input('rejection_reason'),
+        ]);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Quote marked as rejected.')]);
+
+        return to_route('quotes.show', $quote);
+    }
+
+    public function expire(LeaseQuote $quote, StatusWorkflow $statusWorkflow): RedirectResponse
+    {
+        $this->authorize('expire', $quote);
+
+        $statusWorkflow->ensureTransition('lease_quote', (int) $quote->status_id, ExpireLeaseQuotes::STATUS_EXPIRED);
+
+        $quote->update(['status_id' => ExpireLeaseQuotes::STATUS_EXPIRED]);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Quote marked as expired.')]);
 
         return to_route('quotes.show', $quote);
     }

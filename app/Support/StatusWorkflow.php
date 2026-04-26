@@ -42,8 +42,8 @@ class StatusWorkflow
             'rejected' => ['pending', 'canceled'],
         ],
         'lease_quote' => [
-            'draft' => ['sent'],
-            'sent' => ['viewed', 'expired'],
+            'draft' => ['sent', 'expired'],
+            'sent' => ['viewed', 'rejected', 'expired'],
             'viewed' => ['accepted', 'rejected', 'expired'],
         ],
     ];
