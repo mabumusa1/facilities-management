@@ -74,5 +74,5 @@ These features are not yet visible in the interface — the booking and facility
 
 ## Related
 
-- [Book a facility (coming soon)](./book-a-facility.md)
+- [Book a facility](./book-a-facility.md)
 - [Configure a facility (coming soon)](./configure-a-facility.md)
