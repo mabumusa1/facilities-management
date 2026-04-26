@@ -63,6 +63,8 @@ You can now create and manage document templates with named merge fields for lea
 
 Learn more: [Manage document templates](./guides/documents/document-templates.md) and [Preview a document](./guides/documents/preview-document.md).
 
+Backend: New document generation engine produces filled contracts and invoices from templates when triggered by Leasing, Facilities, or Accounting.
+
 ### Facility availability and waitlist — April 25, 2026
 
 The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.
