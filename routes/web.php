@@ -188,6 +188,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('documents/records/{documentRecord}', [DocumentRecordController::class, 'show'])->name('documents.records.show');
         Route::post('documents/records/{documentRecord}/send', [DocumentRecordController::class, 'sendForSignature'])->name('documents.records.send');
         Route::post('documents/records/{documentRecord}/resend', [DocumentRecordController::class, 'resendLink'])->name('documents.records.resend');
+        Route::get('documents/records/{documentRecord}/download', [DocumentRecordController::class, 'download'])->name('documents.records.download');
+        Route::get('documents/records/{documentRecord}/download-signed', [DocumentRecordController::class, 'downloadSigned'])->name('documents.records.downloadSigned');
     });
 
     // Public signing (no auth)

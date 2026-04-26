@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DocumentRecordController extends Controller
 {
@@ -89,5 +90,35 @@ class DocumentRecordController extends Controller
         ]);
 
         return back()->with('success', __('Signing link resent.'));
+    }
+
+    public function download(DocumentRecord $documentRecord): StreamedResponse
+    {
+        $this->authorize('view', $documentRecord->templateVersion?->template);
+
+        $content = $documentRecord->file_path ?? '';
+
+        return response()->streamDownload(
+            fn () => print ($content),
+            "document-{$documentRecord->id}-{$documentRecord->source_type}.txt",
+            ['Content-Type' => 'text/plain']
+        );
+    }
+
+    public function downloadSigned(DocumentRecord $documentRecord): StreamedResponse
+    {
+        $this->authorize('view', $documentRecord->templateVersion?->template);
+
+        $signature = $documentRecord->signatures()->latest()->first();
+
+        if (! $signature || ! $signature->signed_file_path) {
+            abort(404, 'No signed version available.');
+        }
+
+        return response()->streamDownload(
+            fn () => print ($signature->signed_file_path),
+            "document-{$documentRecord->id}-signed.txt",
+            ['Content-Type' => 'text/plain']
+        );
     }
 }
