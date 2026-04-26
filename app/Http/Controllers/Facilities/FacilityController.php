@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Facilities;
 use App\Http\Controllers\Controller;
 use App\Models\Community;
 use App\Models\Facility;
+use App\Models\FacilityBooking;
 use App\Models\FacilityCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -129,16 +131,26 @@ class FacilityController extends Controller
             ]);
         }
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'category_id' => ['required', 'integer', 'exists:rf_facility_categories,id'],
-            'community_id' => ['required', 'integer', 'exists:rf_communities,id'],
-            'capacity' => ['nullable', 'integer', 'min:1'],
-        ]);
+        $validated = $request->validate($this->facilityWebRules());
+        $availabilityRules = $validated['availability_rules'] ?? [];
+        $priceAmount = $validated['price_amount'] ?? null;
+        unset($validated['availability_rules'], $validated['price_amount']);
 
-        $facility = Facility::create($validated);
+        $facility = DB::transaction(function () use ($validated, $availabilityRules, $priceAmount): Facility {
+            $facility = Facility::create(array_merge($validated, [
+                'name' => $validated['name_en'],
+                'booking_fee' => $priceAmount,
+                'is_active' => true,
+            ]));
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Facility created.')]);
+            if (! empty($availabilityRules)) {
+                $facility->availabilityRules()->createMany($availabilityRules);
+            }
+
+            return $facility;
+        });
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Facility saved successfully.')]);
 
         return to_route('facilities.show', $facility);
     }
@@ -147,16 +159,27 @@ class FacilityController extends Controller
     {
         $this->authorize('view', $facility);
 
-        $facility->load(['category', 'community', 'bookings']);
+        $facility->load(['category', 'community', 'availabilityRules']);
+
+        $upcomingBookingsCount = FacilityBooking::where('facility_id', $facility->id)
+            ->where('start_at', '>', now())
+            ->count();
 
         return Inertia::render('facilities/Show', [
             'facility' => $facility,
+            'upcomingBookingsCount' => $upcomingBookingsCount,
         ]);
     }
 
     public function edit(Facility $facility): Response
     {
         $this->authorize('update', $facility);
+
+        $facility->load('availabilityRules');
+
+        $upcomingBookingsCount = FacilityBooking::where('facility_id', $facility->id)
+            ->where('start_at', '>', now())
+            ->count();
 
         return Inertia::render('facilities/Edit', [
             'facility' => $facility,
@@ -165,6 +188,7 @@ class FacilityController extends Controller
                 ->orderByRaw('COALESCE(name_en, name) asc')
                 ->get(),
             'communities' => Community::select('id', 'name')->orderBy('name')->get(),
+            'upcomingBookingsCount' => $upcomingBookingsCount,
         ]);
     }
 
@@ -216,19 +240,30 @@ class FacilityController extends Controller
             ]);
         }
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'category_id' => ['required', 'integer', 'exists:rf_facility_categories,id'],
-            'community_id' => ['required', 'integer', 'exists:rf_communities,id'],
-            'capacity' => ['nullable', 'integer', 'min:1'],
-            'is_active' => ['sometimes', 'boolean'],
+        $updateRules = array_merge($this->facilityWebRules(), [
+            'is_active' => ['boolean'],
         ]);
+        $validated = $request->validate($updateRules);
+        $availabilityRules = $validated['availability_rules'] ?? [];
+        $priceAmount = $validated['price_amount'] ?? null;
+        unset($validated['availability_rules'], $validated['price_amount']);
 
-        $facility->update($validated);
+        DB::transaction(function () use ($validated, $availabilityRules, $priceAmount, $facility): void {
+            $facility->update(array_merge($validated, [
+                'name' => $validated['name_en'],
+                'booking_fee' => $priceAmount,
+            ]));
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Facility updated.')]);
+            $facility->availabilityRules()->delete();
 
-        return to_route('facilities.show', $facility);
+            if (! empty($availabilityRules)) {
+                $facility->availabilityRules()->createMany($availabilityRules);
+            }
+        });
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Facility saved successfully.')]);
+
+        return back();
     }
 
     public function destroy(Request $request, Facility $facility): JsonResponse|RedirectResponse
@@ -250,6 +285,38 @@ class FacilityController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Facility deleted.')]);
 
         return to_route('facilities.index');
+    }
+
+    /**
+     * Validation rules shared by the Inertia store and update web paths.
+     *
+     * @return array<string, array<int, mixed>>
+     */
+    private function facilityWebRules(): array
+    {
+        return [
+            'name_en' => ['required', 'string', 'max:255'],
+            'name_ar' => ['required', 'string', 'max:255'],
+            'category_id' => ['required', 'integer', 'exists:rf_facility_categories,id'],
+            'community_id' => ['required', 'integer', 'exists:rf_communities,id'],
+            'capacity' => ['nullable', 'integer', 'min:1'],
+            'pricing_mode' => ['required', 'in:free,per_session,per_hour'],
+            'price_amount' => ['required_if:pricing_mode,per_session,per_hour', 'nullable', 'numeric', 'min:0'],
+            'currency' => ['required_if:pricing_mode,per_session,per_hour', 'nullable', 'string', 'size:3'],
+            'booking_horizon_days' => ['required', 'integer', 'min:1'],
+            'cancellation_hours_before' => ['required', 'integer', 'min:0'],
+            'min_booking_duration_minutes' => ['required', 'integer', 'min:1'],
+            'max_booking_duration_minutes' => ['nullable', 'integer', 'gte:min_booking_duration_minutes'],
+            'contract_required' => ['boolean'],
+            'notes' => ['nullable', 'string'],
+            'availability_rules' => ['present', 'array'],
+            'availability_rules.*.day_of_week' => ['required', 'integer', 'between:0,6'],
+            'availability_rules.*.open_time' => ['required', 'date_format:H:i'],
+            'availability_rules.*.close_time' => ['required', 'date_format:H:i', 'after:availability_rules.*.open_time'],
+            'availability_rules.*.slot_duration_minutes' => ['required', 'integer', 'min:15'],
+            'availability_rules.*.max_concurrent_bookings' => ['required', 'integer', 'min:1'],
+            'availability_rules.*.is_active' => ['boolean'],
+        ];
     }
 
     private function perPage(Request $request): int
