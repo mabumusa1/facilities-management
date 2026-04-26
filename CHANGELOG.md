@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Documents — admin can create, edit, and version document templates with named merge fields (key, EN/AR label, type, source path); bilingual body editing with EN/AR tabs; draft → active → archived lifecycle; version history sidebar in descending order; activate/archive/delete actions; admin-only gated by `documents.*` permissions ([#341](https://github.com/mabumusa1/facilities-management/pull/341))
+- Documents — template preview with sample data before sending; English and Arabic tabs with RTL rendering for Arabic; unresolved merge field amber warning; ephemeral (no DocumentRecord created); supports real-data context from consumer module generation flows; 422 response when no published version exists ([#343](https://github.com/mabumusa1/facilities-management/pull/343))
 - Facilities — availability rules let admins set per-facility opening hours for each day of the week (open time, close time, slot duration, max concurrent bookings); waitlist lets residents queue for a full slot and receive a notification if a cancellation opens their spot ([#338](https://github.com/mabumusa1/facilities-management/pull/338))
 - Reports — access to all report types is now gated by the `reports.VIEW` permission; Account Admins, System Admins, and Accounting Managers have this permission by default; unauthorized requests return a 403 ([#337](https://github.com/mabumusa1/facilities-management/pull/337))
 - Visitor Access — resident-created QR-coded gate passes: invitations track visitor name, purpose, expected arrival, and a QR token; gate log records every entry and exit against the attending officer; per-community settings control ID verification requirement, walk-in permission, QR validity window (default 24 h), and max scans per invitation. Introduces the Gate Officers admin role ([#336](https://github.com/mabumusa1/facilities-management/pull/336))
@@ -26,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Admin → Users — drawer-based role assignment with community, building, and service-type scope selectors ([#124](https://github.com/mabumusa1/facilities-management/pull/124))
 - Enabled Fortify update-profile-information and update-passwords features for future auth stories ([#331](https://github.com/mabumusa1/facilities-management/pull/331))
 - Added locale and avatar_path columns to users table for profile self-service ([#331](https://github.com/mabumusa1/facilities-management/pull/331))
+- Added Documents data model (templates, versions, records, signatures) for cross-domain document generation ([#332](https://github.com/mabumusa1/facilities-management/pull/332))
 
 ### Changed
 

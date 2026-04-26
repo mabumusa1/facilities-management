@@ -4,6 +4,7 @@ use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
+use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -149,6 +150,15 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
         Route::get('roles/{role}/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
         Route::put('roles/{role}/permissions', [RoleController::class, 'syncPermissions'])->name('roles.permissions.sync');
+
+        Route::get('documents', [DocumentTemplateController::class, 'index'])->name('documents.index');
+        Route::post('documents', [DocumentTemplateController::class, 'store'])->name('documents.store');
+        Route::get('documents/{documentTemplate}', [DocumentTemplateController::class, 'show'])->name('documents.show');
+        Route::put('documents/{documentTemplate}', [DocumentTemplateController::class, 'update'])->name('documents.update');
+        Route::delete('documents/{documentTemplate}', [DocumentTemplateController::class, 'destroy'])->name('documents.destroy');
+        Route::post('documents/{documentTemplate}/activate', [DocumentTemplateController::class, 'activate'])->name('documents.activate');
+        Route::post('documents/{documentTemplate}/archive', [DocumentTemplateController::class, 'archive'])->name('documents.archive');
+        Route::post('documents/{documentTemplate}/preview', [DocumentTemplateController::class, 'preview'])->name('documents.preview');
     });
 
     // App Settings

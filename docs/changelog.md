@@ -23,7 +23,20 @@ Property Managers and Admins can now create lease quotes and send them to prospe
 
 Learn more: [Create and send a lease quote](./guides/leasing/lease-quotes.md).
 
-<<<<<<< HEAD
+### Document templates — April 26, 2026
+
+You can now create and manage document templates with named merge fields for lease contracts, invoices, receipts, and booking documents.
+
+- **Create templates.** Go to **Admin → Document Templates**, click **Create template**, give it a name (English required, Arabic optional), choose a type (Lease, Booking, Invoice, Receipt, or Custom), and save. The template starts as a draft.
+- **Bilingual body.** Switch between English and Arabic tabs in the editor to author content for each language. Use `{{merge_field_key}}` placeholders where variable data should be inserted.
+- **Merge fields.** Define which data points the platform should pull — resident name, lease start date, invoice amount — each with a key, English/Arabic label, data type (text, date, currency, number), and source path. Click **Add field** to build the list.
+- **Version history.** Every save creates a new version. The right-hand sidebar shows all versions in descending order. Click any version to preview its body and merge fields. Existing generated documents stay pinned to the version that was current at generation time.
+- **Activate and archive.** Click **Activate** to make a draft template selectable when generating documents in Leasing, Facilities, or Accounting. Click **Archive** to retire a template from new use — existing documents remain intact.
+- **Admin-only access.** The Document Templates area is available only to Account Admins. Users without the `documents.VIEW` permission see a 403 error.
+- **Template preview.** Click the eye icon on any template to preview it with sample data before generating and sending. Switch between English and Arabic tabs — Arabic previews render right-to-left. Unresolved merge fields show an amber warning. The preview is ephemeral (no DocumentRecord is created). Preview is also available from the generation context in consumer modules with real data.
+
+Learn more: [Manage document templates](./guides/documents/document-templates.md) and [Preview a document](./guides/documents/preview-document.md).
+
 ### Facility availability and waitlist — April 25, 2026
 
 The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.
@@ -91,6 +104,7 @@ Learn more: [Service request reference codes](./guides/service-requests/service-
 ### Backend — April 25, 2026
 
 Backend: Fortify authentication features expanded to support upcoming profile management and password self-service.
+Backend: New Documents infrastructure for contract, invoice, and receipt generation across Leasing, Facilities, and Accounting modules.
 
 ### Resident contacts — April 25, 2026
 
