@@ -5,6 +5,7 @@ namespace Tests\Feature\ServiceRequests;
 use App\Enums\RolesEnum;
 use App\Models\AccountMembership;
 use App\Models\Community;
+use App\Models\Request as ServiceRequest;
 use App\Models\ServiceCategory;
 use App\Models\ServiceSubcategory;
 use App\Models\Tenant;
@@ -358,5 +359,25 @@ class ServiceCategoryConfigTest extends TestCase
         $response->assertRedirect(route('services.categories.index'));
 
         $this->assertDatabaseMissing('service_subcategories', ['id' => $subcategory->id]);
+    }
+
+    public function test_admin_cannot_delete_category_with_linked_service_requests(): void
+    {
+        $category = ServiceCategory::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        ServiceRequest::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'service_category_id' => $category->id,
+        ]);
+
+        $response = $this
+            ->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->delete(route('services.categories.destroy', $category));
+
+        $response->assertSessionHasErrors('category');
+        $this->assertDatabaseHas('service_categories', ['id' => $category->id]);
     }
 }
