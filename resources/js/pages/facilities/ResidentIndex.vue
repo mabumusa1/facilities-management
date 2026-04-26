@@ -3,6 +3,7 @@ import { watchEffect } from 'vue';
 import { Head, setLayoutProps } from '@inertiajs/vue3';
 import { useI18n } from '@/composables/useI18n';
 import FacilityCard from '@/components/FacilityCard.vue';
+import { index as residentIndex, slotPicker } from '@/actions/App/Http/Controllers/Facilities/ResidentFacilityController';
 import type { Facility, Paginated } from '@/types';
 
 const { t } = useI18n();
@@ -15,15 +16,14 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.facilities.resident.heading'), href: '/facilities/resident' },
+            { title: t('app.facilities.resident.heading'), href: residentIndex.url() },
         ],
     });
 });
 
 function slotPickerHref(facility: Facility): string {
-    return `/facilities/${facility.id}/slots-picker`;
+    return slotPicker.url(facility.id);
 }
-
 </script>
 
 <template>

@@ -9,6 +9,7 @@ use App\Models\FacilityBooking;
 use App\Models\Status;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Support\FacilityBookingStatus;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -55,10 +56,13 @@ class ResidentBookingFlowTest extends TestCase
             'booking_horizon_days' => 14,
         ]);
 
+        // Use the canonical BOOKED status ID so bookings are counted by
+        // FacilityBookingStatus::activeIds() in the controller.
         $this->confirmedStatus = Status::factory()->create([
+            'id' => FacilityBookingStatus::BOOKED,
             'type' => 'facility_booking',
-            'name' => 'confirmed',
-            'name_en' => 'confirmed',
+            'name' => 'Booked',
+            'name_en' => 'Booked',
         ]);
     }
 
@@ -121,7 +125,7 @@ class ResidentBookingFlowTest extends TestCase
     {
         $date = Carbon::tomorrow()->toDateString();
 
-        $response = $this->getJson(route('facilities.resident.slots', $this->facility) . "?date={$date}");
+        $response = $this->getJson(route('facilities.resident.slots', $this->facility)."?date={$date}");
 
         $response->assertOk()
             ->assertJsonPath('closed', true);
@@ -142,7 +146,7 @@ class ResidentBookingFlowTest extends TestCase
             'is_active' => true,
         ]);
 
-        $response = $this->getJson(route('facilities.resident.slots', $this->facility) . "?date={$date->toDateString()}");
+        $response = $this->getJson(route('facilities.resident.slots', $this->facility)."?date={$date->toDateString()}");
 
         $response->assertOk()
             ->assertJsonPath('closed', false)
@@ -183,7 +187,7 @@ class ResidentBookingFlowTest extends TestCase
             'end_time' => '09:00',
         ]);
 
-        $response = $this->getJson(route('facilities.resident.slots', $this->facility) . "?date={$date->toDateString()}");
+        $response = $this->getJson(route('facilities.resident.slots', $this->facility)."?date={$date->toDateString()}");
 
         $response->assertOk();
         $slots = $response->json('slots');
@@ -299,6 +303,64 @@ class ResidentBookingFlowTest extends TestCase
         $response->assertStatus(401);
     }
 
+    // ── 403 tests — authenticated but unpermissioned user ─────────────────────
+
+    /**
+     * A user who is authenticated but not a member of the current tenant must
+     * receive 403 on the resident facilities index.
+     */
+    public function test_user_without_tenant_membership_cannot_view_resident_facilities(): void
+    {
+        // A user with no account membership for this tenant
+        $outsider = User::factory()->create();
+        $this->actingAs($outsider);
+
+        $this->get(route('facilities.resident.index'))
+            ->assertForbidden();
+    }
+
+    /**
+     * A user who is authenticated but not a member of the current tenant must
+     * receive 403 when attempting to create a booking.
+     */
+    public function test_user_without_tenant_membership_cannot_create_booking(): void
+    {
+        $outsider = User::factory()->create();
+        $this->actingAs($outsider);
+
+        $date = Carbon::now()->next(Carbon::SATURDAY);
+
+        $this->postJson(route('facilities.resident.book', $this->facility), [
+            'date' => $date->toDateString(),
+            'start_time' => '09:00',
+            'end_time' => '10:00',
+        ])->assertForbidden();
+    }
+
+    // ── Cross-tenant isolation ─────────────────────────────────────────────────
+
+    /**
+     * Facilities belonging to tenant-B must not be visible to a user of
+     * tenant-A, even when both tenants are in the system.
+     */
+    public function test_resident_of_tenant_a_cannot_see_tenant_b_facilities(): void
+    {
+        // Create a second tenant and a facility that belongs exclusively to it
+        $tenantB = Tenant::create(['name' => 'Tenant B']);
+        $tenantBFacility = Facility::factory()->create([
+            'account_tenant_id' => $tenantB->id,
+            'is_active' => true,
+        ]);
+
+        // Current user belongs to $this->tenant (tenant-A). Tenant::current() is
+        // already set to $this->tenant in setUp via makeCurrent().
+        $response = $this->get(route('facilities.resident.index'));
+        $response->assertOk();
+
+        $returnedIds = collect($response->json('props.facilities.data'))->pluck('id');
+        $this->assertNotContains($tenantBFacility->id, $returnedIds->all());
+    }
+
     public function test_booking_contract_required_facility_creates_pending_booking(): void
     {
         $contractFacility = Facility::factory()->create([
@@ -322,9 +384,10 @@ class ResidentBookingFlowTest extends TestCase
         ]);
 
         Status::factory()->create([
+            'id' => FacilityBookingStatus::PENDING_APPROVAL,
             'type' => 'facility_booking',
-            'name' => 'pending',
-            'name_en' => 'pending',
+            'name' => 'Pending Approval',
+            'name_en' => 'Pending Approval',
         ]);
 
         $response = $this->postJson(route('facilities.resident.book', $contractFacility), [

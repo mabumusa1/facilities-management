@@ -8,6 +8,8 @@ use App\Models\Facility;
 use App\Models\FacilityAvailabilityRule;
 use App\Models\FacilityBooking;
 use App\Models\Status;
+use App\Models\User;
+use App\Support\FacilityBookingStatus;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -24,7 +26,7 @@ class ResidentFacilityController extends Controller
      */
     public function index(): Response
     {
-        $this->authorize('viewAny', Facility::class);
+        $this->authorize('viewAnyAsResident', Facility::class);
 
         $facilities = Facility::query()
             ->active()
@@ -42,7 +44,7 @@ class ResidentFacilityController extends Controller
      */
     public function slotPicker(Facility $facility): Response
     {
-        $this->authorize('view', $facility);
+        $this->authorize('viewAsResident', $facility);
 
         $facility->load(['category']);
 
@@ -55,12 +57,10 @@ class ResidentFacilityController extends Controller
     /**
      * Return available time slots for a facility on a given date.
      * Used as an AJAX endpoint by the Slot Picker UI.
-     *
-     * @return JsonResponse
      */
     public function slots(Facility $facility, Request $request): JsonResponse
     {
-        $this->authorize('view', $facility);
+        $this->authorize('viewAsResident', $facility);
 
         $request->validate([
             'date' => ['required', 'date', 'after_or_equal:today'],
@@ -84,13 +84,13 @@ class ResidentFacilityController extends Controller
             ]);
         }
 
-        $nonCancelledStatusIds = $this->nonCancelledStatusIds();
+        $activeStatusIds = FacilityBookingStatus::activeIds();
 
         // Existing bookings for this facility on this date
         $existingBookings = FacilityBooking::query()
             ->where('facility_id', $facility->id)
             ->where('booking_date', $date->toDateString())
-            ->whereIn('status_id', $nonCancelledStatusIds)
+            ->whereIn('status_id', $activeStatusIds)
             ->select('start_time', 'end_time')
             ->get();
 
@@ -148,7 +148,7 @@ class ResidentFacilityController extends Controller
      */
     public function book(Facility $facility, Request $request): JsonResponse|RedirectResponse
     {
-        $this->authorize('create', FacilityBooking::class);
+        $this->authorize('bookOwn', $facility);
 
         $validated = $request->validate([
             'date' => ['required', 'date', 'after_or_equal:today'],
@@ -175,7 +175,7 @@ class ResidentFacilityController extends Controller
             ], 422);
         }
 
-        $nonCancelledStatusIds = $this->nonCancelledStatusIds();
+        $activeStatusIds = FacilityBookingStatus::activeIds();
 
         try {
             $booking = DB::transaction(function () use (
@@ -184,16 +184,22 @@ class ResidentFacilityController extends Controller
                 $startTime,
                 $endTime,
                 $rule,
-                $nonCancelledStatusIds,
+                $activeStatusIds,
             ): FacilityBooking {
-                // Lock existing overlapping bookings and count them
+                // Lock the parent availability rule row FIRST so concurrent
+                // bookings for the same facility serialize here — even when
+                // zero booking rows exist (first-booking-for-slot case).
+                FacilityAvailabilityRule::where('id', $rule->id)
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                // Now count existing overlapping bookings safely under the lock.
                 $existingCount = FacilityBooking::query()
                     ->where('facility_id', $facility->id)
                     ->where('booking_date', $date->toDateString())
                     ->where('start_time', '<', $endTime)
                     ->where('end_time', '>', $startTime)
-                    ->whereIn('status_id', $nonCancelledStatusIds)
-                    ->lockForUpdate()
+                    ->whereIn('status_id', $activeStatusIds)
                     ->count();
 
                 if ($existingCount >= $rule->max_concurrent_bookings) {
@@ -201,30 +207,21 @@ class ResidentFacilityController extends Controller
                 }
 
                 $bookerId = Auth::id();
-                $bookerType = 'App\\Models\\User';
 
-                $statusName = $facility->contract_required ? 'pending' : 'confirmed';
+                // Choose status by integer constant — never by name_en string lookup.
+                $statusId = $facility->contract_required
+                    ? FacilityBookingStatus::PENDING_APPROVAL
+                    : FacilityBookingStatus::BOOKED;
 
-                $confirmedStatus = Status::query()
-                    ->where('type', 'facility_booking')
-                    ->where(function ($q) use ($statusName): void {
-                        $q->where('name', $statusName)
-                            ->orWhere('name_en', $statusName);
-                    })
-                    ->first();
-
-                if (! $confirmedStatus) {
-                    // Fall back: use first available facility_booking status
-                    $confirmedStatus = Status::query()
-                        ->where('type', 'facility_booking')
-                        ->first();
-                }
+                // Verify the status row actually exists in this environment.
+                $confirmedStatus = Status::find($statusId)
+                    ?? Status::query()->where('type', 'facility_booking')->firstOrFail();
 
                 return FacilityBooking::create([
                     'facility_id' => $facility->id,
-                    'booker_type' => $bookerType,
+                    'booker_type' => User::class,
                     'booker_id' => $bookerId,
-                    'status_id' => $confirmedStatus?->id,
+                    'status_id' => $confirmedStatus->id,
                     'booking_date' => $date->toDateString(),
                     'start_time' => $startTime,
                     'end_time' => $endTime,
@@ -248,20 +245,5 @@ class ResidentFacilityController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('facilities.resident.bookingConfirmed')]);
 
         return to_route('facilities.resident.index');
-    }
-
-    /**
-     * Get IDs of statuses that are not cancelled/no-show.
-     *
-     * @return list<int>
-     */
-    private function nonCancelledStatusIds(): array
-    {
-        return Status::query()
-            ->where('type', 'facility_booking')
-            ->whereNotIn('name', ['cancelled', 'no_show', 'no-show'])
-            ->whereNotIn('name_en', ['cancelled', 'no_show', 'no-show'])
-            ->pluck('id')
-            ->all();
     }
 }

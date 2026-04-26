@@ -4,6 +4,7 @@ import { Head, router, setLayoutProps } from '@inertiajs/vue3';
 import { ChevronLeft, ChevronRight, X } from 'lucide-vue-next';
 import { useI18n } from '@/composables/useI18n';
 import SlotGrid from '@/components/SlotGrid.vue';
+import { index as residentIndex, slots as residentSlots, book as residentBook } from '@/actions/App/Http/Controllers/Facilities/ResidentFacilityController';
 import type { Facility, FacilitySlot } from '@/types';
 
 const props = defineProps<{
@@ -17,8 +18,8 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.facilities.resident.heading'), href: '/facilities/resident' },
-            { title: localizedFacilityName.value, href: `/facilities/resident` },
+            { title: t('app.facilities.resident.heading'), href: residentIndex.url() },
+            { title: localizedFacilityName.value, href: residentIndex.url() },
         ],
     });
 });
@@ -98,7 +99,7 @@ async function loadSlots(date: string): Promise<void> {
     confirmError.value = null;
 
     try {
-        const response = await fetch(`/facilities/${props.facility.id}/slots?date=${date}`, {
+        const response = await fetch(residentSlots.url(props.facility.id, { query: { date } }), {
             headers: {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
@@ -173,7 +174,7 @@ async function confirmBooking(): Promise<void> {
     try {
         const csrfToken = (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement | null)?.content ?? '';
 
-        const response = await fetch(`/facilities/${props.facility.id}/book`, {
+        const response = await fetch(residentBook.url(props.facility.id), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -204,7 +205,7 @@ async function confirmBooking(): Promise<void> {
 
         if (data.contract_required) {
             // Redirect to contract page
-            router.visit(`/facilities/resident`);
+            router.visit(residentIndex.url());
             return;
         }
 
@@ -247,7 +248,7 @@ const selectedDateLabel = computed<string>(() => {
                 type="button"
                 class="text-muted-foreground hover:text-foreground"
                 :aria-label="t('app.actions.back')"
-                @click="router.visit('/facilities/resident')"
+                @click="router.visit(residentIndex.url())"
             >
                 <ChevronLeft class="h-5 w-5" :class="{ 'rotate-180': isArabic }" />
             </button>
