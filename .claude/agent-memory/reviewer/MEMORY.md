@@ -73,6 +73,20 @@ _(append as you find them; common places: listing endpoints that touch Community
 ## Success toast missing after async save — silent success anti-pattern
 - When saving via `fetch()` instead of Inertia `useForm`, there is no automatic flash/toast. Always explicitly call the app's toast composable after the success branch. Defining i18n keys without using them is a sign the toast was forgotten.
 
+## whereColumn tautology — cross-tenant user disclosure in dropdowns
+- `->whereHas('relation', fn($q) => $q->whereColumn('col', 'col'))` compares a column to itself and is always true — equivalent to no filter at all. Returns all rows platform-wide. Always check `whereColumn` calls: both sides must reference *different* tables/aliases. For tenant-scoped user dropdowns, use `->where('account_tenant_id', Tenant::current()?->id)`.
+- Pair this with a tenant-scoped `Rule::exists` in the FormRequest: `Rule::exists('account_memberships', 'user_id')->where('account_tenant_id', Tenant::current()?->id)`. Without it, a malicious POST with a cross-tenant ID bypasses the dropdown and is persisted.
+
+## BookingConflictService / lockForUpdate pattern
+- Any service that checks for row-level conflicts (overlap, uniqueness) inside a `DB::transaction` must call `->lockForUpdate()` before `->first()`. Without it, two concurrent requests both read zero conflicts and both insert. Canonical pattern: `ResidentFacilityController.php:193`.
+- When a FormRequest is scaffolded with `authorize(): false` and empty `rules()` but never wired into the controller, delete it or wire it. It hard-blocks any accidental caller.
+
+## Cross-tenant exists validation for FK fields
+- `'exists:table,id'` does NOT scope to the current tenant. Any `facility_id`, `community_id`, etc. passed by the client must use `Rule::exists('table', 'id')->where('account_tenant_id', Tenant::current()?->id)` to prevent cross-tenant FK injection.
+
+## Wayfinder regen mandatory on new controllers
+- After adding a new controller with routes, `php artisan wayfinder:generate` must be run and the generated `ControllerName.ts` + updated `index.ts` committed in the same PR. Importing from a missing Wayfinder file causes a build-time crash.
+
 ## Past review index
 - PR #118 — approved (re-review) — all three prior concerns resolved; `bootBelongsToAccountTenant()` override pattern (tenant OR NULL scope) confirmed correct; nice-to-have: `Tenant::forgetCurrent()` should be in `finally` block in scope tests
 - PR #119 — comment (not approved) — no code defects; two pre-merge gates: (1) PM/TL on-record sign-off on 186 vs 180 permission count, (2) comment in seeder documenting `Settings` subject intent for `admins` role
@@ -83,6 +97,8 @@ _(append as you find them; common places: listing endpoints that touch Community
 - PR #124 — approved (Round 2) — both blockers resolved: (1) Rule::prohibitedIf(true) on all 3 scope fields for scopeLevel 'none'; test inverted to assertSessionHasErrors; (2) cancelConfirm added to EN+AR, fallback removed. 25 tests green. Latent: Gate::define for 'manage-user-role-assignments' works correctly given current role set but interacts subtly with Spatie Gate::before; formatDate uses 'en-GB' hardcoded (cosmetic); /dashboard breadcrumb hardcoded URL.
 - PR #125 — comment (Round 2, not yet approved) — both Round 1 must-fixes resolved: (1) dead $morphAlias removed; (2) lines 247 and 295 have explicit null scope columns. Missed: line 125 insert still omits the three null columns — not a runtime defect (columns are nullable with no DB default) but inconsistent. Flagged as nice-to-have; human to decide land-as-is or patch first. 16 tests green, Pint clean.
 - PR #330 — approved (Round 1) — zero must-fixes; 4 nice-to-haves: (1) `nationality_id` in useForm but no UI selector (AC gap vs UX spec Screen 2, nullable so no security impact); (2) `form.post('/residents')` hardcoded URL matches sibling convention; (3) DataTable has no `dir` prop on Column — AR column lacks dir=rtl; (4) `createdToast` i18n key dead code (server uses PHP __() + Inertia::flash). 40 tests green, Pint clean.
+- PR #375 — comment/request-changes (Round 1, self-authored) — 2 security must-fixes: (1) `whereColumn('account_tenant_id','account_tenant_id')` tautology leaks all-tenant user names into assignee dropdown; (2) `Rule::exists('users','id')` in AssignServiceRequestRequest accepts cross-tenant user IDs. (3) zero PHPUnit tests — QA gate before merge. Nice-to-haves: out-of-scope ApprovalController routes in web.php, `app.serviceRequests.submitting` key wrong scope, communities dropdown tenant-scoping unverified.
+- PR #376 — comment/request-changes (Round 1, self-authored) — 6 must-fixes: (1) Wayfinder not regenerated — FacilityCalendarController.ts missing; (2) FacilityCalendarBookingRequest has authorize():false + empty rules(), never wired; (3) BookingConflictService::check() missing lockForUpdate() — race condition; (4) store() facility_id exists check not tenant-scoped — cross-tenant FK injection; (5) app.common.optional i18n key missing — Arabic fallback; (6) no cross-tenant show() forbidden test. Nice-to-haves: magic status IDs in TS, missing success toast, Check In button is dead code, hardcoded edit URL in popover, empty-slot aria-label not i18n'd.
 
 ## HasContactInfo::initializeHasContactInfo() — mergeFillable pattern
 - `HasContactInfo` uses `initializeHasContactInfo()` (not `bootHasContactInfo()`) to call `$this->mergeFillable([...])` at instantiation time. This means fields like `first_name`, `phone_number`, `national_phone_number`, `id_type`, etc., are NOT listed in the model's own `$fillable` array but are still mass-assignable. Always check for `initializeHas*` traits before reporting missing `$fillable` entries.

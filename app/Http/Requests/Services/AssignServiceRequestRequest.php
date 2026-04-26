@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Services;
 
+use App\Models\Tenant;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -26,7 +27,8 @@ class AssignServiceRequestRequest extends FormRequest
             'assigned_to_user_id' => [
                 'required',
                 'integer',
-                Rule::exists('users', 'id'),
+                Rule::exists('account_memberships', 'user_id')
+                    ->where('account_tenant_id', Tenant::current()?->id),
             ],
             'priority' => [
                 'nullable',

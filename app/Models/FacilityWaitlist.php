@@ -23,6 +23,7 @@ class FacilityWaitlist extends Model
     protected $fillable = [
         'facility_id',
         'resident_id',
+        'account_tenant_id',
         'requested_start_at',
         'requested_end_at',
         'notified_at',
