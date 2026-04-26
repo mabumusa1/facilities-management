@@ -31,6 +31,7 @@ use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Documents\SigningController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
+use App\Http\Controllers\Facilities\ResidentFacilityController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
@@ -111,6 +112,10 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         'requests' => 'serviceRequest',
     ]);
 
+    // Facilities — resident booking flow (must be before resource to avoid {facility} catch-all)
+    Route::get('/facilities/resident', [ResidentFacilityController::class, 'index'])
+        ->name('facilities.resident.index');
+
     // Service Categories (admin configuration)
     Route::prefix('services')->name('services.')->group(function () {
         Route::get('categories', [ServiceCategoryController::class, 'index'])->name('categories.index');
@@ -126,6 +131,14 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Facilities
     Route::resource('facilities', FacilityController::class);
     Route::resource('facility-bookings', FacilityBookingController::class);
+
+    // Resident-facing slot picker and booking actions
+    Route::get('/facilities/{facility}/slots-picker', [ResidentFacilityController::class, 'slotPicker'])
+        ->name('facilities.resident.slot-picker');
+    Route::get('/facilities/{facility}/slots', [ResidentFacilityController::class, 'slots'])
+        ->name('facilities.resident.slots');
+    Route::post('/facilities/{facility}/book', [ResidentFacilityController::class, 'book'])
+        ->name('facilities.resident.book');
 
     // Accounting
     Route::resource('transactions', TransactionController::class);

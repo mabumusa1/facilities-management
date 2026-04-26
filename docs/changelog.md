@@ -10,6 +10,20 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Book a community facility — April 25, 2026
+
+Residents can now browse, select, and book facility time slots directly from the app.
+
+- **Browse facilities.** Go to **Facilities** in the bottom navigation. You will see a card grid of all community facilities available for booking, showing the name, pricing (Free, SAR per session, or SAR per hour), and capacity.
+- **Pick a date.** Tap **Book** on a facility card, then tap a day from the date strip (next 7–14 days). Days when the facility is closed are not selectable.
+- **Choose a time slot.** The slot grid appears, grouped into **Morning**, **Afternoon**, and **Evening**. Available slots are tappable; booked and closed slots are visually disabled.
+- **Confirm.** Tap an available slot to open the Confirm Booking sheet showing the date, time, duration, and price. Tap **Confirm** to book. You receive a confirmation to your mobile number and email.
+- **Race-condition protection.** If two residents try to book the same last slot at the same moment, only one succeeds. The other sees "This slot is no longer available — please choose a different time" and can tap **Pick Another Slot** to try again.
+- **Contract-required facilities.** Some facilities (for example, a banquet hall) require a signed contract. Tapping **Book** creates a pending booking and you receive instructions for signing the contract.
+- **Access control.** Only residents with an active community membership can see and use this screen. Non-members receive a 403 error.
+
+Learn more: [Book a facility](./guides/facilities/book-a-facility.md).
+
 ### Configure service request categories and SLA targets — April 25, 2026
 
 Admins can now build the category tree that residents see when they submit a service request, and set time targets for how quickly each category must be acknowledged and resolved.

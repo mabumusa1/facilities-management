@@ -68,5 +68,10 @@ dir: rtl
 
 ## ذات صلة
 
+<<<<<<< HEAD
+- [حجز مرفق](./book-a-facility.md)
+- [إعداد مرفق (قادم قريبًا)](./configure-a-facility.md)
+=======
 - [إعداد مرفق](./configure-facility.md)
 - [حجز مرفق (قادم قريبًا)](./book-a-facility.md)
+>>>>>>> origin/1.x
