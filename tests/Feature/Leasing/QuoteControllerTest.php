@@ -439,6 +439,12 @@ class QuoteControllerTest extends TestCase
             'name_en' => 'viewed',
         ]);
 
+        Status::factory()->create([
+            'id' => ExpireLeaseQuotes::STATUS_REJECTED,
+            'type' => 'lease_quote',
+            'name_en' => 'rejected',
+        ]);
+
         $unit = Unit::factory()->create(['account_tenant_id' => $this->tenant->id]);
         $contact = Resident::factory()->create(['account_tenant_id' => $this->tenant->id]);
         $paymentFrequency = Setting::factory()->create(['type' => 'payment_frequency']);

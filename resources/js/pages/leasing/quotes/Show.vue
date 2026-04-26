@@ -3,6 +3,7 @@ import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
 import { computed, watchEffect } from 'vue';
 import {
     index as quotesIndex,
+    show as quotesShow,
     send as quotesSend,
     preview as quotesPreview,
     revise as quotesRevise,
@@ -16,13 +17,10 @@ import { useI18n } from '@/composables/useI18n';
 
 const { t } = useI18n();
 
-// Status IDs mirror ExpireLeaseQuotes constants.
-const STATUS_DRAFT = 70;
-const STATUS_SENT = 71;
-const STATUS_VIEWED = 72;
-const STATUS_ACCEPTED = 73;
-const STATUS_REJECTED = 74;
-const STATUS_EXPIRED = 75;
+// Terminal status name_en values — used only for the readonly message (not for action gating).
+const TERMINAL_STATUS_ACCEPTED = 'accepted';
+const TERMINAL_STATUS_REJECTED = 'rejected';
+const TERMINAL_STATUS_EXPIRED = 'expired';
 
 type AdditionalCharge = {
     label: { en: string; ar: string };
@@ -61,6 +59,12 @@ type QuoteDetail = {
 
 const props = defineProps<{
     quote: QuoteDetail;
+    can: {
+        send: boolean;
+        revise: boolean;
+        reject: boolean;
+        expire: boolean;
+    };
 }>();
 
 watchEffect(() => {
@@ -73,28 +77,16 @@ watchEffect(() => {
     });
 });
 
-const statusId = computed(() => props.quote.status?.id ?? 0);
-
-const isReviseAllowed = computed(() =>
-    statusId.value === STATUS_SENT || statusId.value === STATUS_VIEWED,
-);
-
-const isRejectAllowed = computed(() => statusId.value === STATUS_VIEWED);
-
-const isExpireAllowed = computed(() =>
-    statusId.value === STATUS_DRAFT ||
-    statusId.value === STATUS_SENT ||
-    statusId.value === STATUS_VIEWED,
-);
+const statusNameEn = computed(() => props.quote.status?.name_en ?? '');
 
 const readonlyMessage = computed(() => {
-    if (statusId.value === STATUS_ACCEPTED) {
+    if (statusNameEn.value === TERMINAL_STATUS_ACCEPTED) {
         return t('app.quotes.show.acceptedReadonly');
     }
-    if (statusId.value === STATUS_EXPIRED) {
+    if (statusNameEn.value === TERMINAL_STATUS_EXPIRED) {
         return t('app.quotes.show.expiredReadonly');
     }
-    if (statusId.value === STATUS_REJECTED) {
+    if (statusNameEn.value === TERMINAL_STATUS_REJECTED) {
         return t('app.quotes.show.rejectedReadonly');
     }
     return null;
@@ -158,14 +150,14 @@ function previewUrl(): string | null {
                 </Badge>
 
                 <Button
-                    v-if="quote.status?.name_en === 'draft' || quote.status?.name_en === 'sent'"
+                    v-if="can.send"
                     @click="sendQuote"
                 >
                     {{ t('app.quotes.create.send') }}
                 </Button>
 
                 <Button
-                    v-if="isReviseAllowed"
+                    v-if="can.revise"
                     variant="outline"
                     as="a"
                     :href="quotesRevise.url(quote.id)"
@@ -174,7 +166,7 @@ function previewUrl(): string | null {
                 </Button>
 
                 <Button
-                    v-if="isRejectAllowed"
+                    v-if="can.reject"
                     variant="destructive"
                     @click="rejectQuote"
                 >
@@ -182,7 +174,7 @@ function previewUrl(): string | null {
                 </Button>
 
                 <Button
-                    v-if="isExpireAllowed"
+                    v-if="can.expire"
                     variant="ghost"
                     @click="expireQuote"
                 >
@@ -330,7 +322,7 @@ function previewUrl(): string | null {
                             <td class="py-2">{{ quote.parent_quote.created_at }}</td>
                             <td class="py-2 text-end">
                                 <Link
-                                    :href="quotesIndex.url()"
+                                    :href="quotesShow.url(quote.parent_quote.id)"
                                     class="text-primary text-xs underline"
                                 >
                                     {{ quote.parent_quote.quote_number ?? `#${quote.parent_quote.id}` }}
@@ -368,7 +360,7 @@ function previewUrl(): string | null {
                             <td class="py-2">{{ revision.created_at }}</td>
                             <td class="py-2 text-end">
                                 <Link
-                                    :href="quotesIndex.url()"
+                                    :href="quotesShow.url(revision.id)"
                                     class="text-primary text-xs underline"
                                 >
                                     {{ revision.quote_number ?? `#${revision.id}` }}

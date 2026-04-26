@@ -133,6 +133,12 @@ class QuoteController extends Controller
 
         return Inertia::render('leasing/quotes/Show', [
             'quote' => $quote,
+            'can' => [
+                'send' => $this->can('send', $quote),
+                'revise' => $this->can('revise', $quote),
+                'reject' => $this->can('reject', $quote),
+                'expire' => $this->can('expire', $quote),
+            ],
         ]);
     }
 
@@ -229,9 +235,15 @@ class QuoteController extends Controller
         return to_route('quotes.show', $revision);
     }
 
-    public function reject(Request $request, LeaseQuote $quote): RedirectResponse
+    public function reject(Request $request, LeaseQuote $quote, StatusWorkflow $statusWorkflow): RedirectResponse
     {
         $this->authorize('reject', $quote);
+
+        $request->validate([
+            'rejection_reason' => ['nullable', 'string', 'max:2000'],
+        ]);
+
+        $statusWorkflow->ensureTransition('lease_quote', (int) $quote->status_id, ExpireLeaseQuotes::STATUS_REJECTED);
 
         $quote->update([
             'status_id' => ExpireLeaseQuotes::STATUS_REJECTED,

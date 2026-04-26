@@ -21,7 +21,7 @@ class QuoteReviseRequest extends FormRequest
             'contact_id' => ['required', 'exists:rf_tenants,id'],
             'contract_type_id' => ['nullable', 'exists:rf_contract_types,id'],
             'duration_months' => ['required', 'integer', 'min:1'],
-            'start_date' => ['required', 'date'],
+            'start_date' => ['required', 'date', 'after_or_equal:today'],
             'rent_amount' => ['required', 'numeric', 'min:0'],
             'payment_frequency_id' => ['required', 'exists:rf_settings,id'],
             'security_deposit' => ['nullable', 'numeric', 'min:0'],
