@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -288,6 +289,7 @@ class BuildingController extends Controller
                 ]
                 : null,
             'units_count' => $building->units_count ?? 0,
+            'no_floors' => $building->no_floors,
             'map' => $building->map,
             'year_build' => $building->year_build,
             'images' => $this->mediaItems($building->images),
