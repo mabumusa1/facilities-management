@@ -44,8 +44,8 @@ class AccountingReportController extends Controller
 
         $totalPaid = $transaction->payments()->sum('amount');
         $transaction->update([
-            'paid_amount' => $totalPaid,
-            'status' => $totalPaid >= $transaction->total_amount ? 'paid' : 'partial',
+            'amount' => $totalPaid,
+            'is_paid' => $totalPaid >= $transaction->amount ? 1 : 0,
         ]);
 
         return response()->json([
@@ -55,23 +55,15 @@ class AccountingReportController extends Controller
     }
 
     // -------------------------------------------------------------------------
-    // #192 Overdue detection + #193 Aging report
+    // #193 Aging report
     // -------------------------------------------------------------------------
 
     public function agingReport(Request $request): JsonResponse
     {
-        $validated = $request->validate([
-            'as_of' => ['nullable', 'date'],
-            'community_id' => ['nullable', 'integer'],
-        ]);
-
-        $asOf = $validated['as_of'] ?? now()->toDateString();
+        $asOf = $request->input('as_of') ?? now()->toDateString();
 
         $transactions = Transaction::query()
-            ->with(['community:id,name', 'contact'])
-            ->where('type', 'income')
             ->whereNull('is_reconciled')
-            ->when($validated['community_id'] ?? null, fn ($q) => $q->where('community_id', (int) $validated['community_id']))
             ->get();
 
         $aging = [
@@ -83,10 +75,10 @@ class AccountingReportController extends Controller
         ];
 
         foreach ($transactions as $t) {
-            $dueDate = $t->due_date ?? $t->created_at->toDateString();
+            $dueDate = $t->due_on ?? $t->created_at->toDateString();
             $daysOverdue = (int) now()->parse($asOf)->diffInDays($dueDate, false);
 
-            $remaining = (float) $t->total_amount - (float) ($t->paid_amount ?? 0);
+            $remaining = (float) $t->amount;
 
             if ($remaining <= 0) {
                 continue;
@@ -217,7 +209,7 @@ class AccountingReportController extends Controller
 
     public function export(Request $request): BinaryFileResponse
     {
-        $filters = $request->only(['type', 'category_id', 'community_id', 'from', 'to', 'search']);
+        $filters = $request->only(['direction', 'category_id', 'from', 'to', 'search']);
 
         return Excel::download(
             new TransactionsExport($filters),
@@ -232,21 +224,16 @@ class AccountingReportController extends Controller
     public function financialSummary(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'community_id' => ['nullable', 'integer'],
-            'contact_id' => ['nullable', 'integer'],
-            'contact_type' => ['nullable', 'string'],
             'from' => ['nullable', 'date'],
             'to' => ['nullable', 'date'],
         ]);
 
         $query = Transaction::query()
-            ->when($validated['community_id'] ?? null, fn ($q) => $q->where('community_id', (int) $validated['community_id']))
-            ->when($validated['contact_id'] ?? null, fn ($q) => $q->where('contact_id', (int) $validated['contact_id'])->where('contact_type', $validated['contact_type'] ?? 'resident'))
-            ->when($validated['from'] ?? null, fn ($q) => $q->whereDate('transaction_date', '>=', $validated['from']))
-            ->when($validated['to'] ?? null, fn ($q) => $q->whereDate('transaction_date', '<=', $validated['to']));
+            ->when($validated['from'] ?? null, fn ($q) => $q->whereDate('created_at', '>=', $validated['from']))
+            ->when($validated['to'] ?? null, fn ($q) => $q->whereDate('created_at', '<=', $validated['to']));
 
-        $income = (clone $query)->where('type', 'income')->sum('total_amount');
-        $expense = (clone $query)->where('type', 'expense')->sum('total_amount');
+        $income = (clone $query)->where('direction', 'money_in')->sum('amount');
+        $expense = (clone $query)->where('direction', 'money_out')->sum('amount');
 
         return response()->json([
             'data' => [
@@ -254,7 +241,6 @@ class AccountingReportController extends Controller
                 'total_expense' => (float) $expense,
                 'net' => (float) ($income - $expense),
                 'transaction_count' => (clone $query)->count(),
-                'filters' => $validated,
             ],
         ]);
     }
