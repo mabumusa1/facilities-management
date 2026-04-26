@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DocumentTemplate;
 use App\Models\DocumentVersion;
 use App\Models\Tenant;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,12 @@ class DocumentTemplateController extends Controller
 
         return Inertia::render('admin/documents/Index', [
             'templates' => $templates,
+            'fieldTypes' => [
+                ['value' => 'string', 'label' => 'Text'],
+                ['value' => 'date', 'label' => 'Date'],
+                ['value' => 'currency', 'label' => 'Currency'],
+                ['value' => 'number', 'label' => 'Number'],
+            ],
             'templateTypes' => [
                 ['value' => 'lease', 'label' => 'Lease'],
                 ['value' => 'booking', 'label' => 'Booking'],
@@ -228,5 +235,86 @@ class DocumentTemplateController extends Controller
                 ['value' => 'number', 'label' => 'Number'],
             ],
         ]);
+    }
+
+    public function preview(Request $request, DocumentTemplate $documentTemplate): JsonResponse
+    {
+        $this->authorize('view', $documentTemplate);
+
+        $version = $documentTemplate->currentVersion;
+
+        if (! $version) {
+            return response()->json(['error' => 'No published version'], 422);
+        }
+
+        $lang = $request->input('lang', 'en');
+        $body = json_decode($version->body, true);
+        $templateBody = $body[$lang] ?? $body['en'] ?? '';
+
+        $mergeFields = $version->merge_fields ?? [];
+        $context = $request->input('context', []);
+
+        $resolved = [];
+        $unresolved = [];
+        $sampleValues = [
+            'date' => '2026-06-15',
+            'currency' => '1,500.00 SAR',
+            'number' => '1,500',
+            'string' => fn (string $field) => "{{$field}}",
+        ];
+
+        foreach ($mergeFields as $field) {
+            $key = $field['key'] ?? '';
+
+            if (isset($context[$key]) && $context[$key] !== null && $context[$key] !== '') {
+                $resolved[$key] = $context[$key];
+            } elseif ($key !== '') {
+                $resolved[$key] = $this->generateSampleValue($field, $sampleValues);
+            } else {
+                $unresolved[] = $field;
+            }
+        }
+
+        $rendered = $this->renderTemplate($templateBody, $resolved);
+
+        return response()->json([
+            'rendered' => $rendered,
+            'unresolved' => $unresolved,
+            'resolved_count' => count($resolved),
+            'unresolved_count' => count($unresolved),
+        ]);
+    }
+
+    /**
+     * @param  array<string, string>  $sampleValues
+     */
+    private function generateSampleValue(array $field, array $sampleValues): string
+    {
+        $type = $field['type'] ?? 'string';
+        $key = $field['key'] ?? '';
+
+        if (isset($sampleValues[$type])) {
+            $value = $sampleValues[$type];
+
+            return is_callable($value) ? $value($key) : (string) $value;
+        }
+
+        return "{{$key}}";
+    }
+
+    /**
+     * @param  array<string, string>  $values
+     */
+    private function renderTemplate(string $body, array $values): string
+    {
+        $search = [];
+        $replace = [];
+
+        foreach ($values as $key => $value) {
+            $search[] = '{{'.$key.'}}';
+            $replace[] = (string) $value;
+        }
+
+        return str_replace($search, $replace, $body);
     }
 }
