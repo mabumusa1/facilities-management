@@ -332,6 +332,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('buildings', [BuildingController::class, 'index'])->name('buildings.index');
         Route::post('buildings', [BuildingController::class, 'store'])->name('buildings.store');
         Route::put('buildings/{building}', [BuildingController::class, 'update'])->name('buildings.update');
+        Route::post('buildings/{building}/documents', [BuildingController::class, 'uploadDocument'])->name('buildings.upload-document');
         Route::get('buildings/{building}', [BuildingController::class, 'show'])->name('buildings.show');
         Route::get('communities/edaat-product-codes', [CommunityController::class, 'edaatProductCodes'])->name('communities.edaat-product-codes');
         Route::get('communities/edaat/product-codes', [CommunityController::class, 'edaatProductCodes'])->name('communities.edaat.product-codes');
@@ -385,6 +386,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('units/bulk-update', [UnitController::class, 'bulkUpdate'])->name('units.bulk-update');
         Route::get('units/create', [UnitController::class, 'rfCreate'])->name('units.create');
         Route::get('units/{unit}', [UnitController::class, 'rfShow'])->name('units.show');
+        Route::post('units/{unit}/status', [UnitController::class, 'updateStatus'])->name('units.update-status');
+        Route::get('units/{unit}/status-history', [UnitController::class, 'statusHistory'])->name('units.status-history');
         Route::get('requests', [ServiceRequestController::class, 'index'])->name('requests.index');
         Route::post('requests', [ServiceRequestController::class, 'store'])->name('requests.store');
         Route::put('requests/{serviceRequest}', [ServiceRequestController::class, 'update'])->name('requests.update');

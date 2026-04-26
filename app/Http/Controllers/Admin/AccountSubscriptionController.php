@@ -174,7 +174,6 @@ class AccountSubscriptionController extends Controller
 
         abort_unless((int) Tenant::current()?->id === (int) $tenant->id, 403);
     }
-}
 
     public function billingHistory(): Response
     {
@@ -199,3 +198,4 @@ class AccountSubscriptionController extends Controller
             'subscriptions' => $subscriptions,
         ]);
     }
+}

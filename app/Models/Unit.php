@@ -59,6 +59,7 @@ class Unit extends Model
         'category_id',
         'type_id',
         'status_id',
+        'status',
         'city_id',
         'district_id',
         'owner_id',
@@ -179,6 +180,12 @@ class Unit extends Model
     public function marketplaceOffers(): HasMany
     {
         return $this->hasMany(MarketplaceOffer::class);
+    }
+
+    /** @return HasMany<UnitStatusHistory, $this> */
+    public function statusHistory(): HasMany
+    {
+        return $this->hasMany(UnitStatusHistory::class);
     }
 
     public function owner(): BelongsTo

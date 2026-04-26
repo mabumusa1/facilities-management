@@ -174,6 +174,19 @@ class BuildingController extends Controller
             'year_build' => ['nullable', 'digits:4'],
         ]);
 
+        if (array_key_exists('no_floors', $validated) && $validated['no_floors'] !== null) {
+            $maxUnitFloor = $building->units()->max('floor_no');
+            if ($maxUnitFloor !== null && $validated['no_floors'] < $maxUnitFloor) {
+                throw ValidationException::withMessages([
+                    'no_floors' => sprintf(
+                        'Cannot set floors to %d — units exist on floor %d.',
+                        $validated['no_floors'],
+                        $maxUnitFloor
+                    ),
+                ]);
+            }
+        }
+
         $building->update($validated);
 
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
@@ -199,6 +212,33 @@ class BuildingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    public function uploadDocument(Request $request, Building $building): JsonResponse
+    {
+        $this->authorize('update', $building);
+
+        $validated = $request->validate([
+            'file' => ['required', 'file', 'max:10240'],
+            'name' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $path = $request->file('file')->store('building-documents');
+
+        $media = $building->documents()->create([
+            'name' => $validated['name'] ?? $request->file('file')->getClientOriginalName(),
+            'url' => $path,
+            'collection' => 'documents',
+        ]);
+
+        return response()->json([
+            'data' => [
+                'id' => $media->id,
+                'name' => $media->name,
+                'url' => $media->url,
+            ],
+            'message' => __('Document uploaded.'),
+        ]);
+    }
+
     public function destroy(Request $request, Building $building): JsonResponse|RedirectResponse
     {
         $this->authorize('delete', $building);
