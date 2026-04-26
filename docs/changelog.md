@@ -10,6 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Register a visitor (QR invitations) — April 25, 2026
+
+Residents can now create visitor invitations and share a QR code directly from their account.
+
+- **Register a visitor.** Go to **My Visitors** and tap **Register Visitor**. Enter the visitor's name, purpose (Visit, Delivery, Service, or Other), expected arrival date and time, and an optional phone number. Tap **Generate QR Code** and the invitation is created instantly.
+- **QR code to share.** The **Invitation Created** screen shows the QR code and a **Share QR** button. Tap it to send the code via WhatsApp, SMS, or any app on your device. Your visitor shows the code to the gate officer — no phone call needed.
+- **My Visitors list.** All your invitations appear under **My Visitors**, split into Active and Past sections. Each card shows the visitor name, purpose, expected arrival, and a live status badge.
+- **Cancel at any time.** Tap **Cancel Invitation** on any active invitation to immediately invalidate the QR code before the visitor arrives.
+- **Automatic expiry.** If a visitor does not arrive by the valid-until time, the invitation is marked Expired overnight. Create a new invitation if they still need to visit.
+- **Bilingual.** All screens work in English and Arabic, including Arabic name input on the registration form.
+
+Learn more: [Register a visitor](./guides/visitor-access/register-a-visitor.md).
+
 ### Lease quotes — create and send — April 25, 2026
 
 Property Managers and Admins can now create lease quotes and send them to prospective residents directly from the platform.

@@ -40,6 +40,7 @@ use App\Http\Controllers\Shared\LegacyCompatibilityController;
 use App\Http\Controllers\Shared\LookupController;
 use App\Http\Controllers\Shared\NotificationController;
 use App\Http\Controllers\VisitorAccess\VisitorAccessController;
+use App\Http\Controllers\VisitorAccess\VisitorInvitationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -417,6 +418,15 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('visitor-details/{marketplaceVisit}', [VisitorAccessController::class, 'details'])->name('details');
         Route::post('{marketplaceVisit}/approve', [VisitorAccessController::class, 'approve'])->name('approve');
         Route::post('{marketplaceVisit}/reject', [VisitorAccessController::class, 'reject'])->name('reject');
+
+        // Resident visitor invitation CRUD
+        Route::prefix('invitations')->name('invitations.')->group(function () {
+            Route::get('/', [VisitorInvitationController::class, 'index'])->name('index');
+            Route::get('create', [VisitorInvitationController::class, 'create'])->name('create');
+            Route::post('/', [VisitorInvitationController::class, 'store'])->name('store');
+            Route::get('{visitorInvitation}', [VisitorInvitationController::class, 'show'])->name('show');
+            Route::post('{visitorInvitation}/cancel', [VisitorInvitationController::class, 'cancel'])->name('cancel');
+        });
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {

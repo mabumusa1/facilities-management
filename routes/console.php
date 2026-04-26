@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Commands\ExpireLeaseQuotes;
+use App\Console\Commands\ExpireVisitorInvitations;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -11,3 +12,6 @@ Artisan::command('inspire', function () {
 
 // Expire lease quotes whose valid_until has passed — runs once per day.
 Schedule::command(ExpireLeaseQuotes::class)->daily();
+
+// Expire visitor invitations whose valid_until has passed — runs once per day.
+Schedule::command(ExpireVisitorInvitations::class)->daily();
