@@ -26,12 +26,15 @@ class DocumentRecord extends Model
         'generated_at',
         'file_path',
         'status',
+        'signing_token',
+        'sent_at',
     ];
 
     protected function casts(): array
     {
         return [
             'generated_at' => 'datetime',
+            'sent_at' => 'datetime',
         ];
     }
 

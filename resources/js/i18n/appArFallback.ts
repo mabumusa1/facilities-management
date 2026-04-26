@@ -340,6 +340,7 @@ const appArFallback: Record<string, string> = {
     'requestForm.Car model': 'طراز السيارة',
     'requestForm.subTypeRequired': 'حقل النوع الفرعي مطلوب',
     'requestNoActiveService': 'هذه الخدمة غير مفعلة حاليًا. يجب على المدير تفعيلها أولًا قبل إسنادها للموظفين.',
+    'app.facilities.deactivationWarning': 'هذا المرفق نشط — {count} حجز قادم',
     'selectAll': 'تحديد الكل',
     'serviceSettings.dailyLimitIsReq': 'الحد اليومي مطلوب',
     'serviceSettings.dailyLimitLeast': 'يجب ألا يقل الحد اليومي عن 1',

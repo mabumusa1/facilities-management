@@ -84,6 +84,9 @@ class LeaseQuote extends Model
         'valid_until',
         'version',
         'parent_quote_id',
+        'revision_note',
+        'email_subject_prefix',
+        'rejection_reason',
         'marketplace_unit_id',
         'created_by_id',
     ];
