@@ -486,7 +486,7 @@ function deleteSubcategory(categoryId: number, subcategoryId: number) {
 
                 <!-- SLA Configuration -->
                 <div class="grid gap-4 rounded-lg border p-4">
-                    <p class="text-sm font-medium">SLA Configuration</p>
+                    <p class="text-sm font-medium">{{ t('app.serviceCategories.slaConfigHeading') }}</p>
 
                     <div class="grid gap-2">
                         <Label for="cat-response-sla">{{ t('app.serviceCategories.labelResponseSla') }} *</Label>
@@ -656,7 +656,7 @@ function deleteSubcategory(categoryId: number, subcategoryId: number) {
 
                 <!-- SLA Configuration (optional — null = inherit) -->
                 <div class="grid gap-4 rounded-lg border p-4">
-                    <p class="text-sm font-medium">SLA Configuration</p>
+                    <p class="text-sm font-medium">{{ t('app.serviceCategories.slaConfigHeading') }}</p>
                     <p class="text-muted-foreground text-xs">{{ t('app.serviceCategories.inheritedSla') }}</p>
 
                     <div class="grid gap-2">

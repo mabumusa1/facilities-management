@@ -7,6 +7,7 @@ use App\Http\Requests\Services\StoreCategoryRequest;
 use App\Http\Requests\Services\UpdateCategoryRequest;
 use App\Models\Community;
 use App\Models\ServiceCategory;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -37,8 +38,10 @@ class CategoryController extends Controller
             ->get();
 
         $assignees = User::query()
-            ->select('id', 'name')
-            ->orderBy('name')
+            ->select('users.id', 'users.name')
+            ->join('account_memberships', 'account_memberships.user_id', '=', 'users.id')
+            ->where('account_memberships.account_tenant_id', Tenant::current()->id)
+            ->orderBy('users.name')
             ->get();
 
         return Inertia::render('services/categories/Index', [
@@ -60,7 +63,7 @@ class CategoryController extends Controller
         $category = ServiceCategory::create($validated);
         $category->communities()->sync($communityIds);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('service_categories.created')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Category created.')]);
 
         return to_route('services.categories.index');
     }
@@ -77,7 +80,7 @@ class CategoryController extends Controller
         $serviceCategory->update($validated);
         $serviceCategory->communities()->sync($communityIds);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('service_categories.updated')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Category updated.')]);
 
         return to_route('services.categories.index');
     }
@@ -93,7 +96,7 @@ class CategoryController extends Controller
             'status' => $serviceCategory->status === 'active' ? 'inactive' : 'active',
         ]);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('service_categories.status_updated')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Category status updated.')]);
 
         return to_route('services.categories.index');
     }
@@ -105,7 +108,13 @@ class CategoryController extends Controller
     {
         $this->authorize('delete', $serviceCategory);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('service_categories.deleted')]);
+        if ($serviceCategory->serviceRequests()->exists()) {
+            return back()->withErrors([
+                'category' => __('Cannot delete: this category has active service requests.'),
+            ]);
+        }
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Category deleted.')]);
 
         $serviceCategory->delete();
 

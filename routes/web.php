@@ -112,8 +112,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('categories/{serviceCategory}/toggle-status', [ServiceCategoryController::class, 'toggleStatus'])->name('categories.toggle-status');
         Route::delete('categories/{serviceCategory}', [ServiceCategoryController::class, 'destroy'])->name('categories.destroy');
         Route::post('categories/{serviceCategory}/subcategories', [ServiceSubcategoryController::class, 'store'])->name('categories.subcategories.store');
-        Route::put('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'update'])->name('categories.subcategories.update');
-        Route::delete('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'destroy'])->name('categories.subcategories.destroy');
+        Route::put('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'update'])->name('categories.subcategories.update')->scopeBindings();
+        Route::delete('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'destroy'])->name('categories.subcategories.destroy')->scopeBindings();
     });
 
     // Facilities

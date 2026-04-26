@@ -1201,6 +1201,7 @@ const appEn: MessageTree = {
             placeholderAssignee: 'Search user...',
             placeholderResponseHours: '4',
             placeholderResolutionHours: '24',
+            slaConfigHeading: 'SLA Configuration',
         },
         contacts: {
             shared: {
@@ -2831,6 +2832,7 @@ const appAr: MessageTree = {
             placeholderAssignee: 'ابحث عن مستخدم...',
             placeholderResponseHours: '4',
             placeholderResolutionHours: '24',
+            slaConfigHeading: 'إعداد مستوى الخدمة',
         },
         contacts: {
             shared: {

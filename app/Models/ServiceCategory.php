@@ -52,4 +52,10 @@ class ServiceCategory extends Model
     {
         return $this->belongsToMany(Community::class, 'service_category_communities', 'service_category_id', 'community_id');
     }
+
+    /** @return HasMany<Request, $this> */
+    public function serviceRequests(): HasMany
+    {
+        return $this->hasMany(Request::class, 'service_category_id');
+    }
 }

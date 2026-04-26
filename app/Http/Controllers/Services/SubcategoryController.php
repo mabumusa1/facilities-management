@@ -19,7 +19,7 @@ class SubcategoryController extends Controller
     {
         $serviceCategory->subcategories()->create($request->validated());
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('service_categories.subcategory_created')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Subcategory created.')]);
 
         return to_route('services.categories.index');
     }
@@ -31,7 +31,7 @@ class SubcategoryController extends Controller
     {
         $serviceSubcategory->update($request->validated());
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('service_categories.subcategory_updated')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Subcategory updated.')]);
 
         return to_route('services.categories.index');
     }
@@ -45,7 +45,7 @@ class SubcategoryController extends Controller
 
         $serviceSubcategory->delete();
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('service_categories.subcategory_deleted')]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Subcategory deleted.')]);
 
         return to_route('services.categories.index');
     }
