@@ -199,27 +199,3 @@ class AccountSubscriptionController extends Controller
         ]);
     }
 }
-
-    public function billingHistory(): Response
-    {
-        $tenant = Tenant::current();
-        abort_unless($tenant !== null, 404);
-
-        $subscriptions = $tenant->planSubscriptions()
-            ->where('slug', 'main')
-            ->with('plan')
-            ->latest('id')
-            ->get()
-            ->map(fn ($sub): array => [
-                'id' => $sub->id,
-                'plan_name' => $sub->plan?->name,
-                'starts_at' => $sub->starts_at?->toJSON(),
-                'ends_at' => $sub->ends_at?->toJSON(),
-                'canceled_at' => $sub->canceled_at?->toJSON(),
-                'active' => $sub->active(),
-            ]);
-
-        return Inertia::render('admin/subscriptions/Billing', [
-            'subscriptions' => $subscriptions,
-        ]);
-    }

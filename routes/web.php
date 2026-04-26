@@ -9,14 +9,19 @@ use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
+use App\Http\Controllers\AppSettings\AppSettingController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
+use App\Http\Controllers\AppSettings\ContractTypeController;
 use App\Http\Controllers\AppSettings\FacilityCategoryController as AppFacilityCategoryController;
 use App\Http\Controllers\AppSettings\FormTemplateController;
 use App\Http\Controllers\AppSettings\GeneralSettingController;
 use App\Http\Controllers\AppSettings\InvoiceSettingController;
+use App\Http\Controllers\AppSettings\NotificationPreferenceController;
+use App\Http\Controllers\AppSettings\RegionalSettingController;
 use App\Http\Controllers\AppSettings\RequestCategoryController;
 use App\Http\Controllers\AppSettings\RequestSubcategoryController;
 use App\Http\Controllers\AppSettings\ServiceSettingController;
+use App\Http\Controllers\AppSettings\SettingsAuditLogController;
 use App\Http\Controllers\AppSettings\SettingsFacilityController;
 use App\Http\Controllers\AppSettings\SettingsShellController;
 use App\Http\Controllers\Communication\AnnouncementController;
@@ -263,6 +268,19 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('general', [GeneralSettingController::class, 'store'])->name('general.store');
         Route::put('general/{setting}', [GeneralSettingController::class, 'update'])->name('general.update');
         Route::delete('general/{setting}', [GeneralSettingController::class, 'destroy'])->name('general.destroy');
+
+        Route::resource('contract-types', ContractTypeController::class)->except(['show', 'create', 'edit']);
+
+        Route::get('appearance', [AppSettingController::class, 'edit'])->name('appearance.edit');
+        Route::put('appearance', [AppSettingController::class, 'update'])->name('appearance.update');
+
+        Route::get('regional', [RegionalSettingController::class, 'edit'])->name('regional.edit');
+        Route::put('regional', [RegionalSettingController::class, 'update'])->name('regional.update');
+
+        Route::get('notifications', [NotificationPreferenceController::class, 'index'])->name('notifications.index');
+        Route::put('notifications/{preference}', [NotificationPreferenceController::class, 'update'])->name('notifications.update');
+
+        Route::get('audit-log', [SettingsAuditLogController::class, 'index'])->name('audit-log.index');
     });
 
     Route::prefix('settings')->name('settings.')->group(function () {
@@ -454,6 +472,18 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('excel-sheets/land', [ExcelSheetController::class, 'storeLand'])->name('excel-sheets.land');
         Route::post('excel-sheets/leads', [ExcelSheetController::class, 'storeLeads'])->name('excel-sheets.leads');
         Route::get('excel-sheets/leads/errors', [ExcelSheetController::class, 'leadsErrors'])->name('excel-sheets.leads.errors');
+
+        Route::get('contract-types', [ContractTypeController::class, 'index'])->name('contract-types.index');
+        Route::post('contract-types', [ContractTypeController::class, 'store'])->name('contract-types.store');
+        Route::put('contract-types/{contractType}', [ContractTypeController::class, 'update'])->name('contract-types.update');
+        Route::delete('contract-types/{contractType}', [ContractTypeController::class, 'destroy'])->name('contract-types.destroy');
+
+        Route::put('regional-settings', [RegionalSettingController::class, 'update'])->name('regional-settings.update');
+
+        Route::get('notification-preferences', [NotificationPreferenceController::class, 'index'])->name('notification-preferences.index');
+        Route::put('notification-preferences/{preference}', [NotificationPreferenceController::class, 'update'])->name('notification-preferences.update');
+
+        Route::get('settings-audit-log', [SettingsAuditLogController::class, 'index'])->name('settings-audit-log.index');
     });
 
     Route::prefix('marketplace')->name('marketplace.')->group(function () {
