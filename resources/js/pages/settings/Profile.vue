@@ -9,6 +9,7 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { edit } from '@/routes/profile';
 import { send } from '@/routes/verification';
 
@@ -19,7 +20,7 @@ type Props = {
 
 defineProps<Props>();
 
-const { t } = useI18n();
+const { t, isArabic } = useI18n();
 
 watchEffect(() => {
     setLayoutProps({
@@ -80,6 +81,45 @@ const user = computed(() => page.props.auth.user);
                     :placeholder="t('app.settings.profile.emailPlaceholder')"
                 />
                 <InputError class="mt-2" :message="errors.email" />
+            </div>
+
+            <div class="grid gap-2">
+                <Label for="phone_number">Phone Number</Label>
+                <Input
+                    id="phone_number"
+                    class="mt-1 block w-full"
+                    name="phone_number"
+                    :default-value="user.phone_number ?? ''"
+                    autocomplete="tel"
+                    placeholder="+966 50 000 0000"
+                />
+                <InputError class="mt-2" :message="errors.phone_number" />
+            </div>
+
+            <div class="grid gap-2">
+                <Label for="locale">Language</Label>
+                <Select name="locale" :default-value="user.locale ?? 'en'">
+                    <SelectTrigger>
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="en">English</SelectItem>
+                        <SelectItem value="ar">العربية</SelectItem>
+                    </SelectContent>
+                </Select>
+                <InputError class="mt-2" :message="errors.locale" />
+            </div>
+
+            <div class="grid gap-2">
+                <Label for="avatar_path">Avatar URL</Label>
+                <Input
+                    id="avatar_path"
+                    class="mt-1 block w-full"
+                    name="avatar_path"
+                    :default-value="user.avatar_path ?? ''"
+                    placeholder="/avatars/user.jpg"
+                />
+                <InputError class="mt-2" :message="errors.avatar_path" />
             </div>
 
             <div v-if="mustVerifyEmail && !user.email_verified_at">

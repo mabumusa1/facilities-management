@@ -57,6 +57,34 @@ class RequestPolicy
     }
 
     /**
+     * Manager can triage (view triage queue, assign technician, add internal notes).
+     */
+    public function triage(User $user): bool
+    {
+        return $user->can('managerRequests.UPDATE');
+    }
+
+    /**
+     * Manager can assign a request to a technician (user).
+     */
+    public function assign(User $user, Request $request): bool
+    {
+        return $user->can('managerRequests.UPDATE')
+            && $this->belongsToCurrentTenant($request)
+            && ManagerScopeHelper::userCanAccessModel($user, $request);
+    }
+
+    /**
+     * Manager can add an internal note to a request.
+     */
+    public function addInternalNote(User $user, Request $request): bool
+    {
+        return $user->can('managerRequests.UPDATE')
+            && $this->belongsToCurrentTenant($request)
+            && ManagerScopeHelper::userCanAccessModel($user, $request);
+    }
+
+    /**
      * Any authenticated tenant member (resident or manager) can submit their own request.
      */
     public function createOwn(User $user): bool

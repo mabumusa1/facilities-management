@@ -555,6 +555,9 @@ class LeaseController extends Controller
             'escalations',
             'createdBy',
             'dealOwner',
+            'approvedBy',
+            'rejectedBy',
+            'kycDocuments.documentType',
             'subleases.status',
             'subleases.tenant',
             'parentLease.status',
@@ -570,6 +573,7 @@ class LeaseController extends Controller
 
         return Inertia::render('leasing/leases/Show', [
             'lease' => $lease,
+            'canApprove' => $request->user()->can('approve', $lease),
         ]);
     }
 

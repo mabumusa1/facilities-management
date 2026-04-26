@@ -65,6 +65,7 @@ class Request extends Model
         'community_id',
         'building_id',
         'professional_id',
+        'assigned_to_user_id',
         'requester_type',
         'requester_id',
         'title',
@@ -166,5 +167,11 @@ class Request extends Model
     public function serviceSubcategory(): BelongsTo
     {
         return $this->belongsTo(ServiceSubcategory::class);
+    }
+
+    /** @return BelongsTo<User, $this> */
+    public function assignedTo(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'assigned_to_user_id');
     }
 }

@@ -415,6 +415,14 @@ export type Lease = {
     is_move_out: boolean;
     is_old: boolean;
     pdf_url: string | null;
+    quote_id: number | null;
+    kyc_complete: boolean | null;
+    kyc_submitted_at: string | null;
+    approved_by_id: number | null;
+    approved_at: string | null;
+    rejected_by_id: number | null;
+    rejected_at: string | null;
+    rejection_reason: string | null;
     created_at: string;
     updated_at: string;
     // Relationships
@@ -427,6 +435,8 @@ export type Lease = {
     escalations?: LeaseEscalation[];
     created_by?: Admin;
     deal_owner?: Admin;
+    approved_by?: User;
+    rejected_by?: User;
     subleases?: Lease[];
     parent_lease?: Lease | null;
     // Computed
