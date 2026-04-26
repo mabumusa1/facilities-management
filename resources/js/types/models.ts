@@ -588,10 +588,11 @@ export type Facility = {
     capacity: number | null;
     is_active: boolean;
     // Extended schema fields
-    currency: string;
-    type: string;
-    pricing_mode: 'free' | 'per_session' | 'per_hour';
     booking_fee: string | null;
+    currency: string | null;
+    type: string | null;
+    pricing_mode: 'free' | 'per_session' | 'per_hour' | null;
+    requires_booking: boolean;
     booking_horizon_days: number;
     cancellation_hours_before: number;
     min_booking_duration_minutes: number;
@@ -604,6 +605,13 @@ export type Facility = {
     category?: FacilityCategory;
     community?: Community;
     availability_rules?: FacilityAvailabilityRule[];
+};
+
+export type FacilitySlot = {
+    start: string;
+    end: string;
+    status: 'available' | 'full';
+    remaining_capacity: number;
 };
 
 export type FacilityBooking = {

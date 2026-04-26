@@ -58,6 +58,8 @@ class Request extends Model
     protected $fillable = [
         'category_id',
         'subcategory_id',
+        'service_category_id',
+        'service_subcategory_id',
         'status_id',
         'unit_id',
         'community_id',
@@ -68,6 +70,8 @@ class Request extends Model
         'title',
         'description',
         'request_code',
+        'urgency',
+        'room_location',
         'preferred_date',
         'preferred_time',
         'priority',
@@ -77,6 +81,8 @@ class Request extends Model
         'completed_at',
         'scheduled_date',
         'completed_date',
+        'sla_response_due_at',
+        'sla_resolution_due_at',
         'account_tenant_id',
     ];
 
@@ -89,6 +95,8 @@ class Request extends Model
             'resolved_at' => 'datetime',
             'assigned_at' => 'datetime',
             'completed_at' => 'datetime',
+            'sla_response_due_at' => 'datetime',
+            'sla_resolution_due_at' => 'datetime',
         ];
     }
 
@@ -146,5 +154,17 @@ class Request extends Model
     public function professional(): BelongsTo
     {
         return $this->belongsTo(Professional::class);
+    }
+
+    /** @return BelongsTo<ServiceCategory, $this> */
+    public function serviceCategory(): BelongsTo
+    {
+        return $this->belongsTo(ServiceCategory::class);
+    }
+
+    /** @return BelongsTo<ServiceSubcategory, $this> */
+    public function serviceSubcategory(): BelongsTo
+    {
+        return $this->belongsTo(ServiceSubcategory::class);
     }
 }

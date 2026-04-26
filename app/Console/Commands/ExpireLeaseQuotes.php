@@ -34,6 +34,9 @@ class ExpireLeaseQuotes extends Command
     /** @var int Reserved rf_statuses.id for lease_quote expired (terminal) */
     public const STATUS_EXPIRED = 75;
 
+    /** @var int Reserved rf_statuses.id for a lease application pending KYC/approval */
+    public const STATUS_PENDING_APPLICATION = 76;
+
     protected $signature = 'quotes:expire';
 
     protected $description = 'Expire lease quotes whose valid_until has passed';

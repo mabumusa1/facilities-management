@@ -10,6 +10,44 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Submit a service request — April 25, 2026
+
+Residents can now report a maintenance or service issue directly from the platform.
+
+- **New request form.** Go to **Services → Submit Request** and choose a category and subcategory from the list your property manager has configured. Pick your urgency level (Normal or Urgent), confirm your unit, select the affected room, and write a description of the issue. You can also attach up to five photos.
+- **Reference number.** After you submit, the platform generates a unique reference number in the format `SR-2026-NNNNN`. A **Copy** button lets you save it to your clipboard so you can quote it when following up with your property manager.
+- **SLA due dates.** The confirmation page shows when a technician must respond and when the issue must be resolved, based on the category's time targets.
+- **My Requests list.** Go to **Services → My Requests** to see all your submitted requests with their status and SLA due dates. The list updates automatically as the property team works on your request.
+
+Learn more: [Submit a service request](./guides/service-requests/submit-a-request.md).
+
+### Convert a quote to a lease and collect KYC documents — April 25, 2026
+
+Property Managers and Admins can now turn an accepted lease quote into a lease application in one click, then upload the required identity and income documents before submitting for approval.
+
+- **Convert to Lease Application.** Open any accepted quote from **Leasing → Quotes** and click **Convert to Lease Application**. The form pre-fills every agreed term — unit, resident, contract type, duration, start date, rent amount, payment frequency, security deposit, and any additional charges — so you never retype what was already agreed.
+- **Review and adjust.** All fields are editable before you save. A banner highlights any value that differs from the original quote so the audit trail is clear.
+- **Auto-generate the contract number.** Toggle **Auto-generate contract number** to let the platform assign it, or type your own.
+- **One conversion per quote.** Each accepted quote can only be converted once. If you click Convert again on the same quote, you are redirected to the existing lease — no duplicates.
+- **KYC checklist.** After saving, the KYC page shows a progress bar and two sections — Required and Optional. Required documents (National ID / Iqama, Passport Copy, Employment Letter, Bank Statement, Tenancy History) must all be uploaded before you can submit. Optional documents (Previous Lease Agreement, Family Book) can be added but do not block submission. Click **Upload** on any row to attach a file, and **Remove** to replace it.
+- **Submit for Approval.** Once every required document is uploaded, click **Submit for Approval**. The lease advances to the approval workflow. If documents are still missing, the button is greyed out and a banner lists what is needed.
+
+Learn more: [Convert a quote to a lease and upload KYC documents](./guides/leasing/convert-and-kyc.md).
+
+### Book a community facility — April 25, 2026
+
+Residents can now browse, select, and book facility time slots directly from the app.
+
+- **Browse facilities.** Go to **Facilities** in the bottom navigation. You will see a card grid of all community facilities available for booking, showing the name, pricing (Free, SAR per session, or SAR per hour), and capacity.
+- **Pick a date.** Tap **Book** on a facility card, then tap a day from the date strip (next 7–14 days). Days when the facility is closed are not selectable.
+- **Choose a time slot.** The slot grid appears, grouped into **Morning**, **Afternoon**, and **Evening**. Available slots are tappable; booked and closed slots are visually disabled.
+- **Confirm.** Tap an available slot to open the Confirm Booking sheet showing the date, time, duration, and price. Tap **Confirm** to book. You receive a confirmation to your mobile number and email.
+- **Race-condition protection.** If two residents try to book the same last slot at the same moment, only one succeeds. The other sees "This slot is no longer available — please choose a different time" and can tap **Pick Another Slot** to try again.
+- **Contract-required facilities.** Some facilities (for example, a banquet hall) require a signed contract. Tapping **Book** creates a pending booking and you receive instructions for signing the contract.
+- **Access control.** Only residents with an active community membership can see and use this screen. Non-members receive a 403 error.
+
+Learn more: [Book a facility](./guides/facilities/book-a-facility.md).
+
 ### Configure service request categories and SLA targets — April 25, 2026
 
 Admins can now build the category tree that residents see when they submit a service request, and set time targets for how quickly each category must be acknowledged and resolved.

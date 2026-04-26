@@ -88,7 +88,7 @@ The prospect opens the email link and lands on a read-only quote preview page �
 | **Rejected** (مرفوض) | Offer withdrawn by the manager, or declined by the prospect. |
 | **Expired** (منتهي) | The valid-until date passed without a response. |
 
-Accepted, Rejected, and Expired statuses are terminal — no further actions are available from those states.
+A quote can only move forward through these statuses. You cannot revert a sent quote to draft. To offer revised terms, create a new quote. When a prospect accepts, you can convert the quote into a lease — see [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md). Accepted, Rejected, and Expired statuses are terminal — no further actions are available from those states.
 
 ### Automatic expiry
 
@@ -109,4 +109,5 @@ The **Revision History** panel on the right side of the quote detail page lists 
 - **A quote I sent shows as Expired but the prospect is still considering it.** The valid-until date passed. Revise the quote with a later valid-until date to reopen negotiations.
 
 ## Related
+- [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md)
 - [Create and search resident contacts](../contacts/create-and-search-residents.md)

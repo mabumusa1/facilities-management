@@ -105,6 +105,10 @@ class StatusSeeder extends Seeder
             ['id' => 73, 'name' => 'accepted', 'name_en' => 'accepted', 'name_ar' => 'مقبول', 'priority' => 4, 'type' => 'lease_quote'],
             ['id' => 74, 'name' => 'rejected', 'name_en' => 'rejected', 'name_ar' => 'مرفوض', 'priority' => 5, 'type' => 'lease_quote'],
             ['id' => 75, 'name' => 'expired', 'name_en' => 'expired', 'name_ar' => 'منتهي الصلاحية', 'priority' => 6, 'type' => 'lease_quote'],
+
+            // Lease application pending status (ID 76) — lease created from accepted quote awaiting KYC/approval.
+            // ID mirrors KycController::STATUS_PENDING_APPLICATION constant.
+            ['id' => 76, 'name' => 'Pending Application', 'name_en' => 'pending_application', 'name_ar' => 'طلب معلق', 'priority' => 0, 'type' => 'lease'],
         ];
 
         DB::table('rf_statuses')->upsert(

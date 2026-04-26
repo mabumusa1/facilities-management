@@ -35,6 +35,27 @@ class LeasePolicy
             && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 
+    public function uploadKyc(User $user, Lease $lease): bool
+    {
+        return $user->can('leases.UPDATE')
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
+    }
+
+    public function removeKycDocument(User $user, Lease $lease): bool
+    {
+        return $user->can('leases.UPDATE')
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
+    }
+
+    public function submitForApproval(User $user, Lease $lease): bool
+    {
+        return $user->can('leases.UPDATE')
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
+    }
+
     public function delete(User $user, Lease $lease): bool
     {
         return $user->can('leases.DELETE')
