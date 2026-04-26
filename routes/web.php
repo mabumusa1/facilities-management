@@ -54,6 +54,7 @@ use App\Http\Controllers\Services\SubcategoryController as ServiceSubcategoryCon
 use App\Http\Controllers\Shared\LegacyCompatibilityController;
 use App\Http\Controllers\Shared\LookupController;
 use App\Http\Controllers\Shared\NotificationController;
+use App\Http\Controllers\VisitorAccess\GateController;
 use App\Http\Controllers\VisitorAccess\VisitorAccessController;
 use App\Http\Controllers\VisitorAccess\VisitorInvitationController;
 use Illuminate\Support\Facades\Route;
@@ -429,6 +430,11 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('users/requests/categories', [RequestCategoryController::class, 'index'])->name('users.requests.categories');
         Route::get('users/requests/types', [RequestSubcategoryController::class, 'typesIndex'])->name('users.requests.types');
         Route::get('users/visitor-access', [VisitorAccessController::class, 'rfIndex'])->name('users.visitor-access');
+        Route::get('gate/today', [GateController::class, 'gateView'])->name('gate.view');
+        Route::post('gate/check-in', [GateController::class, 'checkIn'])->name('gate.check-in');
+        Route::post('gate/check-out', [GateController::class, 'checkOut'])->name('gate.check-out');
+        Route::get('gate/log-report', [GateController::class, 'logReport'])->name('gate.log-report');
+        Route::get('gate/overstay', [GateController::class, 'overstayReport'])->name('gate.overstay');
         Route::get('requests/categories', [RequestCategoryController::class, 'index'])->name('requests.categories.index');
         Route::post('requests/categories', [RequestCategoryController::class, 'store'])->name('requests.categories.store');
         Route::put('requests/categories/{requestCategory}', [RequestCategoryController::class, 'update'])->name('requests.categories.update');
@@ -555,6 +561,13 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
             Route::get('{visitorInvitation}', [VisitorInvitationController::class, 'show'])->name('show');
             Route::post('{visitorInvitation}/cancel', [VisitorInvitationController::class, 'cancel'])->name('cancel');
         });
+
+        // Gate Officer endpoints
+        Route::get('gate', [GateController::class, 'gateView'])->name('gate.view');
+        Route::post('gate/check-in', [GateController::class, 'checkIn'])->name('gate.check-in');
+        Route::post('gate/check-out', [GateController::class, 'checkOut'])->name('gate.check-out');
+        Route::get('gate/log-report', [GateController::class, 'logReport'])->name('gate.log-report');
+        Route::get('gate/overstay', [GateController::class, 'overstayReport'])->name('gate.overstay');
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
