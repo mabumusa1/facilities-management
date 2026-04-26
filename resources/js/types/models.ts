@@ -565,6 +565,19 @@ export type FacilityCategory = {
     name_en: string | null;
 };
 
+export type FacilityAvailabilityRule = {
+    id: number;
+    facility_id: number;
+    day_of_week: number;
+    open_time: string;
+    close_time: string;
+    slot_duration_minutes: number;
+    max_concurrent_bookings: number;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+};
+
 export type Facility = {
     id: number;
     name: string;
@@ -574,12 +587,16 @@ export type Facility = {
     community_id: number;
     capacity: number | null;
     is_active: boolean;
+    // Extended schema fields
     booking_fee: string | null;
     currency: string | null;
     type: string | null;
     pricing_mode: 'free' | 'per_session' | 'per_hour' | null;
     requires_booking: boolean;
     booking_horizon_days: number;
+    cancellation_hours_before: number;
+    min_booking_duration_minutes: number;
+    max_booking_duration_minutes: number | null;
     contract_required: boolean;
     notes: string | null;
     created_at: string;
@@ -587,6 +604,7 @@ export type Facility = {
     // Relationships
     category?: FacilityCategory;
     community?: Community;
+    availability_rules?: FacilityAvailabilityRule[];
 };
 
 export type FacilitySlot = {

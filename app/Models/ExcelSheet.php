@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Concerns\BelongsToAccountTenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExcelSheet extends Model
 {
@@ -14,9 +15,12 @@ class ExcelSheet extends Model
 
     protected $fillable = [
         'type',
+        'import_type',
         'file_path',
         'file_name',
         'status',
+        'column_schema',
+        'template_file_path',
         'error_details',
         'rf_community_id',
         'account_tenant_id',
@@ -26,7 +30,13 @@ class ExcelSheet extends Model
     {
         return [
             'error_details' => 'array',
+            'column_schema' => 'array',
         ];
+    }
+
+    public function imports(): HasMany
+    {
+        return $this->hasMany(ExcelSheetImport::class);
     }
 
     public function community(): BelongsTo

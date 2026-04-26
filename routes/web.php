@@ -4,7 +4,9 @@ use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
+use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
+use App\Http\Controllers\Admin\BulkExportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Documents\DocumentCenterController;
 use App\Http\Controllers\Documents\ExcelSheetController;
 use App\Http\Controllers\Documents\FileController;
+use App\Http\Controllers\Documents\SigningController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
@@ -37,6 +40,8 @@ use App\Http\Controllers\Properties\CommunityController;
 use App\Http\Controllers\Properties\UnitController;
 use App\Http\Controllers\Reports\ReportsController;
 use App\Http\Controllers\Requests\ServiceRequestController;
+use App\Http\Controllers\Services\CategoryController as ServiceCategoryController;
+use App\Http\Controllers\Services\SubcategoryController as ServiceSubcategoryController;
 use App\Http\Controllers\Shared\LegacyCompatibilityController;
 use App\Http\Controllers\Shared\LookupController;
 use App\Http\Controllers\Shared\NotificationController;
@@ -92,6 +97,10 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Leasing — Lease Quotes (registered before leases resource to avoid {lease} catch-all conflict)
     Route::resource('leases/quotes', QuoteController::class)->only(['index', 'create', 'store', 'show'])->names('quotes');
     Route::post('leases/quotes/{quote}/send', [QuoteController::class, 'send'])->name('quotes.send');
+    Route::get('leases/quotes/{quote}/revise', [QuoteController::class, 'revise'])->name('quotes.revise');
+    Route::post('leases/quotes/{quote}/revise', [QuoteController::class, 'storeRevision'])->name('quotes.revise.store');
+    Route::post('leases/quotes/{quote}/reject', [QuoteController::class, 'reject'])->name('quotes.reject');
+    Route::patch('leases/quotes/{quote}/expire', [QuoteController::class, 'expire'])->name('quotes.expire');
 
     // Leasing — Leases
     Route::resource('leases', LeaseController::class);
@@ -107,6 +116,19 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::get('/facilities/resident', [ResidentFacilityController::class, 'index'])
         ->name('facilities.resident.index');
 
+    // Service Categories (admin configuration)
+    Route::prefix('services')->name('services.')->group(function () {
+        Route::get('categories', [ServiceCategoryController::class, 'index'])->name('categories.index');
+        Route::post('categories', [ServiceCategoryController::class, 'store'])->name('categories.store');
+        Route::put('categories/{serviceCategory}', [ServiceCategoryController::class, 'update'])->name('categories.update');
+        Route::post('categories/{serviceCategory}/toggle-status', [ServiceCategoryController::class, 'toggleStatus'])->name('categories.toggle-status');
+        Route::delete('categories/{serviceCategory}', [ServiceCategoryController::class, 'destroy'])->name('categories.destroy');
+        Route::post('categories/{serviceCategory}/subcategories', [ServiceSubcategoryController::class, 'store'])->name('categories.subcategories.store');
+        Route::put('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'update'])->name('categories.subcategories.update')->scopeBindings();
+        Route::delete('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'destroy'])->name('categories.subcategories.destroy')->scopeBindings();
+    });
+
+    // Facilities
     Route::resource('facilities', FacilityController::class);
     Route::resource('facility-bookings', FacilityBookingController::class);
 
@@ -176,6 +198,25 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('documents/{documentTemplate}/activate', [DocumentTemplateController::class, 'activate'])->name('documents.activate');
         Route::post('documents/{documentTemplate}/archive', [DocumentTemplateController::class, 'archive'])->name('documents.archive');
         Route::post('documents/{documentTemplate}/preview', [DocumentTemplateController::class, 'preview'])->name('documents.preview');
+
+        Route::get('documents/records/{documentRecord}', [DocumentRecordController::class, 'show'])->name('documents.records.show');
+        Route::post('documents/records/{documentRecord}/send', [DocumentRecordController::class, 'sendForSignature'])->name('documents.records.send');
+        Route::post('documents/records/{documentRecord}/resend', [DocumentRecordController::class, 'resendLink'])->name('documents.records.resend');
+        Route::get('documents/records/{documentRecord}/download', [DocumentRecordController::class, 'download'])->name('documents.records.download');
+        Route::get('documents/records/{documentRecord}/download-signed', [DocumentRecordController::class, 'downloadSigned'])->name('documents.records.downloadSigned');
+
+        Route::get('documents/excel-sheets', [App\Http\Controllers\Admin\ExcelSheetController::class, 'index'])->name('excel-sheets.index');
+        Route::post('documents/excel-sheets', [App\Http\Controllers\Admin\ExcelSheetController::class, 'store'])->name('excel-sheets.store');
+        Route::get('documents/excel-sheets/{excelSheet}/download', [App\Http\Controllers\Admin\ExcelSheetController::class, 'downloadTemplate'])->name('excel-sheets.download');
+        Route::get('documents/excel-sheets/{excelSheet}/history', [App\Http\Controllers\Admin\ExcelSheetController::class, 'importHistory'])->name('excel-sheets.history');
+        Route::get('documents/export/{model}', [BulkExportController::class, 'export'])->name('documents.export');
+    });
+
+    // Public signing (no auth)
+    Route::prefix('sign')->name('signing.')->group(function () {
+        Route::get('{token}', [SigningController::class, 'show'])->name('show');
+        Route::post('{token}/otp', [SigningController::class, 'requestOtp'])->name('requestOtp');
+        Route::post('{token}/sign', [SigningController::class, 'sign'])->name('sign');
     });
 
     // App Settings
@@ -476,3 +517,4 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 Route::get('quotes/{token}', [QuoteController::class, 'preview'])->name('quotes.preview');
 
 require __DIR__.'/settings.php';
+
