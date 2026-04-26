@@ -37,6 +37,7 @@ use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Documents\SigningController;
 use App\Http\Controllers\Facilities\BookingManagementController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
+use App\Http\Controllers\Facilities\FacilityCalendarController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
 use App\Http\Controllers\Leasing\ApprovalController;
@@ -166,7 +167,17 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'destroy'])->name('categories.subcategories.destroy')->scopeBindings();
     });
 
-    // Facilities
+    // Facilities — calendar routes MUST be registered before Route::resource('facilities')
+    // so that GET /facilities/calendar is not swallowed by the {facility} show wildcard.
+    Route::get('/facilities/calendar', [FacilityCalendarController::class, 'index'])
+        ->name('facilities.calendar');
+    Route::get('/facilities/calendar/bookings', [FacilityCalendarController::class, 'bookings'])
+        ->name('facilities.calendar.bookings');
+    Route::post('/facilities/calendar/bookings', [FacilityCalendarController::class, 'store'])
+        ->name('facilities.calendar.store');
+    Route::get('/facilities/calendar/bookings/{facilityBooking}', [FacilityCalendarController::class, 'show'])
+        ->name('facilities.calendar.show');
+
     Route::resource('facilities', FacilityController::class);
     Route::resource('facility-bookings', FacilityBookingController::class);
 
