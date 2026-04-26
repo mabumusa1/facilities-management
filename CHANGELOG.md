@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Facilities — admin calendar view: browse all bookings in a date range filtered by facility or community; prevents double-booking with overlapping slot detection ([#378](https://github.com/mabumusa1/facilities-management/pull/378))
+- Facilities — booking check-in/check-out: mark a reservation as arrived or departed; records timestamps and officer identity; checkout auto-notifies the next person on the waitlist when a slot frees up ([#378](https://github.com/mabumusa1/facilities-management/pull/378))
+- Facilities — waitlist management: join a queue for a full facility slot with date and time selection; leave the waitlist at any time; auto-notification when a slot opens via checkout ([#378](https://github.com/mabumusa1/facilities-management/pull/378))
+- Facilities — operational reporting: utilisation rate, no-show rate, cancelled count, and peak booking hours per facility or community; date-range filterable ([#378](https://github.com/mabumusa1/facilities-management/pull/378))
 - Visitor Access — gate check-in: scan QR code or enter code manually to admit a pre-registered visitor; logs entry timestamp, gate officer identity, and ID verification status; enforces QR expiry, cancellation, double check-in prevention, and max scans per invitation (per-community configurable) ([#373](https://github.com/mabumusa1/facilities-management/pull/373))
 - Visitor Access — gate check-out: mark a visitor as departed with one tap; logs exit timestamp and calculates visit duration; blocks duplicate check-out attempts ([#373](https://github.com/mabumusa1/facilities-management/pull/373))
 - Visitor Access — walk-in admission: admit unregistered visitors with manual name/phone entry when the community's allow_walk_in setting is enabled; creates a log entry without requiring a QR invitation ([#373](https://github.com/mabumusa1/facilities-management/pull/373))
