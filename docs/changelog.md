@@ -10,6 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Record money-in transactions — April 25, 2026
+
+You can now record offline payments received from residents and owners directly in the Accounting module.
+
+- **Record a payment.** Go to **Accounting → Transactions** and click **New Transaction**. Choose the payer (resident or owner), the unit, the income category (Rent, Late Fee, Service Fee, etc.), the payment method (Cash, Bank Transfer, or Cheque), the amount, and the date. Add a reference number if you have one (for example, a cheque number or bank transfer reference).
+- **Auto-generated receipt.** Every transaction you save generates a receipt automatically. The receipt number is assigned by the platform in sequence — you do not need to create it manually.
+- **Send receipt by email.** Open the transaction, then click **Send Receipt** in the Receipt card. Confirm the payer name and email address, and the receipt is sent to their email on file. The card shows the date it was last sent. If you need to send again, the button changes to **Resend Receipt**.
+- **Invoice Settings requirement.** If your Invoice Settings (company name, logo, address) are not yet configured, an amber banner appears on the transaction form and detail page. The transaction saves, but the receipt is held until you complete the settings under **App Settings → Invoice Settings**.
+- **Permission-gated email.** The Send Receipt button is only visible to users with the `transactions.SEND_RECEIPT` permission. Account Admins and Accounting Managers have this permission by default.
+- **Known limitation.** PDF download is not yet available and will be added in a future release.
+
+Learn more: [Record a money-in transaction](./guides/accounting/record-money-in.md).
+
 ### Register a visitor (QR invitations) — April 25, 2026
 
 Residents can now create visitor invitations and share a QR code directly from their account.

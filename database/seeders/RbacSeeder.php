@@ -250,6 +250,7 @@ class RbacSeeder extends Seeder
         $allActions = PermissionAction::cases();
 
         $this->syncRole('accountAdmins', $allSubjects, $allActions);
+        $this->grantSpecialPermissions('accountAdmins', ['transactions.SEND_RECEIPT']);
 
         $adminSubjects = array_filter(
             $allSubjects,
@@ -260,6 +261,7 @@ class RbacSeeder extends Seeder
             ])
         );
         $this->syncRole('admins', array_values($adminSubjects), $allActions);
+        $this->grantSpecialPermissions('admins', ['transactions.SEND_RECEIPT']);
 
         $managerSubjects = [
             PermissionSubject::Communities,
@@ -289,6 +291,7 @@ class RbacSeeder extends Seeder
             PermissionSubject::NeighbourhoodServices,
         ];
         $this->syncRole('managers', $managerSubjects, $allActions);
+        $this->grantSpecialPermissions('managers', ['transactions.SEND_RECEIPT']);
 
         $ownerSubjects = [
             PermissionSubject::Units,
@@ -345,6 +348,7 @@ class RbacSeeder extends Seeder
 
         // AdminRole presets
         $this->syncRole('Admins', $allSubjects, $allActions);
+        $this->grantSpecialPermissions('Admins', ['transactions.SEND_RECEIPT']);
 
         $accountingSubjects = [
             PermissionSubject::Transactions,
@@ -357,6 +361,7 @@ class RbacSeeder extends Seeder
             PermissionSubject::Owners,
         ];
         $this->syncRole('accountingManagers', $accountingSubjects, $allActions);
+        $this->grantSpecialPermissions('accountingManagers', ['transactions.SEND_RECEIPT']);
 
         $serviceSubjects = [
             PermissionSubject::ManagerRequests,
@@ -391,6 +396,29 @@ class RbacSeeder extends Seeder
             PermissionSubject::LeaseSettings,
         ];
         $this->syncRole('salesAndLeasingManagers', $salesSubjects, $allActions);
+        $this->grantSpecialPermissions('salesAndLeasingManagers', ['transactions.SEND_RECEIPT']);
+    }
+
+    /**
+     * Grant additional named permissions to a role that are not part of the
+     * standard subject × action cartesian matrix (e.g. transactions.SEND_RECEIPT).
+     *
+     * @param  list<string>  $permissionNames
+     */
+    private function grantSpecialPermissions(string $roleName, array $permissionNames): void
+    {
+        $role = Role::withoutGlobalScopes()
+            ->where('name', $roleName)
+            ->where('guard_name', 'web')
+            ->whereNull('account_tenant_id')
+            ->firstOrFail();
+
+        $permissions = Permission::withoutGlobalScopes()
+            ->whereNull('account_tenant_id')
+            ->whereIn('name', $permissionNames)
+            ->get();
+
+        $role->givePermissionTo($permissions);
     }
 
     /**

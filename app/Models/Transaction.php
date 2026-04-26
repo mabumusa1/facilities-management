@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -80,6 +81,9 @@ class Transaction extends Model
         'lease_number',
         'is_paid',
         'is_old',
+        'direction',
+        'payment_method',
+        'reference_number',
     ];
 
     protected $attributes = [
@@ -88,6 +92,7 @@ class Transaction extends Model
         'vat' => 0,
         'is_paid' => false,
         'is_old' => false,
+        'direction' => 'money_in',
     ];
 
     protected $appends = [
@@ -142,6 +147,11 @@ class Transaction extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function receipt(): HasOne
+    {
+        return $this->hasOne(Receipt::class);
     }
 
     public function payments(): HasMany

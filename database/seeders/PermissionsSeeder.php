@@ -51,6 +51,14 @@ class PermissionsSeeder extends Seeder
             }
         }
 
+        // Special-case permissions that do not apply to all subjects
+        $permissions[] = [
+            'name' => 'transactions.SEND_RECEIPT',
+            'guard_name' => 'web',
+            'created_at' => $now,
+            'updated_at' => $now,
+        ];
+
         // Batch upsert for speed
         Permission::query()->upsert(
             $permissions,

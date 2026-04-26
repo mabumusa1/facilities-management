@@ -35,6 +35,13 @@ class TransactionPolicy
             && ManagerScopeHelper::userCanAccessModel($user, $transaction);
     }
 
+    public function sendReceipt(User $user, Transaction $transaction): bool
+    {
+        return $user->can('transactions.SEND_RECEIPT')
+            && $this->belongsToCurrentTenant($transaction)
+            && ManagerScopeHelper::userCanAccessModel($user, $transaction);
+    }
+
     public function delete(User $user, Transaction $transaction): bool
     {
         return $user->can('transactions.DELETE')

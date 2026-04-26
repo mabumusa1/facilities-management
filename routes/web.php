@@ -108,6 +108,10 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 
     // Accounting
     Route::resource('transactions', TransactionController::class);
+    Route::get('transactions/{transaction}/receipt/download', [TransactionController::class, 'downloadReceipt'])
+        ->name('transactions.receipt.download');
+    Route::post('transactions/{transaction}/receipt/send', [TransactionController::class, 'sendReceipt'])
+        ->name('transactions.receipt.send');
 
     Route::prefix('accounting')->name('accounting.')->group(function () {
         Route::prefix('settings')->name('settings.')->group(function () {
