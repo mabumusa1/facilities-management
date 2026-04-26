@@ -20,6 +20,7 @@ import type { Lease } from '@/types';
 const props = defineProps<{
     lease: Lease;
     canApprove: boolean;
+    isPendingApplication: boolean;
 }>();
 
 const { t } = useI18n();
@@ -81,9 +82,6 @@ function deleteLease() {
         router.delete(`/leases/${props.lease.id}`);
     }
 }
-
-/** STATUS_PENDING_APPLICATION = 76 (reserved ID from ExpireLeaseQuotes) */
-const isPendingApplication = computed(() => props.lease.status_id === 76);
 </script>
 
 <template>
@@ -144,7 +142,7 @@ const isPendingApplication = computed(() => props.lease.status_id === 76);
                             <div>
                                 <span class="font-medium">{{ t('app.leases.approval.approvedBy') }}</span>
                                 {{ lease.approved_by?.name ?? '—' }}
-                                <span class="text-muted-foreground ml-1">{{ lease.approved_at }}</span>
+                                <span class="text-muted-foreground ms-1">{{ lease.approved_at }}</span>
                             </div>
                         </li>
                         <li v-if="lease.rejected_at" class="flex flex-col gap-1">
@@ -153,10 +151,10 @@ const isPendingApplication = computed(() => props.lease.status_id === 76);
                                 <div>
                                     <span class="font-medium">{{ t('app.leases.approval.rejectedBy') }}</span>
                                     {{ lease.rejected_by?.name ?? '—' }}
-                                    <span class="text-muted-foreground ml-1">{{ lease.rejected_at }}</span>
+                                    <span class="text-muted-foreground ms-1">{{ lease.rejected_at }}</span>
                                 </div>
                             </div>
-                            <p v-if="lease.rejection_reason" class="text-muted-foreground ml-6 mt-1 italic">
+                            <p v-if="lease.rejection_reason" class="text-muted-foreground ms-6 mt-1 italic">
                                 {{ lease.rejection_reason }}
                             </p>
                         </li>

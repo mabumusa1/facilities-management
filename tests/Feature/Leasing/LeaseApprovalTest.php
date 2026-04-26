@@ -226,6 +226,50 @@ class LeaseApprovalTest extends TestCase
         $this->assertSame(ExpireLeaseQuotes::STATUS_PENDING_APPLICATION, $this->lease->fresh()->status_id);
     }
 
+    // ── Cross-tenant isolation ─────────────────────────────────────────────────
+
+    public function test_admin_from_other_tenant_cannot_approve_lease(): void
+    {
+        $tenantB = Tenant::create(['name' => 'Tenant B']);
+        $adminB = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $adminB->id,
+            'account_tenant_id' => $tenantB->id,
+            'role' => 'account_admins',
+        ]);
+        $adminB->assignRole('admins');
+
+        $response = $this->actingAs($adminB)
+            ->withSession(['tenant_id' => $tenantB->id])
+            ->withoutVite()
+            ->post(route('leases.approve', $this->lease)); // lease belongs to $this->tenant
+
+        $response->assertForbidden();
+        $this->assertSame(ExpireLeaseQuotes::STATUS_PENDING_APPLICATION, $this->lease->fresh()->status_id);
+    }
+
+    public function test_admin_from_other_tenant_cannot_reject_lease(): void
+    {
+        $tenantB = Tenant::create(['name' => 'Tenant B Reject']);
+        $adminB = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $adminB->id,
+            'account_tenant_id' => $tenantB->id,
+            'role' => 'account_admins',
+        ]);
+        $adminB->assignRole('admins');
+
+        $response = $this->actingAs($adminB)
+            ->withSession(['tenant_id' => $tenantB->id])
+            ->withoutVite()
+            ->post(route('leases.reject', $this->lease), [ // lease belongs to $this->tenant
+                'rejection_reason' => 'Attempting cross-tenant rejection.',
+            ]);
+
+        $response->assertForbidden();
+        $this->assertSame(ExpireLeaseQuotes::STATUS_PENDING_APPLICATION, $this->lease->fresh()->status_id);
+    }
+
     // ── Lease Show renders canApprove ──────────────────────────────────────────
 
     public function test_lease_show_passes_can_approve_flag_to_vue(): void
@@ -238,6 +282,7 @@ class LeaseApprovalTest extends TestCase
         $response->assertInertia(
             fn ($page) => $page->component('leasing/leases/Show')
                 ->where('canApprove', true)
+                ->where('isPendingApplication', true)
         );
     }
 
