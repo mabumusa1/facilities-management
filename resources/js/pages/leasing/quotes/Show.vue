@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Head, router, setLayoutProps } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
 import { watchEffect } from 'vue';
-import { index as quotesIndex, send as quotesSend, preview as quotesPreview } from '@/actions/App/Http/Controllers/Leasing/QuoteController';
+import { convert as quotesConvert, index as quotesIndex, preview as quotesPreview, send as quotesSend } from '@/actions/App/Http/Controllers/Leasing/QuoteController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -81,6 +81,14 @@ function previewUrl(): string | null {
                 <Badge v-if="quote.status" variant="secondary">
                     {{ quote.status.name_en ?? quote.status.name }}
                 </Badge>
+
+                <Link
+                    v-if="quote.status?.name_en === 'accepted'"
+                    :href="quotesConvert.url(quote.id)"
+                    class="inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                >
+                    {{ t('app.quotes.convert.title') }} &rarr;
+                </Link>
 
                 <Button
                     v-if="quote.status?.name_en === 'draft' || quote.status?.name_en === 'sent'"

@@ -42,6 +42,13 @@ class LeaseQuotePolicy
             && ManagerScopeHelper::userCanAccessModel($user, $leaseQuote);
     }
 
+    public function convert(User $user, LeaseQuote $leaseQuote): bool
+    {
+        return $user->can('leases.CREATE')
+            && $this->belongsToCurrentTenant($leaseQuote)
+            && ManagerScopeHelper::userCanAccessModel($user, $leaseQuote);
+    }
+
     public function delete(User $user, LeaseQuote $leaseQuote): bool
     {
         return $user->can('leases.DELETE')

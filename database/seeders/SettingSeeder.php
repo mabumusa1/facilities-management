@@ -45,16 +45,31 @@ class SettingSeeder extends Seeder
             ['id' => 21, 'name' => 'Service Fee', 'name_ar' => 'رسوم خدمة', 'name_en' => 'Service Fee', 'type' => 'transaction_category', 'subtype' => 'income', 'parent_id' => null, 'is_active' => true, 'is_default' => true],
 
             // Transaction categories — expense (IDs 22-24)
-            ['id' => 22, 'name' => 'Maintenance', 'name_ar' => 'صيانة', 'name_en' => 'Maintenance', 'type' => 'transaction_category', 'subtype' => 'expense', 'parent_id' => null, 'is_active' => true, 'is_default' => true],
-            ['id' => 23, 'name' => 'Utility', 'name_ar' => 'مرافق', 'name_en' => 'Utility', 'type' => 'transaction_category', 'subtype' => 'expense', 'parent_id' => null, 'is_active' => true, 'is_default' => true],
-            ['id' => 24, 'name' => 'Repairs', 'name_ar' => 'إصلاحات', 'name_en' => 'Repairs', 'type' => 'transaction_category', 'subtype' => 'expense', 'parent_id' => null, 'is_active' => true, 'is_default' => true],
+            ['id' => 22, 'name' => 'Maintenance', 'name_ar' => 'صيانة', 'name_en' => 'Maintenance', 'type' => 'transaction_category', 'subtype' => 'expense', 'parent_id' => null, 'is_active' => true, 'is_default' => true, 'metadata' => null, 'sort_order' => 0],
+            ['id' => 23, 'name' => 'Utility', 'name_ar' => 'مرافق', 'name_en' => 'Utility', 'type' => 'transaction_category', 'subtype' => 'expense', 'parent_id' => null, 'is_active' => true, 'is_default' => true, 'metadata' => null, 'sort_order' => 0],
+            ['id' => 24, 'name' => 'Repairs', 'name_ar' => 'إصلاحات', 'name_en' => 'Repairs', 'type' => 'transaction_category', 'subtype' => 'expense', 'parent_id' => null, 'is_active' => true, 'is_default' => true, 'metadata' => null, 'sort_order' => 0],
+
+            // KYC document types (IDs 25-31) — required and optional documents for lease applications.
+            ['id' => 25, 'name' => 'National ID / Iqama', 'name_ar' => 'الهوية الوطنية / الإقامة', 'name_en' => 'National ID / Iqama', 'type' => 'kyc_document_type', 'subtype' => 'identity', 'parent_id' => null, 'is_active' => true, 'is_default' => false, 'metadata' => json_encode(['is_required' => true]), 'sort_order' => 1],
+            ['id' => 26, 'name' => 'Passport Copy', 'name_ar' => 'صورة جواز السفر', 'name_en' => 'Passport Copy', 'type' => 'kyc_document_type', 'subtype' => 'identity', 'parent_id' => null, 'is_active' => true, 'is_default' => false, 'metadata' => json_encode(['is_required' => true]), 'sort_order' => 2],
+            ['id' => 27, 'name' => 'Employment Letter', 'name_ar' => 'خطاب العمل', 'name_en' => 'Employment Letter', 'type' => 'kyc_document_type', 'subtype' => 'income', 'parent_id' => null, 'is_active' => true, 'is_default' => false, 'metadata' => json_encode(['is_required' => true]), 'sort_order' => 3],
+            ['id' => 28, 'name' => 'Bank Statement (3 months)', 'name_ar' => 'كشف حساب بنكي (3 أشهر)', 'name_en' => 'Bank Statement (3 months)', 'type' => 'kyc_document_type', 'subtype' => 'income', 'parent_id' => null, 'is_active' => true, 'is_default' => false, 'metadata' => json_encode(['is_required' => true]), 'sort_order' => 4],
+            ['id' => 29, 'name' => 'Tenancy History', 'name_ar' => 'سجل الإيجار', 'name_en' => 'Tenancy History', 'type' => 'kyc_document_type', 'subtype' => 'background', 'parent_id' => null, 'is_active' => true, 'is_default' => false, 'metadata' => json_encode(['is_required' => true]), 'sort_order' => 5],
+            ['id' => 30, 'name' => 'Previous Lease Agreement', 'name_ar' => 'عقد الإيجار السابق', 'name_en' => 'Previous Lease Agreement', 'type' => 'kyc_document_type', 'subtype' => 'optional', 'parent_id' => null, 'is_active' => true, 'is_default' => false, 'metadata' => json_encode(['is_required' => false]), 'sort_order' => 6],
+            ['id' => 31, 'name' => 'Family Book', 'name_ar' => 'دفتر الأسرة', 'name_en' => 'Family Book', 'type' => 'kyc_document_type', 'subtype' => 'optional', 'parent_id' => null, 'is_active' => true, 'is_default' => false, 'metadata' => json_encode(['is_required' => false]), 'sort_order' => 7],
         ];
+
+        // Normalize all rows to include metadata and sort_order so upsert columns are consistent.
+        $settings = array_map(function (array $s): array {
+            return array_merge(['metadata' => null, 'sort_order' => 0], $s);
+        }, $settings);
 
         // Insert parent types first so parent_id FK is satisfied
         $parentRows = array_filter($settings, fn (array $s): bool => $s['parent_id'] === null);
         $childRows = array_filter($settings, fn (array $s): bool => $s['parent_id'] !== null);
 
-        DB::table('rf_settings')->upsert(array_values($parentRows), ['id'], ['name', 'name_ar', 'name_en', 'type', 'subtype', 'parent_id', 'is_active', 'is_default']);
-        DB::table('rf_settings')->upsert(array_values($childRows), ['id'], ['name', 'name_ar', 'name_en', 'type', 'subtype', 'parent_id', 'is_active', 'is_default']);
+        $updateColumns = ['name', 'name_ar', 'name_en', 'type', 'subtype', 'parent_id', 'is_active', 'is_default', 'metadata', 'sort_order'];
+        DB::table('rf_settings')->upsert(array_values($parentRows), ['id'], $updateColumns);
+        DB::table('rf_settings')->upsert(array_values($childRows), ['id'], $updateColumns);
     }
 }

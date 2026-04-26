@@ -28,6 +28,7 @@ use App\Http\Controllers\Documents\ExcelSheetController;
 use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
+use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
@@ -91,11 +92,19 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Leasing — Lease Quotes (registered before leases resource to avoid {lease} catch-all conflict)
     Route::resource('leases/quotes', QuoteController::class)->only(['index', 'create', 'store', 'show'])->names('quotes');
     Route::post('leases/quotes/{quote}/send', [QuoteController::class, 'send'])->name('quotes.send');
+    Route::get('leases/quotes/{quote}/convert', [QuoteController::class, 'convert'])->name('quotes.convert');
+    Route::post('leases/quotes/{quote}/convert', [QuoteController::class, 'storeConversion'])->name('quotes.convert.store');
 
     // Leasing — Leases
     Route::resource('leases', LeaseController::class);
     Route::get('leases/{lease}/subleases/create', [LeaseController::class, 'createSublease'])->name('leases.subleases.create');
     Route::post('leases/{lease}/subleases', [LeaseController::class, 'storeSublease'])->name('leases.subleases.store');
+
+    // Leasing — KYC (must be after leases resource to avoid {lease} conflict)
+    Route::get('leases/{lease}/kyc', [KycController::class, 'kyc'])->name('leases.kyc');
+    Route::post('leases/{lease}/kyc', [KycController::class, 'uploadKyc'])->name('leases.kyc.upload');
+    Route::delete('leases/{lease}/kyc/{document}', [KycController::class, 'removeKycDocument'])->name('leases.kyc.destroy');
+    Route::post('leases/{lease}/submit', [KycController::class, 'submitForApproval'])->name('leases.submit');
 
     // Requests
     Route::resource('requests', ServiceRequestController::class)->parameters([
