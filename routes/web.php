@@ -420,6 +420,9 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('requests/change-status/in-progress', [ServiceRequestController::class, 'changeStatusInProgress'])->name('requests.change-status.in-progress');
         Route::post('requests/change-status/pending', [ServiceRequestController::class, 'changeStatusPending'])->name('requests.change-status.pending');
         Route::post('requests/change-status/rejected', [ServiceRequestController::class, 'changeStatusRejected'])->name('requests.change-status.rejected');
+        Route::post('requests/{serviceRequest}/rate', [ServiceRequestController::class, 'rate'])->name('requests.rate');
+        Route::get('requests/{serviceRequest}/check-sla', [ServiceRequestController::class, 'checkSla'])->name('requests.check-sla');
+        Route::post('complaints/{complaint}/convert-to-sr', [ServiceRequestController::class, 'convertFromComplaint'])->name('requests.convert-from-complaint');
         Route::post('requests/{serviceRequest}/assign', [ServiceRequestController::class, 'assign'])->name('requests.assign');
         Route::post('requests/{serviceRequest}/reassign', [ServiceRequestController::class, 'reassign'])->name('requests.reassign');
         Route::get('users/requests', [ServiceRequestController::class, 'index'])->name('users.requests.index');
