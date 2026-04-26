@@ -4,9 +4,9 @@ use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
+use App\Http\Controllers\Admin\BulkExportController;
 use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
-use App\Http\Controllers\Admin\BulkExportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -32,6 +32,7 @@ use App\Http\Controllers\Documents\SigningController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
+use App\Http\Controllers\Leasing\ApprovalController;
 use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\QuoteController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\Properties\CommunityController;
 use App\Http\Controllers\Properties\UnitController;
 use App\Http\Controllers\Reports\ReportsController;
 use App\Http\Controllers\Requests\ServiceRequestController;
+use App\Http\Controllers\Services\AdminServiceRequestController;
 use App\Http\Controllers\Services\CategoryController as ServiceCategoryController;
 use App\Http\Controllers\Services\ResidentServiceRequestController;
 use App\Http\Controllers\Services\SubcategoryController as ServiceSubcategoryController;
@@ -117,6 +119,11 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::delete('leases/{lease}/kyc/{document}', [KycController::class, 'removeKycDocument'])->name('leases.kyc.destroy');
     Route::post('leases/{lease}/submit', [KycController::class, 'submitForApproval'])->name('leases.submit');
 
+    // Leasing — Approval workflow
+    Route::get('leasing/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
+    Route::post('leases/{lease}/approve', [ApprovalController::class, 'approve'])->name('leases.approve');
+    Route::post('leases/{lease}/reject', [ApprovalController::class, 'reject'])->name('leases.reject');
+
     // Requests
     Route::resource('requests', ServiceRequestController::class)->parameters([
         'requests' => 'serviceRequest',
@@ -128,6 +135,14 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('create', [ResidentServiceRequestController::class, 'create'])->name('create');
         Route::post('/', [ResidentServiceRequestController::class, 'store'])->name('store');
         Route::get('{serviceRequest}/created', [ResidentServiceRequestController::class, 'created'])->name('created');
+    });
+
+    // Service Requests — Admin triage dashboard
+    Route::prefix('services/requests')->name('services.requests.')->group(function () {
+        Route::get('/', [AdminServiceRequestController::class, 'index'])->name('index');
+        Route::get('{serviceRequest}', [AdminServiceRequestController::class, 'show'])->name('show');
+        Route::patch('{serviceRequest}/assign', [AdminServiceRequestController::class, 'assign'])->name('assign');
+        Route::post('{serviceRequest}/notes', [AdminServiceRequestController::class, 'addNote'])->name('notes.store');
     });
 
     // Service Categories (admin configuration)
@@ -196,6 +211,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('subscriptions/{tenant}/activate', [AccountSubscriptionController::class, 'activate'])->name('subscriptions.activate');
         Route::post('subscriptions/{tenant}/cancel', [AccountSubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
         Route::post('subscriptions/{tenant}/cancel-now', [AccountSubscriptionController::class, 'cancelNow'])->name('subscriptions.cancel-now');
+        Route::get('subscriptions/billing', [AccountSubscriptionController::class, 'billingHistory'])->name('subscriptions.billing');
 
         Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
         Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
@@ -531,4 +547,3 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 Route::get('quotes/{token}', [QuoteController::class, 'preview'])->name('quotes.preview');
 
 require __DIR__.'/settings.php';
-
