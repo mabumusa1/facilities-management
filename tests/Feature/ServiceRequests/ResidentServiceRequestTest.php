@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\ServiceRequests;
 
+use App\Http\Controllers\Services\ResidentServiceRequestController;
 use App\Models\AccountMembership;
 use App\Models\Community;
 use App\Models\Request as ServiceRequest;
@@ -38,10 +39,12 @@ class ResidentServiceRequestTest extends TestCase
             'role' => 'tenants',
         ]);
 
+        // Create the status using the reserved ID so STATUS_NEW constant resolves correctly.
         $this->openStatus = Status::factory()->create([
+            'id' => ResidentServiceRequestController::STATUS_NEW,
             'type' => 'request',
-            'name' => 'Open',
-            'name_en' => 'Open',
+            'name' => 'New',
+            'name_en' => 'New',
             'priority' => 1,
         ]);
 
@@ -70,6 +73,60 @@ class ResidentServiceRequestTest extends TestCase
         $response = $this->get(route('service-requests.index'));
 
         $response->assertRedirect(route('login'));
+    }
+
+    // -------------------------------------------------------------------------
+    // Authenticated but no AccountMembership — must 403
+    // -------------------------------------------------------------------------
+
+    public function test_create_returns_403_for_authenticated_user_without_membership(): void
+    {
+        $userWithoutMembership = User::factory()->create();
+
+        $response = $this
+            ->actingAs($userWithoutMembership)
+            ->get(route('service-requests.create'));
+
+        $response->assertForbidden();
+    }
+
+    public function test_store_returns_403_for_authenticated_user_without_membership(): void
+    {
+        $userWithoutMembership = User::factory()->create();
+
+        $community = Community::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $unit = Unit::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'rf_community_id' => $community->id,
+        ]);
+        $category = ServiceCategory::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'status' => 'active',
+        ]);
+
+        $response = $this
+            ->actingAs($userWithoutMembership)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->post(route('service-requests.store'), [
+                'service_category_id' => $category->id,
+                'community_id' => $community->id,
+                'unit_id' => $unit->id,
+                'urgency' => 'normal',
+                'description' => 'Water is dripping from the kitchen ceiling.',
+            ]);
+
+        $response->assertForbidden();
+    }
+
+    public function test_index_returns_403_for_authenticated_user_without_membership(): void
+    {
+        $userWithoutMembership = User::factory()->create();
+
+        $response = $this
+            ->actingAs($userWithoutMembership)
+            ->get(route('service-requests.index'));
+
+        $response->assertForbidden();
     }
 
     // -------------------------------------------------------------------------
@@ -130,10 +187,10 @@ class ResidentServiceRequestTest extends TestCase
                 'description' => 'Water is dripping from the kitchen ceiling.',
             ]);
 
-        $response->assertRedirectToRoute('service-requests.created', ['serviceRequest' => 1]);
-
-        $serviceRequest = ServiceRequest::first();
+        $serviceRequest = ServiceRequest::latest('id')->first();
         $this->assertNotNull($serviceRequest);
+        $response->assertRedirectToRoute('service-requests.created', ['serviceRequest' => $serviceRequest->id]);
+
         $this->assertEquals($category->id, $serviceRequest->service_category_id);
         $this->assertEquals($community->id, $serviceRequest->community_id);
         $this->assertEquals($unit->id, $serviceRequest->unit_id);

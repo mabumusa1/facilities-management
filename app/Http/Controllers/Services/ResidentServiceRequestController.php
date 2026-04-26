@@ -7,7 +7,6 @@ use App\Http\Requests\Services\StoreResidentServiceRequestRequest;
 use App\Models\Community;
 use App\Models\Request as ServiceRequest;
 use App\Models\ServiceCategory;
-use App\Models\Status;
 use App\Models\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +16,15 @@ use Inertia\Response;
 
 class ResidentServiceRequestController extends Controller
 {
+    /**
+     * Reserved rf_statuses.id for the initial "New" service request status.
+     *
+     * ID is the reserved primary key seeded by StatusSeeder (id=1, type=request).
+     * Using a constant avoids a runtime name-based lookup that would break under
+     * locale changes or seeder drift.
+     */
+    public const STATUS_NEW = 1;
+
     /**
      * Show the resident's service request creation form.
      *
@@ -66,29 +74,13 @@ class ResidentServiceRequestController extends Controller
         $serviceCategory = ServiceCategory::query()->find((int) $validated['service_category_id']);
         $serviceSubcategoryId = isset($validated['service_subcategory_id']) ? (int) $validated['service_subcategory_id'] : null;
         $serviceSubcategory = $serviceSubcategoryId
-            ? $serviceCategory?->subcategories()->find($serviceSubcategoryId)
+            ? $serviceCategory?->subcategories()->with('serviceCategory')->find($serviceSubcategoryId)
             : null;
 
         $responseHours = $serviceSubcategory?->resolvedResponseSlaHours() ?? $serviceCategory?->response_sla_hours;
         $resolutionHours = $serviceSubcategory?->resolvedResolutionSlaHours() ?? $serviceCategory?->resolution_sla_hours;
 
-        $openStatusId = Status::query()
-            ->where('type', 'request')
-            ->where(function ($q): void {
-                $q->whereRaw("LOWER(COALESCE(name_en, name)) = 'open'")
-                    ->orWhereRaw("LOWER(COALESCE(name_en, name)) = 'new'");
-            })
-            ->orderBy('priority')
-            ->value('id')
-            ?? Status::query()
-                ->where('type', 'request')
-                ->orderBy('priority')
-                ->orderBy('id')
-                ->value('id');
-
-        if ($openStatusId === null) {
-            abort(422, 'Service request status is not configured.');
-        }
+        $openStatusId = self::STATUS_NEW;
 
         $serviceRequest = ServiceRequest::create([
             'requester_type' => $request->user()::class,

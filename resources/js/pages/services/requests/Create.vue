@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue';
 import { Head, Link, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { create, index, store } from '@/actions/App/Http/Controllers/Services/ResidentServiceRequestController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -53,8 +54,8 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.serviceRequests.pageTitle'), href: '/service-requests' },
-            { title: t('app.serviceRequests.createPageTitle'), href: '/service-requests/create' },
+            { title: t('app.serviceRequests.pageTitle'), href: index.url() },
+            { title: t('app.serviceRequests.createPageTitle'), href: create.url() },
         ],
     });
 });
@@ -120,7 +121,7 @@ const isSubmitting = ref(false);
 
 function submit(): void {
     isSubmitting.value = true;
-    form.post('/service-requests', {
+    form.post(store.url(), {
         onFinish: () => {
             isSubmitting.value = false;
         },
@@ -395,7 +396,7 @@ function submit(): void {
                 </Button>
 
                 <Link
-                    href="/service-requests"
+                    :href="index.url()"
                     class="text-sm text-muted-foreground hover:underline"
                 >
                     {{ t('app.serviceRequests.cancelButton') }}

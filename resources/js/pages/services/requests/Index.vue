@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watchEffect } from 'vue';
 import { Head, Link, setLayoutProps } from '@inertiajs/vue3';
+import { create, index } from '@/actions/App/Http/Controllers/Services/ResidentServiceRequestController';
 import PageHeader from '@/components/PageHeader.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -54,7 +55,7 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.serviceRequests.pageTitle'), href: '/service-requests' },
+            { title: t('app.serviceRequests.pageTitle'), href: index.url() },
         ],
     });
 });
@@ -89,7 +90,7 @@ function formatDate(isoString: string | null): string {
             :description="t('app.serviceRequests.description')"
         >
             <template #actions>
-                <Link href="/service-requests/create">
+                <Link :href="create.url()">
                     <Button>{{ t('app.serviceRequests.newRequest') }}</Button>
                 </Link>
             </template>
@@ -101,7 +102,7 @@ function formatDate(isoString: string | null): string {
             class="flex flex-col items-center justify-center gap-4 rounded-lg border border-dashed p-12 text-center"
         >
             <p class="text-muted-foreground">{{ t('app.serviceRequests.noRequestsYet') }}</p>
-            <Link href="/service-requests/create">
+            <Link :href="create.url()">
                 <Button variant="outline">{{ t('app.serviceRequests.newRequest') }}</Button>
             </Link>
         </div>

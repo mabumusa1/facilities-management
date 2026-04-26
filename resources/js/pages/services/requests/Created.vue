@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { Head, Link, setLayoutProps } from '@inertiajs/vue3';
+import { create, index } from '@/actions/App/Http/Controllers/Services/ResidentServiceRequestController';
 import { Check, ClipboardCopy } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/composables/useI18n';
@@ -33,7 +34,7 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.serviceRequests.pageTitle'), href: '/service-requests' },
+            { title: t('app.serviceRequests.pageTitle'), href: index.url() },
             { title: props.serviceRequest.request_code ?? String(props.serviceRequest.id), href: '#' },
         ],
     });
@@ -161,7 +162,7 @@ function formatDateTime(isoString: string | null): string {
             <!-- CTAs -->
             <div class="flex flex-col gap-3 sm:flex-row">
                 <Link
-                    href="/service-requests"
+                    :href="index.url()"
                     class="flex-1"
                 >
                     <Button
@@ -173,7 +174,7 @@ function formatDateTime(isoString: string | null): string {
                 </Link>
 
                 <Link
-                    href="/service-requests/create"
+                    :href="create.url()"
                     class="flex-1"
                 >
                     <Button
