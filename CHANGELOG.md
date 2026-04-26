@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Reports — occupancy report: per-community unit counts by status (occupied, available, maintenance, off-plan) with occupancy rate percentage ([#382](https://github.com/mabumusa1/facilities-management/pull/382))
+- Reports — lease pipeline: expiring leases grouped by month with renewal counts; configurable look-ahead window up to 24 months ([#382](https://github.com/mabumusa1/facilities-management/pull/382))
+- Reports — portfolio health: community-level breakdown of occupied, under-maintenance, and off-plan units with occupancy rates ([#382](https://github.com/mabumusa1/facilities-management/pull/382))
+- Reports — financial summary: revenue, collected, and outstanding amounts by period with collection rate percentage ([#382](https://github.com/mabumusa1/facilities-management/pull/382))
 - Accounting — bank account management: add, update, and delete bank accounts per community; IBAN, account number, and currency fields; single-default enforcement across all accounts ([#380](https://github.com/mabumusa1/facilities-management/pull/380))
 - Accounting — payment recording: record full and partial payments against transactions with payment method, reference, and notes; auto-updates transaction paid status when fully settled ([#380](https://github.com/mabumusa1/facilities-management/pull/380))
 - Accounting — aging report: overdue receivables grouped by 0/1-30/31-60/61-90/90+ day buckets with count and total per bucket; configurable as-of date ([#380](https://github.com/mabumusa1/facilities-management/pull/380))
