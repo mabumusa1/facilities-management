@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
 use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
+use App\Http\Controllers\Admin\BulkExportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -172,6 +173,12 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('documents/records/{documentRecord}/resend', [DocumentRecordController::class, 'resendLink'])->name('documents.records.resend');
         Route::get('documents/records/{documentRecord}/download', [DocumentRecordController::class, 'download'])->name('documents.records.download');
         Route::get('documents/records/{documentRecord}/download-signed', [DocumentRecordController::class, 'downloadSigned'])->name('documents.records.downloadSigned');
+
+        Route::get('documents/excel-sheets', [App\Http\Controllers\Admin\ExcelSheetController::class, 'index'])->name('excel-sheets.index');
+        Route::post('documents/excel-sheets', [App\Http\Controllers\Admin\ExcelSheetController::class, 'store'])->name('excel-sheets.store');
+        Route::get('documents/excel-sheets/{excelSheet}/download', [App\Http\Controllers\Admin\ExcelSheetController::class, 'downloadTemplate'])->name('excel-sheets.download');
+        Route::get('documents/excel-sheets/{excelSheet}/history', [App\Http\Controllers\Admin\ExcelSheetController::class, 'importHistory'])->name('excel-sheets.history');
+        Route::get('documents/export/{model}', [BulkExportController::class, 'export'])->name('documents.export');
     });
 
     // Public signing (no auth)
@@ -479,3 +486,4 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 Route::get('quotes/{token}', [QuoteController::class, 'preview'])->name('quotes.preview');
 
 require __DIR__.'/settings.php';
+
