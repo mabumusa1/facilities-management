@@ -11,7 +11,7 @@ use Database\Factories\OwnerFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -88,5 +88,23 @@ class Owner extends Model
     public function dependents(): MorphMany
     {
         return $this->morphMany(Dependent::class, 'dependable');
+    }
+
+    /** @return HasMany<UnitOwnership, $this> */
+    public function unitOwnerships(): HasMany
+    {
+        return $this->hasMany(UnitOwnership::class);
+    }
+
+    public function ownedUnits(): BelongsToMany
+    {
+        return $this->belongsToMany(Unit::class, 'rf_unit_ownerships')
+            ->withPivot(['ownership_type', 'ownership_percentage', 'start_date', 'end_date'])
+            ->withTimestamps();
+    }
+
+    public function activities(): MorphMany
+    {
+        return $this->morphMany(ContactActivity::class, 'contact');
     }
 }

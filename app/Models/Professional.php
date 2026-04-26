@@ -97,4 +97,9 @@ class Professional extends Model
     {
         return $this->hasMany(Request::class, 'professional_id');
     }
+
+    public function activities(): MorphMany
+    {
+        return $this->morphMany(ContactActivity::class, 'contact');
+    }
 }
