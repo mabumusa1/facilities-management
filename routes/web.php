@@ -36,6 +36,8 @@ use App\Http\Controllers\Properties\CommunityController;
 use App\Http\Controllers\Properties\UnitController;
 use App\Http\Controllers\Reports\ReportsController;
 use App\Http\Controllers\Requests\ServiceRequestController;
+use App\Http\Controllers\Services\CategoryController as ServiceCategoryController;
+use App\Http\Controllers\Services\SubcategoryController as ServiceSubcategoryController;
 use App\Http\Controllers\Shared\LegacyCompatibilityController;
 use App\Http\Controllers\Shared\LookupController;
 use App\Http\Controllers\Shared\NotificationController;
@@ -101,6 +103,18 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::resource('requests', ServiceRequestController::class)->parameters([
         'requests' => 'serviceRequest',
     ]);
+
+    // Service Categories (admin configuration)
+    Route::prefix('services')->name('services.')->group(function () {
+        Route::get('categories', [ServiceCategoryController::class, 'index'])->name('categories.index');
+        Route::post('categories', [ServiceCategoryController::class, 'store'])->name('categories.store');
+        Route::put('categories/{serviceCategory}', [ServiceCategoryController::class, 'update'])->name('categories.update');
+        Route::post('categories/{serviceCategory}/toggle-status', [ServiceCategoryController::class, 'toggleStatus'])->name('categories.toggle-status');
+        Route::delete('categories/{serviceCategory}', [ServiceCategoryController::class, 'destroy'])->name('categories.destroy');
+        Route::post('categories/{serviceCategory}/subcategories', [ServiceSubcategoryController::class, 'store'])->name('categories.subcategories.store');
+        Route::put('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'update'])->name('categories.subcategories.update');
+        Route::delete('categories/{serviceCategory}/subcategories/{serviceSubcategory}', [ServiceSubcategoryController::class, 'destroy'])->name('categories.subcategories.destroy');
+    });
 
     // Facilities
     Route::resource('facilities', FacilityController::class);
