@@ -574,11 +574,26 @@ export type Facility = {
     community_id: number;
     capacity: number | null;
     is_active: boolean;
+    booking_fee: string | null;
+    currency: string | null;
+    type: string | null;
+    pricing_mode: 'free' | 'per_session' | 'per_hour' | null;
+    requires_booking: boolean;
+    booking_horizon_days: number;
+    contract_required: boolean;
+    notes: string | null;
     created_at: string;
     updated_at: string;
     // Relationships
     category?: FacilityCategory;
     community?: Community;
+};
+
+export type FacilitySlot = {
+    start: string;
+    end: string;
+    status: 'available' | 'full';
+    remaining_capacity: number;
 };
 
 export type FacilityBooking = {
