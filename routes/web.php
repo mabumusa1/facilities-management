@@ -32,6 +32,7 @@ use App\Http\Controllers\Documents\SigningController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
+use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
@@ -101,11 +102,19 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::post('leases/quotes/{quote}/revise', [QuoteController::class, 'storeRevision'])->name('quotes.revise.store');
     Route::post('leases/quotes/{quote}/reject', [QuoteController::class, 'reject'])->name('quotes.reject');
     Route::patch('leases/quotes/{quote}/expire', [QuoteController::class, 'expire'])->name('quotes.expire');
+    Route::get('leases/quotes/{quote}/convert', [QuoteController::class, 'convert'])->name('quotes.convert');
+    Route::post('leases/quotes/{quote}/convert', [QuoteController::class, 'storeConversion'])->name('quotes.convert.store');
 
     // Leasing — Leases
     Route::resource('leases', LeaseController::class);
     Route::get('leases/{lease}/subleases/create', [LeaseController::class, 'createSublease'])->name('leases.subleases.create');
     Route::post('leases/{lease}/subleases', [LeaseController::class, 'storeSublease'])->name('leases.subleases.store');
+
+    // Leasing — KYC (must be after leases resource to avoid {lease} conflict)
+    Route::get('leases/{lease}/kyc', [KycController::class, 'kyc'])->name('leases.kyc');
+    Route::post('leases/{lease}/kyc', [KycController::class, 'uploadKyc'])->name('leases.kyc.upload');
+    Route::delete('leases/{lease}/kyc/{document}', [KycController::class, 'removeKycDocument'])->name('leases.kyc.destroy');
+    Route::post('leases/{lease}/submit', [KycController::class, 'submitForApproval'])->name('leases.submit');
 
     // Requests
     Route::resource('requests', ServiceRequestController::class)->parameters([

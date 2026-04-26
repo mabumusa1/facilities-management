@@ -96,6 +96,9 @@ class Lease extends Model
         'is_move_out',
         'is_old',
         'pdf_url',
+        'quote_id',
+        'kyc_complete',
+        'kyc_submitted_at',
     ];
 
     protected $attributes = [
@@ -118,6 +121,7 @@ class Lease extends Model
             'handover_date' => 'date',
             'actual_end_at' => 'date',
             'security_deposit_due_date' => 'date',
+            'kyc_submitted_at' => 'datetime',
             'rental_total_amount' => 'decimal:2',
             'security_deposit_amount' => 'decimal:2',
             'is_terms' => 'boolean',
@@ -125,6 +129,7 @@ class Lease extends Model
             'is_renew' => 'boolean',
             'is_move_out' => 'boolean',
             'is_old' => 'boolean',
+            'kyc_complete' => 'boolean',
         ];
     }
 
@@ -193,6 +198,18 @@ class Lease extends Model
     public function dealOwner(): BelongsTo
     {
         return $this->belongsTo(Admin::class, 'deal_owner_id');
+    }
+
+    /** @return BelongsTo<LeaseQuote, $this> */
+    public function quote(): BelongsTo
+    {
+        return $this->belongsTo(LeaseQuote::class, 'quote_id');
+    }
+
+    /** @return HasMany<LeaseKycDocument, $this> */
+    public function kycDocuments(): HasMany
+    {
+        return $this->hasMany(LeaseKycDocument::class, 'lease_id');
     }
 
     public function getTotalUnpaidAmountAttribute(): string

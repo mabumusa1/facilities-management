@@ -2,6 +2,7 @@
 import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
 import { computed, watchEffect } from 'vue';
 import {
+    convert as quotesConvert,
     index as quotesIndex,
     show as quotesShow,
     send as quotesSend,
@@ -148,6 +149,14 @@ function previewUrl(): string | null {
                 <Badge v-if="quote.status" variant="secondary">
                     {{ quote.status.name_en ?? quote.status.name }}
                 </Badge>
+
+                <Link
+                    v-if="quote.status?.name_en === 'accepted'"
+                    :href="quotesConvert.url(quote.id)"
+                    class="inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                >
+                    {{ t('app.quotes.convert.title') }} &rarr;
+                </Link>
 
                 <Button
                     v-if="can.send"

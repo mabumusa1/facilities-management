@@ -43,6 +43,13 @@ class LeaseQuotePolicy
             && ManagerScopeHelper::userCanAccessModel($user, $leaseQuote);
     }
 
+<<<<<<< HEAD
+    public function convert(User $user, LeaseQuote $leaseQuote): bool
+    {
+        return $user->can('leases.CREATE')
+            && $this->belongsToCurrentTenant($leaseQuote)
+            && ManagerScopeHelper::userCanAccessModel($user, $leaseQuote);
+=======
     /**
      * Allowed from sent or viewed status only.
      */
@@ -85,6 +92,7 @@ class LeaseQuotePolicy
             && $this->belongsToCurrentTenant($leaseQuote)
             && ManagerScopeHelper::userCanAccessModel($user, $leaseQuote)
             && ! in_array((int) $leaseQuote->status_id, $terminalStatuses, strict: true);
+>>>>>>> origin/1.x
     }
 
     public function delete(User $user, LeaseQuote $leaseQuote): bool

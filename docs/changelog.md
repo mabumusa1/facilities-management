@@ -10,6 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Convert a quote to a lease and collect KYC documents — April 25, 2026
+
+Property Managers and Admins can now turn an accepted lease quote into a lease application in one click, then upload the required identity and income documents before submitting for approval.
+
+- **Convert to Lease Application.** Open any accepted quote from **Leasing → Quotes** and click **Convert to Lease Application**. The form pre-fills every agreed term — unit, resident, contract type, duration, start date, rent amount, payment frequency, security deposit, and any additional charges — so you never retype what was already agreed.
+- **Review and adjust.** All fields are editable before you save. A banner highlights any value that differs from the original quote so the audit trail is clear.
+- **Auto-generate the contract number.** Toggle **Auto-generate contract number** to let the platform assign it, or type your own.
+- **One conversion per quote.** Each accepted quote can only be converted once. If you click Convert again on the same quote, you are redirected to the existing lease — no duplicates.
+- **KYC checklist.** After saving, the KYC page shows a progress bar and two sections — Required and Optional. Required documents (National ID / Iqama, Passport Copy, Employment Letter, Bank Statement, Tenancy History) must all be uploaded before you can submit. Optional documents (Previous Lease Agreement, Family Book) can be added but do not block submission. Click **Upload** on any row to attach a file, and **Remove** to replace it.
+- **Submit for Approval.** Once every required document is uploaded, click **Submit for Approval**. The lease advances to the approval workflow. If documents are still missing, the button is greyed out and a banner lists what is needed.
+
+Learn more: [Convert a quote to a lease and upload KYC documents](./guides/leasing/convert-and-kyc.md).
+
 ### Book a community facility — April 25, 2026
 
 Residents can now browse, select, and book facility time slots directly from the app.
