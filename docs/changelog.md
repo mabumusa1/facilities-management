@@ -23,7 +23,46 @@ You can now record offline payments received from residents and owners directly 
 
 Learn more: [Record a money-in transaction](./guides/accounting/record-money-in.md).
 
-<<<<<<< HEAD
+### Register a visitor (QR invitations) — April 25, 2026
+
+Residents can now create visitor invitations and share a QR code directly from their account.
+
+- **Register a visitor.** Go to **My Visitors** and tap **Register Visitor**. Enter the visitor's name, purpose (Visit, Delivery, Service, or Other), expected arrival date and time, and an optional phone number. Tap **Generate QR Code** and the invitation is created instantly.
+- **QR code to share.** The **Invitation Created** screen shows the QR code and a **Share QR** button. Tap it to send the code via WhatsApp, SMS, or any app on your device. Your visitor shows the code to the gate officer — no phone call needed.
+- **My Visitors list.** All your invitations appear under **My Visitors**, split into Active and Past sections. Each card shows the visitor name, purpose, expected arrival, and a live status badge.
+- **Cancel at any time.** Tap **Cancel Invitation** on any active invitation to immediately invalidate the QR code before the visitor arrives.
+- **Automatic expiry.** If a visitor does not arrive by the valid-until time, the invitation is marked Expired overnight. Create a new invitation if they still need to visit.
+- **Bilingual.** All screens work in English and Arabic, including Arabic name input on the registration form.
+
+Learn more: [Register a visitor](./guides/visitor-access/register-a-visitor.md).
+
+### Lease quotes — create and send — April 25, 2026
+
+Property Managers and Admins can now create lease quotes and send them to prospective residents directly from the platform.
+
+- **Create a quote.** Go to **Leasing → Quotes** and click **New Quote**. Select an available unit, pick the prospective resident from Contacts, set the contract type, lease duration, start date, rent amount, payment frequency, security deposit, and a valid-until deadline. Add optional extra charges (parking fee, etc.) with bilingual labels in English and Arabic. Add special conditions in both languages.
+- **Save as Draft or send immediately.** Click **Save as Draft** to keep the quote private while you finalise the terms. Click **Send Quote** to dispatch it to the prospect in one step — no separate send action needed.
+- **Send a draft later.** Open any Draft quote from the Quotes list and click **Send** on the detail page. The status moves from **Draft** to **Sent** and the prospect receives an email.
+- **Secure prospect preview.** The email contains a link gated by a unique, cryptographically random token — the prospect can view the full quote without creating an account or logging in.
+- **Automatic status tracking.** When the prospect opens the link, the quote status moves to **Viewed** automatically. The Quotes list reflects this in real time so you always know where each deal stands.
+- **Status at a glance.** Every quote shows its current status — Draft, Sent, Viewed, Accepted, Rejected, or Expired — on both the list and the detail page.
+
+Learn more: [Create and send a lease quote](./guides/leasing/lease-quotes.md).
+
+### Document templates — April 26, 2026
+
+You can now create and manage document templates with named merge fields for lease contracts, invoices, receipts, and booking documents.
+
+- **Create templates.** Go to **Admin → Document Templates**, click **Create template**, give it a name (English required, Arabic optional), choose a type (Lease, Booking, Invoice, Receipt, or Custom), and save. The template starts as a draft.
+- **Bilingual body.** Switch between English and Arabic tabs in the editor to author content for each language. Use `{{merge_field_key}}` placeholders where variable data should be inserted.
+- **Merge fields.** Define which data points the platform should pull — resident name, lease start date, invoice amount — each with a key, English/Arabic label, data type (text, date, currency, number), and source path. Click **Add field** to build the list.
+- **Version history.** Every save creates a new version. The right-hand sidebar shows all versions in descending order. Click any version to preview its body and merge fields. Existing generated documents stay pinned to the version that was current at generation time.
+- **Activate and archive.** Click **Activate** to make a draft template selectable when generating documents in Leasing, Facilities, or Accounting. Click **Archive** to retire a template from new use — existing documents remain intact.
+- **Admin-only access.** The Document Templates area is available only to Account Admins. Users without the `documents.VIEW` permission see a 403 error.
+- **Template preview.** Click the eye icon on any template to preview it with sample data before generating and sending. Switch between English and Arabic tabs — Arabic previews render right-to-left. Unresolved merge fields show an amber warning. The preview is ephemeral (no DocumentRecord is created). Preview is also available from the generation context in consumer modules with real data.
+
+Learn more: [Manage document templates](./guides/documents/document-templates.md) and [Preview a document](./guides/documents/preview-document.md).
+
 ### Facility availability and waitlist — April 25, 2026
 
 The groundwork for facility bookings is now in place. Property Managers will soon be able to set opening hours for each facility on a per-day basis, and residents will be able to join a waitlist when a slot is full.
