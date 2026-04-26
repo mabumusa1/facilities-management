@@ -23,6 +23,32 @@ Property Managers and Admins can now see every facility booking across the commu
 
 Learn more: [Manage facility bookings from the calendar](./guides/facilities/admin-calendar.md).
 
+### Approve or reject a lease application — April 25, 2026
+
+Property Managers with community-level scope can now record a formal approval or rejection decision directly from the lease detail page.
+
+- **Approval panel.** When a lease is in **Pending Application** status and you have manager scope for that community, a highlighted panel appears with **Approve** and **Reject** buttons.
+- **Approve.** One click transitions the lease to Approved, records your name and the exact time, and notifies the submitting manager.
+- **Reject.** A dialog asks for a written reason (at least 10 characters). Confirming transitions the lease to Rejected with the reason on record. The linked quote stays in Accepted status.
+- **Approval Timeline.** After a decision is recorded, a timeline card appears for all viewers — showing who approved or rejected, when, and (for rejections) the reason.
+- **Tenant isolation.** Managers from other communities cannot approve or reject leases outside their scope.
+
+Learn more: [Approve or reject a lease application](./guides/leasing/approve-or-reject-lease.md).
+
+### Triage incoming service requests (Admin) — April 25, 2026
+
+Property Managers and Admins can now review, assign, and annotate all service requests from a single triage queue.
+
+- **Triage queue.** Go to **Services → Service Requests** to see every incoming request for your communities. Columns show the reference number, resident name, unit, category, urgency, status, submission date, assigned technician, and SLA response indicator.
+- **Tabs for fast triage.** Use the **All Requests**, **Unassigned**, **Overdue**, and **SLA Breach** tabs to focus on what needs attention. Each tab shows a live count.
+- **SLA indicators.** Rows approaching their response deadline show a yellow left border. Rows that have already breached the deadline and are still unassigned show a red border and background — act on these first.
+- **Filters.** Narrow the queue by status, category, community, urgency, or reference number. Click **Apply** to refresh and **Reset** to clear.
+- **Assign and set priority.** Open any request, choose a technician from the **Assign Technician** dropdown (only admins in your account appear), set a priority, and click **Assign & Save**. The detail page and queue row update immediately.
+- **Internal notes.** Type a note in the **Internal Notes** section and click **Add Note**. Notes are admin-only — residents never see them. All previous notes appear in the **Notes History** list below the form with author name and timestamp.
+- **Permission-gated.** Requires Admin or Manager role. Residents reaching this URL directly receive a 403 error.
+
+Learn more: [Triage and manage service requests](./guides/service-requests/admin-triage.md).
+
 ### Submit a service request — April 25, 2026
 
 Residents can now report a maintenance or service issue directly from the platform.

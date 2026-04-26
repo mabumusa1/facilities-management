@@ -86,3 +86,4 @@ lang: ar
 
 ## ذات صلة
 - [إنشاء عرض إيجار وإرساله](./lease-quotes.md)
+- [الموافقة على طلب الإيجار أو رفضه](./approve-or-reject-lease.md)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Properties;
 
+use App\Enums\UnitStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Building;
 use App\Models\City;
@@ -12,6 +13,7 @@ use App\Models\Resident;
 use App\Models\Status;
 use App\Models\Unit;
 use App\Models\UnitCategory;
+use App\Services\UnitStateMachine;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +21,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UnitController extends Controller
 {
@@ -262,11 +266,49 @@ class UnitController extends Controller
             ->all();
 
         $updates = collect($validated)
+            ->except(['unit_ids', 'status'])
+            ->filter(fn (mixed $value): bool => $value !== null)
+            ->all();
+
+        if (array_key_exists('status', $validated) && $validated['status'] !== null) {
+            $targetStatus = UnitStatus::tryFrom($validated['status']);
+            if ($targetStatus === null) {
+                throw ValidationException::withMessages([
+                    'status' => sprintf(
+                        'Invalid status. Allowed values: %s.',
+                        implode(', ', array_column(UnitStatus::cases(), 'value'))
+                    ),
+                ]);
+            }
+
+            $stateMachine = app(UnitStateMachine::class);
+            $units = Unit::query()->whereIn('id', $unitIds)->get();
+
+            foreach ($units as $unit) {
+                $stateMachine->transition($unit, $targetStatus, $request->user(), 'Bulk status change');
+            }
+
+            // Remove status from updates to avoid double-update
+            unset($validated['status']);
+        }
+
+        $updates = collect($validated)
             ->except(['unit_ids'])
             ->filter(fn (mixed $value): bool => $value !== null)
             ->all();
 
         if ($updates === []) {
+            // If only status was set (handled above), return success
+            if (! empty($unitIds)) {
+                return response()->json([
+                    'data' => [
+                        'ids' => $unitIds,
+                        'updated_count' => count($unitIds),
+                    ],
+                    'message' => __('Units updated.'),
+                ]);
+            }
+
             throw ValidationException::withMessages([
                 'updates' => __('At least one field must be provided for bulk update.'),
             ]);
@@ -396,6 +438,163 @@ class UnitController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Unit updated.')]);
 
         return to_route('units.show', $unit);
+    }
+
+    public function rfExport(Request $request): BinaryFileResponse
+    {
+        $this->authorize('viewAny', Unit::class);
+
+        $filters = $request->only(['status', 'community_id', 'building_id', 'category_id', 'search']);
+
+        return Excel::download(
+            new UnitsExport($filters),
+            'units-'.now()->format('Y-m-d-His').'.xlsx'
+        );
+    }
+
+    public function updateStatus(Request $request, Unit $unit): JsonResponse
+    {
+        $this->authorize('update', $unit);
+
+        $validated = $request->validate([
+            'status' => ['required', 'string'],
+            'reason' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        $targetStatus = UnitStatus::tryFrom($validated['status']);
+
+        if ($targetStatus === null) {
+            throw ValidationException::withMessages([
+                'status' => sprintf(
+                    'Invalid status. Allowed values: %s.',
+                    implode(', ', array_column(UnitStatus::cases(), 'value'))
+                ),
+            ]);
+        }
+
+        $stateMachine = app(UnitStateMachine::class);
+        $history = $stateMachine->transition(
+            $unit,
+            $targetStatus,
+            $request->user(),
+            $validated['reason'] ?? null
+        );
+
+        return response()->json([
+            'data' => [
+                'unit_id' => $unit->id,
+                'status' => $unit->fresh()->status,
+                'history_id' => $history->id,
+            ],
+            'message' => sprintf(
+                'Unit status changed to "%s".',
+                $targetStatus->label()
+            ),
+        ]);
+    }
+
+    public function statusHistory(Unit $unit): JsonResponse
+    {
+        $this->authorize('view', $unit);
+
+        $history = $unit->statusHistory()
+            ->with('changedBy:id,name')
+            ->latest()
+            ->get()
+            ->map(fn ($record): array => [
+                'id' => $record->id,
+                'from_status' => $record->from_status,
+                'to_status' => $record->to_status,
+                'changed_by' => $record->changedBy?->name,
+                'reason' => $record->reason,
+                'created_at' => $record->created_at->toJSON(),
+            ]);
+
+        return response()->json(['data' => $history]);
+    }
+
+    public function uploadPhoto(Request $request, Unit $unit): JsonResponse
+    {
+        $this->authorize('update', $unit);
+
+        $validated = $request->validate([
+            'file' => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+        ]);
+
+        $path = $request->file('file')->store('unit-photos');
+
+        $maxOrder = $unit->photos()->max('sort_order') ?? 0;
+        $isPrimary = $unit->photos()->count() === 0;
+
+        $media = $unit->photos()->create([
+            'name' => $request->file('file')->getClientOriginalName(),
+            'url' => $path,
+            'collection' => 'photos',
+            'sort_order' => $maxOrder + 1,
+            'is_primary' => $isPrimary,
+        ]);
+
+        return response()->json([
+            'data' => [
+                'id' => $media->id,
+                'name' => $media->name,
+                'url' => $media->url,
+                'sort_order' => $media->sort_order,
+                'is_primary' => $media->is_primary,
+            ],
+            'message' => __('Photo uploaded.'),
+        ]);
+    }
+
+    public function reorderPhotos(Request $request, Unit $unit): JsonResponse
+    {
+        $this->authorize('update', $unit);
+
+        $validated = $request->validate([
+            'order' => ['required', 'array', 'min:1'],
+            'order.*.id' => ['required', 'integer'],
+            'order.*.sort_order' => ['required', 'integer', 'min:0'],
+        ]);
+
+        foreach ($validated['order'] as $item) {
+            $unit->photos()->whereKey($item['id'])->update(['sort_order' => $item['sort_order']]);
+        }
+
+        return response()->json(['message' => __('Photo order updated.')]);
+    }
+
+    public function setPrimaryPhoto(Request $request, Unit $unit): JsonResponse
+    {
+        $this->authorize('update', $unit);
+
+        $validated = $request->validate([
+            'photo_id' => ['required', 'integer'],
+        ]);
+
+        $unit->photos()->update(['is_primary' => false]);
+        $unit->photos()->whereKey($validated['photo_id'])->update(['is_primary' => true]);
+
+        return response()->json(['message' => __('Primary photo set.')]);
+    }
+
+    public function deletePhoto(Request $request, Unit $unit): JsonResponse
+    {
+        $this->authorize('update', $unit);
+
+        $validated = $request->validate([
+            'photo_id' => ['required', 'integer'],
+        ]);
+
+        $photo = $unit->photos()->whereKey($validated['photo_id'])->firstOrFail();
+
+        if ($photo->is_primary && $unit->photos()->count() > 1) {
+            $nextPhoto = $unit->photos()->whereKeyNot($photo->id)->orderBy('sort_order')->first();
+            $nextPhoto?->update(['is_primary' => true]);
+        }
+
+        $photo->delete();
+
+        return response()->json(['message' => __('Photo deleted.')]);
     }
 
     public function destroy(Request $request, Unit $unit): JsonResponse|RedirectResponse

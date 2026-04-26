@@ -99,6 +99,11 @@ class Lease extends Model
         'quote_id',
         'kyc_complete',
         'kyc_submitted_at',
+        'approved_by_id',
+        'approved_at',
+        'rejected_by_id',
+        'rejected_at',
+        'rejection_reason',
     ];
 
     protected $attributes = [
@@ -122,6 +127,8 @@ class Lease extends Model
             'actual_end_at' => 'date',
             'security_deposit_due_date' => 'date',
             'kyc_submitted_at' => 'datetime',
+            'approved_at' => 'datetime',
+            'rejected_at' => 'datetime',
             'rental_total_amount' => 'decimal:2',
             'security_deposit_amount' => 'decimal:2',
             'is_terms' => 'boolean',
@@ -198,6 +205,16 @@ class Lease extends Model
     public function dealOwner(): BelongsTo
     {
         return $this->belongsTo(Admin::class, 'deal_owner_id');
+    }
+
+    public function approvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by_id');
+    }
+
+    public function rejectedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'rejected_by_id');
     }
 
     /** @return BelongsTo<LeaseQuote, $this> */

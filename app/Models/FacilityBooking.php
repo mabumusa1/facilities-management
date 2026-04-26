@@ -69,6 +69,10 @@ class FacilityBooking extends Model
         'cancellation_by_type',
         'invoice_id',
         'contract_document_id',
+        'checked_in_at',
+        'checked_out_at',
+        'checked_in_by',
+        'purpose',
     ];
 
     protected function casts(): array

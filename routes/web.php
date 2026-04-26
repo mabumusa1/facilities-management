@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Accounting\AccountingReportController;
 use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
@@ -9,14 +10,19 @@ use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
+use App\Http\Controllers\AppSettings\AppSettingController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
+use App\Http\Controllers\AppSettings\ContractTypeController;
 use App\Http\Controllers\AppSettings\FacilityCategoryController as AppFacilityCategoryController;
 use App\Http\Controllers\AppSettings\FormTemplateController;
 use App\Http\Controllers\AppSettings\GeneralSettingController;
 use App\Http\Controllers\AppSettings\InvoiceSettingController;
+use App\Http\Controllers\AppSettings\NotificationPreferenceController;
+use App\Http\Controllers\AppSettings\RegionalSettingController;
 use App\Http\Controllers\AppSettings\RequestCategoryController;
 use App\Http\Controllers\AppSettings\RequestSubcategoryController;
 use App\Http\Controllers\AppSettings\ServiceSettingController;
+use App\Http\Controllers\AppSettings\SettingsAuditLogController;
 use App\Http\Controllers\AppSettings\SettingsFacilityController;
 use App\Http\Controllers\AppSettings\SettingsShellController;
 use App\Http\Controllers\Communication\AnnouncementController;
@@ -29,10 +35,12 @@ use App\Http\Controllers\Documents\DocumentCenterController;
 use App\Http\Controllers\Documents\ExcelSheetController;
 use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Documents\SigningController;
+use App\Http\Controllers\Facilities\BookingManagementController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
 use App\Http\Controllers\Facilities\FacilityCalendarController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
+use App\Http\Controllers\Leasing\ApprovalController;
 use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\QuoteController;
@@ -40,14 +48,17 @@ use App\Http\Controllers\Marketplace\MarketplaceController;
 use App\Http\Controllers\Properties\BuildingController;
 use App\Http\Controllers\Properties\CommunityController;
 use App\Http\Controllers\Properties\UnitController;
+use App\Http\Controllers\Reports\OperationalReportController;
 use App\Http\Controllers\Reports\ReportsController;
 use App\Http\Controllers\Requests\ServiceRequestController;
+use App\Http\Controllers\Services\AdminServiceRequestController;
 use App\Http\Controllers\Services\CategoryController as ServiceCategoryController;
 use App\Http\Controllers\Services\ResidentServiceRequestController;
 use App\Http\Controllers\Services\SubcategoryController as ServiceSubcategoryController;
 use App\Http\Controllers\Shared\LegacyCompatibilityController;
 use App\Http\Controllers\Shared\LookupController;
 use App\Http\Controllers\Shared\NotificationController;
+use App\Http\Controllers\VisitorAccess\GateController;
 use App\Http\Controllers\VisitorAccess\VisitorAccessController;
 use App\Http\Controllers\VisitorAccess\VisitorInvitationController;
 use Illuminate\Support\Facades\Route;
@@ -118,6 +129,11 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::delete('leases/{lease}/kyc/{document}', [KycController::class, 'removeKycDocument'])->name('leases.kyc.destroy');
     Route::post('leases/{lease}/submit', [KycController::class, 'submitForApproval'])->name('leases.submit');
 
+    // Leasing — Approval workflow
+    Route::get('leasing/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
+    Route::post('leases/{lease}/approve', [ApprovalController::class, 'approve'])->name('leases.approve');
+    Route::post('leases/{lease}/reject', [ApprovalController::class, 'reject'])->name('leases.reject');
+
     // Requests
     Route::resource('requests', ServiceRequestController::class)->parameters([
         'requests' => 'serviceRequest',
@@ -129,6 +145,14 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('create', [ResidentServiceRequestController::class, 'create'])->name('create');
         Route::post('/', [ResidentServiceRequestController::class, 'store'])->name('store');
         Route::get('{serviceRequest}/created', [ResidentServiceRequestController::class, 'created'])->name('created');
+    });
+
+    // Service Requests — Admin triage dashboard
+    Route::prefix('services/requests')->name('services.requests.')->group(function () {
+        Route::get('/', [AdminServiceRequestController::class, 'index'])->name('index');
+        Route::get('{serviceRequest}', [AdminServiceRequestController::class, 'show'])->name('show');
+        Route::patch('{serviceRequest}/assign', [AdminServiceRequestController::class, 'assign'])->name('assign');
+        Route::post('{serviceRequest}/notes', [AdminServiceRequestController::class, 'addNote'])->name('notes.store');
     });
 
     // Service Categories (admin configuration)
@@ -207,6 +231,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('subscriptions/{tenant}/activate', [AccountSubscriptionController::class, 'activate'])->name('subscriptions.activate');
         Route::post('subscriptions/{tenant}/cancel', [AccountSubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
         Route::post('subscriptions/{tenant}/cancel-now', [AccountSubscriptionController::class, 'cancelNow'])->name('subscriptions.cancel-now');
+        Route::get('subscriptions/billing', [AccountSubscriptionController::class, 'billingHistory'])->name('subscriptions.billing');
 
         Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
         Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
@@ -258,6 +283,19 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('general', [GeneralSettingController::class, 'store'])->name('general.store');
         Route::put('general/{setting}', [GeneralSettingController::class, 'update'])->name('general.update');
         Route::delete('general/{setting}', [GeneralSettingController::class, 'destroy'])->name('general.destroy');
+
+        Route::resource('contract-types', ContractTypeController::class)->except(['show', 'create', 'edit']);
+
+        Route::get('appearance', [AppSettingController::class, 'edit'])->name('appearance.edit');
+        Route::put('appearance', [AppSettingController::class, 'update'])->name('appearance.update');
+
+        Route::get('regional', [RegionalSettingController::class, 'edit'])->name('regional.edit');
+        Route::put('regional', [RegionalSettingController::class, 'update'])->name('regional.update');
+
+        Route::get('notifications', [NotificationPreferenceController::class, 'index'])->name('notifications.index');
+        Route::put('notifications/{preference}', [NotificationPreferenceController::class, 'update'])->name('notifications.update');
+
+        Route::get('audit-log', [SettingsAuditLogController::class, 'index'])->name('audit-log.index');
     });
 
     Route::prefix('settings')->name('settings.')->group(function () {
@@ -327,6 +365,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('buildings', [BuildingController::class, 'index'])->name('buildings.index');
         Route::post('buildings', [BuildingController::class, 'store'])->name('buildings.store');
         Route::put('buildings/{building}', [BuildingController::class, 'update'])->name('buildings.update');
+        Route::post('buildings/{building}/documents', [BuildingController::class, 'uploadDocument'])->name('buildings.upload-document');
         Route::get('buildings/{building}', [BuildingController::class, 'show'])->name('buildings.show');
         Route::get('communities/edaat-product-codes', [CommunityController::class, 'edaatProductCodes'])->name('communities.edaat-product-codes');
         Route::get('communities/edaat/product-codes', [CommunityController::class, 'edaatProductCodes'])->name('communities.edaat.product-codes');
@@ -373,13 +412,32 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
         Route::put('transactions/{transaction}', [TransactionController::class, 'update'])->name('transactions.update');
         Route::get('transactions/{transaction}', [TransactionController::class, 'rfShow'])->name('transactions.show');
+
+        Route::get('aging-report', [AccountingReportController::class, 'agingReport'])->name('aging-report');
+        Route::post('payments', [AccountingReportController::class, 'recordPayment'])->name('payments.record');
+        Route::post('transactions/{transaction}/reconcile', [AccountingReportController::class, 'reconcile'])->name('transactions.reconcile');
+        Route::get('reconciliation-summary', [AccountingReportController::class, 'reconciliationSummary'])->name('reconciliation.summary');
+        Route::get('transactions/export', [AccountingReportController::class, 'export'])->name('transactions.export');
+        Route::get('financial-summary', [AccountingReportController::class, 'financialSummary'])->name('financial-summary');
+
+        Route::get('bank-accounts', [AccountingReportController::class, 'bankAccounts'])->name('bank-accounts.index');
+        Route::post('bank-accounts', [AccountingReportController::class, 'storeBankAccount'])->name('bank-accounts.store');
+        Route::put('bank-accounts/{bankAccount}', [AccountingReportController::class, 'updateBankAccount'])->name('bank-accounts.update');
+        Route::delete('bank-accounts/{bankAccount}', [AccountingReportController::class, 'destroyBankAccount'])->name('bank-accounts.destroy');
         Route::get('units', [UnitController::class, 'rfIndex'])->name('units.index');
         Route::post('units', [UnitController::class, 'store'])->name('units.store');
         Route::put('units/{unit}', [UnitController::class, 'update'])->name('units.update');
         Route::post('units/bulk-delete', [UnitController::class, 'bulkDelete'])->name('units.bulk-delete');
         Route::post('units/bulk-update', [UnitController::class, 'bulkUpdate'])->name('units.bulk-update');
         Route::get('units/create', [UnitController::class, 'rfCreate'])->name('units.create');
+        Route::get('units/export', [UnitController::class, 'rfExport'])->name('units.export');
         Route::get('units/{unit}', [UnitController::class, 'rfShow'])->name('units.show');
+        Route::post('units/{unit}/status', [UnitController::class, 'updateStatus'])->name('units.update-status');
+        Route::get('units/{unit}/status-history', [UnitController::class, 'statusHistory'])->name('units.status-history');
+        Route::post('units/{unit}/photos', [UnitController::class, 'uploadPhoto'])->name('units.upload-photo');
+        Route::put('units/{unit}/photos/reorder', [UnitController::class, 'reorderPhotos'])->name('units.reorder-photos');
+        Route::put('units/{unit}/photos/primary', [UnitController::class, 'setPrimaryPhoto'])->name('units.set-primary-photo');
+        Route::delete('units/{unit}/photos/{photo_id}', [UnitController::class, 'deletePhoto'])->name('units.delete-photo');
         Route::get('requests', [ServiceRequestController::class, 'index'])->name('requests.index');
         Route::post('requests', [ServiceRequestController::class, 'store'])->name('requests.store');
         Route::put('requests/{serviceRequest}', [ServiceRequestController::class, 'update'])->name('requests.update');
@@ -389,12 +447,20 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('requests/change-status/in-progress', [ServiceRequestController::class, 'changeStatusInProgress'])->name('requests.change-status.in-progress');
         Route::post('requests/change-status/pending', [ServiceRequestController::class, 'changeStatusPending'])->name('requests.change-status.pending');
         Route::post('requests/change-status/rejected', [ServiceRequestController::class, 'changeStatusRejected'])->name('requests.change-status.rejected');
+        Route::post('requests/{serviceRequest}/rate', [ServiceRequestController::class, 'rate'])->name('requests.rate');
+        Route::get('requests/{serviceRequest}/check-sla', [ServiceRequestController::class, 'checkSla'])->name('requests.check-sla');
+        Route::post('complaints/{complaint}/convert-to-sr', [ServiceRequestController::class, 'convertFromComplaint'])->name('requests.convert-from-complaint');
         Route::post('requests/{serviceRequest}/assign', [ServiceRequestController::class, 'assign'])->name('requests.assign');
         Route::post('requests/{serviceRequest}/reassign', [ServiceRequestController::class, 'reassign'])->name('requests.reassign');
         Route::get('users/requests', [ServiceRequestController::class, 'index'])->name('users.requests.index');
         Route::get('users/requests/categories', [RequestCategoryController::class, 'index'])->name('users.requests.categories');
         Route::get('users/requests/types', [RequestSubcategoryController::class, 'typesIndex'])->name('users.requests.types');
         Route::get('users/visitor-access', [VisitorAccessController::class, 'rfIndex'])->name('users.visitor-access');
+        Route::get('gate/today', [GateController::class, 'gateView'])->name('gate.view');
+        Route::post('gate/check-in', [GateController::class, 'checkIn'])->name('gate.check-in');
+        Route::post('gate/check-out', [GateController::class, 'checkOut'])->name('gate.check-out');
+        Route::get('gate/log-report', [GateController::class, 'logReport'])->name('gate.log-report');
+        Route::get('gate/overstay', [GateController::class, 'overstayReport'])->name('gate.overstay');
         Route::get('requests/categories', [RequestCategoryController::class, 'index'])->name('requests.categories.index');
         Route::post('requests/categories', [RequestCategoryController::class, 'store'])->name('requests.categories.store');
         Route::put('requests/categories/{requestCategory}', [RequestCategoryController::class, 'update'])->name('requests.categories.update');
@@ -428,6 +494,13 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('buildings/{building}', [BuildingController::class, 'destroy'])->name('buildings.destroy');
         Route::delete('communities/{community}', [CommunityController::class, 'destroy'])->name('communities.destroy');
         Route::delete('facilities/{facility}', [FacilityController::class, 'destroy'])->name('facilities.destroy');
+
+        Route::get('bookings/calendar', [BookingManagementController::class, 'calendar'])->name('bookings.calendar');
+        Route::post('bookings/{booking}/check-in', [BookingManagementController::class, 'checkIn'])->name('bookings.check-in');
+        Route::post('bookings/{booking}/check-out', [BookingManagementController::class, 'checkOut'])->name('bookings.check-out');
+        Route::post('waitlist/join', [BookingManagementController::class, 'waitlistJoin'])->name('waitlist.join');
+        Route::delete('waitlist/leave', [BookingManagementController::class, 'waitlistLeave'])->name('waitlist.leave');
+        Route::get('facilities/report/operational', [BookingManagementController::class, 'operationalReport'])->name('facilities.report.operational');
         Route::delete('leases/{lease}', [LeaseController::class, 'destroy'])->name('leases.destroy');
         Route::delete('owners/{owner}', [OwnerController::class, 'destroy'])->name('owners.destroy');
         Route::delete('professionals/{professional}', [ProfessionalController::class, 'destroy'])->name('professionals.destroy');
@@ -441,6 +514,23 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('excel-sheets/land', [ExcelSheetController::class, 'storeLand'])->name('excel-sheets.land');
         Route::post('excel-sheets/leads', [ExcelSheetController::class, 'storeLeads'])->name('excel-sheets.leads');
         Route::get('excel-sheets/leads/errors', [ExcelSheetController::class, 'leadsErrors'])->name('excel-sheets.leads.errors');
+
+        Route::get('reports/occupancy', [OperationalReportController::class, 'occupancy'])->name('reports.occupancy');
+        Route::get('reports/lease-pipeline', [OperationalReportController::class, 'leasePipeline'])->name('reports.lease-pipeline');
+        Route::get('reports/portfolio-health', [OperationalReportController::class, 'portfolioHealth'])->name('reports.portfolio-health');
+        Route::get('reports/financial-summary', [OperationalReportController::class, 'financialSummary'])->name('reports.financial-summary');
+
+        Route::get('contract-types', [ContractTypeController::class, 'index'])->name('contract-types.index');
+        Route::post('contract-types', [ContractTypeController::class, 'store'])->name('contract-types.store');
+        Route::put('contract-types/{contractType}', [ContractTypeController::class, 'update'])->name('contract-types.update');
+        Route::delete('contract-types/{contractType}', [ContractTypeController::class, 'destroy'])->name('contract-types.destroy');
+
+        Route::put('regional-settings', [RegionalSettingController::class, 'update'])->name('regional-settings.update');
+
+        Route::get('notification-preferences', [NotificationPreferenceController::class, 'index'])->name('notification-preferences.index');
+        Route::put('notification-preferences/{preference}', [NotificationPreferenceController::class, 'update'])->name('notification-preferences.update');
+
+        Route::get('settings-audit-log', [SettingsAuditLogController::class, 'index'])->name('settings-audit-log.index');
     });
 
     Route::prefix('marketplace')->name('marketplace.')->group(function () {
@@ -509,6 +599,13 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
             Route::get('{visitorInvitation}', [VisitorInvitationController::class, 'show'])->name('show');
             Route::post('{visitorInvitation}/cancel', [VisitorInvitationController::class, 'cancel'])->name('cancel');
         });
+
+        // Gate Officer endpoints
+        Route::get('gate', [GateController::class, 'gateView'])->name('gate.view');
+        Route::post('gate/check-in', [GateController::class, 'checkIn'])->name('gate.check-in');
+        Route::post('gate/check-out', [GateController::class, 'checkOut'])->name('gate.check-out');
+        Route::get('gate/log-report', [GateController::class, 'logReport'])->name('gate.log-report');
+        Route::get('gate/overstay', [GateController::class, 'overstayReport'])->name('gate.overstay');
     });
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {

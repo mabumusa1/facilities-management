@@ -29,7 +29,10 @@ _(append as you find them; common places: listing endpoints that touch Community
 - Empty, loading, error states present.
 - Deferred props have a skeleton.
 - Tailwind classes follow existing patterns — don't invent new ones.
-- RTL/Arabic not broken (check for hardcoded `left-*`/`right-*` where `inset-inline-*` is safer).
+- RTL/Arabic not broken (check for hardcoded `left-*`/`right-*` where `inset-inline-*` is safer). Use `ms-*`/`me-*` (margin-start/end) not `ml-*`/`mr-*` for timeline indent and directional spacing.
+
+## Magic number in frontend computed — backend-prop pattern
+- Hardcoding a backend-reserved status ID in a Vue computed (e.g. `props.lease.status_id === 76`) creates a silent failure when the seeded ID differs across environments. Pattern to enforce: pass the boolean result (e.g. `isPendingApplication`) as a backend-computed prop from the controller alongside `canApprove`, remove the magic-number computed on the frontend entirely.
 
 ## Review tone
 - Start with what works. End with what must change.
@@ -73,6 +76,24 @@ _(append as you find them; common places: listing endpoints that touch Community
 ## Success toast missing after async save — silent success anti-pattern
 - When saving via `fetch()` instead of Inertia `useForm`, there is no automatic flash/toast. Always explicitly call the app's toast composable after the success branch. Defining i18n keys without using them is a sign the toast was forgotten.
 
+## whereColumn tautology — cross-tenant user disclosure in dropdowns
+- `->whereHas('relation', fn($q) => $q->whereColumn('col', 'col'))` compares a column to itself and is always true — equivalent to no filter at all. Returns all rows platform-wide. Always check `whereColumn` calls: both sides must reference *different* tables/aliases. For tenant-scoped user dropdowns, use `->where('account_tenant_id', Tenant::current()?->id)`.
+- Pair this with a tenant-scoped `Rule::exists` in the FormRequest: `Rule::exists('account_memberships', 'user_id')->where('account_tenant_id', Tenant::current()?->id)`. Without it, a malicious POST with a cross-tenant ID bypasses the dropdown and is persisted.
+
+## BookingConflictService / lockForUpdate pattern
+- Any service that checks for row-level conflicts (overlap, uniqueness) inside a `DB::transaction` must call `->lockForUpdate()` before `->first()`. Without it, two concurrent requests both read zero conflicts and both insert. Canonical pattern: `ResidentFacilityController.php:193`.
+- When a FormRequest is scaffolded with `authorize(): false` and empty `rules()` but never wired into the controller, delete it or wire it. It hard-blocks any accidental caller.
+
+## Cross-tenant exists validation for FK fields
+- `'exists:table,id'` does NOT scope to the current tenant. Any `facility_id`, `community_id`, etc. passed by the client must use `Rule::exists('table', 'id')->where('account_tenant_id', Tenant::current()?->id)` to prevent cross-tenant FK injection.
+
+## Wayfinder regen mandatory on new controllers
+- After adding a new controller with routes, `php artisan wayfinder:generate` must be run and the generated `ControllerName.ts` + updated `index.ts` committed in the same PR. Importing from a missing Wayfinder file causes a build-time crash.
+
+## Route shadowing — named-route tests masking registration-order defects
+- `route('named.route')` resolves by name (bypasses registration order). Real HTTP requests follow registration order. If `Route::resource('foo', Controller::class)` is declared before `Route::get('/foo/bar', ...)`, then `/foo/bar` is matched by the resource's `{foo}` wildcard (show action) and the explicit route is dead.
+- Always register sub-resource / calendar / custom routes *before* the parent `Route::resource()` in `routes/web.php`. Named-route tests will pass either way — always verify ordering by reading the route file, not the test output.
+
 ## Past review index
 - PR #118 — approved (re-review) — all three prior concerns resolved; `bootBelongsToAccountTenant()` override pattern (tenant OR NULL scope) confirmed correct; nice-to-have: `Tenant::forgetCurrent()` should be in `finally` block in scope tests
 - PR #119 — comment (not approved) — no code defects; two pre-merge gates: (1) PM/TL on-record sign-off on 186 vs 180 permission count, (2) comment in seeder documenting `Settings` subject intent for `admins` role
@@ -83,6 +104,11 @@ _(append as you find them; common places: listing endpoints that touch Community
 - PR #124 — approved (Round 2) — both blockers resolved: (1) Rule::prohibitedIf(true) on all 3 scope fields for scopeLevel 'none'; test inverted to assertSessionHasErrors; (2) cancelConfirm added to EN+AR, fallback removed. 25 tests green. Latent: Gate::define for 'manage-user-role-assignments' works correctly given current role set but interacts subtly with Spatie Gate::before; formatDate uses 'en-GB' hardcoded (cosmetic); /dashboard breadcrumb hardcoded URL.
 - PR #125 — comment (Round 2, not yet approved) — both Round 1 must-fixes resolved: (1) dead $morphAlias removed; (2) lines 247 and 295 have explicit null scope columns. Missed: line 125 insert still omits the three null columns — not a runtime defect (columns are nullable with no DB default) but inconsistent. Flagged as nice-to-have; human to decide land-as-is or patch first. 16 tests green, Pint clean.
 - PR #330 — approved (Round 1) — zero must-fixes; 4 nice-to-haves: (1) `nationality_id` in useForm but no UI selector (AC gap vs UX spec Screen 2, nullable so no security impact); (2) `form.post('/residents')` hardcoded URL matches sibling convention; (3) DataTable has no `dir` prop on Column — AR column lacks dir=rtl; (4) `createdToast` i18n key dead code (server uses PHP __() + Inertia::flash). 40 tests green, Pint clean.
+- PR #375 — comment/LGTM (Round 2, self-authored so GitHub blocked formal approve) — both blockers resolved: (1) assignee dropdown JOIN replaces whereColumn tautology, fails safe when tenant is null (empty list); (2) AssignServiceRequestRequest scopes exists check to account_memberships with tenant FK. 6 tests green, Pint clean. Nice-to-haves: distinct() on assignees query; STATUS_ASSIGNED magic ID; triage policy has no model instance (relies on global scope). Ready for docs chain.
+- PR #376 — comment/request-changes (Round 1, self-authored) — 6 must-fixes: (1) Wayfinder not regenerated; (2) FacilityCalendarBookingRequest has authorize():false + empty rules(), never wired; (3) lockForUpdate() missing — race condition; (4) facility_id exists check not tenant-scoped; (5) app.common.optional i18n key missing; (6) no cross-tenant show() forbidden test.
+- PR #376 — comment/request-changes (Round 2, self-authored) — all 6 original blockers resolved in commit 6877791. New blocker: calendar routes declared AFTER Route::resource('facilities',...) — `/facilities/calendar` shadowed by resource show wildcard. Nice-to-haves: bookings() inline facility_id validation not tenant-scoped; resident_id exists not tenant-scoped.
+- PR #377 — comment (Round 1, self-authored — GitHub blocked formal request-changes) — 3 must-fixes: (1) 14 `app.leases.approval.*` i18n keys absent from both appEnFallback.ts and appArFallback.ts — useI18n:159 returns raw key string, approval panel renders key paths in production; (2) magic number `76` in `isPendingApplication` computed — pass as backend boolean prop from LeaseController::show(); (3) no cross-tenant isolation test for approve/reject — privileged admin from tenant B attacking tenant A lease untested. Nice-to-haves: ml-1/ml-6 RTL-unsafe → ms-1/ms-6; no idempotency test (ensureTransition handles it but untested); pre-existing hardcoded delete URL.
+- PR #377 — comment/LGTM (Round 2, self-authored — GitHub blocked formal approve) — all 3 blockers resolved in 8dd3a49: (1) all 14 approval i18n keys present in EN+AR, Arabic translations idiomatic; (2) isPendingApplication moved to backend prop via ExpireLeaseQuotes constant, no magic number remains; (3) two cross-tenant tests cover both approve and reject. RTL ms-* fixes on 3 sites. Ready for docs chain.
 
 ## HasContactInfo::initializeHasContactInfo() — mergeFillable pattern
 - `HasContactInfo` uses `initializeHasContactInfo()` (not `bootHasContactInfo()`) to call `$this->mergeFillable([...])` at instantiation time. This means fields like `first_name`, `phone_number`, `national_phone_number`, `id_type`, etc., are NOT listed in the model's own `$fillable` array but are still mass-assignable. Always check for `initializeHas*` traits before reporting missing `$fillable` entries.

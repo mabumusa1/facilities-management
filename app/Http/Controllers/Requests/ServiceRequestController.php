@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Requests;
 
 use App\Http\Controllers\Controller;
 use App\Models\Community;
+use App\Models\Complaint;
 use App\Models\Request as ServiceRequest;
 use App\Models\RequestCategory;
 use App\Models\Status;
 use App\Models\Unit;
+use App\Services\SlaService;
 use App\Support\StatusWorkflow;
 use App\Support\WorkflowNotifier;
 use Illuminate\Http\JsonResponse;
@@ -472,5 +474,80 @@ class ServiceRequestController extends Controller
             'to' => $paginator->lastItem(),
             'total' => $paginator->total(),
         ];
+    }
+
+    // -------------------------------------------------------------------------
+    // Gap-closing endpoints for stories #214, #215, #216
+    // -------------------------------------------------------------------------
+
+    public function rate(Request $request, ServiceRequest $serviceRequest): JsonResponse
+    {
+        $validated = $request->validate([
+            'rating' => ['required', 'integer', 'min:1', 'max:5'],
+            'feedback' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        $serviceRequest->update([
+            'rating' => $validated['rating'],
+            'feedback' => $validated['feedback'] ?? null,
+        ]);
+
+        return response()->json([
+            'data' => [
+                'id' => $serviceRequest->id,
+                'rating' => $serviceRequest->rating,
+                'feedback' => $serviceRequest->feedback,
+            ],
+            'message' => __('Rating submitted.'),
+        ]);
+    }
+
+    public function checkSla(ServiceRequest $serviceRequest): JsonResponse
+    {
+        app(SlaService::class)->check($serviceRequest);
+
+        return response()->json([
+            'data' => [
+                'id' => $serviceRequest->id,
+                'sla_response_due_at' => $serviceRequest->sla_response_due_at?->toJSON(),
+                'sla_resolution_due_at' => $serviceRequest->sla_resolution_due_at?->toJSON(),
+                'sla_breach_response' => $serviceRequest->sla_breach_response,
+                'sla_breach_resolution' => $serviceRequest->sla_breach_resolution,
+            ],
+        ]);
+    }
+
+    public function convertFromComplaint(Request $request, Complaint $complaint): JsonResponse
+    {
+        $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:rf_request_categories,id'],
+            'subcategory_id' => ['nullable', 'integer', 'exists:rf_request_subcategories,id'],
+            'priority' => ['nullable', 'string', 'in:low,medium,high,urgent'],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        $sr = ServiceRequest::create([
+            'category_id' => $validated['category_id'],
+            'subcategory_id' => $validated['subcategory_id'] ?? null,
+            'priority' => $validated['priority'] ?? 'medium',
+            'description' => $validated['description'] ?? $complaint->description,
+            'unit_id' => null,
+            'created_by' => $request->user()?->id,
+            'source_complaint_id' => $complaint->id,
+        ]);
+
+        app(SlaService::class)->calculate($sr);
+        $sr->save();
+
+        $complaint->update(['status' => 'converted_to_sr']);
+
+        return response()->json([
+            'data' => ['id' => $sr->id, 'request_code' => $sr->request_code],
+            'message' => sprintf(
+                'Complaint #%d converted to Service Request %s.',
+                $complaint->id,
+                $sr->request_code
+            ),
+        ]);
     }
 }

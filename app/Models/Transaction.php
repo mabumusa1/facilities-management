@@ -84,6 +84,9 @@ class Transaction extends Model
         'direction',
         'payment_method',
         'reference_number',
+        'is_reconciled',
+        'reconciled_at',
+        'reconciled_by',
     ];
 
     protected $attributes = [
@@ -93,6 +96,7 @@ class Transaction extends Model
         'is_paid' => false,
         'is_old' => false,
         'direction' => 'money_in',
+        'is_reconciled' => false,
     ];
 
     protected $appends = [
@@ -111,6 +115,8 @@ class Transaction extends Model
             'due_on' => 'date',
             'is_paid' => 'boolean',
             'is_old' => 'boolean',
+            'is_reconciled' => 'boolean',
+            'reconciled_at' => 'datetime',
         ];
     }
 

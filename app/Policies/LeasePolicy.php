@@ -56,6 +56,28 @@ class LeasePolicy
             && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 
+    /**
+     * Approve a pending lease application.
+     * Requires leases.APPROVE permission and manager-level community scope.
+     */
+    public function approve(User $user, Lease $lease): bool
+    {
+        return $user->can('leases.APPROVE')
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
+    }
+
+    /**
+     * Reject a pending lease application.
+     * Requires leases.APPROVE permission and manager-level community scope.
+     */
+    public function reject(User $user, Lease $lease): bool
+    {
+        return $user->can('leases.APPROVE')
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
+    }
+
     public function delete(User $user, Lease $lease): bool
     {
         return $user->can('leases.DELETE')
