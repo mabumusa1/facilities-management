@@ -4,9 +4,9 @@ use App\Http\Controllers\Accounting\TransactionCategoryController;
 use App\Http\Controllers\Accounting\TransactionController;
 use App\Http\Controllers\Admin\AccountSubscriptionController;
 use App\Http\Controllers\Admin\AccountUserController;
+use App\Http\Controllers\Admin\BulkExportController;
 use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
-use App\Http\Controllers\Admin\BulkExportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -30,6 +30,7 @@ use App\Http\Controllers\Documents\ExcelSheetController;
 use App\Http\Controllers\Documents\FileController;
 use App\Http\Controllers\Documents\SigningController;
 use App\Http\Controllers\Facilities\FacilityBookingController;
+use App\Http\Controllers\Facilities\FacilityCalendarController;
 use App\Http\Controllers\Facilities\FacilityController;
 use App\Http\Controllers\Facilities\ResidentFacilityController;
 use App\Http\Controllers\Leasing\KycController;
@@ -145,6 +146,16 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Facilities
     Route::resource('facilities', FacilityController::class);
     Route::resource('facility-bookings', FacilityBookingController::class);
+
+    // Admin calendar view
+    Route::get('/facilities/calendar', [FacilityCalendarController::class, 'index'])
+        ->name('facilities.calendar');
+    Route::get('/facilities/calendar/bookings', [FacilityCalendarController::class, 'bookings'])
+        ->name('facilities.calendar.bookings');
+    Route::post('/facilities/calendar/bookings', [FacilityCalendarController::class, 'store'])
+        ->name('facilities.calendar.store');
+    Route::get('/facilities/calendar/bookings/{facilityBooking}', [FacilityCalendarController::class, 'show'])
+        ->name('facilities.calendar.show');
 
     // Resident-facing slot picker and booking actions
     Route::get('/facilities/{facility}/slots-picker', [ResidentFacilityController::class, 'slotPicker'])
@@ -531,4 +542,3 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 Route::get('quotes/{token}', [QuoteController::class, 'preview'])->name('quotes.preview');
 
 require __DIR__.'/settings.php';
-

@@ -635,6 +635,29 @@ export type FacilityBooking = {
     status?: Status;
 };
 
+/**
+ * Lightweight booking shape returned by the calendar AJAX endpoints.
+ * Different from FacilityBooking which maps the full Eloquent model.
+ */
+export type CalendarBooking = {
+    id: number;
+    facility_id: number;
+    facility_name: string;
+    booker_name: string;
+    booker_type: string;
+    booking_date: string;
+    start_time: string;
+    end_time: string;
+    status_id: number;
+    status_name: string;
+    notes: string | null;
+    /** Only present on the show (popover) endpoint. */
+    invoice_id?: number | null;
+    can_checkin?: boolean;
+    can_cancel?: boolean;
+    can_update?: boolean;
+};
+
 // ---------------------------------------------------------------------------
 // Communication Models
 // ---------------------------------------------------------------------------
