@@ -47,6 +47,7 @@ use App\Http\Controllers\Marketplace\MarketplaceController;
 use App\Http\Controllers\Properties\BuildingController;
 use App\Http\Controllers\Properties\CommunityController;
 use App\Http\Controllers\Properties\UnitController;
+use App\Http\Controllers\Reports\OperationalReportController;
 use App\Http\Controllers\Reports\ReportsController;
 use App\Http\Controllers\Requests\ServiceRequestController;
 use App\Http\Controllers\Services\AdminServiceRequestController;
@@ -502,6 +503,11 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('excel-sheets/land', [ExcelSheetController::class, 'storeLand'])->name('excel-sheets.land');
         Route::post('excel-sheets/leads', [ExcelSheetController::class, 'storeLeads'])->name('excel-sheets.leads');
         Route::get('excel-sheets/leads/errors', [ExcelSheetController::class, 'leadsErrors'])->name('excel-sheets.leads.errors');
+
+        Route::get('reports/occupancy', [OperationalReportController::class, 'occupancy'])->name('reports.occupancy');
+        Route::get('reports/lease-pipeline', [OperationalReportController::class, 'leasePipeline'])->name('reports.lease-pipeline');
+        Route::get('reports/portfolio-health', [OperationalReportController::class, 'portfolioHealth'])->name('reports.portfolio-health');
+        Route::get('reports/financial-summary', [OperationalReportController::class, 'financialSummary'])->name('reports.financial-summary');
 
         Route::get('contract-types', [ContractTypeController::class, 'index'])->name('contract-types.index');
         Route::post('contract-types', [ContractTypeController::class, 'store'])->name('contract-types.store');
