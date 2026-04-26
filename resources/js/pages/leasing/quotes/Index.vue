@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { Paginated } from '@/types';
+import { index as quotesIndex, create as quotesCreate, show as quotesShow } from '@/actions/App/Http/Controllers/Leasing/QuoteController';
 
 const { t } = useI18n();
 
@@ -37,7 +38,7 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.quotes.pageTitle'), href: '/leases/quotes' },
+            { title: t('app.quotes.pageTitle'), href: quotesIndex.url() },
         ],
     });
 });
@@ -51,7 +52,7 @@ const filters = reactive({
 const perPageOptions = ['10', '15', '25', '50'];
 
 function applyFilters() {
-    router.get('/leases/quotes', { ...filters }, {
+    router.get(quotesIndex.url(), { ...filters }, {
         preserveState: true,
         preserveScroll: true,
         replace: true,
@@ -99,7 +100,7 @@ const columns = computed<Column<QuoteRow>[]>(() => [
         <PageHeader
             :title="t('app.quotes.heading')"
             :description="t('app.quotes.description')"
-            create-href="/leases/quotes/create"
+            :create-href="quotesCreate.url()"
             :create-label="t('app.quotes.newQuote')"
         />
 
@@ -148,7 +149,7 @@ const columns = computed<Column<QuoteRow>[]>(() => [
             :columns="columns"
             :rows="quotes.data"
             :links="quotes.links"
-            :row-href="(row: any) => `/leases/quotes/${row.id}`"
+            :row-href="(row: any) => quotesShow.url(row.id)"
             :empty-message="t('app.quotes.noQuotesFound')"
         />
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Leasing;
 
+use App\Console\Commands\ExpireLeaseQuotes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Leasing\QuoteStoreRequest;
 use App\Models\ContractType;
@@ -85,7 +86,7 @@ class QuoteController extends Controller
         ]);
     }
 
-    public function store(QuoteStoreRequest $request): RedirectResponse
+    public function store(QuoteStoreRequest $request, StatusWorkflow $statusWorkflow): RedirectResponse
     {
         $this->authorize('create', LeaseQuote::class);
 
@@ -93,12 +94,7 @@ class QuoteController extends Controller
         $action = $validated['action'];
         unset($validated['action']);
 
-        $draftStatus = Status::query()
-            ->where('type', 'lease_quote')
-            ->where('name_en', 'draft')
-            ->firstOrFail();
-
-        $validated['status_id'] = $draftStatus->id;
+        $validated['status_id'] = ExpireLeaseQuotes::STATUS_DRAFT;
         $validated['created_by_id'] = $request->user()->id;
         $validated['security_deposit'] = $validated['security_deposit'] ?? 0;
 
@@ -106,7 +102,7 @@ class QuoteController extends Controller
         $quote = LeaseQuote::create($validated);
 
         if ($action === 'send') {
-            $this->sendQuote($quote, $request);
+            $this->sendQuote($quote, $statusWorkflow);
         }
 
         Inertia::flash('toast', [
@@ -141,23 +137,16 @@ class QuoteController extends Controller
 
     public function send(Request $request, LeaseQuote $quote, StatusWorkflow $statusWorkflow): RedirectResponse
     {
-        $this->authorize('update', $quote);
+        $this->authorize('send', $quote);
 
-        $quote->load('status');
-
-        $sentStatus = Status::query()
-            ->where('type', 'lease_quote')
-            ->where('name_en', 'sent')
-            ->firstOrFail();
-
-        $statusWorkflow->ensureTransition('lease_quote', (int) $quote->status_id, $sentStatus->id);
+        $statusWorkflow->ensureTransition('lease_quote', (int) $quote->status_id, ExpireLeaseQuotes::STATUS_SENT);
 
         if (empty($quote->public_token)) {
             $quote->public_token = (string) Str::uuid();
         }
 
         $quote->update([
-            'status_id' => $sentStatus->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_SENT,
             'public_token' => $quote->public_token,
         ]);
 
@@ -174,18 +163,9 @@ class QuoteController extends Controller
             ->firstOrFail();
 
         // Atomically transition from sent → viewed on first open.
-        $quote->load('status');
-
-        if (($quote->status?->name_en ?? '') === 'sent') {
-            $viewedStatus = Status::query()
-                ->where('type', 'lease_quote')
-                ->where('name_en', 'viewed')
-                ->first();
-
-            if ($viewedStatus instanceof Status) {
-                $quote->update(['status_id' => $viewedStatus->id]);
-                $quote->status = $viewedStatus;
-            }
+        if ((int) $quote->status_id === ExpireLeaseQuotes::STATUS_SENT) {
+            $quote->update(['status_id' => ExpireLeaseQuotes::STATUS_VIEWED]);
+            $quote->status_id = ExpireLeaseQuotes::STATUS_VIEWED;
         }
 
         return Inertia::render('leasing/quotes/Preview', [
@@ -195,20 +175,15 @@ class QuoteController extends Controller
 
     /**
      * Transition a quote to "sent" status and ensure it has a public token.
+     *
+     * @throws \RuntimeException When the sent status is not found.
      */
-    private function sendQuote(LeaseQuote $quote, Request $request): void
+    private function sendQuote(LeaseQuote $quote, StatusWorkflow $statusWorkflow): void
     {
-        $sentStatus = Status::query()
-            ->where('type', 'lease_quote')
-            ->where('name_en', 'sent')
-            ->first();
-
-        if (! $sentStatus instanceof Status) {
-            return;
-        }
+        $statusWorkflow->ensureTransition('lease_quote', (int) $quote->status_id, ExpireLeaseQuotes::STATUS_SENT);
 
         $quote->update([
-            'status_id' => $sentStatus->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_SENT,
             'public_token' => $quote->public_token ?? (string) Str::uuid(),
         ]);
     }

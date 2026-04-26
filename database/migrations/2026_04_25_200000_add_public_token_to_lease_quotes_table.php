@@ -17,6 +17,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('lease_quotes', function (Blueprint $table): void {
+            $table->dropUnique('lease_quotes_public_token_unique');
             $table->dropColumn('public_token');
         });
     }

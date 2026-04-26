@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, router, setLayoutProps } from '@inertiajs/vue3';
 import { watchEffect } from 'vue';
+import { index as quotesIndex, send as quotesSend, preview as quotesPreview } from '@/actions/App/Http/Controllers/Leasing/QuoteController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,7 +42,7 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.quotes.pageTitle'), href: '/leases/quotes' },
+            { title: t('app.quotes.pageTitle'), href: quotesIndex.url() },
             { title: props.quote.quote_number ?? `#${props.quote.id}`, href: '#' },
         ],
     });
@@ -49,7 +50,7 @@ watchEffect(() => {
 
 function sendQuote() {
     if (confirm(t('app.quotes.show.confirmSend'))) {
-        router.post(`/leases/quotes/${props.quote.id}/send`);
+        router.post(quotesSend.url(props.quote.id));
     }
 }
 
@@ -58,7 +59,7 @@ function previewUrl(): string | null {
         return null;
     }
 
-    return `/quotes/${props.quote.public_token}`;
+    return quotesPreview.url(props.quote.public_token);
 }
 </script>
 

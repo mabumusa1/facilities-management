@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Leasing;
 
+use App\Console\Commands\ExpireLeaseQuotes;
 use App\Models\AccountMembership;
 use App\Models\Admin;
 use App\Models\LeaseQuote;
@@ -52,18 +53,12 @@ class QuoteControllerTest extends TestCase
 
     public function test_store_creates_draft_lease_quote_and_redirects_to_show(): void
     {
-        $draftStatus = Status::factory()->create([
-            'type' => 'lease_quote',
-            'name_en' => 'draft',
-        ]);
-
         $unit = Unit::factory()->create(['account_tenant_id' => $this->tenant->id]);
         $contact = Resident::factory()->create(['account_tenant_id' => $this->tenant->id]);
         $paymentFrequency = Setting::factory()->create([
             'type' => 'payment_frequency',
             'name_en' => 'Monthly',
         ]);
-        $admin = Admin::factory()->create(['account_tenant_id' => $this->tenant->id]);
 
         $response = $this->withSession($this->withTenant())
             ->withoutVite()
@@ -90,7 +85,7 @@ class QuoteControllerTest extends TestCase
             ->first();
 
         $this->assertNotNull($quote, 'LeaseQuote should have been created.');
-        $this->assertEquals($draftStatus->id, $quote->status_id);
+        $this->assertEquals(ExpireLeaseQuotes::STATUS_DRAFT, $quote->status_id);
         $this->assertEquals(12, $quote->duration_months);
         $this->assertEquals('5000.00', $quote->rent_amount);
         $this->assertNotNull($quote->public_token, 'public_token should be auto-generated on create.');
@@ -103,11 +98,14 @@ class QuoteControllerTest extends TestCase
 
     public function test_store_with_send_action_transitions_to_sent_status(): void
     {
+        // Create statuses with the reserved IDs so StatusWorkflow can validate the transition.
         Status::factory()->create([
+            'id' => ExpireLeaseQuotes::STATUS_DRAFT,
             'type' => 'lease_quote',
             'name_en' => 'draft',
         ]);
-        $sentStatus = Status::factory()->create([
+        Status::factory()->create([
+            'id' => ExpireLeaseQuotes::STATUS_SENT,
             'type' => 'lease_quote',
             'name_en' => 'sent',
         ]);
@@ -138,7 +136,7 @@ class QuoteControllerTest extends TestCase
             ->first();
 
         $this->assertNotNull($quote);
-        $this->assertEquals($sentStatus->id, $quote->status_id);
+        $this->assertEquals(ExpireLeaseQuotes::STATUS_SENT, $quote->status_id);
     }
 
     // -----------------------------------------------------------------------
@@ -172,6 +170,67 @@ class QuoteControllerTest extends TestCase
         $response = $this->withoutVite()->get(route('quotes.create'));
 
         $response->assertRedirect(route('login'));
+    }
+
+    // -----------------------------------------------------------------------
+    // Authorization: authenticated user without leasing permissions gets 403
+    // -----------------------------------------------------------------------
+
+    public function test_user_without_leasing_permissions_gets_403_on_index(): void
+    {
+        $unprivilegedUser = User::factory()->create();
+        $tenant = Tenant::create(['name' => 'Unprivileged Tenant']);
+
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->withoutVite()
+            ->get(route('quotes.index'));
+
+        $response->assertForbidden();
+    }
+
+    public function test_user_without_leasing_permissions_gets_403_on_create(): void
+    {
+        $unprivilegedUser = User::factory()->create();
+        $tenant = Tenant::create(['name' => 'Unprivileged Tenant Create']);
+
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->withoutVite()
+            ->get(route('quotes.create'));
+
+        $response->assertForbidden();
+    }
+
+    public function test_user_without_leasing_permissions_gets_403_on_store(): void
+    {
+        $unprivilegedUser = User::factory()->create();
+        $tenant = Tenant::create(['name' => 'Unprivileged Tenant Store']);
+
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->withoutVite()
+            ->post(route('quotes.store'), []);
+
+        $response->assertForbidden();
     }
 
     // -----------------------------------------------------------------------

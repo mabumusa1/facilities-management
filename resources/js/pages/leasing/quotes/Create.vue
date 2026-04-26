@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { index as quotesIndex, create as quotesCreate, store as quotesStore } from '@/actions/App/Http/Controllers/Leasing/QuoteController';
 
 const { t } = useI18n();
 
@@ -28,8 +29,8 @@ watchEffect(() => {
     setLayoutProps({
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
-            { title: t('app.quotes.pageTitle'), href: '/leases/quotes' },
-            { title: t('app.quotes.create.pageTitle'), href: '/leases/quotes/create' },
+            { title: t('app.quotes.pageTitle'), href: quotesIndex.url() },
+            { title: t('app.quotes.create.pageTitle'), href: quotesCreate.url() },
         ],
     });
 });
@@ -67,7 +68,7 @@ function removeCharge(index: number) {
 function submit(action: 'save_draft' | 'send') {
     form.additional_charges = additionalCharges.value;
     form.action = action;
-    form.post('/leases/quotes');
+    form.post(quotesStore.url());
 }
 </script>
 
