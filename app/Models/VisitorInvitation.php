@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 class VisitorInvitation extends Model
 {
@@ -50,7 +49,7 @@ class VisitorInvitation extends Model
     {
         static::creating(function (VisitorInvitation $invitation) {
             if (empty($invitation->qr_code_token)) {
-                $invitation->qr_code_token = (string) Str::uuid();
+                $invitation->qr_code_token = bin2hex(random_bytes(16));
             }
         });
     }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 import { Head, Link, setLayoutProps } from '@inertiajs/vue3';
+import { index, show } from '@/actions/App/Http/Controllers/VisitorAccess/VisitorInvitationController';
 import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
@@ -31,8 +32,8 @@ watch(
         setLayoutProps({
             breadcrumbs: [
                 { title: t('app.navigation.dashboard'), href: '/dashboard' },
-                { title: t('app.visitorAccess.myVisitors.pageTitle'), href: '/visitor-access/invitations' },
-                { title: t('app.visitorAccess.show.pageTitle'), href: `/visitor-access/invitations/${props.invitation.id}` },
+                { title: t('app.visitorAccess.myVisitors.pageTitle'), href: index.url() },
+                { title: t('app.visitorAccess.show.pageTitle'), href: show.url(props.invitation.id) },
             ],
         });
     },
@@ -48,6 +49,29 @@ function purposeLabel(purpose: string): string {
     };
 
     return map[purpose] ?? purpose;
+}
+
+function statusVariant(status: string): 'default' | 'secondary' | 'outline' | 'destructive' {
+    if (status === 'active' || status === 'used') {
+        return 'default';
+    }
+
+    if (status === 'expired') {
+        return 'outline';
+    }
+
+    return 'secondary';
+}
+
+function statusLabel(status: string): string {
+    const map: Record<string, string> = {
+        active: t('app.visitorAccess.myVisitors.statusActive'),
+        used: t('app.visitorAccess.myVisitors.statusUsed'),
+        expired: t('app.visitorAccess.myVisitors.statusExpired'),
+        cancelled: t('app.visitorAccess.myVisitors.statusCancelled'),
+    };
+
+    return map[status] ?? status;
 }
 
 function formatDateTime(iso: string | null): string {
@@ -101,8 +125,8 @@ async function shareQr() {
                         {{ purposeLabel(props.invitation.visitor_purpose) }} ·
                         {{ formatDateTime(props.invitation.expected_at) }}
                     </p>
-                    <Badge variant="default" class="w-fit">
-                        {{ t('app.visitorAccess.myVisitors.statusActive') }}
+                    <Badge :variant="statusVariant(props.invitation.status)" class="w-fit">
+                        {{ statusLabel(props.invitation.status) }}
                     </Badge>
                 </div>
 
@@ -130,7 +154,7 @@ async function shareQr() {
                         {{ t('app.visitorAccess.show.shareCta') }}
                     </Button>
                     <Button variant="outline" class="flex-1" as-child>
-                        <Link href="/visitor-access/invitations">
+                        <Link :href="index.url()">
                             {{ t('app.visitorAccess.show.viewMyVisitorsCta') }}
                         </Link>
                     </Button>

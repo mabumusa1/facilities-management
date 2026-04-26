@@ -62,12 +62,14 @@ class VisitorInvitationController extends Controller
         $user = $request->user();
         $validated = $request->validated();
 
+        $communityId = $validated['community_id'] ?? null;
         $expectedAt = new \DateTime($validated['expected_at']);
-        $qrExpiryMinutes = $this->resolveQrExpiryMinutes();
+        $qrExpiryMinutes = $this->resolveQrExpiryMinutes($communityId);
         $validUntil = (clone $expectedAt)->modify("+{$qrExpiryMinutes} minutes");
 
         $invitation = VisitorInvitation::create([
             'resident_id' => $user->id,
+            'community_id' => $communityId,
             'visitor_name' => $validated['visitor_name'],
             'visitor_phone' => $validated['visitor_phone'] ?? null,
             'visitor_purpose' => $validated['visitor_purpose'],
@@ -146,12 +148,20 @@ class VisitorInvitationController extends Controller
     }
 
     /**
-     * Resolve the QR expiry duration (in minutes).
+     * Resolve the QR expiry duration (in minutes) for the given community.
      *
-     * Falls back to 1440 minutes (24 hours) if no community setting exists.
+     * Scopes the lookup to the resident's community when a community_id is available,
+     * so that multi-community tenants each get their own configured expiry window.
+     * Falls back to 1440 minutes (24 hours) when no matching setting exists.
      */
-    private function resolveQrExpiryMinutes(): int
+    private function resolveQrExpiryMinutes(?int $communityId): int
     {
-        return VisitorAccessSetting::query()->value('qr_expiry_minutes') ?? 1440;
+        $query = VisitorAccessSetting::query();
+
+        if ($communityId !== null) {
+            $query->where('community_id', $communityId);
+        }
+
+        return $query->value('qr_expiry_minutes') ?? 1440;
     }
 }

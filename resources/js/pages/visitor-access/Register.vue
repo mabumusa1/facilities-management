@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 import { Head, Link, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { index, store } from '@/actions/App/Http/Controllers/VisitorAccess/VisitorInvitationController';
 import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -17,8 +18,8 @@ watch(
         setLayoutProps({
             breadcrumbs: [
                 { title: t('app.navigation.dashboard'), href: '/dashboard' },
-                { title: t('app.visitorAccess.myVisitors.pageTitle'), href: '/visitor-access/invitations' },
-                { title: t('app.visitorAccess.register.pageTitle'), href: '/visitor-access/invitations/create' },
+                { title: t('app.visitorAccess.myVisitors.pageTitle'), href: index.url() },
+                { title: t('app.visitorAccess.register.pageTitle'), href: store.url() },
             ],
         });
     },
@@ -33,7 +34,7 @@ const form = useForm({
 });
 
 function submit() {
-    form.post('/visitor-access/invitations');
+    form.post(store.url());
 }
 </script>
 
@@ -123,7 +124,7 @@ function submit() {
             <!-- Actions -->
             <div class="flex items-center justify-end gap-4">
                 <Button variant="outline" as-child :disabled="form.processing">
-                    <Link href="/visitor-access/invitations">{{ t('app.actions.cancel') }}</Link>
+                    <Link :href="index.url()">{{ t('app.actions.cancel') }}</Link>
                 </Button>
                 <Button type="submit" :disabled="form.processing">
                     {{ form.processing ? t('app.visitorAccess.register.generatingCta') : t('app.visitorAccess.register.generateCta') }}

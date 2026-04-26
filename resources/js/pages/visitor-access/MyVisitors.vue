@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { Head, Link, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { index, create, show, cancel } from '@/actions/App/Http/Controllers/VisitorAccess/VisitorInvitationController';
 import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
@@ -32,7 +33,7 @@ watch(
         setLayoutProps({
             breadcrumbs: [
                 { title: t('app.navigation.dashboard'), href: '/dashboard' },
-                { title: t('app.visitorAccess.myVisitors.pageTitle'), href: '/visitor-access/invitations' },
+                { title: t('app.visitorAccess.myVisitors.pageTitle'), href: index.url() },
             ],
         });
     },
@@ -58,7 +59,7 @@ function confirmCancel() {
         return;
     }
 
-    cancelForm.post(`/visitor-access/invitations/${invitationToCancel.value.id}/cancel`, {
+    cancelForm.post(cancel.url(invitationToCancel.value.id), {
         onSuccess: () => closeCancelDialog(),
     });
 }
@@ -120,7 +121,7 @@ function formatDateTime(iso: string | null): string {
                 :description="t('app.visitorAccess.myVisitors.description')"
             />
             <Button as-child>
-                <Link href="/visitor-access/invitations/create">
+                <Link :href="create.url()">
                     {{ t('app.visitorAccess.myVisitors.registerCta') }}
                 </Link>
             </Button>
@@ -133,7 +134,7 @@ function formatDateTime(iso: string | null): string {
         >
             <p class="text-muted-foreground text-sm">{{ t('app.visitorAccess.myVisitors.emptyHeading') }}</p>
             <Button as-child>
-                <Link href="/visitor-access/invitations/create">
+                <Link :href="create.url()">
                     {{ t('app.visitorAccess.myVisitors.registerCta') }}
                 </Link>
             </Button>
@@ -165,7 +166,7 @@ function formatDateTime(iso: string | null): string {
                             {{ t('app.visitorAccess.myVisitors.statusActive') }}
                         </Badge>
                         <Button variant="ghost" size="sm" as-child>
-                            <Link :href="`/visitor-access/invitations/${invitation.id}`">
+                            <Link :href="show.url(invitation.id)">
                                 {{ t('app.visitorAccess.myVisitors.viewQr') }}
                             </Link>
                         </Button>

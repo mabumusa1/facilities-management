@@ -6,7 +6,6 @@ use App\Models\Community;
 use App\Models\User;
 use App\Models\VisitorInvitation;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory<VisitorInvitation>
@@ -32,7 +31,7 @@ class VisitorInvitationFactory extends Factory
             'valid_until' => (clone $expectedAt)->modify('+1 day'),
             'status' => 'pending',
             'notes' => $this->faker->optional()->sentence(),
-            'qr_code_token' => (string) Str::uuid(),
+            'qr_code_token' => bin2hex(random_bytes(16)),
             'qr_code_sent_via' => 'none',
         ];
     }
