@@ -86,3 +86,4 @@ After submission the lease status changes from **Pending Application** to the ne
 
 ## Related
 - [Create and send a lease quote](./lease-quotes.md)
+- [Approve or reject a lease application](./approve-or-reject-lease.md)
