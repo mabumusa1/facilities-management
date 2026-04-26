@@ -23,6 +23,47 @@ Property Managers and Admins can now turn an accepted lease quote into a lease a
 
 Learn more: [Convert a quote to a lease and upload KYC documents](./guides/leasing/convert-and-kyc.md).
 
+### Book a community facility — April 25, 2026
+
+Residents can now browse, select, and book facility time slots directly from the app.
+
+- **Browse facilities.** Go to **Facilities** in the bottom navigation. You will see a card grid of all community facilities available for booking, showing the name, pricing (Free, SAR per session, or SAR per hour), and capacity.
+- **Pick a date.** Tap **Book** on a facility card, then tap a day from the date strip (next 7–14 days). Days when the facility is closed are not selectable.
+- **Choose a time slot.** The slot grid appears, grouped into **Morning**, **Afternoon**, and **Evening**. Available slots are tappable; booked and closed slots are visually disabled.
+- **Confirm.** Tap an available slot to open the Confirm Booking sheet showing the date, time, duration, and price. Tap **Confirm** to book. You receive a confirmation to your mobile number and email.
+- **Race-condition protection.** If two residents try to book the same last slot at the same moment, only one succeeds. The other sees "This slot is no longer available — please choose a different time" and can tap **Pick Another Slot** to try again.
+- **Contract-required facilities.** Some facilities (for example, a banquet hall) require a signed contract. Tapping **Book** creates a pending booking and you receive instructions for signing the contract.
+- **Access control.** Only residents with an active community membership can see and use this screen. Non-members receive a 403 error.
+
+Learn more: [Book a facility](./guides/facilities/book-a-facility.md).
+
+### Configure service request categories and SLA targets — April 25, 2026
+
+Admins can now build the category tree that residents see when they submit a service request, and set time targets for how quickly each category must be acknowledged and resolved.
+
+- **Create categories.** Go to **Settings → Services → Service Categories** and click **+ New Category**. Give the category a bilingual name (English and Arabic), pick an emoji icon, and set the Response SLA and Resolution SLA in hours. Optionally assign a default handler and restrict the category to specific communities.
+- **Add subcategories.** Expand any category and click **+ Add Subcategory**. Subcategories inherit the parent's SLA targets by default. Enter custom hours only if this subcategory needs different targets — the form shows "Inherited from parent" when no override is set.
+- **Enable or disable.** Use the **Disable** / **Enable** buttons on any category or subcategory row to hide or show it in the resident request form without deleting it.
+- **Delete protection.** A subcategory linked to active (non-archived) service requests cannot be deleted. Disable it instead, or archive the linked requests first.
+- **Permission-gated.** Only admin accounts can access this page.
+
+Learn more: [Configure service request categories and SLA targets](./guides/service-requests/configure-categories-and-sla.md).
+
+### E-signature — send documents for digital signing — April 26, 2026
+
+You can now send a generated document to a recipient for digital signature using an OTP-verified in-platform flow — no third-party SaaS required.
+
+- **Send for signature.** Open any document record in Draft or Link Expired status and click **Send for Signature**. Enter the recipient's name and email, and the platform generates a unique signing link and transitions the document to Sent.
+- **Public signing page.** The recipient clicks the link and sees a read-only rendering of the document (English or Arabic) with a **Sign Document** button. No platform account is required.
+- **OTP verification.** Before signing, the recipient requests a 6-digit OTP. After entering it correctly, the system records the verification timestamp and accepts the signature.
+- **Signature recording.** A `DocumentSignature` record is created with signer name, email, signature timestamp, OTP verification timestamp, and IP address. The document transitions to Signed and a countersigned PDF is produced.
+- **Link expiry.** The signing link expires after 7 days. After that, the manager sees the status as **Link Expired** and can resend with a new token. The old link stops working immediately.
+- **OTP security.** OTPs expire after 10 minutes and are limited to 5 attempts per code. After 5 incorrect entries, the code is invalidated and a new one must be requested.
+- **Resend at any time.** While a document is Sent or Link Expired, the manager can resend the link — this generates a new token and invalidates the old one.
+- **Admin-only send.** The Send and Resend actions are gated by the `documents.UPDATE` permission.
+
+Learn more: [Send a document for e-signature](./guides/documents/e-signing-documents.md).
+
 ### Record money-in transactions — April 25, 2026
 
 You can now record offline payments received from residents and owners directly in the Accounting module.
@@ -48,6 +89,18 @@ Residents can now create visitor invitations and share a QR code directly from t
 - **Bilingual.** All screens work in English and Arabic, including Arabic name input on the registration form.
 
 Learn more: [Register a visitor](./guides/visitor-access/register-a-visitor.md).
+
+### Lease quotes — revise, reject, and expire — April 25, 2026
+
+Property Managers and Admins can now revise sent quotes, reject offers, and manually expire quotes from the quote detail page.
+
+- **Revise a quote.** Open any Draft, Sent, or Viewed quote and click **Revise** (مراجعة). The revision form opens with all current values pre-filled — fields that changed from the previous version are highlighted with a **Changed** badge so you can spot what is different at a glance. Edit any term, add an optional revision note, choose an email subject prefix (for example, "Updated Quote"), and click **Save Revision**. A new version is created and the prospect receives a fresh email automatically. The **Revision History** panel on the right of the detail page lists all versions in newest-first order; click any entry to open that version.
+- **Reject a quote.** On any Sent or Viewed quote, click **Reject** (رفض). Enter a rejection reason (required) and confirm. The status moves to **Rejected** and no further emails are sent for this quote.
+- **Expire manually.** If a unit has already been leased by another channel, use the **Expire** action on the detail page to close the quote immediately rather than waiting for the overnight job.
+- **Read-only terminal states.** Accepted, Rejected, and Expired quotes show a banner explaining the current state and disable all edit controls — there is nothing further you can do on those quotes.
+- **Automatic nightly expiry** remains in place: any open quote (Draft, Sent, Viewed) whose valid-until date has passed is moved to Expired overnight with no manual action needed.
+
+Learn more: [Create, send, and revise lease quotes](./guides/leasing/lease-quotes.md).
 
 ### Lease quotes — create and send — April 25, 2026
 
@@ -77,6 +130,22 @@ You can now create and manage document templates with named merge fields for lea
 Learn more: [Manage document templates](./guides/documents/document-templates.md) and [Preview a document](./guides/documents/preview-document.md).
 
 Backend: New document generation engine produces filled contracts and invoices from templates when triggered by Leasing, Facilities, or Accounting.
+
+### Manage facilities — April 25, 2026
+
+Property Managers and Admins can now create, configure, and manage facilities from the Facilities area.
+
+- **Create a facility.** Go to **Facilities** and click **New Facility**. Enter the facility name in English and Arabic, choose a community and category, and set the capacity.
+- **Pricing.** Pick Free, Per Session, or Per Hour. When a paid mode is selected, enter the price and currency (default: SAR).
+- **Booking Constraints.** Set how far ahead residents can book (days), how close to the slot they can cancel (hours), and the minimum (and optional maximum) session length in minutes.
+- **7-day availability grid.** Toggle each day of the week on or off, then set the opening time, closing time, slot duration, and maximum concurrent bookings for each active day. Monday–Saturday are on by default; Sunday and Friday are off.
+- **Contract required.** Tick the Contract required checkbox if residents must sign a contract before their booking is confirmed.
+- **Safe deactivation.** If a facility has upcoming confirmed bookings, a yellow banner shows the count when you open the edit form. Click **Deactivate Facility** in the banner and confirm in the dialog. Existing bookings remain valid — no new bookings can be created after deactivation. To reactivate, click **Reactivate & Save**.
+- **Facility detail page.** Click any facility name to see its status, pricing, upcoming booking count, active availability schedule, and constraint summary in a read-only view.
+- **Permission-gated.** Creating facilities requires `facilities.CREATE`; editing requires `facilities.UPDATE`. Users without these permissions see a 403 error.
+- **Bilingual.** All screens work in English and Arabic, including the Arabic name field with right-to-left input.
+
+Learn more: [Configure a facility](./guides/facilities/configure-facility.md).
 
 ### Facility availability and waitlist — April 25, 2026
 

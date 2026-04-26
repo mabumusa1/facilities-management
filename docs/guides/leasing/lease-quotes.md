@@ -1,5 +1,5 @@
 ---
-title: Create and send a lease quote
+title: Create, send, and revise lease quotes
 area: leasing
 layout: guide
 lang: en
@@ -7,7 +7,7 @@ lang: en
 
 # {{ page.title }}
 
-*A lease quote is a formal, time-limited tenancy offer you send to a prospective resident before a binding lease is created. This guide covers creating a quote, sending it to the prospect, and what they see when they open it.*
+*A lease quote is a formal, time-limited tenancy offer you send to a prospective resident before a binding lease is created. This guide covers creating a quote, sending it, and managing it after it is sent — including revising terms, rejecting a quote, and how automatic expiry works.*
 
 ## Who this is for
 Property Managers and Admins who prepare tenancy offers for prospective residents.
@@ -44,6 +44,33 @@ Property Managers and Admins who prepare tenancy offers for prospective resident
 3. Confirm the prompt: *"Are you sure you want to send this quote to the prospect?"*
 4. The status changes from **Draft** to **Sent** and the prospect receives an email with a secure preview link.
 
+### Revise a quote
+
+You can revise any quote that is in **Draft**, **Sent**, or **Viewed** status. Revising creates a new version — the original is preserved in full.
+
+1. Open the quote from **Leasing → Quotes**.
+2. Click **Revise** (مراجعة) on the quote detail page.
+3. The revision form opens with all current values pre-filled. Fields that have changed since the previous version are marked with a **Changed** badge; unchanged fields show **Unchanged**.
+4. Edit the fields you need to update — rent amount, valid-until date, special conditions, or any other term.
+5. Add a **Revision Note** to explain the change to your own records (optional).
+6. Choose an **Email Subject Prefix** to signal to the prospect that this is a revised offer (for example, "Updated Quote").
+7. Click **Save Revision**.
+
+The platform creates a new version of the quote, resets its status to **Sent**, and sends the prospect a fresh email. The **Revision History** sidebar on the detail page lists every version in descending order; click any entry to view that version's terms.
+
+> Accepted and expired quotes are read-only. If an accepted quote needs correction, contact your Account Admin. If a quote has expired, create a new quote instead.
+
+### Reject a quote
+
+Reject a quote when you want to withdraw the offer before the prospect responds.
+
+1. Open the quote from **Leasing → Quotes**.
+2. Click **Reject** (رفض) on the detail page. This action is available for quotes in **Sent** or **Viewed** status.
+3. In the confirmation dialog, enter a **Rejection Reason** (required, 2 000 characters max).
+4. Confirm the rejection.
+
+The status moves to **Rejected** immediately. No further emails are sent to the prospect for this quote.
+
 ## What you'll see
 
 After sending, the quote detail page shows status **Sent**. The **Lease Quotes** list shows each quote's number, resident name, unit, rent amount, valid-until date, and current status badge.
@@ -58,21 +85,28 @@ The prospect opens the email link and lands on a read-only quote preview page �
 | **Sent** (مرسل) | Delivered to the prospect. |
 | **Viewed** (تم الاطلاع) | Prospect has opened the preview link. |
 | **Accepted** (مقبول) | Prospect agreed to the terms — ready to convert to a lease. |
-| **Rejected** (مرفوض) | Prospect declined the offer. |
+| **Rejected** (مرفوض) | Offer withdrawn by the manager, or declined by the prospect. |
 | **Expired** (منتهي) | The valid-until date passed without a response. |
 
-A quote can only move forward through these statuses. You cannot revert a sent quote to draft. To offer revised terms, create a new quote. When a prospect accepts, you can convert the quote into a lease — see [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md).
+A quote can only move forward through these statuses. You cannot revert a sent quote to draft. To offer revised terms, create a new quote. When a prospect accepts, you can convert the quote into a lease — see [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md). Accepted, Rejected, and Expired statuses are terminal — no further actions are available from those states.
 
 ### Automatic expiry
 
 Every night the platform checks all open quotes (Draft, Sent, Viewed) whose **Valid Until** date has passed and transitions them to **Expired**. This runs automatically with no action required from you.
 
+Admins can also manually expire a quote from its detail page using the **Expire** action — for example, to clean up a quote where the unit has already been leased through another channel.
+
+### Revision history
+
+The **Revision History** panel on the right side of the quote detail page lists all versions of a quote in version-descending order (newest first). Each entry shows the version number, the date it was created, and who created it. Click any entry to open that version's detail page.
+
 ## Common issues
 
 - **A unit I want is not in the list.** Only units in **available** status appear in the unit picker. Check the unit's status under **Properties → Units**.
-- **A quote I sent shows as Expired but the prospect is still considering it.** The valid-until date passed. Create a revised quote with a later date and resend it.
+- **The Revise button is not visible.** Revise is only available for Draft, Sent, and Viewed quotes. If the quote is Accepted, Rejected, or Expired the button does not appear — those states are final.
+- **The Reject button is not visible.** Reject is only available for Sent and Viewed quotes.
 - **I cannot see "Quotes" in the Leasing menu.** Check that your role has the **leases.VIEW** permission. Ask your Account Admin if the option is missing.
-- **I want to change terms after sending.** A sent quote cannot be edited. Create a new quote with the revised terms.
+- **A quote I sent shows as Expired but the prospect is still considering it.** The valid-until date passed. Revise the quote with a later valid-until date to reopen negotiations.
 
 ## Related
 - [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md)
