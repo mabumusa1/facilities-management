@@ -10,6 +10,21 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### E-signature — send documents for digital signing — April 26, 2026
+
+You can now send a generated document to a recipient for digital signature using an OTP-verified in-platform flow — no third-party SaaS required.
+
+- **Send for signature.** Open any document record in Draft or Link Expired status and click **Send for Signature**. Enter the recipient's name and email, and the platform generates a unique signing link and transitions the document to Sent.
+- **Public signing page.** The recipient clicks the link and sees a read-only rendering of the document (English or Arabic) with a **Sign Document** button. No platform account is required.
+- **OTP verification.** Before signing, the recipient requests a 6-digit OTP. After entering it correctly, the system records the verification timestamp and accepts the signature.
+- **Signature recording.** A `DocumentSignature` record is created with signer name, email, signature timestamp, OTP verification timestamp, and IP address. The document transitions to Signed and a countersigned PDF is produced.
+- **Link expiry.** The signing link expires after 7 days. After that, the manager sees the status as **Link Expired** and can resend with a new token. The old link stops working immediately.
+- **OTP security.** OTPs expire after 10 minutes and are limited to 5 attempts per code. After 5 incorrect entries, the code is invalidated and a new one must be requested.
+- **Resend at any time.** While a document is Sent or Link Expired, the manager can resend the link — this generates a new token and invalidates the old one.
+- **Admin-only send.** The Send and Resend actions are gated by the `documents.UPDATE` permission.
+
+Learn more: [Send a document for e-signature](./guides/documents/e-signing-documents.md).
+
 ### Record money-in transactions — April 25, 2026
 
 You can now record offline payments received from residents and owners directly in the Accounting module.
