@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Properties;
 
+use App\Enums\UnitStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Building;
 use App\Models\City;
@@ -12,6 +13,7 @@ use App\Models\Resident;
 use App\Models\Status;
 use App\Models\Unit;
 use App\Models\UnitCategory;
+use App\Services\UnitStateMachine;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -396,6 +398,67 @@ class UnitController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Unit updated.')]);
 
         return to_route('units.show', $unit);
+    }
+
+    public function updateStatus(Request $request, Unit $unit): JsonResponse
+    {
+        $this->authorize('update', $unit);
+
+        $validated = $request->validate([
+            'status' => ['required', 'string'],
+            'reason' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        $targetStatus = UnitStatus::tryFrom($validated['status']);
+
+        if ($targetStatus === null) {
+            throw ValidationException::withMessages([
+                'status' => sprintf(
+                    'Invalid status. Allowed values: %s.',
+                    implode(', ', array_column(UnitStatus::cases(), 'value'))
+                ),
+            ]);
+        }
+
+        $stateMachine = app(UnitStateMachine::class);
+        $history = $stateMachine->transition(
+            $unit,
+            $targetStatus,
+            $request->user(),
+            $validated['reason'] ?? null
+        );
+
+        return response()->json([
+            'data' => [
+                'unit_id' => $unit->id,
+                'status' => $unit->fresh()->status,
+                'history_id' => $history->id,
+            ],
+            'message' => sprintf(
+                'Unit status changed to "%s".',
+                $targetStatus->label()
+            ),
+        ]);
+    }
+
+    public function statusHistory(Unit $unit): JsonResponse
+    {
+        $this->authorize('view', $unit);
+
+        $history = $unit->statusHistory()
+            ->with('changedBy:id,name')
+            ->latest()
+            ->get()
+            ->map(fn ($record): array => [
+                'id' => $record->id,
+                'from_status' => $record->from_status,
+                'to_status' => $record->to_status,
+                'changed_by' => $record->changedBy?->name,
+                'reason' => $record->reason,
+                'created_at' => $record->created_at->toJSON(),
+            ]);
+
+        return response()->json(['data' => $history]);
     }
 
     public function destroy(Request $request, Unit $unit): JsonResponse|RedirectResponse
