@@ -20,8 +20,9 @@ You can now create and manage document templates with named merge fields for lea
 - **Version history.** Every save creates a new version. The right-hand sidebar shows all versions in descending order. Click any version to preview its body and merge fields. Existing generated documents stay pinned to the version that was current at generation time.
 - **Activate and archive.** Click **Activate** to make a draft template selectable when generating documents in Leasing, Facilities, or Accounting. Click **Archive** to retire a template from new use — existing documents remain intact.
 - **Admin-only access.** The Document Templates area is available only to Account Admins. Users without the `documents.VIEW` permission see a 403 error.
+- **Template preview.** Click the eye icon on any template to preview it with sample data before generating and sending. Switch between English and Arabic tabs — Arabic previews render right-to-left. Unresolved merge fields show an amber warning. The preview is ephemeral (no DocumentRecord is created). Preview is also available from the generation context in consumer modules with real data.
 
-Learn more: [Manage document templates](./guides/documents/document-templates.md).
+Learn more: [Manage document templates](./guides/documents/document-templates.md) and [Preview a document](./guides/documents/preview-document.md).
 
 ### Facility availability and waitlist — April 25, 2026
 
