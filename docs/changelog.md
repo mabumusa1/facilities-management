@@ -10,6 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Facility Calendar for admins — April 25, 2026
+
+Property Managers and Admins can now see every facility booking across the community on a single weekly calendar and manage bookings directly from it.
+
+- **Calendar view.** Go to **Facilities → Calendar** (تقويم المرافق) to see a weekly grid of all bookings, color-coded by status: blue for Confirmed, green for Checked-in, amber for Pending, gray for Completed, and red for Cancelled.
+- **Filter by facility or status.** Use the **All Facilities** dropdown to focus on one facility. Use the tab bar — All, Confirmed, Checked-in, Completed, Cancelled — to hide statuses you are not interested in.
+- **Navigate weeks.** Click the arrow buttons to move one week back or forward. The grid updates without a full page reload. Click **Today** (اليوم) to return to the current week.
+- **Booking detail popover.** Click any booking block to see the resident's name, facility, date, time, duration, and status. From the popover you can **Edit**, **Check In**, or **Cancel Booking** the booking on the spot.
+- **Create an admin booking.** Click **+ Create Booking** (إنشاء حجز) — or click any empty time slot directly on the grid — to open the booking form. Fill in the facility, date, start and end time, and an optional resident name. Click **Create** and the booking appears on the calendar immediately. If the slot is already taken, an **Overlap Detected** error tells you to choose a different time.
+- **Access control.** This screen is admin-only. Each admin sees only the bookings for their own community.
+
+Learn more: [Manage facility bookings from the calendar](./guides/facilities/admin-calendar.md).
+
 ### Submit a service request — April 25, 2026
 
 Residents can now report a maintenance or service issue directly from the platform.
