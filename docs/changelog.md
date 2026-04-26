@@ -10,6 +10,18 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Configure service request categories and SLA targets — April 25, 2026
+
+Admins can now build the category tree that residents see when they submit a service request, and set time targets for how quickly each category must be acknowledged and resolved.
+
+- **Create categories.** Go to **Settings → Services → Service Categories** and click **+ New Category**. Give the category a bilingual name (English and Arabic), pick an emoji icon, and set the Response SLA and Resolution SLA in hours. Optionally assign a default handler and restrict the category to specific communities.
+- **Add subcategories.** Expand any category and click **+ Add Subcategory**. Subcategories inherit the parent's SLA targets by default. Enter custom hours only if this subcategory needs different targets — the form shows "Inherited from parent" when no override is set.
+- **Enable or disable.** Use the **Disable** / **Enable** buttons on any category or subcategory row to hide or show it in the resident request form without deleting it.
+- **Delete protection.** A subcategory linked to active (non-archived) service requests cannot be deleted. Disable it instead, or archive the linked requests first.
+- **Permission-gated.** Only admin accounts can access this page.
+
+Learn more: [Configure service request categories and SLA targets](./guides/service-requests/configure-categories-and-sla.md).
+
 ### Record money-in transactions — April 25, 2026
 
 You can now record offline payments received from residents and owners directly in the Accounting module.
