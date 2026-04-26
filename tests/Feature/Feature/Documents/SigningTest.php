@@ -24,7 +24,7 @@ class SigningTest extends TestCase
     {
         Role::firstOrCreate(['name' => 'accountAdmins', 'guard_name' => 'web']);
 
-        $tenant = Tenant::create(['name' => 'Sign Test ' . Str::random(4)]);
+        $tenant = Tenant::create(['name' => 'Sign Test '.Str::random(4)]);
         $tenant->makeCurrent();
 
         $user = User::factory()->create();
@@ -183,5 +183,83 @@ class SigningTest extends TestCase
         ]);
 
         $response->assertStatus(422);
+    }
+
+    public function test_otp_expires_after_ten_minutes(): void
+    {
+        $record = $this->seedRecord('sent');
+        DocumentSignature::create([
+            'document_record_id' => $record->id,
+            'signer_name' => 'John',
+            'signer_email' => 'john@example.com',
+        ]);
+
+        $otpRes = $this->post("/sign/{$record->signing_token}/otp");
+        $otp = $otpRes->json('otp');
+
+        $this->travel(11)->minutes();
+
+        $response = $this->post("/sign/{$record->signing_token}/sign", [
+            'otp' => $otp,
+            'signer_name' => 'John Doe',
+        ]);
+
+        $response->assertStatus(422);
+    }
+
+    public function test_otp_fails_after_max_attempts(): void
+    {
+        $record = $this->seedRecord('sent');
+        DocumentSignature::create([
+            'document_record_id' => $record->id,
+            'signer_name' => 'John',
+            'signer_email' => 'john@example.com',
+        ]);
+
+        $otpRes = $this->post("/sign/{$record->signing_token}/otp");
+        $otp = $otpRes->json('otp');
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->post("/sign/{$record->signing_token}/sign", [
+                'otp' => '000000',
+                'signer_name' => 'John Doe',
+            ]);
+        }
+
+        $response = $this->post("/sign/{$record->signing_token}/sign", [
+            'otp' => $otp,
+            'signer_name' => 'John Doe',
+        ]);
+
+        $response->assertStatus(422);
+    }
+
+    public function test_resend_invalidates_old_token(): void
+    {
+        $record = $this->seedRecord('sent');
+        $oldToken = $record->signing_token;
+
+        $this->post("/admin/documents/records/{$record->id}/resend");
+        $record->refresh();
+        $newToken = $record->signing_token;
+
+        $this->assertNotEquals($oldToken, $newToken);
+
+        $response = $this->get("/sign/{$oldToken}");
+
+        $this->assertNotEquals(200, $response->status());
+    }
+
+    public function test_cannot_send_non_draft_for_signature(): void
+    {
+        $record = $this->seedRecord('sent');
+
+        $response = $this->post("/admin/documents/records/{$record->id}/send", [
+            'signer_name' => 'John Signer',
+            'signer_email' => 'john@example.com',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
     }
 }
