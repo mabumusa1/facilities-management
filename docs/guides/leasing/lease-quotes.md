@@ -1,5 +1,5 @@
 ---
-title: Understanding lease quotes
+title: Create and send a lease quote
 area: leasing
 layout: guide
 lang: en
@@ -7,69 +7,72 @@ lang: en
 
 # {{ page.title }}
 
-*A lease quote is a formal, time-limited offer you send to a prospective resident before a binding lease is created. It captures all the terms of the tenancy so the prospect can review and accept or reject them.*
+*A lease quote is a formal, time-limited tenancy offer you send to a prospective resident before a binding lease is created. This guide covers creating a quote, sending it to the prospect, and what they see when they open it.*
 
 ## Who this is for
 Property Managers and Admins who prepare tenancy offers for prospective residents.
 
 ## Before you start
-- A unit must exist in the system before you can issue a quote for it.
+- A unit must exist in the system in **available** status before you can issue a quote for it.
 - The prospective resident must have a contact record in **Contacts → Residents**.
 - You must have the **Create Lease Quote** permission. Ask your Account Admin if the option is not visible.
 
-> **Note:** The screens to create, revise, and convert quotes are being built in upcoming releases (#170 — create, #171 — revise, #172 — convert to lease). This guide explains what a lease quote is and how the status lifecycle works so you are ready when those features ship.
+## Steps
 
-## What is a lease quote?
+### Create a quote
 
-A lease quote is a draft tenancy offer. It holds all the terms a lease would need — the unit, the prospective resident, the contract type, the duration, the start date, the rent amount, the payment frequency, the security deposit, any additional charges, and any special conditions.
+1. Go to **Leasing → Quotes**.
+2. Click **New Quote**.
+3. Fill in the form:
+   - **Unit** — select an available unit from the list.
+   - **Resident Contact** — pick the prospective resident from the Contacts list.
+   - **Contract Type** — select the tenancy contract type.
+   - **Duration (months)** — enter the length of the tenancy in months.
+   - **Start Date** — the date the lease would begin.
+   - **Valid Until** — the deadline by which the prospect must respond. After this date the quote expires automatically overnight.
+   - **Financial Terms** — enter the **Rent Amount (SAR)**, **Payment Frequency**, and **Security Deposit (SAR)**.
+   - **Additional Charges** (optional) — click **Add Charge**, enter an English label, Arabic label, and amount for each charge (for example, a parking fee).
+   - **Special Conditions (EN)** / **الشروط الخاصة (AR)** — enter any extra terms in both languages.
+4. Choose how to save:
+   - Click **Save as Draft** to save without sending. The quote appears in the **Lease Quotes** list with status **Draft** and no email is dispatched.
+   - Click **Send Quote** to save and send in one step. Skip the next section — the quote is delivered immediately.
 
-You can send a quote to a prospect, wait for their decision, and — if they accept — convert it directly into a lease with all fields pre-filled. No rekeying is needed.
+### Send a draft quote
 
-Each quote has a **quote number** (auto-assigned, format `Q-YYYYMMDD-NNNNN`) and a **valid until** date. If that date passes without an acceptance, the platform automatically marks the quote expired overnight.
-
-## Quote status lifecycle
-
-A quote moves through six statuses. Three are open (the prospect can still act) and three are terminal (the quote is closed).
-
-```
-draft ──► sent ──► viewed ──► accepted  (terminal — lease can be created)
-                          └──► rejected  (terminal)
- ↓ (any open status, if valid_until passes)
-expired                              (terminal)
-```
-
-| Status | Arabic | Meaning |
-|--------|--------|---------|
-| **draft** | مسودة | Quote created and saved but not yet sent to the prospect. |
-| **sent** | تم الإرسال | Quote delivered to the prospect. |
-| **viewed** | تمت المشاهدة | Prospect has opened the quote. |
-| **accepted** | مقبول | Prospect agreed to the terms. The quote is ready to convert to a lease. |
-| **rejected** | مرفوض | Prospect declined the offer. |
-| **expired** | منتهي الصلاحية | The valid-until date passed before the prospect accepted or rejected. |
-
-Only permitted transitions succeed. You cannot move a quote backwards (for example, from **sent** back to **draft**). To offer new terms, you revise the quote, which creates a new version linked to the original.
-
-## Automatic expiry
-
-Every night the platform checks all open quotes (draft, sent, and viewed) whose **valid until** date is in the past and transitions them to **expired**. This runs automatically — you do not need to do anything. If you want to extend a quote's deadline before it expires, revise the quote with a later valid-until date.
-
-## Revisions and versioning
-
-When you revise a quote (story #171), the system creates a new version rather than overwriting the original. The revision counter increments (v1, v2, v3 ...) and the new version is linked to the original quote. This gives you a full audit trail of every offer made to a prospect.
-
-## Quote-to-lease conversion
-
-When a quote reaches **accepted** status, you can convert it into a lease (story #172). All fields — unit, resident, contract type, duration, start date, rent, payment frequency, security deposit, additional charges, and special conditions — carry over automatically. The resulting lease is linked to the quote so you can always trace a lease back to its offer.
+1. Go to **Leasing → Quotes** and open the quote you want to send.
+2. Click **Send** on the quote detail page.
+3. Confirm the prompt: *"Are you sure you want to send this quote to the prospect?"*
+4. The status changes from **Draft** to **Sent** and the prospect receives an email with a secure preview link.
 
 ## What you'll see
 
-This feature is part of an upcoming release. When the create-quote screen ships (story #170), it will appear under **Leasing → Quotes**. The quote list will show each quote's number, status badge, prospect name, unit, rent amount, and valid-until date.
+After sending, the quote detail page shows status **Sent**. The **Lease Quotes** list shows each quote's number, resident name, unit, rent amount, valid-until date, and current status badge.
+
+The prospect opens the email link and lands on a read-only quote preview page — no login required. As soon as they open it, the status changes to **Viewed** and the list reflects this automatically.
+
+### Quote status lifecycle
+
+| Status | Meaning |
+|--------|---------|
+| **Draft** (مسودة) | Created and saved, not yet sent. |
+| **Sent** (مرسل) | Delivered to the prospect. |
+| **Viewed** (تم الاطلاع) | Prospect has opened the preview link. |
+| **Accepted** (مقبول) | Prospect agreed to the terms — ready to convert to a lease. |
+| **Rejected** (مرفوض) | Prospect declined the offer. |
+| **Expired** (منتهي) | The valid-until date passed without a response. |
+
+A quote can only move forward through these statuses. You cannot revert a sent quote to draft. To offer revised terms, create a new quote (story #171 — revise — is coming in a future release).
+
+### Automatic expiry
+
+Every night the platform checks all open quotes (Draft, Sent, Viewed) whose **Valid Until** date has passed and transitions them to **Expired**. This runs automatically with no action required from you.
 
 ## Common issues
 
-- **I cannot see a "Quotes" menu item.** The Leasing → Quotes section is not yet released. It ships in an upcoming update.
-- **A quote I sent shows as expired even though the prospect is still considering it.** The valid-until date passed. Revise the quote with a later date and resend it (available in story #171).
-- **I want to offer different terms without losing the original offer.** Use the revise action — it creates a new version and keeps the history of all previous offers.
+- **A unit I want is not in the list.** Only units in **available** status appear in the unit picker. Check the unit's status under **Properties → Units**.
+- **A quote I sent shows as Expired but the prospect is still considering it.** The valid-until date passed. Create a revised quote with a later date and resend it.
+- **I cannot see "Quotes" in the Leasing menu.** Check that your role has the **leases.VIEW** permission. Ask your Account Admin if the option is missing.
+- **I want to change terms after sending.** A sent quote cannot be edited. Create a new quote with the revised terms.
 
 ## Related
 - [Create and search resident contacts](../contacts/create-and-search-residents.md)
