@@ -197,9 +197,9 @@ class QuoteController extends Controller
             'unitCategories' => UnitCategory::query()->select('id', 'name', 'name_en', 'name_ar', 'icon')->get(),
             'rentalContractTypes' => Setting::query()->where('type', 'rental_contract_type')->select('id', 'name', 'name_en', 'name_ar')->get(),
             'paymentSchedules' => Setting::query()->where('type', 'payment_schedule')->select('id', 'name', 'name_en', 'name_ar', 'parent_id')->get(),
-            'units' => Unit::query()->select('id', 'name')->orderBy('name')->get(),
-            'residents' => Resident::query()->select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
-            'admins' => Admin::query()->select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
+            'units' => Unit::query()->where('account_tenant_id', $quote->account_tenant_id)->select('id', 'name')->orderBy('name')->get(),
+            'residents' => Resident::query()->where('account_tenant_id', $quote->account_tenant_id)->select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
+            'admins' => Admin::query()->where('account_tenant_id', $quote->account_tenant_id)->select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
         ]);
     }
 
@@ -264,7 +264,7 @@ class QuoteController extends Controller
             $lease = Lease::create([
                 'contract_number' => $contractNumber,
                 'tenant_id' => $validated['tenant_id'],
-                'status_id' => KycController::STATUS_PENDING_APPLICATION,
+                'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
                 'lease_unit_type_id' => $validated['lease_unit_type_id'],
                 'rental_contract_type_id' => $validated['rental_contract_type_id'],
                 'payment_schedule_id' => $validated['payment_schedule_id'],

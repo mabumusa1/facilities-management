@@ -3,7 +3,6 @@
 namespace Tests\Feature\Leasing;
 
 use App\Console\Commands\ExpireLeaseQuotes;
-use App\Http\Controllers\Leasing\KycController;
 use App\Models\AccountMembership;
 use App\Models\Admin;
 use App\Models\Lease;
@@ -96,7 +95,7 @@ class ConvertQuoteToLeaseTest extends TestCase
 
         // Seed the pending_application status row.
         Status::factory()->create([
-            'id' => KycController::STATUS_PENDING_APPLICATION,
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
             'type' => 'lease',
             'name_en' => 'pending_application',
         ]);
@@ -141,7 +140,7 @@ class ConvertQuoteToLeaseTest extends TestCase
         $quote = $this->makeAcceptedQuote();
 
         Status::factory()->create([
-            'id' => KycController::STATUS_PENDING_APPLICATION,
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
             'type' => 'lease',
             'name_en' => 'pending_application',
         ]);
@@ -150,7 +149,7 @@ class ConvertQuoteToLeaseTest extends TestCase
         $existingLease = Lease::factory()->create([
             'quote_id' => $quote->id,
             'account_tenant_id' => $this->tenant->id,
-            'status_id' => KycController::STATUS_PENDING_APPLICATION,
+            'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
         ]);
 
         $response = $this->withSession($this->withTenant())
@@ -179,7 +178,7 @@ class ConvertQuoteToLeaseTest extends TestCase
         $lease = Lease::query()->where('quote_id', $quote->id)->first();
 
         $this->assertNotNull($lease, 'A Lease record should have been created.');
-        $this->assertEquals(KycController::STATUS_PENDING_APPLICATION, $lease->status_id);
+        $this->assertEquals(ExpireLeaseQuotes::STATUS_PENDING_APPLICATION, $lease->status_id);
         $this->assertEquals($quote->id, $lease->quote_id);
         $this->assertEquals($quote->account_tenant_id, $lease->account_tenant_id);
         $this->assertEquals(85000.00, (float) $lease->rental_total_amount);
@@ -232,7 +231,7 @@ class ConvertQuoteToLeaseTest extends TestCase
         $paymentSchedule = Setting::factory()->create(['type' => 'payment_schedule']);
 
         Status::factory()->create([
-            'id' => KycController::STATUS_PENDING_APPLICATION,
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
             'type' => 'lease',
             'name_en' => 'pending_application',
         ]);
@@ -283,20 +282,150 @@ class ConvertQuoteToLeaseTest extends TestCase
     }
 
     // -----------------------------------------------------------------------
-    // KYC page renders
+    // Authorization: 403 for KYC abilities without leases.UPDATE permission
     // -----------------------------------------------------------------------
 
-    public function test_kyc_page_renders_for_lease_with_pending_application_status(): void
+    public function test_upload_kyc_returns_403_for_unprivileged_user(): void
     {
         Status::factory()->create([
-            'id' => KycController::STATUS_PENDING_APPLICATION,
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
             'type' => 'lease',
             'name_en' => 'pending_application',
         ]);
 
         $lease = Lease::factory()->create([
             'account_tenant_id' => $this->tenant->id,
-            'status_id' => KycController::STATUS_PENDING_APPLICATION,
+            'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
+        ]);
+
+        $unprivilegedUser = User::factory()->create();
+        $tenant = Tenant::create(['name' => 'Unpriv KYC Upload Tenant']);
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->withoutVite()
+            ->post(route('leases.kyc.upload', $lease), []);
+
+        $response->assertForbidden();
+    }
+
+    public function test_remove_kyc_document_returns_403_for_unprivileged_user(): void
+    {
+        Status::factory()->create([
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
+            'type' => 'lease',
+            'name_en' => 'pending_application',
+        ]);
+
+        $lease = Lease::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
+        ]);
+
+        $document = LeaseKycDocument::create([
+            'lease_id' => $lease->id,
+            'document_type_id' => 1,
+            'is_required' => false,
+            'original_file_name' => 'test.pdf',
+            'stored_path' => 'leases/1/kyc/test.pdf',
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        $unprivilegedUser = User::factory()->create();
+        $tenant = Tenant::create(['name' => 'Unpriv KYC Remove Tenant']);
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->withoutVite()
+            ->delete(route('leases.kyc.destroy', [$lease, $document]));
+
+        $response->assertForbidden();
+    }
+
+    public function test_submit_for_approval_returns_403_for_unprivileged_user(): void
+    {
+        Status::factory()->create([
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
+            'type' => 'lease',
+            'name_en' => 'pending_application',
+        ]);
+
+        $lease = Lease::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
+        ]);
+
+        $unprivilegedUser = User::factory()->create();
+        $tenant = Tenant::create(['name' => 'Unpriv Submit Tenant']);
+        AccountMembership::create([
+            'user_id' => $unprivilegedUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => 'tenants',
+        ]);
+
+        $response = $this->actingAs($unprivilegedUser)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->withoutVite()
+            ->post(route('leases.submit', $lease));
+
+        $response->assertForbidden();
+    }
+
+    // -----------------------------------------------------------------------
+    // Multi-tenant isolation: convert form dropdowns are tenant-scoped
+    // -----------------------------------------------------------------------
+
+    public function test_convert_form_does_not_expose_other_tenant_units_residents_admins(): void
+    {
+        $quote = $this->makeAcceptedQuote();
+
+        // Create data in a different tenant.
+        $otherTenant = Tenant::create(['name' => 'Other Tenant']);
+        $otherUnit = Unit::factory()->create(['account_tenant_id' => $otherTenant->id]);
+        $otherResident = Resident::factory()->create(['account_tenant_id' => $otherTenant->id]);
+        $otherAdmin = Admin::factory()->create(['account_tenant_id' => $otherTenant->id]);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('quotes.convert', $quote));
+
+        $response->assertOk();
+        $response->assertInertia(function ($page) use ($otherUnit, $otherResident, $otherAdmin) {
+            $units = collect($page->toArray()['props']['units']);
+            $residents = collect($page->toArray()['props']['residents']);
+            $admins = collect($page->toArray()['props']['admins']);
+
+            $this->assertFalse($units->pluck('id')->contains($otherUnit->id), 'Other tenant unit must not appear');
+            $this->assertFalse($residents->pluck('id')->contains($otherResident->id), 'Other tenant resident must not appear');
+            $this->assertFalse($admins->pluck('id')->contains($otherAdmin->id), 'Other tenant admin must not appear');
+        });
+    }
+
+    // -----------------------------------------------------------------------
+    // KYC page renders
+    // -----------------------------------------------------------------------
+
+    public function test_kyc_page_renders_for_lease_with_pending_application_status(): void
+    {
+        Status::factory()->create([
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
+            'type' => 'lease',
+            'name_en' => 'pending_application',
+        ]);
+
+        $lease = Lease::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
         ]);
 
         $response = $this->withSession($this->withTenant())
@@ -344,14 +473,14 @@ class ConvertQuoteToLeaseTest extends TestCase
     public function test_submit_for_approval_fails_when_required_docs_are_missing(): void
     {
         Status::factory()->create([
-            'id' => KycController::STATUS_PENDING_APPLICATION,
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
             'type' => 'lease',
             'name_en' => 'pending_application',
         ]);
 
         $lease = Lease::factory()->create([
             'account_tenant_id' => $this->tenant->id,
-            'status_id' => KycController::STATUS_PENDING_APPLICATION,
+            'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
         ]);
 
         // Create a required KYC document type without uploading any document.
@@ -376,14 +505,14 @@ class ConvertQuoteToLeaseTest extends TestCase
     public function test_submit_for_approval_succeeds_when_all_required_docs_are_uploaded(): void
     {
         Status::factory()->create([
-            'id' => KycController::STATUS_PENDING_APPLICATION,
+            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
             'type' => 'lease',
             'name_en' => 'pending_application',
         ]);
 
         $lease = Lease::factory()->create([
             'account_tenant_id' => $this->tenant->id,
-            'status_id' => KycController::STATUS_PENDING_APPLICATION,
+            'status_id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
         ]);
 
         $docType = Setting::factory()->create([

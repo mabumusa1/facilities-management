@@ -8,19 +8,15 @@ use App\Models\LeaseKycDocument;
 use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class KycController extends Controller
 {
-    /**
-     * Reserved rf_statuses.id for a lease application pending KYC/approval.
-     * Mirrors StatusSeeder entry ID 76.
-     */
-    public const STATUS_PENDING_APPLICATION = 76;
-
     /**
      * Show the KYC document checklist for a lease application.
      */
@@ -66,14 +62,14 @@ class KycController extends Controller
      */
     public function uploadKyc(Request $request, Lease $lease): RedirectResponse
     {
-        $this->authorize('update', $lease);
+        $this->authorize('uploadKyc', $lease);
 
         $validated = $request->validate([
-            'document_type_id' => ['required', 'integer', 'exists:rf_settings,id'],
+            'document_type_id' => ['required', 'integer', Rule::exists('rf_settings', 'id')->where('type', 'kyc_document_type')],
             'file' => ['required', 'file', 'max:10240', 'mimes:pdf,jpg,jpeg,png,heic'],
         ]);
 
-        /** @var \Illuminate\Http\UploadedFile $file */
+        /** @var UploadedFile $file */
         $file = $validated['file'];
 
         $documentType = Setting::query()->findOrFail((int) $validated['document_type_id']);
@@ -102,7 +98,7 @@ class KycController extends Controller
      */
     public function removeKycDocument(Lease $lease, LeaseKycDocument $document): RedirectResponse
     {
-        $this->authorize('update', $lease);
+        $this->authorize('removeKycDocument', $lease);
 
         // Ensure the document belongs to this lease.
         if ((int) $document->lease_id !== $lease->id) {
@@ -125,7 +121,7 @@ class KycController extends Controller
      */
     public function submitForApproval(Lease $lease): RedirectResponse
     {
-        $this->authorize('update', $lease);
+        $this->authorize('submitForApproval', $lease);
 
         $requiredTypes = Setting::query()
             ->where('type', 'kyc_document_type')
