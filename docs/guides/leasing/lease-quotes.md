@@ -61,7 +61,7 @@ The prospect opens the email link and lands on a read-only quote preview page �
 | **Rejected** (مرفوض) | Prospect declined the offer. |
 | **Expired** (منتهي) | The valid-until date passed without a response. |
 
-A quote can only move forward through these statuses. You cannot revert a sent quote to draft. To offer revised terms, create a new quote (story #171 — revise — is coming in a future release).
+A quote can only move forward through these statuses. You cannot revert a sent quote to draft. To offer revised terms, create a new quote. When a prospect accepts, you can convert the quote into a lease — see [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md).
 
 ### Automatic expiry
 
@@ -75,4 +75,5 @@ Every night the platform checks all open quotes (Draft, Sent, Viewed) whose **Va
 - **I want to change terms after sending.** A sent quote cannot be edited. Create a new quote with the revised terms.
 
 ## Related
+- [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md)
 - [Create and search resident contacts](../contacts/create-and-search-residents.md)
