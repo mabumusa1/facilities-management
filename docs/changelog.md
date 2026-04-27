@@ -10,6 +10,18 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Platform Feature Flags — April 27, 2026
+
+Super-admins can now control which platform features are active for each tenant account from a single page.
+
+- **Features tab.** Open any tenant from **Admin > Subscriptions** and switch to the **Features** (الميزات) tab. You will see every platform feature with its current ON/OFF status and whether it is included in the tenant's plan.
+- **Enable a feature.** Flip the toggle ON and confirm in the dialog. The feature activates immediately — tenant users get access on their next page load.
+- **Disable a feature.** Flip the toggle OFF and confirm in the alert dialog. An amber warning explains the immediate impact before you proceed. The feature deactivates right away; affected users see a "Feature not available" message.
+- **Six initial flags.** Marketplace Module, Power BI Connector, Facilities Management, Communication Hub, Document Vault, and Reports & Analytics. Each flag knows which plans include it by default (e.g., Power BI is Enterprise-only).
+- **Every change is logged.** Who toggled the flag, when, and which action (enabled/disabled) are all recorded in the audit trail.
+
+Learn more: [Manage platform feature flags](./guides/admin/feature-flags.md) ([العربية](./ar/guides/admin/feature-flags.md)).
+
 ### Facility Calendar for admins — April 25, 2026
 
 Property Managers and Admins can now see every facility booking across the community on a single weekly calendar and manage bookings directly from it.
