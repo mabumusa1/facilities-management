@@ -152,4 +152,84 @@ class SessionManagementTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_list_includes_session_agent_info(): void
+    {
+        $this->createSessionRow('info-test', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', '192.168.1.1');
+
+        $response = $this->actingAs($this->user)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->getJson('/settings/sessions');
+
+        $response->assertOk();
+        $data = $response->json();
+
+        $otherSession = collect($data)->firstWhere('is_current', false);
+        $this->assertNotNull($otherSession);
+        $this->assertArrayHasKey('agent', $otherSession);
+        $this->assertArrayHasKey('browser', $otherSession['agent']);
+        $this->assertArrayHasKey('platform', $otherSession['agent']);
+        $this->assertArrayHasKey('device', $otherSession['agent']);
+        $this->assertArrayHasKey('location', $otherSession);
+        $this->assertArrayHasKey('last_activity', $otherSession);
+        $this->assertArrayHasKey('last_activity_diff', $otherSession);
+    }
+
+    public function test_revoke_requires_password_confirmation(): void
+    {
+        $this->createSessionRow('needs-password');
+
+        $response = $this->actingAs($this->user)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->deleteJson('/settings/sessions/needs-password');
+
+        $response->assertStatus(423);
+    }
+
+    public function test_revoke_all_requires_password_confirmation(): void
+    {
+        $this->createSessionRow('sess-a');
+        $this->createSessionRow('sess-b');
+
+        $response = $this->actingAs($this->user)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson('/settings/sessions/revoke-all');
+
+        $response->assertStatus(423);
+    }
+
+    public function test_revoke_all_keeps_current_session_in_database(): void
+    {
+        $this->createSessionRow('keep-me');
+
+        $response = $this->actingAs($this->user)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->withoutMiddleware(RequirePassword::class)
+            ->postJson('/settings/sessions/revoke-all');
+
+        $response->assertOk();
+
+        $this->assertDatabaseMissing('sessions', ['id' => 'keep-me']);
+    }
+
+    public function test_multiple_sessions_returned_ordered_by_last_activity(): void
+    {
+        $this->createSessionRow('old-session');
+        \DB::table('sessions')->where('id', 'old-session')->update(['last_activity' => time() - 3600]);
+
+        $this->createSessionRow('new-session');
+
+        $response = $this->actingAs($this->user)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->getJson('/settings/sessions');
+
+        $response->assertOk();
+        $data = $response->json();
+
+        $nonCurrent = collect($data)->filter(fn ($s) => ! $s['is_current'])->values();
+
+        $this->assertCount(2, $nonCurrent);
+
+        $this->assertEquals('new-session', $nonCurrent[0]['id']);
+    }
 }
