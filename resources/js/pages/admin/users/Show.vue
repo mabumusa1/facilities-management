@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { Head, setLayoutProps } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
 import { computed, ref, watchEffect } from 'vue';
+import { MoreHorizontal } from 'lucide-vue-next';
 import Heading from '@/components/Heading.vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useI18n } from '@/composables/useI18n';
+import { deactivate, reactivate, resendInvitation, revokeInvitation, sendPasswordReset } from '@/routes/admin/users';
 import { index as usersIndexRoute } from '@/routes/admin/users';
 import RolesTab from './partials/RolesTab.vue';
 
@@ -50,6 +56,7 @@ type User = {
     id: number;
     name: string;
     email: string;
+    status: string;
 };
 
 const props = defineProps<{
@@ -59,12 +66,61 @@ const props = defineProps<{
     buildings: Building[];
     serviceTypes: ServiceType[];
     assignments: Assignment[] | undefined;
+    currentUserId: number;
 }>();
 
 type Tab = 'roles' | 'overview' | 'activity';
 const activeTab = ref<Tab>('roles');
 
+const isSelf = computed(() => props.user.id === props.currentUserId);
+
 const assignmentCount = computed<number>(() => props.assignments?.length ?? 0);
+
+function statusBadgeVariant(status: string) {
+    switch (status) {
+        case 'active':
+            return 'default';
+        case 'invitation_pending':
+            return 'outline';
+        case 'deactivated':
+            return 'secondary';
+        default:
+            return 'outline';
+    }
+}
+
+function statusLabel(status: string) {
+    switch (status) {
+        case 'active':
+            return t('app.admin.users.statusActive');
+        case 'invitation_pending':
+            return t('app.admin.users.statusInvitationPending');
+        case 'deactivated':
+            return t('app.admin.users.statusDeactivated');
+        default:
+            return status;
+    }
+}
+
+function handleDeactivate() {
+    router.post(deactivate.url({ user: props.user.id }), {}, { preserveScroll: true });
+}
+
+function handleReactivate() {
+    router.post(reactivate.url({ user: props.user.id }), {}, { preserveScroll: true });
+}
+
+function handleSendPasswordReset() {
+    router.post(sendPasswordReset.url({ user: props.user.id }), {}, { preserveScroll: true });
+}
+
+function handleResendInvite() {
+    router.post(resendInvitation.url({ user: props.user.id }), {}, { preserveScroll: true });
+}
+
+function handleRevokeInvite() {
+    router.post(revokeInvitation.url({ user: props.user.id }), {}, { preserveScroll: true });
+}
 
 watchEffect(() => {
     setLayoutProps({
@@ -81,11 +137,82 @@ watchEffect(() => {
     <Head :title="t('app.admin.users.showPageTitle')" />
 
     <div class="flex flex-col gap-6 p-4">
+        <!-- Deactivated info banner -->
+        <div v-if="user.status === 'deactivated'" class="rounded-lg border border-amber-200 bg-amber-50 p-4" role="status">
+            <p class="text-amber-800 text-sm">{{ t('app.admin.users.deactivatedBanner') }}</p>
+        </div>
+
         <!-- Page header -->
         <div class="flex items-start justify-between">
-            <div>
-                <Heading>{{ user.name }}</Heading>
-                <p class="text-muted-foreground text-sm">{{ user.email }}</p>
+            <div class="flex items-center gap-3">
+                <div>
+                    <Heading>{{ user.name }}</Heading>
+                    <p class="text-muted-foreground text-sm">{{ user.email }}</p>
+                </div>
+                <Badge :variant="statusBadgeVariant(user.status)">
+                    {{ statusLabel(user.status) }}
+                </Badge>
+            </div>
+            <div class="flex items-center gap-2">
+                <Button
+                    v-if="user.status === 'deactivated'"
+                    variant="default"
+                    size="sm"
+                    @click="handleReactivate"
+                >
+                    {{ t('app.admin.users.reactivate') }}
+                </Button>
+
+                <Button
+                    v-if="user.status === 'active'"
+                    variant="outline"
+                    size="sm"
+                    @click="handleSendPasswordReset"
+                >
+                    {{ t('app.admin.users.sendPasswordReset') }}
+                </Button>
+
+                <DropdownMenu>
+                    <DropdownMenuTrigger as-child>
+                        <Button variant="ghost" size="icon" :aria-label="t('app.admin.users.moreActions')">
+                            <MoreHorizontal class="size-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <template v-if="user.status === 'active'">
+                            <Tooltip v-if="isSelf">
+                                <TooltipTrigger as-child>
+                                    <div>
+                                        <DropdownMenuItem class="text-destructive opacity-50 cursor-not-allowed" :disabled="true">
+                                            {{ t('app.admin.users.deactivate') }}
+                                        </DropdownMenuItem>
+                                    </div>
+                                </TooltipTrigger>
+                                <TooltipContent placement="bottom">
+                                    {{ t('app.admin.users.cannotDeactivateSelf') }}
+                                </TooltipContent>
+                            </Tooltip>
+                            <DropdownMenuItem v-else class="text-destructive" @click="handleDeactivate">
+                                {{ t('app.admin.users.deactivate') }}
+                            </DropdownMenuItem>
+                        </template>
+
+                        <template v-if="user.status === 'deactivated'">
+                            <DropdownMenuItem @click="handleSendPasswordReset">
+                                {{ t('app.admin.users.sendPasswordReset') }}
+                            </DropdownMenuItem>
+                        </template>
+
+                        <template v-if="user.status === 'invitation_pending'">
+                            <DropdownMenuItem @click="handleResendInvite">
+                                {{ t('app.admin.users.resendInvitation') }}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem class="text-destructive" @click="handleRevokeInvite">
+                                {{ t('app.admin.users.revokeInvitation') }}
+                            </DropdownMenuItem>
+                        </template>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         </div>
 
@@ -120,10 +247,10 @@ watchEffect(() => {
         </div>
 
         <!-- Tab panels -->
-        <div>
+        <div :class="{ 'opacity-50 pointer-events-none': user.status === 'deactivated' }">
             <RolesTab
                 v-if="activeTab === 'roles'"
-                :user="user"
+                :user="{ id: user.id, name: user.name, email: user.email }"
                 :roles="roles"
                 :communities="communities"
                 :buildings="buildings"

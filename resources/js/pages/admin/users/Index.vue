@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
-import { watch, watchEffect } from 'vue';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
+import { ref, watchEffect } from 'vue';
+import { MoreHorizontal } from 'lucide-vue-next';
 import Heading from '@/components/Heading.vue';
-import InputError from '@/components/InputError.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useI18n } from '@/composables/useI18n';
 import type { PaginationLink } from '@/types';
+import { deactivate, reactivate, resendInvitation, revokeInvitation, sendPasswordReset } from '@/routes/admin/users';
 import { destroy, index, store, update } from '@/routes/admin/users';
+import CreateUserDrawer from './partials/CreateUserDrawer.vue';
 
 const { t } = useI18n();
 
@@ -24,11 +26,12 @@ type Membership = {
     user_id: number;
     name: string;
     email: string;
+    status: string;
     role: string;
     created_at: string | null;
 };
 
-defineProps<{
+const props = defineProps<{
     memberships: {
         data: Membership[];
         links: PaginationLink[];
@@ -38,28 +41,10 @@ defineProps<{
         id: number;
         name: string;
     };
+    currentUserId: number;
 }>();
 
-const roleDraft = useForm<{ role: string }>({ role: '' });
-
-const createUserForm = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    role: 'admins',
-});
-
-watch(
-    () => createUserForm.password,
-    () => {
-        if (!createUserForm.password_confirmation) {
-            return;
-        }
-
-        createUserForm.clearErrors('password_confirmation');
-    },
-);
+const drawerOpen = ref(false);
 
 watchEffect(() => {
     setLayoutProps({
@@ -70,25 +55,66 @@ watchEffect(() => {
     });
 });
 
-function submitCreateUser() {
-    createUserForm.post(store.url(), {
-        preserveScroll: true,
-        onSuccess: () => {
-            createUserForm.reset('name', 'email', 'password', 'password_confirmation');
-        },
-    });
+function statusBadgeVariant(status: string) {
+    switch (status) {
+        case 'active':
+            return 'default';
+        case 'invitation_pending':
+            return 'outline';
+        case 'deactivated':
+            return 'secondary';
+        default:
+            return 'outline';
+    }
 }
 
-function saveRole(membershipId: number, role: string) {
-    roleDraft.role = role;
-
-    roleDraft.put(update.url({ membership: membershipId }), {
-        preserveScroll: true,
-    });
+function statusLabel(status: string) {
+    switch (status) {
+        case 'active':
+            return t('app.admin.users.statusActive');
+        case 'invitation_pending':
+            return t('app.admin.users.statusInvitationPending');
+        case 'deactivated':
+            return t('app.admin.users.statusDeactivated');
+        default:
+            return status;
+    }
 }
 
 function removeMembership(membershipId: number) {
     router.delete(destroy.url({ membership: membershipId }), {
+        preserveScroll: true,
+    });
+}
+
+function handleDeactivate(membership: Membership) {
+    if (membership.user_id === props.currentUserId) return;
+    router.post(deactivate.url({ user: membership.user_id }), {}, { preserveScroll: true });
+}
+
+function handleReactivate(membership: Membership) {
+    router.post(reactivate.url({ user: membership.user_id }), {}, { preserveScroll: true });
+}
+
+function handleSendPasswordReset(membership: Membership) {
+    router.post(sendPasswordReset.url({ user: membership.user_id }), {}, { preserveScroll: true });
+}
+
+function handleResendInvite(membership: Membership) {
+    router.post(resendInvitation.url({ user: membership.user_id }), {}, { preserveScroll: true });
+}
+
+function handleRevokeInvite(membership: Membership) {
+    router.post(revokeInvitation.url({ user: membership.user_id }), {}, { preserveScroll: true });
+}
+
+function isSelf(membership: Membership) {
+    return membership.user_id === props.currentUserId;
+}
+
+function saveRole(membershipId: number, role: string) {
+    const roleDraft = { role };
+    router.put(update.url({ membership: membershipId }), roleDraft, {
         preserveScroll: true,
     });
 }
@@ -107,54 +133,13 @@ function removeMembership(membershipId: number) {
         <div class="rounded-lg border p-4">
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-sm font-semibold text-muted-foreground">{{ t('app.admin.users.currentAccount') }}</h2>
-                <Badge variant="secondary">{{ currentTenant.name }}</Badge>
-            </div>
-
-            <form class="grid gap-4 md:grid-cols-2" @submit.prevent="submitCreateUser">
-                <div class="grid gap-2">
-                    <Label for="name">{{ t('app.admin.users.name') }}</Label>
-                    <Input id="name" v-model="createUserForm.name" required />
-                    <InputError :message="createUserForm.errors.name" />
-                </div>
-
-                <div class="grid gap-2">
-                    <Label for="email">{{ t('app.admin.users.email') }}</Label>
-                    <Input id="email" v-model="createUserForm.email" type="email" required />
-                    <InputError :message="createUserForm.errors.email" />
-                </div>
-
-                <div class="grid gap-2">
-                    <Label for="password">{{ t('app.admin.users.password') }}</Label>
-                    <Input id="password" v-model="createUserForm.password" type="password" required />
-                    <InputError :message="createUserForm.errors.password" />
-                </div>
-
-                <div class="grid gap-2">
-                    <Label for="password_confirmation">{{ t('app.admin.users.passwordConfirmation') }}</Label>
-                    <Input id="password_confirmation" v-model="createUserForm.password_confirmation" type="password" required />
-                    <InputError :message="createUserForm.errors.password_confirmation" />
-                </div>
-
-                <div class="grid gap-2 md:col-span-2">
-                    <Label for="role">{{ t('app.admin.users.role') }}</Label>
-                    <select
-                        id="role"
-                        v-model="createUserForm.role"
-                        class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:outline-none"
-                    >
-                        <option v-for="role in roles" :key="role.value" :value="role.value">
-                            {{ role.label }}
-                        </option>
-                    </select>
-                    <InputError :message="createUserForm.errors.role" />
-                </div>
-
-                <div class="md:col-span-2">
-                    <Button :disabled="createUserForm.processing">
-                        {{ t('app.admin.users.addUser') }}
+                <div class="flex items-center gap-2">
+                    <Badge variant="secondary">{{ currentTenant.name }}</Badge>
+                    <Button variant="default" size="sm" @click="drawerOpen = true">
+                        + {{ t('app.admin.users.inviteUser') }}
                     </Button>
                 </div>
-            </form>
+            </div>
         </div>
 
         <div class="rounded-lg border">
@@ -164,12 +149,17 @@ function removeMembership(membershipId: number) {
                         <TableHead>{{ t('app.admin.users.name') }}</TableHead>
                         <TableHead>{{ t('app.admin.users.email') }}</TableHead>
                         <TableHead>{{ t('app.admin.users.role') }}</TableHead>
+                        <TableHead>{{ t('app.admin.users.status') }}</TableHead>
                         <TableHead>{{ t('app.admin.users.actions') }}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     <TableRow v-for="membership in memberships.data" :key="membership.id">
-                        <TableCell>{{ membership.name }}</TableCell>
+                        <TableCell>
+                            <Link :href="store.url({ user: membership.user_id })" class="text-primary hover:underline">
+                                {{ membership.name }}
+                            </Link>
+                        </TableCell>
                         <TableCell>{{ membership.email }}</TableCell>
                         <TableCell>
                             <select
@@ -183,18 +173,66 @@ function removeMembership(membershipId: number) {
                             </select>
                         </TableCell>
                         <TableCell>
-                            <Button
-                                variant="destructive"
-                                size="sm"
-                                @click="removeMembership(membership.id)"
-                            >
-                                {{ t('app.admin.users.remove') }}
-                            </Button>
+                            <Badge :variant="statusBadgeVariant(membership.status)">
+                                <span :lang="statusBadgeVariant(membership.status) === 'default' ? 'en' : 'ar'">
+                                    {{ statusLabel(membership.status) }}
+                                </span>
+                            </Badge>
+                        </TableCell>
+                        <TableCell class="text-end">
+                            <DropdownMenu>
+                                <DropdownMenuTrigger as-child>
+                                    <Button variant="ghost" size="icon" :aria-label="t('app.admin.users.moreActions')">
+                                        <MoreHorizontal class="size-4" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DropdownMenuItem as-child>
+                                        <Link :href="store.url({ user: membership.user_id })">{{ t('app.admin.users.viewDetails') }}</Link>
+                                    </DropdownMenuItem>
+
+                                    <template v-if="membership.status === 'active'">
+                                        <Tooltip v-if="isSelf(membership)">
+                                            <TooltipTrigger as-child>
+                                                <div>
+                                                    <DropdownMenuItem class="text-destructive opacity-50 cursor-not-allowed" :disabled="true">
+                                                        {{ t('app.admin.users.deactivate') }}
+                                                    </DropdownMenuItem>
+                                                </div>
+                                            </TooltipTrigger>
+                                            <TooltipContent placement="bottom">
+                                                {{ t('app.admin.users.cannotDeactivateSelf') }}
+                                            </TooltipContent>
+                                        </Tooltip>
+                                        <DropdownMenuItem v-else class="text-destructive" @click="handleDeactivate(membership)">
+                                            {{ t('app.admin.users.deactivate') }}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem @click="handleSendPasswordReset(membership)">
+                                            {{ t('app.admin.users.sendPasswordReset') }}
+                                        </DropdownMenuItem>
+                                    </template>
+
+                                    <template v-if="membership.status === 'deactivated'">
+                                        <DropdownMenuItem @click="handleReactivate(membership)">
+                                            {{ t('app.admin.users.reactivate') }}
+                                        </DropdownMenuItem>
+                                    </template>
+
+                                    <template v-if="membership.status === 'invitation_pending'">
+                                        <DropdownMenuItem @click="handleResendInvite(membership)">
+                                            {{ t('app.admin.users.resendInvitation') }}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem class="text-destructive" @click="handleRevokeInvite(membership)">
+                                            {{ t('app.admin.users.revokeInvitation') }}
+                                        </DropdownMenuItem>
+                                    </template>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </TableCell>
                     </TableRow>
 
                     <TableRow v-if="memberships.data.length === 0">
-                        <TableCell :colspan="4" class="text-center text-muted-foreground">
+                        <TableCell :colspan="5" class="text-center text-muted-foreground">
                             {{ t('app.admin.users.empty') }}
                         </TableCell>
                     </TableRow>
@@ -222,5 +260,10 @@ function removeMembership(membershipId: number) {
                 />
             </template>
         </div>
+
+        <CreateUserDrawer
+            v-model:open="drawerOpen"
+            :roles="roles"
+        />
     </div>
 </template>

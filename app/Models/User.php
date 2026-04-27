@@ -16,8 +16,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'phone_number', 'password'])]
-#[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
+#[Fillable(['name', 'email', 'phone_number', 'password', 'status', 'invitation_token', 'invitation_expires_at'])]
+#[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token', 'invitation_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
@@ -27,6 +27,12 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     use Notifiable, TwoFactorAuthenticatable;
+
+    const STATUS_ACTIVE = 'active';
+
+    const STATUS_INVITATION_PENDING = 'invitation_pending';
+
+    const STATUS_DEACTIVATED = 'deactivated';
 
     /**
      * Get the attributes that should be cast.
@@ -39,7 +45,34 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
+            'invitation_expires_at' => 'datetime',
         ];
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    public function isDeactivated(): bool
+    {
+        return $this->status === self::STATUS_DEACTIVATED;
+    }
+
+    public function isInvitationPending(): bool
+    {
+        return $this->status === self::STATUS_INVITATION_PENDING;
+    }
+
+    public function markEmailAsVerified(): bool
+    {
+        if ($this->hasVerifiedEmail()) {
+            return true;
+        }
+
+        return $this->forceFill([
+            'email_verified_at' => $this->freshTimestamp(),
+        ])->save();
     }
 
     public function accountMemberships(): HasMany
