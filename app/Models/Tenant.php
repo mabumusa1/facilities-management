@@ -25,4 +25,9 @@ class Tenant extends BaseTenant
             ->withPivot('role')
             ->withTimestamps();
     }
+
+    public function featureFlagOverrides(): HasMany
+    {
+        return $this->hasMany(FeatureFlagOverride::class, 'account_tenant_id');
+    }
 }

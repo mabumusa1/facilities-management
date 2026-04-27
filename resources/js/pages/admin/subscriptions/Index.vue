@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, router, setLayoutProps } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
 import { watchEffect } from 'vue';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useI18n } from '@/composables/useI18n';
-import { activate, cancel, cancelNow, index } from '@/routes/admin/subscriptions';
+import { activate, cancel, cancelNow, index, show } from '@/routes/admin/subscriptions';
 
 const { t } = useI18n();
 
@@ -135,7 +135,11 @@ function accountStatus(account: AccountSubscription): string {
                 </TableHeader>
                 <TableBody>
                     <TableRow v-for="account in accounts" :key="account.id">
-                        <TableCell>{{ account.name }}</TableCell>
+                        <TableCell>
+                            <Link :href="show.url({ tenant: account.id })" class="text-primary hover:underline">
+                                {{ account.name }}
+                            </Link>
+                        </TableCell>
                         <TableCell>{{ account.domain ?? '—' }}</TableCell>
                         <TableCell>
                             <Badge variant="secondary">{{ accountStatus(account) }}</Badge>
