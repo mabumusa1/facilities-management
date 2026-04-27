@@ -78,6 +78,6 @@ This is the open-source product. Contribute by:
 
 ## Reuses
 
-- The 52 PM skills under `.claude/skills/` (loaded into agents via the `skills:` frontmatter).
+- The 23 PM skills under `.claude/skills/` (loaded into agents via the `skills:` frontmatter).
 - Laravel Boost MCP for the engineering agents.
 - The official `gh` CLI for all GitHub interaction — no GitHub Actions, no webhooks, no custom backend.
