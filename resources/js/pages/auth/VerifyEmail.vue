@@ -19,6 +19,7 @@ watchEffect(() => {
 
 defineProps<{
     status?: string;
+    email?: string;
 }>();
 </script>
 
@@ -31,6 +32,17 @@ defineProps<{
     >
         {{ t('app.auth.verifyEmail.success') }}
     </div>
+
+    <p
+        v-if="email"
+        class="mb-4 text-center text-sm text-muted-foreground"
+    >
+        {{ t('app.auth.verifyEmail.layoutDescription', { email }) }}
+    </p>
+
+    <p class="mb-6 text-center text-sm text-muted-foreground">
+        {{ t('app.auth.verifyEmail.instructions') }}
+    </p>
 
     <Form
         v-bind="send.form()"
