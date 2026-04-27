@@ -7,9 +7,11 @@ import { useI18n } from '@/composables/useI18n';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
+import SessionList from '@/components/SessionList.vue';
 import TwoFactorRecoveryCodes from '@/components/TwoFactorRecoveryCodes.vue';
 import TwoFactorSetupModal from '@/components/TwoFactorSetupModal.vue';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
 import { edit } from '@/routes/security';
@@ -177,4 +179,8 @@ onUnmounted(() => clearTwoFactorAuthData());
             :twoFactorEnabled="twoFactorEnabled"
         />
     </div>
+
+    <Separator class="my-6" />
+
+    <SessionList />
 </template>
