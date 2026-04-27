@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BulkExportController;
 use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TenantFeatureFlagController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\AppSettingController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -232,6 +233,10 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('subscriptions/{tenant}/cancel', [AccountSubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
         Route::post('subscriptions/{tenant}/cancel-now', [AccountSubscriptionController::class, 'cancelNow'])->name('subscriptions.cancel-now');
         Route::get('subscriptions/billing', [AccountSubscriptionController::class, 'billingHistory'])->name('subscriptions.billing');
+
+        Route::get('subscriptions/{tenant}', [TenantFeatureFlagController::class, 'show'])->name('subscriptions.show');
+        Route::get('subscriptions/{tenant}/features', [TenantFeatureFlagController::class, 'index'])->name('subscriptions.features');
+        Route::patch('subscriptions/{tenant}/features/{flagKey}', [TenantFeatureFlagController::class, 'toggle'])->name('subscriptions.features.toggle');
 
         Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
         Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
