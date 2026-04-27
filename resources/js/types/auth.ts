@@ -18,3 +18,19 @@ export type TwoFactorConfigContent = {
     description: string;
     buttonText: string;
 };
+
+export type SessionAgent = {
+    browser: string;
+    platform: string;
+    device: string;
+};
+
+export type ActiveSession = {
+    id: string;
+    agent: SessionAgent;
+    ip_address: string;
+    location?: string;
+    last_activity: number;
+    last_activity_diff: string;
+    is_current: boolean;
+};

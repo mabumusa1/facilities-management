@@ -10,6 +10,15 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Session Management — April 27, 2026
+
+You can now see every device signed into your account and revoke any that look unfamiliar — all from the Security settings page.
+
+- **Active Sessions list.** Open **Settings → Security** and scroll to the **Active Sessions** section. Each entry shows the browser, operating system, approximate location, and how recently the device was active.
+- **Current session badge.** The device you are using right now is labelled "Current session" and cannot be accidentally revoked.
+- **Revoke a session.** Click **Revoke** next to any other session, confirm your action, and that device is immediately signed out.
+- **Log out everywhere else.** Click **Log out all other sessions** to sign out of every device except your current one with a single confirmation.
+
 ### Platform Feature Flags — April 27, 2026
 
 Super-admins can now control which platform features are active for each tenant account from a single page.

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Auth — session management: users can view all active sessions by device, browser, and location on the Security settings page; revoke unrecognized sessions with password confirmation; log out all other sessions at once; current session is clearly marked and cannot be revoked ([#387](https://github.com/mabumusa1/facilities-management/pull/387))
 - Admin — platform feature flags: super-admins can enable or disable platform features per tenant from a new Features tab on the Tenant Detail page; toggles are confirmed via dialog with immediate-effect warnings; every change is audit-logged with actor and timestamp; six initial flags (Marketplace, Power BI, Facilities, Communication Hub, Document Vault, Reports & Analytics) with tier-aware inclusion defaults ([#385](https://github.com/mabumusa1/facilities-management/pull/385))
 - Reports — occupancy report: per-community unit counts by status (occupied, available, maintenance, off-plan) with occupancy rate percentage ([#382](https://github.com/mabumusa1/facilities-management/pull/382))
 - Reports — lease pipeline: expiring leases grouped by month with renewal counts; configurable look-ahead window up to 24 months ([#382](https://github.com/mabumusa1/facilities-management/pull/382))
