@@ -3,6 +3,11 @@
 2-instance strategy: opencode + Claude Code working simultaneously on 170 stories.
 Base: `1.x`. Worktrees: `.claude/worktrees/opencode/` and `.claude/worktrees/claude-code/`.
 
+## Agent skill locations
+- **Claude Code:** `.claude/agents/<role>.md` + slash commands `.claude/commands/<cmd>.md`
+- **opencode:** `.agents/skills/council-<role>/SKILL.md` — load via `skill("council-<role>")`
+- Both follow the same role charters, output contracts, and hard rules. Keep in sync.
+
 ## Instance A — opencode (~87 stories)
 
 ### Phase 0 — Infrastructure (sequential, blocks all tracks)

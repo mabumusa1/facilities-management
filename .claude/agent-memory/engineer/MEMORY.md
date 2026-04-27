@@ -2,6 +2,11 @@
 
 Append concise notes as you learn. Keep this under 200 lines via curation.
 
+## Dual-tool support
+- **Claude Code:** `.claude/agents/engineer.md` (slash command: `/eng-implement`)
+- **opencode:** `.agents/skills/council-engineer/SKILL.md` (load via `skill("council-engineer")`)
+- Both follow same role, process, output contract, and hard rules. If one diverges, update the other.
+
 ## Command shortcuts for this project
 - Run tests: `php artisan test --compact tests/Feature/<Name>Test.php`
 - Full suite: `php artisan test --compact`
