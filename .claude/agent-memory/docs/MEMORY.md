@@ -63,3 +63,4 @@ _(populate as you learn — voice corrections, screenshot preferences, publishin
 - #210 — Resident submits a service request (#355) — service-requests — both EN+AR
 - #211 — Admin triage view: queue, assign, priority, internal notes (#375) — service-requests — both EN+AR
 - #173 — Lease application approval workflow (#377) — leasing — both EN+AR; new guide approve-or-reject-lease.md; cross-reference added to convert-and-kyc.md
+- #242 — Admin user management: invite, deactivate, reactivate, password reset (#389) — admin — both EN+AR; new guide manage-users.md; CHANGELOG Added + Security entries
