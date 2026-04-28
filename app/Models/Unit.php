@@ -75,6 +75,9 @@ class Unit extends Model
         'is_off_plan_sale',
         'renewal_status',
         'marketplace_booking_unit_id',
+        'currency_id',
+        'asking_rent_amount',
+        'rent_period',
     ];
 
     protected $attributes = [
@@ -93,6 +96,7 @@ class Unit extends Model
             'is_off_plan_sale' => 'boolean',
             'renewal_status' => 'boolean',
             'net_area' => 'decimal:2',
+            'asking_rent_amount' => 'decimal:2',
         ];
     }
 
@@ -162,6 +166,11 @@ class Unit extends Model
     public function areas(): HasMany
     {
         return $this->hasMany(UnitArea::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     /** @return BelongsToMany<Feature, $this> */

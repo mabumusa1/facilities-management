@@ -174,6 +174,9 @@ export type Unit = {
     is_buy: boolean;
     is_off_plan_sale: boolean;
     renewal_status: boolean;
+    currency_id: number | null;
+    asking_rent_amount: string | null;
+    rent_period: 'month' | 'year' | null;
     created_at: string;
     updated_at: string;
     // Relationships
@@ -186,6 +189,7 @@ export type Unit = {
     district?: District;
     owner?: Owner;
     tenant?: Resident;
+    currency?: Currency;
     specifications?: UnitSpecification[];
     rooms?: UnitRoom[];
     areas?: UnitArea[];

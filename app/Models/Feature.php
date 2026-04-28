@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Concerns\HasBilingualName;
 use Database\Factories\FeatureFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -22,6 +23,17 @@ class Feature extends Model
         'type',
         'icon',
     ];
+
+    /**
+     * Scope to features of type "amenity".
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
+     */
+    public function scopeAmenities(Builder $query): Builder
+    {
+        return $query->where('type', 'amenity');
+    }
 
     /** @return BelongsToMany<Unit, $this> */
     public function units(): BelongsToMany

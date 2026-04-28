@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
-import { watchEffect } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -26,6 +26,48 @@ function deleteUnit() {
         router.delete(`/units/${props.unit.id}`);
     }
 }
+
+/** Extract a specification value by key. */
+function specValue(key: string): string | null {
+    return props.unit.specifications?.find((s) => s.key === key)?.value ?? null;
+}
+
+/** Extract a room count by name. */
+function roomCount(name: string): number {
+    return Number(props.unit.rooms?.find((r) => r.name === name)?.count ?? 0);
+}
+
+const isFurnished = computed(() => specValue('furnished') === 'true');
+const parkingBays = computed(() => Number(specValue('parking_bays') ?? 0));
+const viewValue = computed(() => specValue('view'));
+
+const viewLabel = computed(() => {
+    const map: Record<string, string> = {
+        sea_view: t('app.properties.units.edit.specifications.viewSea'),
+        city_view: t('app.properties.units.edit.specifications.viewCity'),
+        garden_view: t('app.properties.units.edit.specifications.viewGarden'),
+        none: t('app.properties.units.edit.specifications.viewNone'),
+    };
+    return viewValue.value ? (map[viewValue.value] ?? viewValue.value) : null;
+});
+
+const hasSpecifications = computed(
+    () =>
+        (props.unit.specifications && props.unit.specifications.length > 0) ||
+        (props.unit.rooms && props.unit.rooms.length > 0),
+);
+
+const amenities = computed(() => props.unit.features ?? []);
+
+const rentPeriodLabel = computed(() => {
+    if (props.unit.rent_period === 'year') {
+        return t('app.properties.units.show.rentPeriodYear');
+    }
+    if (props.unit.rent_period === 'month') {
+        return t('app.properties.units.show.rentPeriodMonth');
+    }
+    return null;
+});
 </script>
 
 <template>
@@ -66,6 +108,65 @@ function deleteUnit() {
                 </CardContent>
             </Card>
         </div>
+
+        <!-- Specifications Card (NEW) -->
+        <Card v-if="hasSpecifications">
+            <CardHeader><CardTitle>{{ t('app.properties.units.show.specifications') }}</CardTitle></CardHeader>
+            <CardContent class="space-y-2">
+                <div class="flex justify-between">
+                    <span class="text-muted-foreground">{{ t('app.properties.units.edit.specifications.bedrooms') }}</span>
+                    <span>{{ roomCount('bedroom') }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-muted-foreground">{{ t('app.properties.units.edit.specifications.bathrooms') }}</span>
+                    <span>{{ roomCount('bathroom') }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-muted-foreground">{{ t('app.properties.units.edit.specifications.livingRooms') }}</span>
+                    <span>{{ roomCount('living_room') }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-muted-foreground">{{ t('app.properties.units.edit.specifications.furnished') }}</span>
+                    <span>{{ isFurnished ? t('app.properties.units.show.furnished') : t('app.properties.units.show.unfurnished') }}</span>
+                </div>
+                <div v-if="parkingBays > 0" class="flex justify-between">
+                    <span class="text-muted-foreground">{{ t('app.properties.units.edit.specifications.parking') }}</span>
+                    <span>{{ parkingBays }}</span>
+                </div>
+                <div v-if="viewLabel" class="flex justify-between">
+                    <span class="text-muted-foreground">{{ t('app.properties.units.edit.specifications.view') }}</span>
+                    <span>{{ viewLabel }}</span>
+                </div>
+            </CardContent>
+        </Card>
+
+        <!-- Amenities Card (NEW) -->
+        <Card>
+            <CardHeader><CardTitle>{{ t('app.properties.units.show.amenities') }}</CardTitle></CardHeader>
+            <CardContent>
+                <div v-if="amenities.length > 0" class="flex flex-wrap gap-2">
+                    <Badge v-for="amenity in amenities" :key="amenity.id" variant="secondary">
+                        {{ amenity.name_en ?? amenity.name }}
+                    </Badge>
+                </div>
+                <p v-else class="text-muted-foreground text-sm">{{ t('app.properties.units.show.noAmenities') }}</p>
+            </CardContent>
+        </Card>
+
+        <!-- Pricing Card (NEW) -->
+        <Card v-if="unit.asking_rent_amount">
+            <CardHeader><CardTitle>{{ t('app.properties.units.show.pricing') }}</CardTitle></CardHeader>
+            <CardContent class="space-y-2">
+                <div class="flex justify-between">
+                    <span class="text-muted-foreground">{{ t('app.properties.units.show.askingRent') }}</span>
+                    <span class="font-semibold">
+                        {{ unit.currency?.code ?? '' }}
+                        {{ Number(unit.asking_rent_amount).toLocaleString() }}
+                        <span v-if="rentPeriodLabel" class="text-muted-foreground font-normal"> / {{ rentPeriodLabel }}</span>
+                    </span>
+                </div>
+            </CardContent>
+        </Card>
 
         <Card v-if="unit.about">
             <CardHeader><CardTitle>{{ t('app.properties.units.show.descriptionLabel') }}</CardTitle></CardHeader>
