@@ -10,6 +10,21 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Invite and manage platform users (Admin) — April 28, 2026
+
+Admins can now invite new team members by email and manage the full user lifecycle — all from **Admin → Users**.
+
+- **Invite a user.** Click **+ Invite User** (دعوة مستخدم) and enter the person's name, email, and initial role. An invitation email is sent immediately. The user list shows their status as **Invitation pending** (في انتظار الدعوة).
+- **Invitee sets their own password.** The email contains a "Set your password" link valid for 72 hours. Clicking it opens a password-setup page. After setting a password, the account is activated and the user is signed in automatically.
+- **Resend or revoke.** If the invitee does not act in time, open the **More actions** menu on their row and click **Resend invitation** (إعادة الإرسال) to generate a fresh 72-hour link. Click **Revoke invitation** (إلغاء) to cancel the invitation entirely.
+- **Deactivate a user.** Select **Deactivate** (إلغاء التنشيط) from the More actions menu and confirm. The user is signed out of all devices immediately and cannot log in again until reactivated. Their data and history are not deleted.
+- **Reactivate a user.** Select **Reactivate** (إعادة التنشيط) to restore access. Previous role assignments are preserved.
+- **Send a password reset.** Select **Send password reset** (إرسال إعادة تعيين كلمة المرور) to dispatch a reset email to any active user.
+- **Self-deactivation is blocked.** The Deactivate button is disabled on your own account — ask another admin if needed.
+- **Deactivated users cannot log in.** If someone tries to sign in with a deactivated account, they see a message to contact their administrator.
+
+Learn more: [Manage users — invite, deactivate, and reset credentials](./guides/admin/manage-users.md) ([العربية](./ar/guides/admin/manage-users.md)).
+
 ### Session Management — April 27, 2026
 
 You can now see every device signed into your account and revoke any that look unfamiliar — all from the Security settings page.
