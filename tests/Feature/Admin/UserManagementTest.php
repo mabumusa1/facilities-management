@@ -346,4 +346,201 @@ class UserManagementTest extends TestCase
 
         $response->assertOk();
     }
+
+    public function test_deactivated_user_cannot_login(): void
+    {
+        [$admin, $tenant] = $this->createTenantMember(RolesEnum::ADMINS->value);
+
+        $targetUser = User::factory()->create([
+            'status' => User::STATUS_ACTIVE,
+            'email_verified_at' => now(),
+        ]);
+        AccountMembership::create([
+            'user_id' => $targetUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => RolesEnum::MANAGERS->value,
+        ]);
+
+        $this->actingAs($admin)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('admin.users.deactivate', ['user' => $targetUser->id]));
+
+        $targetUser->refresh();
+        $this->assertEquals(User::STATUS_DEACTIVATED, $targetUser->status);
+
+        auth()->logout();
+
+        $response = $this->post(route('login'), [
+            'email' => $targetUser->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertGuest();
+    }
+
+    public function test_cannot_reactivate_already_active_user(): void
+    {
+        [$admin, $tenant] = $this->createTenantMember(RolesEnum::ADMINS->value);
+
+        $targetUser = User::factory()->create(['status' => User::STATUS_ACTIVE]);
+        AccountMembership::create([
+            'user_id' => $targetUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => RolesEnum::MANAGERS->value,
+        ]);
+
+        $response = $this->actingAs($admin)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('admin.users.reactivate', ['user' => $targetUser->id]));
+
+        $response->assertStatus(400);
+    }
+
+    public function test_cannot_deactivate_already_deactivated_user(): void
+    {
+        [$admin, $tenant] = $this->createTenantMember(RolesEnum::ADMINS->value);
+
+        $targetUser = User::factory()->create(['status' => User::STATUS_DEACTIVATED]);
+        AccountMembership::create([
+            'user_id' => $targetUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => RolesEnum::MANAGERS->value,
+        ]);
+
+        $response = $this->actingAs($admin)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('admin.users.deactivate', ['user' => $targetUser->id]));
+
+        $response->assertStatus(400);
+    }
+
+    public function test_cannot_invite_with_invalid_email_format(): void
+    {
+        [$admin, $tenant] = $this->createTenantMember(RolesEnum::ADMINS->value);
+
+        $response = $this->actingAs($admin)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('admin.users.store'), [
+                'first_name' => 'Bad',
+                'last_name' => 'Email',
+                'email' => 'not-an-email',
+                'role' => RolesEnum::MANAGERS->value,
+            ]);
+
+        $response->assertSessionHasErrors('email');
+    }
+
+    public function test_cannot_set_password_with_mismatched_confirmation(): void
+    {
+        $plainToken = Str::random(40);
+        User::factory()->create([
+            'email' => 'invited@example.com',
+            'status' => User::STATUS_INVITATION_PENDING,
+            'invitation_token' => hash('sha256', $plainToken),
+            'invitation_expires_at' => now()->addHours(72),
+        ]);
+
+        $response = $this->post(route('set-password.store'), [
+            'token' => $plainToken,
+            'password' => 'SecurePass1!',
+            'password_confirmation' => 'WrongPass1!',
+        ]);
+
+        $response->assertSessionHasErrors('password');
+    }
+
+    public function test_cannot_set_password_without_password(): void
+    {
+        $plainToken = Str::random(40);
+        User::factory()->create([
+            'email' => 'invited@example.com',
+            'status' => User::STATUS_INVITATION_PENDING,
+            'invitation_token' => hash('sha256', $plainToken),
+            'invitation_expires_at' => now()->addHours(72),
+        ]);
+
+        $response = $this->post(route('set-password.store'), [
+            'token' => $plainToken,
+            'password' => '',
+            'password_confirmation' => '',
+        ]);
+
+        $response->assertSessionHasErrors('password');
+    }
+
+    public function test_non_admin_cannot_access_admin_user_index_page(): void
+    {
+        [$manager, $tenant] = $this->createTenantMember(RolesEnum::MANAGERS->value);
+
+        $this->withoutVite();
+
+        $response = $this->actingAs($manager)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->get(route('admin.users.index'));
+
+        $response->assertForbidden();
+    }
+
+    public function test_cannot_revoke_already_used_invitation(): void
+    {
+        [$admin, $tenant] = $this->createTenantMember(RolesEnum::ADMINS->value);
+
+        $targetUser = User::factory()->create([
+            'status' => User::STATUS_ACTIVE,
+            'invitation_token' => null,
+            'invitation_expires_at' => null,
+        ]);
+        AccountMembership::create([
+            'user_id' => $targetUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => RolesEnum::MANAGERS->value,
+        ]);
+
+        $response = $this->actingAs($admin)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('admin.users.revoke-invitation', ['user' => $targetUser->id]));
+
+        $response->assertStatus(400);
+    }
+
+    public function test_cannot_set_password_with_expired_token(): void
+    {
+        $plainToken = Str::random(40);
+        User::factory()->create([
+            'email' => 'expired@example.com',
+            'status' => User::STATUS_INVITATION_PENDING,
+            'invitation_token' => hash('sha256', $plainToken),
+            'invitation_expires_at' => now()->subHour(),
+        ]);
+
+        $response = $this->post(route('set-password.store'), [
+            'token' => $plainToken,
+            'password' => 'SecurePass1!',
+            'password_confirmation' => 'SecurePass1!',
+        ]);
+
+        $response->assertStatus(410);
+    }
+
+    public function test_cannot_revoke_invitation_for_non_pending_user(): void
+    {
+        [$admin, $tenant] = $this->createTenantMember(RolesEnum::ADMINS->value);
+
+        $targetUser = User::factory()->create([
+            'status' => User::STATUS_DEACTIVATED,
+            'invitation_token' => null,
+            'invitation_expires_at' => null,
+        ]);
+        AccountMembership::create([
+            'user_id' => $targetUser->id,
+            'account_tenant_id' => $tenant->id,
+            'role' => RolesEnum::MANAGERS->value,
+        ]);
+
+        $response = $this->actingAs($admin)
+            ->withSession(['tenant_id' => $tenant->id])
+            ->post(route('admin.users.revoke-invitation', ['user' => $targetUser->id]));
+
+        $response->assertStatus(400);
+    }
 }

@@ -440,7 +440,7 @@ class AuthenticationTest extends TestCase
      *
      * @see https://github.com/mabumusa1/facilities-management/issues/237
      */
-    public function test_unverified_user_can_access_dashboard_because_must_verify_email_is_not_implemented(): void
+    public function test_unverified_user_is_redirected_to_verification_notice(): void
     {
         $user = User::factory()->unverified()->create();
 
@@ -458,14 +458,11 @@ class AuthenticationTest extends TestCase
         ]);
         $this->assertAuthenticated();
 
-        // BUG: unverified user reaches the dashboard because MustVerifyEmail
-        // interface is not implemented — 'verified' middleware is bypassed.
-        // Expected (per story AC): assertRedirect(route('verification.notice'))
         $protectedResponse = $this->actingAs($user)
             ->withSession(['tenant_id' => $tenant->id])
             ->get(route('dashboard'));
 
-        $protectedResponse->assertOk();
+        $protectedResponse->assertRedirect(route('verification.notice'));
     }
 
     /**
