@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict y1Ywmy9By12UiX4fSgSxxWTTvCGEhY24rje68OkZbyg67F6I6gc6BRHgG4uSf25
+\restrict wm1SERYOxwuoSBU1qPmncKexcetI7L0q2cgW4lcmFiyTLVgOnJj9A4ZS9nuMDWo
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -461,6 +461,72 @@ ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
 
 
 --
+-- Name: feature_flag_audit_logs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feature_flag_audit_logs (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    flag_key character varying(100) NOT NULL,
+    action character varying(20) NOT NULL,
+    created_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: feature_flag_audit_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feature_flag_audit_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feature_flag_audit_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feature_flag_audit_logs_id_seq OWNED BY public.feature_flag_audit_logs.id;
+
+
+--
+-- Name: feature_flag_overrides; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.feature_flag_overrides (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    flag_key character varying(100) NOT NULL,
+    enabled boolean NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: feature_flag_overrides_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.feature_flag_overrides_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feature_flag_overrides_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.feature_flag_overrides_id_seq OWNED BY public.feature_flag_overrides.id;
+
+
+--
 -- Name: feature_unit; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -490,6 +556,43 @@ CREATE SEQUENCE public.feature_unit_id_seq
 --
 
 ALTER SEQUENCE public.feature_unit_id_seq OWNED BY public.feature_unit.id;
+
+
+--
+-- Name: invite_codes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.invite_codes (
+    id bigint NOT NULL,
+    code character varying(255) NOT NULL,
+    contact_id bigint,
+    tenant_id bigint,
+    created_by bigint,
+    used_by bigint,
+    used_at timestamp(0) without time zone,
+    expires_at timestamp(0) without time zone NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: invite_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.invite_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: invite_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.invite_codes_id_seq OWNED BY public.invite_codes.id;
 
 
 --
@@ -545,6 +648,98 @@ ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
 
 
 --
+-- Name: lease_kyc_documents; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lease_kyc_documents (
+    id bigint NOT NULL,
+    lease_id bigint NOT NULL,
+    document_type_id bigint NOT NULL,
+    is_required boolean DEFAULT false NOT NULL,
+    original_file_name character varying(255) NOT NULL,
+    stored_path character varying(255) NOT NULL,
+    mime_type character varying(255),
+    file_size bigint,
+    account_tenant_id bigint,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: lease_kyc_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lease_kyc_documents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lease_kyc_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lease_kyc_documents_id_seq OWNED BY public.lease_kyc_documents.id;
+
+
+--
+-- Name: lease_quotes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lease_quotes (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    quote_number character varying(255),
+    unit_id bigint NOT NULL,
+    contact_id bigint NOT NULL,
+    contract_type_id bigint,
+    status_id bigint NOT NULL,
+    duration_months integer NOT NULL,
+    start_date date NOT NULL,
+    rent_amount numeric(15,2) NOT NULL,
+    payment_frequency_id bigint NOT NULL,
+    security_deposit numeric(15,2) DEFAULT '0'::numeric NOT NULL,
+    additional_charges json,
+    special_conditions json,
+    valid_until timestamp(0) without time zone NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    parent_quote_id bigint,
+    marketplace_unit_id bigint,
+    created_by_id bigint NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone,
+    public_token uuid,
+    revision_note text,
+    email_subject_prefix character varying(255),
+    rejection_reason text
+);
+
+
+--
+-- Name: lease_quotes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lease_quotes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lease_quotes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lease_quotes_id_seq OWNED BY public.lease_quotes.id;
+
+
+--
 -- Name: lease_units; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -593,7 +788,9 @@ CREATE TABLE public.media (
     mediable_id bigint NOT NULL,
     collection character varying(255),
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    sort_order integer DEFAULT 0 NOT NULL,
+    is_primary boolean DEFAULT false NOT NULL
 );
 
 
@@ -665,8 +862,31 @@ CREATE TABLE public.model_has_permissions (
 CREATE TABLE public.model_has_roles (
     role_id bigint NOT NULL,
     model_type character varying(255) NOT NULL,
-    model_id bigint NOT NULL
+    model_id bigint NOT NULL,
+    community_id bigint,
+    building_id bigint,
+    service_type_id bigint,
+    id bigint NOT NULL
 );
+
+
+--
+-- Name: model_has_roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.model_has_roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: model_has_roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.model_has_roles_id_seq OWNED BY public.model_has_roles.id;
 
 
 --
@@ -705,7 +925,12 @@ CREATE TABLE public.permissions (
     name character varying(255) NOT NULL,
     guard_name character varying(255) NOT NULL,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    subject character varying(255),
+    action character varying(255),
+    name_en character varying(255),
+    name_ar character varying(255),
+    account_tenant_id bigint
 );
 
 
@@ -758,6 +983,46 @@ CREATE SEQUENCE public.professional_subcategories_id_seq
 --
 
 ALTER SEQUENCE public.professional_subcategories_id_seq OWNED BY public.professional_subcategories.id;
+
+
+--
+-- Name: report_snapshots; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.report_snapshots (
+    id bigint NOT NULL,
+    account_tenant_id bigint,
+    report_type character varying(255) NOT NULL,
+    period_start date,
+    period_end date,
+    generated_at timestamp(0) without time zone,
+    payload jsonb,
+    status character varying(255) DEFAULT 'pending'::character varying NOT NULL,
+    requested_by_user_id bigint,
+    filters jsonb,
+    error_message text,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: report_snapshots_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.report_snapshots_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: report_snapshots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.report_snapshots_id_seq OWNED BY public.report_snapshots.id;
 
 
 --
@@ -854,7 +1119,12 @@ CREATE TABLE public.rf_announcements (
     updated_at timestamp(0) without time zone,
     deleted_at timestamp(0) without time zone,
     building_id bigint,
-    account_tenant_id bigint
+    account_tenant_id bigint,
+    scheduled_at timestamp(0) without time zone,
+    audience_type character varying(255) DEFAULT 'all'::character varying NOT NULL,
+    audience_id bigint,
+    is_priority boolean DEFAULT false NOT NULL,
+    attachments json
 );
 
 
@@ -875,6 +1145,79 @@ CREATE SEQUENCE public.rf_announcements_id_seq
 --
 
 ALTER SEQUENCE public.rf_announcements_id_seq OWNED BY public.rf_announcements.id;
+
+
+--
+-- Name: rf_app_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_app_settings (
+    id bigint NOT NULL,
+    account_tenant_id bigint,
+    sidebar_label_overrides json,
+    favicon_path character varying(255),
+    login_bg_path character varying(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_app_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_app_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_app_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_app_settings_id_seq OWNED BY public.rf_app_settings.id;
+
+
+--
+-- Name: rf_bank_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_bank_accounts (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    community_id bigint,
+    bank_name character varying(255) NOT NULL,
+    account_name character varying(255) NOT NULL,
+    account_number character varying(30) NOT NULL,
+    iban character varying(34),
+    currency character varying(3) DEFAULT 'SAR'::character varying NOT NULL,
+    is_default boolean DEFAULT false NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_bank_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_bank_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_bank_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_bank_accounts_id_seq OWNED BY public.rf_bank_accounts.id;
 
 
 --
@@ -982,7 +1325,10 @@ CREATE TABLE public.rf_communities (
     completion_percent integer DEFAULT 0 NOT NULL,
     allow_cash_sale boolean DEFAULT false NOT NULL,
     allow_bank_financing boolean DEFAULT false NOT NULL,
-    listed_percentage numeric(5,2) DEFAULT '0'::numeric NOT NULL
+    listed_percentage numeric(5,2) DEFAULT '0'::numeric NOT NULL,
+    working_days json,
+    latitude numeric(10,7),
+    longitude numeric(11,7)
 );
 
 
@@ -1006,6 +1352,155 @@ ALTER SEQUENCE public.rf_communities_id_seq OWNED BY public.rf_communities.id;
 
 
 --
+-- Name: rf_complaints; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_complaints (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    resident_id bigint,
+    title character varying(255) NOT NULL,
+    description text NOT NULL,
+    category character varying(255),
+    status character varying(255) DEFAULT 'pending'::character varying NOT NULL,
+    assigned_to bigint,
+    resolution_notes text,
+    resolved_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_complaints_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_complaints_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_complaints_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_complaints_id_seq OWNED BY public.rf_complaints.id;
+
+
+--
+-- Name: rf_contact_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_contact_activities (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    contact_type character varying(255) NOT NULL,
+    contact_id bigint NOT NULL,
+    event_type character varying(255) NOT NULL,
+    metadata json,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_contact_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_contact_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_contact_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_contact_activities_id_seq OWNED BY public.rf_contact_activities.id;
+
+
+--
+-- Name: rf_contact_documents; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_contact_documents (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    contact_type character varying(255) NOT NULL,
+    contact_id bigint NOT NULL,
+    type character varying(255) NOT NULL,
+    file_path character varying(255) NOT NULL,
+    original_name character varying(255) NOT NULL,
+    expires_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_contact_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_contact_documents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_contact_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_contact_documents_id_seq OWNED BY public.rf_contact_documents.id;
+
+
+--
+-- Name: rf_contract_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_contract_types (
+    id bigint NOT NULL,
+    account_tenant_id bigint,
+    name_en character varying(255) NOT NULL,
+    name_ar character varying(255),
+    default_payment_terms_days smallint,
+    default_escalation_type character varying(50),
+    is_active boolean DEFAULT true NOT NULL,
+    sort_order smallint DEFAULT '0'::smallint NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_contract_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_contract_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_contract_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_contract_types_id_seq OWNED BY public.rf_contract_types.id;
+
+
+--
 -- Name: rf_dependents; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1013,7 +1508,7 @@ CREATE TABLE public.rf_dependents (
     id bigint NOT NULL,
     dependable_type character varying(255) NOT NULL,
     dependable_id bigint NOT NULL,
-    first_name character varying(255) NOT NULL,
+    first_name character varying(255),
     last_name character varying(255),
     phone_number character varying(255),
     phone_country_code character varying(255),
@@ -1023,7 +1518,9 @@ CREATE TABLE public.rf_dependents (
     birthdate date,
     relationship character varying(255),
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    first_name_ar character varying(255),
+    last_name_ar character varying(255)
 );
 
 
@@ -1047,6 +1544,236 @@ ALTER SEQUENCE public.rf_dependents_id_seq OWNED BY public.rf_dependents.id;
 
 
 --
+-- Name: rf_directory_entries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_directory_entries (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    category character varying(255),
+    phone_number character varying(20),
+    email character varying(255),
+    description text,
+    status character varying(255) DEFAULT 'active'::character varying NOT NULL,
+    created_by bigint,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_directory_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_directory_entries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_directory_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_directory_entries_id_seq OWNED BY public.rf_directory_entries.id;
+
+
+--
+-- Name: rf_document_records; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_document_records (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    document_template_version_id bigint NOT NULL,
+    source_type character varying(255),
+    source_id bigint,
+    generated_at timestamp(0) without time zone,
+    file_path character varying(255),
+    status character varying(255) DEFAULT 'draft'::character varying NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone,
+    signing_token character varying(64),
+    sent_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_document_records_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_document_records_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_document_records_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_document_records_id_seq OWNED BY public.rf_document_records.id;
+
+
+--
+-- Name: rf_document_signatures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_document_signatures (
+    id bigint NOT NULL,
+    document_record_id bigint NOT NULL,
+    signer_name character varying(255) NOT NULL,
+    signer_email character varying(255) NOT NULL,
+    signed_at timestamp(0) without time zone,
+    ip_address character varying(45),
+    otp_verified_at timestamp(0) without time zone,
+    signed_file_path character varying(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_document_signatures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_document_signatures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_document_signatures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_document_signatures_id_seq OWNED BY public.rf_document_signatures.id;
+
+
+--
+-- Name: rf_document_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_document_templates (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    name json NOT NULL,
+    type character varying(255) NOT NULL,
+    status character varying(255) DEFAULT 'draft'::character varying NOT NULL,
+    format character varying(255) DEFAULT 'word_upload'::character varying NOT NULL,
+    created_by bigint,
+    current_version_id bigint,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_document_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_document_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_document_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_document_templates_id_seq OWNED BY public.rf_document_templates.id;
+
+
+--
+-- Name: rf_document_versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_document_versions (
+    id bigint NOT NULL,
+    document_template_id bigint NOT NULL,
+    version_number integer NOT NULL,
+    body text,
+    file_path character varying(255),
+    merge_fields json,
+    published_at timestamp(0) without time zone,
+    created_by bigint,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_document_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_document_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_document_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_document_versions_id_seq OWNED BY public.rf_document_versions.id;
+
+
+--
+-- Name: rf_excel_sheet_imports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_excel_sheet_imports (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    excel_sheet_id bigint NOT NULL,
+    imported_by bigint,
+    imported_at timestamp(0) without time zone,
+    total_rows integer DEFAULT 0 NOT NULL,
+    successful_rows integer DEFAULT 0 NOT NULL,
+    failed_rows integer DEFAULT 0 NOT NULL,
+    error_details json,
+    error_report_path character varying(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_excel_sheet_imports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_excel_sheet_imports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_excel_sheet_imports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_excel_sheet_imports_id_seq OWNED BY public.rf_excel_sheet_imports.id;
+
+
+--
 -- Name: rf_excel_sheets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1060,7 +1787,14 @@ CREATE TABLE public.rf_excel_sheets (
     rf_community_id bigint,
     account_tenant_id bigint,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    import_type character varying(255),
+    column_schema json,
+    template_file_path character varying(255),
+    total_rows integer,
+    success_count integer,
+    error_count integer,
+    meta json
 );
 
 
@@ -1104,7 +1838,17 @@ CREATE TABLE public.rf_facilities (
     updated_at timestamp(0) without time zone,
     deleted_at timestamp(0) without time zone,
     community_id bigint,
-    account_tenant_id bigint
+    account_tenant_id bigint,
+    currency character varying(3) DEFAULT 'SAR'::character varying NOT NULL,
+    type character varying(255) DEFAULT 'other'::character varying NOT NULL,
+    pricing_mode character varying(255) DEFAULT 'free'::character varying NOT NULL,
+    requires_booking boolean DEFAULT false NOT NULL,
+    booking_horizon_days integer DEFAULT 14 NOT NULL,
+    cancellation_hours_before integer DEFAULT 2 NOT NULL,
+    min_booking_duration_minutes integer DEFAULT 30 NOT NULL,
+    max_booking_duration_minutes integer,
+    contract_required boolean DEFAULT false NOT NULL,
+    notes text
 );
 
 
@@ -1128,13 +1872,50 @@ ALTER SEQUENCE public.rf_facilities_id_seq OWNED BY public.rf_facilities.id;
 
 
 --
+-- Name: rf_facility_availability_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_facility_availability_rules (
+    id bigint NOT NULL,
+    facility_id bigint NOT NULL,
+    day_of_week smallint NOT NULL,
+    open_time time(0) without time zone NOT NULL,
+    close_time time(0) without time zone NOT NULL,
+    slot_duration_minutes integer DEFAULT 60 NOT NULL,
+    max_concurrent_bookings integer DEFAULT 1 NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_facility_availability_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_facility_availability_rules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_facility_availability_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_facility_availability_rules_id_seq OWNED BY public.rf_facility_availability_rules.id;
+
+
+--
 -- Name: rf_facility_bookings; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.rf_facility_bookings (
     id bigint NOT NULL,
     facility_id bigint NOT NULL,
-    status_id bigint NOT NULL,
+    status_id bigint,
     booker_type character varying(255) NOT NULL,
     booker_id bigint NOT NULL,
     booking_date date NOT NULL,
@@ -1145,7 +1926,20 @@ CREATE TABLE public.rf_facility_bookings (
     approved_at timestamp(0) without time zone,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    deleted_at timestamp(0) without time zone
+    deleted_at timestamp(0) without time zone,
+    account_tenant_id bigint,
+    booked_by_type character varying(255),
+    start_at timestamp(0) without time zone,
+    end_at timestamp(0) without time zone,
+    cancelled_at timestamp(0) without time zone,
+    cancellation_reason character varying(255),
+    cancellation_by_type character varying(255),
+    invoice_id bigint,
+    contract_document_id bigint,
+    checked_in_at timestamp(0) without time zone,
+    checked_out_at timestamp(0) without time zone,
+    checked_in_by bigint,
+    purpose character varying(255)
 );
 
 
@@ -1200,6 +1994,47 @@ CREATE SEQUENCE public.rf_facility_categories_id_seq
 --
 
 ALTER SEQUENCE public.rf_facility_categories_id_seq OWNED BY public.rf_facility_categories.id;
+
+
+--
+-- Name: rf_facility_waitlist; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_facility_waitlist (
+    id bigint NOT NULL,
+    facility_id bigint NOT NULL,
+    resident_id bigint NOT NULL,
+    requested_start_at timestamp(0) without time zone NOT NULL,
+    requested_end_at timestamp(0) without time zone NOT NULL,
+    notified_at timestamp(0) without time zone,
+    ttl_expires_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    user_id bigint,
+    account_tenant_id bigint,
+    date date,
+    start_time character varying(5),
+    end_time character varying(5)
+);
+
+
+--
+-- Name: rf_facility_waitlist_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_facility_waitlist_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_facility_waitlist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_facility_waitlist_id_seq OWNED BY public.rf_facility_waitlist.id;
 
 
 --
@@ -1327,7 +2162,21 @@ CREATE TABLE public.rf_invoice_settings (
     cr_number character varying(255),
     account_tenant_id bigint,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    name_en character varying(255),
+    name_ar character varying(255),
+    logo_path character varying(255),
+    logo_ar_path character varying(255),
+    timezone character varying(64) DEFAULT 'UTC'::character varying NOT NULL,
+    primary_color character varying(7),
+    invoice_prefix character varying(20) DEFAULT 'INV'::character varying NOT NULL,
+    invoice_next_sequence bigint DEFAULT '1'::bigint NOT NULL,
+    payment_terms_days smallint DEFAULT '30'::smallint NOT NULL,
+    late_payment_penalty_pct numeric(5,2),
+    late_payment_grace_days smallint DEFAULT '0'::smallint NOT NULL,
+    footer_text_en text,
+    footer_text_ar text,
+    show_vat_number boolean DEFAULT true NOT NULL
 );
 
 
@@ -1535,7 +2384,15 @@ CREATE TABLE public.rf_leases (
     pdf_url character varying(255),
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    deleted_at timestamp(0) without time zone
+    deleted_at timestamp(0) without time zone,
+    quote_id bigint,
+    kyc_complete boolean DEFAULT false NOT NULL,
+    kyc_submitted_at timestamp(0) without time zone,
+    approved_by_id bigint,
+    approved_at timestamp(0) without time zone,
+    rejected_by_id bigint,
+    rejected_at timestamp(0) without time zone,
+    rejection_reason text
 );
 
 
@@ -1701,13 +2558,90 @@ ALTER SEQUENCE public.rf_marketplace_visits_id_seq OWNED BY public.rf_marketplac
 
 
 --
+-- Name: rf_notification_preferences; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_notification_preferences (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    trigger_key character varying(255) NOT NULL,
+    domain character varying(255) NOT NULL,
+    email_enabled boolean DEFAULT true NOT NULL,
+    sms_enabled boolean DEFAULT false NOT NULL,
+    email_template json,
+    sms_template json,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_notification_preferences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_notification_preferences_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_notification_preferences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_notification_preferences_id_seq OWNED BY public.rf_notification_preferences.id;
+
+
+--
+-- Name: rf_owner_registrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_owner_registrations (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    phone_number character varying(20) NOT NULL,
+    status character varying(255) DEFAULT 'pending'::character varying NOT NULL,
+    submitted_data json,
+    reviewed_by bigint,
+    reviewed_at timestamp(0) without time zone,
+    review_notes text,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_owner_registrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_owner_registrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_owner_registrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_owner_registrations_id_seq OWNED BY public.rf_owner_registrations.id;
+
+
+--
 -- Name: rf_owners; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.rf_owners (
     id bigint NOT NULL,
-    first_name character varying(255) NOT NULL,
-    last_name character varying(255) NOT NULL,
+    first_name character varying(255),
+    last_name character varying(255),
     email character varying(255),
     phone_number character varying(255) NOT NULL,
     national_phone_number character varying(255),
@@ -1724,7 +2658,11 @@ CREATE TABLE public.rf_owners (
     account_tenant_id bigint,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    deleted_at timestamp(0) without time zone
+    deleted_at timestamp(0) without time zone,
+    first_name_ar character varying(255),
+    last_name_ar character varying(255),
+    id_type character varying(255),
+    status character varying(255) DEFAULT 'active'::character varying NOT NULL
 );
 
 
@@ -1790,8 +2728,8 @@ ALTER SEQUENCE public.rf_payments_id_seq OWNED BY public.rf_payments.id;
 
 CREATE TABLE public.rf_professionals (
     id bigint NOT NULL,
-    first_name character varying(255) NOT NULL,
-    last_name character varying(255) NOT NULL,
+    first_name character varying(255),
+    last_name character varying(255),
     email character varying(255),
     phone_number character varying(255) NOT NULL,
     phone_country_code character varying(255) NOT NULL,
@@ -1800,7 +2738,13 @@ CREATE TABLE public.rf_professionals (
     active boolean DEFAULT true NOT NULL,
     account_tenant_id bigint,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    first_name_ar character varying(255),
+    last_name_ar character varying(255),
+    id_type character varying(255),
+    national_phone_number character varying(255),
+    deleted_at timestamp(0) without time zone,
+    status character varying(255) DEFAULT 'active'::character varying NOT NULL
 );
 
 
@@ -1821,6 +2765,43 @@ CREATE SEQUENCE public.rf_professionals_id_seq
 --
 
 ALTER SEQUENCE public.rf_professionals_id_seq OWNED BY public.rf_professionals.id;
+
+
+--
+-- Name: rf_receipts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_receipts (
+    id bigint NOT NULL,
+    transaction_id bigint NOT NULL,
+    account_tenant_id bigint,
+    status character varying(30) DEFAULT 'generated'::character varying NOT NULL,
+    pdf_path character varying(500),
+    sent_at timestamp(0) without time zone,
+    sent_to_name character varying(255),
+    sent_to_email character varying(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_receipts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_receipts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_receipts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_receipts_id_seq OWNED BY public.rf_receipts.id;
 
 
 --
@@ -1928,7 +2909,21 @@ CREATE TABLE public.rf_requests (
     request_code character varying(255),
     account_tenant_id bigint,
     assigned_at timestamp(0) without time zone,
-    completed_at timestamp(0) without time zone
+    completed_at timestamp(0) without time zone,
+    scheduled_date date,
+    completed_date date,
+    service_category_id bigint,
+    urgency character varying(255) DEFAULT 'normal'::character varying NOT NULL,
+    room_location character varying(255),
+    sla_response_due_at timestamp(0) without time zone,
+    sla_resolution_due_at timestamp(0) without time zone,
+    service_subcategory_id bigint,
+    assigned_to_user_id bigint,
+    sla_breach_response boolean DEFAULT false NOT NULL,
+    sla_breach_resolution boolean DEFAULT false NOT NULL,
+    rating smallint,
+    feedback text,
+    source_complaint_id bigint
 );
 
 
@@ -1985,6 +2980,77 @@ ALTER SEQUENCE public.rf_service_manager_types_id_seq OWNED BY public.rf_service
 
 
 --
+-- Name: rf_service_request_messages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_service_request_messages (
+    id bigint NOT NULL,
+    service_request_id bigint NOT NULL,
+    sender_type character varying(255) NOT NULL,
+    sender_id bigint NOT NULL,
+    body text NOT NULL,
+    is_internal boolean DEFAULT false NOT NULL,
+    account_tenant_id bigint,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_service_request_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_service_request_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_service_request_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_service_request_messages_id_seq OWNED BY public.rf_service_request_messages.id;
+
+
+--
+-- Name: rf_service_request_timeline_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_service_request_timeline_events (
+    id bigint NOT NULL,
+    service_request_id bigint NOT NULL,
+    event_type character varying(50) NOT NULL,
+    actor_type character varying(255),
+    actor_id bigint,
+    metadata json,
+    account_tenant_id bigint,
+    created_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: rf_service_request_timeline_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_service_request_timeline_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_service_request_timeline_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_service_request_timeline_events_id_seq OWNED BY public.rf_service_request_timeline_events.id;
+
+
+--
 -- Name: rf_service_settings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1998,7 +3064,8 @@ CREATE TABLE public.rf_service_settings (
     capacity_type character varying(255),
     capacity_value integer,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    account_tenant_id bigint
 );
 
 
@@ -2033,8 +3100,49 @@ CREATE TABLE public.rf_settings (
     type character varying(255) NOT NULL,
     parent_id bigint,
     created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    is_active boolean DEFAULT true NOT NULL,
+    is_default boolean DEFAULT false NOT NULL,
+    subtype character varying(255),
+    metadata json,
+    sort_order integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: rf_settings_audit_logs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_settings_audit_logs (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    user_id bigint,
+    setting_group character varying(255) NOT NULL,
+    setting_key character varying(255) NOT NULL,
+    old_value text,
+    new_value text,
+    created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone
 );
+
+
+--
+-- Name: rf_settings_audit_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_settings_audit_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_settings_audit_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_settings_audit_logs_id_seq OWNED BY public.rf_settings_audit_logs.id;
 
 
 --
@@ -2092,6 +3200,45 @@ ALTER SEQUENCE public.rf_statuses_id_seq OWNED BY public.rf_statuses.id;
 
 
 --
+-- Name: rf_suggestions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_suggestions (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    resident_id bigint,
+    title character varying(255) NOT NULL,
+    description text NOT NULL,
+    is_anonymous boolean DEFAULT false NOT NULL,
+    status character varying(255) DEFAULT 'pending'::character varying NOT NULL,
+    upvotes_count integer DEFAULT 0 NOT NULL,
+    reviewed_by bigint,
+    admin_response text,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_suggestions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_suggestions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_suggestions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_suggestions_id_seq OWNED BY public.rf_suggestions.id;
+
+
+--
 -- Name: rf_system_settings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2130,8 +3277,8 @@ ALTER SEQUENCE public.rf_system_settings_id_seq OWNED BY public.rf_system_settin
 
 CREATE TABLE public.rf_tenants (
     id bigint NOT NULL,
-    first_name character varying(255) NOT NULL,
-    last_name character varying(255) NOT NULL,
+    first_name character varying(255),
+    last_name character varying(255),
     email character varying(255),
     phone_number character varying(255) NOT NULL,
     national_phone_number character varying(255),
@@ -2150,7 +3297,11 @@ CREATE TABLE public.rf_tenants (
     account_tenant_id bigint,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    deleted_at timestamp(0) without time zone
+    deleted_at timestamp(0) without time zone,
+    first_name_ar character varying(255),
+    last_name_ar character varying(255),
+    id_type character varying(255),
+    status character varying(255) DEFAULT 'active'::character varying NOT NULL
 );
 
 
@@ -2215,10 +3366,10 @@ CREATE TABLE public.rf_transactions (
     id bigint NOT NULL,
     lease_id bigint,
     unit_id bigint,
-    category_id bigint NOT NULL,
+    category_id bigint,
     subcategory_id bigint,
-    type_id bigint NOT NULL,
-    status_id bigint NOT NULL,
+    type_id bigint,
+    status_id bigint,
     assignee_type character varying(255),
     assignee_id bigint,
     account_tenant_id bigint,
@@ -2234,7 +3385,13 @@ CREATE TABLE public.rf_transactions (
     is_old boolean DEFAULT false NOT NULL,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    deleted_at timestamp(0) without time zone
+    deleted_at timestamp(0) without time zone,
+    direction character varying(20) DEFAULT 'money_in'::character varying NOT NULL,
+    payment_method character varying(30),
+    reference_number character varying(100),
+    is_reconciled boolean DEFAULT false NOT NULL,
+    reconciled_at timestamp(0) without time zone,
+    reconciled_by bigint
 );
 
 
@@ -2327,6 +3484,43 @@ ALTER SEQUENCE public.rf_unit_categories_id_seq OWNED BY public.rf_unit_categori
 
 
 --
+-- Name: rf_unit_ownerships; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_unit_ownerships (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    owner_id bigint NOT NULL,
+    unit_id bigint NOT NULL,
+    ownership_type character varying(255) DEFAULT 'full'::character varying NOT NULL,
+    ownership_percentage numeric(5,2) DEFAULT '100'::numeric NOT NULL,
+    start_date date,
+    end_date date,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_unit_ownerships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_unit_ownerships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_unit_ownerships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_unit_ownerships_id_seq OWNED BY public.rf_unit_ownerships.id;
+
+
+--
 -- Name: rf_unit_rooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2397,6 +3591,42 @@ ALTER SEQUENCE public.rf_unit_specifications_id_seq OWNED BY public.rf_unit_spec
 
 
 --
+-- Name: rf_unit_status_history; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_unit_status_history (
+    id bigint NOT NULL,
+    account_tenant_id bigint NOT NULL,
+    unit_id bigint NOT NULL,
+    from_status character varying(255),
+    to_status character varying(255) NOT NULL,
+    changed_by bigint,
+    reason text,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_unit_status_history_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_unit_status_history_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_unit_status_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_unit_status_history_id_seq OWNED BY public.rf_unit_status_history.id;
+
+
+--
 -- Name: rf_unit_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2459,7 +3689,12 @@ CREATE TABLE public.rf_units (
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
     owner_id bigint,
-    tenant_id bigint
+    tenant_id bigint,
+    status character varying(255) DEFAULT 'available'::character varying NOT NULL,
+    currency_id bigint,
+    asking_rent_amount numeric(12,2),
+    rent_period character varying(255),
+    CONSTRAINT rf_units_rent_period_check CHECK (((rent_period)::text = ANY ((ARRAY['month'::character varying, 'year'::character varying])::text[])))
 );
 
 
@@ -2480,6 +3715,125 @@ CREATE SEQUENCE public.rf_units_id_seq
 --
 
 ALTER SEQUENCE public.rf_units_id_seq OWNED BY public.rf_units.id;
+
+
+--
+-- Name: rf_visitor_access_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_visitor_access_settings (
+    id bigint NOT NULL,
+    account_tenant_id bigint,
+    community_id bigint NOT NULL,
+    require_id_verification boolean DEFAULT false NOT NULL,
+    allow_walk_in boolean DEFAULT true NOT NULL,
+    qr_expiry_minutes smallint DEFAULT '1440'::smallint NOT NULL,
+    max_uses_per_invitation smallint DEFAULT '1'::smallint NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_visitor_access_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_visitor_access_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_visitor_access_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_visitor_access_settings_id_seq OWNED BY public.rf_visitor_access_settings.id;
+
+
+--
+-- Name: rf_visitor_invitations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_visitor_invitations (
+    id bigint NOT NULL,
+    account_tenant_id bigint,
+    community_id bigint,
+    resident_id bigint NOT NULL,
+    visitor_name character varying(255) NOT NULL,
+    visitor_phone character varying(50),
+    visitor_purpose character varying(50) DEFAULT 'visit'::character varying NOT NULL,
+    expected_at timestamp(0) without time zone NOT NULL,
+    valid_until timestamp(0) without time zone NOT NULL,
+    status character varying(50) DEFAULT 'pending'::character varying NOT NULL,
+    notes text,
+    qr_code_token character(32) NOT NULL,
+    qr_code_sent_via character varying(50) DEFAULT 'none'::character varying NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_visitor_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_visitor_invitations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_visitor_invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_visitor_invitations_id_seq OWNED BY public.rf_visitor_invitations.id;
+
+
+--
+-- Name: rf_visitor_logs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rf_visitor_logs (
+    id bigint NOT NULL,
+    account_tenant_id bigint,
+    invitation_id bigint,
+    community_id bigint NOT NULL,
+    visitor_name character varying(255) NOT NULL,
+    visitor_phone character varying(50),
+    purpose character varying(50),
+    gate_officer_id bigint NOT NULL,
+    entry_at timestamp(0) without time zone NOT NULL,
+    exit_at timestamp(0) without time zone,
+    id_verified boolean DEFAULT false NOT NULL,
+    photo_path character varying(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: rf_visitor_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rf_visitor_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rf_visitor_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rf_visitor_logs_id_seq OWNED BY public.rf_visitor_logs.id;
 
 
 --
@@ -2536,7 +3890,11 @@ CREATE TABLE public.roles (
     name character varying(255) NOT NULL,
     guard_name character varying(255) NOT NULL,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    name_ar character varying(255),
+    name_en character varying(255),
+    type character varying(255),
+    account_tenant_id bigint
 );
 
 
@@ -2557,6 +3915,91 @@ CREATE SEQUENCE public.roles_id_seq
 --
 
 ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
+
+
+--
+-- Name: service_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.service_categories (
+    id bigint NOT NULL,
+    account_tenant_id bigint,
+    name_en character varying(255) NOT NULL,
+    name_ar character varying(255) NOT NULL,
+    icon character varying(255) DEFAULT '🔧'::character varying NOT NULL,
+    response_sla_hours integer,
+    resolution_sla_hours integer,
+    default_assignee_id bigint,
+    require_completion_photo boolean DEFAULT false NOT NULL,
+    status character varying(255) DEFAULT 'active'::character varying NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: service_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.service_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: service_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.service_categories_id_seq OWNED BY public.service_categories.id;
+
+
+--
+-- Name: service_category_communities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.service_category_communities (
+    service_category_id bigint NOT NULL,
+    community_id bigint NOT NULL
+);
+
+
+--
+-- Name: service_subcategories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.service_subcategories (
+    id bigint NOT NULL,
+    service_category_id bigint NOT NULL,
+    name_en character varying(255) NOT NULL,
+    name_ar character varying(255) NOT NULL,
+    response_sla_hours integer,
+    resolution_sla_hours integer,
+    status character varying(255) DEFAULT 'active'::character varying NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: service_subcategories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.service_subcategories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: service_subcategories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.service_subcategories_id_seq OWNED BY public.service_subcategories.id;
 
 
 --
@@ -2774,7 +4217,12 @@ CREATE TABLE public.users (
     two_factor_secret text,
     two_factor_recovery_codes text,
     two_factor_confirmed_at timestamp(0) without time zone,
-    phone_number character varying(20)
+    phone_number character varying(20),
+    locale character varying(5),
+    avatar_path character varying(255),
+    status character varying(20) DEFAULT 'active'::character varying NOT NULL,
+    invitation_token character varying(64),
+    invitation_expires_at timestamp(0) without time zone
 );
 
 
@@ -2882,6 +4330,20 @@ ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: feature_flag_audit_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_flag_audit_logs ALTER COLUMN id SET DEFAULT nextval('public.feature_flag_audit_logs_id_seq'::regclass);
+
+
+--
+-- Name: feature_flag_overrides id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_flag_overrides ALTER COLUMN id SET DEFAULT nextval('public.feature_flag_overrides_id_seq'::regclass);
+
+
+--
 -- Name: feature_unit id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2889,10 +4351,31 @@ ALTER TABLE ONLY public.feature_unit ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: invite_codes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.invite_codes ALTER COLUMN id SET DEFAULT nextval('public.invite_codes_id_seq'::regclass);
+
+
+--
 -- Name: jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
+
+
+--
+-- Name: lease_kyc_documents id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_kyc_documents ALTER COLUMN id SET DEFAULT nextval('public.lease_kyc_documents_id_seq'::regclass);
+
+
+--
+-- Name: lease_quotes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes ALTER COLUMN id SET DEFAULT nextval('public.lease_quotes_id_seq'::regclass);
 
 
 --
@@ -2917,6 +4400,13 @@ ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.m
 
 
 --
+-- Name: model_has_roles id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.model_has_roles ALTER COLUMN id SET DEFAULT nextval('public.model_has_roles_id_seq'::regclass);
+
+
+--
 -- Name: permissions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2928,6 +4418,13 @@ ALTER TABLE ONLY public.permissions ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.professional_subcategories ALTER COLUMN id SET DEFAULT nextval('public.professional_subcategories_id_seq'::regclass);
+
+
+--
+-- Name: report_snapshots id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.report_snapshots ALTER COLUMN id SET DEFAULT nextval('public.report_snapshots_id_seq'::regclass);
 
 
 --
@@ -2952,6 +4449,20 @@ ALTER TABLE ONLY public.rf_announcements ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: rf_app_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_app_settings ALTER COLUMN id SET DEFAULT nextval('public.rf_app_settings_id_seq'::regclass);
+
+
+--
+-- Name: rf_bank_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_bank_accounts ALTER COLUMN id SET DEFAULT nextval('public.rf_bank_accounts_id_seq'::regclass);
+
+
+--
 -- Name: rf_buildings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2973,10 +4484,80 @@ ALTER TABLE ONLY public.rf_communities ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: rf_complaints id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_complaints ALTER COLUMN id SET DEFAULT nextval('public.rf_complaints_id_seq'::regclass);
+
+
+--
+-- Name: rf_contact_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contact_activities ALTER COLUMN id SET DEFAULT nextval('public.rf_contact_activities_id_seq'::regclass);
+
+
+--
+-- Name: rf_contact_documents id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contact_documents ALTER COLUMN id SET DEFAULT nextval('public.rf_contact_documents_id_seq'::regclass);
+
+
+--
+-- Name: rf_contract_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contract_types ALTER COLUMN id SET DEFAULT nextval('public.rf_contract_types_id_seq'::regclass);
+
+
+--
 -- Name: rf_dependents id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rf_dependents ALTER COLUMN id SET DEFAULT nextval('public.rf_dependents_id_seq'::regclass);
+
+
+--
+-- Name: rf_directory_entries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_directory_entries ALTER COLUMN id SET DEFAULT nextval('public.rf_directory_entries_id_seq'::regclass);
+
+
+--
+-- Name: rf_document_records id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_records ALTER COLUMN id SET DEFAULT nextval('public.rf_document_records_id_seq'::regclass);
+
+
+--
+-- Name: rf_document_signatures id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_signatures ALTER COLUMN id SET DEFAULT nextval('public.rf_document_signatures_id_seq'::regclass);
+
+
+--
+-- Name: rf_document_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_templates ALTER COLUMN id SET DEFAULT nextval('public.rf_document_templates_id_seq'::regclass);
+
+
+--
+-- Name: rf_document_versions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_versions ALTER COLUMN id SET DEFAULT nextval('public.rf_document_versions_id_seq'::regclass);
+
+
+--
+-- Name: rf_excel_sheet_imports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_excel_sheet_imports ALTER COLUMN id SET DEFAULT nextval('public.rf_excel_sheet_imports_id_seq'::regclass);
 
 
 --
@@ -2994,6 +4575,13 @@ ALTER TABLE ONLY public.rf_facilities ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: rf_facility_availability_rules id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_availability_rules ALTER COLUMN id SET DEFAULT nextval('public.rf_facility_availability_rules_id_seq'::regclass);
+
+
+--
 -- Name: rf_facility_bookings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3005,6 +4593,13 @@ ALTER TABLE ONLY public.rf_facility_bookings ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.rf_facility_categories ALTER COLUMN id SET DEFAULT nextval('public.rf_facility_categories_id_seq'::regclass);
+
+
+--
+-- Name: rf_facility_waitlist id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_waitlist ALTER COLUMN id SET DEFAULT nextval('public.rf_facility_waitlist_id_seq'::regclass);
 
 
 --
@@ -3099,6 +4694,20 @@ ALTER TABLE ONLY public.rf_marketplace_visits ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: rf_notification_preferences id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_notification_preferences ALTER COLUMN id SET DEFAULT nextval('public.rf_notification_preferences_id_seq'::regclass);
+
+
+--
+-- Name: rf_owner_registrations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_owner_registrations ALTER COLUMN id SET DEFAULT nextval('public.rf_owner_registrations_id_seq'::regclass);
+
+
+--
 -- Name: rf_owners id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3117,6 +4726,13 @@ ALTER TABLE ONLY public.rf_payments ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.rf_professionals ALTER COLUMN id SET DEFAULT nextval('public.rf_professionals_id_seq'::regclass);
+
+
+--
+-- Name: rf_receipts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_receipts ALTER COLUMN id SET DEFAULT nextval('public.rf_receipts_id_seq'::regclass);
 
 
 --
@@ -3148,6 +4764,20 @@ ALTER TABLE ONLY public.rf_service_manager_types ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: rf_service_request_messages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_service_request_messages ALTER COLUMN id SET DEFAULT nextval('public.rf_service_request_messages_id_seq'::regclass);
+
+
+--
+-- Name: rf_service_request_timeline_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_service_request_timeline_events ALTER COLUMN id SET DEFAULT nextval('public.rf_service_request_timeline_events_id_seq'::regclass);
+
+
+--
 -- Name: rf_service_settings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3162,10 +4792,24 @@ ALTER TABLE ONLY public.rf_settings ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: rf_settings_audit_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_settings_audit_logs ALTER COLUMN id SET DEFAULT nextval('public.rf_settings_audit_logs_id_seq'::regclass);
+
+
+--
 -- Name: rf_statuses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rf_statuses ALTER COLUMN id SET DEFAULT nextval('public.rf_statuses_id_seq'::regclass);
+
+
+--
+-- Name: rf_suggestions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_suggestions ALTER COLUMN id SET DEFAULT nextval('public.rf_suggestions_id_seq'::regclass);
 
 
 --
@@ -3211,6 +4855,13 @@ ALTER TABLE ONLY public.rf_unit_categories ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: rf_unit_ownerships id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_ownerships ALTER COLUMN id SET DEFAULT nextval('public.rf_unit_ownerships_id_seq'::regclass);
+
+
+--
 -- Name: rf_unit_rooms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3222,6 +4873,13 @@ ALTER TABLE ONLY public.rf_unit_rooms ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.rf_unit_specifications ALTER COLUMN id SET DEFAULT nextval('public.rf_unit_specifications_id_seq'::regclass);
+
+
+--
+-- Name: rf_unit_status_history id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_status_history ALTER COLUMN id SET DEFAULT nextval('public.rf_unit_status_history_id_seq'::regclass);
 
 
 --
@@ -3239,6 +4897,27 @@ ALTER TABLE ONLY public.rf_units ALTER COLUMN id SET DEFAULT nextval('public.rf_
 
 
 --
+-- Name: rf_visitor_access_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_access_settings ALTER COLUMN id SET DEFAULT nextval('public.rf_visitor_access_settings_id_seq'::regclass);
+
+
+--
+-- Name: rf_visitor_invitations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_invitations ALTER COLUMN id SET DEFAULT nextval('public.rf_visitor_invitations_id_seq'::regclass);
+
+
+--
+-- Name: rf_visitor_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_logs ALTER COLUMN id SET DEFAULT nextval('public.rf_visitor_logs_id_seq'::regclass);
+
+
+--
 -- Name: rf_working_days id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3250,6 +4929,20 @@ ALTER TABLE ONLY public.rf_working_days ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
+
+
+--
+-- Name: service_categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_categories ALTER COLUMN id SET DEFAULT nextval('public.service_categories_id_seq'::regclass);
+
+
+--
+-- Name: service_subcategories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_subcategories ALTER COLUMN id SET DEFAULT nextval('public.service_subcategories_id_seq'::regclass);
 
 
 --
@@ -3455,6 +5148,30 @@ ALTER TABLE ONLY public.failed_jobs
 
 
 --
+-- Name: feature_flag_audit_logs feature_flag_audit_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_flag_audit_logs
+    ADD CONSTRAINT feature_flag_audit_logs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feature_flag_overrides feature_flag_overrides_account_tenant_id_flag_key_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_flag_overrides
+    ADD CONSTRAINT feature_flag_overrides_account_tenant_id_flag_key_unique UNIQUE (account_tenant_id, flag_key);
+
+
+--
+-- Name: feature_flag_overrides feature_flag_overrides_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.feature_flag_overrides
+    ADD CONSTRAINT feature_flag_overrides_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feature_unit feature_unit_feature_id_unit_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3471,6 +5188,22 @@ ALTER TABLE ONLY public.feature_unit
 
 
 --
+-- Name: invite_codes invite_codes_code_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.invite_codes
+    ADD CONSTRAINT invite_codes_code_unique UNIQUE (code);
+
+
+--
+-- Name: invite_codes invite_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.invite_codes
+    ADD CONSTRAINT invite_codes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3484,6 +5217,38 @@ ALTER TABLE ONLY public.job_batches
 
 ALTER TABLE ONLY public.jobs
     ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lease_kyc_documents lease_kyc_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_kyc_documents
+    ADD CONSTRAINT lease_kyc_documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lease_quotes lease_quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lease_quotes lease_quotes_public_token_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_public_token_unique UNIQUE (public_token);
+
+
+--
+-- Name: lease_quotes lease_quotes_quote_number_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_quote_number_unique UNIQUE (quote_number);
 
 
 --
@@ -3531,7 +5296,7 @@ ALTER TABLE ONLY public.model_has_permissions
 --
 
 ALTER TABLE ONLY public.model_has_roles
-    ADD CONSTRAINT model_has_roles_pkey PRIMARY KEY (role_id, model_id, model_type);
+    ADD CONSTRAINT model_has_roles_pkey PRIMARY KEY (id);
 
 
 --
@@ -3583,6 +5348,14 @@ ALTER TABLE ONLY public.professional_subcategories
 
 
 --
+-- Name: report_snapshots report_snapshots_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.report_snapshots
+    ADD CONSTRAINT report_snapshots_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rf_admins rf_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3604,6 +5377,30 @@ ALTER TABLE ONLY public.rf_amenities
 
 ALTER TABLE ONLY public.rf_announcements
     ADD CONSTRAINT rf_announcements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_app_settings rf_app_settings_account_tenant_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_app_settings
+    ADD CONSTRAINT rf_app_settings_account_tenant_id_unique UNIQUE (account_tenant_id);
+
+
+--
+-- Name: rf_app_settings rf_app_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_app_settings
+    ADD CONSTRAINT rf_app_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_bank_accounts rf_bank_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_bank_accounts
+    ADD CONSTRAINT rf_bank_accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -3631,11 +5428,115 @@ ALTER TABLE ONLY public.rf_communities
 
 
 --
+-- Name: rf_complaints rf_complaints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_complaints
+    ADD CONSTRAINT rf_complaints_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_contact_activities rf_contact_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contact_activities
+    ADD CONSTRAINT rf_contact_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_contact_documents rf_contact_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contact_documents
+    ADD CONSTRAINT rf_contact_documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_contract_types rf_contract_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contract_types
+    ADD CONSTRAINT rf_contract_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_contract_types rf_contract_types_tenant_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contract_types
+    ADD CONSTRAINT rf_contract_types_tenant_name_unique UNIQUE (account_tenant_id, name_en);
+
+
+--
 -- Name: rf_dependents rf_dependents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rf_dependents
     ADD CONSTRAINT rf_dependents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_directory_entries rf_directory_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_directory_entries
+    ADD CONSTRAINT rf_directory_entries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_document_records rf_document_records_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_records
+    ADD CONSTRAINT rf_document_records_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_document_records rf_document_records_signing_token_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_records
+    ADD CONSTRAINT rf_document_records_signing_token_unique UNIQUE (signing_token);
+
+
+--
+-- Name: rf_document_signatures rf_document_signatures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_signatures
+    ADD CONSTRAINT rf_document_signatures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_document_templates rf_document_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_templates
+    ADD CONSTRAINT rf_document_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_document_versions rf_document_versions_document_template_id_version_number_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_versions
+    ADD CONSTRAINT rf_document_versions_document_template_id_version_number_unique UNIQUE (document_template_id, version_number);
+
+
+--
+-- Name: rf_document_versions rf_document_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_versions
+    ADD CONSTRAINT rf_document_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_excel_sheet_imports rf_excel_sheet_imports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_excel_sheet_imports
+    ADD CONSTRAINT rf_excel_sheet_imports_pkey PRIMARY KEY (id);
 
 
 --
@@ -3655,6 +5556,22 @@ ALTER TABLE ONLY public.rf_facilities
 
 
 --
+-- Name: rf_facility_availability_rules rf_facility_availability_rules_facility_id_day_of_week_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_availability_rules
+    ADD CONSTRAINT rf_facility_availability_rules_facility_id_day_of_week_unique UNIQUE (facility_id, day_of_week);
+
+
+--
+-- Name: rf_facility_availability_rules rf_facility_availability_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_availability_rules
+    ADD CONSTRAINT rf_facility_availability_rules_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rf_facility_bookings rf_facility_bookings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3668,6 +5585,14 @@ ALTER TABLE ONLY public.rf_facility_bookings
 
 ALTER TABLE ONLY public.rf_facility_categories
     ADD CONSTRAINT rf_facility_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_facility_waitlist rf_facility_waitlist_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_waitlist
+    ADD CONSTRAINT rf_facility_waitlist_pkey PRIMARY KEY (id);
 
 
 --
@@ -3692,6 +5617,14 @@ ALTER TABLE ONLY public.rf_features
 
 ALTER TABLE ONLY public.rf_form_templates
     ADD CONSTRAINT rf_form_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_invoice_settings rf_invoice_settings_account_tenant_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_invoice_settings
+    ADD CONSTRAINT rf_invoice_settings_account_tenant_unique UNIQUE (account_tenant_id);
 
 
 --
@@ -3751,6 +5684,14 @@ ALTER TABLE ONLY public.rf_leases
 
 
 --
+-- Name: rf_leases rf_leases_quote_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_leases
+    ADD CONSTRAINT rf_leases_quote_id_unique UNIQUE (quote_id);
+
+
+--
 -- Name: rf_manager_roles rf_manager_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3783,6 +5724,30 @@ ALTER TABLE ONLY public.rf_marketplace_visits
 
 
 --
+-- Name: rf_notification_preferences rf_notification_preferences_account_tenant_id_trigger_key_uniqu; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_notification_preferences
+    ADD CONSTRAINT rf_notification_preferences_account_tenant_id_trigger_key_uniqu UNIQUE (account_tenant_id, trigger_key);
+
+
+--
+-- Name: rf_notification_preferences rf_notification_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_notification_preferences
+    ADD CONSTRAINT rf_notification_preferences_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_owner_registrations rf_owner_registrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_owner_registrations
+    ADD CONSTRAINT rf_owner_registrations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rf_owners rf_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3804,6 +5769,22 @@ ALTER TABLE ONLY public.rf_payments
 
 ALTER TABLE ONLY public.rf_professionals
     ADD CONSTRAINT rf_professionals_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_receipts rf_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_receipts
+    ADD CONSTRAINT rf_receipts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_receipts rf_receipts_transaction_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_receipts
+    ADD CONSTRAINT rf_receipts_transaction_id_unique UNIQUE (transaction_id);
 
 
 --
@@ -3831,6 +5812,14 @@ ALTER TABLE ONLY public.rf_requests
 
 
 --
+-- Name: rf_requests rf_requests_tenant_request_code_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_requests
+    ADD CONSTRAINT rf_requests_tenant_request_code_unique UNIQUE (account_tenant_id, request_code);
+
+
+--
 -- Name: rf_service_manager_types rf_service_manager_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3839,11 +5828,43 @@ ALTER TABLE ONLY public.rf_service_manager_types
 
 
 --
+-- Name: rf_service_request_messages rf_service_request_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_service_request_messages
+    ADD CONSTRAINT rf_service_request_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_service_request_timeline_events rf_service_request_timeline_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_service_request_timeline_events
+    ADD CONSTRAINT rf_service_request_timeline_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rf_service_settings rf_service_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rf_service_settings
     ADD CONSTRAINT rf_service_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_service_settings rf_service_settings_tenant_category_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_service_settings
+    ADD CONSTRAINT rf_service_settings_tenant_category_unique UNIQUE (account_tenant_id, category_id);
+
+
+--
+-- Name: rf_settings_audit_logs rf_settings_audit_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_settings_audit_logs
+    ADD CONSTRAINT rf_settings_audit_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -3860,6 +5881,14 @@ ALTER TABLE ONLY public.rf_settings
 
 ALTER TABLE ONLY public.rf_statuses
     ADD CONSTRAINT rf_statuses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_suggestions rf_suggestions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_suggestions
+    ADD CONSTRAINT rf_suggestions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3919,6 +5948,22 @@ ALTER TABLE ONLY public.rf_unit_categories
 
 
 --
+-- Name: rf_unit_ownerships rf_unit_ownerships_owner_id_unit_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_ownerships
+    ADD CONSTRAINT rf_unit_ownerships_owner_id_unit_id_unique UNIQUE (owner_id, unit_id);
+
+
+--
+-- Name: rf_unit_ownerships rf_unit_ownerships_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_ownerships
+    ADD CONSTRAINT rf_unit_ownerships_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rf_unit_rooms rf_unit_rooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3935,6 +5980,14 @@ ALTER TABLE ONLY public.rf_unit_specifications
 
 
 --
+-- Name: rf_unit_status_history rf_unit_status_history_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_status_history
+    ADD CONSTRAINT rf_unit_status_history_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rf_unit_types rf_unit_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3943,11 +5996,67 @@ ALTER TABLE ONLY public.rf_unit_types
 
 
 --
+-- Name: rf_units rf_units_building_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_units
+    ADD CONSTRAINT rf_units_building_name_unique UNIQUE (rf_building_id, name);
+
+
+--
 -- Name: rf_units rf_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rf_units
     ADD CONSTRAINT rf_units_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_visitor_access_settings rf_visitor_access_settings_community_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_access_settings
+    ADD CONSTRAINT rf_visitor_access_settings_community_id_unique UNIQUE (community_id);
+
+
+--
+-- Name: rf_visitor_access_settings rf_visitor_access_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_access_settings
+    ADD CONSTRAINT rf_visitor_access_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_visitor_invitations rf_visitor_invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_invitations
+    ADD CONSTRAINT rf_visitor_invitations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_visitor_invitations rf_visitor_invitations_qr_code_token_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_invitations
+    ADD CONSTRAINT rf_visitor_invitations_qr_code_token_unique UNIQUE (qr_code_token);
+
+
+--
+-- Name: rf_visitor_logs rf_visitor_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_logs
+    ADD CONSTRAINT rf_visitor_logs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rf_facility_waitlist rf_waitlist_position_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_waitlist
+    ADD CONSTRAINT rf_waitlist_position_unique UNIQUE (facility_id, resident_id, requested_start_at);
 
 
 --
@@ -3967,19 +6076,43 @@ ALTER TABLE ONLY public.role_has_permissions
 
 
 --
--- Name: roles roles_name_guard_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.roles
-    ADD CONSTRAINT roles_name_guard_name_unique UNIQUE (name, guard_name);
-
-
---
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.roles
     ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles roles_tenant_name_guard_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_tenant_name_guard_unique UNIQUE (account_tenant_id, name, guard_name);
+
+
+--
+-- Name: service_categories service_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_categories
+    ADD CONSTRAINT service_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: service_category_communities service_category_communities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_category_communities
+    ADD CONSTRAINT service_category_communities_pkey PRIMARY KEY (service_category_id, community_id);
+
+
+--
+-- Name: service_subcategories service_subcategories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_subcategories
+    ADD CONSTRAINT service_subcategories_pkey PRIMARY KEY (id);
 
 
 --
@@ -4123,10 +6256,31 @@ CREATE INDEX cache_locks_expiration_index ON public.cache_locks USING btree (exp
 
 
 --
+-- Name: feature_flag_audit_logs_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX feature_flag_audit_logs_account_tenant_id_index ON public.feature_flag_audit_logs USING btree (account_tenant_id);
+
+
+--
+-- Name: feature_flag_audit_logs_user_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX feature_flag_audit_logs_user_id_index ON public.feature_flag_audit_logs USING btree (user_id);
+
+
+--
 -- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
+
+
+--
+-- Name: lease_kyc_documents_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lease_kyc_documents_account_tenant_id_index ON public.lease_kyc_documents USING btree (account_tenant_id);
 
 
 --
@@ -4151,6 +6305,20 @@ CREATE INDEX model_has_permissions_model_id_model_type_index ON public.model_has
 
 
 --
+-- Name: model_has_roles_building_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX model_has_roles_building_id_index ON public.model_has_roles USING btree (building_id);
+
+
+--
+-- Name: model_has_roles_community_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX model_has_roles_community_id_index ON public.model_has_roles USING btree (community_id);
+
+
+--
 -- Name: model_has_roles_model_id_model_type_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4158,10 +6326,66 @@ CREATE INDEX model_has_roles_model_id_model_type_index ON public.model_has_roles
 
 
 --
+-- Name: model_has_roles_scope_unique; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX model_has_roles_scope_unique ON public.model_has_roles USING btree (role_id, model_id, model_type, COALESCE(community_id, (0)::bigint), COALESCE(building_id, (0)::bigint), COALESCE(service_type_id, (0)::bigint));
+
+
+--
+-- Name: model_has_roles_service_type_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX model_has_roles_service_type_id_index ON public.model_has_roles USING btree (service_type_id);
+
+
+--
 -- Name: notifications_notifiable_type_notifiable_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX notifications_notifiable_type_notifiable_id_index ON public.notifications USING btree (notifiable_type, notifiable_id);
+
+
+--
+-- Name: permissions_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX permissions_account_tenant_id_index ON public.permissions USING btree (account_tenant_id);
+
+
+--
+-- Name: permissions_subject_action_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX permissions_subject_action_index ON public.permissions USING btree (subject, action);
+
+
+--
+-- Name: report_snapshots_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX report_snapshots_account_tenant_id_index ON public.report_snapshots USING btree (account_tenant_id);
+
+
+--
+-- Name: report_snapshots_account_tenant_id_report_type_period_start_ind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX report_snapshots_account_tenant_id_report_type_period_start_ind ON public.report_snapshots USING btree (account_tenant_id, report_type, period_start);
+
+
+--
+-- Name: report_snapshots_account_tenant_id_status_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX report_snapshots_account_tenant_id_status_index ON public.report_snapshots USING btree (account_tenant_id, status);
+
+
+--
+-- Name: report_snapshots_report_type_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX report_snapshots_report_type_index ON public.report_snapshots USING btree (report_type);
 
 
 --
@@ -4200,10 +6424,45 @@ CREATE INDEX rf_communities_account_tenant_id_index ON public.rf_communities USI
 
 
 --
+-- Name: rf_contact_activities_contact_type_contact_id_event_type_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_contact_activities_contact_type_contact_id_event_type_index ON public.rf_contact_activities USING btree (contact_type, contact_id, event_type);
+
+
+--
+-- Name: rf_contact_activities_contact_type_contact_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_contact_activities_contact_type_contact_id_index ON public.rf_contact_activities USING btree (contact_type, contact_id);
+
+
+--
+-- Name: rf_contact_documents_contact_type_contact_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_contact_documents_contact_type_contact_id_index ON public.rf_contact_documents USING btree (contact_type, contact_id);
+
+
+--
+-- Name: rf_contract_types_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_contract_types_account_tenant_id_index ON public.rf_contract_types USING btree (account_tenant_id);
+
+
+--
 -- Name: rf_dependents_dependable_type_dependable_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX rf_dependents_dependable_type_dependable_id_index ON public.rf_dependents USING btree (dependable_type, dependable_id);
+
+
+--
+-- Name: rf_document_records_source_type_source_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_document_records_source_type_source_id_index ON public.rf_document_records USING btree (source_type, source_id);
 
 
 --
@@ -4228,10 +6487,24 @@ CREATE INDEX rf_facilities_account_tenant_id_index ON public.rf_facilities USING
 
 
 --
+-- Name: rf_facility_bookings_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_facility_bookings_account_tenant_id_index ON public.rf_facility_bookings USING btree (account_tenant_id);
+
+
+--
 -- Name: rf_facility_bookings_booker_type_booker_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX rf_facility_bookings_booker_type_booker_id_index ON public.rf_facility_bookings USING btree (booker_type, booker_id);
+
+
+--
+-- Name: rf_facility_bookings_calendar_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_facility_bookings_calendar_idx ON public.rf_facility_bookings USING btree (facility_id, start_at, status_id);
 
 
 --
@@ -4263,6 +6536,27 @@ CREATE INDEX rf_leases_account_tenant_id_index ON public.rf_leases USING btree (
 
 
 --
+-- Name: rf_leases_approved_by_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_leases_approved_by_id_index ON public.rf_leases USING btree (approved_by_id);
+
+
+--
+-- Name: rf_leases_quote_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_leases_quote_id_index ON public.rf_leases USING btree (quote_id);
+
+
+--
+-- Name: rf_leases_rejected_by_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_leases_rejected_by_id_index ON public.rf_leases USING btree (rejected_by_id);
+
+
+--
 -- Name: rf_marketplace_offers_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4284,10 +6578,24 @@ CREATE INDEX rf_owners_account_tenant_id_index ON public.rf_owners USING btree (
 
 
 --
+-- Name: rf_owners_tenant_phone_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_owners_tenant_phone_index ON public.rf_owners USING btree (account_tenant_id, national_phone_number);
+
+
+--
 -- Name: rf_professionals_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX rf_professionals_account_tenant_id_index ON public.rf_professionals USING btree (account_tenant_id);
+
+
+--
+-- Name: rf_receipts_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_receipts_account_tenant_id_index ON public.rf_receipts USING btree (account_tenant_id);
 
 
 --
@@ -4298,10 +6606,101 @@ CREATE INDEX rf_requests_account_tenant_id_index ON public.rf_requests USING btr
 
 
 --
+-- Name: rf_requests_assigned_to_user_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_requests_assigned_to_user_id_index ON public.rf_requests USING btree (assigned_to_user_id);
+
+
+--
 -- Name: rf_requests_requester_type_requester_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX rf_requests_requester_type_requester_id_index ON public.rf_requests USING btree (requester_type, requester_id);
+
+
+--
+-- Name: rf_requests_tenant_created_at_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_requests_tenant_created_at_index ON public.rf_requests USING btree (account_tenant_id, created_at);
+
+
+--
+-- Name: rf_requests_tenant_status_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_requests_tenant_status_index ON public.rf_requests USING btree (account_tenant_id, status_id);
+
+
+--
+-- Name: rf_service_request_messages_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_request_messages_account_tenant_id_index ON public.rf_service_request_messages USING btree (account_tenant_id);
+
+
+--
+-- Name: rf_service_request_messages_sender_type_sender_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_request_messages_sender_type_sender_id_index ON public.rf_service_request_messages USING btree (sender_type, sender_id);
+
+
+--
+-- Name: rf_service_request_messages_service_request_id_created_at_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_request_messages_service_request_id_created_at_index ON public.rf_service_request_messages USING btree (service_request_id, created_at);
+
+
+--
+-- Name: rf_service_request_timeline_events_account_tenant_id_event_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_request_timeline_events_account_tenant_id_event_type ON public.rf_service_request_timeline_events USING btree (account_tenant_id, event_type, created_at);
+
+
+--
+-- Name: rf_service_request_timeline_events_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_request_timeline_events_account_tenant_id_index ON public.rf_service_request_timeline_events USING btree (account_tenant_id);
+
+
+--
+-- Name: rf_service_request_timeline_events_actor_type_actor_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_request_timeline_events_actor_type_actor_id_index ON public.rf_service_request_timeline_events USING btree (actor_type, actor_id);
+
+
+--
+-- Name: rf_service_request_timeline_events_service_request_id_created_a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_request_timeline_events_service_request_id_created_a ON public.rf_service_request_timeline_events USING btree (service_request_id, created_at);
+
+
+--
+-- Name: rf_service_settings_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_service_settings_account_tenant_id_index ON public.rf_service_settings USING btree (account_tenant_id);
+
+
+--
+-- Name: rf_settings_audit_logs_account_tenant_id_setting_group_setting_; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_settings_audit_logs_account_tenant_id_setting_group_setting_ ON public.rf_settings_audit_logs USING btree (account_tenant_id, setting_group, setting_key);
+
+
+--
+-- Name: rf_settings_audit_logs_setting_group_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_settings_audit_logs_setting_group_index ON public.rf_settings_audit_logs USING btree (setting_group);
 
 
 --
@@ -4333,6 +6732,13 @@ CREATE INDEX rf_tenants_account_tenant_id_index ON public.rf_tenants USING btree
 
 
 --
+-- Name: rf_tenants_tenant_phone_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_tenants_tenant_phone_index ON public.rf_tenants USING btree (account_tenant_id, national_phone_number);
+
+
+--
 -- Name: rf_transactions_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4344,6 +6750,13 @@ CREATE INDEX rf_transactions_account_tenant_id_index ON public.rf_transactions U
 --
 
 CREATE INDEX rf_transactions_assignee_type_assignee_id_index ON public.rf_transactions USING btree (assignee_type, assignee_id);
+
+
+--
+-- Name: rf_transactions_direction_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_transactions_direction_index ON public.rf_transactions USING btree (direction);
 
 
 --
@@ -4368,6 +6781,48 @@ CREATE INDEX rf_units_account_tenant_id_index ON public.rf_units USING btree (ac
 
 
 --
+-- Name: rf_visitor_access_settings_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_visitor_access_settings_account_tenant_id_index ON public.rf_visitor_access_settings USING btree (account_tenant_id);
+
+
+--
+-- Name: rf_visitor_invitations_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_visitor_invitations_account_tenant_id_index ON public.rf_visitor_invitations USING btree (account_tenant_id);
+
+
+--
+-- Name: rf_visitor_logs_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_visitor_logs_account_tenant_id_index ON public.rf_visitor_logs USING btree (account_tenant_id);
+
+
+--
+-- Name: rf_waitlist_fifo_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX rf_waitlist_fifo_idx ON public.rf_facility_waitlist USING btree (facility_id, requested_start_at, created_at);
+
+
+--
+-- Name: roles_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX roles_account_tenant_id_index ON public.roles USING btree (account_tenant_id);
+
+
+--
+-- Name: service_categories_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX service_categories_account_tenant_id_index ON public.service_categories USING btree (account_tenant_id);
+
+
+--
 -- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4379,6 +6834,20 @@ CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_a
 --
 
 CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
+
+
+--
+-- Name: users_invitation_token_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_invitation_token_index ON public.users USING btree (invitation_token);
+
+
+--
+-- Name: users_status_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_status_index ON public.users USING btree (status);
 
 
 --
@@ -4486,6 +6955,118 @@ ALTER TABLE ONLY public.feature_unit
 
 
 --
+-- Name: invite_codes invite_codes_created_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.invite_codes
+    ADD CONSTRAINT invite_codes_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.users(id);
+
+
+--
+-- Name: invite_codes invite_codes_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.invite_codes
+    ADD CONSTRAINT invite_codes_tenant_id_foreign FOREIGN KEY (tenant_id) REFERENCES public.tenants(id);
+
+
+--
+-- Name: invite_codes invite_codes_used_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.invite_codes
+    ADD CONSTRAINT invite_codes_used_by_foreign FOREIGN KEY (used_by) REFERENCES public.users(id);
+
+
+--
+-- Name: lease_kyc_documents lease_kyc_documents_document_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_kyc_documents
+    ADD CONSTRAINT lease_kyc_documents_document_type_id_foreign FOREIGN KEY (document_type_id) REFERENCES public.rf_settings(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: lease_kyc_documents lease_kyc_documents_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_kyc_documents
+    ADD CONSTRAINT lease_kyc_documents_lease_id_foreign FOREIGN KEY (lease_id) REFERENCES public.rf_leases(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lease_quotes lease_quotes_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lease_quotes lease_quotes_contact_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_contact_id_foreign FOREIGN KEY (contact_id) REFERENCES public.rf_tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lease_quotes lease_quotes_contract_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_contract_type_id_foreign FOREIGN KEY (contract_type_id) REFERENCES public.rf_contract_types(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lease_quotes lease_quotes_created_by_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_created_by_id_foreign FOREIGN KEY (created_by_id) REFERENCES public.rf_admins(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: lease_quotes lease_quotes_marketplace_unit_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_marketplace_unit_id_foreign FOREIGN KEY (marketplace_unit_id) REFERENCES public.rf_marketplace_units(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lease_quotes lease_quotes_parent_quote_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_parent_quote_id_foreign FOREIGN KEY (parent_quote_id) REFERENCES public.lease_quotes(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lease_quotes lease_quotes_payment_frequency_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_payment_frequency_id_foreign FOREIGN KEY (payment_frequency_id) REFERENCES public.rf_settings(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: lease_quotes lease_quotes_status_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_status_id_foreign FOREIGN KEY (status_id) REFERENCES public.rf_statuses(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: lease_quotes lease_quotes_unit_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_quotes
+    ADD CONSTRAINT lease_quotes_unit_id_foreign FOREIGN KEY (unit_id) REFERENCES public.rf_units(id) ON DELETE CASCADE;
+
+
+--
 -- Name: lease_units lease_units_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4534,6 +7115,14 @@ ALTER TABLE ONLY public.professional_subcategories
 
 
 --
+-- Name: report_snapshots report_snapshots_requested_by_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.report_snapshots
+    ADD CONSTRAINT report_snapshots_requested_by_user_id_foreign FOREIGN KEY (requested_by_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
 -- Name: rf_announcements rf_announcements_building_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4547,6 +7136,22 @@ ALTER TABLE ONLY public.rf_announcements
 
 ALTER TABLE ONLY public.rf_announcements
     ADD CONSTRAINT rf_announcements_community_id_foreign FOREIGN KEY (community_id) REFERENCES public.rf_communities(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_bank_accounts rf_bank_accounts_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_bank_accounts
+    ADD CONSTRAINT rf_bank_accounts_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_bank_accounts rf_bank_accounts_community_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_bank_accounts
+    ADD CONSTRAINT rf_bank_accounts_community_id_foreign FOREIGN KEY (community_id) REFERENCES public.rf_communities(id) ON DELETE SET NULL;
 
 
 --
@@ -4606,6 +7211,134 @@ ALTER TABLE ONLY public.rf_communities
 
 
 --
+-- Name: rf_complaints rf_complaints_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_complaints
+    ADD CONSTRAINT rf_complaints_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_complaints rf_complaints_assigned_to_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_complaints
+    ADD CONSTRAINT rf_complaints_assigned_to_foreign FOREIGN KEY (assigned_to) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_contact_activities rf_contact_activities_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contact_activities
+    ADD CONSTRAINT rf_contact_activities_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_contact_documents rf_contact_documents_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_contact_documents
+    ADD CONSTRAINT rf_contact_documents_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_directory_entries rf_directory_entries_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_directory_entries
+    ADD CONSTRAINT rf_directory_entries_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_directory_entries rf_directory_entries_created_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_directory_entries
+    ADD CONSTRAINT rf_directory_entries_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_document_records rf_document_records_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_records
+    ADD CONSTRAINT rf_document_records_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_document_records rf_document_records_document_template_version_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_records
+    ADD CONSTRAINT rf_document_records_document_template_version_id_foreign FOREIGN KEY (document_template_version_id) REFERENCES public.rf_document_versions(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_document_signatures rf_document_signatures_document_record_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_signatures
+    ADD CONSTRAINT rf_document_signatures_document_record_id_foreign FOREIGN KEY (document_record_id) REFERENCES public.rf_document_records(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_document_templates rf_document_templates_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_templates
+    ADD CONSTRAINT rf_document_templates_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_document_templates rf_document_templates_created_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_templates
+    ADD CONSTRAINT rf_document_templates_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_document_versions rf_document_versions_created_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_versions
+    ADD CONSTRAINT rf_document_versions_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_document_versions rf_document_versions_document_template_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_document_versions
+    ADD CONSTRAINT rf_document_versions_document_template_id_foreign FOREIGN KEY (document_template_id) REFERENCES public.rf_document_templates(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_excel_sheet_imports rf_excel_sheet_imports_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_excel_sheet_imports
+    ADD CONSTRAINT rf_excel_sheet_imports_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_excel_sheet_imports rf_excel_sheet_imports_excel_sheet_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_excel_sheet_imports
+    ADD CONSTRAINT rf_excel_sheet_imports_excel_sheet_id_foreign FOREIGN KEY (excel_sheet_id) REFERENCES public.rf_excel_sheets(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_excel_sheet_imports rf_excel_sheet_imports_imported_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_excel_sheet_imports
+    ADD CONSTRAINT rf_excel_sheet_imports_imported_by_foreign FOREIGN KEY (imported_by) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
 -- Name: rf_excel_sheets rf_excel_sheets_rf_community_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4630,6 +7363,14 @@ ALTER TABLE ONLY public.rf_facilities
 
 
 --
+-- Name: rf_facility_availability_rules rf_facility_availability_rules_facility_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_availability_rules
+    ADD CONSTRAINT rf_facility_availability_rules_facility_id_foreign FOREIGN KEY (facility_id) REFERENCES public.rf_facilities(id) ON DELETE CASCADE;
+
+
+--
 -- Name: rf_facility_bookings rf_facility_bookings_facility_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4643,6 +7384,22 @@ ALTER TABLE ONLY public.rf_facility_bookings
 
 ALTER TABLE ONLY public.rf_facility_bookings
     ADD CONSTRAINT rf_facility_bookings_status_id_foreign FOREIGN KEY (status_id) REFERENCES public.rf_statuses(id);
+
+
+--
+-- Name: rf_facility_waitlist rf_facility_waitlist_facility_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_waitlist
+    ADD CONSTRAINT rf_facility_waitlist_facility_id_foreign FOREIGN KEY (facility_id) REFERENCES public.rf_facilities(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_facility_waitlist rf_facility_waitlist_resident_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_facility_waitlist
+    ADD CONSTRAINT rf_facility_waitlist_resident_id_foreign FOREIGN KEY (resident_id) REFERENCES public.rf_tenants(id) ON DELETE CASCADE;
 
 
 --
@@ -4710,6 +7467,14 @@ ALTER TABLE ONLY public.rf_lease_escalations
 
 
 --
+-- Name: rf_leases rf_leases_approved_by_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_leases
+    ADD CONSTRAINT rf_leases_approved_by_id_foreign FOREIGN KEY (approved_by_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
 -- Name: rf_leases rf_leases_lease_unit_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4731,6 +7496,14 @@ ALTER TABLE ONLY public.rf_leases
 
 ALTER TABLE ONLY public.rf_leases
     ADD CONSTRAINT rf_leases_payment_schedule_id_foreign FOREIGN KEY (payment_schedule_id) REFERENCES public.rf_settings(id);
+
+
+--
+-- Name: rf_leases rf_leases_rejected_by_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_leases
+    ADD CONSTRAINT rf_leases_rejected_by_id_foreign FOREIGN KEY (rejected_by_id) REFERENCES public.users(id) ON DELETE SET NULL;
 
 
 --
@@ -4790,6 +7563,30 @@ ALTER TABLE ONLY public.rf_marketplace_visits
 
 
 --
+-- Name: rf_notification_preferences rf_notification_preferences_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_notification_preferences
+    ADD CONSTRAINT rf_notification_preferences_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_owner_registrations rf_owner_registrations_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_owner_registrations
+    ADD CONSTRAINT rf_owner_registrations_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_owner_registrations rf_owner_registrations_reviewed_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_owner_registrations
+    ADD CONSTRAINT rf_owner_registrations_reviewed_by_foreign FOREIGN KEY (reviewed_by) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
 -- Name: rf_payments rf_payments_transaction_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4798,11 +7595,27 @@ ALTER TABLE ONLY public.rf_payments
 
 
 --
+-- Name: rf_receipts rf_receipts_transaction_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_receipts
+    ADD CONSTRAINT rf_receipts_transaction_id_foreign FOREIGN KEY (transaction_id) REFERENCES public.rf_transactions(id) ON DELETE CASCADE;
+
+
+--
 -- Name: rf_request_subcategories rf_request_subcategories_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rf_request_subcategories
     ADD CONSTRAINT rf_request_subcategories_category_id_foreign FOREIGN KEY (category_id) REFERENCES public.rf_request_categories(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_requests rf_requests_assigned_to_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_requests
+    ADD CONSTRAINT rf_requests_assigned_to_user_id_foreign FOREIGN KEY (assigned_to_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
 
 
 --
@@ -4838,6 +7651,22 @@ ALTER TABLE ONLY public.rf_requests
 
 
 --
+-- Name: rf_requests rf_requests_service_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_requests
+    ADD CONSTRAINT rf_requests_service_category_id_foreign FOREIGN KEY (service_category_id) REFERENCES public.service_categories(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_requests rf_requests_service_subcategory_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_requests
+    ADD CONSTRAINT rf_requests_service_subcategory_id_foreign FOREIGN KEY (service_subcategory_id) REFERENCES public.service_subcategories(id) ON DELETE SET NULL;
+
+
+--
 -- Name: rf_requests rf_requests_status_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4862,6 +7691,22 @@ ALTER TABLE ONLY public.rf_requests
 
 
 --
+-- Name: rf_service_request_messages rf_service_request_messages_service_request_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_service_request_messages
+    ADD CONSTRAINT rf_service_request_messages_service_request_id_foreign FOREIGN KEY (service_request_id) REFERENCES public.rf_requests(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_service_request_timeline_events rf_service_request_timeline_events_service_request_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_service_request_timeline_events
+    ADD CONSTRAINT rf_service_request_timeline_events_service_request_id_foreign FOREIGN KEY (service_request_id) REFERENCES public.rf_requests(id) ON DELETE CASCADE;
+
+
+--
 -- Name: rf_service_settings rf_service_settings_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4870,11 +7715,43 @@ ALTER TABLE ONLY public.rf_service_settings
 
 
 --
+-- Name: rf_settings_audit_logs rf_settings_audit_logs_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_settings_audit_logs
+    ADD CONSTRAINT rf_settings_audit_logs_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_settings_audit_logs rf_settings_audit_logs_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_settings_audit_logs
+    ADD CONSTRAINT rf_settings_audit_logs_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
 -- Name: rf_settings rf_settings_parent_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.rf_settings
     ADD CONSTRAINT rf_settings_parent_id_foreign FOREIGN KEY (parent_id) REFERENCES public.rf_settings(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_suggestions rf_suggestions_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_suggestions
+    ADD CONSTRAINT rf_suggestions_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_suggestions rf_suggestions_reviewed_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_suggestions
+    ADD CONSTRAINT rf_suggestions_reviewed_by_foreign FOREIGN KEY (reviewed_by) REFERENCES public.users(id) ON DELETE SET NULL;
 
 
 --
@@ -4918,6 +7795,30 @@ ALTER TABLE ONLY public.rf_unit_areas
 
 
 --
+-- Name: rf_unit_ownerships rf_unit_ownerships_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_ownerships
+    ADD CONSTRAINT rf_unit_ownerships_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_unit_ownerships rf_unit_ownerships_owner_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_ownerships
+    ADD CONSTRAINT rf_unit_ownerships_owner_id_foreign FOREIGN KEY (owner_id) REFERENCES public.rf_owners(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_unit_ownerships rf_unit_ownerships_unit_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_ownerships
+    ADD CONSTRAINT rf_unit_ownerships_unit_id_foreign FOREIGN KEY (unit_id) REFERENCES public.rf_units(id) ON DELETE CASCADE;
+
+
+--
 -- Name: rf_unit_rooms rf_unit_rooms_unit_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4931,6 +7832,30 @@ ALTER TABLE ONLY public.rf_unit_rooms
 
 ALTER TABLE ONLY public.rf_unit_specifications
     ADD CONSTRAINT rf_unit_specifications_unit_id_foreign FOREIGN KEY (unit_id) REFERENCES public.rf_units(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_unit_status_history rf_unit_status_history_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_status_history
+    ADD CONSTRAINT rf_unit_status_history_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rf_unit_status_history rf_unit_status_history_changed_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_status_history
+    ADD CONSTRAINT rf_unit_status_history_changed_by_foreign FOREIGN KEY (changed_by) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_unit_status_history rf_unit_status_history_unit_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_unit_status_history
+    ADD CONSTRAINT rf_unit_status_history_unit_id_foreign FOREIGN KEY (unit_id) REFERENCES public.rf_units(id) ON DELETE CASCADE;
 
 
 --
@@ -4955,6 +7880,14 @@ ALTER TABLE ONLY public.rf_units
 
 ALTER TABLE ONLY public.rf_units
     ADD CONSTRAINT rf_units_city_id_foreign FOREIGN KEY (city_id) REFERENCES public.cities(id);
+
+
+--
+-- Name: rf_units rf_units_currency_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_units
+    ADD CONSTRAINT rf_units_currency_id_foreign FOREIGN KEY (currency_id) REFERENCES public.currencies(id) ON DELETE SET NULL;
 
 
 --
@@ -4998,6 +7931,54 @@ ALTER TABLE ONLY public.rf_units
 
 
 --
+-- Name: rf_visitor_access_settings rf_visitor_access_settings_community_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_access_settings
+    ADD CONSTRAINT rf_visitor_access_settings_community_id_foreign FOREIGN KEY (community_id) REFERENCES public.rf_communities(id);
+
+
+--
+-- Name: rf_visitor_invitations rf_visitor_invitations_community_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_invitations
+    ADD CONSTRAINT rf_visitor_invitations_community_id_foreign FOREIGN KEY (community_id) REFERENCES public.rf_communities(id);
+
+
+--
+-- Name: rf_visitor_invitations rf_visitor_invitations_resident_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_invitations
+    ADD CONSTRAINT rf_visitor_invitations_resident_id_foreign FOREIGN KEY (resident_id) REFERENCES public.users(id);
+
+
+--
+-- Name: rf_visitor_logs rf_visitor_logs_community_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_logs
+    ADD CONSTRAINT rf_visitor_logs_community_id_foreign FOREIGN KEY (community_id) REFERENCES public.rf_communities(id);
+
+
+--
+-- Name: rf_visitor_logs rf_visitor_logs_gate_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_logs
+    ADD CONSTRAINT rf_visitor_logs_gate_officer_id_foreign FOREIGN KEY (gate_officer_id) REFERENCES public.users(id);
+
+
+--
+-- Name: rf_visitor_logs rf_visitor_logs_invitation_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_visitor_logs
+    ADD CONSTRAINT rf_visitor_logs_invitation_id_foreign FOREIGN KEY (invitation_id) REFERENCES public.rf_visitor_invitations(id);
+
+
+--
 -- Name: rf_working_days rf_working_days_subcategory_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5019,6 +8000,38 @@ ALTER TABLE ONLY public.role_has_permissions
 
 ALTER TABLE ONLY public.role_has_permissions
     ADD CONSTRAINT role_has_permissions_role_id_foreign FOREIGN KEY (role_id) REFERENCES public.roles(id) ON DELETE CASCADE;
+
+
+--
+-- Name: service_categories service_categories_default_assignee_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_categories
+    ADD CONSTRAINT service_categories_default_assignee_id_foreign FOREIGN KEY (default_assignee_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: service_category_communities service_category_communities_community_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_category_communities
+    ADD CONSTRAINT service_category_communities_community_id_foreign FOREIGN KEY (community_id) REFERENCES public.rf_communities(id) ON DELETE CASCADE;
+
+
+--
+-- Name: service_category_communities service_category_communities_service_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_category_communities
+    ADD CONSTRAINT service_category_communities_service_category_id_foreign FOREIGN KEY (service_category_id) REFERENCES public.service_categories(id) ON DELETE CASCADE;
+
+
+--
+-- Name: service_subcategories service_subcategories_service_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.service_subcategories
+    ADD CONSTRAINT service_subcategories_service_category_id_foreign FOREIGN KEY (service_category_id) REFERENCES public.service_categories(id) ON DELETE CASCADE;
 
 
 --
@@ -5057,13 +8070,13 @@ ALTER TABLE ONLY public.subcategory_communities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict y1Ywmy9By12UiX4fSgSxxWTTvCGEhY24rje68OkZbyg67F6I6gc6BRHgG4uSf25
+\unrestrict wm1SERYOxwuoSBU1qPmncKexcetI7L0q2cgW4lcmFiyTLVgOnJj9A4ZS9nuMDWo
 
 --
 -- PostgreSQL database dump
 --
 
-\restrict X2qeeBxidjMXbk405c2oxOmAO2sbjogkLs6JIbEjR5A9NKWW8pTtdYEi6mxA7qA
+\restrict iWXG9YPNDbzHhYuq3WHzS2V5bINjk1jyztN446hevSaWOSGErmerCsZQq52zAJ6
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -5167,6 +8180,87 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 80	2026_04_22_021238_update_unique_keys_on_features_table	1
 81	2026_04_22_021239_remove_cancels_at_from_subscriptions_table	1
 82	2026_04_22_042005_add_phone_number_to_users_table	1
+83	2026_04_23_092710_extend_model_has_roles_table	2
+84	2026_04_23_092710_extend_roles_table	2
+85	2026_04_23_092711_extend_permissions_table	2
+86	2026_04_23_101408_add_bilingual_and_tenant_columns_to_permissions_table	2
+87	2026_04_23_174440_fix_model_has_roles_primary_key_for_scope_rows	2
+88	2026_04_24_150403_add_bilingual_name_and_id_type_to_rf_tenants_table	2
+89	2026_04_24_150406_add_bilingual_name_and_id_type_to_rf_owners_table	2
+90	2026_04_24_150415_add_bilingual_name_and_id_type_to_rf_professionals_table	2
+91	2026_04_24_150416_add_bilingual_name_to_rf_dependents_table	2
+92	2026_04_24_153714_add_metadata_to_rf_communities_table	2
+93	2026_04_24_212814_add_account_tenant_id_to_rf_service_settings_table	2
+94	2026_04_24_212814_add_settings_columns_to_rf_invoice_settings_table	2
+95	2026_04_24_212817_create_rf_contract_types_table	2
+96	2026_04_24_212818_create_rf_app_settings_table	2
+97	2026_04_25_020010_relax_phone_unique_indexes_on_contacts_tables	2
+98	2026_04_25_121258_add_profile_columns_to_users_table	2
+99	2026_04_25_122535_create_lease_quotes_table	2
+100	2026_04_25_122652_add_is_active_is_default_to_rf_settings_table	2
+101	2026_04_25_124555_create_rf_document_templates_table	2
+102	2026_04_25_124555_create_rf_document_versions_table	2
+103	2026_04_25_124556_create_rf_document_records_table	2
+104	2026_04_25_124557_create_rf_document_signatures_table	2
+105	2026_04_25_130000_add_service_request_columns_to_rf_requests_table	2
+106	2026_04_25_130001_create_rf_service_request_messages_table	2
+107	2026_04_25_130002_create_rf_service_request_timeline_events_table	2
+108	2026_04_25_200000_add_public_token_to_lease_quotes_table	2
+109	2026_04_25_204129_create_rf_visitor_invitations_table	2
+110	2026_04_25_204130_create_rf_visitor_logs_table	2
+111	2026_04_25_204131_create_rf_visitor_access_settings_table	2
+112	2026_04_25_204141_add_schema_extensions_to_rf_facilities_table	2
+113	2026_04_25_204142_create_rf_facility_availability_rules_table	2
+114	2026_04_25_204143_add_schema_extensions_to_rf_facility_bookings_table	2
+115	2026_04_25_204144_create_rf_facility_waitlist_table	2
+116	2026_04_25_204221_create_report_snapshots_table	2
+117	2026_04_25_210831_add_money_in_fields_to_rf_transactions	2
+118	2026_04_25_210833_create_rf_receipts_table	2
+119	2026_04_25_212438_make_community_id_nullable_on_rf_visitor_invitations_table	2
+120	2026_04_25_220000_change_qr_code_token_to_char32_on_rf_visitor_invitations_table	2
+121	2026_04_25_230000_add_quote_id_and_kyc_columns_to_rf_leases_table	2
+122	2026_04_25_230001_create_lease_kyc_documents_table	2
+123	2026_04_25_230002_add_metadata_sort_order_to_rf_settings_table	2
+124	2026_04_26_022821_add_revision_columns_to_lease_quotes_table	2
+125	2026_04_26_022836_create_service_categories_table	2
+126	2026_04_26_022841_create_service_subcategories_table	2
+127	2026_04_26_022846_create_service_category_communities_table	2
+128	2026_04_26_022850_add_service_category_id_to_rf_requests_table	2
+129	2026_04_26_023316_add_signing_columns_to_rf_document_records_table	2
+130	2026_04_26_063935_add_columns_to_rf_excel_sheets_table	2
+131	2026_04_26_063935_create_rf_excel_sheet_imports_table	2
+132	2026_04_26_064638_add_urgency_sla_columns_to_rf_requests_table	2
+133	2026_04_26_070515_add_unique_constraint_to_quote_id_on_rf_leases_table	2
+134	2026_04_26_074600_add_approval_columns_to_rf_leases_table	2
+135	2026_04_26_074734_add_assigned_to_user_id_to_rf_requests_table	2
+136	2026_04_26_075607_create_rf_owner_registrations_table	2
+137	2026_04_26_081322_add_gap_columns_to_rf_announcements_table	2
+138	2026_04_26_081323_create_rf_complaints_table	2
+139	2026_04_26_081326_create_rf_suggestions_table	2
+140	2026_04_26_081328_create_rf_directory_entries_table	2
+141	2026_04_26_083144_create_rf_unit_status_history_table	2
+142	2026_04_26_083151_add_status_column_to_rf_units_table	2
+143	2026_04_26_084022_add_sort_order_and_is_primary_to_media_table	2
+144	2026_04_26_091510_create_rf_notification_preferences_table	2
+145	2026_04_26_091510_create_rf_settings_audit_logs_table	2
+146	2026_04_26_095621_create_rf_contact_documents_table	2
+147	2026_04_26_095621_create_rf_unit_ownerships_table	2
+148	2026_04_26_095622_add_soft_deletes_to_contacts_tables	2
+149	2026_04_26_095622_create_rf_contact_activities_table	2
+150	2026_04_26_104342_add_sla_rating_to_rf_requests_table	2
+151	2026_04_26_104622_add_source_complaint_id_to_rf_requests_table	2
+152	2026_04_26_112653_add_checkin_columns_to_rf_facility_bookings_table	2
+153	2026_04_26_114543_add_reconciled_to_rf_transactions_table	2
+154	2026_04_26_114543_create_rf_bank_accounts_table	2
+155	2026_04_26_115723_make_transaction_fks_nullable	2
+156	2026_04_27_100000_create_feature_flag_overrides_table	2
+157	2026_04_27_100001_create_feature_flag_audit_logs_table	2
+158	2026_04_27_102457_create_invite_codes_table	2
+159	2026_04_27_102558_mark_existing_users_as_verified	2
+160	2026_04_27_105837_add_user_status_and_invitation_columns_to_users_table	2
+161	2026_04_28_100855_add_pricing_columns_to_rf_units_table	2
+162	2026_04_28_100948_extend_excel_sheets_for_unit_imports	2
+163	2026_04_28_101013_add_unique_index_to_rf_units_for_import	2
 \.
 
 
@@ -5174,12 +8268,12 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 82, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 163, true);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict X2qeeBxidjMXbk405c2oxOmAO2sbjogkLs6JIbEjR5A9NKWW8pTtdYEi6mxA7qA
+\unrestrict iWXG9YPNDbzHhYuq3WHzS2V5bINjk1jyztN446hevSaWOSGErmerCsZQq52zAJ6
 

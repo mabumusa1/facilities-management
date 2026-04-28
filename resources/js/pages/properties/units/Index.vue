@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { Head, setLayoutProps } from '@inertiajs/vue3';
-import { computed, watchEffect } from 'vue';
+import { Head, router, setLayoutProps } from '@inertiajs/vue3';
+import { Upload } from 'lucide-vue-next';
+import { computed, ref, watchEffect } from 'vue';
 import DataTable from '@/components/DataTable.vue';
 import type { Column } from '@/components/DataTable.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import { Button } from '@/components/ui/button';
 import { useI18n } from '@/composables/useI18n';
 import type { Paginated, Unit } from '@/types';
+import ImportModal from './Partials/ImportModal.vue';
 
 const { t } = useI18n();
 
@@ -21,6 +24,13 @@ watchEffect(() => {
 const props = defineProps<{
     units: Paginated<Unit>;
 }>();
+
+const isImportModalOpen = ref(false);
+
+function handleImported() {
+    isImportModalOpen.value = false;
+    router.reload({ only: ['units'] });
+}
 
 const columns = computed<Column<Unit>[]>(() => [
     { key: 'name', label: t('app.properties.units.table.name') },
@@ -44,7 +54,14 @@ const columns = computed<Column<Unit>[]>(() => [
             :description="t('app.properties.units.description')"
             create-href="/units/create"
             :create-label="t('app.properties.units.newUnit')"
-        />
+        >
+            <template #actions>
+                <Button variant="outline" @click="isImportModalOpen = true">
+                    <Upload class="me-2 h-4 w-4" />
+                    {{ t('app.properties.units.import.importUnits') }}
+                </Button>
+            </template>
+        </PageHeader>
 
         <DataTable
             :columns="columns"
@@ -54,4 +71,9 @@ const columns = computed<Column<Unit>[]>(() => [
             :empty-message="t('app.properties.units.noUnitsFound')"
         />
     </div>
+
+    <ImportModal
+        v-model:open="isImportModalOpen"
+        @imported="handleImported"
+    />
 </template>
