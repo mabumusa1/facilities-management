@@ -52,7 +52,9 @@ const viewLabel = computed(() => {
 });
 
 const hasSpecifications = computed(
-    () => props.unit.specifications && props.unit.specifications.length > 0,
+    () =>
+        (props.unit.specifications && props.unit.specifications.length > 0) ||
+        (props.unit.rooms && props.unit.rooms.length > 0),
 );
 
 const amenities = computed(() => props.unit.features ?? []);
