@@ -28,6 +28,11 @@ class UnitPolicy
         return $user->can('properties.CREATE');
     }
 
+    public function import(User $user): bool
+    {
+        return $user->can('properties.CREATE');
+    }
+
     public function update(User $user, Unit $unit): bool
     {
         return $user->can('properties.UPDATE')

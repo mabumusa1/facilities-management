@@ -22,6 +22,10 @@ class ExcelSheet extends Model
         'column_schema',
         'template_file_path',
         'error_details',
+        'total_rows',
+        'success_count',
+        'error_count',
+        'meta',
         'rf_community_id',
         'account_tenant_id',
     ];
@@ -31,6 +35,10 @@ class ExcelSheet extends Model
         return [
             'error_details' => 'array',
             'column_schema' => 'array',
+            'meta' => 'array',
+            'total_rows' => 'integer',
+            'success_count' => 'integer',
+            'error_count' => 'integer',
         ];
     }
 
