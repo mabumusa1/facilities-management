@@ -10,6 +10,17 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Complete unit metadata — specs, amenities, and pricing reference (Properties) — April 28, 2026
+
+Unit records are now fully editable from a single **Edit** page. You can set room counts (bedrooms, bathrooms, living rooms), physical specifications (furnished status, parking bays, view type), amenity tags, and an asking rent reference — all saved to the unit and immediately visible on its detail page.
+
+- The unit detail page now shows a **Specifications** card, an **Amenities** card, and a **Pricing Reference** card alongside the existing details.
+- **Amenities** show as badge labels; if none are assigned, the card displays **No amenities listed** — the unit is still publishable on the Marketplace.
+- **Asking rent** is a reference value for Marketplace listings and Leasing quotes. It is not a binding contract price.
+- Area must be greater than 0; asking rent must be greater than 0 when entered.
+
+Learn more: [View and edit unit metadata](./guides/properties/view-and-edit-unit-metadata.md) ([العربية](./ar/guides/properties/view-and-edit-unit-metadata.md)).
+
 ### Invite and manage platform users (Admin) — April 28, 2026
 
 Admins can now invite new team members by email and manage the full user lifecycle — all from **Admin → Users**.
