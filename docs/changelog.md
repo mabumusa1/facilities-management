@@ -10,6 +10,20 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Bulk import units from Excel (Properties) — April 28, 2026
+
+Property Managers and Admins can now onboard a large portfolio of units in a single session using a guided import wizard from **Properties → Units**.
+
+- **Download the template.** Click **Import Units** (استيراد وحدات) on the Units page and then **Download template** (تحميل النموذج) to get a pre-formatted `.xlsx` file with the correct column headings.
+- **Upload your file.** Drag and drop the completed `.xlsx` file (up to 10 MB) onto the upload zone or click to browse.
+- **Map your columns.** The system auto-detects column headers and maps them to the five system fields — Unit Name (اسم الوحدة), Community (المشروع), Building (المبنى), Area sqm (المساحة (م²)), and Status (الحالة). Green **matched** (متطابق) badges confirm auto-detected mappings; amber **unmatched** (غير متطابق) badges flag columns you need to assign manually.
+- **Review validation.** Before anything is saved, the system checks every row for required fields, area greater than zero, a recognised status value, buildings that exist, and duplicate unit names within the same building. A summary shows how many rows are valid and how many have errors, with row-by-row detail.
+- **Import valid rows.** Click **Import N valid rows** (استيراد N صف صحيح) to proceed with the rows that passed. Rows with errors are skipped. If you prefer to fix all errors first, click **Cancel and fix the file** (إلغاء وتصحيح الملف).
+- **Background processing.** Files with more than 50 rows are processed in the background. The wizard shows a progress bar for smaller imports and notifies you when a queued import is complete: *N units imported successfully. E rows skipped due to errors.* (تم استيراد N وحدة بنجاح. تم تخطي E صف بسبب أخطاء.)
+- **Tenant isolation.** Imported units are always created in your own account — you cannot import units into another portfolio.
+
+Learn more: [Bulk import units from Excel](./guides/properties/bulk-import-units.md) ([العربية](./ar/guides/properties/bulk-import-units.md)).
+
 ### Invite and manage platform users (Admin) — April 28, 2026
 
 Admins can now invite new team members by email and manage the full user lifecycle — all from **Admin → Users**.
