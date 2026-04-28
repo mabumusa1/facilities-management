@@ -226,6 +226,13 @@ class AccountUserController extends Controller
 
     public function deactivate(Request $request, User $user): RedirectResponse
     {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
         if ((int) $user->id === (int) $request->user()?->id) {
             abort(403, __('You cannot deactivate your own account.'));
         }
@@ -244,6 +251,13 @@ class AccountUserController extends Controller
 
     public function reactivate(Request $request, User $user): RedirectResponse
     {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
         abort_unless($user->isDeactivated(), 400);
 
         app(UserStatusService::class)->reactivate($user);
@@ -258,6 +272,13 @@ class AccountUserController extends Controller
 
     public function sendPasswordReset(Request $request, User $user): RedirectResponse
     {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
         $status = Password::sendResetLink(['email' => $user->email]);
 
         if ($status !== Password::RESET_LINK_SENT) {

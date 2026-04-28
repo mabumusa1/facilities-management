@@ -303,6 +303,9 @@ const appEn: MessageTree = {
                 moreActions: 'More actions',
                 cannotDeactivateSelf: 'You cannot deactivate your own account.',
                 deactivatedBanner: 'This user\'s account is deactivated. They cannot log in until an administrator reactivates their account.',
+                deactivateConfirmTitle: 'Deactivate account?',
+                deactivateConfirmBody: 'This user will immediately lose access and cannot log in. You can reactivate them at any time.',
+                deactivateConfirmAction: 'Deactivate',
             },
             roles: {
                 pageTitle: 'Roles — Admin',
@@ -2298,6 +2301,9 @@ const appAr: MessageTree = {
                 moreActions: 'المزيد من الخيارات',
                 cannotDeactivateSelf: 'لا يمكنك إلغاء تنشيط حسابك.',
                 deactivatedBanner: 'حساب هذا المستخدم معطّل. لا يمكنه تسجيل الدخول حتى يُعيد أحد المسؤولين تنشيطه.',
+                deactivateConfirmTitle: 'تعطيل الحساب؟',
+                deactivateConfirmBody: 'سيفقد هذا المستخدم وصوله فوراً ولن يتمكن من تسجيل الدخول. يمكنك إعادة تنشيطه في أي وقت.',
+                deactivateConfirmAction: 'تعطيل',
             },
             roles: {
                 pageTitle: 'الأدوار — الإدارة',

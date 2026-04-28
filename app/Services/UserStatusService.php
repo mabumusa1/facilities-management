@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserStatusService
 {
-    public function deactivate(User $user, ?string $reason = null): void
+    public function deactivate(User $user): void
     {
         DB::transaction(function () use ($user): void {
             $user->update(['status' => User::STATUS_DEACTIVATED]);

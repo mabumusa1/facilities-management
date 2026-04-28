@@ -5,6 +5,7 @@ import { MoreHorizontal } from 'lucide-vue-next';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useI18n } from '@/composables/useI18n';
@@ -71,6 +72,7 @@ const props = defineProps<{
 
 type Tab = 'roles' | 'overview' | 'activity';
 const activeTab = ref<Tab>('roles');
+const deactivateDialogOpen = ref(false);
 
 const isSelf = computed(() => props.user.id === props.currentUserId);
 
@@ -103,7 +105,14 @@ function statusLabel(status: string) {
 }
 
 function handleDeactivate() {
-    router.post(deactivate.url({ user: props.user.id }), {}, { preserveScroll: true });
+    deactivateDialogOpen.value = true;
+}
+
+function confirmDeactivate() {
+    router.post(deactivate.url({ user: props.user.id }), {}, {
+        preserveScroll: true,
+        onFinish: () => { deactivateDialogOpen.value = false; },
+    });
 }
 
 function handleReactivate() {
@@ -267,4 +276,24 @@ watchEffect(() => {
             </div>
         </div>
     </div>
+
+    <!-- Deactivate confirmation dialog -->
+    <Dialog :open="deactivateDialogOpen" @update:open="(val) => { if (!val) deactivateDialogOpen = false; }">
+        <DialogContent role="alertdialog" aria-modal="true">
+            <DialogHeader>
+                <DialogTitle>{{ t('app.admin.users.deactivateConfirmTitle') }}</DialogTitle>
+                <DialogDescription>
+                    {{ t('app.admin.users.deactivateConfirmBody') }}
+                </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+                <Button variant="outline" @click="deactivateDialogOpen = false">
+                    {{ t('app.admin.users.cancelBtn') }}
+                </Button>
+                <Button variant="destructive" @click="confirmDeactivate">
+                    {{ t('app.admin.users.deactivateConfirmAction') }}
+                </Button>
+            </DialogFooter>
+        </DialogContent>
+    </Dialog>
 </template>

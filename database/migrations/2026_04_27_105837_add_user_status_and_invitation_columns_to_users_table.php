@@ -14,6 +14,7 @@ return new class extends Migration
             $table->timestamp('invitation_expires_at')->nullable()->after('invitation_token');
 
             $table->index('status', 'users_status_index');
+            $table->index('invitation_token', 'users_invitation_token_index');
         });
     }
 
@@ -21,6 +22,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropIndex('users_status_index');
+            $table->dropIndex('users_invitation_token_index');
             $table->dropColumn(['status', 'invitation_token', 'invitation_expires_at']);
         });
     }

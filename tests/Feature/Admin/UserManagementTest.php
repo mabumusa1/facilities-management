@@ -543,4 +543,29 @@ class UserManagementTest extends TestCase
 
         $response->assertStatus(400);
     }
+
+    public function test_admin_cannot_deactivate_user_from_another_tenant(): void
+    {
+        // Tenant A: admin + their own target user
+        [$adminA, $tenantA] = $this->createTenantMember(RolesEnum::ADMINS->value);
+
+        // Tenant B: a completely separate tenant with their own user
+        $tenantB = Tenant::create(['name' => 'Other Account']);
+        $userInTenantB = User::factory()->create(['status' => User::STATUS_ACTIVE]);
+        AccountMembership::create([
+            'user_id' => $userInTenantB->id,
+            'account_tenant_id' => $tenantB->id,
+            'role' => RolesEnum::MANAGERS->value,
+        ]);
+
+        // Admin A tries to deactivate a user who belongs to Tenant B
+        $response = $this->actingAs($adminA)
+            ->withSession(['tenant_id' => $tenantA->id])
+            ->post(route('admin.users.deactivate', ['user' => $userInTenantB->id]));
+
+        $response->assertForbidden();
+
+        $userInTenantB->refresh();
+        $this->assertEquals(User::STATUS_ACTIVE, $userInTenantB->status);
+    }
 }

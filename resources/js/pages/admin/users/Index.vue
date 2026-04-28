@@ -5,13 +5,14 @@ import { MoreHorizontal } from 'lucide-vue-next';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useI18n } from '@/composables/useI18n';
 import type { PaginationLink } from '@/types';
 import { deactivate, reactivate, resendInvitation, revokeInvitation, sendPasswordReset } from '@/routes/admin/users';
-import { destroy, index, store, update } from '@/routes/admin/users';
+import { destroy, index, show, store, update } from '@/routes/admin/users';
 import CreateUserDrawer from './partials/CreateUserDrawer.vue';
 
 const { t } = useI18n();
@@ -45,6 +46,7 @@ const props = defineProps<{
 }>();
 
 const drawerOpen = ref(false);
+const deactivatePending = ref<Membership | null>(null);
 
 watchEffect(() => {
     setLayoutProps({
@@ -89,7 +91,15 @@ function removeMembership(membershipId: number) {
 
 function handleDeactivate(membership: Membership) {
     if (membership.user_id === props.currentUserId) return;
-    router.post(deactivate.url({ user: membership.user_id }), {}, { preserveScroll: true });
+    deactivatePending.value = membership;
+}
+
+function confirmDeactivate() {
+    if (! deactivatePending.value) return;
+    router.post(deactivate.url({ user: deactivatePending.value.user_id }), {}, {
+        preserveScroll: true,
+        onFinish: () => { deactivatePending.value = null; },
+    });
 }
 
 function handleReactivate(membership: Membership) {
@@ -156,7 +166,7 @@ function saveRole(membershipId: number, role: string) {
                 <TableBody>
                     <TableRow v-for="membership in memberships.data" :key="membership.id">
                         <TableCell>
-                            <Link :href="store.url({ user: membership.user_id })" class="text-primary hover:underline">
+                            <Link :href="show.url({ user: membership.user_id })" class="text-primary hover:underline">
                                 {{ membership.name }}
                             </Link>
                         </TableCell>
@@ -188,7 +198,7 @@ function saveRole(membershipId: number, role: string) {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
                                     <DropdownMenuItem as-child>
-                                        <Link :href="store.url({ user: membership.user_id })">{{ t('app.admin.users.viewDetails') }}</Link>
+                                        <Link :href="show.url({ user: membership.user_id })">{{ t('app.admin.users.viewDetails') }}</Link>
                                     </DropdownMenuItem>
 
                                     <template v-if="membership.status === 'active'">
@@ -266,4 +276,24 @@ function saveRole(membershipId: number, role: string) {
             :roles="roles"
         />
     </div>
+
+    <!-- Deactivate confirmation dialog -->
+    <Dialog :open="deactivatePending !== null" @update:open="(val) => { if (!val) deactivatePending = null; }">
+        <DialogContent role="alertdialog" aria-modal="true">
+            <DialogHeader>
+                <DialogTitle>{{ t('app.admin.users.deactivateConfirmTitle') }}</DialogTitle>
+                <DialogDescription>
+                    {{ t('app.admin.users.deactivateConfirmBody') }}
+                </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+                <Button variant="outline" @click="deactivatePending = null">
+                    {{ t('app.admin.users.cancelBtn') }}
+                </Button>
+                <Button variant="destructive" @click="confirmDeactivate">
+                    {{ t('app.admin.users.deactivateConfirmAction') }}
+                </Button>
+            </DialogFooter>
+        </DialogContent>
+    </Dialog>
 </template>

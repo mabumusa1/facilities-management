@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\UserInvitationMail;
+use App\Models\AccountMembership;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,10 +16,19 @@ class UserInvitationController extends Controller
 {
     public function resend(Request $request, User $user): RedirectResponse
     {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
         abort_unless($user->isInvitationPending(), 400);
 
+        $plainTextToken = Str::random(40);
+
         $user->forceFill([
-            'invitation_token' => hash('sha256', $plainTextToken = Str::random(40)),
+            'invitation_token' => hash('sha256', $plainTextToken),
             'invitation_expires_at' => now()->addHours(72),
         ])->save();
 
@@ -30,6 +41,13 @@ class UserInvitationController extends Controller
 
     public function revoke(Request $request, User $user): RedirectResponse
     {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
         abort_unless($user->isInvitationPending(), 400);
 
         $user->forceFill([
