@@ -123,3 +123,12 @@ _(append as you find them; common places: listing endpoints that touch Community
 
 ## Private trait method access — fatal Error pattern
 - Spatie's HasRoles::collectRoles() is declared `private`. Calling it from a User model override via `$this->collectRoles()` will throw `Error: Call to private method` at runtime — PHP does not expose private trait members to the using class. Use `$this->getStoredRole($arg)->getKey()` (public) instead.
+
+## Cross-tenant mutation routes — no User global scope
+- The `User` model has no `BelongsToAccountTenant` global scope. Implicit route binding for `{user}` in admin routes returns any user platform-wide. The `admin.manage` middleware only validates the *actor*'s role, not whether the *target* belongs to the actor's tenant. Every new mutation action on a user route parameter must explicitly verify `AccountMembership::where('user_id', $user->id)->where('account_tenant_id', Tenant::current()?->id)->exists()`. Canonical authorized check: `AppServiceProvider.php:69` (`manage-user-role-assignments` Gate).
+
+## Wayfinder dev-mode auto-regen masks missing exports
+- The Wayfinder Vite plugin regenerates `resources/js/routes/**` on-the-fly during `yarn run dev`. Imports of non-existent named exports (e.g. `deactivate` from `@/routes/admin/users`) resolve at dev time but cause a module-not-found crash on `yarn run build`. Always verify committed Wayfinder files contain the new exports before approving.
+
+## Past review index (continued)
+- PR #389 — comment/LGTM (Round 2, self-authored — GitHub blocked formal approve) — all 4 blockers resolved in a370b97: (1) Wayfinder regen — all 7 exports present in admin/users + set-password; (2) cross-tenant 403 guard on all 5 mutation methods + test asserting 403 + status unchanged; (3) store.url → show.url fixed at both call sites; (4) alertdialog confirm in both Index.vue and Show.vue, 3 i18n keys in EN+AR. 3 of 4 nice-to-haves addressed. 79 tests green. Open nice-to-have: lang attr hardcodes locale. Ready for docs chain.
