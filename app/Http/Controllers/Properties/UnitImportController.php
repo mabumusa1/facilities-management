@@ -10,6 +10,7 @@ use App\Services\ColumnMapper;
 use App\Services\ImportUnitService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Spatie\Multitenancy\Models\Tenant;
 
 class UnitImportController extends Controller
@@ -76,7 +77,13 @@ class UnitImportController extends Controller
         $this->authorize('import', Unit::class);
 
         $data = $request->validate([
-            'import_session_id' => ['required', 'integer', 'exists:rf_excel_sheets,id'],
+            'import_session_id' => [
+                'required',
+                'integer',
+                Rule::exists('rf_excel_sheets', 'id')
+                    ->where('account_tenant_id', Tenant::current()?->id)
+                    ->where('import_type', 'unit'),
+            ],
             'mapping' => ['required', 'array'],
             'mapping.*' => ['nullable', 'string'],
         ]);
@@ -114,7 +121,13 @@ class UnitImportController extends Controller
         $this->authorize('import', Unit::class);
 
         $data = $request->validate([
-            'import_session_id' => ['required', 'integer', 'exists:rf_excel_sheets,id'],
+            'import_session_id' => [
+                'required',
+                'integer',
+                Rule::exists('rf_excel_sheets', 'id')
+                    ->where('account_tenant_id', Tenant::current()?->id)
+                    ->where('import_type', 'unit'),
+            ],
             'mapping' => ['required', 'array'],
             'mapping.*' => ['nullable', 'string'],
             'import_valid_only' => ['sometimes', 'boolean'],

@@ -315,22 +315,20 @@ class ImportUnitService
      */
     private function insertBatch(array $batch, int &$successCount, int &$errorCount): void
     {
-        DB::transaction(function () use ($batch, &$successCount, &$errorCount): void {
+        // Resolve default category and type once per batch (NOT inside the loop) to avoid N+1.
+        // Both columns are NOT NULL in DB; if either is missing we fail fast for the entire batch.
+        $categoryId = DB::table('rf_unit_categories')->orderBy('id')->value('id');
+        $typeId = DB::table('rf_unit_types')->orderBy('id')->value('id');
+
+        if ($categoryId === null || $typeId === null) {
+            $errorCount += count($batch);
+
+            return;
+        }
+
+        DB::transaction(function () use ($batch, $categoryId, $typeId, &$successCount, &$errorCount): void {
             foreach ($batch as $row) {
                 try {
-                    // Check if category_id and type_id are required — they are NOT NULL in DB
-                    // so we must skip rows without them unless defaults exist.
-                    // The import only creates minimal unit records; category/type can be set later.
-                    // We use the lowest-id category and type as defaults.
-                    $categoryId = DB::table('rf_unit_categories')->orderBy('id')->value('id');
-                    $typeId = DB::table('rf_unit_types')->orderBy('id')->value('id');
-
-                    if ($categoryId === null || $typeId === null) {
-                        $errorCount++;
-
-                        continue;
-                    }
-
                     Unit::create(array_merge($row, [
                         'category_id' => $categoryId,
                         'type_id' => $typeId,

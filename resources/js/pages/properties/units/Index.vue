@@ -57,7 +57,7 @@ const columns = computed<Column<Unit>[]>(() => [
         >
             <template #actions>
                 <Button variant="outline" @click="isImportModalOpen = true">
-                    <Upload class="mr-2 h-4 w-4" />
+                    <Upload class="me-2 h-4 w-4" />
                     {{ t('app.properties.units.import.importUnits') }}
                 </Button>
             </template>

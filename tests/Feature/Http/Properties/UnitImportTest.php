@@ -355,8 +355,9 @@ class UnitImportTest extends TestCase
             'mapping' => ['name' => 'Unit Name'],
         ]);
 
-        // Should fail — 404 because query is scoped to current tenant
-        $response->assertNotFound();
+        // Should fail — 422 because the scoped Rule::exists rejects cross-tenant session IDs at validation
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors(['import_session_id']);
     }
 
     // ─── Progress endpoint ─────────────────────────────────────────────────────
@@ -839,8 +840,9 @@ class UnitImportTest extends TestCase
     /**
      * Tenant boundary: validate endpoint must not accept a session ID from another tenant
      * even if the ExcelSheet record exists in the DB.
+     * With scoped Rule::exists, the cross-tenant probe is rejected at validation time (422).
      */
-    public function test_validate_with_another_tenants_session_returns_404(): void
+    public function test_validate_with_another_tenants_session_returns_422(): void
     {
         $otherTenant = Tenant::create(['name' => 'Other Tenant For Validate']);
         $otherSession = ExcelSheet::create([
@@ -858,13 +860,15 @@ class UnitImportTest extends TestCase
             'mapping' => ['name' => 'Unit Name'],
         ]);
 
-        $response->assertNotFound();
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors(['import_session_id']);
     }
 
     /**
      * Tenant boundary: execute endpoint must not accept a session ID from another tenant.
+     * With scoped Rule::exists, the cross-tenant probe is rejected at validation time (422).
      */
-    public function test_execute_with_another_tenants_session_returns_404(): void
+    public function test_execute_with_another_tenants_session_returns_422(): void
     {
         $otherTenant = Tenant::create(['name' => 'Other Tenant For Execute']);
         $otherSession = ExcelSheet::create([
@@ -882,7 +886,8 @@ class UnitImportTest extends TestCase
             'mapping' => ['name' => 'Unit Name'],
         ]);
 
-        $response->assertNotFound();
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors(['import_session_id']);
     }
 
     // ── Execute request validation ─────────────────────────────────────────────

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { router } from '@inertiajs/vue3';
 import { Upload, FileSpreadsheet, AlertCircle, CheckCircle2 } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import {
@@ -142,13 +141,13 @@ async function uploadFile() {
 }
 
 // ─── Step 2: Column Mapping ──────────────────────────────────────────────────
-const systemFieldLabels: Record<string, string> = {
-    name: 'Unit Name',
-    rf_community_id: 'Community',
-    rf_building_id: 'Building',
-    net_area: 'Area (sqm)',
-    status: 'Status',
-};
+const systemFieldLabels = computed<Record<string, string>>(() => ({
+    name: t('app.properties.units.import.fieldName'),
+    rf_community_id: t('app.properties.units.import.fieldCommunity'),
+    rf_building_id: t('app.properties.units.import.fieldBuilding'),
+    net_area: t('app.properties.units.import.fieldNetArea'),
+    status: t('app.properties.units.import.fieldStatus'),
+}));
 
 const userMapping = ref<Record<string, string>>({});
 const isMappingValidating = ref(false);
@@ -198,19 +197,12 @@ interface ValidationResult {
 }
 
 const validationResult = ref<ValidationResult | null>(null);
-const errorFilter = ref<'all' | 'errors'>('all');
 
 const isAllInvalid = computed(() =>
     validationResult.value !== null &&
     validationResult.value.valid_count === 0 &&
     validationResult.value.total_rows > 0
 );
-
-const filteredErrors = computed(() => {
-    if (!validationResult.value) return [];
-    if (errorFilter.value === 'errors') return validationResult.value.errors;
-    return validationResult.value.errors;
-});
 
 // ─── Step 4: Import ──────────────────────────────────────────────────────────
 const isImporting = ref(false);
@@ -495,7 +487,7 @@ function handleOpenChange(value: boolean) {
                         </thead>
                         <tbody>
                             <tr
-                                v-for="(err, i) in filteredErrors"
+                                v-for="(err, i) in validationResult.errors"
                                 :key="i"
                                 class="border-b last:border-0"
                                 :role="i === 0 ? 'alert' : undefined"

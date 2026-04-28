@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\ExcelSheet;
 use App\Services\ImportUnitService;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,7 +15,7 @@ use Illuminate\Queue\SerializesModels;
  * Async job that reads an Excel file and creates unit records.
  * Dispatched when the row count exceeds the inline-import threshold.
  */
-class ImportUnitsJob implements ShouldQueue
+class ImportUnitsJob implements ShouldBeUnique, ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -23,6 +24,15 @@ class ImportUnitsJob implements ShouldQueue
 
     /** @var int Retry attempts */
     public int $tries = 3;
+
+    /**
+     * Unique key prevents duplicate dispatch while this job is still running.
+     * This is safer than raising retry_after globally because it only affects this job.
+     */
+    public function uniqueId(): string
+    {
+        return (string) $this->excelSheet->id;
+    }
 
     /**
      * @param  array<string, string>  $mapping  System field => Excel header
@@ -40,19 +50,14 @@ class ImportUnitsJob implements ShouldQueue
     {
         $this->excelSheet->update(['status' => 'processing']);
 
-        $result = $importService->importRows(
+        // importRows() handles the final status/count update on the ExcelSheet internally.
+        $importService->importRows(
             path: $this->filePath,
             mapping: $this->mapping,
             tenantId: $this->tenantId,
             excelSheet: $this->excelSheet,
             validationErrors: $this->validationErrors,
         );
-
-        $this->excelSheet->update([
-            'status' => 'completed',
-            'success_count' => $result['success_count'],
-            'error_count' => $result['error_count'],
-        ]);
     }
 
     public function failed(\Throwable $exception): void
