@@ -8,7 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import type { Building, City, Community, District, Owner, Resident, Status, Unit, UnitCategory } from '@/types';
+import type { Building, City, Community, Currency, District, Feature, Owner, Resident, Status, Unit, UnitCategory } from '@/types';
+import AmenitiesSection from './Partials/AmenitiesSection.vue';
+import PricingSection from './Partials/PricingSection.vue';
+import SpecificationsSection from './Partials/SpecificationsSection.vue';
 
 const props = defineProps<{
     unit: Unit;
@@ -20,6 +23,8 @@ const props = defineProps<{
     residents: Pick<Resident, 'id' | 'first_name' | 'last_name'>[];
     cities: (Pick<City, 'id' | 'name' | 'name_en'> & { country_id: number })[];
     districts: (Pick<District, 'id' | 'name' | 'name_en'> & { city_id: number })[];
+    amenityOptions: Pick<Feature, 'id' | 'name' | 'name_en' | 'name_ar'>[];
+    currencies: Pick<Currency, 'id' | 'name' | 'code' | 'symbol'>[];
 }>();
 
 const { t } = useI18n();
@@ -36,6 +41,16 @@ watchEffect(() => {
 
 const pageTitle = computed(() => t('app.properties.units.edit.pageTitleWithName', { name: props.unit.name }));
 
+/** Extract a spec value from the unit's specifications array. */
+function specValue(key: string, fallback: string = ''): string {
+    return props.unit.specifications?.find((s) => s.key === key)?.value ?? fallback;
+}
+
+/** Extract a room count from the unit's rooms array. */
+function roomCount(name: string): number {
+    return Number(props.unit.rooms?.find((r) => r.name === name)?.count ?? 0);
+}
+
 const form = useForm({
     name: props.unit.name,
     rf_community_id: String(props.unit.rf_community_id),
@@ -51,6 +66,19 @@ const form = useForm({
     floor_no: props.unit.floor_no != null ? String(props.unit.floor_no) : '',
     year_build: props.unit.year_build ?? '',
     about: props.unit.about ?? '',
+    // Specifications
+    bedrooms: roomCount('bedroom'),
+    bathrooms: roomCount('bathroom'),
+    living_rooms: roomCount('living_room'),
+    furnished: specValue('furnished', 'false') === 'true',
+    parking_bays: Number(specValue('parking_bays', '0')),
+    view: specValue('view', 'none'),
+    // Amenities
+    amenity_ids: (props.unit.features ?? []).map((f) => f.id),
+    // Pricing
+    currency_id: props.unit.currency_id ? String(props.unit.currency_id) : '',
+    asking_rent_amount: props.unit.asking_rent_amount ?? '',
+    rent_period: props.unit.rent_period ?? '',
 });
 
 const filteredBuildings = computed(() =>
@@ -86,7 +114,23 @@ watch(() => form.city_id, () => {
 });
 
 function submit() {
-    form.put(`/units/${props.unit.id}`);
+    form.transform((data) => ({
+        ...data,
+        rooms: [
+            { name: 'bedroom', count: data.bedrooms },
+            { name: 'bathroom', count: data.bathrooms },
+            { name: 'living_room', count: data.living_rooms },
+        ],
+        specifications: [
+            { key: 'furnished', value: String(data.furnished) },
+            { key: 'parking_bays', value: String(data.parking_bays) },
+            { key: 'view', value: data.view },
+        ],
+        amenity_ids: data.amenity_ids,
+        currency_id: data.currency_id || null,
+        asking_rent_amount: data.asking_rent_amount || null,
+        rent_period: data.rent_period || null,
+    })).put(`/units/${props.unit.id}`);
 }
 </script>
 
@@ -191,6 +235,52 @@ function submit() {
                     <InputError :message="form.errors.district_id" />
                 </div>
             </div>
+
+            <!-- Specifications Section (NEW) -->
+            <SpecificationsSection
+                :bedrooms="form.bedrooms"
+                :bathrooms="form.bathrooms"
+                :living-rooms="form.living_rooms"
+                :furnished="form.furnished"
+                :parking-bays="form.parking_bays"
+                :view="form.view"
+                :errors="{
+                    bedrooms: form.errors['rooms.0.count'],
+                    bathrooms: form.errors['rooms.1.count'],
+                    livingRooms: form.errors['rooms.2.count'],
+                    parkingBays: form.errors['specifications.1.value'],
+                    view: form.errors['specifications.2.value'],
+                }"
+                @update:bedrooms="form.bedrooms = $event"
+                @update:bathrooms="form.bathrooms = $event"
+                @update:living-rooms="form.living_rooms = $event"
+                @update:furnished="form.furnished = $event"
+                @update:parking-bays="form.parking_bays = $event"
+                @update:view="form.view = $event"
+            />
+
+            <!-- Amenities Section (NEW) -->
+            <AmenitiesSection
+                :amenity-options="amenityOptions"
+                :selected-ids="form.amenity_ids"
+                @update:selected-ids="form.amenity_ids = $event"
+            />
+
+            <!-- Pricing Section (NEW) -->
+            <PricingSection
+                :currencies="currencies"
+                :currency-id="form.currency_id"
+                :amount="form.asking_rent_amount"
+                :period="form.rent_period"
+                :errors="{
+                    currency_id: form.errors.currency_id,
+                    asking_rent_amount: form.errors.asking_rent_amount,
+                    rent_period: form.errors.rent_period,
+                }"
+                @update:currency-id="form.currency_id = $event"
+                @update:amount="form.asking_rent_amount = $event"
+                @update:period="form.rent_period = $event"
+            />
 
             <div class="grid gap-4 sm:grid-cols-3">
                 <div class="grid gap-2">

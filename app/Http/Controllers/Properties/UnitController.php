@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Building;
 use App\Models\City;
 use App\Models\Community;
+use App\Models\Currency;
 use App\Models\District;
+use App\Models\Feature;
 use App\Models\Owner;
 use App\Models\Resident;
 use App\Models\Status;
@@ -108,6 +110,8 @@ class UnitController extends Controller
             'specifications:id,unit_id,key,value,name_ar,name_en',
             'rooms:id,unit_id,name,name_ar,name_en,count',
             'areas:id,unit_id,type,name_ar,name_en,size',
+            'features:id,name,name_en',
+            'currency:id,code,symbol',
         ]);
 
         if ($unit->community !== null) {
@@ -331,7 +335,19 @@ class UnitController extends Controller
     {
         $this->authorize('view', $unit);
 
-        $unit->load(['community', 'building', 'category', 'type', 'status', 'owner', 'tenant']);
+        $unit->load([
+            'community',
+            'building',
+            'category',
+            'type',
+            'status',
+            'owner',
+            'tenant',
+            'specifications',
+            'rooms',
+            'features',
+            'currency',
+        ]);
 
         return Inertia::render('properties/units/Show', [
             'unit' => $unit,
@@ -342,8 +358,10 @@ class UnitController extends Controller
     {
         $this->authorize('update', $unit);
 
+        $unit->load(['owner', 'tenant', 'specifications', 'rooms', 'features', 'currency']);
+
         return Inertia::render('properties/units/Edit', [
-            'unit' => $unit->load(['owner', 'tenant']),
+            'unit' => $unit,
             'communities' => Community::select('id', 'name')->get(),
             'buildings' => Building::select('id', 'name', 'rf_community_id')->orderBy('name')->get(),
             'categories' => UnitCategory::with('types')->get(),
@@ -352,6 +370,8 @@ class UnitController extends Controller
             'residents' => Resident::select('id', 'first_name', 'last_name')->orderBy('first_name')->get(),
             'cities' => City::select('id', 'name', 'name_en', 'country_id')->orderBy('name')->get(),
             'districts' => District::select('id', 'name', 'name_en', 'city_id')->orderBy('name')->get(),
+            'amenityOptions' => Feature::amenities()->select('id', 'name', 'name_en', 'name_ar')->orderBy('name')->get(),
+            'currencies' => Currency::select('id', 'name', 'code', 'symbol')->orderBy('name')->get(),
         ]);
     }
 
@@ -431,9 +451,76 @@ class UnitController extends Controller
             'is_market_place' => ['sometimes', 'boolean'],
             'is_buy' => ['sometimes', 'boolean'],
             'is_off_plan_sale' => ['sometimes', 'boolean'],
+            // Pricing
+            'currency_id' => ['nullable', 'integer', 'exists:currencies,id'],
+            'asking_rent_amount' => ['nullable', 'numeric', 'min:0'],
+            'rent_period' => ['nullable', 'in:month,year'],
+            // Rooms
+            'rooms' => ['sometimes', 'array'],
+            'rooms.*.name' => ['required_with:rooms', 'string', 'max:100'],
+            'rooms.*.count' => ['required_with:rooms', 'integer', 'min:0', 'max:99'],
+            // Specifications (furnished, parking_bays, view)
+            'specifications' => ['sometimes', 'array'],
+            'specifications.*.key' => ['required_with:specifications', 'string', 'max:100'],
+            'specifications.*.value' => ['required_with:specifications', 'string', 'max:255'],
+            // Amenities
+            'amenity_ids' => ['sometimes', 'present', 'array'],
+            'amenity_ids.*' => ['integer', 'exists:rf_features,id'],
         ]);
 
-        $unit->update($validated);
+        $unit->update([
+            'name' => $validated['name'],
+            'rf_community_id' => $validated['rf_community_id'],
+            'rf_building_id' => $validated['rf_building_id'] ?? null,
+            'category_id' => $validated['category_id'],
+            'type_id' => $validated['type_id'],
+            'status_id' => $validated['status_id'],
+            'owner_id' => $validated['owner_id'] ?? null,
+            'tenant_id' => $validated['tenant_id'] ?? null,
+            'city_id' => $validated['city_id'] ?? null,
+            'district_id' => $validated['district_id'] ?? null,
+            'net_area' => $validated['net_area'] ?? null,
+            'floor_no' => $validated['floor_no'] ?? null,
+            'year_build' => $validated['year_build'] ?? null,
+            'about' => $validated['about'] ?? null,
+            'is_market_place' => $validated['is_market_place'] ?? $unit->is_market_place,
+            'is_buy' => $validated['is_buy'] ?? $unit->is_buy,
+            'is_off_plan_sale' => $validated['is_off_plan_sale'] ?? $unit->is_off_plan_sale,
+            'currency_id' => $validated['currency_id'] ?? null,
+            'asking_rent_amount' => $validated['asking_rent_amount'] ?? null,
+            'rent_period' => $validated['rent_period'] ?? null,
+        ]);
+
+        // Sync rooms
+        if (array_key_exists('rooms', $validated)) {
+            $unit->rooms()->delete();
+            foreach ($validated['rooms'] as $room) {
+                $unit->rooms()->create([
+                    'name' => $room['name'],
+                    'count' => $room['count'],
+                ]);
+            }
+        }
+
+        // Sync specifications (furnished, parking_bays, view)
+        if (array_key_exists('specifications', $validated)) {
+            $incomingKeys = array_column($validated['specifications'], 'key');
+
+            // Delete specs not in incoming
+            $unit->specifications()->whereNotIn('key', $incomingKeys)->delete();
+
+            foreach ($validated['specifications'] as $spec) {
+                $unit->specifications()->updateOrCreate(
+                    ['key' => $spec['key']],
+                    ['value' => $spec['value']]
+                );
+            }
+        }
+
+        // Sync amenities
+        if (array_key_exists('amenity_ids', $validated)) {
+            $unit->features()->sync($validated['amenity_ids']);
+        }
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Unit updated.')]);
 
@@ -751,6 +838,19 @@ class UnitController extends Controller
                 'name' => $area->name_en ?? $area->name_ar ?? $area->type,
                 'value' => $area->size,
             ])->values()->all(),
+            'amenities' => ($unit->relationLoaded('features') ? $unit->features : collect())->map(fn ($feature): array => [
+                'id' => $feature->id,
+                'name' => $feature->name_en ?? $feature->name,
+            ])->values()->all(),
+            'pricing' => [
+                'currency' => $unit->currency ? [
+                    'id' => $unit->currency->id,
+                    'code' => $unit->currency->code,
+                    'symbol' => $unit->currency->symbol,
+                ] : null,
+                'amount' => $unit->asking_rent_amount,
+                'period' => $unit->rent_period,
+            ],
             'merge_document' => [],
         ];
     }
