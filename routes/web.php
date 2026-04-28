@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DocumentRecordController;
 use App\Http\Controllers\Admin\DocumentTemplateController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TenantFeatureFlagController;
+use App\Http\Controllers\Admin\UserInvitationController;
 use App\Http\Controllers\Admin\UserRoleAssignmentController;
 use App\Http\Controllers\AppSettings\AppSettingController;
 use App\Http\Controllers\AppSettings\CompanyProfileController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\AppSettings\ServiceSettingController;
 use App\Http\Controllers\AppSettings\SettingsAuditLogController;
 use App\Http\Controllers\AppSettings\SettingsFacilityController;
 use App\Http\Controllers\AppSettings\SettingsShellController;
+use App\Http\Controllers\Auth\SetPasswordController;
 use App\Http\Controllers\Communication\AnnouncementController;
 use App\Http\Controllers\Contacts\AdminController;
 use App\Http\Controllers\Contacts\OwnerController;
@@ -100,6 +102,10 @@ Route::controller(LegacyCompatibilityController::class)
         Route::post('tenancy/logout', 'tenancyLogout')->name('tenancy.logout');
         Route::post('tenancy/send-verification', 'tenancySendVerification')->name('tenancy.send-verification');
     });
+
+// Set Password (invitation-based account activation — no auth required)
+Route::get('set-password/{token}', [SetPasswordController::class, 'create'])->name('set-password.create');
+Route::post('set-password', [SetPasswordController::class, 'store'])->name('set-password.store');
 
 Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
@@ -227,6 +233,12 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 
         Route::post('users/{user}/role-assignments', [UserRoleAssignmentController::class, 'store'])->name('users.role-assignments.store');
         Route::delete('users/{user}/role-assignments/{assignment}', [UserRoleAssignmentController::class, 'destroy'])->name('users.role-assignments.destroy');
+
+        Route::post('users/{user}/deactivate', [AccountUserController::class, 'deactivate'])->name('users.deactivate');
+        Route::post('users/{user}/reactivate', [AccountUserController::class, 'reactivate'])->name('users.reactivate');
+        Route::post('users/{user}/send-password-reset', [AccountUserController::class, 'sendPasswordReset'])->name('users.send-password-reset');
+        Route::post('users/{user}/resend-invitation', [UserInvitationController::class, 'resend'])->name('users.resend-invitation');
+        Route::post('users/{user}/revoke-invitation', [UserInvitationController::class, 'revoke'])->name('users.revoke-invitation');
 
         Route::get('subscriptions', [AccountSubscriptionController::class, 'index'])->name('subscriptions.index');
         Route::post('subscriptions/{tenant}/activate', [AccountSubscriptionController::class, 'activate'])->name('subscriptions.activate');

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Concerns\PasswordValidationRules;
 use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
+use App\Mail\UserInvitationMail;
 use App\Models\AccountMembership;
 use App\Models\Building;
 use App\Models\Community;
@@ -12,24 +12,27 @@ use App\Models\Role;
 use App\Models\ServiceManagerType;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Services\UserStatusService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class AccountUserController extends Controller
 {
-    use PasswordValidationRules;
-
     public function index(): Response
     {
         $tenant = Tenant::current();
         abort_unless($tenant !== null, 404);
 
         $memberships = AccountMembership::query()
-            ->with('user:id,name,email')
+            ->with('user:id,name,email,status')
             ->where('account_tenant_id', $tenant->id)
             ->latest('id')
             ->paginate(15)
@@ -38,6 +41,7 @@ class AccountUserController extends Controller
                 'user_id' => $membership->user_id,
                 'name' => $membership->user?->name,
                 'email' => $membership->user?->email,
+                'status' => $membership->user?->status,
                 'role' => $membership->role,
                 'created_at' => $membership->created_at?->toJSON(),
             ]);
@@ -54,6 +58,7 @@ class AccountUserController extends Controller
                 'id' => $tenant->id,
                 'name' => $tenant->name,
             ],
+            'currentUserId' => auth()->id(),
         ]);
     }
 
@@ -83,11 +88,13 @@ class AccountUserController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'status' => $user->status,
             ],
             'roles' => $roles,
             'communities' => $communities,
             'buildings' => $buildings,
             'serviceTypes' => $serviceTypes,
+            'currentUserId' => auth()->id(),
             'assignments' => Inertia::defer(fn () => DB::table($modelHasRoles)
                 ->where("{$modelHasRoles}.model_type", User::class)
                 ->where("{$modelHasRoles}.model_id", $user->id)
@@ -118,16 +125,21 @@ class AccountUserController extends Controller
         abort_unless($tenant !== null, 404);
 
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)],
-            'password' => $this->passwordRules(),
             'role' => ['required', Rule::in(array_map(static fn (RolesEnum $role): string => $role->value, RolesEnum::cases()))],
         ]);
 
+        $plainTextToken = Str::random(40);
+
         $user = User::create([
-            'name' => $validated['name'],
+            'name' => trim($validated['first_name'].' '.$validated['last_name']),
             'email' => $validated['email'],
-            'password' => $validated['password'],
+            'password' => Hash::make(Str::random(32)),
+            'status' => User::STATUS_INVITATION_PENDING,
+            'invitation_token' => hash('sha256', $plainTextToken),
+            'invitation_expires_at' => now()->addHours(72),
         ]);
 
         AccountMembership::create([
@@ -136,11 +148,15 @@ class AccountUserController extends Controller
             'role' => $validated['role'],
         ]);
 
-        $user->syncRoles([$validated['role']]);
+        $user->assignRole($validated['role']);
+
+        $setPasswordUrl = route('set-password.create', ['token' => $plainTextToken]);
+
+        Mail::to($user)->queue(new UserInvitationMail($user, $setPasswordUrl));
 
         Inertia::flash('toast', [
             'type' => 'success',
-            'message' => __('Account user created.'),
+            'message' => __('Invitation sent to :email.', ['email' => $user->email]),
         ]);
 
         return to_route('admin.users.index');
@@ -160,10 +176,6 @@ class AccountUserController extends Controller
 
         $user = $membership->user;
         if ($user !== null) {
-            // Remove only null-scope base role rows before re-assigning, so that
-            // scoped role rows (manager/serviceManager) are preserved.
-            // We use removeScopedRole() with all-null scope tuple to avoid
-            // the LogicException guard in the overridden removeRole().
             $mhrTable = config('permission.table_names.model_has_roles');
             $nullScopeRoleNames = DB::table($mhrTable)
                 ->join('roles', 'roles.id', '=', "{$mhrTable}.role_id")
@@ -207,6 +219,75 @@ class AccountUserController extends Controller
         Inertia::flash('toast', [
             'type' => 'success',
             'message' => __('Account user removed.'),
+        ]);
+
+        return back();
+    }
+
+    public function deactivate(Request $request, User $user): RedirectResponse
+    {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
+        if ((int) $user->id === (int) $request->user()?->id) {
+            abort(403, __('You cannot deactivate your own account.'));
+        }
+
+        abort_unless($user->isActive(), 400);
+
+        app(UserStatusService::class)->deactivate($user);
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __(':name\'s account has been deactivated.', ['name' => $user->name]),
+        ]);
+
+        return back();
+    }
+
+    public function reactivate(Request $request, User $user): RedirectResponse
+    {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
+        abort_unless($user->isDeactivated(), 400);
+
+        app(UserStatusService::class)->reactivate($user);
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __(':name\'s account has been reactivated.', ['name' => $user->name]),
+        ]);
+
+        return back();
+    }
+
+    public function sendPasswordReset(Request $request, User $user): RedirectResponse
+    {
+        abort_unless(
+            AccountMembership::where('user_id', $user->id)
+                ->where('account_tenant_id', Tenant::current()?->id)
+                ->exists(),
+            403,
+        );
+
+        $status = Password::sendResetLink(['email' => $user->email]);
+
+        if ($status !== Password::RESET_LINK_SENT) {
+            return back()->withErrors(['email' => __($status)]);
+        }
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Password reset email sent to :email.', ['email' => $user->email]),
         ]);
 
         return back();

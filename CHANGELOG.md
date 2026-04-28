@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Admin — user management: admins invite new users by email (invitation link valid 72 hours, resend and revoke supported); invitees set their own password via the invitation link which activates the account and verifies the email; admins can deactivate a user (immediately invalidates all sessions), reactivate, or send a password reset on their behalf; deactivate button is disabled on the admin's own account; tenant isolation enforced — admins can only manage users in their own account ([#389](https://github.com/mabumusa1/facilities-management/pull/389))
 - Auth — session management: users can view all active sessions by device, browser, and location on the Security settings page; revoke unrecognized sessions with password confirmation; log out all other sessions at once; current session is clearly marked and cannot be revoked ([#387](https://github.com/mabumusa1/facilities-management/pull/387))
 - Admin — platform feature flags: super-admins can enable or disable platform features per tenant from a new Features tab on the Tenant Detail page; toggles are confirmed via dialog with immediate-effect warnings; every change is audit-logged with actor and timestamp; six initial flags (Marketplace, Power BI, Facilities, Communication Hub, Document Vault, Reports & Analytics) with tier-aware inclusion defaults ([#385](https://github.com/mabumusa1/facilities-management/pull/385))
 - Reports — occupancy report: per-community unit counts by status (occupied, available, maintenance, off-plan) with occupancy rate percentage ([#382](https://github.com/mabumusa1/facilities-management/pull/382))
@@ -92,6 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+- Auth — deactivated accounts are now blocked at login: the authentication pipeline checks the user's status before issuing a session, so a deactivated user cannot log in even with valid credentials ([#389](https://github.com/mabumusa1/facilities-management/pull/389))
 - Every non-public route now requires an explicit permission via middleware and Policy enforcement; unauthorized requests return a 403 with the required permission slug ([#120](https://github.com/mabumusa1/facilities-management/pull/120))
 
 ---
