@@ -171,7 +171,7 @@ class UnitController extends Controller
             'tenant_id' => ['nullable', 'integer', 'exists:rf_tenants,id'],
             'city_id' => ['nullable', 'integer', 'exists:cities,id'],
             'district_id' => ['nullable', 'integer', 'exists:districts,id'],
-            'net_area' => ['nullable', 'numeric', 'min:0'],
+            'net_area' => ['nullable', 'numeric', 'gt:0'],
             'floor_no' => ['nullable', 'integer'],
             'year_build' => ['nullable', 'digits:4'],
             'about' => ['nullable', 'string'],
@@ -391,7 +391,7 @@ class UnitController extends Controller
                 'tenant_id' => ['nullable', 'integer', 'exists:rf_tenants,id'],
                 'city_id' => ['nullable', 'integer', 'exists:cities,id'],
                 'district_id' => ['nullable', 'integer', 'exists:districts,id'],
-                'net_area' => ['nullable', 'numeric', 'min:0'],
+                'net_area' => ['nullable', 'numeric', 'gt:0'],
                 'floor_no' => ['nullable', 'integer'],
                 'year_build' => ['nullable', 'digits:4'],
                 'about' => ['nullable', 'string'],
@@ -444,7 +444,7 @@ class UnitController extends Controller
             'tenant_id' => ['nullable', 'integer', 'exists:rf_tenants,id'],
             'city_id' => ['nullable', 'integer', 'exists:cities,id'],
             'district_id' => ['nullable', 'integer', 'exists:districts,id'],
-            'net_area' => ['nullable', 'numeric', 'min:0'],
+            'net_area' => ['nullable', 'numeric', 'gt:0'],
             'floor_no' => ['nullable', 'integer'],
             'year_build' => ['nullable', 'digits:4'],
             'about' => ['nullable', 'string'],
@@ -497,6 +497,7 @@ class UnitController extends Controller
             foreach ($validated['rooms'] as $room) {
                 $unit->rooms()->create([
                     'name' => $room['name'],
+                    'name_en' => $room['name'],
                     'count' => $room['count'],
                 ]);
             }
