@@ -51,6 +51,8 @@ use App\Http\Controllers\Marketplace\MarketplaceController;
 use App\Http\Controllers\Properties\BuildingController;
 use App\Http\Controllers\Properties\CommunityController;
 use App\Http\Controllers\Properties\UnitController;
+use App\Http\Controllers\Properties\UnitImportController;
+use App\Http\Controllers\Properties\UnitTemplateController;
 use App\Http\Controllers\Reports\OperationalReportController;
 use App\Http\Controllers\Reports\ReportsController;
 use App\Http\Controllers\Requests\ServiceRequestController;
@@ -113,6 +115,14 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Properties
     Route::resource('communities', CommunityController::class);
     Route::resource('buildings', BuildingController::class);
+
+    // Unit import routes — registered BEFORE resource to avoid {unit} catch-all swallowing /import/*
+    Route::get('units/import/template', [UnitTemplateController::class, 'download'])->name('units.import.template');
+    Route::post('units/import/upload', [UnitImportController::class, 'upload'])->name('units.import.upload');
+    Route::post('units/import/validate', [UnitImportController::class, 'validate'])->name('units.import.validate');
+    Route::post('units/import/execute', [UnitImportController::class, 'execute'])->name('units.import.execute');
+    Route::get('units/import/progress/{id}', [UnitImportController::class, 'progress'])->name('units.import.progress');
+
     Route::resource('units', UnitController::class);
 
     // Leasing — Lease Quotes (registered before leases resource to avoid {lease} catch-all conflict)
