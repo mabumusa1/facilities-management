@@ -85,9 +85,14 @@ class ImportUnitService
             ->pluck('id', 'name')
             ->mapWithKeys(fn ($id, $name) => [strtolower(trim($name)) => $id]);
 
-        $validStatuses = Status::where('type', 'unit')
+        // Use DB::table to bypass the HasBilingualName accessor, which only works
+        // when all locale columns (name_en, name_ar) are loaded. pluck('name') on
+        // the Eloquent builder selects only the 'name' column, so the accessor
+        // cannot compute the bilingual value and returns an empty string.
+        $validStatuses = DB::table('rf_statuses')
+            ->where('type', 'unit')
             ->pluck('name')
-            ->map(fn ($name) => strtolower(trim($name)));
+            ->map(fn ($name) => strtolower(trim((string) $name)));
 
         // Track existing unit names per building for duplicate detection
         $existingUnits = Unit::where('account_tenant_id', $tenantId)

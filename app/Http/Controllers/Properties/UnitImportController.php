@@ -10,6 +10,7 @@ use App\Services\ColumnMapper;
 use App\Services\ImportUnitService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Spatie\Multitenancy\Models\Tenant;
 
 class UnitImportController extends Controller
 {
@@ -53,7 +54,7 @@ class UnitImportController extends Controller
             'file_name' => $fileName,
             'status' => 'uploaded',
             'total_rows' => $rowCount,
-            'account_tenant_id' => tenant('id'),
+            'account_tenant_id' => Tenant::current()?->id,
         ]);
 
         return response()->json([
@@ -82,14 +83,14 @@ class UnitImportController extends Controller
 
         /** @var ExcelSheet $excelSheet */
         $excelSheet = ExcelSheet::where('id', $data['import_session_id'])
-            ->where('account_tenant_id', tenant('id'))
+            ->where('account_tenant_id', Tenant::current()?->id)
             ->where('import_type', 'unit')
             ->firstOrFail();
 
         $result = $importService->validateRows(
             path: $excelSheet->file_path,
             mapping: $data['mapping'],
-            tenantId: (int) tenant('id'),
+            tenantId: (int) Tenant::current()?->id,
         );
 
         // Persist error details to session record
@@ -121,11 +122,11 @@ class UnitImportController extends Controller
 
         /** @var ExcelSheet $excelSheet */
         $excelSheet = ExcelSheet::where('id', $data['import_session_id'])
-            ->where('account_tenant_id', tenant('id'))
+            ->where('account_tenant_id', Tenant::current()?->id)
             ->where('import_type', 'unit')
             ->firstOrFail();
 
-        $tenantId = (int) tenant('id');
+        $tenantId = (int) Tenant::current()?->id;
         $mapping = $data['mapping'];
 
         // Retrieve pre-validated errors from meta
@@ -171,16 +172,23 @@ class UnitImportController extends Controller
     }
 
     /**
-     * GET /units/import/progress/{excelSheet}
+     * GET /units/import/progress/{id}
      *
      * Returns current import progress for async imports.
+     * Uses a manual ID lookup (bypassing the global tenant scope) so that
+     * cross-tenant requests receive 403 rather than 404.
      */
-    public function progress(ExcelSheet $excelSheet): JsonResponse
+    public function progress(int $id): JsonResponse
     {
         $this->authorize('import', Unit::class);
 
+        /** @var ExcelSheet|null $excelSheet */
+        $excelSheet = ExcelSheet::withoutGlobalScope('account_tenant')->find($id);
+
+        abort_if($excelSheet === null, 404);
+
         abort_unless(
-            $excelSheet->account_tenant_id === (int) tenant('id') && $excelSheet->import_type === 'unit',
+            $excelSheet->account_tenant_id === (int) Tenant::current()?->id && $excelSheet->import_type === 'unit',
             403
         );
 

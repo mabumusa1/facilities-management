@@ -121,7 +121,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::post('units/import/upload', [UnitImportController::class, 'upload'])->name('units.import.upload');
     Route::post('units/import/validate', [UnitImportController::class, 'validate'])->name('units.import.validate');
     Route::post('units/import/execute', [UnitImportController::class, 'execute'])->name('units.import.execute');
-    Route::get('units/import/progress/{excelSheet}', [UnitImportController::class, 'progress'])->name('units.import.progress');
+    Route::get('units/import/progress/{id}', [UnitImportController::class, 'progress'])->name('units.import.progress');
 
     Route::resource('units', UnitController::class);
 
