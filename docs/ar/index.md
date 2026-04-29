@@ -20,7 +20,7 @@ dir: rtl
 
 - [جهات الاتصال — إنشاء المقيمين والبحث عنهم](./guides/contacts/create-and-search-residents.md)
 - [الإيجار](./guides/leasing/)
-  - [تعديل شروط عقد الإيجار مع سجل التعديلات](./guides/leasing/lease-amendments.md)
+- [الإيجار — تعديل شروط عقد الإيجار مع سجل التعديلات](./guides/leasing/lease-amendments.md)
 - [السوق](./guides/marketplace/)
 - [المرافق](./guides/facilities/)
 - [طلبات الخدمة](./guides/service-requests/)

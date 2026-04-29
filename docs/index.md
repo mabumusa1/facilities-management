@@ -19,7 +19,7 @@ Guides, how-tos, and release notes for the real estate management platform.
 
 - [Contacts — create and search residents](./guides/contacts/create-and-search-residents.md)
 - [Leasing](./guides/leasing/)
-  - [Amend lease terms with history trail](./guides/leasing/lease-amendments.md)
+- [Leasing — amend lease terms with history trail](./guides/leasing/lease-amendments.md)
 - [Marketplace](./guides/marketplace/)
 - [Facilities](./guides/facilities/)
 - [App settings](./guides/app-settings/)
