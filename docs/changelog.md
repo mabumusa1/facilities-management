@@ -10,6 +10,20 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Amend lease terms with history trail (Leasing) — April 29, 2026
+
+Property Managers and Admins can now formally amend the structural terms of an active lease and have every change recorded in a permanent, auditable history.
+
+- From any active lease's detail page, click **Amend Lease Terms** (تعديل شروط العقد) to open the amendment form.
+- Six fields are amendable: **End Date**, **Total Rental Amount**, **Contract Type**, **Payment Schedule**, **Security Deposit**, and **Terms and Conditions**. Each field shows the current value so you always know what you are changing.
+- A live **Diff Preview** (معاينة الفروقات) table updates as you type, highlighting each modified field with a **(changed)** badge in amber and leaving unmodified fields labelled **(unchanged)**.
+- A **Reason for Amendment** (سبب التعديل) is required before you can save. The reason is stored with the amendment and is visible to all managers.
+- After saving, the **Amendment History** (سجل التعديلات) card appears at the bottom of the lease detail page. Each entry shows the amendment number, who made it, when, the reason, and a field-by-field table of old and new values.
+- Tenant reassignment is not part of this form — use the relocation process for that.
+- An optional **Generate signed addendum after saving** (إنشاء ملحق موقع بعد الحفظ) checkbox is available; addendum generation will be fully wired once the Documents workflow ships.
+
+Learn more: [Amend lease terms with history trail](./guides/leasing/lease-amendments.md) ([العربية](./ar/guides/leasing/lease-amendments.md)).
+
 ### Complete unit metadata — specs, amenities, and pricing reference (Properties) — April 28, 2026
 
 Unit records are now fully editable from a single **Edit** page. You can set room counts (bedrooms, bathrooms, living rooms), physical specifications (furnished status, parking bays, view type), amenity tags, and an asking rent reference — all saved to the unit and immediately visible on its detail page.
