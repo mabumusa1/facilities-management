@@ -3,7 +3,6 @@ import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
 import { computed, ref, watchEffect } from 'vue';
 import { approve as approveAction, reject as rejectAction } from '@/actions/App/Http/Controllers/Leasing/ApprovalController';
 import { amend as amendAction } from '@/actions/App/Http/Controllers/Leasing/LeaseController';
-import { index as noticesIndex } from '@/actions/App/Http/Controllers/Leasing/LeaseNoticeController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,7 +23,6 @@ const props = defineProps<{
     canApprove: boolean;
     canAmend: boolean;
     isPendingApplication: boolean;
-    noticesCount: number;
 }>();
 
 const { t } = useI18n();
@@ -104,12 +102,6 @@ function deleteLease() {
                     </Button>
                     <Button v-if="canAmend" variant="secondary" as-child>
                         <Link :href="amendAction.url(lease.id)">{{ t('app.leases.amend.pageTitle') }}</Link>
-                    </Button>
-                    <Button variant="secondary" as-child>
-                        <Link :href="noticesIndex.url(lease.id)">
-                            {{ t('app.leases.notices.breadcrumb') }}
-                            <Badge v-if="noticesCount > 0" class="ms-1">{{ noticesCount }}</Badge>
-                        </Link>
                     </Button>
                     <Button variant="outline" as-child>
                         <Link :href="`/leases/${lease.id}/edit`">{{ t('app.actions.edit') }}</Link>
