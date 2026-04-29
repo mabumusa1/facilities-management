@@ -139,6 +139,9 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::resource('leases', LeaseController::class);
     Route::get('leases/{lease}/subleases/create', [LeaseController::class, 'createSublease'])->name('leases.subleases.create');
     Route::post('leases/{lease}/subleases', [LeaseController::class, 'storeSublease'])->name('leases.subleases.store');
+    // Leasing — Amendments (after resource to use {lease} binding)
+    Route::get('leases/{lease}/amend', [LeaseController::class, 'amend'])->name('leases.amend');
+    Route::post('leases/{lease}/amend', [LeaseController::class, 'storeAmendment'])->name('leases.amend.store');
 
     // Leasing — KYC (must be after leases resource to avoid {lease} conflict)
     Route::get('leases/{lease}/kyc', [KycController::class, 'kyc'])->name('leases.kyc');
@@ -418,6 +421,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::post('leases/{lease}/addendum', [LeaseController::class, 'addendum'])->name('leases.addendum');
         Route::get('leases/expiring', [LeaseController::class, 'expiring'])->name('leases.expiring');
         Route::get('leases/statistics', [LeaseController::class, 'statistics'])->name('leases.statistics');
+        Route::get('leases/{lease}/amendments', [LeaseController::class, 'amendmentHistory'])->name('leases.amendments');
         Route::get('leases/{lease}', [LeaseController::class, 'show'])->name('leases.show');
         Route::get('sub-leases', [LeaseController::class, 'subLeases'])->name('sub-leases.index');
         Route::post('sub-leases', [LeaseController::class, 'storeSubleaseAlias'])->name('sub-leases.store');

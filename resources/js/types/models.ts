@@ -385,6 +385,19 @@ export type TransactionAdditionalFee = {
     updated_at: string;
 };
 
+export type LeaseAmendment = {
+    id: number;
+    lease_id: number;
+    amended_by: number;
+    reason: string;
+    changes: Record<string, { from: string | string[] | null; to: string | string[] | null }>;
+    addendum_media_id: number | null;
+    amendment_number: number;
+    created_at: string;
+    updated_at: string;
+    amended_by_user?: User;
+};
+
 export type Lease = {
     id: number;
     contract_number: string;
@@ -443,9 +456,21 @@ export type Lease = {
     rejected_by?: User;
     subleases?: Lease[];
     parent_lease?: Lease | null;
+    amendments?: AmendmentEntry[];
     // Computed
     total_unpaid_amount?: string;
     unpaid_transactions_count?: number;
+    current_amendment_number?: number;
+};
+
+export type AmendmentEntry = {
+    id: number;
+    amendment_number: number;
+    reason: string;
+    changes: Record<string, { from: string | string[] | null; to: string | string[] | null }>;
+    addendum_media_id: number | null;
+    amended_by: { id: number; name: string } | null;
+    created_at: string;
 };
 
 export type Transaction = {

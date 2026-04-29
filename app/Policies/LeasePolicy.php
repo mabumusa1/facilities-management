@@ -78,6 +78,17 @@ class LeasePolicy
             && ManagerScopeHelper::userCanAccessModel($user, $lease);
     }
 
+    /**
+     * Amend lease terms and record amendment history.
+     * Requires update permission; lease must be active or new.
+     */
+    public function amend(User $user, Lease $lease): bool
+    {
+        return $user->can('leases.UPDATE')
+            && $this->belongsToCurrentTenant($lease)
+            && ManagerScopeHelper::userCanAccessModel($user, $lease);
+    }
+
     public function delete(User $user, Lease $lease): bool
     {
         return $user->can('leases.DELETE')
