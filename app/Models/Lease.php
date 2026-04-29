@@ -236,6 +236,12 @@ class Lease extends Model
         return $this->hasMany(LeaseAmendment::class, 'lease_id')->orderByDesc('amendment_number');
     }
 
+    /** @return HasMany<LeaseNotice, $this> */
+    public function notices(): HasMany
+    {
+        return $this->hasMany(LeaseNotice::class, 'lease_id');
+    }
+
     public function getTotalUnpaidAmountAttribute(): string
     {
         return number_format(
