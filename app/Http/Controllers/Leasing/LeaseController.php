@@ -575,12 +575,21 @@ class LeaseController extends Controller
             ]);
         }
 
+        $activeMoveOut = $lease->moveOuts()
+            ->orderByDesc('created_at')
+            ->first();
+
         return Inertia::render('leasing/leases/Show', [
             'lease' => $lease,
             'canApprove' => $request->user()->can('approve', $lease),
             'canAmend' => $request->user()->can('amend', $lease),
             'isPendingApplication' => $lease->status_id === ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
             'noticesCount' => $lease->notices()->count(),
+            'activeMoveOut' => $activeMoveOut ? [
+                'id' => $activeMoveOut->id,
+                'status_id' => $activeMoveOut->status_id,
+                'move_out_date' => $activeMoveOut->move_out_date?->toDateString(),
+            ] : null,
         ]);
     }
 
