@@ -316,10 +316,13 @@ class LeaseNoticeTest extends TestCase
                 'body_ar' => 'يرجى البدء بالتحضير للإخلاء.',
             ]);
 
-        $response->assertSessionHas('toast');
+        $response->assertSessionHas('inertia.flash_data');
 
-        $toast = $response->getSession()->get('toast');
-        $this->assertStringContainsString('tenant@example.com', $toast);
+        $flashData = $response->getSession()->get('inertia.flash_data');
+        $this->assertIsArray($flashData);
+        $this->assertArrayHasKey('toast', $flashData);
+        $this->assertSame('success', $flashData['toast']['type']);
+        $this->assertStringContainsString('tenant@example.com', $flashData['toast']['message']);
     }
 
     // ── AC1 gap: Arabic RTL content stores correctly ──────────────────────────

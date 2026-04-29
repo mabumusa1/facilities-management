@@ -67,9 +67,9 @@ class LeaseNoticeController extends Controller
             'sent_at' => now(),
         ]);
 
-        return redirect()
-            ->route('leases.notices.index', $lease)
-            ->with('toast', __('Notice sent to :email', ['email' => $tenant->email]));
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Notice sent to :email', ['email' => $tenant->email])]);
+
+        return to_route('leases.notices.index', $lease);
     }
 
     /**

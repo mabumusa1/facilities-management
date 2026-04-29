@@ -5,6 +5,7 @@ import {
     index as leasesIndex,
     show as leasesShow,
 } from '@/actions/App/Http/Controllers/Leasing/LeaseController';
+import { edit as residentEdit } from '@/actions/App/Http/Controllers/Contacts/ResidentController';
 import {
     index as noticesIndex,
     store as noticesStore,
@@ -156,7 +157,7 @@ const tenantName = props.tenant
             >
                 <p class="font-medium">{{ t('app.leases.notices.errorMissingEmail') }}</p>
                 <Link
-                    :href="`/residents/${tenant?.id ?? ''}/edit`"
+                    :href="tenant ? residentEdit.url(tenant.id) : '#'"
                     class="text-destructive underline text-sm mt-1 inline-block"
                 >
                     {{ t('app.leases.notices.errorEditContact') }} →
@@ -294,14 +295,6 @@ const tenantName = props.tenant
                             {{ form.errors.tenant_email }}
                         </div>
 
-                        <div
-                            v-if="form.wasSuccessful"
-                            role="status"
-                            aria-live="polite"
-                            class="text-green-600 text-sm"
-                        >
-                            {{ t('app.leases.notices.sent', { email: tenant?.email ?? '' }) }}
-                        </div>
                     </form>
                 </CardContent>
             </Card>
