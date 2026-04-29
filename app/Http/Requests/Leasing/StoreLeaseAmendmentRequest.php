@@ -3,8 +3,10 @@
 namespace App\Http\Requests\Leasing;
 
 use App\Models\Lease;
+use App\Models\Tenant;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreLeaseAmendmentRequest extends FormRequest
 {
@@ -37,7 +39,7 @@ class StoreLeaseAmendmentRequest extends FormRequest
             'security_deposit_amount' => ['nullable', 'numeric', 'min:0'],
             'terms_conditions' => ['nullable', 'string'],
             'units' => ['nullable', 'array'],
-            'units.*.id' => ['required_with:units', 'integer', 'exists:rf_units,id'],
+            'units.*.id' => ['required_with:units', 'integer', Rule::exists('rf_units', 'id')->where('account_tenant_id', Tenant::current()?->id)],
             'units.*.rental_amount' => ['nullable', 'numeric', 'min:0'],
             'units.*.annual_rental_amount' => ['nullable', 'numeric', 'min:0'],
             'units.*.rental_annual_type' => ['nullable', 'string', 'max:255'],
