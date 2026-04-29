@@ -342,6 +342,7 @@ function deleteLease() {
                     </ol>
                 </CardContent>
             </Card>
+        </div>
 
         <!-- Reject Dialog -->
         <Dialog :open="rejectDialogOpen" @update:open="(v) => { if (!v) closeRejectDialog() }">
