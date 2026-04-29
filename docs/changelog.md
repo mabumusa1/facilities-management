@@ -10,6 +10,20 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Send notices to tenants directly from the lease record (Leasing) — April 29, 2026
+
+Property Managers and Admins can now send formal notices to a tenant without leaving the lease record — no switching to email. All notices are stored permanently on the lease with a full audit trail.
+
+- From any active lease's detail page, click **Send Notice** (إرسال إشعار). The button shows a badge with the count of notices already sent.
+- Choose one of four notice types: **Rent Increase** (زيادة الإيجار), **Renewal Offer** (عرض تجديد), **Move-Out Reminder** (تذكير بالإخلاء), or **Free-form Notice** (إشعار حر).
+- Fill in both the English and Arabic subject and body. Both are required — the notice is delivered bilingual in a single communication.
+- Use the **Preview** (معاينة) toggle to review the full English-then-Arabic text before sending.
+- If the tenant's Resident contact has no email address, the form is replaced by a warning with a direct link to **Edit Contact** (تعديل جهة الاتصال).
+- After sending, the **Notice History** (سجل الإشعارات) card on the same page records every notice with its type badge, send date and time, subject, and an expandable **View Body** (عرض المحتوى) link. The record is permanent — sent notices cannot be edited or deleted.
+- The audit trail for each notice includes who sent it (**sent_by**) and the exact timestamp (**sent_at**).
+
+Learn more: [Send a notice to a tenant](./guides/leasing/tenant-notices.md) ([العربية](./ar/guides/leasing/tenant-notices.md)).
+
 ### Amend lease terms with history trail (Leasing) — April 29, 2026
 
 Property Managers and Admins can now formally amend the structural terms of an active lease and have every change recorded in a permanent, auditable history.
