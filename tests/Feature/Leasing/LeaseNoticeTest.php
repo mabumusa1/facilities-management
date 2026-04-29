@@ -492,6 +492,34 @@ class LeaseNoticeTest extends TestCase
         ]);
     }
 
+    // ── AC gap: show scoped to parent lease ──────────────────────────────────
+
+    public function test_show_returns_404_when_notice_belongs_to_different_lease(): void
+    {
+        $otherResident = Resident::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'email' => 'other@example.com',
+        ]);
+        $leaseB = Lease::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'tenant_id' => $otherResident->id,
+        ]);
+
+        // Notice belongs to leaseB, not $this->lease.
+        $noticeOnLeaseB = LeaseNotice::factory()->create([
+            'lease_id' => $leaseB->id,
+            'tenant_id' => $otherResident->id,
+            'sent_by' => $this->user->id,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        // Request uses leaseA as the parent but leaseB's notice — must 404.
+        $response = $this->withSession($this->withTenant())
+            ->getJson(route('leases.notices.show', [$this->lease, $noticeOnLeaseB]));
+
+        $response->assertNotFound();
+    }
+
     // ── Auth failure paths ────────────────────────────────────────────────────
 
     public function test_unauthenticated_user_is_redirected_from_notices_index(): void

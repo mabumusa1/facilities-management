@@ -79,6 +79,10 @@ class LeaseNoticeController extends Controller
     {
         $this->authorize('view', $notice);
 
+        if ($notice->lease_id !== $lease->id) {
+            abort(404);
+        }
+
         return response()->json([
             'id' => $notice->id,
             'type' => $notice->type,
