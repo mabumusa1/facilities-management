@@ -22,6 +22,7 @@ Guides, how-tos, and release notes for the real estate management platform.
   - [Amend lease terms with history trail](./guides/leasing/lease-amendments.md)
   - [Send a notice to a tenant](./guides/leasing/tenant-notices.md)
   - [Move-out workflow](./guides/leasing/lease-move-out.md)
+  - [Generate and track renewal offers](./guides/leasing/lease-renewals.md)
 - [Marketplace](./guides/marketplace/)
 - [Facilities](./guides/facilities/)
 - [App settings](./guides/app-settings/)
