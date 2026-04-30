@@ -729,8 +729,11 @@ class LeadsListTest extends TestCase
 
     public function test_index_eager_loads_assigned_to_relation(): void
     {
-        $admin = Admin::factory()->create([
+        $assignee = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $assignee->id,
             'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
         ]);
 
         Lead::factory()->create([
@@ -738,7 +741,7 @@ class LeadsListTest extends TestCase
             'source_id' => $this->source->id,
             'status_id' => $this->newStatus->id,
             'name_en' => 'Assigned Lead',
-            'lead_owner_id' => $admin->id,
+            'assigned_to_user_id' => $assignee->id,
         ]);
 
         $lead = Lead::with('assignedTo')
@@ -746,15 +749,9 @@ class LeadsListTest extends TestCase
             ->where('name_en', 'Assigned Lead')
             ->firstOrFail();
 
-        // Debug: dump what's in rf_admins for this admin
-        $rawAdmin = DB::table('rf_admins')->where('id', $admin->id)->first();
-        $this->assertNotNull($rawAdmin, 'Admin should exist in rf_admins');
-        $this->assertSame($this->tenant->id, $rawAdmin->account_tenant_id, 'Admin account_tenant_id should match tenant');
-
         $this->assertNotNull($lead->assignedTo);
-        $this->assertSame($admin->id, $lead->assignedTo->id);
-        $this->assertSame($admin->first_name, $lead->assignedTo->first_name);
-        $this->assertSame($admin->last_name, $lead->assignedTo->last_name);
+        $this->assertSame($assignee->id, $lead->assignedTo->id);
+        $this->assertSame($assignee->name, $lead->assignedTo->name);
     }
 
     // -------------------------------------------------------------------------
