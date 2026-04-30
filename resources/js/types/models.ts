@@ -326,7 +326,7 @@ export type Lead = {
 
 export type LeadActivity = {
     id: number;
-    type: 'assigned' | 'unassigned' | 'status_change' | 'note';
+    type: 'assigned' | 'unassigned' | 'status_change' | 'note' | 'converted';
     data: Record<string, string | null> | null;
     created_at: string | null;
     actor: { id: number; name: string } | null;

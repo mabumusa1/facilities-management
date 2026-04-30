@@ -30,6 +30,8 @@ class LeadActivity extends Model
 
     public const TYPE_NOTE = 'note';
 
+    public const TYPE_CONVERTED = 'converted';
+
     protected $fillable = [
         'lead_id',
         'user_id',

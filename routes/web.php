@@ -188,6 +188,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::post('leads/{lead}/assign', [LeadController::class, 'assign'])->name('leads.assign');
     Route::post('leads/{lead}/unassign', [LeadController::class, 'unassign'])->name('leads.unassign');
     Route::post('leads/{lead}/notes', [LeadController::class, 'addNote'])->name('leads.notes.store');
+    Route::get('leads/{lead}/check-duplicate', [LeadController::class, 'checkDuplicate'])->name('leads.check-duplicate');
+    Route::post('leads/{lead}/convert', [LeadController::class, 'convert'])->name('leads.convert');
     Route::delete('leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');
 
     // Requests

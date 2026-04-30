@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
 import { ref, watchEffect } from 'vue';
+import { MoreHorizontal } from 'lucide-vue-next';
 import InputError from '@/components/InputError.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import { Badge } from '@/components/ui/badge';
@@ -17,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useI18n } from '@/composables/useI18n';
 import { index as leadsIndex, store as leadsStore, show as leadsShow } from '@/routes/leads';
 import { template as importTemplate, preview as importPreview } from '@/actions/App/Http/Controllers/Leasing/LeadImportController';
+import { show as leadsShowAction } from '@/actions/App/Http/Controllers/Leasing/LeadController';
 import type { Lead, Paginated } from '@/types';
 
 const { t, locale } = useI18n();
@@ -328,6 +330,7 @@ const SKELETON_ROWS = 8;
                             <TableHead>{{ t('app.leads.table.status') }}</TableHead>
                             <TableHead>{{ t('app.leads.table.assignedTo') }}</TableHead>
                             <TableHead>{{ t('app.leads.table.createdAt') }}</TableHead>
+                            <TableHead />
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -335,10 +338,10 @@ const SKELETON_ROWS = 8;
                             v-for="lead in leads.data"
                             :key="lead.id"
                             class="cursor-pointer hover:bg-muted/50"
-                            @click="router.visit(leadsShow.url({ lead: lead.id }))"
+                            @click="router.visit(leadsShowAction.url({ lead: lead.id }))"
                         >
                             <TableCell class="font-medium">
-                                <Link :href="leadsShow.url({ lead: lead.id })" class="hover:underline" @click.stop>
+                                <Link :href="leadsShowAction.url({ lead: lead.id })" class="hover:underline" @click.stop>
                                     {{ displayLeadName(lead) }}
                                 </Link>
                             </TableCell>
@@ -354,6 +357,21 @@ const SKELETON_ROWS = 8;
                             </TableCell>
                             <TableCell>{{ displayOwnerName(lead) }}</TableCell>
                             <TableCell>{{ new Date(lead.created_at).toLocaleDateString() }}</TableCell>
+                            <TableCell @click.stop>
+                                <!-- Only show row actions for Qualified leads -->
+                                <DropdownMenu v-if="lead.status?.name_en === 'Qualified'">
+                                    <DropdownMenuTrigger as-child>
+                                        <Button variant="ghost" size="sm" class="h-8 w-8 p-0">
+                                            <MoreHorizontal class="h-4 w-4" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem @click="router.visit(leadsShowAction.url({ lead: lead.id }))">
+                                            {{ t('app.leads.conversion.rowMenuConvert') }}
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
