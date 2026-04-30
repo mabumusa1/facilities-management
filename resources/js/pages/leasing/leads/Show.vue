@@ -365,7 +365,7 @@ function activityDescription(activity: LeadActivity): string {
                             :placeholder="t('app.leads.detail.lostReasonPlaceholder')"
                             :maxlength="500"
                             rows="3"
-                            aria-label="Lost reason"
+                            :aria-label="t('app.leads.detail.lostReasonLabel')"
                         />
                         <p class="text-muted-foreground text-xs" aria-live="polite">
                             {{ t('app.leads.detail.lostReasonCounter', { n: statusForm.lost_reason.length }) }}
