@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, router, setLayoutProps, useForm } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
 import { ref, watchEffect } from 'vue';
 import InputError from '@/components/InputError.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -14,7 +14,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 import { useI18n } from '@/composables/useI18n';
-import { index as leadsIndex, store as leadsStore } from '@/routes/leads';
+import { index as leadsIndex, store as leadsStore, show as leadsShow } from '@/routes/leads';
 import type { Lead, Paginated } from '@/types';
 
 const { t, locale } = useI18n();
@@ -284,8 +284,17 @@ const SKELETON_ROWS = 8;
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow v-for="lead in leads.data" :key="lead.id">
-                            <TableCell class="font-medium">{{ displayLeadName(lead) }}</TableCell>
+                        <TableRow
+                            v-for="lead in leads.data"
+                            :key="lead.id"
+                            class="cursor-pointer hover:bg-muted/50"
+                            @click="router.visit(leadsShow.url({ lead: lead.id }))"
+                        >
+                            <TableCell class="font-medium">
+                                <Link :href="leadsShow.url({ lead: lead.id })" class="hover:underline" @click.stop>
+                                    {{ displayLeadName(lead) }}
+                                </Link>
+                            </TableCell>
                             <TableCell dir="ltr">
                                 {{ lead.phone_country_code ? `${lead.phone_country_code} ${lead.phone_number}` : lead.phone_number }}
                             </TableCell>

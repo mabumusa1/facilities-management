@@ -32,6 +32,18 @@ class LeadPolicy
             && $this->belongsToCurrentTenant($lead);
     }
 
+    public function addNote(User $user, Lead $lead): bool
+    {
+        return $user->can('leads.UPDATE')
+            && $this->belongsToCurrentTenant($lead);
+    }
+
+    public function assign(User $user, Lead $lead): bool
+    {
+        return $user->can('leads.UPDATE')
+            && $this->belongsToCurrentTenant($lead);
+    }
+
     public function delete(User $user, Lead $lead): bool
     {
         return $user->can('leads.DELETE')
