@@ -10,6 +10,12 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Convert a lead to a contact (Leasing) — April 30, 2026
+
+Admins and Property Managers can now turn a Qualified lead into a contact record without re-typing the lead's information. From the lead detail page or the leads list row menu, click **Convert to Contact** (تحويل إلى جهة اتصال), choose **Owner** (مالك) or **Resident** (مستأجر), and confirm. The system checks for an existing contact with the same email or phone first — if a duplicate is found you can either link the lead to the existing record (recommended) or proceed with a new record. After conversion the lead's status changes to **Converted** (تم التحويل) and a **Converted Contact** card with a direct link to the new or linked contact appears on the lead detail page.
+
+Learn more: [Convert a lead to a contact](./guides/leasing/convert-lead-to-contact.md) ([العربية](./ar/guides/leasing/convert-lead-to-contact.md)).
+
 ### Leads Excel import (Leasing) — April 30, 2026
 
 Admins and Property Managers can now import multiple leads at once by uploading an Excel file. The import flow validates every row before saving anything, shows you exactly which rows have problems and why, and lets you proceed with only the valid rows.
