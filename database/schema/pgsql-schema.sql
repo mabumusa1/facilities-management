@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict CxE67Fb0a0gB2fcNDVVXgs7h0rR68GrJPECE2H16LPc6tXghxNvF7yDHm5lPBec
+\restrict X6WGykNtlyBV74PbG1UWCssiJis5MEgTP26nXCrgZGf9sufCLcVODcyIohcCuYb
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -648,6 +648,39 @@ ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
 
 
 --
+-- Name: lead_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lead_activities (
+    id bigint NOT NULL,
+    lead_id bigint NOT NULL,
+    user_id bigint,
+    type character varying(30) NOT NULL,
+    data json,
+    created_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: lead_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lead_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lead_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lead_activities_id_seq OWNED BY public.lead_activities.id;
+
+
+--
 -- Name: lease_amendments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -723,6 +756,46 @@ ALTER SEQUENCE public.lease_kyc_documents_id_seq OWNED BY public.lease_kyc_docum
 
 
 --
+-- Name: lease_notices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lease_notices (
+    id bigint NOT NULL,
+    lease_id bigint NOT NULL,
+    tenant_id bigint NOT NULL,
+    sent_by bigint NOT NULL,
+    type character varying(255) NOT NULL,
+    subject_en character varying(255) NOT NULL,
+    body_en text NOT NULL,
+    subject_ar character varying(255) NOT NULL,
+    body_ar text NOT NULL,
+    sent_at timestamp(0) without time zone,
+    account_tenant_id bigint,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: lease_notices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lease_notices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lease_notices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lease_notices_id_seq OWNED BY public.lease_notices.id;
+
+
+--
 -- Name: lease_quotes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -773,6 +846,51 @@ CREATE SEQUENCE public.lease_quotes_id_seq
 --
 
 ALTER SEQUENCE public.lease_quotes_id_seq OWNED BY public.lease_quotes.id;
+
+
+--
+-- Name: lease_renewal_offers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lease_renewal_offers (
+    id bigint NOT NULL,
+    lease_id bigint NOT NULL,
+    status_id bigint NOT NULL,
+    new_start_date date NOT NULL,
+    duration_months integer NOT NULL,
+    new_rent_amount numeric(12,2) NOT NULL,
+    payment_frequency character varying(255),
+    contract_type_id bigint,
+    valid_until date NOT NULL,
+    message_en text,
+    message_ar text,
+    created_by bigint NOT NULL,
+    decided_at timestamp(0) without time zone,
+    decided_by bigint,
+    converted_lease_id bigint,
+    account_tenant_id bigint,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: lease_renewal_offers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lease_renewal_offers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lease_renewal_offers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lease_renewal_offers_id_seq OWNED BY public.lease_renewal_offers.id;
 
 
 --
@@ -923,6 +1041,113 @@ CREATE SEQUENCE public.model_has_roles_id_seq
 --
 
 ALTER SEQUENCE public.model_has_roles_id_seq OWNED BY public.model_has_roles.id;
+
+
+--
+-- Name: move_out_deductions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.move_out_deductions (
+    id bigint NOT NULL,
+    move_out_id bigint NOT NULL,
+    label_en character varying(255) NOT NULL,
+    label_ar character varying(255) NOT NULL,
+    amount numeric(12,2) NOT NULL,
+    reason character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: move_out_deductions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.move_out_deductions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: move_out_deductions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.move_out_deductions_id_seq OWNED BY public.move_out_deductions.id;
+
+
+--
+-- Name: move_out_rooms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.move_out_rooms (
+    id bigint NOT NULL,
+    move_out_id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    condition character varying(255),
+    notes text,
+    sort_order integer DEFAULT 0 NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: move_out_rooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.move_out_rooms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: move_out_rooms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.move_out_rooms_id_seq OWNED BY public.move_out_rooms.id;
+
+
+--
+-- Name: move_outs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.move_outs (
+    id bigint NOT NULL,
+    lease_id bigint NOT NULL,
+    move_out_date date NOT NULL,
+    reason character varying(255) NOT NULL,
+    status_id bigint NOT NULL,
+    initiated_by bigint NOT NULL,
+    account_tenant_id bigint,
+    notes text,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: move_outs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.move_outs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: move_outs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.move_outs_id_seq OWNED BY public.move_outs.id;
 
 
 --
@@ -2292,7 +2517,9 @@ CREATE TABLE public.rf_leads (
     name_en character varying(255),
     name_ar character varying(255),
     phone_country_code character varying(5),
-    notes text
+    notes text,
+    assigned_to_user_id bigint,
+    lost_reason text
 );
 
 
@@ -4407,6 +4634,13 @@ ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id
 
 
 --
+-- Name: lead_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_activities ALTER COLUMN id SET DEFAULT nextval('public.lead_activities_id_seq'::regclass);
+
+
+--
 -- Name: lease_amendments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4421,10 +4655,24 @@ ALTER TABLE ONLY public.lease_kyc_documents ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: lease_notices id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_notices ALTER COLUMN id SET DEFAULT nextval('public.lease_notices_id_seq'::regclass);
+
+
+--
 -- Name: lease_quotes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lease_quotes ALTER COLUMN id SET DEFAULT nextval('public.lease_quotes_id_seq'::regclass);
+
+
+--
+-- Name: lease_renewal_offers id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers ALTER COLUMN id SET DEFAULT nextval('public.lease_renewal_offers_id_seq'::regclass);
 
 
 --
@@ -4453,6 +4701,27 @@ ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.m
 --
 
 ALTER TABLE ONLY public.model_has_roles ALTER COLUMN id SET DEFAULT nextval('public.model_has_roles_id_seq'::regclass);
+
+
+--
+-- Name: move_out_deductions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_out_deductions ALTER COLUMN id SET DEFAULT nextval('public.move_out_deductions_id_seq'::regclass);
+
+
+--
+-- Name: move_out_rooms id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_out_rooms ALTER COLUMN id SET DEFAULT nextval('public.move_out_rooms_id_seq'::regclass);
+
+
+--
+-- Name: move_outs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_outs ALTER COLUMN id SET DEFAULT nextval('public.move_outs_id_seq'::regclass);
 
 
 --
@@ -5269,6 +5538,14 @@ ALTER TABLE ONLY public.jobs
 
 
 --
+-- Name: lead_activities lead_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_activities
+    ADD CONSTRAINT lead_activities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: lease_amendments lease_amendments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5282,6 +5559,14 @@ ALTER TABLE ONLY public.lease_amendments
 
 ALTER TABLE ONLY public.lease_kyc_documents
     ADD CONSTRAINT lease_kyc_documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lease_notices lease_notices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_notices
+    ADD CONSTRAINT lease_notices_pkey PRIMARY KEY (id);
 
 
 --
@@ -5306,6 +5591,14 @@ ALTER TABLE ONLY public.lease_quotes
 
 ALTER TABLE ONLY public.lease_quotes
     ADD CONSTRAINT lease_quotes_quote_number_unique UNIQUE (quote_number);
+
+
+--
+-- Name: lease_renewal_offers lease_renewal_offers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_pkey PRIMARY KEY (id);
 
 
 --
@@ -5354,6 +5647,30 @@ ALTER TABLE ONLY public.model_has_permissions
 
 ALTER TABLE ONLY public.model_has_roles
     ADD CONSTRAINT model_has_roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: move_out_deductions move_out_deductions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_out_deductions
+    ADD CONSTRAINT move_out_deductions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: move_out_rooms move_out_rooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_out_rooms
+    ADD CONSTRAINT move_out_rooms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: move_outs move_outs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_outs
+    ADD CONSTRAINT move_outs_pkey PRIMARY KEY (id);
 
 
 --
@@ -6348,6 +6665,27 @@ CREATE INDEX lease_kyc_documents_account_tenant_id_index ON public.lease_kyc_doc
 
 
 --
+-- Name: lease_renewal_offers_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lease_renewal_offers_account_tenant_id_index ON public.lease_renewal_offers USING btree (account_tenant_id);
+
+
+--
+-- Name: lease_renewal_offers_lease_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lease_renewal_offers_lease_id_index ON public.lease_renewal_offers USING btree (lease_id);
+
+
+--
+-- Name: lease_renewal_offers_status_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX lease_renewal_offers_status_id_index ON public.lease_renewal_offers USING btree (status_id);
+
+
+--
 -- Name: media_collection_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6401,6 +6739,13 @@ CREATE UNIQUE INDEX model_has_roles_scope_unique ON public.model_has_roles USING
 --
 
 CREATE INDEX model_has_roles_service_type_id_index ON public.model_has_roles USING btree (service_type_id);
+
+
+--
+-- Name: move_outs_account_tenant_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX move_outs_account_tenant_id_index ON public.move_outs USING btree (account_tenant_id);
 
 
 --
@@ -7043,6 +7388,22 @@ ALTER TABLE ONLY public.invite_codes
 
 
 --
+-- Name: lead_activities lead_activities_lead_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_activities
+    ADD CONSTRAINT lead_activities_lead_id_foreign FOREIGN KEY (lead_id) REFERENCES public.rf_leads(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lead_activities lead_activities_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lead_activities
+    ADD CONSTRAINT lead_activities_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE SET NULL;
+
+
+--
 -- Name: lease_amendments lease_amendments_amended_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7072,6 +7433,38 @@ ALTER TABLE ONLY public.lease_kyc_documents
 
 ALTER TABLE ONLY public.lease_kyc_documents
     ADD CONSTRAINT lease_kyc_documents_lease_id_foreign FOREIGN KEY (lease_id) REFERENCES public.rf_leases(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lease_notices lease_notices_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_notices
+    ADD CONSTRAINT lease_notices_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE SET NULL;
+
+
+--
+-- Name: lease_notices lease_notices_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_notices
+    ADD CONSTRAINT lease_notices_lease_id_foreign FOREIGN KEY (lease_id) REFERENCES public.rf_leases(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lease_notices lease_notices_sent_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_notices
+    ADD CONSTRAINT lease_notices_sent_by_foreign FOREIGN KEY (sent_by) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lease_notices lease_notices_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_notices
+    ADD CONSTRAINT lease_notices_tenant_id_foreign FOREIGN KEY (tenant_id) REFERENCES public.rf_tenants(id) ON DELETE CASCADE;
 
 
 --
@@ -7147,6 +7540,62 @@ ALTER TABLE ONLY public.lease_quotes
 
 
 --
+-- Name: lease_renewal_offers lease_renewal_offers_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id);
+
+
+--
+-- Name: lease_renewal_offers lease_renewal_offers_contract_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_contract_type_id_foreign FOREIGN KEY (contract_type_id) REFERENCES public.rf_settings(id);
+
+
+--
+-- Name: lease_renewal_offers lease_renewal_offers_converted_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_converted_lease_id_foreign FOREIGN KEY (converted_lease_id) REFERENCES public.rf_leases(id);
+
+
+--
+-- Name: lease_renewal_offers lease_renewal_offers_created_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.users(id);
+
+
+--
+-- Name: lease_renewal_offers lease_renewal_offers_decided_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_decided_by_foreign FOREIGN KEY (decided_by) REFERENCES public.users(id);
+
+
+--
+-- Name: lease_renewal_offers lease_renewal_offers_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_lease_id_foreign FOREIGN KEY (lease_id) REFERENCES public.rf_leases(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lease_renewal_offers lease_renewal_offers_status_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lease_renewal_offers
+    ADD CONSTRAINT lease_renewal_offers_status_id_foreign FOREIGN KEY (status_id) REFERENCES public.rf_statuses(id);
+
+
+--
 -- Name: lease_units lease_units_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7176,6 +7625,46 @@ ALTER TABLE ONLY public.model_has_permissions
 
 ALTER TABLE ONLY public.model_has_roles
     ADD CONSTRAINT model_has_roles_role_id_foreign FOREIGN KEY (role_id) REFERENCES public.roles(id) ON DELETE CASCADE;
+
+
+--
+-- Name: move_out_deductions move_out_deductions_move_out_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_out_deductions
+    ADD CONSTRAINT move_out_deductions_move_out_id_foreign FOREIGN KEY (move_out_id) REFERENCES public.move_outs(id) ON DELETE CASCADE;
+
+
+--
+-- Name: move_out_rooms move_out_rooms_move_out_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_out_rooms
+    ADD CONSTRAINT move_out_rooms_move_out_id_foreign FOREIGN KEY (move_out_id) REFERENCES public.move_outs(id) ON DELETE CASCADE;
+
+
+--
+-- Name: move_outs move_outs_initiated_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_outs
+    ADD CONSTRAINT move_outs_initiated_by_foreign FOREIGN KEY (initiated_by) REFERENCES public.users(id);
+
+
+--
+-- Name: move_outs move_outs_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_outs
+    ADD CONSTRAINT move_outs_lease_id_foreign FOREIGN KEY (lease_id) REFERENCES public.rf_leases(id) ON DELETE CASCADE;
+
+
+--
+-- Name: move_outs move_outs_status_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.move_outs
+    ADD CONSTRAINT move_outs_status_id_foreign FOREIGN KEY (status_id) REFERENCES public.rf_statuses(id);
 
 
 --
@@ -7512,6 +8001,14 @@ ALTER TABLE ONLY public.rf_form_templates
 
 ALTER TABLE ONLY public.rf_form_templates
     ADD CONSTRAINT rf_form_templates_request_category_id_foreign FOREIGN KEY (request_category_id) REFERENCES public.rf_request_categories(id) ON DELETE SET NULL;
+
+
+--
+-- Name: rf_leads rf_leads_assigned_to_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rf_leads
+    ADD CONSTRAINT rf_leads_assigned_to_user_id_foreign FOREIGN KEY (assigned_to_user_id) REFERENCES public.users(id) ON DELETE SET NULL;
 
 
 --
@@ -8150,13 +8647,13 @@ ALTER TABLE ONLY public.subcategory_communities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict CxE67Fb0a0gB2fcNDVVXgs7h0rR68GrJPECE2H16LPc6tXghxNvF7yDHm5lPBec
+\unrestrict X6WGykNtlyBV74PbG1UWCssiJis5MEgTP26nXCrgZGf9sufCLcVODcyIohcCuYb
 
 --
 -- PostgreSQL database dump
 --
 
-\restrict d1aVg47qMBUbUU4rAFuiMUoDO6NzOtbVGopUrap6kSeLU20rz35zCAuWQkkzZr7
+\restrict 33EJU7E7s0D0OAztJY6FZX7sREnwmytuPQMLWuvdchZC19fe7fI2w4JwYsIY48z
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -8345,6 +8842,18 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 165	2026_04_29_064823_add_current_amendment_number_to_rf_leases_table	3
 166	2026_04_29_084144_add_lease_alert_thresholds_to_rf_app_settings_table	4
 167	2026_04_30_083942_enhance_rf_leads_table	5
+168	2026_04_29_070524_create_lease_notices_table	6
+169	2026_04_29_084029_create_lease_renewal_offers_table	6
+170	2026_04_29_084118_create_move_outs_table	6
+171	2026_04_29_084121_create_move_out_rooms_table	6
+172	2026_04_29_084126_create_move_out_deductions_table	6
+173	2026_04_29_084128_add_move_out_status_to_rf_statuses_table	6
+174	2026_04_29_140359_add_nullable_condition_to_move_out_rooms_table	6
+175	2026_04_29_212530_fix_move_out_status_id_collision	6
+176	2026_04_29_222500_add_renewal_statuses_to_rf_statuses_table	6
+177	2026_04_30_091735_create_lead_activities_table	6
+178	2026_04_30_091854_add_assignment_and_lost_reason_to_rf_leads_table	6
+179	2026_04_30_095145_add_excel_import_lead_source	6
 \.
 
 
@@ -8352,12 +8861,12 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 167, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 179, true);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict d1aVg47qMBUbUU4rAFuiMUoDO6NzOtbVGopUrap6kSeLU20rz35zCAuWQkkzZr7
+\unrestrict 33EJU7E7s0D0OAztJY6FZX7sREnwmytuPQMLWuvdchZC19fe7fI2w4JwYsIY48z
 

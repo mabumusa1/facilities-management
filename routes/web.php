@@ -46,6 +46,7 @@ use App\Http\Controllers\Facilities\ResidentFacilityController;
 use App\Http\Controllers\Leasing\ApprovalController;
 use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeadController;
+use App\Http\Controllers\Leasing\LeadImportController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\LeaseNoticeController;
 use App\Http\Controllers\Leasing\LeaseRenewalController;
@@ -170,6 +171,15 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::get('leasing/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
     Route::post('leases/{lease}/approve', [ApprovalController::class, 'approve'])->name('leases.approve');
     Route::post('leases/{lease}/reject', [ApprovalController::class, 'reject'])->name('leases.reject');
+
+    // Leasing — Lead import (must be BEFORE resource to avoid {lead} catch-all)
+    Route::prefix('leads/import')->name('leads.import.')->group(function () {
+        Route::get('template', [LeadImportController::class, 'template'])->name('template');
+        Route::post('preview', [LeadImportController::class, 'preview'])->name('preview');
+        Route::get('{excelSheet}/review', [LeadImportController::class, 'review'])->name('review');
+        Route::post('{excelSheet}/confirm', [LeadImportController::class, 'confirm'])->name('confirm');
+        Route::get('{excelSheet}/error-report', [LeadImportController::class, 'errorReport'])->name('error-report');
+    });
 
     // Leasing — Leads pipeline
     Route::resource('leads', LeadController::class)->only(['index', 'store']);

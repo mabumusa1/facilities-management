@@ -10,6 +10,21 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Leads Excel import (Leasing) — April 30, 2026
+
+Admins and Property Managers can now import multiple leads at once by uploading an Excel file. The import flow validates every row before saving anything, shows you exactly which rows have problems and why, and lets you proceed with only the valid rows.
+
+- **Download the template.** Click **Import Leads** (استيراد العملاء) on the Leads page and choose **Download Template** (تنزيل القالب) to get the required spreadsheet with the correct column headers.
+- **Upload and preview.** Fill in the template and upload it via **Import from Excel** (استيراد من Excel). The system parses the file immediately and opens a review screen with three summary cards: total rows, valid rows, and error rows.
+- **Row-level error details.** An error table below the cards shows every problem row with the row number, field name, and error message — so you know exactly what to fix.
+- **Import valid rows only.** When a file is a mix of valid and errored rows, a confirmation dialog makes it clear that only the passing rows will be saved. Errored rows are never partially saved.
+- **Error report download.** After reviewing, click **Download Error Report** (تنزيل تقرير الأخطاء) to get a CSV of the failing rows. Use it to fix and re-import those leads.
+- **Automatic source tagging.** Every lead brought in through the importer is automatically labelled **Excel Import** as its source.
+
+Files must be `.xlsx` or `.xls`, no larger than 5 MB, and contain no more than 500 data rows.
+
+Learn more: [Import leads from Excel](./guides/leasing/import-leads-from-excel.md) ([العربية](./ar/guides/leasing/import-leads-from-excel.md)).
+
 ### Lead detail page (Leasing) — April 30, 2026
 
 Admins and Property Managers can now click any row in the Leads list to open a full lead record. From that page you can update the lead's status (including recording a lost reason), assign or reassign the lead to a team member, add free-text notes, and read a complete activity timeline showing every status change, assignment, and note in chronological order.
