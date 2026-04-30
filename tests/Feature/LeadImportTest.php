@@ -1117,6 +1117,42 @@ class LeadImportTest extends TestCase
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+    // Error report: formula-injection characters are tab-prefixed (OWASP CSV injection)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public function test_error_report_sanitizes_formula_injection_characters(): void
+    {
+        $sheet = ExcelSheet::create([
+            'type' => 'leads',
+            'import_type' => 'leads',
+            'file_path' => 'lead-imports/test.xlsx',
+            'file_name' => 'test.xlsx',
+            'status' => 'error',
+            'total_rows' => 1,
+            'success_count' => 0,
+            'error_count' => 1,
+            'error_details' => [
+                // Field starts with '=' and message starts with '+' — both are formula-injection candidates
+                ['row' => 2, 'field' => '=DANGEROUS', 'message' => '+966PHONE'],
+            ],
+            'account_tenant_id' => $this->tenant->id,
+            'meta' => ['valid_rows' => []],
+        ]);
+
+        $response = $this
+            ->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->get(route('leads.import.error-report', $sheet));
+
+        $response->assertOk();
+        $content = $response->streamedContent();
+
+        // Each dangerous value must be prefixed with a tab character
+        $this->assertStringContainsString("\t=DANGEROUS", $content);
+        $this->assertStringContainsString("\t+966PHONE", $content);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     // Error report: content includes correct row numbers and field names
     // ─────────────────────────────────────────────────────────────────────────
 

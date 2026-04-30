@@ -122,8 +122,8 @@ class LeadImportService
         $lines = ['Row,Field,Error'];
         foreach ($errors as $err) {
             $row = (int) $err['row'];
-            $field = str_replace(',', ';', (string) ($err['field'] ?? ''));
-            $message = str_replace(',', ';', (string) ($err['message'] ?? ''));
+            $field = $this->sanitizeCsvField(str_replace(',', ';', (string) ($err['field'] ?? '')));
+            $message = $this->sanitizeCsvField(str_replace(',', ';', (string) ($err['message'] ?? '')));
             $lines[] = "{$row},{$field},{$message}";
         }
 
@@ -131,30 +131,43 @@ class LeadImportService
     }
 
     /**
+     * Prevent CSV formula injection by prefixing tab to values starting with
+     * dangerous characters (=, +, -, @) that spreadsheets treat as formulas.
+     */
+    private function sanitizeCsvField(string $value): string
+    {
+        return preg_match('/^[=+\-@]/', $value) ? "\t".$value : $value;
+    }
+
+    /**
      * @param  list<array{name_en: string|null, name_ar: string|null, phone_number: string, email: string|null, notes: string|null}>  $validRows
      */
     public function importRows(array $validRows, int $tenantId, int $statusId): int
     {
-        $imported = 0;
-
-        foreach ($validRows as $row) {
-            Lead::create([
-                'name_en' => $row['name_en'],
-                'name_ar' => $row['name_ar'],
-                'name' => $row['name_en'] ?? $row['name_ar'],
-                'phone_number' => $row['phone_number'],
-                'phone_country_code' => '+966',
-                'email' => $row['email'],
-                'notes' => $row['notes'],
-                'source_id' => self::EXCEL_SOURCE_ID,
-                'status_id' => $statusId,
-                'account_tenant_id' => $tenantId,
-            ]);
-
-            $imported++;
+        if (empty($validRows)) {
+            return 0;
         }
 
-        return $imported;
+        $now = now();
+
+        $rows = array_map(fn (array $row): array => [
+            'name_en' => $row['name_en'],
+            'name_ar' => $row['name_ar'],
+            'name' => $row['name_en'] ?? $row['name_ar'],
+            'phone_number' => $row['phone_number'],
+            'phone_country_code' => '+966',
+            'email' => $row['email'],
+            'notes' => $row['notes'],
+            'source_id' => self::EXCEL_SOURCE_ID,
+            'status_id' => $statusId,
+            'account_tenant_id' => $tenantId,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ], $validRows);
+
+        Lead::insert($rows);
+
+        return count($rows);
     }
 
     public function getNewStatusId(): int

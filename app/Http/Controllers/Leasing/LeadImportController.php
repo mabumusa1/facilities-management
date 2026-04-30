@@ -97,11 +97,6 @@ class LeadImportController extends Controller
             'meta' => ['valid_rows' => $result['valid_rows']],
         ]);
 
-        // If all rows are valid, skip straight to confirm
-        if ($result['error_count'] === 0 && $result['valid_count'] > 0) {
-            return redirect()->route('leads.import.review', $excelSheet);
-        }
-
         return redirect()->route('leads.import.review', $excelSheet);
     }
 
