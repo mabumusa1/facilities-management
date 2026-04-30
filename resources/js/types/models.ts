@@ -300,9 +300,12 @@ export type Professional = {
 export type Lead = {
     id: number;
     name: string | null;
+    name_en: string | null;
+    name_ar: string | null;
     first_name: string | null;
     last_name: string | null;
     phone_number: string;
+    phone_country_code: string | null;
     email: string | null;
     source_id: number | null;
     status_id: number | null;
@@ -310,11 +313,12 @@ export type Lead = {
     lead_owner_id: number | null;
     interested: string | null;
     lead_last_contact_at: string | null;
+    notes: string | null;
     created_at: string;
     updated_at: string;
-    source?: Setting | { id: number | null; value: string | null };
-    status?: Status | { id: number | null; value: string | null };
-    lead_owner?: Admin | string | null;
+    source?: { id: number; name: string; name_en: string | null; name_ar: string | null };
+    status?: { id: number; name: string; name_en: string | null; name_ar: string | null };
+    lead_owner?: Admin | null;
 };
 
 export type Dependent = {

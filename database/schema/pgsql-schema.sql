@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict ppOdDviJWfCrXhc6FSDQx4O2myNer2Go8Cgajsn97GirYOEKZgajr0JU74ZeiEG
+\restrict MWckBQkylSsHFbnXaZF5dKeSxqeZLawOK9aW3WLZmzEYsveZe2OQ6LXMxd77zM1
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -723,46 +723,6 @@ ALTER SEQUENCE public.lease_kyc_documents_id_seq OWNED BY public.lease_kyc_docum
 
 
 --
--- Name: lease_notices; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lease_notices (
-    id bigint NOT NULL,
-    lease_id bigint NOT NULL,
-    tenant_id bigint NOT NULL,
-    sent_by bigint NOT NULL,
-    type character varying(255) NOT NULL,
-    subject_en character varying(255) NOT NULL,
-    body_en text NOT NULL,
-    subject_ar character varying(255) NOT NULL,
-    body_ar text NOT NULL,
-    sent_at timestamp(0) without time zone,
-    account_tenant_id bigint,
-    created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
-);
-
-
---
--- Name: lease_notices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.lease_notices_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lease_notices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.lease_notices_id_seq OWNED BY public.lease_notices.id;
-
-
---
 -- Name: lease_quotes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1234,7 +1194,8 @@ CREATE TABLE public.rf_app_settings (
     favicon_path character varying(255),
     login_bg_path character varying(255),
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    lease_alert_thresholds json
 );
 
 
@@ -2327,7 +2288,11 @@ CREATE TABLE public.rf_leads (
     lead_last_contact_at timestamp(0) without time zone,
     account_tenant_id bigint,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    name_en character varying(255),
+    name_ar character varying(255),
+    phone_country_code character varying(5),
+    notes text
 );
 
 
@@ -4456,13 +4421,6 @@ ALTER TABLE ONLY public.lease_kyc_documents ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- Name: lease_notices id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lease_notices ALTER COLUMN id SET DEFAULT nextval('public.lease_notices_id_seq'::regclass);
-
-
---
 -- Name: lease_quotes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5324,14 +5282,6 @@ ALTER TABLE ONLY public.lease_amendments
 
 ALTER TABLE ONLY public.lease_kyc_documents
     ADD CONSTRAINT lease_kyc_documents_pkey PRIMARY KEY (id);
-
-
---
--- Name: lease_notices lease_notices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lease_notices
-    ADD CONSTRAINT lease_notices_pkey PRIMARY KEY (id);
 
 
 --
@@ -7125,38 +7075,6 @@ ALTER TABLE ONLY public.lease_kyc_documents
 
 
 --
--- Name: lease_notices lease_notices_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lease_notices
-    ADD CONSTRAINT lease_notices_account_tenant_id_foreign FOREIGN KEY (account_tenant_id) REFERENCES public.tenants(id) ON DELETE SET NULL;
-
-
---
--- Name: lease_notices lease_notices_lease_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lease_notices
-    ADD CONSTRAINT lease_notices_lease_id_foreign FOREIGN KEY (lease_id) REFERENCES public.rf_leases(id) ON DELETE CASCADE;
-
-
---
--- Name: lease_notices lease_notices_sent_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lease_notices
-    ADD CONSTRAINT lease_notices_sent_by_foreign FOREIGN KEY (sent_by) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: lease_notices lease_notices_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lease_notices
-    ADD CONSTRAINT lease_notices_tenant_id_foreign FOREIGN KEY (tenant_id) REFERENCES public.rf_tenants(id) ON DELETE CASCADE;
-
-
---
 -- Name: lease_quotes lease_quotes_account_tenant_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8232,13 +8150,13 @@ ALTER TABLE ONLY public.subcategory_communities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict ppOdDviJWfCrXhc6FSDQx4O2myNer2Go8Cgajsn97GirYOEKZgajr0JU74ZeiEG
+\unrestrict MWckBQkylSsHFbnXaZF5dKeSxqeZLawOK9aW3WLZmzEYsveZe2OQ6LXMxd77zM1
 
 --
 -- PostgreSQL database dump
 --
 
-\restrict AVlVQNiPHcfDTcNERfWT6HewnyUWa72lEpICSSGPxpNOTGItRCvdTf1z1iUAn05
+\restrict YRen4V4TMxePnCaakE90bPWdcnmMv2xAeIWNFcg56jewq4ajPWPxbD0ALM60rDy
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -8425,7 +8343,8 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 163	2026_04_28_101013_add_unique_index_to_rf_units_for_import	2
 164	2026_04_29_064820_create_lease_amendments_table	3
 165	2026_04_29_064823_add_current_amendment_number_to_rf_leases_table	3
-166	2026_04_29_070524_create_lease_notices_table	3
+166	2026_04_29_084144_add_lease_alert_thresholds_to_rf_app_settings_table	4
+167	2026_04_30_083942_enhance_rf_leads_table	5
 \.
 
 
@@ -8433,12 +8352,12 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 166, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 167, true);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict AVlVQNiPHcfDTcNERfWT6HewnyUWa72lEpICSSGPxpNOTGItRCvdTf1z1iUAn05
+\unrestrict YRen4V4TMxePnCaakE90bPWdcnmMv2xAeIWNFcg56jewq4ajPWPxbD0ALM60rDy
 

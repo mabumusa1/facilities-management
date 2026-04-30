@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /**
- * The 31 permission subjects drawn from all.json permissions.subjects.
+ * The 32 permission subjects drawn from all.json permissions.subjects.
  */
 enum PermissionSubject: string
 {
@@ -38,4 +38,5 @@ enum PermissionSubject: string
     case CompanyProfile = 'companyProfile';
     case InvoiceSettings = 'invoiceSettings';
     case LeaseSettings = 'leaseSettings';
+    case Leads = 'leads';
 }
