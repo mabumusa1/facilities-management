@@ -10,6 +10,21 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Lease renewal offers (Leasing) — April 29, 2026
+
+Property Managers can now generate, send, and track renewal offers directly from the lease detail page — keeping the full renewal decision on record inside the platform.
+
+- **Renewal window.** When a lease is within 90 days of its end date, a blue **Renewal** banner appears on the lease detail page with a countdown and a **Generate Renewal Offer** (إنشاء عرض تجديد) button.
+- **Pre-filled offer form.** The form opens with the current unit, tenant, rent amount, payment frequency, and contract type already filled in. Adjust the rent, duration, and valid-until deadline as needed. A difference indicator next to the rent field shows how much the proposed amount is above or below the current rent.
+- **Bilingual message.** Add a personal message to the tenant in English and Arabic before saving or sending.
+- **Send by email.** Click **Renewal Offer: Sent** (عرض التجديد: مرسل) in the banner to dispatch the offer. The tenant receives an email with the full terms.
+- **Record the decision.** After the tenant responds, click **Record Decision** (تسجيل القرار) in the banner, choose **Accepted** (مقبول) or **Declined** (مرفوض), and confirm. The status updates immediately.
+- **Convert to a new lease.** If the tenant accepted, click **Convert to New Lease** (تحويل إلى عقد جديد) to open the new lease form pre-filled with the renewal terms.
+- **Automatic expiry.** If no decision is recorded by the valid-until date, the offer is automatically marked **Expired** overnight. The original lease is never modified by expiry.
+- **Renewal Offers index.** Go to **Leasing → Renewal Offers** (عروض التجديد) to see every offer across your portfolio, with filters by status and lease contract number.
+
+Learn more: [Generate and track lease renewal offers](./guides/leasing/lease-renewals.md) ([العربية](./ar/guides/leasing/lease-renewals.md)).
+
 ### Move-out workflow — inspection and deposit deductions (Leasing) — April 29, 2026
 
 Property Managers can now record a full move-out directly from the lease detail page, covering everything from the departure date through room inspection to the final deposit settlement calculation.

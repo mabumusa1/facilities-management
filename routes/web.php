@@ -47,6 +47,7 @@ use App\Http\Controllers\Leasing\ApprovalController;
 use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\LeaseNoticeController;
+use App\Http\Controllers\Leasing\LeaseRenewalController;
 use App\Http\Controllers\Leasing\MoveOutController;
 use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
@@ -136,6 +137,14 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::patch('leases/quotes/{quote}/expire', [QuoteController::class, 'expire'])->name('quotes.expire');
     Route::get('leases/quotes/{quote}/convert', [QuoteController::class, 'convert'])->name('quotes.convert');
     Route::post('leases/quotes/{quote}/convert', [QuoteController::class, 'storeConversion'])->name('quotes.convert.store');
+
+    // Leasing — Renewal Offers (registered BEFORE leases resource to avoid {lease} catch-all conflict)
+    Route::get('leases/renewals', [LeaseRenewalController::class, 'index'])->name('leases.renewals.index');
+    Route::get('leases/{lease}/renewal/create', [LeaseRenewalController::class, 'create'])->name('leases.renewal.create');
+    Route::post('leases/{lease}/renewal', [LeaseRenewalController::class, 'store'])->name('leases.renewal.store');
+    Route::post('leases/{lease}/renewal/{offer}/send', [LeaseRenewalController::class, 'send'])->name('leases.renewal.send');
+    Route::post('leases/{lease}/renewal/{offer}/decision', [LeaseRenewalController::class, 'recordDecision'])->name('leases.renewal.decision');
+    Route::post('leases/{lease}/renewal/{offer}/convert', [LeaseRenewalController::class, 'convert'])->name('leases.renewal.convert');
 
     // Leasing — Leases
     Route::resource('leases', LeaseController::class);

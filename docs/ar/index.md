@@ -23,6 +23,7 @@ dir: rtl
   - [تعديل شروط عقد الإيجار مع سجل التعديلات](./guides/leasing/lease-amendments.md)
   - [إرسال إشعار إلى المستأجر](./guides/leasing/tenant-notices.md)
   - [سير عملية الإخلاء](./guides/leasing/lease-move-out.md)
+  - [إنشاء عروض تجديد عقود الإيجار ومتابعتها](./guides/leasing/lease-renewals.md)
 - [السوق](./guides/marketplace/)
 - [المرافق](./guides/facilities/)
 - [طلبات الخدمة](./guides/service-requests/)
