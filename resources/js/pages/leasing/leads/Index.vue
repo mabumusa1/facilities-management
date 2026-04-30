@@ -5,6 +5,7 @@ import InputError from '@/components/InputError.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -15,6 +16,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { useI18n } from '@/composables/useI18n';
 import { index as leadsIndex, store as leadsStore, show as leadsShow } from '@/routes/leads';
+import { template as importTemplate, preview as importPreview } from '@/actions/App/Http/Controllers/Leasing/LeadImportController';
 import type { Lead, Paginated } from '@/types';
 
 const { t, locale } = useI18n();
@@ -71,6 +73,35 @@ function resetFilters() {
 
 // Add Lead drawer
 const drawerOpen = ref(false);
+
+// Import sheet
+const importSheetOpen = ref(false);
+
+const importForm = useForm<{
+    file: File | null;
+}>({
+    file: null,
+});
+
+function handleFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    importForm.file = input.files?.[0] ?? null;
+}
+
+function submitImport() {
+    importForm.post(importPreview.url(), {
+        forceFormData: true,
+        onError: () => {
+            // Keep sheet open to show error
+        },
+    });
+}
+
+function closeImportSheet() {
+    importSheetOpen.value = false;
+    importForm.reset();
+    importForm.clearErrors();
+}
 
 const form = useForm<{
     name_en: string;
@@ -166,6 +197,22 @@ const SKELETON_ROWS = 8;
             :description="t('app.leads.description')"
         >
             <template #actions>
+                <DropdownMenu>
+                    <DropdownMenuTrigger as-child>
+                        <Button variant="outline">
+                            {{ t('app.leads.importLeads') }} ▾
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem as-child>
+                            <a :href="importTemplate.url()">{{ t('app.leads.downloadTemplate') }}</a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem @click="importSheetOpen = true">
+                            {{ t('app.leads.importFromExcel') }}
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
                 <Button @click="drawerOpen = true">
                     {{ t('app.leads.addLead') }}
                 </Button>
@@ -262,7 +309,7 @@ const SKELETON_ROWS = 8;
             <p class="text-muted-foreground max-w-md text-sm">{{ t('app.leads.noLeadsDescription') }}</p>
             <div class="flex gap-2">
                 <Button @click="drawerOpen = true">{{ t('app.leads.addLead') }}</Button>
-                <Button variant="outline" aria-disabled="true" :title="t('app.leads.importComingSoon')">
+                <Button variant="outline" @click="importSheetOpen = true">
                     {{ t('app.leads.importFromExcel') }}
                 </Button>
             </div>
@@ -413,6 +460,52 @@ const SKELETON_ROWS = 8;
                 <Button :disabled="form.processing" @click="submitLead">
                     <Spinner v-if="form.processing" />
                     {{ t('app.leads.drawer.save') }}
+                </Button>
+            </SheetFooter>
+        </SheetContent>
+    </Sheet>
+
+    <!-- Import Leads Sheet -->
+    <Sheet :open="importSheetOpen" @update:open="(open) => { if (!open) closeImportSheet(); }">
+        <SheetContent class="w-full sm:max-w-md" side="right">
+            <SheetHeader>
+                <SheetTitle>{{ t('app.leads.importSheet.heading') }}</SheetTitle>
+            </SheetHeader>
+
+            <div class="flex flex-col gap-6 overflow-y-auto px-4 py-6">
+                <div class="grid gap-2">
+                    <Label for="import-file">
+                        {{ t('app.leads.importSheet.heading') }}
+                    </Label>
+                    <Input
+                        id="import-file"
+                        type="file"
+                        accept=".xlsx,.xls"
+                        :disabled="importForm.processing"
+                        @change="handleFileChange"
+                    />
+                    <InputError :message="importForm.errors.file" />
+                    <p class="text-muted-foreground text-xs" aria-live="polite">
+                        {{ t('app.leads.importSheet.fileHint') }} ·
+                        {{ t('app.leads.importSheet.maxSize') }} ·
+                        {{ t('app.leads.importSheet.maxRows') }}
+                    </p>
+                </div>
+
+                <p class="text-sm">
+                    <a :href="importTemplate.url()" class="text-primary underline-offset-4 hover:underline">
+                        {{ t('app.leads.importSheet.templateLink') }}
+                    </a>
+                </p>
+            </div>
+
+            <SheetFooter class="px-4 pb-6">
+                <Button variant="outline" :disabled="importForm.processing" @click="closeImportSheet">
+                    {{ t('app.leads.importSheet.cancel') }}
+                </Button>
+                <Button :disabled="importForm.processing || !importForm.file" @click="submitImport">
+                    <Spinner v-if="importForm.processing" />
+                    {{ importForm.processing ? t('app.leads.importSheet.uploading') : t('app.leads.importSheet.uploadCta') }}
                 </Button>
             </SheetFooter>
         </SheetContent>

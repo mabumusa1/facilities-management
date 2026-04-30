@@ -21,6 +21,7 @@ class LeadSourceSeeder extends Seeder
             ['id' => 9, 'name' => 'WhatsApp', 'name_ar' => 'واتساب', 'name_en' => 'WhatsApp'],
             ['id' => 10, 'name' => 'Telegram', 'name_ar' => 'تيليجرام', 'name_en' => 'Telegram'],
             ['id' => 11, 'name' => 'Other', 'name_ar' => 'أخرى', 'name_en' => 'Other'],
+            ['id' => 12, 'name' => 'Excel Import', 'name_ar' => 'استيراد Excel', 'name_en' => 'Excel Import'],
         ];
 
         DB::table('rf_lead_sources')->upsert(
