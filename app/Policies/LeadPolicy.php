@@ -44,6 +44,12 @@ class LeadPolicy
             && $this->belongsToCurrentTenant($lead);
     }
 
+    public function convert(User $user, Lead $lead): bool
+    {
+        return $user->can('leads.UPDATE')
+            && $this->belongsToCurrentTenant($lead);
+    }
+
     public function delete(User $user, Lead $lead): bool
     {
         return $user->can('leads.DELETE')

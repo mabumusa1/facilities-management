@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Leasing;
 
+use App\Actions\ConvertLeadToContact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Leasing\StoreLeadNoteRequest;
 use App\Http\Requests\Leasing\StoreLeadRequest;
@@ -10,8 +11,11 @@ use App\Models\AccountMembership;
 use App\Models\Lead;
 use App\Models\LeadActivity;
 use App\Models\LeadSource;
+use App\Models\Owner;
+use App\Models\Resident;
 use App\Models\Status;
 use App\Models\Tenant;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -91,7 +95,31 @@ class LeadController extends Controller
             ->filter(fn (array $m): bool => $m['id'] !== null)
             ->values();
 
-        $lead->load(['source', 'status', 'assignedTo']);
+        $lead->load(['source', 'status', 'assignedTo', 'convertedContact']);
+
+        $convertedContactData = null;
+
+        if ($lead->isConverted() && $lead->convertedContact !== null) {
+            $contact = $lead->convertedContact;
+            $contactType = $lead->converted_contact_type === Owner::class ? 'owner' : 'resident';
+            $contactRoute = $contactType === 'owner'
+                ? route('owners.show', $contact->id)
+                : route('residents.show', $contact->id);
+
+            $convertedContactData = [
+                'id' => $contact->id,
+                'type' => $contactType,
+                'name' => trim(($contact->first_name ?? '').' '.($contact->last_name ?? '')),
+                'email' => $contact->email,
+                'converted_at' => $lead->converted_at?->toJSON(),
+                'url' => $contactRoute,
+            ];
+        }
+
+        $authUser = request()->user();
+        $canConvert = ! $lead->isConverted()
+            && $lead->status?->name_en === 'Qualified'
+            && $authUser?->can('convert', $lead);
 
         return Inertia::render('leasing/leads/Show', [
             'lead' => [
@@ -105,6 +133,8 @@ class LeadController extends Controller
                 'notes' => $lead->notes,
                 'lost_reason' => $lead->lost_reason,
                 'created_at' => $lead->created_at?->toJSON(),
+                'is_converted' => $lead->isConverted(),
+                'converted_contact' => $convertedContactData,
                 'status' => $lead->status ? [
                     'id' => $lead->status->id,
                     'name' => $lead->status->name,
@@ -123,6 +153,7 @@ class LeadController extends Controller
                     'email' => $lead->assignedTo->email,
                 ] : null,
             ],
+            'canConvert' => ! $lead->isConverted() && $lead->status?->name_en === 'Qualified',
             'statuses' => $statuses,
             'teamMembers' => $teamMembers,
             'activities' => Inertia::defer(function () use ($lead): array {
@@ -267,6 +298,105 @@ class LeadController extends Controller
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Note added successfully.')]);
+
+        return redirect()->route('leads.show', $lead);
+    }
+
+    /**
+     * Check if the lead's email or phone matches an existing Owner or Resident.
+     * Returns the matching contact info for the dedup warning dialog.
+     */
+    public function checkDuplicate(Lead $lead, ConvertLeadToContact $action): JsonResponse
+    {
+        $this->authorize('convert', $lead);
+
+        $match = $action->findDuplicate($lead);
+
+        if ($match === null) {
+            return response()->json(['duplicate' => false]);
+        }
+
+        $isOwner = $match instanceof Owner;
+
+        return response()->json([
+            'duplicate' => true,
+            'match' => [
+                'id' => $match->id,
+                'type' => $isOwner ? 'owner' : 'resident',
+                'name' => trim(($match->first_name ?? '').' '.($match->last_name ?? '')),
+                'email' => $match->email,
+                'phone_number' => $match->phone_number,
+            ],
+        ]);
+    }
+
+    public function convert(Request $request, Lead $lead, ConvertLeadToContact $action): JsonResponse|RedirectResponse
+    {
+        $this->authorize('convert', $lead);
+
+        if ($lead->isConverted()) {
+            return response()->json([
+                'message' => 'Lead is already converted.',
+            ], 422);
+        }
+
+        $validated = $request->validate([
+            'contact_type' => ['required', 'in:owner,resident'],
+            'link_to_existing' => ['boolean'],
+            'existing_contact_id' => ['nullable', 'integer'],
+        ]);
+
+        $linkToExisting = (bool) ($validated['link_to_existing'] ?? false);
+        $existingContactId = $validated['existing_contact_id'] ?? null;
+
+        // If linking, validate the contact exists in current tenant
+        if ($linkToExisting && $existingContactId !== null) {
+            $contactType = $validated['contact_type'];
+            $tenantId = Tenant::current()?->id;
+
+            if ($contactType === ConvertLeadToContact::CONTACT_TYPE_OWNER) {
+                $exists = Owner::withoutGlobalScopes()
+                    ->where('id', $existingContactId)
+                    ->where('account_tenant_id', $tenantId)
+                    ->exists();
+            } else {
+                $exists = Resident::withoutGlobalScopes()
+                    ->where('id', $existingContactId)
+                    ->where('account_tenant_id', $tenantId)
+                    ->exists();
+            }
+
+            if (! $exists) {
+                return response()->json([
+                    'message' => 'Contact not found in current tenant.',
+                    'errors' => ['existing_contact_id' => ['Contact not found.']],
+                ], 422);
+            }
+        }
+
+        $contact = $action->execute(
+            lead: $lead,
+            contactType: $validated['contact_type'],
+            linkToExisting: $linkToExisting,
+            existingContactId: $existingContactId,
+            actorUserId: $request->user()?->id,
+        );
+
+        if ($request->expectsJson()) {
+            $contactType = $validated['contact_type'];
+            $contactUrl = $contactType === ConvertLeadToContact::CONTACT_TYPE_OWNER
+                ? route('owners.show', $contact->id)
+                : route('residents.show', $contact->id);
+
+            return response()->json([
+                'message' => 'Lead converted successfully.',
+                'contact_url' => $contactUrl,
+                'contact_id' => $contact->id,
+                'contact_type' => $contactType,
+            ]);
+        }
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Lead converted successfully.')]);
 
         return redirect()->route('leads.show', $lead);
     }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, router, setLayoutProps, useForm } from '@inertiajs/vue3';
 import { computed, ref, watchEffect } from 'vue';
-import { MoreHorizontal, UserPlus, ArrowRight, MessageSquare } from 'lucide-vue-next';
+import { MoreHorizontal, UserPlus, ArrowRight, MessageSquare, RefreshCw } from 'lucide-vue-next';
 import InputError from '@/components/InputError.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -24,6 +24,8 @@ import {
     unassign as leadsUnassign,
     addNote as leadsAddNote,
     destroy as leadsDestroy,
+    checkDuplicate as leadsCheckDuplicate,
+    convert as leadsConvert,
 } from '@/actions/App/Http/Controllers/Leasing/LeadController';
 import type { LeadActivity } from '@/types/models';
 
@@ -42,6 +44,15 @@ type TeamMember = {
     email: string;
 };
 
+type ConvertedContact = {
+    id: number;
+    type: 'owner' | 'resident';
+    name: string;
+    email: string | null;
+    converted_at: string | null;
+    url: string;
+};
+
 type LeadDetail = {
     id: number;
     name: string | null;
@@ -53,6 +64,8 @@ type LeadDetail = {
     notes: string | null;
     lost_reason: string | null;
     created_at: string | null;
+    is_converted: boolean;
+    converted_contact: ConvertedContact | null;
     status: LeadStatus | null;
     source: { id: number; name: string; name_en: string | null; name_ar: string | null } | null;
     assigned_to: { id: number; name: string; email: string } | null;
@@ -60,6 +73,7 @@ type LeadDetail = {
 
 const props = defineProps<{
     lead: LeadDetail;
+    canConvert: boolean;
     statuses: LeadStatus[];
     teamMembers: TeamMember[];
     activities: LeadActivity[] | undefined;
@@ -294,9 +308,142 @@ function activityDescription(activity: LeadActivity): string {
         }
         case 'note':
             return data.note ?? '';
+        case 'converted':
+            return t('app.leads.detail.activityConverted', { type: data.contact_type ?? '' });
         default:
             return '';
     }
+}
+
+// ------------------------------------------------------------------ convert
+
+type DedupMatch = {
+    id: number;
+    type: 'owner' | 'resident';
+    name: string;
+    email: string | null;
+    phone_number: string | null;
+};
+
+// Multi-step: 'drawer' → 'dedup' → 'link-confirm' | 'create-confirm' → done
+type ConvertStep = 'closed' | 'drawer' | 'dedup' | 'link-confirm' | 'create-confirm';
+
+const convertStep = ref<ConvertStep>('closed');
+const convertContactType = ref<'owner' | 'resident'>('owner');
+const dedupMatch = ref<DedupMatch | null>(null);
+const dedupChoice = ref<'link' | 'create'>('link');
+const convertProcessing = ref(false);
+const convertError = ref<string | null>(null);
+const dedupCheckError = ref<string | null>(null);
+
+function openConvertDrawer(): void {
+    convertContactType.value = 'owner';
+    dedupMatch.value = null;
+    dedupChoice.value = 'link';
+    convertError.value = null;
+    dedupCheckError.value = null;
+    convertStep.value = 'drawer';
+}
+
+function closeConvert(): void {
+    convertStep.value = 'closed';
+    convertProcessing.value = false;
+    convertError.value = null;
+    dedupCheckError.value = null;
+}
+
+async function handleConvertCta(): Promise<void> {
+    convertError.value = null;
+    dedupCheckError.value = null;
+    convertProcessing.value = true;
+
+    // 1. Check for duplicate
+    try {
+        const resp = await fetch(leadsCheckDuplicate.url({ lead: props.lead.id }), {
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+            credentials: 'same-origin',
+        });
+
+        if (!resp.ok) {
+            dedupCheckError.value = t('app.leads.conversion.errorDedupCheck');
+            convertProcessing.value = false;
+            return;
+        }
+
+        const json = await resp.json() as { duplicate: boolean; match?: DedupMatch };
+
+        if (json.duplicate && json.match) {
+            dedupMatch.value = json.match;
+            dedupChoice.value = 'link';
+            convertStep.value = 'dedup';
+            convertProcessing.value = false;
+            return;
+        }
+    } catch {
+        dedupCheckError.value = t('app.leads.conversion.errorDedupCheck');
+        convertProcessing.value = false;
+        return;
+    }
+
+    // 2. No duplicate — submit directly
+    await submitConversion(false, null);
+}
+
+function handleDedupContinue(): void {
+    if (dedupChoice.value === 'link') {
+        convertStep.value = 'link-confirm';
+    } else {
+        convertStep.value = 'create-confirm';
+    }
+}
+
+async function submitConversion(linkToExisting: boolean, existingId: number | null): Promise<void> {
+    convertError.value = null;
+    convertProcessing.value = true;
+
+    const csrfToken = (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement | null)?.content ?? '';
+
+    try {
+        const resp = await fetch(leadsConvert.url({ lead: props.lead.id }), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify({
+                contact_type: convertContactType.value,
+                link_to_existing: linkToExisting,
+                existing_contact_id: existingId,
+            }),
+        });
+
+        if (!resp.ok) {
+            convertError.value = t('app.leads.conversion.errorFailed');
+            convertStep.value = 'drawer';
+            convertProcessing.value = false;
+            return;
+        }
+
+        // Success — reload the page with a fresh visit
+        closeConvert();
+        router.reload({ preserveScroll: false });
+    } catch {
+        convertError.value = t('app.leads.conversion.errorFailed');
+        convertStep.value = 'drawer';
+        convertProcessing.value = false;
+    }
+}
+
+async function confirmLink(): Promise<void> {
+    if (dedupMatch.value === null) return;
+    await submitConversion(true, dedupMatch.value.id);
+}
+
+async function confirmCreateAnyway(): Promise<void> {
+    await submitConversion(false, null);
 }
 </script>
 
@@ -319,6 +466,11 @@ function activityDescription(activity: LeadActivity): string {
                 </div>
             </div>
             <div class="flex items-center gap-2">
+                <!-- Convert to Contact — shown only for Qualified, non-converted leads with permission -->
+                <Button v-if="canConvert" size="sm" @click="openConvertDrawer">
+                    {{ t('app.leads.conversion.convertBtn') }}
+                </Button>
+
                 <DropdownMenu>
                     <DropdownMenuTrigger as-child>
                         <Button variant="outline" size="sm" :aria-label="t('app.leads.detail.moreActions')">
@@ -334,30 +486,67 @@ function activityDescription(activity: LeadActivity): string {
             </div>
         </div>
 
+        <!-- Converted Contact Card -->
+        <Card v-if="lead.is_converted && lead.converted_contact">
+            <CardHeader>
+                <CardTitle>{{ t('app.leads.conversion.convertedCardTitle') }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <a
+                    :href="lead.converted_contact.url"
+                    class="flex items-center justify-between rounded-md border p-3 transition-colors hover:bg-muted"
+                    :aria-label="t('app.leads.conversion.convertedViewLink', { name: lead.converted_contact.name, type: lead.converted_contact.type })"
+                >
+                    <div class="flex flex-col gap-0.5">
+                        <span class="font-medium">{{ lead.converted_contact.name }}</span>
+                        <span v-if="lead.converted_contact.email" class="text-muted-foreground text-sm" dir="ltr">
+                            {{ lead.converted_contact.email }}
+                        </span>
+                        <span class="text-muted-foreground text-xs">
+                            {{ t('app.leads.conversion.convertedDateLabel') }}:
+                            {{ formatDateOnly(lead.converted_contact.converted_at) }}
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Badge variant="secondary" class="capitalize">{{ lead.converted_contact.type }}</Badge>
+                        <ArrowRight class="h-4 w-4 rtl:scale-x-[-1]" />
+                    </div>
+                </a>
+            </CardContent>
+        </Card>
+
         <!-- Status + Pipeline Card -->
         <Card>
             <CardContent class="pt-6">
                 <div class="grid gap-4">
                     <div class="grid gap-2">
                         <Label>{{ t('app.leads.detail.statusLabel') }}</Label>
-                        <Select
-                            :model-value="statusForm.status_id"
-                            @update:model-value="(v) => { statusForm.status_id = v ?? ''; }"
-                        >
-                            <SelectTrigger>
-                                <SelectValue :placeholder="t('app.leads.detail.statusPlaceholder')" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem v-for="status in statuses" :key="status.id" :value="String(status.id)">
-                                    {{ displayStatusName(status) }}
-                                </SelectItem>
-                            </SelectContent>
-                        </Select>
-                        <InputError :message="statusForm.errors.status_id" />
+                        <!-- Read-only when converted -->
+                        <div v-if="lead.is_converted" class="rounded-md border px-3 py-2 text-sm bg-muted/50">
+                            <span :aria-label="`${t('app.leads.detail.statusLabel')}: ${displayStatusName(lead.status)} (read-only)`">
+                                {{ displayStatusName(lead.status) }}
+                            </span>
+                        </div>
+                        <template v-else>
+                            <Select
+                                :model-value="statusForm.status_id"
+                                @update:model-value="(v) => { statusForm.status_id = v ?? ''; }"
+                            >
+                                <SelectTrigger>
+                                    <SelectValue :placeholder="t('app.leads.detail.statusPlaceholder')" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem v-for="status in statuses" :key="status.id" :value="String(status.id)">
+                                        {{ displayStatusName(status) }}
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <InputError :message="statusForm.errors.status_id" />
+                        </template>
                     </div>
 
                     <!-- Lost reason - visible only when Lost selected -->
-                    <div v-if="isLostSelected" class="grid gap-2">
+                    <div v-if="isLostSelected && !lead.is_converted" class="grid gap-2">
                         <Label>{{ t('app.leads.detail.lostReasonLabel') }}</Label>
                         <Textarea
                             v-model="statusForm.lost_reason"
@@ -374,7 +563,7 @@ function activityDescription(activity: LeadActivity): string {
 
                     <!-- Dirty-state bar -->
                     <div
-                        v-if="isStatusDirty"
+                        v-if="isStatusDirty && !lead.is_converted"
                         class="flex items-center justify-between rounded-md border bg-muted/50 px-3 py-2"
                         role="status"
                         aria-live="polite"
@@ -584,6 +773,7 @@ function activityDescription(activity: LeadActivity): string {
                             <span class="bg-muted mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
                                 <UserPlus v-if="activity.type === 'assigned' || activity.type === 'unassigned'" class="h-4 w-4" />
                                 <ArrowRight v-else-if="activity.type === 'status_change'" class="h-4 w-4" />
+                                <RefreshCw v-else-if="activity.type === 'converted'" class="h-4 w-4" />
                                 <MessageSquare v-else class="h-4 w-4" />
                             </span>
 
@@ -672,6 +862,166 @@ function activityDescription(activity: LeadActivity): string {
             </SheetFooter>
         </SheetContent>
     </Sheet>
+
+    <!-- Convert to Contact Drawer -->
+    <Sheet :open="convertStep === 'drawer'" @update:open="(v) => { if (!v) closeConvert(); }">
+        <SheetContent side="right" class="w-full sm:max-w-md">
+            <SheetHeader>
+                <SheetTitle>{{ t('app.leads.conversion.drawerTitle') }}</SheetTitle>
+                <p class="text-muted-foreground text-sm">{{ t('app.leads.conversion.drawerSubtitle') }}</p>
+            </SheetHeader>
+
+            <div class="flex flex-col gap-6 overflow-y-auto px-4 py-6">
+                <!-- Contact type radio group -->
+                <div role="radiogroup" aria-labelledby="convert-type-label" class="flex flex-col gap-3">
+                    <p id="convert-type-label" class="text-sm font-medium">{{ t('app.leads.conversion.typeLabel') }}</p>
+
+                    <label class="flex cursor-pointer items-start gap-3 rounded-md border p-3 transition-colors hover:bg-muted" :class="convertContactType === 'owner' ? 'border-primary bg-primary/5' : ''">
+                        <input
+                            v-model="convertContactType"
+                            type="radio"
+                            value="owner"
+                            class="mt-0.5"
+                        />
+                        <div>
+                            <p class="text-sm font-medium">{{ t('app.leads.conversion.typeOwner') }}</p>
+                            <p class="text-muted-foreground text-xs">{{ t('app.leads.conversion.typeOwnerHint') }}</p>
+                        </div>
+                    </label>
+
+                    <label class="flex cursor-pointer items-start gap-3 rounded-md border p-3 transition-colors hover:bg-muted" :class="convertContactType === 'resident' ? 'border-primary bg-primary/5' : ''">
+                        <input
+                            v-model="convertContactType"
+                            type="radio"
+                            value="resident"
+                            class="mt-0.5"
+                        />
+                        <div>
+                            <p class="text-sm font-medium">{{ t('app.leads.conversion.typeResident') }}</p>
+                            <p class="text-muted-foreground text-xs">{{ t('app.leads.conversion.typeResidentHint') }}</p>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Data preview -->
+                <div>
+                    <p class="mb-3 text-sm font-medium">{{ t('app.leads.conversion.dataPreviewTitle') }}</p>
+                    <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+                        <dt class="text-muted-foreground">{{ t('app.leads.conversion.fieldFirstName') }}</dt>
+                        <dd dir="ltr">{{ lead.name_en?.split(' ')[0] ?? '—' }}</dd>
+
+                        <dt class="text-muted-foreground">{{ t('app.leads.conversion.fieldLastName') }}</dt>
+                        <dd dir="ltr">{{ lead.name_en?.split(' ').slice(1).join(' ') || '—' }}</dd>
+
+                        <dt class="text-muted-foreground">{{ t('app.leads.conversion.fieldEmail') }}</dt>
+                        <dd dir="ltr">{{ lead.email ?? '—' }}</dd>
+
+                        <dt class="text-muted-foreground">{{ t('app.leads.conversion.fieldPhone') }}</dt>
+                        <dd dir="ltr">
+                            {{ lead.phone_country_code ? `${lead.phone_country_code} ${lead.phone_number}` : lead.phone_number }}
+                        </dd>
+                    </dl>
+                </div>
+
+                <!-- Dedup check error -->
+                <div v-if="dedupCheckError" role="alert" class="flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                    {{ dedupCheckError }}
+                </div>
+
+                <!-- General convert error -->
+                <div v-if="convertError" role="alert" class="flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                    {{ convertError }}
+                </div>
+            </div>
+
+            <SheetFooter class="px-4 pb-6">
+                <Button variant="outline" :disabled="convertProcessing" @click="closeConvert">
+                    {{ t('app.leads.conversion.cancel') }}
+                </Button>
+                <Button :disabled="convertProcessing" @click="handleConvertCta">
+                    <Spinner v-if="convertProcessing" class="h-4 w-4" :aria-label="t('app.leads.conversion.convertCtaLoading')" />
+                    {{ convertProcessing ? t('app.leads.conversion.convertCtaLoading') : t('app.leads.conversion.convertCta') }}
+                </Button>
+            </SheetFooter>
+        </SheetContent>
+    </Sheet>
+
+    <!-- Dedup Warning Dialog -->
+    <Dialog :open="convertStep === 'dedup'" @update:open="(v) => { if (!v) closeConvert(); }">
+        <DialogContent role="alertdialog" class="sm:max-w-lg">
+            <DialogHeader>
+                <DialogTitle>{{ t('app.leads.conversion.dedupTitle') }}</DialogTitle>
+                <DialogDescription>{{ t('app.leads.conversion.dedupBody') }}</DialogDescription>
+            </DialogHeader>
+
+            <!-- Matched contact card -->
+            <div v-if="dedupMatch" role="region" aria-label="Matched contact" class="rounded-md border p-3">
+                <p class="font-medium">{{ dedupMatch.name }}</p>
+                <p v-if="dedupMatch.email" class="text-muted-foreground text-sm" dir="ltr">{{ dedupMatch.email }}</p>
+                <p v-if="dedupMatch.phone_number" class="text-muted-foreground text-sm" dir="ltr">{{ dedupMatch.phone_number }}</p>
+                <Badge variant="secondary" class="mt-1 capitalize">{{ dedupMatch.type }}</Badge>
+            </div>
+
+            <!-- Link or create radio group -->
+            <div role="radiogroup" class="flex flex-col gap-3 pt-2">
+                <label class="flex cursor-pointer items-start gap-3 rounded-md border p-3 hover:bg-muted" :class="dedupChoice === 'link' ? 'border-primary bg-primary/5' : ''">
+                    <input v-model="dedupChoice" type="radio" value="link" class="mt-0.5" />
+                    <span class="text-sm">{{ t('app.leads.conversion.dedupLinkOption') }}</span>
+                </label>
+                <label class="flex cursor-pointer items-start gap-3 rounded-md border p-3 hover:bg-muted" :class="dedupChoice === 'create' ? 'border-primary bg-primary/5' : ''">
+                    <input v-model="dedupChoice" type="radio" value="create" class="mt-0.5" />
+                    <span class="text-sm">{{ t('app.leads.conversion.dedupCreateOption') }}</span>
+                </label>
+            </div>
+
+            <DialogFooter>
+                <Button variant="outline" @click="closeConvert">
+                    {{ t('app.leads.conversion.cancel') }}
+                </Button>
+                <Button @click="handleDedupContinue">
+                    {{ t('app.leads.conversion.dedupCta') }}
+                </Button>
+            </DialogFooter>
+        </DialogContent>
+    </Dialog>
+
+    <!-- Link Confirm Dialog (non-destructive) -->
+    <Dialog :open="convertStep === 'link-confirm'" @update:open="(v) => { if (!v) closeConvert(); }">
+        <DialogContent class="sm:max-w-md">
+            <DialogHeader>
+                <DialogTitle>{{ t('app.leads.conversion.linkConfirmTitle') }}</DialogTitle>
+                <DialogDescription>{{ t('app.leads.conversion.linkConfirmBody') }}</DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+                <Button variant="outline" :disabled="convertProcessing" @click="closeConvert">
+                    {{ t('app.leads.conversion.cancel') }}
+                </Button>
+                <Button :disabled="convertProcessing" @click="confirmLink">
+                    <Spinner v-if="convertProcessing" class="h-4 w-4" />
+                    {{ t('app.leads.conversion.linkConfirmCta') }}
+                </Button>
+            </DialogFooter>
+        </DialogContent>
+    </Dialog>
+
+    <!-- Create Anyway Confirm Dialog (destructive alertdialog) -->
+    <Dialog :open="convertStep === 'create-confirm'" @update:open="(v) => { if (!v) closeConvert(); }">
+        <DialogContent role="alertdialog" class="sm:max-w-md">
+            <DialogHeader>
+                <DialogTitle>{{ t('app.leads.conversion.createAnywayTitle') }}</DialogTitle>
+                <DialogDescription>{{ t('app.leads.conversion.createAnywayWarning') }}</DialogDescription>
+            </DialogHeader>
+            <DialogFooter class="flex-row-reverse sm:flex-row-reverse">
+                <Button variant="destructive" :disabled="convertProcessing" @click="confirmCreateAnyway">
+                    <Spinner v-if="convertProcessing" class="h-4 w-4" />
+                    {{ t('app.leads.conversion.createAnywayCta') }}
+                </Button>
+                <Button variant="outline" :disabled="convertProcessing" @click="closeConvert">
+                    {{ t('app.leads.conversion.cancel') }}
+                </Button>
+            </DialogFooter>
+        </DialogContent>
+    </Dialog>
 
     <!-- Delete Dialog -->
     <Dialog :open="deleteDialogOpen" @update:open="(v) => { if (!v) deleteDialogOpen = false; }">

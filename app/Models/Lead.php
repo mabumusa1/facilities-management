@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Lead extends Model
 {
@@ -33,13 +34,31 @@ class Lead extends Model
         'lost_reason',
         'notes',
         'account_tenant_id',
+        'converted_contact_id',
+        'converted_contact_type',
+        'converted_at',
     ];
 
     protected function casts(): array
     {
         return [
             'lead_last_contact_at' => 'datetime',
+            'converted_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Whether this lead has already been converted to a contact.
+     */
+    public function isConverted(): bool
+    {
+        return $this->converted_contact_id !== null;
+    }
+
+    /** @return MorphTo<Model, $this> */
+    public function convertedContact(): MorphTo
+    {
+        return $this->morphTo();
     }
 
     /**
