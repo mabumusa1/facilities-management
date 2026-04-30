@@ -311,15 +311,25 @@ export type Lead = {
     status_id: number | null;
     priority_id: number | null;
     lead_owner_id: number | null;
+    assigned_to_user_id: number | null;
     interested: string | null;
     lead_last_contact_at: string | null;
     notes: string | null;
+    lost_reason: string | null;
     created_at: string;
     updated_at: string;
     source?: { id: number; name: string; name_en: string | null; name_ar: string | null };
     status?: { id: number; name: string; name_en: string | null; name_ar: string | null };
     lead_owner?: Admin | null;
-    assigned_to?: Admin | null;
+    assigned_to?: { id: number; name: string; email: string } | null;
+};
+
+export type LeadActivity = {
+    id: number;
+    type: 'assigned' | 'unassigned' | 'status_change' | 'note';
+    data: Record<string, string | null> | null;
+    created_at: string | null;
+    actor: { id: number; name: string } | null;
 };
 
 export type Dependent = {

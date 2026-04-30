@@ -173,6 +173,12 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 
     // Leasing — Leads pipeline
     Route::resource('leads', LeadController::class)->only(['index', 'store']);
+    Route::get('leads/{lead}', [LeadController::class, 'show'])->name('leads.show');
+    Route::put('leads/{lead}', [LeadController::class, 'update'])->name('leads.update');
+    Route::post('leads/{lead}/assign', [LeadController::class, 'assign'])->name('leads.assign');
+    Route::post('leads/{lead}/unassign', [LeadController::class, 'unassign'])->name('leads.unassign');
+    Route::post('leads/{lead}/notes', [LeadController::class, 'addNote'])->name('leads.notes.store');
+    Route::delete('leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');
 
     // Requests
     Route::resource('requests', ServiceRequestController::class)->parameters([

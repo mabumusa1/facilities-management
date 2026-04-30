@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Leasing;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Leasing\StoreLeadNoteRequest;
 use App\Http\Requests\Leasing\StoreLeadRequest;
+use App\Http\Requests\Leasing\UpdateLeadRequest;
+use App\Models\AccountMembership;
 use App\Models\Lead;
+use App\Models\LeadActivity;
 use App\Models\LeadSource;
 use App\Models\Status;
 use App\Models\Tenant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -61,6 +66,84 @@ class LeadController extends Controller
         ]);
     }
 
+    public function show(Lead $lead): Response
+    {
+        $this->authorize('view', $lead);
+
+        $statuses = Status::query()
+            ->where('type', 'lead')
+            ->select('id', 'name', 'name_en', 'name_ar')
+            ->orderBy('priority')
+            ->orderBy('id')
+            ->get();
+
+        $tenant = Tenant::current();
+
+        $teamMembers = AccountMembership::query()
+            ->where('account_tenant_id', $tenant?->id)
+            ->with('user:id,name,email')
+            ->get()
+            ->map(fn (AccountMembership $m): array => [
+                'id' => $m->user_id,
+                'name' => $m->user?->name ?? '',
+                'email' => $m->user?->email ?? '',
+            ])
+            ->filter(fn (array $m): bool => $m['id'] !== null)
+            ->values();
+
+        $lead->load(['source', 'status', 'assignedTo']);
+
+        return Inertia::render('leasing/leads/Show', [
+            'lead' => [
+                'id' => $lead->id,
+                'name' => $lead->name,
+                'name_en' => $lead->name_en,
+                'name_ar' => $lead->name_ar,
+                'phone_number' => $lead->phone_number,
+                'phone_country_code' => $lead->phone_country_code,
+                'email' => $lead->email,
+                'notes' => $lead->notes,
+                'lost_reason' => $lead->lost_reason,
+                'created_at' => $lead->created_at?->toJSON(),
+                'status' => $lead->status ? [
+                    'id' => $lead->status->id,
+                    'name' => $lead->status->name,
+                    'name_en' => $lead->status->name_en,
+                    'name_ar' => $lead->status->name_ar,
+                ] : null,
+                'source' => $lead->source ? [
+                    'id' => $lead->source->id,
+                    'name' => $lead->source->name,
+                    'name_en' => $lead->source->name_en,
+                    'name_ar' => $lead->source->name_ar,
+                ] : null,
+                'assigned_to' => $lead->assignedTo ? [
+                    'id' => $lead->assignedTo->id,
+                    'name' => $lead->assignedTo->name,
+                    'email' => $lead->assignedTo->email,
+                ] : null,
+            ],
+            'statuses' => $statuses,
+            'teamMembers' => $teamMembers,
+            'activities' => Inertia::defer(function () use ($lead): array {
+                return LeadActivity::query()
+                    ->where('lead_id', $lead->id)
+                    ->with('user:id,name')
+                    ->latest('created_at')
+                    ->limit(50)
+                    ->get()
+                    ->map(fn (LeadActivity $a): array => [
+                        'id' => $a->id,
+                        'type' => $a->type,
+                        'data' => $a->data,
+                        'created_at' => $a->created_at?->toJSON(),
+                        'actor' => $a->user ? ['id' => $a->user->id, 'name' => $a->user->name] : null,
+                    ])
+                    ->all();
+            }),
+        ]);
+    }
+
     public function store(StoreLeadRequest $request): RedirectResponse
     {
         $this->authorize('create', Lead::class);
@@ -78,6 +161,123 @@ class LeadController extends Controller
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Lead added successfully.')]);
+
+        return redirect()->route('leads.index');
+    }
+
+    public function update(UpdateLeadRequest $request, Lead $lead): RedirectResponse
+    {
+        $this->authorize('update', $lead);
+
+        $oldStatus = $lead->status;
+        $validated = $request->validated();
+
+        $lead->update([
+            'status_id' => $validated['status_id'],
+            'lost_reason' => $validated['lost_reason'] ?? null,
+        ]);
+
+        // Record status change activity if status actually changed
+        if ($oldStatus?->id !== (int) $validated['status_id']) {
+            $newStatus = Status::find($validated['status_id']);
+            LeadActivity::create([
+                'lead_id' => $lead->id,
+                'user_id' => $request->user()?->id,
+                'type' => LeadActivity::TYPE_STATUS_CHANGE,
+                'data' => [
+                    'from' => $oldStatus?->name_en ?? $oldStatus?->name,
+                    'to' => $newStatus?->name_en ?? $newStatus?->name,
+                    'from_ar' => $oldStatus?->name_ar,
+                    'to_ar' => $newStatus?->name_ar,
+                ],
+            ]);
+        }
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Status updated successfully.')]);
+
+        return redirect()->route('leads.show', $lead);
+    }
+
+    public function assign(Request $request, Lead $lead): RedirectResponse
+    {
+        $this->authorize('assign', $lead);
+
+        $tenant = Tenant::current();
+
+        $validated = $request->validate([
+            'user_id' => [
+                'required',
+                'integer',
+                Rule::exists('account_memberships', 'user_id')
+                    ->where('account_tenant_id', $tenant?->id),
+            ],
+        ]);
+
+        $previousAssignee = $lead->assignedTo;
+
+        $lead->update(['assigned_to_user_id' => $validated['user_id']]);
+        $lead->load('assignedTo');
+
+        LeadActivity::create([
+            'lead_id' => $lead->id,
+            'user_id' => $request->user()?->id,
+            'type' => LeadActivity::TYPE_ASSIGNED,
+            'data' => [
+                'to' => $lead->assignedTo?->name,
+                'from' => $previousAssignee?->name,
+            ],
+        ]);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Lead assigned successfully.')]);
+
+        return redirect()->route('leads.show', $lead);
+    }
+
+    public function unassign(Request $request, Lead $lead): RedirectResponse
+    {
+        $this->authorize('assign', $lead);
+
+        $previousAssignee = $lead->assignedTo;
+
+        $lead->update(['assigned_to_user_id' => null]);
+
+        LeadActivity::create([
+            'lead_id' => $lead->id,
+            'user_id' => $request->user()?->id,
+            'type' => LeadActivity::TYPE_UNASSIGNED,
+            'data' => [
+                'from' => $previousAssignee?->name,
+            ],
+        ]);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Lead unassigned successfully.')]);
+
+        return redirect()->route('leads.show', $lead);
+    }
+
+    public function addNote(StoreLeadNoteRequest $request, Lead $lead): RedirectResponse
+    {
+        $this->authorize('addNote', $lead);
+
+        LeadActivity::create([
+            'lead_id' => $lead->id,
+            'user_id' => $request->user()?->id,
+            'type' => LeadActivity::TYPE_NOTE,
+            'data' => ['note' => $request->validated()['note']],
+        ]);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Note added successfully.')]);
+
+        return redirect()->route('leads.show', $lead);
+    }
+
+    public function destroy(Request $request, Lead $lead): RedirectResponse
+    {
+        $this->authorize('delete', $lead);
+
+        $lead->delete();
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Lead deleted successfully.')]);
 
         return redirect()->route('leads.index');
     }

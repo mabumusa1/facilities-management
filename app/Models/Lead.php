@@ -6,6 +6,7 @@ use App\Concerns\BelongsToAccountTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Lead extends Model
 {
@@ -26,8 +27,10 @@ class Lead extends Model
         'status_id',
         'priority_id',
         'lead_owner_id',
+        'assigned_to_user_id',
         'interested',
         'lead_last_contact_at',
+        'lost_reason',
         'notes',
         'account_tenant_id',
     ];
@@ -69,6 +72,12 @@ class Lead extends Model
 
     public function assignedTo(): BelongsTo
     {
-        return $this->belongsTo(Admin::class, 'lead_owner_id');
+        return $this->belongsTo(User::class, 'assigned_to_user_id');
+    }
+
+    /** @return HasMany<LeadActivity, $this> */
+    public function leadActivities(): HasMany
+    {
+        return $this->hasMany(LeadActivity::class);
     }
 }
