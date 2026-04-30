@@ -47,6 +47,7 @@ use App\Http\Controllers\Leasing\ApprovalController;
 use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\LeaseNoticeController;
+use App\Http\Controllers\Leasing\MoveOutController;
 use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
 use App\Http\Controllers\Properties\BuildingController;
@@ -428,6 +429,16 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::get('leases/expiring', [LeaseController::class, 'expiring'])->name('leases.expiring');
         Route::get('leases/statistics', [LeaseController::class, 'statistics'])->name('leases.statistics');
         Route::get('leases/{lease}/amendments', [LeaseController::class, 'amendmentHistory'])->name('leases.amendments');
+        // Move-out routes — must be registered before leases/{lease} to avoid route swallowing.
+        Route::get('leases/{lease}/move-out/initiate', [MoveOutController::class, 'initiate'])->name('leases.move-out.initiate');
+        Route::post('leases/{lease}/move-out', [MoveOutController::class, 'store'])->name('leases.move-out.store');
+        Route::get('leases/{lease}/move-out/{moveOut}/inspection', [MoveOutController::class, 'inspection'])->name('leases.move-out.inspection');
+        Route::post('leases/{lease}/move-out/{moveOut}/inspection', [MoveOutController::class, 'saveInspection'])->name('leases.move-out.inspection.save');
+        Route::post('leases/{lease}/move-out/{moveOut}/rooms/{room}/photos', [MoveOutController::class, 'uploadRoomPhoto'])->name('leases.move-out.rooms.photos.store');
+        Route::delete('leases/{lease}/move-out/{moveOut}/rooms/{room}/photos/{photoId}', [MoveOutController::class, 'deleteRoomPhoto'])->name('leases.move-out.rooms.photos.destroy');
+        Route::get('leases/{lease}/move-out/{moveOut}/deductions', [MoveOutController::class, 'deductions'])->name('leases.move-out.deductions');
+        Route::post('leases/{lease}/move-out/{moveOut}/deductions', [MoveOutController::class, 'saveDeductions'])->name('leases.move-out.deductions.save');
+
         Route::get('leases/{lease}', [LeaseController::class, 'show'])->name('leases.show');
         Route::get('sub-leases', [LeaseController::class, 'subLeases'])->name('sub-leases.index');
         Route::post('sub-leases', [LeaseController::class, 'storeSubleaseAlias'])->name('sub-leases.store');

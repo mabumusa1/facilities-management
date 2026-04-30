@@ -5,12 +5,12 @@ namespace Tests\Feature\Leasing;
 use App\Console\Commands\ExpireLeaseQuotes;
 use App\Models\AccountMembership;
 use App\Models\Lease;
-use App\Models\Status;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\WorkflowStatusChangedNotification;
 use Database\Seeders\RbacSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
@@ -41,21 +41,13 @@ class LeaseApprovalTest extends TestCase
         ]);
         $this->user->assignRole('admins');
 
-        // Seed the three lease-application status rows required by ApprovalController.
-        Status::factory()->create([
-            'id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
-            'type' => 'lease',
-            'name_en' => 'pending_application',
-        ]);
-        Status::factory()->create([
-            'id' => ExpireLeaseQuotes::STATUS_APPROVED_APPLICATION,
-            'type' => 'lease',
-            'name_en' => 'approved_application',
-        ]);
-        Status::factory()->create([
-            'id' => ExpireLeaseQuotes::STATUS_REJECTED_APPLICATION,
-            'type' => 'lease',
-            'name_en' => 'rejected_application',
+        // Lease-application status rows — seeded by the fix-collision migration (IDs 77-78)
+        // and StatusSeeder (ID 76). Use insertOrIgnore so setUp is idempotent even after
+        // LazilyRefreshDatabase runs fresh migrations (which include the upsert migration).
+        DB::table('rf_statuses')->insertOrIgnore([
+            ['id' => ExpireLeaseQuotes::STATUS_PENDING_APPLICATION, 'name' => 'Pending Application', 'name_en' => 'pending_application', 'name_ar' => 'طلب معلق', 'priority' => 0, 'type' => 'lease'],
+            ['id' => ExpireLeaseQuotes::STATUS_APPROVED_APPLICATION, 'name' => 'Approved Application', 'name_en' => 'approved_application', 'name_ar' => 'طلب معتمد', 'priority' => 1, 'type' => 'lease'],
+            ['id' => ExpireLeaseQuotes::STATUS_REJECTED_APPLICATION, 'name' => 'Rejected Application', 'name_en' => 'rejected_application', 'name_ar' => 'طلب مرفوض', 'priority' => 2, 'type' => 'lease'],
         ]);
 
         $this->lease = Lease::factory()->create([

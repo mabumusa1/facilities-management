@@ -4,6 +4,7 @@ import { computed, ref, watchEffect } from 'vue';
 import { approve as approveAction, reject as rejectAction } from '@/actions/App/Http/Controllers/Leasing/ApprovalController';
 import { amend as amendAction } from '@/actions/App/Http/Controllers/Leasing/LeaseController';
 import { index as noticesIndex } from '@/actions/App/Http/Controllers/Leasing/LeaseNoticeController';
+import { initiate as initiateAction, inspection as inspectionAction } from '@/actions/App/Http/Controllers/Leasing/MoveOutController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,12 +20,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { useI18n } from '@/composables/useI18n';
 import type { Lease } from '@/types';
 
+type MoveOutSummary = {
+    id: number;
+    status_id: number;
+    move_out_date: string | null;
+};
+
 const props = defineProps<{
     lease: Lease;
     canApprove: boolean;
     canAmend: boolean;
     isPendingApplication: boolean;
     noticesCount: number;
+    activeMoveOut: MoveOutSummary | null;
 }>();
 
 const { t } = useI18n();
@@ -172,6 +180,46 @@ function deleteLease() {
                             </p>
                         </li>
                     </ol>
+                </CardContent>
+            </Card>
+
+            <!-- Move-Out section -->
+            <Card>
+                <CardHeader class="flex flex-row items-center justify-between">
+                    <CardTitle>{{ t('app.moveout.initiate.title') }}</CardTitle>
+                    <div class="flex gap-2">
+                        <Button
+                            v-if="activeMoveOut"
+                            variant="outline"
+                            size="sm"
+                            as-child
+                        >
+                            <Link :href="inspectionAction.url(lease.id, activeMoveOut.id)">
+                                {{ t('app.moveout.inspection.title') }}
+                            </Link>
+                        </Button>
+                        <Button
+                            v-else
+                            variant="outline"
+                            size="sm"
+                            as-child
+                        >
+                            <Link :href="initiateAction.url(lease.id)">
+                                {{ t('app.moveout.initiate.button') }}
+                            </Link>
+                        </Button>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div v-if="activeMoveOut" class="text-sm space-y-1">
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">{{ t('app.moveout.initiate.date') }}</span>
+                            <span>{{ activeMoveOut.move_out_date ?? t('app.common.notAvailable') }}</span>
+                        </div>
+                    </div>
+                    <p v-else class="text-sm text-muted-foreground">
+                        {{ t('app.moveout.show.noMoveOut') }}
+                    </p>
                 </CardContent>
             </Card>
 

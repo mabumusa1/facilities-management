@@ -198,6 +198,11 @@ class Lease extends Model
         return $this->belongsTo(self::class, 'parent_lease_id');
     }
 
+    public function moveOuts(): HasMany
+    {
+        return $this->hasMany(MoveOut::class);
+    }
+
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(Admin::class, 'created_by_id');

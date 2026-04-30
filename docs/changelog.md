@@ -10,6 +10,19 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Move-out workflow — inspection and deposit deductions (Leasing) — April 29, 2026
+
+Property Managers can now record a full move-out directly from the lease detail page, covering everything from the departure date through room inspection to the final deposit settlement calculation.
+
+- **Initiate the move-out.** Open an active lease and click **Initiate Move-Out** (بدء الإخلاء). Set the move-out date (defaults to the lease end date), pick a reason — End of lease term, Early termination by tenant, Early termination by management, or Other — and confirm. The unit changes to **Under Maintenance** status immediately and the lease financial terms are locked.
+- **Room-by-room inspection.** On the Inspection page, name each room, choose a condition rating (**Excellent**, **Good**, **Fair**, or **Poor**), add notes, and upload photo evidence. A progress bar tracks how many rooms have been rated. Use **+ Add Room** to add spaces not in the default list. Click **Save Inspection** to save at any time, or **Proceed to Deductions** when ready.
+- **Deposit deductions.** On the Deposit Deductions page, click **+ Add Deduction** (+ إضافة خصم) to record each charge with a bilingual label (English and Arabic), an amount, and a reason (Damage, Cleaning, Unpaid Rent, Utility, or Other). The summary card updates instantly to show the running **Refund Amount** (مبلغ الاسترداد) or, if deductions exceed the deposit, the **Outstanding Charge** (المبلغ المستحق). Deductions exceeding the deposit are allowed after acknowledging the amber warning.
+- **One move-out per lease.** You cannot start a second move-out while one is already in progress — the system redirects you to the existing record.
+
+The settlement step (finalising the refund payment to the tenant) will be added in an upcoming release.
+
+Learn more: [Process a move-out — inspection and deposit deductions](./guides/leasing/lease-move-out.md) ([العربية](./ar/guides/leasing/lease-move-out.md)).
+
 ### Send notices to tenants directly from the lease record (Leasing) — April 29, 2026
 
 Property Managers and Admins can now send formal notices to a tenant without leaving the lease record — no switching to email. All notices are stored permanently on the lease with a full audit trail.
