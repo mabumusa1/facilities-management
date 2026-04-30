@@ -14,12 +14,14 @@ class MoveOutPolicy
 
     /**
      * Initiate a move-out: requires update permission on the parent lease.
+     * A second move-out cannot be initiated while one is already in progress.
      */
     public function create(User $user, Lease $lease): bool
     {
         return $user->can('leases.UPDATE')
             && $this->belongsToCurrentTenant($lease)
-            && ManagerScopeHelper::userCanAccessModel($user, $lease);
+            && ManagerScopeHelper::userCanAccessModel($user, $lease)
+            && ! $lease->is_move_out;
     }
 
     /**

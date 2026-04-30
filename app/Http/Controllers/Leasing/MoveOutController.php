@@ -98,6 +98,8 @@ class MoveOutController extends Controller
             return $moveOut;
         });
 
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Move-out initiated.')]);
+
         return redirect()->route('rf.leases.move-out.inspection', [
             'lease' => $lease->id,
             'moveOut' => $moveOut->id,
@@ -204,6 +206,8 @@ class MoveOutController extends Controller
                     $room->delete();
                 });
         });
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Inspection saved.')]);
 
         return redirect()->route('rf.leases.move-out.inspection', [
             'lease' => $lease->id,
@@ -350,6 +354,8 @@ class MoveOutController extends Controller
                 ->whereNotIn('id', $submittedIds)
                 ->delete();
         });
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Deductions saved.')]);
 
         return redirect()->route('rf.leases.move-out.deductions', [
             'lease' => $lease->id,

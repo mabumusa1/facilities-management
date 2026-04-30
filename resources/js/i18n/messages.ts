@@ -1347,6 +1347,14 @@ const appEn: MessageTree = {
             show: {
                 noMoveOut: 'No active move-out in progress.',
             },
+            flash: {
+                initiated: 'Move-out initiated.',
+                inspection_saved: 'Inspection saved.',
+                deductions_saved: 'Deductions saved.',
+            },
+            errors: {
+                already_initiated: 'A move-out is already in progress for this lease.',
+            },
         },
         quotes: {
             pageTitle: 'Lease Quotes',
@@ -3539,6 +3547,14 @@ const appAr: MessageTree = {
             },
             show: {
                 noMoveOut: 'لا يوجد إخلاء نشط قيد التنفيذ.',
+            },
+            flash: {
+                initiated: 'تم بدء عملية الإخلاء.',
+                inspection_saved: 'تم حفظ المعاينة.',
+                deductions_saved: 'تم حفظ الخصومات.',
+            },
+            errors: {
+                already_initiated: 'يوجد إخلاء نشط بالفعل لهذا العقد.',
             },
         },
         quotes: {
