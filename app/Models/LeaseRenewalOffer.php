@@ -41,7 +41,6 @@ class LeaseRenewalOffer extends Model
         'decided_at',
         'decided_by',
         'converted_lease_id',
-        'account_tenant_id',
     ];
 
     protected function casts(): array

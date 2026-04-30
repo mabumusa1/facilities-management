@@ -51,6 +51,10 @@ const props = defineProps<{
     latestRenewalOffer: RenewalOffer | null;
     daysUntilExpiry: number | null;
     isWithinRenewalWindow: boolean;
+    renewalIsDraft: boolean;
+    renewalIsSentOrViewed: boolean;
+    renewalIsAccepted: boolean;
+    renewalIsExpired: boolean;
 }>();
 
 const { t } = useI18n();
@@ -137,30 +141,6 @@ function sendRenewalOffer() {
 
     router.post(renewalSend.url(props.lease.id, props.latestRenewalOffer.id));
 }
-
-// ── Renewal status helpers ─────────────────────────────────────────────────────
-const RENEWAL_STATUS_DRAFT = 83;
-const RENEWAL_STATUS_SENT = 84;
-const RENEWAL_STATUS_VIEWED = 85;
-const RENEWAL_STATUS_ACCEPTED = 86;
-const RENEWAL_STATUS_EXPIRED = 88;
-
-const renewalIsDraft = computed(() =>
-    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_DRAFT,
-);
-
-const renewalIsSentOrViewed = computed(() =>
-    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_SENT
-    || props.latestRenewalOffer?.status_id === RENEWAL_STATUS_VIEWED,
-);
-
-const renewalIsAccepted = computed(() =>
-    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_ACCEPTED,
-);
-
-const renewalIsExpired = computed(() =>
-    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_EXPIRED,
-);
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 function deleteLease() {

@@ -5,6 +5,7 @@ namespace Tests\Feature\Leasing;
 use App\Models\AccountMembership;
 use App\Models\Lease;
 use App\Models\LeaseRenewalOffer;
+use App\Models\Setting;
 use App\Models\Tenant;
 use App\Models\User;
 use Database\Seeders\RbacSeeder;
@@ -262,5 +263,52 @@ class LeaseRenewalTest extends TestCase
                 'decision' => 'accepted',
             ])
             ->assertForbidden();
+    }
+
+    public function test_cannot_use_contract_type_from_other_tenant(): void
+    {
+        $otherTenant = Tenant::create(['name' => 'Other Tenant For Setting']);
+
+        $foreignSetting = Setting::factory()->create([
+            'type' => 'rental_contract_type',
+            'account_tenant_id' => $otherTenant->id,
+        ]);
+
+        $payload = [
+            'new_start_date' => now()->addYear()->toDateString(),
+            'duration_months' => 12,
+            'new_rent_amount' => 50000,
+            'valid_until' => now()->addMonths(3)->toDateString(),
+            'contract_type_id' => $foreignSetting->id,
+        ];
+
+        $this->withSession($this->withTenant())
+            ->post(route('leases.renewal.store', $this->lease), $payload)
+            ->assertSessionHasErrors('contract_type_id');
+    }
+
+    public function test_cannot_override_account_tenant_id_via_payload(): void
+    {
+        $otherTenant = Tenant::create(['name' => 'Hijack Tenant']);
+
+        $payload = [
+            'new_start_date' => now()->addYear()->toDateString(),
+            'duration_months' => 12,
+            'new_rent_amount' => 60000,
+            'valid_until' => now()->addMonths(3)->toDateString(),
+            'account_tenant_id' => $otherTenant->id,
+        ];
+
+        $this->withSession($this->withTenant())
+            ->post(route('leases.renewal.store', $this->lease), $payload)
+            ->assertRedirectToRoute('leases.show', $this->lease);
+
+        $offer = LeaseRenewalOffer::query()
+            ->where('lease_id', $this->lease->id)
+            ->latest()
+            ->first();
+
+        $this->assertNotNull($offer);
+        $this->assertSame($this->tenant->id, $offer->account_tenant_id);
     }
 }

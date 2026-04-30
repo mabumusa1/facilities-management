@@ -8,6 +8,7 @@ use App\Http\Requests\Leasing\StoreLeaseAmendmentRequest;
 use App\Models\Admin;
 use App\Models\Lease;
 use App\Models\LeaseAmendment;
+use App\Models\LeaseRenewalOffer;
 use App\Models\Resident;
 use App\Models\Setting;
 use App\Models\Status;
@@ -579,6 +580,8 @@ class LeaseController extends Controller
             ->orderByDesc('created_at')
             ->first();
 
+        $latestRenewalOffer = $lease->renewalOffers()->with('status')->latest()->first();
+
         return Inertia::render('leasing/leases/Show', [
             'lease' => $lease,
             'canApprove' => $request->user()->can('approve', $lease),
@@ -591,11 +594,16 @@ class LeaseController extends Controller
                 'move_out_date' => $activeMoveOut->move_out_date?->toDateString(),
             ] : null,
             'renewalOffersCount' => $lease->renewalOffers()->count(),
-            'latestRenewalOffer' => $lease->renewalOffers()->with('status')->latest()->first(),
+            'latestRenewalOffer' => $latestRenewalOffer,
             'daysUntilExpiry' => $lease->end_date ? (int) now()->diffInDays($lease->end_date, absolute: false) : null,
             'isWithinRenewalWindow' => $lease->end_date
                 && now()->lt($lease->end_date)
                 && now()->diffInDays($lease->end_date, absolute: false) <= 90,
+            'renewalIsDraft' => $latestRenewalOffer?->status_id === LeaseRenewalOffer::STATUS_DRAFT,
+            'renewalIsSentOrViewed' => $latestRenewalOffer?->status_id === LeaseRenewalOffer::STATUS_SENT
+                || $latestRenewalOffer?->status_id === LeaseRenewalOffer::STATUS_VIEWED,
+            'renewalIsAccepted' => $latestRenewalOffer?->status_id === LeaseRenewalOffer::STATUS_ACCEPTED,
+            'renewalIsExpired' => $latestRenewalOffer?->status_id === LeaseRenewalOffer::STATUS_EXPIRED,
         ]);
     }
 
