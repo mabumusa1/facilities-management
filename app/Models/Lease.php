@@ -104,6 +104,7 @@ class Lease extends Model
         'rejected_by_id',
         'rejected_at',
         'rejection_reason',
+        'current_amendment_number',
     ];
 
     protected $attributes = [
@@ -227,6 +228,12 @@ class Lease extends Model
     public function kycDocuments(): HasMany
     {
         return $this->hasMany(LeaseKycDocument::class, 'lease_id');
+    }
+
+    /** @return HasMany<LeaseAmendment, $this> */
+    public function amendments(): HasMany
+    {
+        return $this->hasMany(LeaseAmendment::class, 'lease_id')->orderByDesc('amendment_number');
     }
 
     public function getTotalUnpaidAmountAttribute(): string

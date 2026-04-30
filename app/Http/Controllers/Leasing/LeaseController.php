@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Leasing;
 
 use App\Console\Commands\ExpireLeaseQuotes;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Leasing\StoreLeaseAmendmentRequest;
 use App\Models\Admin;
 use App\Models\Lease;
+use App\Models\LeaseAmendment;
 use App\Models\Resident;
 use App\Models\Setting;
 use App\Models\Status;
@@ -563,6 +565,7 @@ class LeaseController extends Controller
             'subleases.tenant',
             'parentLease.status',
             'parentLease.tenant',
+            'amendments.amendedBy',
         ]);
 
         if ($request->expectsJson() || $request->routeIs('rf.*')) {
@@ -575,6 +578,7 @@ class LeaseController extends Controller
         return Inertia::render('leasing/leases/Show', [
             'lease' => $lease,
             'canApprove' => $request->user()->can('approve', $lease),
+            'canAmend' => $request->user()->can('amend', $lease),
             'isPendingApplication' => $lease->status_id === ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
         ]);
     }
@@ -960,6 +964,124 @@ class LeaseController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Lease deleted.')]);
 
         return to_route('leases.index');
+    }
+
+    public function amend(Lease $lease): Response
+    {
+        $this->authorize('amend', $lease);
+
+        return Inertia::render('leasing/leases/Amend', [
+            'lease' => $lease->load([
+                'tenant',
+                'status',
+                'units',
+                'rentalContractType',
+                'paymentSchedule',
+            ]),
+            'units' => Unit::select('id', 'name')->orderBy('name')->get(),
+            'rentalContractTypes' => Setting::where('type', 'rental_contract_type')->select('id', 'name', 'name_ar', 'name_en')->get(),
+            'paymentSchedules' => Setting::where('type', 'payment_schedule')->select('id', 'name', 'name_ar', 'name_en', 'parent_id')->get(),
+        ]);
+    }
+
+    public function storeAmendment(StoreLeaseAmendmentRequest $request, Lease $lease): JsonResponse|RedirectResponse
+    {
+        $validated = $request->validated();
+
+        $amendableFields = ['end_date', 'rental_total_amount', 'rental_contract_type_id', 'payment_schedule_id', 'security_deposit_amount', 'terms_conditions'];
+        $changes = [];
+
+        foreach ($amendableFields as $field) {
+            if (! array_key_exists($field, $validated)) {
+                continue;
+            }
+
+            $newValue = $validated[$field];
+            $oldValue = $lease->{$field};
+
+            if ($field === 'end_date' && $oldValue !== null) {
+                $oldValue = $oldValue->toDateString();
+            }
+
+            if ((string) $oldValue !== (string) $newValue) {
+                $changes[$field] = ['from' => $oldValue, 'to' => $newValue];
+            }
+        }
+
+        if (array_key_exists('units', $validated) && $validated['units'] !== null) {
+            $currentUnitIds = $lease->units->pluck('id')->sort()->values()->toArray();
+            $newUnitIds = collect($validated['units'])->pluck('id')->sort()->values()->toArray();
+
+            if ($currentUnitIds !== $newUnitIds) {
+                $currentUnitNames = $lease->units->pluck('name')->sort()->values()->toArray();
+                $newUnits = Unit::whereIn('id', $newUnitIds)->pluck('name')->sort()->values()->toArray();
+                $changes['units'] = ['from' => $currentUnitNames, 'to' => $newUnits];
+            }
+        }
+
+        $newAmendmentNumber = $lease->current_amendment_number + 1;
+
+        LeaseAmendment::create([
+            'lease_id' => $lease->id,
+            'amended_by' => $request->user()->id,
+            'reason' => $validated['reason'],
+            'changes' => $changes,
+            'amendment_number' => $newAmendmentNumber,
+        ]);
+
+        $leaseUpdates = array_intersect_key($validated, array_flip($amendableFields));
+        $leaseUpdates['current_amendment_number'] = $newAmendmentNumber;
+
+        if (array_key_exists('units', $validated) && $validated['units'] !== null) {
+            $this->syncLeaseUnits($lease, $validated['units']);
+        }
+
+        $lease->update($leaseUpdates);
+
+        if ($request->expectsJson() || $request->routeIs('rf.*')) {
+            $lease->load(['amendments.amendedBy']);
+
+            return response()->json([
+                'data' => [
+                    'lease_id' => $lease->id,
+                    'amendment_number' => $newAmendmentNumber,
+                    'changes' => $changes,
+                ],
+                'message' => __('Lease amended.'),
+            ]);
+        }
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Lease amended.')]);
+
+        return to_route('leases.show', $lease);
+    }
+
+    public function amendmentHistory(Lease $lease): JsonResponse
+    {
+        $this->authorize('view', $lease);
+
+        $amendments = $lease->amendments()
+            ->with('amendedBy')
+            ->get()
+            ->map(fn (LeaseAmendment $amendment): array => [
+                'id' => $amendment->id,
+                'amendment_number' => $amendment->amendment_number,
+                'reason' => $amendment->reason,
+                'changes' => $amendment->changes,
+                'amended_by' => $amendment->amendedBy
+                    ? [
+                        'id' => $amendment->amendedBy->id,
+                        'name' => $amendment->amendedBy->name,
+                    ]
+                    : null,
+                'addendum_media_id' => $amendment->addendum_media_id,
+                'created_at' => $amendment->created_at?->toJSON(),
+            ]);
+
+        return response()->json([
+            'data' => $amendments,
+            'meta' => [],
+        ]);
     }
 
     public function destroySublease(Request $request, Lease $lease): JsonResponse|RedirectResponse

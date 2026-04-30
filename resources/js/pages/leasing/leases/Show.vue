@@ -2,6 +2,7 @@
 import { Head, Link, router, setLayoutProps, useForm } from '@inertiajs/vue3';
 import { computed, ref, watchEffect } from 'vue';
 import { approve as approveAction, reject as rejectAction } from '@/actions/App/Http/Controllers/Leasing/ApprovalController';
+import { amend as amendAction } from '@/actions/App/Http/Controllers/Leasing/LeaseController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +21,7 @@ import type { Lease } from '@/types';
 const props = defineProps<{
     lease: Lease;
     canApprove: boolean;
+    canAmend: boolean;
     isPendingApplication: boolean;
 }>();
 
@@ -97,6 +99,9 @@ function deleteLease() {
                 <div class="flex items-center gap-2">
                     <Button v-if="!lease.is_sub_lease" variant="secondary" as-child>
                         <Link :href="`/leases/${lease.id}/subleases/create`">{{ t('app.leases.show.createSublease') }}</Link>
+                    </Button>
+                    <Button v-if="canAmend" variant="secondary" as-child>
+                        <Link :href="amendAction.url(lease.id)">{{ t('app.leases.amend.pageTitle') }}</Link>
                     </Button>
                     <Button variant="outline" as-child>
                         <Link :href="`/leases/${lease.id}/edit`">{{ t('app.actions.edit') }}</Link>
@@ -280,6 +285,55 @@ function deleteLease() {
                     </CardContent>
                 </Card>
             </div>
+
+            <!-- Amendment History -->
+            <Card v-if="lease.amendments && lease.amendments.length > 0">
+                <CardHeader>
+                    <CardTitle>{{ t('app.leases.amend.historyTitle') }}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ol class="space-y-4">
+                        <li v-for="amendment in lease.amendments" :key="amendment.id" class="border-s-2 border-muted ps-4">
+                            <div class="mb-1 flex items-center gap-2">
+                                <span class="text-sm font-semibold">
+                                    {{ t('app.leases.amend.historyDetail', { n: amendment.amendment_number }) }}
+                                </span>
+                                <span class="text-muted-foreground text-xs">{{ amendment.created_at }}</span>
+                            </div>
+                            <p class="text-muted-foreground text-xs">
+                                {{ t('app.leases.amend.historyMadeBy', { name: amendment.amended_by?.name ?? '—' }) }}
+                            </p>
+                            <p v-if="amendment.reason" class="mt-1 text-sm italic">{{ amendment.reason }}</p>
+                            <table v-if="amendment.changes && Object.keys(amendment.changes).length > 0" class="mt-2 w-full text-sm" aria-label="Amendment changes">
+                                <thead>
+                                    <tr class="text-muted-foreground text-xs">
+                                        <th class="pb-1 text-start font-medium">{{ t('app.common.field') }}</th>
+                                        <th class="pb-1 text-start font-medium">{{ t('app.leases.amend.currentLabel') }}</th>
+                                        <th class="pb-1 text-start font-medium">{{ t('app.leases.amend.newLabel') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        v-for="(diff, field) in amendment.changes"
+                                        :key="field"
+                                        :aria-label="`${field} changed from ${diff.from} to ${diff.to}`"
+                                    >
+                                        <td class="py-0.5 font-mono text-xs">{{ field }}</td>
+                                        <td class="py-0.5 text-muted-foreground">{{ diff.from ?? '—' }}</td>
+                                        <td class="py-0.5">{{ diff.to ?? '—' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p v-if="amendment.addendum_media_id" class="mt-1 text-xs text-green-600">
+                                {{ t('app.leases.amend.historyAddendumSigned') }}
+                            </p>
+                            <p v-else class="text-muted-foreground mt-1 text-xs">
+                                {{ t('app.leases.amend.historyNoAddendum') }}
+                            </p>
+                        </li>
+                    </ol>
+                </CardContent>
+            </Card>
         </div>
 
         <!-- Reject Dialog -->
