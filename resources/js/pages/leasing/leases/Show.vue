@@ -4,6 +4,11 @@ import { computed, ref, watchEffect } from 'vue';
 import { approve as approveAction, reject as rejectAction } from '@/actions/App/Http/Controllers/Leasing/ApprovalController';
 import { amend as amendAction } from '@/actions/App/Http/Controllers/Leasing/LeaseController';
 import { index as noticesIndex } from '@/actions/App/Http/Controllers/Leasing/LeaseNoticeController';
+import {
+    create as renewalCreate,
+    recordDecision as renewalDecision,
+    send as renewalSend,
+} from '@/actions/App/Http/Controllers/Leasing/LeaseRenewalController';
 import { initiate as initiateAction, inspection as inspectionAction } from '@/actions/App/Http/Controllers/Leasing/MoveOutController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -26,6 +31,15 @@ type MoveOutSummary = {
     move_out_date: string | null;
 };
 
+type RenewalOffer = {
+    id: number;
+    status_id: number;
+    status: { id: number; name: string; name_en: string | null } | null;
+    new_rent_amount: string;
+    payment_frequency: string | null;
+    valid_until: string;
+};
+
 const props = defineProps<{
     lease: Lease;
     canApprove: boolean;
@@ -33,6 +47,10 @@ const props = defineProps<{
     isPendingApplication: boolean;
     noticesCount: number;
     activeMoveOut: MoveOutSummary | null;
+    renewalOffersCount: number;
+    latestRenewalOffer: RenewalOffer | null;
+    daysUntilExpiry: number | null;
+    isWithinRenewalWindow: boolean;
 }>();
 
 const { t } = useI18n();
@@ -87,6 +105,62 @@ function confirmReject() {
         onSuccess: () => closeRejectDialog(),
     });
 }
+
+// ── Renewal decision dialog ────────────────────────────────────────────────────
+const decisionDialogOpen = ref(false);
+const decisionForm = useForm({ decision: 'accepted' });
+
+function openDecisionDialog() {
+    decisionDialogOpen.value = true;
+}
+
+function closeDecisionDialog() {
+    decisionDialogOpen.value = false;
+    decisionForm.reset();
+    decisionForm.clearErrors();
+}
+
+function confirmDecision() {
+    if (! props.latestRenewalOffer) {
+        return;
+    }
+
+    decisionForm.post(renewalDecision.url(props.lease.id, props.latestRenewalOffer.id), {
+        onSuccess: () => closeDecisionDialog(),
+    });
+}
+
+function sendRenewalOffer() {
+    if (! props.latestRenewalOffer) {
+        return;
+    }
+
+    router.post(renewalSend.url(props.lease.id, props.latestRenewalOffer.id));
+}
+
+// ── Renewal status helpers ─────────────────────────────────────────────────────
+const RENEWAL_STATUS_DRAFT = 83;
+const RENEWAL_STATUS_SENT = 84;
+const RENEWAL_STATUS_VIEWED = 85;
+const RENEWAL_STATUS_ACCEPTED = 86;
+const RENEWAL_STATUS_EXPIRED = 88;
+
+const renewalIsDraft = computed(() =>
+    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_DRAFT,
+);
+
+const renewalIsSentOrViewed = computed(() =>
+    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_SENT
+    || props.latestRenewalOffer?.status_id === RENEWAL_STATUS_VIEWED,
+);
+
+const renewalIsAccepted = computed(() =>
+    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_ACCEPTED,
+);
+
+const renewalIsExpired = computed(() =>
+    props.latestRenewalOffer?.status_id === RENEWAL_STATUS_EXPIRED,
+);
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 function deleteLease() {
@@ -220,6 +294,65 @@ function deleteLease() {
                     <p v-else class="text-sm text-muted-foreground">
                         {{ t('app.moveout.show.noMoveOut') }}
                     </p>
+                </CardContent>
+            </Card>
+
+            <!-- Renewal Banner — show within 90 days of expiry or if an offer exists -->
+            <Card
+                v-if="isWithinRenewalWindow || latestRenewalOffer"
+                class="border-blue-300 bg-blue-50 dark:bg-blue-950/20"
+                role="status"
+                aria-live="polite"
+            >
+                <CardHeader>
+                    <CardTitle class="flex items-center justify-between gap-2">
+                        <span>{{ t('app.leases.renewal.bannerTitle') }}</span>
+                        <Badge v-if="latestRenewalOffer" variant="secondary">
+                            {{ latestRenewalOffer.status?.name_en ?? latestRenewalOffer.status?.name ?? '—' }}
+                        </Badge>
+                    </CardTitle>
+                </CardHeader>
+                <CardContent class="space-y-3">
+                    <p v-if="daysUntilExpiry !== null && daysUntilExpiry >= 0">
+                        {{ t('app.leases.renewal.bannerExpiring', { days: daysUntilExpiry, date: lease.end_date }) }}
+                    </p>
+                    <p v-if="isWithinRenewalWindow && ! latestRenewalOffer">
+                        {{ t('app.leases.renewal.bannerWindow') }}
+                    </p>
+
+                    <!-- Draft offer: show send button -->
+                    <div v-if="latestRenewalOffer && renewalIsDraft" class="flex flex-wrap gap-2">
+                        <Button variant="outline" as-child>
+                            <Link :href="renewalCreate.url(lease.id)">{{ t('app.leases.renewal.viewOffer') }}</Link>
+                        </Button>
+                        <Button @click="sendRenewalOffer">{{ t('app.leases.renewal.sentStatus') }}</Button>
+                    </div>
+
+                    <!-- Sent/viewed offer: show record decision button -->
+                    <div v-else-if="latestRenewalOffer && renewalIsSentOrViewed" class="flex flex-wrap gap-2">
+                        <Button variant="outline" as-child>
+                            <Link :href="renewalCreate.url(lease.id)">{{ t('app.leases.renewal.viewOffer') }}</Link>
+                        </Button>
+                        <Button @click="openDecisionDialog">{{ t('app.leases.renewal.recordDecision') }}</Button>
+                    </div>
+
+                    <!-- Accepted offer: show convert to new lease -->
+                    <div v-else-if="latestRenewalOffer && renewalIsAccepted" class="flex flex-wrap gap-2">
+                        <Badge class="bg-green-600 text-white">{{ t('app.leases.renewal.acceptedStatus') }}</Badge>
+                        <Button variant="secondary" as-child>
+                            <Link :href="`/leases/${lease.id}/subleases/create`">{{ t('app.leases.renewal.convertToLease') }}</Link>
+                        </Button>
+                    </div>
+
+                    <!-- Expired offer or within window with no active offer: show generate button -->
+                    <div v-else-if="(isWithinRenewalWindow && ! latestRenewalOffer) || renewalIsExpired" class="flex gap-2">
+                        <p v-if="renewalIsExpired" class="text-sm text-muted-foreground">
+                            {{ t('app.leases.renewal.expiredStatus') }}
+                        </p>
+                        <Button as-child>
+                            <Link :href="renewalCreate.url(lease.id)">{{ t('app.leases.renewal.generateOffer') }}</Link>
+                        </Button>
+                    </div>
                 </CardContent>
             </Card>
 
@@ -391,6 +524,46 @@ function deleteLease() {
                 </CardContent>
             </Card>
         </div>
+
+        <!-- Renewal Decision Dialog -->
+        <Dialog :open="decisionDialogOpen" @update:open="(v) => { if (!v) closeDecisionDialog() }">
+            <DialogContent class="sm:max-w-md" aria-labelledby="decision-dialog-title">
+                <DialogHeader>
+                    <DialogTitle id="decision-dialog-title">{{ t('app.leases.renewal.decisionTitle') }}</DialogTitle>
+                    <DialogDescription v-if="latestRenewalOffer">
+                        {{ t('app.leases.renewal.renewalAmount', { amount: latestRenewalOffer.new_rent_amount, freq: latestRenewalOffer.payment_frequency ?? '' }) }}
+                        — {{ t('app.leases.renewal.validUntil') }}: {{ latestRenewalOffer.valid_until }}
+                    </DialogDescription>
+                </DialogHeader>
+
+                <div class="space-y-3">
+                    <fieldset class="space-y-2">
+                        <legend class="text-sm font-medium">{{ t('app.leases.renewal.decisionLabel') }}</legend>
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input v-model="decisionForm.decision" type="radio" value="accepted" class="cursor-pointer" />
+                            {{ t('app.leases.renewal.accepted') }}
+                        </label>
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input v-model="decisionForm.decision" type="radio" value="declined" class="cursor-pointer" />
+                            {{ t('app.leases.renewal.declined') }}
+                        </label>
+                    </fieldset>
+                    <p class="text-muted-foreground text-sm">{{ t('app.leases.renewal.decisionHelp') }}</p>
+                    <div v-if="decisionForm.errors.decision" role="alert" class="text-destructive text-sm">
+                        {{ decisionForm.errors.decision }}
+                    </div>
+                </div>
+
+                <DialogFooter class="gap-2">
+                    <Button variant="outline" :disabled="decisionForm.processing" @click="closeDecisionDialog">
+                        {{ t('app.actions.cancel') }}
+                    </Button>
+                    <Button :disabled="decisionForm.processing" @click="confirmDecision">
+                        {{ t('app.leases.renewal.recordDecision') }}
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
 
         <!-- Reject Dialog -->
         <Dialog :open="rejectDialogOpen" @update:open="(v) => { if (!v) closeRejectDialog() }">

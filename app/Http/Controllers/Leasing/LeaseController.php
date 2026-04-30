@@ -590,6 +590,12 @@ class LeaseController extends Controller
                 'status_id' => $activeMoveOut->status_id,
                 'move_out_date' => $activeMoveOut->move_out_date?->toDateString(),
             ] : null,
+            'renewalOffersCount' => $lease->renewalOffers()->count(),
+            'latestRenewalOffer' => $lease->renewalOffers()->with('status')->latest()->first(),
+            'daysUntilExpiry' => $lease->end_date ? (int) now()->diffInDays($lease->end_date, absolute: false) : null,
+            'isWithinRenewalWindow' => $lease->end_date
+                && now()->lt($lease->end_date)
+                && now()->diffInDays($lease->end_date, absolute: false) <= 90,
         ]);
     }
 

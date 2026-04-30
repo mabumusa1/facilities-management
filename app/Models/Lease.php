@@ -229,6 +229,12 @@ class Lease extends Model
         return $this->belongsTo(LeaseQuote::class, 'quote_id');
     }
 
+    /** @return HasMany<LeaseRenewalOffer, $this> */
+    public function renewalOffers(): HasMany
+    {
+        return $this->hasMany(LeaseRenewalOffer::class, 'lease_id');
+    }
+
     /** @return HasMany<LeaseKycDocument, $this> */
     public function kycDocuments(): HasMany
     {
