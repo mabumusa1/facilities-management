@@ -27,7 +27,7 @@ class LeadController extends Controller
         return Inertia::render('leasing/leads/Index', [
             'leads' => Inertia::defer(function () use ($search, $statusId, $sourceId, $perPage) {
                 return Lead::query()
-                    ->with(['source', 'status', 'leadOwner'])
+                    ->with(['source', 'status', 'assignedTo'])
                     ->when($search !== '', function ($query) use ($search): void {
                         $query->where(function ($q) use ($search): void {
                             $q->where('name_en', 'like', "%{$search}%")

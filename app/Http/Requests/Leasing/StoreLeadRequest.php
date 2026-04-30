@@ -28,6 +28,7 @@ class StoreLeadRequest extends FormRequest
             'source_id' => [
                 'required',
                 'integer',
+                // lead_sources are platform-wide (no tenant scope)
                 Rule::exists('rf_lead_sources', 'id'),
             ],
             'notes' => ['nullable', 'string', 'max:2000'],

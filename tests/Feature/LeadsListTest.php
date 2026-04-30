@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\RolesEnum;
 use App\Models\AccountMembership;
+use App\Models\Admin;
 use App\Models\Lead;
 use App\Models\LeadSource;
 use App\Models\Status;
@@ -12,6 +13,7 @@ use App\Models\User;
 use Database\Seeders\RbacSeeder;
 use Database\Seeders\StatusSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class LeadsListTest extends TestCase
@@ -718,6 +720,41 @@ class LeadsListTest extends TestCase
             'name_en' => 'Tenant Scoped Lead',
             'account_tenant_id' => $otherTenant->id,
         ]);
+    }
+
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // Fix #2 regression — index eager-loads assignedTo (not leadOwner)
+    // -------------------------------------------------------------------------
+
+    public function test_index_eager_loads_assigned_to_relation(): void
+    {
+        $admin = Admin::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        Lead::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'source_id' => $this->source->id,
+            'status_id' => $this->newStatus->id,
+            'name_en' => 'Assigned Lead',
+            'lead_owner_id' => $admin->id,
+        ]);
+
+        $lead = Lead::with('assignedTo')
+            ->where('account_tenant_id', $this->tenant->id)
+            ->where('name_en', 'Assigned Lead')
+            ->firstOrFail();
+
+        // Debug: dump what's in rf_admins for this admin
+        $rawAdmin = DB::table('rf_admins')->where('id', $admin->id)->first();
+        $this->assertNotNull($rawAdmin, 'Admin should exist in rf_admins');
+        $this->assertSame($this->tenant->id, $rawAdmin->account_tenant_id, 'Admin account_tenant_id should match tenant');
+
+        $this->assertNotNull($lead->assignedTo);
+        $this->assertSame($admin->id, $lead->assignedTo->id);
+        $this->assertSame($admin->first_name, $lead->assignedTo->first_name);
+        $this->assertSame($admin->last_name, $lead->assignedTo->last_name);
     }
 
     // -------------------------------------------------------------------------

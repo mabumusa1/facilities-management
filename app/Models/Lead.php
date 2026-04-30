@@ -66,4 +66,9 @@ class Lead extends Model
     {
         return $this->belongsTo(Admin::class, 'lead_owner_id');
     }
+
+    public function assignedTo(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'lead_owner_id');
+    }
 }

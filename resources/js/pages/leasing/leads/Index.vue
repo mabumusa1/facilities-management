@@ -148,8 +148,8 @@ function displayLeadName(lead: Lead): string {
 }
 
 function displayOwnerName(lead: Lead): string {
-    if (!lead.lead_owner) return t('app.leads.table.unassigned');
-    const owner = lead.lead_owner;
+    if (!lead.assigned_to) return t('app.leads.table.unassigned');
+    const owner = lead.assigned_to;
     if (owner.first_name && owner.last_name) return `${owner.first_name} ${owner.last_name}`;
     return owner.name ?? t('app.leads.table.unassigned');
 }

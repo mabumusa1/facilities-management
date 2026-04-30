@@ -319,6 +319,7 @@ export type Lead = {
     source?: { id: number; name: string; name_en: string | null; name_ar: string | null };
     status?: { id: number; name: string; name_en: string | null; name_ar: string | null };
     lead_owner?: Admin | null;
+    assigned_to?: Admin | null;
 };
 
 export type Dependent = {
