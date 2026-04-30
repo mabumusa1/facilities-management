@@ -10,6 +10,12 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Lead detail page (Leasing) — April 30, 2026
+
+Admins and Property Managers can now click any row in the Leads list to open a full lead record. From that page you can update the lead's status (including recording a lost reason), assign or reassign the lead to a team member, add free-text notes, and read a complete activity timeline showing every status change, assignment, and note in chronological order.
+
+Learn more: [View and manage a lead's detail](./guides/leasing/manage-lead-detail.md) ([العربية](./ar/guides/leasing/manage-lead-detail.md)).
+
 ### Lease renewal offers (Leasing) — April 29, 2026
 
 Property Managers can now generate, send, and track renewal offers directly from the lease detail page — keeping the full renewal decision on record inside the platform.
