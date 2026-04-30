@@ -409,4 +409,438 @@ class MoveOutTest extends TestCase
             ->where('activeMoveOut.status_id', MoveOutStatus::IN_PROGRESS)
         );
     }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // QA — Failure paths & edge cases
+    // ══════════════════════════════════════════════════════════════════════════
+
+    // ── Cross-tenant: manager from tenant A cannot touch lease owned by tenant B ──
+
+    public function test_store_returns_403_for_cross_tenant_user(): void
+    {
+        $otherTenant = Tenant::create(['name' => 'Other Tenant']);
+
+        $otherUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $otherUser->id,
+            'account_tenant_id' => $otherTenant->id,
+            'role' => 'account_admins',
+        ]);
+        $otherUser->assignRole('admins');
+
+        // Acting as a user from tenant B but targeting tenant A's lease.
+        $response = $this->actingAs($otherUser)
+            ->withSession(['tenant_id' => $otherTenant->id])
+            ->post(route('rf.leases.move-out.store', $this->lease), [
+                'move_out_date' => '2027-05-31',
+                'reason' => MoveOutReason::EndOfLease->value,
+            ]);
+
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('move_outs', ['lease_id' => $this->lease->id]);
+    }
+
+    public function test_inspection_page_returns_403_for_cross_tenant_user(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $otherTenant = Tenant::create(['name' => 'Other Tenant B']);
+        $otherUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $otherUser->id,
+            'account_tenant_id' => $otherTenant->id,
+            'role' => 'account_admins',
+        ]);
+        $otherUser->assignRole('admins');
+
+        $response = $this->actingAs($otherUser)
+            ->withSession(['tenant_id' => $otherTenant->id])
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.inspection', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertStatus(403);
+    }
+
+    // ── Duplicate move-out: cannot initiate a second active move-out on the same lease ──
+
+    public function test_store_rejects_second_active_move_out_on_same_lease(): void
+    {
+        // First move-out already in progress.
+        MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        // Mark the lease itself as already in move-out.
+        $this->lease->update(['is_move_out' => true]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.store', $this->lease), [
+                'move_out_date' => '2027-06-01',
+                'reason' => MoveOutReason::EndOfLease->value,
+            ]);
+
+        // Policy checks belongsToCurrentTenant + leases.UPDATE; a second move-out
+        // on an already in-progress lease should be denied (403).
+        $response->assertStatus(403);
+        $this->assertDatabaseCount('move_outs', 1);
+    }
+
+    // ── Validation: store — missing required fields ──────────────────────────
+
+    public function test_store_validates_required_move_out_date(): void
+    {
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.store', $this->lease), [
+                'reason' => MoveOutReason::EndOfLease->value,
+                // move_out_date intentionally omitted
+            ]);
+
+        $response->assertSessionHasErrors(['move_out_date']);
+        $this->assertDatabaseMissing('move_outs', ['lease_id' => $this->lease->id]);
+    }
+
+    public function test_store_validates_required_reason(): void
+    {
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.store', $this->lease), [
+                'move_out_date' => '2027-05-31',
+                // reason intentionally omitted
+            ]);
+
+        $response->assertSessionHasErrors(['reason']);
+        $this->assertDatabaseMissing('move_outs', ['lease_id' => $this->lease->id]);
+    }
+
+    public function test_store_rejects_invalid_reason_enum(): void
+    {
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.store', $this->lease), [
+                'move_out_date' => '2027-05-31',
+                'reason' => 'not_a_valid_reason',
+            ]);
+
+        $response->assertSessionHasErrors(['reason']);
+        $this->assertDatabaseMissing('move_outs', ['lease_id' => $this->lease->id]);
+    }
+
+    public function test_store_rejects_non_date_move_out_date(): void
+    {
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.store', $this->lease), [
+                'move_out_date' => 'not-a-date',
+                'reason' => MoveOutReason::EndOfLease->value,
+            ]);
+
+        $response->assertSessionHasErrors(['move_out_date']);
+        $this->assertDatabaseMissing('move_outs', ['lease_id' => $this->lease->id]);
+    }
+
+    // ── Validation: saveInspection — condition required per room ────────────
+
+    public function test_save_inspection_rejects_room_missing_condition(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.inspection.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                'rooms' => [
+                    [
+                        'id' => null,
+                        'name' => 'Living Room',
+                        // condition intentionally omitted
+                        'notes' => null,
+                        'sort_order' => 0,
+                    ],
+                ],
+            ]);
+
+        $response->assertSessionHasErrors(['rooms.0.condition']);
+        $this->assertDatabaseCount('move_out_rooms', 0);
+    }
+
+    public function test_save_inspection_rejects_invalid_condition_enum(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.inspection.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                'rooms' => [
+                    [
+                        'id' => null,
+                        'name' => 'Living Room',
+                        'condition' => 'pristine',  // not a valid InspectionCondition
+                        'notes' => null,
+                        'sort_order' => 0,
+                    ],
+                ],
+            ]);
+
+        $response->assertSessionHasErrors(['rooms.0.condition']);
+        $this->assertDatabaseCount('move_out_rooms', 0);
+    }
+
+    public function test_save_inspection_rejects_missing_rooms_key(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.inspection.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                // rooms key entirely absent
+            ]);
+
+        $response->assertSessionHasErrors(['rooms']);
+    }
+
+    // ── Validation: saveDeductions — amount must be non-negative ────────────
+
+    public function test_save_deductions_rejects_negative_amount(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.deductions.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                'deductions' => [
+                    [
+                        'id' => null,
+                        'label_en' => 'Bad deduction',
+                        'label_ar' => 'خصم خاطئ',
+                        'amount' => -100.00,
+                        'reason' => DeductionReason::Damage->value,
+                    ],
+                ],
+            ]);
+
+        $response->assertSessionHasErrors(['deductions.0.amount']);
+        $this->assertDatabaseCount('move_out_deductions', 0);
+    }
+
+    public function test_save_deductions_rejects_invalid_reason_enum(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.deductions.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                'deductions' => [
+                    [
+                        'id' => null,
+                        'label_en' => 'Broken thing',
+                        'label_ar' => 'شيء مكسور',
+                        'amount' => 200.00,
+                        'reason' => 'vandalism',  // not a valid DeductionReason
+                    ],
+                ],
+            ]);
+
+        $response->assertSessionHasErrors(['deductions.0.reason']);
+        $this->assertDatabaseCount('move_out_deductions', 0);
+    }
+
+    public function test_save_deductions_rejects_missing_label_en(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.deductions.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                'deductions' => [
+                    [
+                        'id' => null,
+                        // label_en intentionally omitted
+                        'label_ar' => 'خصم',
+                        'amount' => 100.00,
+                        'reason' => DeductionReason::Cleaning->value,
+                    ],
+                ],
+            ]);
+
+        $response->assertSessionHasErrors(['deductions.0.label_en']);
+    }
+
+    // ── Authorization: non-manager user (no leases.UPDATE) cannot initiate ──
+
+    public function test_store_returns_403_for_user_without_update_permission(): void
+    {
+        $viewOnlyUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $viewOnlyUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
+        ]);
+        // Assign a role that does not carry leases.UPDATE (viewers).
+        $viewOnlyUser->assignRole('viewers');
+
+        $response = $this->actingAs($viewOnlyUser)
+            ->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.store', $this->lease), [
+                'move_out_date' => '2027-05-31',
+                'reason' => MoveOutReason::EndOfLease->value,
+            ]);
+
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('move_outs', ['lease_id' => $this->lease->id]);
+    }
+
+    public function test_save_inspection_returns_403_for_user_without_update_permission(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $viewOnlyUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $viewOnlyUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
+        ]);
+        $viewOnlyUser->assignRole('viewers');
+
+        $response = $this->actingAs($viewOnlyUser)
+            ->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.inspection.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                'rooms' => [
+                    [
+                        'id' => null,
+                        'name' => 'Bedroom',
+                        'condition' => InspectionCondition::Good->value,
+                        'notes' => null,
+                        'sort_order' => 0,
+                    ],
+                ],
+            ]);
+
+        $response->assertStatus(403);
+        $this->assertDatabaseCount('move_out_rooms', 0);
+    }
+
+    // ── Edge: deductions summary flags exceeds_deposit correctly ─────────────
+
+    public function test_deductions_page_flags_exceeds_deposit_when_total_surpasses_deposit(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        // Create deductions that sum to more than the 8 500 deposit.
+        MoveOutDeduction::factory()->create([
+            'move_out_id' => $moveOut->id,
+            'label_en' => 'Severe damage',
+            'label_ar' => 'تلف شديد',
+            'amount' => 9000.00,
+            'reason' => DeductionReason::Damage,
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.deductions', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->where('moveOut.summary.exceeds_deposit', true)
+            ->where('moveOut.summary.refund_amount', -500.0)
+        );
+    }
+
+    // ── Edge: Arabic labels round-trip through saveDeductions ────────────────
+
+    public function test_save_deductions_persists_arabic_label(): void
+    {
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+        ]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.deductions.save', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]), [
+                'deductions' => [
+                    [
+                        'id' => null,
+                        'label_en' => 'Deep clean',
+                        'label_ar' => 'تنظيف عميق جداً مع مواد خاصة',
+                        'amount' => 750.00,
+                        'reason' => DeductionReason::Cleaning->value,
+                    ],
+                ],
+            ]);
+
+        $this->assertDatabaseHas('move_out_deductions', [
+            'move_out_id' => $moveOut->id,
+            'label_ar' => 'تنظيف عميق جداً مع مواد خاصة',
+            'amount' => 750.00,
+        ]);
+    }
 }
