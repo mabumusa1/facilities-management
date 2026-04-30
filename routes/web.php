@@ -46,6 +46,7 @@ use App\Http\Controllers\Facilities\ResidentFacilityController;
 use App\Http\Controllers\Leasing\ApprovalController;
 use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeaseController;
+use App\Http\Controllers\Leasing\LeaseNoticeController;
 use App\Http\Controllers\Leasing\QuoteController;
 use App\Http\Controllers\Marketplace\MarketplaceController;
 use App\Http\Controllers\Properties\BuildingController;
@@ -142,6 +143,11 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     // Leasing — Amendments (after resource to use {lease} binding)
     Route::get('leases/{lease}/amend', [LeaseController::class, 'amend'])->name('leases.amend');
     Route::post('leases/{lease}/amend', [LeaseController::class, 'storeAmendment'])->name('leases.amend.store');
+
+    // Leasing — Tenant Notices
+    Route::get('leases/{lease}/notices', [LeaseNoticeController::class, 'index'])->name('leases.notices.index');
+    Route::post('leases/{lease}/notices', [LeaseNoticeController::class, 'store'])->name('leases.notices.store');
+    Route::get('leases/{lease}/notices/{notice}', [LeaseNoticeController::class, 'show'])->name('leases.notices.show');
 
     // Leasing — KYC (must be after leases resource to avoid {lease} conflict)
     Route::get('leases/{lease}/kyc', [KycController::class, 'kyc'])->name('leases.kyc');

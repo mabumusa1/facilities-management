@@ -580,6 +580,7 @@ class LeaseController extends Controller
             'canApprove' => $request->user()->can('approve', $lease),
             'canAmend' => $request->user()->can('amend', $lease),
             'isPendingApplication' => $lease->status_id === ExpireLeaseQuotes::STATUS_PENDING_APPLICATION,
+            'noticesCount' => $lease->notices()->count(),
         ]);
     }
 
