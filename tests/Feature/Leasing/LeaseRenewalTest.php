@@ -5,7 +5,6 @@ namespace Tests\Feature\Leasing;
 use App\Models\AccountMembership;
 use App\Models\Lease;
 use App\Models\LeaseRenewalOffer;
-use App\Models\Setting;
 use App\Models\Tenant;
 use App\Models\User;
 use Database\Seeders\RbacSeeder;
@@ -265,13 +264,13 @@ class LeaseRenewalTest extends TestCase
             ->assertForbidden();
     }
 
-    public function test_cannot_use_contract_type_from_other_tenant(): void
+    public function test_contract_type_id_must_reference_a_contract_type_setting(): void
     {
-        $otherTenant = Tenant::create(['name' => 'Other Tenant For Setting']);
-
-        $foreignSetting = Setting::factory()->create([
-            'type' => 'rental_contract_type',
-            'account_tenant_id' => $otherTenant->id,
+        $wrongTypeSettingId = DB::table('rf_settings')->insertGetId([
+            'name' => 'wrong-type',
+            'type' => 'payment_frequency',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         $payload = [
@@ -279,7 +278,7 @@ class LeaseRenewalTest extends TestCase
             'duration_months' => 12,
             'new_rent_amount' => 50000,
             'valid_until' => now()->addMonths(3)->toDateString(),
-            'contract_type_id' => $foreignSetting->id,
+            'contract_type_id' => $wrongTypeSettingId,
         ];
 
         $this->withSession($this->withTenant())

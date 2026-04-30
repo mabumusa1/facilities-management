@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Leasing;
 
-use App\Models\Tenant;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -29,7 +28,7 @@ class StoreLeaseRenewalOfferRequest extends FormRequest
             'duration_months' => ['required', 'integer', 'min:1', 'max:240'],
             'new_rent_amount' => ['required', 'numeric', 'min:0'],
             'payment_frequency' => ['nullable', 'string', 'max:100'],
-            'contract_type_id' => ['nullable', 'integer', Rule::exists('rf_settings', 'id')->where('account_tenant_id', Tenant::current()?->id)],
+            'contract_type_id' => ['nullable', 'integer', Rule::exists('rf_settings', 'id')->where('type', 'contract_type')],
             'valid_until' => ['required', 'date', 'after:today'],
             'message_en' => ['nullable', 'string', 'max:5000'],
             'message_ar' => ['nullable', 'string', 'max:5000'],
