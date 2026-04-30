@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- * RbacSeeder — seeds the 186 system-wide permissions and 12 default roles.
+ * RbacSeeder — seeds the 192 system-wide permissions and 12 default roles.
  *
  * ## Permission matrix
- * 31 PermissionSubject cases × 6 PermissionAction cases = 186 permissions.
+ * 32 PermissionSubject cases × 6 PermissionAction cases = 192 permissions.
  * All system-wide permissions have account_tenant_id = NULL.
  *
  * ## Role presets (permission assignment rationale)
@@ -76,6 +76,7 @@ class RbacSeeder extends Seeder
         'companyProfile' => 'ملف الشركة',
         'invoiceSettings' => 'إعدادات الفواتير',
         'leaseSettings' => 'إعدادات الإيجار',
+        'leads' => 'العملاء المحتملون',
     ];
 
     /** @var array<string, string> Arabic verb labels keyed by PermissionAction::value */
@@ -291,6 +292,7 @@ class RbacSeeder extends Seeder
             PermissionSubject::VisitorAccess,
             PermissionSubject::HomeServices,
             PermissionSubject::NeighbourhoodServices,
+            PermissionSubject::Leads,
         ];
         $this->syncRole('managers', $managerSubjects, $allActions);
         $this->grantSpecialPermissions('managers', ['transactions.SEND_RECEIPT']);
@@ -396,6 +398,7 @@ class RbacSeeder extends Seeder
             PermissionSubject::Transactions,
             PermissionSubject::Reports,
             PermissionSubject::LeaseSettings,
+            PermissionSubject::Leads,
         ];
         $this->syncRole('salesAndLeasingManagers', $salesSubjects, $allActions);
         $this->grantSpecialPermissions('salesAndLeasingManagers', ['transactions.SEND_RECEIPT']);

@@ -70,6 +70,7 @@ const navGroups = computed<NavGroup[]>(() => [
         icon: FileText,
         items: [
             { title: t('app.navigation.leases'), href: '/leases' },
+            { title: t('app.navigation.leads'), href: '/leads' },
         ],
     },
     {
