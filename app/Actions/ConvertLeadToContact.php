@@ -78,6 +78,14 @@ class ConvertLeadToContact
         ?int $actorUserId = null,
     ): Model {
         return DB::transaction(function () use ($lead, $contactType, $linkToExisting, $existingContactId, $actorUserId): Model {
+            // Re-check under a row-level lock to prevent a race where two
+            // concurrent requests both pass the pre-transaction idempotency
+            // guard and then both attempt to createContact().
+            $lead = Lead::lockForUpdate()->findOrFail($lead->id);
+            if ($lead->isConverted()) {
+                abort(422, 'Lead already converted.');
+            }
+
             $convertedStatus = Status::where('type', 'lead')
                 ->where('name_en', 'Converted')
                 ->firstOrFail();

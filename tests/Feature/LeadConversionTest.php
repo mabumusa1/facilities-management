@@ -900,4 +900,59 @@ class LeadConversionTest extends TestCase
             ->getJson(route('leads.check-duplicate', 99999999))
             ->assertNotFound();
     }
+
+    // -------------------------------------------------------------------------
+    // Race guard: second HTTP convert on an already-converted lead returns 422
+    // and produces no additional Owner or activity record.
+    //
+    // This is the minimum-viable regression check for the lockForUpdate
+    // re-check inside the DB::transaction closure.  A true concurrent test is
+    // not feasible in PHPUnit; we verify the serialised outcome instead:
+    // two sequential convert requests result in exactly one Owner and one
+    // activity entry when the second request arrives after conversion is done.
+    // -------------------------------------------------------------------------
+
+    public function test_sequential_double_conversion_via_http_produces_single_contact_and_activity(): void
+    {
+        $lead = $this->qualifiedLead(['email' => 'race-guard@example.com', 'phone_number' => '700000001']);
+
+        // First request — succeeds
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'owner',
+                'link_to_existing' => false,
+            ])
+            ->assertOk();
+
+        // Second request — must be rejected because lead is now converted
+        // (the lockForUpdate re-check inside the transaction also enforces this
+        // for the two-simultaneous-requests race scenario)
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'owner',
+                'link_to_existing' => false,
+            ])
+            ->assertUnprocessable();
+
+        // Exactly one Owner with this email must exist (no duplicate from a race)
+        $this->assertEquals(
+            1,
+            Owner::withoutGlobalScopes()
+                ->where('account_tenant_id', $this->tenant->id)
+                ->where('email', 'race-guard@example.com')
+                ->count(),
+            'Race guard: second convert attempt must not create a duplicate Owner record',
+        );
+
+        // Exactly one converted activity entry (none written on rejected retry)
+        $this->assertEquals(
+            1,
+            LeadActivity::where('lead_id', $lead->id)
+                ->where('type', LeadActivity::TYPE_CONVERTED)
+                ->count(),
+            'Race guard: second convert attempt must not write an additional activity entry',
+        );
+    }
 }

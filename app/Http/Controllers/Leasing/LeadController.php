@@ -153,7 +153,7 @@ class LeadController extends Controller
                     'email' => $lead->assignedTo->email,
                 ] : null,
             ],
-            'canConvert' => ! $lead->isConverted() && $lead->status?->name_en === 'Qualified',
+            'canConvert' => $canConvert,
             'statuses' => $statuses,
             'teamMembers' => $teamMembers,
             'activities' => Inertia::defer(function () use ($lead): array {
