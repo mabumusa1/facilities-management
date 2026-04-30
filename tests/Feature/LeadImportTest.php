@@ -960,10 +960,35 @@ class LeadImportTest extends TestCase
 
     public function test_confirming_already_complete_sheet_is_blocked(): void
     {
-        $this->markTestSkipped(
-            'BUG: re-confirming a complete ExcelSheet re-inserts all valid rows. '.
-            'Controller must guard against status=complete. Engineer must fix before merge.',
-        );
+        $sheet = ExcelSheet::create([
+            'type' => 'leads',
+            'import_type' => 'leads',
+            'file_path' => 'lead-imports/test.xlsx',
+            'file_name' => 'test.xlsx',
+            'status' => 'complete',
+            'total_rows' => 1,
+            'success_count' => 1,
+            'error_count' => 0,
+            'error_details' => [],
+            'account_tenant_id' => $this->tenant->id,
+            'meta' => [
+                'valid_rows' => [
+                    ['name_en' => 'Already Imported', 'name_ar' => null, 'phone_number' => '509000001', 'email' => null, 'notes' => null],
+                ],
+            ],
+        ]);
+
+        $leadCountBefore = Lead::where('account_tenant_id', $this->tenant->id)->count();
+
+        $response = $this
+            ->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->post(route('leads.import.confirm', $sheet));
+
+        $response->assertStatus(422);
+
+        // No new leads must have been inserted
+        $this->assertSame($leadCountBefore, Lead::where('account_tenant_id', $this->tenant->id)->count());
     }
 
     // ─────────────────────────────────────────────────────────────────────────

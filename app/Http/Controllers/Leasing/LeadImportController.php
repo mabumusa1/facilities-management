@@ -118,6 +118,7 @@ class LeadImportController extends Controller
         );
 
         abort_unless($excelSheet->type === 'leads', 404);
+        abort_unless($excelSheet->status === 'pending', 422);
         abort_unless(($excelSheet->success_count ?? 0) > 0, 422);
 
         $validRows = $excelSheet->meta['valid_rows'] ?? [];
