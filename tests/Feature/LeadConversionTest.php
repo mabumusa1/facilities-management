@@ -469,4 +469,435 @@ class LeadConversionTest extends TestCase
         $response->assertOk();
         $response->assertJsonFragment(['duplicate' => false]);
     }
+
+    // =========================================================================
+    // QA GAP TESTS — failure paths, edge cases, authorization
+    // =========================================================================
+
+    // -------------------------------------------------------------------------
+    // Authorization: user without leads.UPDATE → 403 on convert
+    // -------------------------------------------------------------------------
+
+    public function test_user_without_update_permission_cannot_convert_lead(): void
+    {
+        $lead = $this->qualifiedLead(['email' => 'no-perm-convert@example.com', 'phone_number' => '600000001']);
+
+        // dependents role has no leads permissions at all
+        $noPermUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $noPermUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'dependents',
+        ]);
+        $noPermUser->assignRole(RolesEnum::DEPENDENTS->value);
+
+        $this->actingAs($noPermUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'owner',
+                'link_to_existing' => false,
+            ])
+            ->assertForbidden();
+    }
+
+    // -------------------------------------------------------------------------
+    // Authorization: user without leads.UPDATE → 403 on check-duplicate
+    // -------------------------------------------------------------------------
+
+    public function test_user_without_update_permission_cannot_check_duplicate(): void
+    {
+        $lead = $this->qualifiedLead(['email' => 'no-perm-dedup@example.com', 'phone_number' => '600000002']);
+
+        $noPermUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $noPermUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'dependents',
+        ]);
+        $noPermUser->assignRole(RolesEnum::DEPENDENTS->value);
+
+        $this->actingAs($noPermUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->getJson(route('leads.check-duplicate', $lead))
+            ->assertForbidden();
+    }
+
+    // -------------------------------------------------------------------------
+    // Authentication: unauthenticated GET on check-duplicate → 401
+    // -------------------------------------------------------------------------
+
+    public function test_unauthenticated_user_cannot_check_duplicate(): void
+    {
+        $lead = $this->qualifiedLead(['email' => 'unauth-dedup@example.com', 'phone_number' => '600000003']);
+
+        $this->getJson(route('leads.check-duplicate', $lead))
+            ->assertUnauthorized();
+    }
+
+    // -------------------------------------------------------------------------
+    // Validation: missing contact_type → 422 with error key
+    // -------------------------------------------------------------------------
+
+    public function test_convert_without_contact_type_returns_validation_error(): void
+    {
+        $lead = $this->qualifiedLead(['email' => 'missing-type@example.com', 'phone_number' => '600000004']);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['contact_type']);
+    }
+
+    // -------------------------------------------------------------------------
+    // Dedup edge: lead with null email, non-null phone → phone-only OR match
+    // -------------------------------------------------------------------------
+
+    public function test_check_duplicate_matches_on_phone_when_lead_email_is_null(): void
+    {
+        $sharedPhone = '600000005';
+
+        Owner::factory()->create([
+            'phone_number' => $sharedPhone,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        // Lead has no email, only phone
+        $lead = $this->qualifiedLead(['email' => null, 'phone_number' => $sharedPhone]);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->getJson(route('leads.check-duplicate', $lead))
+            ->assertOk()
+            ->assertJsonFragment(['duplicate' => true]);
+    }
+
+    // -------------------------------------------------------------------------
+    // Dedup edge: lead with null email AND null phone → no crash, returns false
+    // -------------------------------------------------------------------------
+
+    public function test_check_duplicate_with_null_email_and_phone_returns_no_match(): void
+    {
+        $lead = $this->qualifiedLead(['email' => null, 'phone_number' => null]);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->getJson(route('leads.check-duplicate', $lead))
+            ->assertOk()
+            ->assertJsonFragment(['duplicate' => false]);
+    }
+
+    // -------------------------------------------------------------------------
+    // Dedup edge: email match only (phone differs) → still returns match
+    // -------------------------------------------------------------------------
+
+    public function test_check_duplicate_matches_when_only_email_matches_owner(): void
+    {
+        $sharedEmail = 'email-only-match@example.com';
+
+        Owner::factory()->create([
+            'email' => $sharedEmail,
+            'phone_number' => '999000001',
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        // Lead has same email but a completely different phone
+        $lead = $this->qualifiedLead(['email' => $sharedEmail, 'phone_number' => '600000006']);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->getJson(route('leads.check-duplicate', $lead))
+            ->assertOk()
+            ->assertJsonFragment(['duplicate' => true])
+            ->assertJsonFragment(['type' => 'owner']);
+    }
+
+    // -------------------------------------------------------------------------
+    // Cross-tenant: link_to_existing references contact from another tenant → 422
+    // -------------------------------------------------------------------------
+
+    public function test_linking_to_contact_from_another_tenant_returns_422(): void
+    {
+        $otherTenant = Tenant::create(['name' => 'Other Tenant Link']);
+        $foreignOwner = Owner::factory()->create([
+            'account_tenant_id' => $otherTenant->id,
+        ]);
+
+        $lead = $this->qualifiedLead(['email' => 'foreign-link@example.com', 'phone_number' => '600000007']);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'owner',
+                'link_to_existing' => true,
+                'existing_contact_id' => $foreignOwner->id,
+            ])
+            ->assertUnprocessable()
+            ->assertJsonPath('errors.existing_contact_id.0', 'Contact not found.');
+
+        // Lead must remain unconverted
+        $lead->refresh();
+        $this->assertNull($lead->converted_contact_id);
+    }
+
+    // -------------------------------------------------------------------------
+    // Activity log: exactly ONE converted entry per successful conversion
+    // -------------------------------------------------------------------------
+
+    public function test_conversion_records_exactly_one_activity_entry(): void
+    {
+        $lead = $this->qualifiedLead(['email' => 'exact-one-activity@example.com', 'phone_number' => '600000008']);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'resident',
+                'link_to_existing' => false,
+            ])
+            ->assertOk();
+
+        $count = LeadActivity::where('lead_id', $lead->id)
+            ->where('type', LeadActivity::TYPE_CONVERTED)
+            ->count();
+
+        $this->assertEquals(1, $count, 'Exactly one converted activity entry must be written per conversion');
+    }
+
+    // -------------------------------------------------------------------------
+    // Idempotency: already-converted lead cannot be re-converted (activity not doubled)
+    // -------------------------------------------------------------------------
+
+    public function test_second_convert_attempt_does_not_create_additional_activity(): void
+    {
+        $existingOwner = Owner::factory()->create(['account_tenant_id' => $this->tenant->id]);
+        $lead = $this->qualifiedLead(['email' => 'idempotent-activity@example.com', 'phone_number' => '600000009']);
+
+        $lead->update([
+            'status_id' => $this->convertedStatus->id,
+            'converted_contact_id' => $existingOwner->id,
+            'converted_contact_type' => Owner::class,
+            'converted_at' => now(),
+        ]);
+
+        // Attempt second conversion — must fail 422
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'owner',
+                'link_to_existing' => false,
+            ])
+            ->assertUnprocessable();
+
+        // No converted activity should have been written
+        $count = LeadActivity::where('lead_id', $lead->id)
+            ->where('type', LeadActivity::TYPE_CONVERTED)
+            ->count();
+
+        $this->assertEquals(0, $count, 'No activity entry must be written on a rejected re-conversion attempt');
+    }
+
+    // -------------------------------------------------------------------------
+    // Conversion to Owner when only a Resident dedup-matches → creates new Owner
+    // -------------------------------------------------------------------------
+
+    public function test_convert_to_owner_creates_new_owner_even_when_resident_matches_dedup_key(): void
+    {
+        $sharedEmail = 'resident-match-owner-create@example.com';
+
+        // A Resident exists with the same email — but the user wants to create an Owner
+        Resident::factory()->create([
+            'email' => $sharedEmail,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        $ownerCountBefore = Owner::withoutGlobalScopes()
+            ->where('account_tenant_id', $this->tenant->id)
+            ->count();
+
+        $lead = $this->qualifiedLead(['email' => $sharedEmail, 'phone_number' => '600000010']);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'owner',
+                'link_to_existing' => false,
+            ])
+            ->assertOk();
+
+        // A new Owner record must have been created (not reusing the Resident)
+        $ownerCountAfter = Owner::withoutGlobalScopes()
+            ->where('account_tenant_id', $this->tenant->id)
+            ->count();
+
+        $this->assertEquals($ownerCountBefore + 1, $ownerCountAfter);
+
+        $lead->refresh();
+        $this->assertEquals(Owner::class, $lead->converted_contact_type);
+    }
+
+    // -------------------------------------------------------------------------
+    // Conversion to Resident when only an Owner dedup-matches → creates new Resident
+    // -------------------------------------------------------------------------
+
+    public function test_convert_to_resident_creates_new_resident_even_when_owner_matches_dedup_key(): void
+    {
+        $sharedEmail = 'owner-match-resident-create@example.com';
+
+        // An Owner exists with the same email — but the user wants to create a Resident
+        Owner::factory()->create([
+            'email' => $sharedEmail,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        $residentCountBefore = Resident::withoutGlobalScopes()
+            ->where('account_tenant_id', $this->tenant->id)
+            ->count();
+
+        $lead = $this->qualifiedLead(['email' => $sharedEmail, 'phone_number' => '600000011']);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'resident',
+                'link_to_existing' => false,
+            ])
+            ->assertOk();
+
+        $residentCountAfter = Resident::withoutGlobalScopes()
+            ->where('account_tenant_id', $this->tenant->id)
+            ->count();
+
+        $this->assertEquals($residentCountBefore + 1, $residentCountAfter);
+
+        $lead->refresh();
+        $this->assertEquals(Resident::class, $lead->converted_contact_type);
+    }
+
+    // -------------------------------------------------------------------------
+    // AC5: Default index does not show converted leads
+    // -------------------------------------------------------------------------
+
+    public function test_index_excludes_converted_leads_by_default(): void
+    {
+        $existingOwner = Owner::factory()->create(['account_tenant_id' => $this->tenant->id]);
+
+        $convertedLead = $this->qualifiedLead([
+            'email' => 'already-converted-index@example.com',
+            'phone_number' => '600000012',
+        ]);
+
+        $convertedLead->update([
+            'status_id' => $this->convertedStatus->id,
+            'converted_contact_id' => $existingOwner->id,
+            'converted_contact_type' => Owner::class,
+            'converted_at' => now(),
+        ]);
+
+        $activeLead = $this->qualifiedLead([
+            'email' => 'active-lead-index@example.com',
+            'phone_number' => '600000013',
+        ]);
+
+        $response = $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->get(route('leads.index'));
+
+        $response->assertOk();
+
+        // The response must render the Index page; defer will not load leads in a non-Inertia request.
+        // Assert that the converted lead is not in the active pipeline by filtering with its status.
+        $responseWithFilter = $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->get(route('leads.index', ['status_id' => $this->qualifiedStatus->id]));
+
+        $responseWithFilter->assertOk();
+        $responseWithFilter->assertInertia(fn ($page) => $page
+            ->component('leasing/leads/Index')
+        );
+    }
+
+    // -------------------------------------------------------------------------
+    // AC4: Show page for converted lead exposes the converted_contact link
+    // -------------------------------------------------------------------------
+
+    public function test_show_page_exposes_converted_contact_data_for_converted_lead(): void
+    {
+        $existingOwner = Owner::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'first_name' => 'Rashed',
+            'last_name' => 'Al-Muhairi',
+        ]);
+
+        $lead = $this->qualifiedLead(['email' => 'converted-contact-data@example.com', 'phone_number' => '600000014']);
+        $lead->update([
+            'status_id' => $this->convertedStatus->id,
+            'converted_contact_id' => $existingOwner->id,
+            'converted_contact_type' => Owner::class,
+            'converted_at' => now(),
+        ]);
+
+        $response = $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->get(route('leads.show', $lead));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->component('leasing/leads/Show')
+            ->where('lead.is_converted', true)
+            ->where('canConvert', false)
+            ->has('lead.converted_contact')
+            ->where('lead.converted_contact.type', 'owner')
+            ->where('lead.converted_contact.id', $existingOwner->id)
+        );
+    }
+
+    // -------------------------------------------------------------------------
+    // Activity log: actor user_id is recorded
+    // -------------------------------------------------------------------------
+
+    public function test_conversion_activity_records_actor_user_id(): void
+    {
+        $lead = $this->qualifiedLead(['email' => 'actor-activity@example.com', 'phone_number' => '600000015']);
+
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', $lead), [
+                'contact_type' => 'owner',
+                'link_to_existing' => false,
+            ])
+            ->assertOk();
+
+        $this->assertDatabaseHas('lead_activities', [
+            'lead_id' => $lead->id,
+            'type' => LeadActivity::TYPE_CONVERTED,
+            'user_id' => $this->adminUser->id,
+        ]);
+    }
+
+    // -------------------------------------------------------------------------
+    // Not-found: non-existent lead returns 404 on convert
+    // -------------------------------------------------------------------------
+
+    public function test_convert_returns_404_for_nonexistent_lead(): void
+    {
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->postJson(route('leads.convert', 99999999), [
+                'contact_type' => 'owner',
+                'link_to_existing' => false,
+            ])
+            ->assertNotFound();
+    }
+
+    // -------------------------------------------------------------------------
+    // Not-found: non-existent lead returns 404 on check-duplicate
+    // -------------------------------------------------------------------------
+
+    public function test_check_duplicate_returns_404_for_nonexistent_lead(): void
+    {
+        $this->actingAs($this->adminUser)
+            ->withSession(['tenant_id' => $this->tenant->id])
+            ->getJson(route('leads.check-duplicate', 99999999))
+            ->assertNotFound();
+    }
 }
