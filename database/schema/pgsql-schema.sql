@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict b8CdSKwl0vtjMaciJmKsT6fxtDrKa99FtRGCDFWKNuvWQIEMvROrbtGalyTHGjI
+\restrict 1b5DVXMdgyQTwr6uC3Y7X7zfHuhhlFmmwgfiM3bhwLwjbUUIoKoRz3hDdDSitKL
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -8692,13 +8692,13 @@ ALTER TABLE ONLY public.subcategory_communities
 -- PostgreSQL database dump complete
 --
 
-\unrestrict b8CdSKwl0vtjMaciJmKsT6fxtDrKa99FtRGCDFWKNuvWQIEMvROrbtGalyTHGjI
+\unrestrict 1b5DVXMdgyQTwr6uC3Y7X7zfHuhhlFmmwgfiM3bhwLwjbUUIoKoRz3hDdDSitKL
 
 --
 -- PostgreSQL database dump
 --
 
-\restrict BLSdDRcs4pqNiEJEWPqMFMkpDsf7p7J8OP7EDlbqJL9xCSu1O07z9dZmjzLPvWL
+\restrict niWKQiFJT7YNF0cn00Z5TMr7t3djNOe8R8B3rWsHcX8h6Df5a9JFhBuu1pJBztr
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3 (Ubuntu 18.3-1.pgdg24.04+1)
@@ -8900,6 +8900,7 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 178	2026_04_30_091854_add_assignment_and_lost_reason_to_rf_leads_table	6
 179	2026_04_30_095145_add_excel_import_lead_source	6
 180	2026_04_30_101123_add_conversion_fields_to_rf_leads_table	7
+181	2026_05_03_072207_add_lease_alert_thresholds_to_rf_app_settings_table	8
 \.
 
 
@@ -8907,12 +8908,12 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 180, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 181, true);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict BLSdDRcs4pqNiEJEWPqMFMkpDsf7p7J8OP7EDlbqJL9xCSu1O07z9dZmjzLPvWL
+\unrestrict niWKQiFJT7YNF0cn00Z5TMr7t3djNOe8R8B3rWsHcX8h6Df5a9JFhBuu1pJBztr
 
