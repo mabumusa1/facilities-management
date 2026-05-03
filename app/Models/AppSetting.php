@@ -27,12 +27,14 @@ class AppSetting extends Model
         'sidebar_label_overrides',
         'favicon_path',
         'login_bg_path',
+        'lease_alert_thresholds',
     ];
 
     protected function casts(): array
     {
         return [
             'sidebar_label_overrides' => 'array',
+            'lease_alert_thresholds' => 'array',
         ];
     }
 }

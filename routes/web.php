@@ -47,8 +47,10 @@ use App\Http\Controllers\Leasing\ApprovalController;
 use App\Http\Controllers\Leasing\KycController;
 use App\Http\Controllers\Leasing\LeadController;
 use App\Http\Controllers\Leasing\LeadImportController;
+use App\Http\Controllers\Leasing\LeaseAlertSettingsController;
 use App\Http\Controllers\Leasing\LeaseController;
 use App\Http\Controllers\Leasing\LeaseNoticeController;
+use App\Http\Controllers\Leasing\LeasePipelineController;
 use App\Http\Controllers\Leasing\LeaseRenewalController;
 use App\Http\Controllers\Leasing\MoveOutController;
 use App\Http\Controllers\Leasing\QuoteController;
@@ -171,6 +173,17 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::get('leasing/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
     Route::post('leases/{lease}/approve', [ApprovalController::class, 'approve'])->name('leases.approve');
     Route::post('leases/{lease}/reject', [ApprovalController::class, 'reject'])->name('leases.reject');
+
+    // Leasing — Pipeline view and export (sub-paths BEFORE any resource to avoid catch-all)
+    Route::prefix('leasing/pipeline')->name('leasing.pipeline.')->group(function () {
+        Route::get('export-preview', [LeasePipelineController::class, 'exportPreview'])->name('export-preview');
+        Route::get('export', [LeasePipelineController::class, 'export'])->name('export');
+        Route::get('/', [LeasePipelineController::class, 'index'])->name('index');
+    });
+
+    // Leasing — Alert settings
+    Route::get('leasing/settings/alerts', [LeaseAlertSettingsController::class, 'show'])->name('leasing.settings.alerts');
+    Route::post('leasing/settings/alerts', [LeaseAlertSettingsController::class, 'update'])->name('leasing.settings.alerts.update');
 
     // Leasing — Lead import (must be BEFORE resource to avoid {lead} catch-all)
     Route::prefix('leads/import')->name('leads.import.')->group(function () {
