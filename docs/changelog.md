@@ -10,6 +10,16 @@ A plain-language running list of user-visible changes. For the developer-facing 
 
 ## Unreleased
 
+### Lease Pipeline View (Leasing) — May 3, 2026
+
+Property Managers and Admins can now monitor all leases from a single **Lease Pipeline** (سير عقود الإيجار) page. Leases are grouped into five status sections — Expiring Soon, Active, Expired, Terminated, and Pending — so you can see at a glance what needs attention. Rows inside the Expiring Soon section carry colour-coded badges (red for ≤ 14 days, amber for ≤ 30 days) with a day count so you can prioritise quickly.
+
+- **Expiry window filter.** Choose a 30, 60, or 90-day window to widen or narrow the Expiring Soon group. Combine it with status, community, and name/contract-number search, then click **Apply** (تطبيق).
+- **Alert thresholds.** Click **Settings** (الإعدادات) on the pipeline page to open **Lease Alert Settings** (إعدادات تنبيهات العقود). Enable in-app notifications or email for any combination of 90-, 60-, and 30-day thresholds — or add a custom threshold. The system fires alerts the moment a lease crosses each boundary.
+- **Excel export.** Click **Export Excel** (تصدير Excel) to download the currently filtered list as an `.xlsx` file containing all key fields: lease ID, unit, building, community, tenant, start and end dates, rent amount, payment frequency, and status.
+
+Learn more: [Lease Pipeline View](./guides/leasing/lease-pipeline.md) ([العربية](./ar/guides/leasing/lease-pipeline.md)).
+
 ### Convert a lead to a contact (Leasing) — April 30, 2026
 
 Admins and Property Managers can now turn a Qualified lead into a contact record without re-typing the lead's information. From the lead detail page or the leads list row menu, click **Convert to Contact** (تحويل إلى جهة اتصال), choose **Owner** (مالك) or **Resident** (مستأجر), and confirm. The system checks for an existing contact with the same email or phone first — if a duplicate is found you can either link the lead to the existing record (recommended) or proceed with a new record. After conversion the lead's status changes to **Converted** (تم التحويل) and a **Converted Contact** card with a direct link to the new or linked contact appears on the lead detail page.
