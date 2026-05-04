@@ -65,3 +65,4 @@ _(populate as you learn — voice corrections, screenshot preferences, publishin
 - #173 — Lease application approval workflow (#377) — leasing — both EN+AR; new guide approve-or-reject-lease.md; cross-reference added to convert-and-kyc.md
 - #242 — Admin user management: invite, deactivate, reactivate, password reset (#389) — admin — both EN+AR; new guide manage-users.md; CHANGELOG Added + Security entries
 - PRD #132 backfill (#393) — contacts — 8 stories (#149–#156) × EN+AR = 16 guides; CHANGELOG lines 42-49 replaced/added; Internal note added for #157; #147 already had Internal note; standalone docs PR (not chain mode)
+- #182 — Move-out settlement (#403) — leasing — both EN+AR; new guide lease-move-out-settlement.md; cross-reference added to lease-move-out.md; removed "future release" placeholder in both EN+AR move-out guides; CHANGELOG Added entry under move-out workflow line; user-facing docs/changelog.md entry added, placeholder removed
