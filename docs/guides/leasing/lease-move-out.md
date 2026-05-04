@@ -99,7 +99,7 @@ After initiating the move-out:
 After saving deductions:
 
 - The move-out record holds the full inspection per room (condition, notes, and photos) and the deduction list with a calculated refund amount or outstanding charge.
-- The lease remains in **Move-Out In Progress** status until the settlement step is completed in a future release.
+- The lease remains in **Move-Out In Progress** status until you complete the settlement step.
 
 ## Common issues
 
@@ -111,5 +111,6 @@ After saving deductions:
 
 ## Related
 - [Approve or reject a lease application](./approve-or-reject-lease.md)
+- [Finalize a move-out — settlement, refund, and unit release](./lease-move-out-settlement.md)
 - [Convert a quote to a lease and upload KYC documents](./convert-and-kyc.md)
 - [Create and send a lease quote](./lease-quotes.md)
