@@ -11,7 +11,11 @@ use App\Models\Lease;
 use App\Models\MoveOut;
 use App\Models\MoveOutDeduction;
 use App\Models\MoveOutRoom;
+use App\Models\Status;
+use App\Models\Transaction;
+use App\Models\UnitStatusHistory;
 use App\Support\MoveOutStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -361,5 +365,240 @@ class MoveOutController extends Controller
             'lease' => $lease->id,
             'moveOut' => $moveOut->id,
         ]);
+    }
+
+    /**
+     * Show the settlement review page.
+     */
+    public function settlement(Lease $lease, MoveOut $moveOut): Response
+    {
+        $this->authorize('view', $moveOut);
+
+        $lease->load(['tenant', 'units', 'status']);
+        $moveOut->load(['deductions', 'status', 'rooms']);
+
+        $totalDeductions = (float) $moveOut->deductions()->sum('amount');
+        $securityDeposit = (float) ($lease->security_deposit_amount ?? 0);
+        $netAmount = $securityDeposit - $totalDeductions;
+
+        return Inertia::render('leasing/move-outs/Settlement', [
+            'lease' => [
+                'id' => $lease->id,
+                'contract_number' => $lease->contract_number,
+                'security_deposit_amount' => $lease->security_deposit_amount,
+                'tenant' => $lease->tenant ? [
+                    'id' => $lease->tenant->id,
+                    'name' => trim(($lease->tenant->first_name ?? '').' '.($lease->tenant->last_name ?? '')),
+                ] : null,
+                'units' => $lease->units->map(fn ($u) => [
+                    'id' => $u->id,
+                    'name' => $u->name,
+                ]),
+            ],
+            'moveOut' => [
+                'id' => $moveOut->id,
+                'move_out_date' => $moveOut->move_out_date?->toDateString(),
+                'status' => $moveOut->status ? [
+                    'id' => $moveOut->status->id,
+                    'name_en' => $moveOut->status->name_en,
+                ] : null,
+                'deductions' => $moveOut->deductions->map(fn ($d) => [
+                    'id' => $d->id,
+                    'label_en' => $d->label_en,
+                    'label_ar' => $d->label_ar,
+                    'amount' => $d->amount,
+                    'reason' => $d->reason?->value,
+                ]),
+                'summary' => [
+                    'security_deposit' => $securityDeposit,
+                    'total_deductions' => $totalDeductions,
+                    'net_amount' => $netAmount,
+                    'is_refund' => $netAmount > 0,
+                    'is_charge' => $netAmount < 0,
+                    'is_zero' => $netAmount === 0.0,
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Finalize the move-out settlement.
+     */
+    public function finalize(Request $request, Lease $lease, MoveOut $moveOut): RedirectResponse
+    {
+        $this->authorize('finalize', $moveOut);
+
+        $validated = $request->validate([
+            'generate_statement' => ['nullable', 'boolean'],
+        ]);
+
+        $generateStatement = (bool) ($validated['generate_statement'] ?? false);
+
+        $totalDeductions = (float) $moveOut->deductions()->sum('amount');
+        $securityDeposit = (float) ($lease->security_deposit_amount ?? 0);
+        $netAmount = round($securityDeposit - $totalDeductions, 2);
+
+        $unitIds = $lease->units()->pluck('rf_units.id')->toArray();
+
+        DB::transaction(function () use ($lease, $moveOut, $netAmount, $unitIds, $request): void {
+            $userId = $request->user()->id;
+            $tenantId = $lease->account_tenant_id;
+            $settlementDate = now();
+
+            // Create refund or charge transaction.
+            if ($netAmount > 0) {
+                Transaction::create([
+                    'lease_id' => $lease->id,
+                    'unit_id' => $unitIds[0] ?? null,
+                    'amount' => $netAmount,
+                    'direction' => 'money_out',
+                    'assignee_type' => 'App\\Models\\Resident',
+                    'assignee_id' => $tenantId,
+                    'account_tenant_id' => $lease->account_tenant_id,
+                    'details' => __('Deposit refund for move-out #:id', ['id' => $moveOut->id]),
+                    'due_on' => $settlementDate,
+                ]);
+            } elseif ($netAmount < 0) {
+                Transaction::create([
+                    'lease_id' => $lease->id,
+                    'unit_id' => $unitIds[0] ?? null,
+                    'amount' => abs($netAmount),
+                    'direction' => 'money_in',
+                    'assignee_type' => 'App\\Models\\Resident',
+                    'assignee_id' => $tenantId,
+                    'account_tenant_id' => $lease->account_tenant_id,
+                    'details' => __('Damage charge for move-out #:id', ['id' => $moveOut->id]),
+                    'due_on' => $settlementDate,
+                ]);
+            }
+
+            // Void remaining future unpaid transactions for this lease.
+            Transaction::query()
+                ->where('lease_id', $lease->id)
+                ->where('is_paid', false)
+                ->where('due_on', '>', $settlementDate)
+                ->update(['is_paid' => true]);
+
+            // Transition lease to terminated/closed status.
+            $terminatedId = $this->statusIdByNames('lease', [
+                'terminated', 'terminated contract', 'terminated_contract',
+                'closed', 'closed contract', 'closed_contract',
+                'cancelled', 'cancelled contract', 'canceled', 'canceled contract',
+            ]);
+            $lease->update([
+                'status_id' => $terminatedId ?? $lease->status_id,
+                'actual_end_at' => $moveOut->move_out_date ?? $settlementDate,
+                'is_move_out' => true,
+            ]);
+
+            // Release all lease units back to available.
+            foreach ($lease->units as $unit) {
+                $fromStatus = $unit->status;
+                $unit->update(['status' => UnitStatus::Available->value]);
+
+                UnitStatusHistory::create([
+                    'unit_id' => $unit->id,
+                    'from_status' => $fromStatus,
+                    'to_status' => UnitStatus::Available->value,
+                    'changed_by' => $userId,
+                    'account_tenant_id' => $lease->account_tenant_id,
+                    'reason' => __('Move-out #:id settled. Unit released.', ['id' => $moveOut->id]),
+                ]);
+            }
+
+            // Mark move-out as completed.
+            $moveOut->update([
+                'status_id' => MoveOutStatus::COMPLETED,
+                'settled_at' => $settlementDate,
+            ]);
+        });
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Move-out finalized.')]);
+
+        if ($generateStatement) {
+            return redirect()->route('rf.leases.move-out.statement', [
+                'lease' => $lease->id,
+                'moveOut' => $moveOut->id,
+            ]);
+        }
+
+        return redirect()->route('rf.leases.show', ['lease' => $lease->id]);
+    }
+
+    /**
+     * Show the settlement statement.
+     */
+    public function statement(Lease $lease, MoveOut $moveOut): Response
+    {
+        $this->authorize('view', $moveOut);
+
+        $lease->load(['tenant', 'units']);
+        $moveOut->load(['deductions']);
+
+        $totalDeductions = (float) $moveOut->deductions()->sum('amount');
+        $securityDeposit = (float) ($lease->security_deposit_amount ?? 0);
+        $netAmount = $securityDeposit - $totalDeductions;
+
+        return Inertia::render('leasing/move-outs/Statement', [
+            'lease' => [
+                'id' => $lease->id,
+                'contract_number' => $lease->contract_number,
+                'tenant' => $lease->tenant ? [
+                    'id' => $lease->tenant->id,
+                    'name' => trim(($lease->tenant->first_name ?? '').' '.($lease->tenant->last_name ?? '')),
+                ] : null,
+                'units' => $lease->units->map(fn ($u) => [
+                    'id' => $u->id,
+                    'name' => $u->name,
+                ]),
+            ],
+            'moveOut' => [
+                'id' => $moveOut->id,
+                'move_out_date' => $moveOut->move_out_date?->toDateString(),
+                'settled_at' => $moveOut->settled_at?->toDateString(),
+                'deductions' => $moveOut->deductions->map(fn ($d) => [
+                    'id' => $d->id,
+                    'label_en' => $d->label_en,
+                    'label_ar' => $d->label_ar,
+                    'amount' => $d->amount,
+                ]),
+                'summary' => [
+                    'security_deposit' => $securityDeposit,
+                    'total_deductions' => $totalDeductions,
+                    'net_amount' => $netAmount,
+                    'is_refund' => $netAmount > 0,
+                    'is_charge' => $netAmount < 0,
+                    'abs_net_amount' => abs($netAmount),
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * Look up a status ID by list of possible name values within a given type.
+     */
+    private function statusIdByNames(string $type, array $names): ?int
+    {
+        $normalized = array_values(array_filter(array_map(
+            fn (string $n): string => strtolower(trim($n)),
+            $names,
+        )));
+
+        if ($normalized === []) {
+            return null;
+        }
+
+        return Status::query()
+            ->where('type', $type)
+            ->where(function (Builder $query) use ($normalized): void {
+                foreach ($normalized as $i => $n) {
+                    if ($i === 0) {
+                        $query->whereRaw('LOWER(COALESCE(name_en, name)) = ?', [$n]);
+                    } else {
+                        $query->orWhereRaw('LOWER(COALESCE(name_en, name)) = ?', [$n]);
+                    }
+                }
+            })
+            ->value('id');
     }
 }

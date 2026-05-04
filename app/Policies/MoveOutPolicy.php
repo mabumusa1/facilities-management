@@ -41,4 +41,13 @@ class MoveOutPolicy
         return $user->can('leases.UPDATE')
             && $this->belongsToCurrentTenant($moveOut);
     }
+
+    /**
+     * Finalize the move-out settlement.
+     */
+    public function finalize(User $user, MoveOut $moveOut): bool
+    {
+        return $user->can('leases.UPDATE')
+            && $this->belongsToCurrentTenant($moveOut);
+    }
 }

@@ -15,6 +15,7 @@ use App\Models\Status;
 use App\Models\Transaction;
 use App\Models\Unit;
 use App\Models\UnitCategory;
+use App\Support\MoveOutStatus;
 use App\Support\StatusWorkflow;
 use App\Support\WorkflowNotifier;
 use Illuminate\Database\Eloquent\Builder;
@@ -592,6 +593,8 @@ class LeaseController extends Controller
                 'id' => $activeMoveOut->id,
                 'status_id' => $activeMoveOut->status_id,
                 'move_out_date' => $activeMoveOut->move_out_date?->toDateString(),
+                'settled_at' => $activeMoveOut->settled_at?->toDateString(),
+                'is_completed' => $activeMoveOut->status_id === MoveOutStatus::COMPLETED,
             ] : null,
             'renewalOffersCount' => $lease->renewalOffers()->count(),
             'latestRenewalOffer' => $latestRenewalOffer,

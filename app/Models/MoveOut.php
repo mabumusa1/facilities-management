@@ -23,6 +23,7 @@ class MoveOut extends Model
         'initiated_by',
         'account_tenant_id',
         'notes',
+        'settled_at',
     ];
 
     protected function casts(): array
@@ -30,6 +31,7 @@ class MoveOut extends Model
         return [
             'reason' => MoveOutReason::class,
             'move_out_date' => 'date',
+            'settled_at' => 'datetime',
         ];
     }
 

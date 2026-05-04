@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Head, router, setLayoutProps } from '@inertiajs/vue3';
+import { Head, Link, router, setLayoutProps } from '@inertiajs/vue3';
 import { computed, ref, watchEffect } from 'vue';
 import {
     saveDeductions as saveDeductionsAction,
+    settlement as settlementAction,
 } from '@/actions/App/Http/Controllers/Leasing/MoveOutController';
 import { show as leasesShow } from '@/actions/App/Http/Controllers/Leasing/LeaseController';
 import Heading from '@/components/Heading.vue';
@@ -19,7 +20,13 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { useI18n } from '@/composables/useI18n';
 
 type ReasonOption = { value: string; label: string };
@@ -64,7 +71,10 @@ watchEffect(() => {
         breadcrumbs: [
             { title: t('app.navigation.dashboard'), href: '/dashboard' },
             { title: t('app.leases.pageTitle'), href: '/leases' },
-            { title: props.lease.contract_number, href: leasesShow.url(props.lease.id) },
+            {
+                title: props.lease.contract_number,
+                href: leasesShow.url(props.lease.id),
+            },
             { title: t('app.moveout.deductions.title'), href: '#' },
         ],
     });
@@ -92,9 +102,13 @@ const totalDeductions = computed(() =>
 
 const securityDeposit = computed(() => props.moveOut.summary.security_deposit);
 
-const refundAmount = computed(() => securityDeposit.value - totalDeductions.value);
+const refundAmount = computed(
+    () => securityDeposit.value - totalDeductions.value,
+);
 
-const exceedsDeposit = computed(() => totalDeductions.value > securityDeposit.value);
+const exceedsDeposit = computed(
+    () => totalDeductions.value > securityDeposit.value,
+);
 
 function openAddDialog() {
     newDeduction.value = { label_en: '', label_ar: '', amount: '', reason: '' };
@@ -117,7 +131,7 @@ function removeDeduction(index: number) {
 }
 
 function saveDeductions() {
-    if (exceedsDeposit.value && ! exceedWarningAcknowledged.value) {
+    if (exceedsDeposit.value && !exceedWarningAcknowledged.value) {
         exceedWarningAcknowledged.value = true;
         return;
     }
@@ -172,17 +186,28 @@ function saveDeductions() {
                 </Button>
             </CardHeader>
             <CardContent>
-                <div v-if="deductions.length === 0" class="py-8 text-center text-sm text-muted-foreground">
+                <div
+                    v-if="deductions.length === 0"
+                    class="py-8 text-center text-sm text-muted-foreground"
+                >
                     {{ t('app.common.noResults') }}
                 </div>
                 <table v-else class="w-full text-sm">
                     <thead>
                         <tr class="border-b text-left">
-                            <th class="pb-2 pe-4">#</th>
-                            <th class="pb-2 pe-4">{{ t('app.moveout.deductions.labelEn') }}</th>
-                            <th class="pb-2 pe-4">{{ t('app.moveout.deductions.labelAr') }}</th>
-                            <th class="pb-2 pe-4">{{ t('app.moveout.deductions.amount') }}</th>
-                            <th class="pb-2 pe-4">{{ t('app.moveout.deductions.reason') }}</th>
+                            <th class="pe-4 pb-2">#</th>
+                            <th class="pe-4 pb-2">
+                                {{ t('app.moveout.deductions.labelEn') }}
+                            </th>
+                            <th class="pe-4 pb-2">
+                                {{ t('app.moveout.deductions.labelAr') }}
+                            </th>
+                            <th class="pe-4 pb-2">
+                                {{ t('app.moveout.deductions.amount') }}
+                            </th>
+                            <th class="pe-4 pb-2">
+                                {{ t('app.moveout.deductions.reason') }}
+                            </th>
                             <th class="pb-2" />
                         </tr>
                     </thead>
@@ -192,11 +217,19 @@ function saveDeductions() {
                             :key="index"
                             class="border-b last:border-0"
                         >
-                            <td class="py-2 pe-4 text-muted-foreground">{{ index + 1 }}</td>
+                            <td class="py-2 pe-4 text-muted-foreground">
+                                {{ index + 1 }}
+                            </td>
                             <td class="py-2 pe-4">{{ deduction.label_en }}</td>
-                            <td class="py-2 pe-4" dir="rtl">{{ deduction.label_ar }}</td>
-                            <td class="py-2 pe-4">{{ Number(deduction.amount).toLocaleString() }}</td>
-                            <td class="py-2 pe-4 capitalize">{{ deduction.reason }}</td>
+                            <td class="py-2 pe-4" dir="rtl">
+                                {{ deduction.label_ar }}
+                            </td>
+                            <td class="py-2 pe-4">
+                                {{ Number(deduction.amount).toLocaleString() }}
+                            </td>
+                            <td class="py-2 pe-4 capitalize">
+                                {{ deduction.reason }}
+                            </td>
                             <td class="py-2">
                                 <Button
                                     type="button"
@@ -211,7 +244,10 @@ function saveDeductions() {
                         </tr>
                     </tbody>
                 </table>
-                <InputError v-if="errors['deductions']" :message="errors['deductions']" />
+                <InputError
+                    v-if="errors['deductions']"
+                    :message="errors['deductions']"
+                />
             </CardContent>
         </Card>
 
@@ -220,19 +256,35 @@ function saveDeductions() {
             <CardContent class="pt-6">
                 <dl class="space-y-2 text-sm">
                     <div class="flex justify-between">
-                        <dt>{{ t('app.moveout.deductions.securityDepositLabel') }}</dt>
-                        <dd class="font-medium">{{ Number(securityDeposit).toLocaleString() }}</dd>
+                        <dt>
+                            {{
+                                t('app.moveout.deductions.securityDepositLabel')
+                            }}
+                        </dt>
+                        <dd class="font-medium">
+                            {{ Number(securityDeposit).toLocaleString() }}
+                        </dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt>{{ t('app.moveout.deductions.totalDeductions') }}</dt>
-                        <dd class="font-medium text-destructive">− {{ Number(totalDeductions).toLocaleString() }}</dd>
+                        <dt>
+                            {{ t('app.moveout.deductions.totalDeductions') }}
+                        </dt>
+                        <dd class="font-medium text-destructive">
+                            − {{ Number(totalDeductions).toLocaleString() }}
+                        </dd>
                     </div>
                     <hr />
                     <div class="flex justify-between font-medium">
-                        <dt v-if="refundAmount >= 0">{{ t('app.moveout.deductions.refundAmount') }}</dt>
-                        <dt v-else class="text-destructive">{{ t('app.moveout.deductions.outstandingCharge') }}</dt>
+                        <dt v-if="refundAmount >= 0">
+                            {{ t('app.moveout.deductions.refundAmount') }}
+                        </dt>
+                        <dt v-else class="text-destructive">
+                            {{ t('app.moveout.deductions.outstandingCharge') }}
+                        </dt>
                         <dd :class="refundAmount < 0 ? 'text-destructive' : ''">
-                            {{ Number(Math.abs(refundAmount)).toLocaleString() }}
+                            {{
+                                Number(Math.abs(refundAmount)).toLocaleString()
+                            }}
                         </dd>
                     </div>
                 </dl>
@@ -246,9 +298,16 @@ function saveDeductions() {
                 :disabled="processing"
                 @click="saveDeductions"
             >
-                {{ exceedsDeposit && !exceedWarningAcknowledged
-                    ? t('app.common.save')
-                    : t('app.moveout.deductions.save') }}
+                {{
+                    exceedsDeposit && !exceedWarningAcknowledged
+                        ? t('app.common.save')
+                        : t('app.moveout.deductions.save')
+                }}
+            </Button>
+            <Button type="button" variant="default" as-child>
+                <Link :href="settlementAction.url(lease.id, moveOut.id)">
+                    {{ t('app.moveout.deductions.proceedToSettlement') }}
+                </Link>
             </Button>
         </div>
 
@@ -256,23 +315,28 @@ function saveDeductions() {
         <Dialog v-model:open="showAddDialog">
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{{ t('app.moveout.deductions.add') }}</DialogTitle>
-                    <DialogDescription>{{ t('app.moveout.deductions.title') }}</DialogDescription>
+                    <DialogTitle>{{
+                        t('app.moveout.deductions.add')
+                    }}</DialogTitle>
+                    <DialogDescription>{{
+                        t('app.moveout.deductions.title')
+                    }}</DialogDescription>
                 </DialogHeader>
 
                 <div class="space-y-4">
                     <!-- Label EN -->
                     <div class="space-y-2">
-                        <Label for="label_en">{{ t('app.moveout.deductions.labelEn') }} *</Label>
-                        <Input
-                            id="label_en"
-                            v-model="newDeduction.label_en"
-                        />
+                        <Label for="label_en"
+                            >{{ t('app.moveout.deductions.labelEn') }} *</Label
+                        >
+                        <Input id="label_en" v-model="newDeduction.label_en" />
                     </div>
 
                     <!-- Label AR -->
                     <div class="space-y-2">
-                        <Label for="label_ar">{{ t('app.moveout.deductions.labelAr') }} *</Label>
+                        <Label for="label_ar"
+                            >{{ t('app.moveout.deductions.labelAr') }} *</Label
+                        >
                         <Input
                             id="label_ar"
                             v-model="newDeduction.label_ar"
@@ -282,7 +346,9 @@ function saveDeductions() {
 
                     <!-- Amount -->
                     <div class="space-y-2">
-                        <Label for="deduction_amount">{{ t('app.moveout.deductions.amount') }} *</Label>
+                        <Label for="deduction_amount"
+                            >{{ t('app.moveout.deductions.amount') }} *</Label
+                        >
                         <Input
                             id="deduction_amount"
                             v-model="newDeduction.amount"
@@ -294,10 +360,16 @@ function saveDeductions() {
 
                     <!-- Reason -->
                     <div class="space-y-2">
-                        <Label for="deduction_reason">{{ t('app.moveout.deductions.reason') }} *</Label>
+                        <Label for="deduction_reason"
+                            >{{ t('app.moveout.deductions.reason') }} *</Label
+                        >
                         <Select v-model="newDeduction.reason">
                             <SelectTrigger id="deduction_reason">
-                                <SelectValue :placeholder="t('app.moveout.deductions.reason')" />
+                                <SelectValue
+                                    :placeholder="
+                                        t('app.moveout.deductions.reason')
+                                    "
+                                />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem
@@ -322,7 +394,12 @@ function saveDeductions() {
                     </Button>
                     <Button
                         type="button"
-                        :disabled="!newDeduction.label_en || !newDeduction.label_ar || !newDeduction.amount || !newDeduction.reason"
+                        :disabled="
+                            !newDeduction.label_en ||
+                            !newDeduction.label_ar ||
+                            !newDeduction.amount ||
+                            !newDeduction.reason
+                        "
                         @click="addDeduction"
                     >
                         {{ t('app.moveout.deductions.add') }}
