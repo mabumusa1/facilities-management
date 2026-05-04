@@ -143,3 +143,10 @@ _(append as you find them; common places: listing endpoints that touch Community
   ✅ Blocker 2 (assignee_id): `$lease->tenant_id` correct at MoveOutController.php:445.
   ❌ Blocker 1 (MoveOutPolicy guard): PARTIALLY fixed — guard added but `use App\Support\MoveOutStatus;` import MISSING at MoveOutPolicy.php:52 → fatal Error on every finalize call, 12 tests fail. Sub-issue: test_finalize_returns_403_for_already_settled_move_out still asserts 302 (must be 403) + stale comment must be removed.
   10 tests pass (GET endpoints), 12 fail (all finalize POSTs — same root cause). 3 Round 1 nice-to-haves still open: voiding is_paid pattern, float precision, Wayfinder gitignored.
+
+- PR #403 — comment/LGTM (Round 3 / final, self-authored — GitHub blocked formal approve) — all 4 must-fixes resolved:
+  ✅ Blocker 1 (MoveOutPolicy guard): `use App\Support\MoveOutStatus;` import present at line 10, guard at line 53.
+  ✅ Blocker 2 (assignee_id): `$lease->tenant_id` at MoveOutController.php:445, used at lines 456 and 468.
+  ✅ Blocker 3 (test assertion): `test_finalize_returns_403_for_already_settled_move_out` asserts 403 at MoveOutTest.php:1278, stale comment removed.
+  ✅ Blocker 4 (Round 1 carryover): assignee_id confirmed.
+  51 tests green (226 assertions), Pint clean. 12 x 403 assertions covering permission, cross-tenant, already-settled. 3 nice-to-haves carried forward (voiding is_paid pattern, float precision, Wayfinder gitignored/auto-regen). Route ordering correct: settlement/finalize/statement sub-routes at lines 485-487 before lease wildcard at 489. Handed off to Docs.
