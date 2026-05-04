@@ -139,7 +139,8 @@ const appEn: MessageTree = {
             login: {
                 headTitle: 'Log in',
                 layoutTitle: 'Log in to your account',
-                layoutDescription: 'Enter your email and password below to log in',
+                layoutDescription:
+                    'Enter your email and password below to log in',
                 emailAddress: 'Email address',
                 password: 'Password',
                 forgotPassword: 'Forgot password?',
@@ -148,15 +149,18 @@ const appEn: MessageTree = {
                 noAccount: "Don't have an account?",
                 signUp: 'Sign up',
                 emailPlaceholder: 'email@example.com',
-                invalidCredentials: 'These credentials do not match our records.',
-                throttled: 'Too many login attempts. Please try again in {{seconds}} seconds.',
+                invalidCredentials:
+                    'These credentials do not match our records.',
+                throttled:
+                    'Too many login attempts. Please try again in {{seconds}} seconds.',
                 showPassword: 'Show password',
                 hidePassword: 'Hide password',
             },
             register: {
                 headTitle: 'Register',
                 layoutTitle: 'Create an account',
-                layoutDescription: 'Enter your details below to create your account',
+                layoutDescription:
+                    'Enter your details below to create your account',
                 name: 'Name',
                 fullName: 'Full name',
                 personalInformation: 'Personal information',
@@ -171,7 +175,8 @@ const appEn: MessageTree = {
                 accountName: 'Account name',
                 accountNamePlaceholder: 'Your account name',
                 trialTitle: 'Trial details',
-                trialDetails: 'Start with a 14-day free trial, then continue for 300 SAR per month.',
+                trialDetails:
+                    'Start with a 14-day free trial, then continue for 300 SAR per month.',
                 acceptTerms: 'I agree to the terms and conditions.',
                 password: 'Password',
                 confirmPassword: 'Confirm password',
@@ -194,7 +199,8 @@ const appEn: MessageTree = {
             forgotPassword: {
                 headTitle: 'Forgot password',
                 layoutTitle: 'Forgot password',
-                layoutDescription: 'Enter your email to receive a password reset link',
+                layoutDescription:
+                    'Enter your email to receive a password reset link',
                 emailAddress: 'Email address',
                 emailPlaceholder: 'email@example.com',
                 submit: 'Email password reset link',
@@ -213,22 +219,26 @@ const appEn: MessageTree = {
                 headTitle: 'Verify email',
                 layoutTitle: 'Verify your email',
                 layoutDescription: 'We sent a verification link to {email}',
-                instructions: 'Check your inbox and click the link to activate your account.',
+                instructions:
+                    'Check your inbox and click the link to activate your account.',
                 success: 'A new verification link has been sent.',
             },
             confirmPassword: {
                 headTitle: 'Confirm password',
                 layoutTitle: 'Confirm your password',
-                layoutDescription: 'This is a secure area of the application. Please confirm your password before continuing.',
+                layoutDescription:
+                    'This is a secure area of the application. Please confirm your password before continuing.',
                 password: 'Password',
                 submit: 'Confirm password',
             },
             twoFactor: {
                 headTitle: 'Two-factor authentication',
                 recoveryCode: 'Recovery code',
-                recoveryDescription: 'Please confirm access to your account by entering one of your emergency recovery codes.',
+                recoveryDescription:
+                    'Please confirm access to your account by entering one of your emergency recovery codes.',
                 authenticationCode: 'Authentication code',
-                authenticationDescription: 'Enter the authentication code provided by your authenticator application.',
+                authenticationDescription:
+                    'Enter the authentication code provided by your authenticator application.',
                 useAuthenticationCode: 'log in using an authentication code',
                 useRecoveryCode: 'log in using a recovery code',
                 recoveryPlaceholder: 'Enter recovery code',
@@ -240,14 +250,16 @@ const appEn: MessageTree = {
                 password: 'Password',
                 confirmPassword: 'Confirm password',
                 submit: 'Set Password & Sign In',
-                expiredToken: 'This invitation link has expired or has already been used. Please contact your administrator to issue a new invitation.',
+                expiredToken:
+                    'This invitation link has expired or has already been used. Please contact your administrator to issue a new invitation.',
             },
         },
         admin: {
             users: {
                 pageTitle: 'Manage Users',
                 heading: 'Account user management',
-                description: 'Create and manage users with role-based access for this account.',
+                description:
+                    'Create and manage users with role-based access for this account.',
                 currentAccount: 'Current account',
                 name: 'Name',
                 email: 'Email',
@@ -272,10 +284,12 @@ const appEn: MessageTree = {
                 communityPlaceholder: 'Select communities…',
                 buildingLabel: 'Building',
                 buildingPlaceholder: 'Select buildings…',
-                buildingOptionalHint: 'Optional — leave blank to apply to all buildings in the selected communities.',
+                buildingOptionalHint:
+                    'Optional — leave blank to apply to all buildings in the selected communities.',
                 serviceTypeLabel: 'Service Type',
                 serviceTypePlaceholder: 'Select service types…',
-                globalScopeNote: 'This role applies globally. No scope selection needed.',
+                globalScopeNote:
+                    'This role applies globally. No scope selection needed.',
                 assignBtn: 'Assign',
                 cancelBtn: 'Cancel',
                 cancelConfirm: 'Discard changes?',
@@ -293,8 +307,10 @@ const appEn: MessageTree = {
                 toastAssigned: 'Role assigned successfully.',
                 toastRemoved: 'Role assignment removed.',
                 validationRoleRequired: 'Please select a role.',
-                validationCommunityRequired: 'Please select at least one community for this role.',
-                validationServiceTypeRequired: 'Please select at least one service type for this role.',
+                validationCommunityRequired:
+                    'Please select at least one community for this role.',
+                validationServiceTypeRequired:
+                    'Please select at least one service type for this role.',
                 status: 'Status',
                 statusActive: 'Active',
                 statusInvitationPending: 'Invitation pending',
@@ -315,9 +331,11 @@ const appEn: MessageTree = {
                 viewDetails: 'View details',
                 moreActions: 'More actions',
                 cannotDeactivateSelf: 'You cannot deactivate your own account.',
-                deactivatedBanner: 'This user\'s account is deactivated. They cannot log in until an administrator reactivates their account.',
+                deactivatedBanner:
+                    "This user's account is deactivated. They cannot log in until an administrator reactivates their account.",
                 deactivateConfirmTitle: 'Deactivate account?',
-                deactivateConfirmBody: 'This user will immediately lose access and cannot log in. You can reactivate them at any time.',
+                deactivateConfirmBody:
+                    'This user will immediately lose access and cannot log in. You can reactivate them at any time.',
                 deactivateConfirmAction: 'Deactivate',
             },
             roles: {
@@ -345,17 +363,20 @@ const appEn: MessageTree = {
                 drawerEditTitle: 'Edit Role',
                 nameEnLabel: 'Role name (English)',
                 nameArLabel: 'Role name (Arabic)',
-                typeImmutableHint: 'Role type cannot be changed after creation.',
+                typeImmutableHint:
+                    'Role type cannot be changed after creation.',
                 cancel: 'Cancel',
                 createRole: 'Create Role',
                 saveChanges: 'Save Changes',
                 saving: 'Saving…',
                 deleteDialogTitle: 'Delete role?',
-                deleteDialogBody: 'This will permanently remove "{name}". Users assigned to it will lose this role.',
+                deleteDialogBody:
+                    'This will permanently remove "{name}". Users assigned to it will lose this role.',
                 deleteDialogConfirm: 'Delete Role',
                 deleteDialogCancel: 'Cancel',
                 emptyHeading: 'No roles found.',
-                emptyBody: 'Try adjusting your search or filter, or create your first custom role.',
+                emptyBody:
+                    'Try adjusting your search or filter, or create your first custom role.',
                 emptyCta: '+ New Role',
                 toastCreated: 'Role created successfully.',
                 toastUpdated: 'Role updated.',
@@ -365,11 +386,14 @@ const appEn: MessageTree = {
                 permissions: {
                     pageTitle: 'Permissions — {{name}}',
                     tab: 'Permissions',
-                    systemBanner: 'System roles cannot be modified. These permissions are managed by the platform.',
+                    systemBanner:
+                        'System roles cannot be modified. These permissions are managed by the platform.',
                     applyPreset: 'Apply preset',
                     presetPlaceholder: 'Select preset…',
-                    presetTooltip: 'Presets load a standard permission set. You can adjust individual cells after applying.',
-                    viewRequiredTooltip: 'View is required when any other action is enabled.',
+                    presetTooltip:
+                        'Presets load a standard permission set. You can adjust individual cells after applying.',
+                    viewRequiredTooltip:
+                        'View is required when any other action is enabled.',
                     allSubjects: 'All subjects',
                     all: 'All',
                     unsavedChanges: 'Unsaved changes',
@@ -435,7 +459,8 @@ const appEn: MessageTree = {
             subscriptions: {
                 pageTitle: 'Manage Subscriptions',
                 heading: 'Account subscriptions',
-                description: 'Manage account subscriptions with the default monthly plan.',
+                description:
+                    'Manage account subscriptions with the default monthly plan.',
                 defaultPlan: 'Default plan',
                 planName: 'Plan',
                 price: 'Price',
@@ -460,7 +485,8 @@ const appEn: MessageTree = {
             documents: {
                 pageTitle: 'Document Templates',
                 heading: 'Document templates',
-                description: 'Create and manage document templates with merge fields for lease contracts, invoices, receipts, and bookings.',
+                description:
+                    'Create and manage document templates with merge fields for lease contracts, invoices, receipts, and bookings.',
                 create: 'Create template',
                 edit: 'Edit template',
                 nameEn: 'Name (English)',
@@ -500,7 +526,8 @@ const appEn: MessageTree = {
                 tabFeatures: 'Features',
                 tabUsers: 'Users',
                 tabSubscription: 'Subscription',
-                description: 'Configure which platform features are active for this tenant. Changes take effect immediately on the tenant\'s next page load.',
+                description:
+                    "Configure which platform features are active for this tenant. Changes take effect immediately on the tenant's next page load.",
                 colFeature: 'Feature',
                 colStatus: 'Status',
                 colInTier: 'Included in Plan',
@@ -508,21 +535,26 @@ const appEn: MessageTree = {
                 statusEnabled: 'Enabled',
                 statusDisabled: 'Disabled',
                 enableHeading: 'Enable {{feature}}?',
-                enableBody: 'Tenant users will gain access immediately on next page load.',
+                enableBody:
+                    'Tenant users will gain access immediately on next page load.',
                 enableCta: 'Enable Feature',
                 disableHeading: 'Disable {{feature}}?',
                 disableImpactLabel: 'Immediate impact',
-                disableImpactBody: 'Tenant users currently using {{feature}} will lose access on their next page load. Active sessions will see a \"Feature not available\" message.',
-                disableReversible: 'This action is reversible. You can re-enable the feature at any time.',
+                disableImpactBody:
+                    'Tenant users currently using {{feature}} will lose access on their next page load. Active sessions will see a \"Feature not available\" message.',
+                disableReversible:
+                    'This action is reversible. You can re-enable the feature at any time.',
                 disableCta: 'Disable Feature',
                 toastEnabled: '{{feature}} enabled',
                 toastDisabled: '{{feature}} disabled',
                 toggleError: 'Failed to update. Please try again.',
                 tierIncluded: 'Enabled by default for the {{plan}} plan.',
-                tierNotIncluded: 'Not included in the {{plan}} plan. Manually overridden by operator.',
+                tierNotIncluded:
+                    'Not included in the {{plan}} plan. Manually overridden by operator.',
                 emptyHeading: 'No feature flags are defined yet.',
                 emptyHeadingAr: 'لا توجد علامات ميزات محددة بعد.',
-                emptyBody: 'Feature flags are defined in code and seeded automatically. Contact engineering if a flag is missing.',
+                emptyBody:
+                    'Feature flags are defined in code and seeded automatically. Contact engineering if a flag is missing.',
                 ariaEnable: 'Enable {{feature}}',
                 ariaDisable: 'Disable {{feature}}',
             },
@@ -537,13 +569,16 @@ const appEn: MessageTree = {
                 emailAddress: 'Email address',
                 emailPlaceholder: 'Email address',
                 unverifiedNotice: 'Your email address is unverified.',
-                resendVerification: 'Click here to resend the verification email.',
-                verificationSent: 'A new verification link has been sent to your email address.',
+                resendVerification:
+                    'Click here to resend the verification email.',
+                verificationSent:
+                    'A new verification link has been sent to your email address.',
             },
             security: {
                 pageTitle: 'Security settings',
                 updatePassword: 'Update password',
-                passwordDescription: 'Ensure your account is using a long, random password to stay secure',
+                passwordDescription:
+                    'Ensure your account is using a long, random password to stay secure',
                 currentPassword: 'Current password',
                 currentPasswordPlaceholder: 'Current password',
                 newPassword: 'New password',
@@ -552,24 +587,32 @@ const appEn: MessageTree = {
                 confirmPasswordPlaceholder: 'Confirm password',
                 savePassword: 'Save password',
                 twoFactorTitle: 'Two-factor authentication',
-                twoFactorDescription: 'Manage your two-factor authentication settings',
-                twoFactorEnableHelp: 'When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.',
-                twoFactorEnabledHelp: 'You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.',
+                twoFactorDescription:
+                    'Manage your two-factor authentication settings',
+                twoFactorEnableHelp:
+                    'When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.',
+                twoFactorEnabledHelp:
+                    'You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.',
                 sessions: {
                     title: 'Active sessions',
-                    description: 'View and manage devices currently signed into your account.',
+                    description:
+                        'View and manage devices currently signed into your account.',
                     currentSession: 'Current session',
                     lastActive: 'Last active',
                     revoke: 'Revoke',
                     revokeAll: 'Log out all other sessions',
-                    revokeAllSuccess: 'All other sessions have been logged out.',
+                    revokeAllSuccess:
+                        'All other sessions have been logged out.',
                     revokeSingleSuccess: 'Session revoked successfully.',
                     onlyOne: 'Only one active session.',
-                    driverNotConfigured: 'Session management requires additional configuration. Please contact your administrator.',
+                    driverNotConfigured:
+                        'Session management requires additional configuration. Please contact your administrator.',
                     revokeConfirmTitle: 'Revoke this session?',
-                    revokeConfirmBody: 'The device will be logged out and will need to sign in again.',
+                    revokeConfirmBody:
+                        'The device will be logged out and will need to sign in again.',
                     revokeAllConfirmTitle: 'Log out all other sessions?',
-                    revokeAllConfirmBody: 'All devices except this one will be logged out immediately.',
+                    revokeAllConfirmBody:
+                        'All devices except this one will be logged out immediately.',
                 },
             },
             appearance: {
@@ -583,10 +626,12 @@ const appEn: MessageTree = {
             deleteAccount: {
                 heading: 'Delete account',
                 description: 'Delete your account and all of its resources',
-                warningDescription: 'Please proceed with caution, this cannot be undone.',
+                warningDescription:
+                    'Please proceed with caution, this cannot be undone.',
                 button: 'Delete account',
                 dialogTitle: 'Are you sure you want to delete your account?',
-                dialogDescription: 'Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
+                dialogDescription:
+                    'Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
                 password: 'Password',
                 passwordPlaceholder: 'Password',
             },
@@ -631,9 +676,11 @@ const appEn: MessageTree = {
             communities: {
                 pageTitle: 'Communities',
                 heading: 'Communities',
-                description: 'Manage your property communities and developments.',
+                description:
+                    'Manage your property communities and developments.',
                 newCommunity: 'New Community',
-                noCommunitiesFound: 'No communities found. Create your first community to get started.',
+                noCommunitiesFound:
+                    'No communities found. Create your first community to get started.',
                 table: {
                     name: 'Name',
                     country: 'Country',
@@ -671,13 +718,15 @@ const appEn: MessageTree = {
                     updateButton: 'Update Community',
                     amenities: {
                         sectionTitle: 'Amenities',
-                        sectionDescription: 'Select the shared amenities available in this community.',
+                        sectionDescription:
+                            'Select the shared amenities available in this community.',
                         noAmenities: 'No amenities configured',
                         remove: 'Remove {{name}}',
                     },
                     workingDays: {
                         sectionTitle: 'Working Days',
-                        sectionDescription: 'Days when community facilities and offices operate.',
+                        sectionDescription:
+                            'Days when community facilities and offices operate.',
                         noDays: 'Not configured',
                         sat: 'Sat',
                         sun: 'Sun',
@@ -689,7 +738,8 @@ const appEn: MessageTree = {
                     },
                     coordinates: {
                         sectionTitle: 'Map Coordinates',
-                        sectionDescription: "Set the community's geographic location.",
+                        sectionDescription:
+                            "Set the community's geographic location.",
                         latitude: 'Latitude',
                         longitude: 'Longitude',
                         latitudePlaceholder: 'e.g. 24.7743',
@@ -697,7 +747,8 @@ const appEn: MessageTree = {
                         latitudeHint: 'Range: −90 to 90',
                         longitudeHint: 'Range: −180 to 180',
                         useMyLocation: 'Use my location',
-                        permissionDenied: 'Location access was denied by your browser. Enter coordinates manually below.',
+                        permissionDenied:
+                            'Location access was denied by your browser. Enter coordinates manually below.',
                         gettingLocation: 'Getting your location...',
                         locationFilled: 'Location filled',
                     },
@@ -705,7 +756,8 @@ const appEn: MessageTree = {
                 show: {
                     breadcrumb: 'Details',
                     detailsDescription: 'Community details and statistics',
-                    confirmDeletePrompt: 'Are you sure you want to delete this community?',
+                    confirmDeletePrompt:
+                        'Are you sure you want to delete this community?',
                     buildings: 'Buildings',
                     units: 'Units',
                     requests: 'Requests',
@@ -780,7 +832,8 @@ const appEn: MessageTree = {
                 },
                 show: {
                     breadcrumb: 'Details',
-                    confirmDeletePrompt: 'Are you sure you want to delete this building?',
+                    confirmDeletePrompt:
+                        'Are you sure you want to delete this building?',
                     units: 'Units',
                     floors: 'Floors',
                     yearBuilt: 'Year Built',
@@ -885,7 +938,8 @@ const appEn: MessageTree = {
                 },
                 show: {
                     breadcrumb: 'Details',
-                    confirmDeletePrompt: 'Are you sure you want to delete this unit?',
+                    confirmDeletePrompt:
+                        'Are you sure you want to delete this unit?',
                     noBuilding: 'No building',
                     category: 'Category',
                     type: 'Type',
@@ -919,7 +973,8 @@ const appEn: MessageTree = {
                     step3: 'Review',
                     step4: 'Import',
                     downloadTemplate: 'Download template',
-                    dropZoneText: 'Drag & drop your .xlsx file here or click to browse',
+                    dropZoneText:
+                        'Drag & drop your .xlsx file here or click to browse',
                     acceptedFormat: 'Accepted format: .xlsx · Max: 10MB',
                     rowsDetected: '{{n}} rows detected',
                     systemField: 'System Field',
@@ -930,25 +985,29 @@ const appEn: MessageTree = {
                     validRows: '{{n}} valid',
                     errorRows: '{{n}} with errors',
                     warningRows: '{{n}} warnings',
-                    allRowsInvalid: 'All {{n}} rows contain errors. Please fix the file and re-upload.',
+                    allRowsInvalid:
+                        'All {{n}} rows contain errors. Please fix the file and re-upload.',
                     noDataRows: 'The uploaded file contains no data rows.',
                     importValidOnly: 'Import {{n}} valid rows',
                     cancelAndFix: 'Cancel and fix the file',
                     progressLabel: 'Importing {{n}} units...',
                     progressNote: 'Do not close this window.',
-                    completionToast: '{{n}} units imported successfully. {{e}} rows skipped due to errors.',
+                    completionToast:
+                        '{{n}} units imported successfully. {{e}} rows skipped due to errors.',
                     viewReport: 'View report',
                     errorBuildingNotFound: 'Building "{{name}}" not found',
                     errorDuplicate: 'Duplicate unit number in this building',
                     errorInvalidStatus: 'Status "{{name}}" is not valid',
                     errorInvalidFile: 'File must be .xlsx format',
-                    errorFileTooLarge: 'File exceeds 10MB limit. Please split your import.',
+                    errorFileTooLarge:
+                        'File exceeds 10MB limit. Please split your import.',
                     errorRow: 'Row',
                     errorField: 'Field',
                     errorMessage: 'Error',
                     filterAll: 'All rows',
                     filterErrors: 'Errors only',
-                    queuedMessage: 'Import is processing in the background. You will be notified on completion.',
+                    queuedMessage:
+                        'Import is processing in the background. You will be notified on completion.',
                     fieldName: 'Unit Name',
                     fieldCommunity: 'Community',
                     fieldBuilding: 'Building',
@@ -1061,20 +1120,27 @@ const appEn: MessageTree = {
                 confirmDuration: 'Duration',
                 confirmPrice: 'Price',
                 confirmTotal: 'Total',
-                confirmNote: 'Confirmation will be sent to your registered mobile number and email.',
+                confirmNote:
+                    'Confirmation will be sent to your registered mobile number and email.',
                 confirm: 'Confirm',
                 cancel: 'Cancel',
                 raceConditionTitle: 'This slot is no longer available',
-                raceConditionDetail: 'Another resident just booked it. Please choose a different time.',
+                raceConditionDetail:
+                    'Another resident just booked it. Please choose a different time.',
                 pickAnotherSlot: 'Pick Another Slot',
-                contractNotice: 'This facility requires a signed contract. Your booking will be pending until the contract is signed.',
-                successToast: 'Booking confirmed! You will receive a confirmation shortly.',
-                noFacilitiesAvailable: 'No facilities available in your community yet.',
+                contractNotice:
+                    'This facility requires a signed contract. Your booking will be pending until the contract is signed.',
+                successToast:
+                    'Booking confirmed! You will receive a confirmation shortly.',
+                noFacilitiesAvailable:
+                    'No facilities available in your community yet.',
                 allSlotsFull: 'All slots are booked for this date.',
                 joinWaitlist: 'Join Waitlist',
-                closedOnDay: 'Facility closed on this day. Please select another date.',
+                closedOnDay:
+                    'Facility closed on this day. Please select another date.',
                 slotUnavailable: 'This slot is no longer available.',
-                bookingConfirmed: 'Booking confirmed! You will receive a confirmation shortly.',
+                bookingConfirmed:
+                    'Booking confirmed! You will receive a confirmation shortly.',
                 previousWeek: 'Previous week',
                 nextWeek: 'Next week',
                 selectDate: 'Select date {{day}}, {{date}}',
@@ -1083,7 +1149,8 @@ const appEn: MessageTree = {
                 loadingSlots: 'Loading slots...',
                 processing: 'Processing...',
                 serverError: 'Something went wrong. Please try again.',
-                allSlotsBookedJoinWaitlist: 'All slots are booked for this date.',
+                allSlotsBookedJoinWaitlist:
+                    'All slots are booked for this date.',
             },
             calendar: {
                 pageTitle: 'Facility Calendar',
@@ -1118,7 +1185,8 @@ const appEn: MessageTree = {
                 cancel: 'Cancel',
                 create: 'Create',
                 overlapTitle: 'Overlap Detected',
-                overlapMsg: 'This time slot conflicts with an existing booking.',
+                overlapMsg:
+                    'This time slot conflicts with an existing booking.',
                 overlapAction: 'Please adjust the start/end time.',
                 noBookingsThisWeek: 'No bookings for this week.',
                 loading: 'Loading...',
@@ -1222,7 +1290,8 @@ const appEn: MessageTree = {
             sublease: {
                 pageTitle: 'Create Sub-lease',
                 pageTitleWithContract: 'Create Sub-lease for {{contract}}',
-                description: 'Inherits unit/category/contract settings from the parent lease.',
+                description:
+                    'Inherits unit/category/contract settings from the parent lease.',
                 contractNumber: 'Contract Number',
                 contractPlaceholder: 'e.g. LC-SUB-2026-001',
                 tenant: 'Tenant',
@@ -1247,14 +1316,16 @@ const appEn: MessageTree = {
                 approve: 'Approve',
                 reject: 'Reject',
                 rejectTitle: 'Reject Lease Application?',
-                rejectDesc: 'This will notify the submitting manager. The linked quote will remain accepted.',
+                rejectDesc:
+                    'This will notify the submitting manager. The linked quote will remain accepted.',
                 rejectReason: 'Reason for rejection',
                 rejectReasonPlaceholder: 'Describe the reason for rejection...',
                 confirmReject: 'Confirm Reject',
                 timeline: 'Approval Timeline',
                 approvedBy: 'Approved by',
                 rejectedBy: 'Rejected by',
-                unauthorized: 'You do not have approval rights for this community',
+                unauthorized:
+                    'You do not have approval rights for this community',
                 approvedStatus: 'Approved',
                 rejectedStatus: 'Rejected',
                 cancel: 'Cancel',
@@ -1302,7 +1373,8 @@ const appEn: MessageTree = {
                 historyTitle: 'Notice History',
                 historyViewBody: 'View Body',
                 historyCount: '{{n}} notices sent',
-                errorMissingEmail: 'Tenant email address is missing. Update the Resident contact before sending notices.',
+                errorMissingEmail:
+                    'Tenant email address is missing. Update the Resident contact before sending notices.',
                 errorEditContact: 'Edit Contact',
             },
             renewal: {
@@ -1320,7 +1392,8 @@ const appEn: MessageTree = {
                 decisionLabel: 'Decision',
                 accepted: 'Accepted',
                 declined: 'Declined',
-                decisionHelp: 'If accepted, you can proceed to create the new lease using the renewal terms.',
+                decisionHelp:
+                    'If accepted, you can proceed to create the new lease using the renewal terms.',
                 indexTitle: 'Renewal Offers',
                 indexDescription: 'Track and manage all lease renewal offers.',
                 searchPlaceholder: 'Search by contract number...',
@@ -1335,7 +1408,8 @@ const appEn: MessageTree = {
                 currentRentValue: 'SAR {{amount}} / {{freq}}',
                 renewalTerms: 'Renewal Terms',
                 newStartDate: 'New Start Date',
-                newStartDateHint: 'Auto-filled as the day after the lease end date.',
+                newStartDateHint:
+                    'Auto-filled as the day after the lease end date.',
                 durationMonths: 'Duration (months)',
                 newRent: 'New Rent Amount (SAR)',
                 rentDiffSuffix: 'vs. current rent',
@@ -1355,7 +1429,8 @@ const appEn: MessageTree = {
                 reasonEarlyTenant: 'Early termination by tenant',
                 reasonEarlyMgmt: 'Early termination by management',
                 reasonOther: 'Other',
-                warning: 'Unit status will change to Under Maintenance. Financial terms will remain locked.',
+                warning:
+                    'Unit status will change to Under Maintenance. Financial terms will remain locked.',
                 button: 'Initiate Move-Out',
             },
             inspection: {
@@ -1385,9 +1460,37 @@ const appEn: MessageTree = {
                 totalDeductions: 'Total Deductions',
                 refundAmount: 'Refund Amount',
                 outstandingCharge: 'Outstanding Charge',
-                exceedWarning: 'Total deductions exceed the security deposit. Please verify before proceeding.',
+                exceedWarning:
+                    'Total deductions exceed the security deposit. Please verify before proceeding.',
                 save: 'Save Deductions',
                 proceedToSettlement: 'Proceed to Settlement',
+                noDeductions: 'No deductions recorded.',
+            },
+            settlement: {
+                title: 'Finalize Settlement',
+                summaryTitle: 'Settlement Summary',
+                refundTo: 'Refund to Tenant',
+                outstandingCharge: 'Outstanding Charge',
+                noBalance: 'No Balance',
+                actionsOnFinalize: 'Actions on Finalize',
+                createRefund:
+                    'Create refund transaction (SAR {{amount}}) in Accounting',
+                createCharge:
+                    'Create charge transaction (SAR {{amount}}) in Accounting',
+                voidSchedules: 'Void remaining future schedule entries',
+                leaseTerminated: 'Lease status → Terminated',
+                unitAvailable: 'Unit {{name}} status → Available in Properties',
+                generateStatement: 'Generate settlement statement',
+                finalize: 'Finalize Move-Out',
+                confirmTitle: 'Finalize Move-Out?',
+                confirmDesc: 'This action cannot be undone.',
+                confirmButton: 'Confirm & Finalize',
+                completedTitle: 'Move-Out Completed',
+                settlementDate: 'Settlement Date',
+                viewStatement: 'View Settlement Statement',
+                statementTitle: 'Settlement Statement',
+                statementSubtitle: 'Move-Out #{{id}}',
+                downloadPdf: 'Download PDF',
             },
             show: {
                 noMoveOut: 'No active move-out in progress.',
@@ -1398,7 +1501,8 @@ const appEn: MessageTree = {
                 deductions_saved: 'Deductions saved.',
             },
             errors: {
-                already_initiated: 'A move-out is already in progress for this lease.',
+                already_initiated:
+                    'A move-out is already in progress for this lease.',
             },
         },
         quotes: {
@@ -1431,7 +1535,8 @@ const appEn: MessageTree = {
             create: {
                 pageTitle: 'New Quote',
                 heading: 'Create Lease Quote',
-                description: 'Fill in the details to generate a lease quote for a prospect.',
+                description:
+                    'Fill in the details to generate a lease quote for a prospect.',
                 unitLabel: 'Unit',
                 selectUnit: 'Select unit',
                 residentLabel: 'Resident Contact',
@@ -1462,22 +1567,28 @@ const appEn: MessageTree = {
                 pageTitle: 'Quote {{number}}',
                 breadcrumb: 'Quote Details',
                 quoteDetails: 'Quote Details',
-                confirmSend: 'Are you sure you want to send this quote to the prospect?',
-                confirmReject: 'Are you sure you want to mark this quote as rejected?',
+                confirmSend:
+                    'Are you sure you want to send this quote to the prospect?',
+                confirmReject:
+                    'Are you sure you want to mark this quote as rejected?',
                 confirmExpire: 'Are you sure you want to expire this quote?',
                 previewLink: 'Preview',
                 months: 'months',
                 specialConditions: 'Special Conditions',
                 revisionHistory: 'Revision History',
                 latestVisible: 'Prospect sees v{{version}}',
-                acceptedReadonly: 'This quote has been accepted and cannot be revised.',
-                expiredReadonly: 'This quote has expired and cannot be revised.',
-                rejectedReadonly: 'This quote has been rejected and cannot be revised.',
+                acceptedReadonly:
+                    'This quote has been accepted and cannot be revised.',
+                expiredReadonly:
+                    'This quote has expired and cannot be revised.',
+                rejectedReadonly:
+                    'This quote has been rejected and cannot be revised.',
             },
             revise: {
                 pageTitle: 'Revise Quote',
                 heading: 'Revise Quote {{number}}',
-                description: 'Update the quote fields. A new version will be created and sent to the prospect.',
+                description:
+                    'Update the quote fields. A new version will be created and sent to the prospect.',
                 changedBadge: 'CHANGED',
                 unchangedBadge: 'UNCHANGED',
                 wasValue: 'was {{value}}',
@@ -1545,7 +1656,8 @@ const appEn: MessageTree = {
             unpaid: 'Unpaid',
             rowsPerPage: 'Rows Per Page',
             noTransactionsFound: 'No transactions found.',
-            showingSummary: 'Showing {{from}} to {{to}} of {{total}} transactions',
+            showingSummary:
+                'Showing {{from}} to {{to}} of {{total}} transactions',
             table: {
                 id: 'ID',
                 lease: 'Lease',
@@ -1561,7 +1673,8 @@ const appEn: MessageTree = {
                 breadcrumb: 'New Transaction',
                 pageTitle: 'Record a Payment',
                 heading: 'Record a Payment',
-                description: 'Manually record an offline payment received from a resident or owner.',
+                description:
+                    'Manually record an offline payment received from a resident or owner.',
                 directionLabel: 'Money In',
                 payer: 'Payer',
                 selectPayer: 'Select payer…',
@@ -1582,7 +1695,8 @@ const appEn: MessageTree = {
                 saveWithoutReceipt: 'Save Without Receipt',
                 cancel: 'Cancel',
                 invoiceIncompleteTitle: 'Invoice settings are incomplete',
-                invoiceIncompleteMessage: 'Receipt generation is unavailable until branding is configured.',
+                invoiceIncompleteMessage:
+                    'Receipt generation is unavailable until branding is configured.',
                 configureSettings: 'Configure Settings →',
             },
             edit: {
@@ -1621,10 +1735,12 @@ const appEn: MessageTree = {
                 sendReceipt: 'Send Receipt',
                 resendReceipt: 'Resend Receipt',
                 lastSent: 'Last sent: {{date}}',
-                invoiceIncompleteMessage: 'Invoice settings are incomplete — please configure branding before sending receipts.',
+                invoiceIncompleteMessage:
+                    'Invoice settings are incomplete — please configure branding before sending receipts.',
                 configureSettings: 'Configure Settings →',
                 sendReceiptTitle: 'Send Receipt',
-                sendReceiptBody: 'Send the receipt for Transaction #{{id}} to {{name}} at {{email}}? The receipt PDF will be attached to the email.',
+                sendReceiptBody:
+                    'Send the receipt for Transaction #{{id}} to {{name}} at {{email}}? The receipt PDF will be attached to the email.',
                 sendReceiptConfirm: 'Send Receipt',
                 sendReceiptCancel: 'Cancel',
                 receiptSentSuccess: 'Receipt sent to {{email}}.',
@@ -1635,7 +1751,8 @@ const appEn: MessageTree = {
             categories: {
                 pageTitle: 'Transaction Categories',
                 heading: 'Transaction Categories',
-                description: 'Configure income and expense categories for transactions.',
+                description:
+                    'Configure income and expense categories for transactions.',
                 addCategory: 'Add Category',
                 tabIncome: 'Income Categories',
                 tabExpense: 'Expense Categories',
@@ -1650,7 +1767,8 @@ const appEn: MessageTree = {
                 deactivateAction: 'Deactivate',
                 reactivateAction: 'Reactivate',
                 deleteAction: 'Delete',
-                noCategories: 'No categories configured yet. Add your first category.',
+                noCategories:
+                    'No categories configured yet. Add your first category.',
                 sheetAddTitle: 'Add Category',
                 sheetEditTitle: 'Edit Category',
                 labelCategoryType: 'Category Type',
@@ -1662,10 +1780,12 @@ const appEn: MessageTree = {
                 saving: 'Saving...',
                 cancelButton: 'Cancel',
                 deactivateConfirmTitle: 'Deactivate category?',
-                deactivateConfirmBody: 'Existing transactions will retain this category.',
+                deactivateConfirmBody:
+                    'Existing transactions will retain this category.',
                 deactivateConfirmButton: 'Deactivate',
                 keepActiveButton: 'Keep Active',
-                deleteDefaultError: 'Default categories cannot be deleted; you may deactivate them instead.',
+                deleteDefaultError:
+                    'Default categories cannot be deleted; you may deactivate them instead.',
             },
         },
         serviceRequests: {
@@ -1674,10 +1794,12 @@ const appEn: MessageTree = {
             description: 'Track the status of your submitted service requests.',
             newRequest: 'New Request',
             noRequestsYet: "You haven't submitted any requests yet.",
-            statusNotConfigured: 'Service request status is not configured. Please contact support.',
+            statusNotConfigured:
+                'Service request status is not configured. Please contact support.',
             createPageTitle: 'New Service Request',
             createHeading: 'Submit a Service Request',
-            createDescription: 'Describe your issue so we can help you quickly.',
+            createDescription:
+                'Describe your issue so we can help you quickly.',
             whatNeedsFixing: 'What needs fixing?',
             whereIsTheProblem: 'Where is the problem?',
             howUrgent: 'How urgent is it?',
@@ -1706,7 +1828,8 @@ const appEn: MessageTree = {
             selectUnit: 'Select a unit',
             selectRoom: 'Select room / location',
             confirmedHeading: 'Request Submitted Successfully',
-            confirmedDescription: 'You will receive a notification when a technician is assigned and when the work is complete.',
+            confirmedDescription:
+                'You will receive a notification when a technician is assigned and when the work is complete.',
             referenceLabel: 'Your reference number',
             copyButton: 'Copy',
             expectedResponseLabel: 'Expected response by',
@@ -1724,7 +1847,8 @@ const appEn: MessageTree = {
             // Admin triage
             triagePageTitle: 'Service Requests',
             triageHeading: 'Service Requests',
-            triageDescription: 'Triage incoming requests, assign technicians and set priority.',
+            triageDescription:
+                'Triage incoming requests, assign technicians and set priority.',
             tabAll: 'All Requests',
             tabUnassigned: 'Unassigned',
             tabOverdue: 'Overdue',
@@ -1780,7 +1904,8 @@ const appEn: MessageTree = {
         serviceCategories: {
             pageTitle: 'Service Categories',
             heading: 'Service Categories',
-            description: 'Configure categories, subcategories, and SLA targets for service requests.',
+            description:
+                'Configure categories, subcategories, and SLA targets for service requests.',
             newCategory: '+ New Category',
             newSubcategory: '+ Add Subcategory',
             labelNameEn: 'Name (English)',
@@ -1810,7 +1935,8 @@ const appEn: MessageTree = {
             disableAction: 'Disable',
             enableAction: 'Enable',
             deleteAction: 'Delete',
-            noCategories: 'No categories configured. Create your first service category.',
+            noCategories:
+                'No categories configured. Create your first service category.',
             responseSlaLabel: 'Response {{hours}}h',
             resolutionSlaLabel: 'Resolution {{hours}}h',
             placeholderAssignee: 'Search user...',
@@ -1826,7 +1952,8 @@ const appEn: MessageTree = {
             import: 'Import',
             importComingSoon: 'Lead import coming soon',
             noLeadsYet: 'No leads yet',
-            noLeadsDescription: 'Start tracking your pipeline by adding your first lead or import an existing list from Excel.',
+            noLeadsDescription:
+                'Start tracking your pipeline by adding your first lead or import an existing list from Excel.',
             importFromExcel: 'Import from Excel',
             downloadTemplate: 'Download Template',
             importLeads: 'Import Leads',
@@ -1839,18 +1966,22 @@ const appEn: MessageTree = {
                 templateLink: 'Download the import template',
                 uploadCta: 'Upload & Preview',
                 uploading: 'Uploading…',
-                formatError: 'This file cannot be read. Please upload an Excel file (.xlsx or .xls) using the provided template.',
+                formatError:
+                    'This file cannot be read. Please upload an Excel file (.xlsx or .xls) using the provided template.',
                 cancel: 'Cancel',
             },
             review: {
                 pageTitle: 'Review Import: {{filename}}',
                 heading: 'Validation Results',
-                description: 'Review the errors below. Valid rows can still be imported.',
+                description:
+                    'Review the errors below. Valid rows can still be imported.',
                 totalRows: 'Total rows',
                 validRows: 'Valid rows',
                 errorRows: 'Error rows',
-                allValidAlert: 'All {{n}} rows passed validation. Ready to import.',
-                allInvalidAlert: 'No valid rows found. Fix the errors and re-upload.',
+                allValidAlert:
+                    'All {{n}} rows passed validation. Ready to import.',
+                allInvalidAlert:
+                    'No valid rows found. Fix the errors and re-upload.',
                 downloadErrorReport: 'Download Error Report',
                 tableRowNum: 'Row',
                 tableField: 'Field',
@@ -1860,7 +1991,8 @@ const appEn: MessageTree = {
                 importDisabledTooltip: 'No valid rows to import',
                 cancelLink: 'Cancel — return to Leads',
                 confirmTitle: 'Import valid rows only?',
-                confirmBody: 'You are about to import {{n}} valid leads. {{m}} rows with errors will be skipped and not saved. You can re-import them after fixing the errors.',
+                confirmBody:
+                    'You are about to import {{n}} valid leads. {{m}} rows with errors will be skipped and not saved. You can re-import them after fixing the errors.',
                 confirmCta: 'Import {{n}} leads',
                 successToast: '{{n}} leads imported successfully.',
             },
@@ -1920,7 +2052,8 @@ const appEn: MessageTree = {
                 statusLabel: 'Status',
                 statusPlaceholder: 'Select status…',
                 lostReasonLabel: 'Lost reason (optional)',
-                lostReasonPlaceholder: 'e.g. Budget constraints, not interested…',
+                lostReasonPlaceholder:
+                    'e.g. Budget constraints, not interested…',
                 lostReasonCounter: '{{n}} / 500',
                 unsavedChanges: 'Unsaved changes',
                 discard: 'Discard',
@@ -1950,7 +2083,8 @@ const appEn: MessageTree = {
                 composeCancel: 'Cancel',
                 composeSave: 'Save Note',
                 emptyActivityHeading: 'No activity yet',
-                emptyActivityBody: 'Activity events such as status changes, assignment updates, and notes will appear here.',
+                emptyActivityBody:
+                    'Activity events such as status changes, assignment updates, and notes will appear here.',
                 emptyActivityCta: 'Add First Note',
                 activityAssigned: 'Assigned to {{name}}',
                 activityUnassigned: 'Unassigned from {{name}}',
@@ -1958,7 +2092,8 @@ const appEn: MessageTree = {
                 activityNote: 'Note',
                 activityActor: 'by {{name}} · {{time}}',
                 deleteTitle: 'Delete Lead',
-                deleteBody: 'Are you sure you want to delete this lead? This action cannot be undone.',
+                deleteBody:
+                    'Are you sure you want to delete this lead? This action cannot be undone.',
                 deleteConfirm: 'Delete Lead',
                 moreActions: 'More actions',
                 editLead: 'Edit lead',
@@ -1969,7 +2104,8 @@ const appEn: MessageTree = {
                 convertBtn: 'Convert to Contact',
                 rowMenuConvert: 'Convert to Contact',
                 drawerTitle: 'Convert to Contact',
-                drawerSubtitle: 'Select a contact type and confirm to create the contact record.',
+                drawerSubtitle:
+                    'Select a contact type and confirm to create the contact record.',
                 typeLabel: 'Contact Type',
                 typeOwner: 'Owner',
                 typeOwnerHint: 'Will be added to Owners in Contacts',
@@ -1986,20 +2122,24 @@ const appEn: MessageTree = {
                 convertCtaLoading: 'Converting…',
                 cancel: 'Cancel',
                 dedupTitle: 'Possible Duplicate Found',
-                dedupBody: 'A contact with a matching phone or email already exists.',
-                dedupLinkOption: 'Link lead to this existing contact (recommended)',
+                dedupBody:
+                    'A contact with a matching phone or email already exists.',
+                dedupLinkOption:
+                    'Link lead to this existing contact (recommended)',
                 dedupCreateOption: 'Create a new contact record anyway',
                 dedupCta: 'Continue',
                 linkConfirmTitle: 'Link Lead to Contact',
                 linkConfirmBody: 'No new contact record will be created.',
                 linkConfirmCta: 'Confirm Link',
                 createAnywayTitle: 'Create New Contact?',
-                createAnywayWarning: 'Creating a new record may result in duplicate contacts in the system.',
+                createAnywayWarning:
+                    'Creating a new record may result in duplicate contacts in the system.',
                 createAnywayCta: 'Create Anyway',
                 successCreated: 'Lead converted — contact created.',
                 successLinked: 'Lead linked to existing contact.',
                 errorFailed: 'Conversion failed. Please try again.',
-                errorDedupCheck: 'Could not check for duplicates. Please try again.',
+                errorDedupCheck:
+                    'Could not check for duplicates. Please try again.',
                 convertedCardTitle: 'Converted Contact',
                 convertedDateLabel: 'Converted',
                 convertedViewLink: 'View contact: {{name}} ({{type}})',
@@ -2047,7 +2187,8 @@ const appEn: MessageTree = {
             settingsLink: 'Settings',
             settings: {
                 title: 'Lease Alert Settings',
-                description: 'Configure when to receive in-app notifications and emails about upcoming lease expirations.',
+                description:
+                    'Configure when to receive in-app notifications and emails about upcoming lease expirations.',
                 alertThresholds: 'Alert Thresholds',
                 dayBefore: '{{n}} days before expiry',
                 inApp: 'In-app notification',
@@ -2154,7 +2295,8 @@ const appEn: MessageTree = {
                 description: 'All resident contacts in your community.',
                 newResident: 'New Resident',
                 createTitle: 'New Resident',
-                createDescription: 'Fill in the details below to create a new resident contact.',
+                createDescription:
+                    'Fill in the details below to create a new resident contact.',
                 createButton: 'Create Resident',
                 cancel: 'Cancel',
                 emptyMessage: 'No residents found.',
@@ -2166,9 +2308,11 @@ const appEn: MessageTree = {
                 idType: 'ID type',
                 selectIdType: 'Select ID type',
                 idNumber: 'ID number',
-                duplicateHeading: 'A resident with this phone number already exists.',
+                duplicateHeading:
+                    'A resident with this phone number already exists.',
                 duplicateGoToExisting: 'Go to existing record',
-                duplicateConfirmCheckbox: 'I confirm this is a different person and want to create a new record anyway.',
+                duplicateConfirmCheckbox:
+                    'I confirm this is a different person and want to create a new record anyway.',
                 createdToast: 'Resident created successfully.',
                 dependents: 'Dependents',
                 idTypes: {
@@ -2196,7 +2340,8 @@ const appEn: MessageTree = {
                 pageTitle: 'Settings - {{title}}',
                 heading: '{{title}}',
                 description: 'Manage and update your workspace settings.',
-                cardDescription: 'Review and update the selected settings section.',
+                cardDescription:
+                    'Review and update the selected settings section.',
                 tabs: {
                     invoice: 'Invoice',
                     serviceRequest: 'Service Request',
@@ -2209,7 +2354,8 @@ const appEn: MessageTree = {
                     homeService: 'Home Service',
                     neighbourhoodService: 'Neighbourhood Service',
                 },
-                invoiceDescription: 'Manage invoice identity and billing information.',
+                invoiceDescription:
+                    'Manage invoice identity and billing information.',
                 companyName: 'Company Name',
                 companyNamePlaceholder: 'Enter company name',
                 address: 'Address',
@@ -2232,7 +2378,8 @@ const appEn: MessageTree = {
                 navigation: 'Navigation',
                 details: 'Details',
                 openCategory: 'Open Category',
-                noServiceRequestCategories: 'No service request categories found.',
+                noServiceRequestCategories:
+                    'No service request categories found.',
                 enabled: 'Enabled',
                 requirePreApproval: 'Require Pre-Approval',
                 maxVisitorsPerRequest: 'Max Visitors Per Request',
@@ -2253,18 +2400,21 @@ const appEn: MessageTree = {
                 cashContractSigningDays: 'Cash Contract Signing (Days)',
                 bankContractSigningDays: 'Bank Contract Signing (Days)',
                 saveSalesDetails: 'Save Sales Details',
-                unsupportedSettingsTab: 'This settings tab is not configured yet.',
+                unsupportedSettingsTab:
+                    'This settings tab is not configured yet.',
             },
             requestCategories: {
                 pageTitle: 'Request Categories',
                 heading: 'Request Categories',
-                description: 'Manage service request categories and subcategories.',
+                description:
+                    'Manage service request categories and subcategories.',
                 newCategory: 'New Category',
                 createTitle: 'Create Request Category',
                 createDescription: 'Add a new service request category.',
                 editTitle: 'Edit {{name}}',
                 editHeading: 'Edit: {{name}}',
-                editDescription: 'Update category details and manage subcategories.',
+                editDescription:
+                    'Update category details and manage subcategories.',
                 nameEn: 'Name (English)',
                 nameAr: 'Name (Arabic)',
                 status: 'Status',
@@ -2281,16 +2431,20 @@ const appEn: MessageTree = {
                 endTime: 'End Time',
                 addSubcategorySubmit: 'Add Subcategory',
                 serviceSettingsTitle: 'Service Settings Permissions',
-                serviceSettingsDescription: 'Configure request handling permissions for this category.',
+                serviceSettingsDescription:
+                    'Configure request handling permissions for this category.',
                 managerCloseRequest: 'Manager can close request',
                 attachmentsRequired: 'Attachments required',
                 allowProfessionalReschedule: 'Allow professional reschedule',
-                skipRequestCodeForProfessional: 'Skip request code for professional',
-                skipRequestPhotoForProfessional: 'Skip request photo upload for professional',
+                skipRequestCodeForProfessional:
+                    'Skip request code for professional',
+                skipRequestPhotoForProfessional:
+                    'Skip request photo upload for professional',
                 saveServiceSettings: 'Save Service Settings',
                 noSubcategories: 'No subcategories.',
                 noCategories: 'No categories yet.',
-                deleteCategoryConfirm: 'Are you sure you want to delete this category?',
+                deleteCategoryConfirm:
+                    'Are you sure you want to delete this category?',
                 deleteSubcategoryConfirm: 'Delete this subcategory?',
                 subcategoryNamePlaceholder: 'Subcategory name',
                 subcategoryNameArPlaceholder: 'Subcategory Arabic name',
@@ -2311,7 +2465,8 @@ const appEn: MessageTree = {
                 createButton: 'Create Category',
                 updateButton: 'Update Category',
                 noCategories: 'No categories yet.',
-                deleteCategoryConfirm: 'Are you sure you want to delete this category?',
+                deleteCategoryConfirm:
+                    'Are you sure you want to delete this category?',
             },
             facilities: {
                 pageTitle: 'Facilities Settings',
@@ -2319,7 +2474,8 @@ const appEn: MessageTree = {
                 description: 'Manage facilities and booking readiness.',
                 addFacility: 'Add Facility',
                 editFacility: 'Edit Facility',
-                formDescription: 'Configure facility details and booking rules.',
+                formDescription:
+                    'Configure facility details and booking rules.',
                 createFacility: 'Create Facility',
                 updateFacility: 'Update Facility',
                 name: 'Name',
@@ -2341,7 +2497,8 @@ const appEn: MessageTree = {
                 view: 'View',
                 empty: 'No facilities found.',
                 facilityTitle: 'Facility - {{name}}',
-                detailsDescription: 'Review facility information and recent bookings.',
+                detailsDescription:
+                    'Review facility information and recent bookings.',
                 details: 'Facility Details',
                 approval: 'Approval',
                 required: 'Required',
@@ -2356,7 +2513,8 @@ const appEn: MessageTree = {
             serviceRequestDetails: {
                 pageTitle: 'Service Request - {{name}}',
                 heading: 'Service Request - {{name}}',
-                description: 'Review category subcategories and permission settings.',
+                description:
+                    'Review category subcategories and permission settings.',
                 details: 'Details',
                 type: 'Type',
                 categoryCode: 'Category Code',
@@ -2374,7 +2532,8 @@ const appEn: MessageTree = {
             general: {
                 pageTitle: 'General Settings',
                 heading: 'General Settings',
-                description: 'Manage lookup tables for contract types, payment schedules, and transaction categories.',
+                description:
+                    'Manage lookup tables for contract types, payment schedules, and transaction categories.',
                 addSetting: 'Add Setting',
                 cancelAdd: 'Cancel',
                 nameEn: 'Name (English)',
@@ -2384,7 +2543,8 @@ const appEn: MessageTree = {
                 settingNamePlaceholder: 'Setting name',
                 settingNameArPlaceholder: 'Setting Arabic name',
                 addSettingSubmit: 'Add Setting',
-                noSettings: 'No settings configured yet. Add your first setting above.',
+                noSettings:
+                    'No settings configured yet. Add your first setting above.',
                 rentalContractTypes: 'Rental Contract Types',
                 paymentSchedules: 'Payment Schedules',
                 transactionCategories: 'Transaction Categories',
@@ -2399,7 +2559,8 @@ const appEn: MessageTree = {
         settingsForms: {
             pageTitle: 'Settings Forms',
             formTemplates: 'Form Templates',
-            description: 'Create and manage simple request forms for your team.',
+            description:
+                'Create and manage simple request forms for your team.',
             createTemplate: 'Create Template',
             templates: 'Templates',
             name: 'Name',
@@ -2410,16 +2571,20 @@ const appEn: MessageTree = {
             preview: 'Preview',
             empty: 'No form templates found.',
             editTemplate: 'Edit Template',
-            createDescription: 'Set up this form in three quick steps: details, scope, and questions.',
-            simpleFlowHint: 'Tip: keep it short. Add only the questions people really need to answer.',
+            createDescription:
+                'Set up this form in three quick steps: details, scope, and questions.',
+            simpleFlowHint:
+                'Tip: keep it short. Add only the questions people really need to answer.',
             selectCommunity: 'Choose Community',
             selectBuilding: 'Choose Building',
             updateTemplate: 'Update Template',
             newTemplate: 'New Template',
             basicDetails: '1. Basic details',
-            basicDetailsDescription: 'Give the form a clear name and a short description.',
+            basicDetailsDescription:
+                'Give the form a clear name and a short description.',
             whereUsed: '2. Where this form is used (optional)',
-            whereUsedDescription: 'Choose category, community, and building only if you want to limit where this form appears.',
+            whereUsedDescription:
+                'Choose category, community, and building only if you want to limit where this form appears.',
             templateName: 'Form Name',
             descriptionLabel: 'Short Description',
             requestCategory: 'Request Category',
@@ -2437,7 +2602,8 @@ const appEn: MessageTree = {
             fieldKey: 'Field Key',
             fieldType: 'Answer Type',
             fieldPlaceholder: 'Example Answer (Optional)',
-            fieldKeyAutoGenerated: 'No technical setup needed. Field IDs are generated automatically.',
+            fieldKeyAutoGenerated:
+                'No technical setup needed. Field IDs are generated automatically.',
             moveFieldUp: 'Move Up',
             moveFieldDown: 'Move Down',
             removeField: 'Remove Question',
@@ -2460,11 +2626,13 @@ const appEn: MessageTree = {
             noFieldsConfigured: 'No questions added yet.',
             requiredFields: 'Required Fields',
             noRequiredFields: 'No required fields.',
-            selectCommunityDescription: 'Choose a community to start creating a form for it.',
+            selectCommunityDescription:
+                'Choose a community to start creating a form for it.',
             communities: 'Communities',
             select: 'Select',
             noCommunities: 'No communities found.',
-            selectBuildingDescription: 'Choose a community and building, then continue to form setup.',
+            selectBuildingDescription:
+                'Choose a community and building, then continue to form setup.',
             buildingScope: 'Building Scope',
             useInTemplate: 'Use This Building',
             noBuildingsForCommunity: 'No buildings found for this community.',
@@ -2472,7 +2640,8 @@ const appEn: MessageTree = {
         companyProfile: {
             pageTitle: 'Company Profile',
             heading: 'Company Profile',
-            description: 'Configure your company identity, logo, and brand settings that appear on all contracts, invoices, and the login page.',
+            description:
+                'Configure your company identity, logo, and brand settings that appear on all contracts, invoices, and the login page.',
             sectionIdentity: 'Identity',
             sectionLogos: 'Logo & Brand',
             sectionRegional: 'Regional',
@@ -2493,23 +2662,29 @@ const appEn: MessageTree = {
             removeLogo: 'Remove',
             uploadHelper: 'PNG or SVG, ≤ 2 MB',
             logoArVariant: 'Arabic logo variant (optional)',
-            logoArHint: 'Used on Arabic-language documents. Falls back to the primary logo if not uploaded.',
+            logoArHint:
+                'Used on Arabic-language documents. Falls back to the primary logo if not uploaded.',
             timezone: 'Timezone',
-            timezoneHelper: 'Affects all timestamps: lease start dates, invoice due dates, and booking slots. Default is UTC.',
+            timezoneHelper:
+                'Affects all timestamps: lease start dates, invoice due dates, and booking slots. Default is UTC.',
             timezoneSearch: 'Search timezones…',
             timezoneGroupGulf: 'Gulf',
             primaryColor: 'Primary brand color',
-            colorHint: 'Applied to email notification headers and document template accents. Does not change the platform sidebar color.',
+            colorHint:
+                'Applied to email notification headers and document template accents. Does not change the platform sidebar color.',
             hexLabel: 'Hex color',
-            emptyState: 'Set up your company profile to get started. Your company name, logo, and VAT number will appear on all generated documents.',
+            emptyState:
+                'Set up your company profile to get started. Your company name, logo, and VAT number will appear on all generated documents.',
             noLogo: 'No logo uploaded',
             unsavedChanges: 'Unsaved changes',
             discard: 'Discard',
             saveChanges: 'Save changes',
             saving: 'Saving…',
             toastSuccess: 'Company profile saved successfully.',
-            toastError: 'Something went wrong. Your changes could not be saved.',
-            retryMessage: 'Please try again or contact support if the problem persists.',
+            toastError:
+                'Something went wrong. Your changes could not be saved.',
+            retryMessage:
+                'Please try again or contact support if the problem persists.',
             validationNameEnRequired: 'Company name (English) is required.',
             validationNameArRequired: 'Company name (Arabic) is required.',
             validationVatFormat: 'VAT number must be 15 digits.',
@@ -2628,7 +2803,8 @@ const appAr: MessageTree = {
             login: {
                 headTitle: 'تسجيل الدخول',
                 layoutTitle: 'تسجيل الدخول إلى حسابك',
-                layoutDescription: 'أدخل البريد الإلكتروني وكلمة المرور أدناه لتسجيل الدخول',
+                layoutDescription:
+                    'أدخل البريد الإلكتروني وكلمة المرور أدناه لتسجيل الدخول',
                 emailAddress: 'البريد الإلكتروني',
                 password: 'كلمة المرور',
                 forgotPassword: 'نسيت كلمة المرور؟',
@@ -2637,8 +2813,10 @@ const appAr: MessageTree = {
                 noAccount: 'ليس لديك حساب؟',
                 signUp: 'إنشاء حساب',
                 emailPlaceholder: 'email@example.com',
-                invalidCredentials: 'بيانات الاعتماد هذه غير متطابقة مع سجلاتنا.',
-                throttled: 'لقد تجاوزت الحد المسموح به من محاولات تسجيل الدخول. يرجى المحاولة مرة أخرى خلال {{seconds}} ثانية.',
+                invalidCredentials:
+                    'بيانات الاعتماد هذه غير متطابقة مع سجلاتنا.',
+                throttled:
+                    'لقد تجاوزت الحد المسموح به من محاولات تسجيل الدخول. يرجى المحاولة مرة أخرى خلال {{seconds}} ثانية.',
                 showPassword: 'إظهار كلمة المرور',
                 hidePassword: 'إخفاء كلمة المرور',
             },
@@ -2660,7 +2838,8 @@ const appAr: MessageTree = {
                 accountName: 'اسم الحساب',
                 accountNamePlaceholder: 'اسم الحساب',
                 trialTitle: 'تفاصيل الفترة التجريبية',
-                trialDetails: 'ابدأ بفترة تجريبية مجانية لمدة 14 يوماً، ثم استمر بسعر 300 ريال سعودي شهرياً.',
+                trialDetails:
+                    'ابدأ بفترة تجريبية مجانية لمدة 14 يوماً، ثم استمر بسعر 300 ريال سعودي شهرياً.',
                 acceptTerms: 'أوافق على الشروط والأحكام.',
                 password: 'كلمة المرور',
                 confirmPassword: 'تأكيد كلمة المرور',
@@ -2683,7 +2862,8 @@ const appAr: MessageTree = {
             forgotPassword: {
                 headTitle: 'نسيت كلمة المرور',
                 layoutTitle: 'نسيت كلمة المرور',
-                layoutDescription: 'أدخل بريدك الإلكتروني لاستلام رابط إعادة تعيين كلمة المرور',
+                layoutDescription:
+                    'أدخل بريدك الإلكتروني لاستلام رابط إعادة تعيين كلمة المرور',
                 emailAddress: 'البريد الإلكتروني',
                 emailPlaceholder: 'email@example.com',
                 submit: 'إرسال رابط إعادة التعيين',
@@ -2702,22 +2882,26 @@ const appAr: MessageTree = {
                 headTitle: 'التحقق من البريد الإلكتروني',
                 layoutTitle: 'تحقق من بريدك الإلكتروني',
                 layoutDescription: 'أرسلنا رابط التحقق إلى {email}',
-                instructions: 'تحقق من صندوق الوارد واضغط على الرابط لتفعيل حسابك.',
+                instructions:
+                    'تحقق من صندوق الوارد واضغط على الرابط لتفعيل حسابك.',
                 success: 'تم إرسال رابط تحقق جديد.',
             },
             confirmPassword: {
                 headTitle: 'تأكيد كلمة المرور',
                 layoutTitle: 'تأكيد كلمة المرور',
-                layoutDescription: 'هذه منطقة آمنة في التطبيق. يرجى تأكيد كلمة المرور قبل المتابعة.',
+                layoutDescription:
+                    'هذه منطقة آمنة في التطبيق. يرجى تأكيد كلمة المرور قبل المتابعة.',
                 password: 'كلمة المرور',
                 submit: 'تأكيد كلمة المرور',
             },
             twoFactor: {
                 headTitle: 'التحقق الثنائي',
                 recoveryCode: 'رمز الاستعادة',
-                recoveryDescription: 'يرجى تأكيد الوصول إلى حسابك بإدخال أحد رموز الاستعادة الاحتياطية.',
+                recoveryDescription:
+                    'يرجى تأكيد الوصول إلى حسابك بإدخال أحد رموز الاستعادة الاحتياطية.',
                 authenticationCode: 'رمز التحقق',
-                authenticationDescription: 'أدخل رمز التحقق من تطبيق المصادقة على هاتفك.',
+                authenticationDescription:
+                    'أدخل رمز التحقق من تطبيق المصادقة على هاتفك.',
                 useAuthenticationCode: 'تسجيل الدخول باستخدام رمز التحقق',
                 useRecoveryCode: 'تسجيل الدخول باستخدام رمز الاستعادة',
                 recoveryPlaceholder: 'أدخل رمز الاستعادة',
@@ -2729,14 +2913,16 @@ const appAr: MessageTree = {
                 password: 'كلمة المرور',
                 confirmPassword: 'تأكيد كلمة المرور',
                 submit: 'تعيين كلمة المرور وتسجيل الدخول',
-                expiredToken: 'انتهت صلاحية رابط الدعوة أو تم استخدامه مسبقاً. تواصل مع المسؤول لإصدار دعوة جديدة.',
+                expiredToken:
+                    'انتهت صلاحية رابط الدعوة أو تم استخدامه مسبقاً. تواصل مع المسؤول لإصدار دعوة جديدة.',
             },
         },
         admin: {
             users: {
                 pageTitle: 'إدارة المستخدمين',
                 heading: 'إدارة مستخدمي الحساب',
-                description: 'إنشاء وإدارة المستخدمين بصلاحيات مبنية على الأدوار لهذا الحساب.',
+                description:
+                    'إنشاء وإدارة المستخدمين بصلاحيات مبنية على الأدوار لهذا الحساب.',
                 currentAccount: 'الحساب الحالي',
                 name: 'الاسم',
                 email: 'البريد الإلكتروني',
@@ -2761,10 +2947,12 @@ const appAr: MessageTree = {
                 communityPlaceholder: 'اختر المجتمعات…',
                 buildingLabel: 'المبنى',
                 buildingPlaceholder: 'اختر المباني…',
-                buildingOptionalHint: 'اختياري — اتركه فارغاً للتطبيق على جميع المباني في المجتمعات المختارة.',
+                buildingOptionalHint:
+                    'اختياري — اتركه فارغاً للتطبيق على جميع المباني في المجتمعات المختارة.',
                 serviceTypeLabel: 'نوع الخدمة',
                 serviceTypePlaceholder: 'اختر أنواع الخدمات…',
-                globalScopeNote: 'يُطبَّق هذا الدور على نطاق عام. لا يلزم تحديد نطاق.',
+                globalScopeNote:
+                    'يُطبَّق هذا الدور على نطاق عام. لا يلزم تحديد نطاق.',
                 assignBtn: 'تعيين',
                 cancelBtn: 'إلغاء',
                 cancelConfirm: 'إلغاء التغييرات؟',
@@ -2782,8 +2970,10 @@ const appAr: MessageTree = {
                 toastAssigned: 'تم تعيين الدور بنجاح.',
                 toastRemoved: 'تمت إزالة التعيين بنجاح.',
                 validationRoleRequired: 'الرجاء اختيار دور.',
-                validationCommunityRequired: 'الرجاء اختيار مجتمع واحد على الأقل لهذا الدور.',
-                validationServiceTypeRequired: 'الرجاء اختيار نوع خدمة واحد على الأقل لهذا الدور.',
+                validationCommunityRequired:
+                    'الرجاء اختيار مجتمع واحد على الأقل لهذا الدور.',
+                validationServiceTypeRequired:
+                    'الرجاء اختيار نوع خدمة واحد على الأقل لهذا الدور.',
                 status: 'الحالة',
                 statusActive: 'نشط',
                 statusInvitationPending: 'في انتظار الدعوة',
@@ -2804,9 +2994,11 @@ const appAr: MessageTree = {
                 viewDetails: 'عرض التفاصيل',
                 moreActions: 'المزيد من الخيارات',
                 cannotDeactivateSelf: 'لا يمكنك إلغاء تنشيط حسابك.',
-                deactivatedBanner: 'حساب هذا المستخدم معطّل. لا يمكنه تسجيل الدخول حتى يُعيد أحد المسؤولين تنشيطه.',
+                deactivatedBanner:
+                    'حساب هذا المستخدم معطّل. لا يمكنه تسجيل الدخول حتى يُعيد أحد المسؤولين تنشيطه.',
                 deactivateConfirmTitle: 'تعطيل الحساب؟',
-                deactivateConfirmBody: 'سيفقد هذا المستخدم وصوله فوراً ولن يتمكن من تسجيل الدخول. يمكنك إعادة تنشيطه في أي وقت.',
+                deactivateConfirmBody:
+                    'سيفقد هذا المستخدم وصوله فوراً ولن يتمكن من تسجيل الدخول. يمكنك إعادة تنشيطه في أي وقت.',
                 deactivateConfirmAction: 'تعطيل',
             },
             roles: {
@@ -2840,11 +3032,13 @@ const appAr: MessageTree = {
                 saveChanges: 'حفظ التغييرات',
                 saving: 'جارٍ الحفظ…',
                 deleteDialogTitle: 'حذف الدور؟',
-                deleteDialogBody: 'سيؤدي ذلك إلى إزالة "{name}" نهائيًا. سيفقد المستخدمون المعيّنون لهذا الدور صلاحياتهم.',
+                deleteDialogBody:
+                    'سيؤدي ذلك إلى إزالة "{name}" نهائيًا. سيفقد المستخدمون المعيّنون لهذا الدور صلاحياتهم.',
                 deleteDialogConfirm: 'حذف الدور',
                 deleteDialogCancel: 'إلغاء',
                 emptyHeading: 'لم يتم العثور على أدوار.',
-                emptyBody: 'حاول تعديل البحث أو الفلتر، أو أنشئ أول دور مخصص لك.',
+                emptyBody:
+                    'حاول تعديل البحث أو الفلتر، أو أنشئ أول دور مخصص لك.',
                 emptyCta: '+ دور جديد',
                 toastCreated: 'تم إنشاء الدور بنجاح.',
                 toastUpdated: 'تم تحديث الدور.',
@@ -2854,10 +3048,12 @@ const appAr: MessageTree = {
                 permissions: {
                     pageTitle: 'الصلاحيات — {{name}}',
                     tab: 'الصلاحيات',
-                    systemBanner: 'لا يمكن تعديل أدوار النظام. تُدار هذه الصلاحيات من قِبَل المنصة.',
+                    systemBanner:
+                        'لا يمكن تعديل أدوار النظام. تُدار هذه الصلاحيات من قِبَل المنصة.',
                     applyPreset: 'تطبيق إعداد مسبق',
                     presetPlaceholder: 'اختر إعداداً مسبقاً…',
-                    presetTooltip: 'تملأ الإعدادات المسبقة مجموعة صلاحيات قياسية. يمكنك تعديل الخلايا الفردية بعد التطبيق.',
+                    presetTooltip:
+                        'تملأ الإعدادات المسبقة مجموعة صلاحيات قياسية. يمكنك تعديل الخلايا الفردية بعد التطبيق.',
                     viewRequiredTooltip: 'العرض مطلوب عند تفعيل أي إجراء آخر.',
                     allSubjects: 'جميع الموضوعات',
                     all: 'الكل',
@@ -2924,7 +3120,8 @@ const appAr: MessageTree = {
             subscriptions: {
                 pageTitle: 'إدارة الاشتراكات',
                 heading: 'اشتراكات الحسابات',
-                description: 'إدارة اشتراكات الحسابات باستخدام الخطة الشهرية الافتراضية.',
+                description:
+                    'إدارة اشتراكات الحسابات باستخدام الخطة الشهرية الافتراضية.',
                 defaultPlan: 'الخطة الافتراضية',
                 planName: 'الخطة',
                 price: 'السعر',
@@ -2949,7 +3146,8 @@ const appAr: MessageTree = {
             documents: {
                 pageTitle: 'قوالب المستندات',
                 heading: 'قوالب المستندات',
-                description: 'إنشاء وإدارة قوالب المستندات مع حقول الدمج لعقود الإيجار والفواتير والإيصالات والحجوزات.',
+                description:
+                    'إنشاء وإدارة قوالب المستندات مع حقول الدمج لعقود الإيجار والفواتير والإيصالات والحجوزات.',
                 create: 'إنشاء قالب',
                 edit: 'تعديل القالب',
                 nameEn: 'الاسم (إنجليزي)',
@@ -2989,7 +3187,8 @@ const appAr: MessageTree = {
                 tabFeatures: 'الميزات',
                 tabUsers: 'المستخدمون',
                 tabSubscription: 'الاشتراك',
-                description: 'قم بتهيئة ميزات المنصة النشطة لهذا المستأجر. تسري التغييرات فورًا في تحميل الصفحة التالي.',
+                description:
+                    'قم بتهيئة ميزات المنصة النشطة لهذا المستأجر. تسري التغييرات فورًا في تحميل الصفحة التالي.',
                 colFeature: 'الميزة',
                 colStatus: 'الحالة',
                 colInTier: 'مضمّن في الخطة',
@@ -2997,21 +3196,26 @@ const appAr: MessageTree = {
                 statusEnabled: 'مفعّل',
                 statusDisabled: 'معطّل',
                 enableHeading: 'تفعيل {{feature}}؟',
-                enableBody: 'سيحصل مستخدمو المستأجر على وصول فوري في تحميل الصفحة التالي.',
+                enableBody:
+                    'سيحصل مستخدمو المستأجر على وصول فوري في تحميل الصفحة التالي.',
                 enableCta: 'تفعيل الميزة',
                 disableHeading: 'تعطيل {{feature}}؟',
                 disableImpactLabel: 'تأثير فوري',
-                disableImpactBody: 'سيفقد مستخدمو المستأجر الذين يستخدمون {{feature}} الوصول في تحميل الصفحة التالي. ستظهر رسالة "الميزة غير متاحة".',
-                disableReversible: 'يمكن التراجع عن هذا الإجراء وإعادة تفعيل الميزة في أي وقت.',
+                disableImpactBody:
+                    'سيفقد مستخدمو المستأجر الذين يستخدمون {{feature}} الوصول في تحميل الصفحة التالي. ستظهر رسالة "الميزة غير متاحة".',
+                disableReversible:
+                    'يمكن التراجع عن هذا الإجراء وإعادة تفعيل الميزة في أي وقت.',
                 disableCta: 'تعطيل الميزة',
                 toastEnabled: 'تم تفعيل {{feature}}',
                 toastDisabled: 'تم تعطيل {{feature}}',
                 toggleError: 'تعذّر التحديث. يرجى المحاولة مرة أخرى.',
                 tierIncluded: 'مضمّن افتراضيًا في خطة {{plan}}.',
-                tierNotIncluded: 'غير مضمّن في خطة {{plan}}. تم التفعيل يدويًا من قبل المشغّل.',
+                tierNotIncluded:
+                    'غير مضمّن في خطة {{plan}}. تم التفعيل يدويًا من قبل المشغّل.',
                 emptyHeading: 'لا توجد علامات ميزات محددة بعد.',
                 emptyHeadingAr: 'لا توجد علامات ميزات محددة بعد.',
-                emptyBody: 'يتم تعريف علامات الميزات في الكود وزرعها تلقائيًا. تواصل مع الهندسة إذا كانت هناك علامة مفقودة.',
+                emptyBody:
+                    'يتم تعريف علامات الميزات في الكود وزرعها تلقائيًا. تواصل مع الهندسة إذا كانت هناك علامة مفقودة.',
                 ariaEnable: 'تفعيل {{feature}}',
                 ariaDisable: 'تعطيل {{feature}}',
             },
@@ -3027,12 +3231,14 @@ const appAr: MessageTree = {
                 emailPlaceholder: 'البريد الإلكتروني',
                 unverifiedNotice: 'بريدك الإلكتروني غير موثق.',
                 resendVerification: 'اضغط هنا لإعادة إرسال رسالة التحقق.',
-                verificationSent: 'تم إرسال رابط تحقق جديد إلى بريدك الإلكتروني.',
+                verificationSent:
+                    'تم إرسال رابط تحقق جديد إلى بريدك الإلكتروني.',
             },
             security: {
                 pageTitle: 'إعدادات الأمان',
                 updatePassword: 'تحديث كلمة المرور',
-                passwordDescription: 'تأكد من استخدام كلمة مرور قوية وعشوائية لحماية حسابك',
+                passwordDescription:
+                    'تأكد من استخدام كلمة مرور قوية وعشوائية لحماية حسابك',
                 currentPassword: 'كلمة المرور الحالية',
                 currentPasswordPlaceholder: 'كلمة المرور الحالية',
                 newPassword: 'كلمة المرور الجديدة',
@@ -3042,8 +3248,10 @@ const appAr: MessageTree = {
                 savePassword: 'حفظ كلمة المرور',
                 twoFactorTitle: 'التحقق الثنائي',
                 twoFactorDescription: 'إدارة إعدادات التحقق الثنائي',
-                twoFactorEnableHelp: 'عند تفعيل التحقق الثنائي، سيُطلب منك إدخال رمز آمن أثناء تسجيل الدخول. يمكن الحصول على الرمز من تطبيق يدعم TOTP على هاتفك.',
-                twoFactorEnabledHelp: 'سيُطلب منك إدخال رمز آمن وعشوائي أثناء تسجيل الدخول، ويمكنك الحصول عليه من تطبيق يدعم TOTP على هاتفك.',
+                twoFactorEnableHelp:
+                    'عند تفعيل التحقق الثنائي، سيُطلب منك إدخال رمز آمن أثناء تسجيل الدخول. يمكن الحصول على الرمز من تطبيق يدعم TOTP على هاتفك.',
+                twoFactorEnabledHelp:
+                    'سيُطلب منك إدخال رمز آمن وعشوائي أثناء تسجيل الدخول، ويمكنك الحصول عليه من تطبيق يدعم TOTP على هاتفك.',
                 sessions: {
                     title: 'الجلسات النشطة',
                     description: 'عرض وإدارة الأجهزة المسجلة حاليًا في حسابك.',
@@ -3054,11 +3262,15 @@ const appAr: MessageTree = {
                     revokeAllSuccess: 'تم تسجيل الخروج من جميع الجلسات الأخرى.',
                     revokeSingleSuccess: 'تم إنهاء الجلسة بنجاح.',
                     onlyOne: 'جلسة نشطة واحدة فقط.',
-                    driverNotConfigured: 'إدارة الجلسات تتطلب إعدادات إضافية. يرجى التواصل مع مدير النظام.',
+                    driverNotConfigured:
+                        'إدارة الجلسات تتطلب إعدادات إضافية. يرجى التواصل مع مدير النظام.',
                     revokeConfirmTitle: 'إنهاء هذه الجلسة؟',
-                    revokeConfirmBody: 'سيتم تسجيل خروج الجهاز وسيحتاج إلى تسجيل الدخول مرة أخرى.',
-                    revokeAllConfirmTitle: 'تسجيل الخروج من جميع الجلسات الأخرى؟',
-                    revokeAllConfirmBody: 'سيتم تسجيل خروج جميع الأجهزة ما عدا هذا الجهاز فورًا.',
+                    revokeConfirmBody:
+                        'سيتم تسجيل خروج الجهاز وسيحتاج إلى تسجيل الدخول مرة أخرى.',
+                    revokeAllConfirmTitle:
+                        'تسجيل الخروج من جميع الجلسات الأخرى؟',
+                    revokeAllConfirmBody:
+                        'سيتم تسجيل خروج جميع الأجهزة ما عدا هذا الجهاز فورًا.',
                 },
             },
             appearance: {
@@ -3072,10 +3284,12 @@ const appAr: MessageTree = {
             deleteAccount: {
                 heading: 'حذف الحساب',
                 description: 'حذف الحساب وجميع موارده',
-                warningDescription: 'يرجى المتابعة بحذر، لا يمكن التراجع عن هذا الإجراء.',
+                warningDescription:
+                    'يرجى المتابعة بحذر، لا يمكن التراجع عن هذا الإجراء.',
                 button: 'حذف الحساب',
                 dialogTitle: 'هل أنت متأكد من رغبتك في حذف الحساب؟',
-                dialogDescription: 'بعد حذف الحساب سيتم حذف جميع البيانات والموارد نهائيًا. أدخل كلمة المرور لتأكيد حذف الحساب بشكل دائم.',
+                dialogDescription:
+                    'بعد حذف الحساب سيتم حذف جميع البيانات والموارد نهائيًا. أدخل كلمة المرور لتأكيد حذف الحساب بشكل دائم.',
                 password: 'كلمة المرور',
                 passwordPlaceholder: 'كلمة المرور',
             },
@@ -3160,13 +3374,15 @@ const appAr: MessageTree = {
                     updateButton: 'تحديث المشروع',
                     amenities: {
                         sectionTitle: 'المرافق',
-                        sectionDescription: 'حدد المرافق المشتركة المتاحة في هذا المجمع.',
+                        sectionDescription:
+                            'حدد المرافق المشتركة المتاحة في هذا المجمع.',
                         noAmenities: 'لم يتم تحديد أي مرافق',
                         remove: 'إزالة {{name}}',
                     },
                     workingDays: {
                         sectionTitle: 'أيام العمل',
-                        sectionDescription: 'الأيام التي تعمل فيها مرافق المجمع والمكاتب.',
+                        sectionDescription:
+                            'الأيام التي تعمل فيها مرافق المجمع والمكاتب.',
                         noDays: 'غير محدد',
                         sat: 'السبت',
                         sun: 'الأحد',
@@ -3186,7 +3402,8 @@ const appAr: MessageTree = {
                         latitudeHint: 'النطاق: −90 إلى 90',
                         longitudeHint: 'النطاق: −180 إلى 180',
                         useMyLocation: 'استخدم موقعي',
-                        permissionDenied: 'تم رفض الوصول إلى الموقع من قِبل متصفحك. أدخل الإحداثيات يدوياً أدناه.',
+                        permissionDenied:
+                            'تم رفض الوصول إلى الموقع من قِبل متصفحك. أدخل الإحداثيات يدوياً أدناه.',
                         gettingLocation: 'جاري تحديد موقعك...',
                         locationFilled: 'تم ملء الموقع',
                     },
@@ -3409,7 +3626,8 @@ const appAr: MessageTree = {
                     step4: 'استيراد',
                     downloadTemplate: 'تحميل النموذج',
                     dropZoneText: 'اسحب وأفلت ملف الإكسل هنا أو انقر للتصفح',
-                    acceptedFormat: 'الصيغة المقبولة: .xlsx · الحد الأقصى: 10MB',
+                    acceptedFormat:
+                        'الصيغة المقبولة: .xlsx · الحد الأقصى: 10MB',
                     rowsDetected: 'تم اكتشاف {{n}} صف',
                     systemField: 'الحقل في النظام',
                     uploadedColumn: 'العمود المرفوع',
@@ -3419,25 +3637,29 @@ const appAr: MessageTree = {
                     validRows: '{{n}} صحيح',
                     errorRows: '{{n}} بأخطاء',
                     warningRows: '{{n}} تحذيرات',
-                    allRowsInvalid: 'جميع الصفوف {{n}} تحتوي على أخطاء. يرجى تصحيح الملف وإعادة الرفع.',
+                    allRowsInvalid:
+                        'جميع الصفوف {{n}} تحتوي على أخطاء. يرجى تصحيح الملف وإعادة الرفع.',
                     noDataRows: 'الملف المرفوع لا يحتوي على بيانات.',
                     importValidOnly: 'استيراد {{n}} صف صحيح',
                     cancelAndFix: 'إلغاء وتصحيح الملف',
                     progressLabel: 'جارٍ استيراد {{n}} وحدة...',
                     progressNote: 'لا تُغلق هذه النافذة.',
-                    completionToast: 'تم استيراد {{n}} وحدة بنجاح. تم تخطي {{e}} صف بسبب أخطاء.',
+                    completionToast:
+                        'تم استيراد {{n}} وحدة بنجاح. تم تخطي {{e}} صف بسبب أخطاء.',
                     viewReport: 'عرض التقرير',
                     errorBuildingNotFound: 'المبنى "{{name}}" غير موجود',
                     errorDuplicate: 'رقم وحدة مكرر في نفس المبنى',
                     errorInvalidStatus: 'الحالة "{{name}}" غير صالحة',
                     errorInvalidFile: 'يجب أن يكون الملف بصيغة .xlsx',
-                    errorFileTooLarge: 'حجم الملف يتجاوز 10MB. يرجى تقسيم الملف.',
+                    errorFileTooLarge:
+                        'حجم الملف يتجاوز 10MB. يرجى تقسيم الملف.',
                     errorRow: 'الصف',
                     errorField: 'الحقل',
                     errorMessage: 'الخطأ',
                     filterAll: 'جميع الصفوف',
                     filterErrors: 'الأخطاء فقط',
-                    queuedMessage: 'الاستيراد قيد المعالجة في الخلفية. ستُشعَر عند الانتهاء.',
+                    queuedMessage:
+                        'الاستيراد قيد المعالجة في الخلفية. ستُشعَر عند الانتهاء.',
                     fieldName: 'اسم الوحدة',
                     fieldCommunity: 'المشروع',
                     fieldBuilding: 'المبنى',
@@ -3550,18 +3772,22 @@ const appAr: MessageTree = {
                 confirmDuration: 'المدة',
                 confirmPrice: 'السعر',
                 confirmTotal: 'المجموع',
-                confirmNote: 'سيتم إرسال التأكيد إلى رقم هاتفك المحمول وبريدك الإلكتروني المسجلين.',
+                confirmNote:
+                    'سيتم إرسال التأكيد إلى رقم هاتفك المحمول وبريدك الإلكتروني المسجلين.',
                 confirm: 'تأكيد',
                 cancel: 'إلغاء',
                 raceConditionTitle: 'هذه الفتحة لم تعد متاحة',
-                raceConditionDetail: 'قام ساكن آخر بحجزها للتو. الرجاء اختيار وقت آخر.',
+                raceConditionDetail:
+                    'قام ساكن آخر بحجزها للتو. الرجاء اختيار وقت آخر.',
                 pickAnotherSlot: 'اختر فتحة أخرى',
-                contractNotice: 'هذا المرفق يتطلب عقداً موقعاً. سيظل حجزك معلقاً حتى توقيع العقد.',
+                contractNotice:
+                    'هذا المرفق يتطلب عقداً موقعاً. سيظل حجزك معلقاً حتى توقيع العقد.',
                 successToast: 'تم تأكيد الحجز! ستتلقى تأكيداً قريباً.',
                 noFacilitiesAvailable: 'لا توجد مرافق متاحة في مجتمعك بعد.',
                 allSlotsFull: 'جميع الفترات محجوزة لهذا التاريخ.',
                 joinWaitlist: 'انضم لقائمة الانتظار',
-                closedOnDay: 'المرفق مغلق في هذا اليوم. الرجاء اختيار تاريخ آخر.',
+                closedOnDay:
+                    'المرفق مغلق في هذا اليوم. الرجاء اختيار تاريخ آخر.',
                 slotUnavailable: 'هذه الفتحة لم تعد متاحة.',
                 bookingConfirmed: 'تم تأكيد الحجز! ستتلقى تأكيداً قريباً.',
                 previousWeek: 'الأسبوع السابق',
@@ -3711,7 +3937,8 @@ const appAr: MessageTree = {
             sublease: {
                 pageTitle: 'إنشاء عقد فرعي',
                 pageTitleWithContract: 'إنشاء عقد فرعي للعقد {{contract}}',
-                description: 'يرث إعدادات الوحدات والتصنيفات والعقد من العقد الرئيسي.',
+                description:
+                    'يرث إعدادات الوحدات والتصنيفات والعقد من العقد الرئيسي.',
                 contractNumber: 'رقم العقد',
                 contractPlaceholder: 'مثال: LC-SUB-2026-001',
                 tenant: 'المستأجر',
@@ -3736,7 +3963,8 @@ const appAr: MessageTree = {
                 approve: 'موافقة',
                 reject: 'رفض',
                 rejectTitle: 'رفض طلب الإيجار؟',
-                rejectDesc: 'سيتم إشعار المدير المقدم للطلب. سيبقى الاقتباس المرتبط مقبولاً.',
+                rejectDesc:
+                    'سيتم إشعار المدير المقدم للطلب. سيبقى الاقتباس المرتبط مقبولاً.',
                 rejectReason: 'سبب الرفض',
                 rejectReasonPlaceholder: 'اذكر سبب الرفض...',
                 confirmReject: 'تأكيد الرفض',
@@ -3791,12 +4019,14 @@ const appAr: MessageTree = {
                 historyTitle: 'سجل الإشعارات',
                 historyViewBody: 'عرض المحتوى',
                 historyCount: '{{n}} إشعارات مرسلة',
-                errorMissingEmail: 'البريد الإلكتروني للمستأجر مفقود. يرجى تحديث بيانات المقيم قبل إرسال الإشعارات.',
+                errorMissingEmail:
+                    'البريد الإلكتروني للمستأجر مفقود. يرجى تحديث بيانات المقيم قبل إرسال الإشعارات.',
                 errorEditContact: 'تعديل جهة الاتصال',
             },
             renewal: {
                 bannerTitle: 'تجديد العقد',
-                bannerExpiring: 'تنتهي صلاحية العقد خلال {{days}} يوم ({{date}})',
+                bannerExpiring:
+                    'تنتهي صلاحية العقد خلال {{days}} يوم ({{date}})',
                 bannerWindow: 'هذا العقد ضمن نافذة التجديد.',
                 generateOffer: 'إنشاء عرض تجديد',
                 sentStatus: 'عرض التجديد: مرسل',
@@ -3809,7 +4039,8 @@ const appAr: MessageTree = {
                 decisionLabel: 'القرار',
                 accepted: 'مقبول',
                 declined: 'مرفوض',
-                decisionHelp: 'في حالة القبول، يمكنك متابعة إنشاء العقد الجديد باستخدام شروط التجديد.',
+                decisionHelp:
+                    'في حالة القبول، يمكنك متابعة إنشاء العقد الجديد باستخدام شروط التجديد.',
                 indexTitle: 'عروض التجديد',
                 indexDescription: 'تتبع وإدارة جميع عروض تجديد العقود.',
                 searchPlaceholder: 'البحث برقم العقد...',
@@ -3824,7 +4055,8 @@ const appAr: MessageTree = {
                 currentRentValue: '{{amount}} ر.س / {{freq}}',
                 renewalTerms: 'شروط التجديد',
                 newStartDate: 'تاريخ البدء الجديد',
-                newStartDateHint: 'يتم تعبئته تلقائياً ليوم بعد تاريخ انتهاء العقد.',
+                newStartDateHint:
+                    'يتم تعبئته تلقائياً ليوم بعد تاريخ انتهاء العقد.',
                 durationMonths: 'المدة (بالأشهر)',
                 newRent: 'قيمة الإيجار الجديدة (ر.س)',
                 rentDiffSuffix: 'مقارنة بالإيجار الحالي',
@@ -3844,7 +4076,8 @@ const appAr: MessageTree = {
                 reasonEarlyTenant: 'إنهاية مبكر من المستأجر',
                 reasonEarlyMgmt: 'إنهاء مبكر من الإدارة',
                 reasonOther: 'آخر',
-                warning: 'ستتغير حالة الوحدة إلى تحت الصيانة. ستبقى الشروط المالية مقفلة.',
+                warning:
+                    'ستتغير حالة الوحدة إلى تحت الصيانة. ستبقى الشروط المالية مقفلة.',
                 button: 'بدء الإخلاء',
             },
             inspection: {
@@ -3874,9 +4107,37 @@ const appAr: MessageTree = {
                 totalDeductions: 'إجمالي الخصومات',
                 refundAmount: 'مبلغ الاسترداد',
                 outstandingCharge: 'المبلغ المستحق',
-                exceedWarning: 'إجمالي الخصومات يتجاوز التأمين. يرجى التحقق قبل المتابعة.',
+                exceedWarning:
+                    'إجمالي الخصومات يتجاوز التأمين. يرجى التحقق قبل المتابعة.',
                 save: 'حفظ الخصومات',
                 proceedToSettlement: 'الانتقال للتسوية',
+                noDeductions: 'لا توجد خصومات مسجلة.',
+            },
+            settlement: {
+                title: 'إنهاء التسوية',
+                summaryTitle: 'ملخص التسوية',
+                refundTo: 'استرداد للمستأجر',
+                outstandingCharge: 'المبلغ المستحق',
+                noBalance: 'لا يوجد رصيد',
+                actionsOnFinalize: 'الإجراءات عند الإنهاء',
+                createRefund:
+                    'إنشاء معاملة استرداد ({{amount}} ر.س) في المحاسبة',
+                createCharge:
+                    'إنشاء معاملة مديونية ({{amount}} ر.س) في المحاسبة',
+                voidSchedules: 'إلغاء إدخالات الجدول المستقبلية',
+                leaseTerminated: 'حالة العقد → منتهي',
+                unitAvailable: 'حالة الوحدة {{name}} → متاحة',
+                generateStatement: 'إنشاء بيان تسوية',
+                finalize: 'إنهاء الإخلاء',
+                confirmTitle: 'إنهاء الإخلاء؟',
+                confirmDesc: 'لا يمكن التراجع عن هذا الإجراء.',
+                confirmButton: 'تأكيد وإنهاء',
+                completedTitle: 'تم الإخلاء',
+                settlementDate: 'تاريخ التسوية',
+                viewStatement: 'عرض بيان التسوية',
+                statementTitle: 'بيان التسوية',
+                statementSubtitle: 'إخلاء رقم #{{id}}',
+                downloadPdf: 'تحميل PDF',
             },
             show: {
                 noMoveOut: 'لا يوجد إخلاء نشط قيد التنفيذ.',
@@ -3966,7 +4227,8 @@ const appAr: MessageTree = {
             revise: {
                 pageTitle: 'تعديل الاقتباس',
                 heading: 'تعديل الاقتباس {{number}}',
-                description: 'حدّث حقول العرض. سيتم إنشاء نسخة جديدة وإرسالها إلى العميل المحتمل.',
+                description:
+                    'حدّث حقول العرض. سيتم إنشاء نسخة جديدة وإرسالها إلى العميل المحتمل.',
                 changedBadge: 'تم التغيير',
                 unchangedBadge: 'بدون تغيير',
                 wasValue: 'كان {{value}}',
@@ -4071,7 +4333,8 @@ const appAr: MessageTree = {
                 saveWithoutReceipt: 'حفظ بدون إيصال',
                 cancel: 'إلغاء',
                 invoiceIncompleteTitle: 'إعدادات الفواتير غير مكتملة',
-                invoiceIncompleteMessage: 'لن يتمكن النظام من إنشاء الإيصالات حتى يتم تكوين العلامة التجارية.',
+                invoiceIncompleteMessage:
+                    'لن يتمكن النظام من إنشاء الإيصالات حتى يتم تكوين العلامة التجارية.',
                 configureSettings: 'ضبط الإعدادات ←',
             },
             edit: {
@@ -4110,10 +4373,12 @@ const appAr: MessageTree = {
                 sendReceipt: 'إرسال الإيصال',
                 resendReceipt: 'إعادة إرسال الإيصال',
                 lastSent: 'آخر إرسال: {{date}}',
-                invoiceIncompleteMessage: 'إعدادات الفواتير غير مكتملة — يرجى ضبط العلامة التجارية قبل إرسال الإيصالات.',
+                invoiceIncompleteMessage:
+                    'إعدادات الفواتير غير مكتملة — يرجى ضبط العلامة التجارية قبل إرسال الإيصالات.',
                 configureSettings: 'ضبط الإعدادات ←',
                 sendReceiptTitle: 'إرسال الإيصال',
-                sendReceiptBody: 'هل تريد إرسال إيصال المعاملة #{{id}} إلى {{name}} على البريد {{email}}؟',
+                sendReceiptBody:
+                    'هل تريد إرسال إيصال المعاملة #{{id}} إلى {{name}} على البريد {{email}}؟',
                 sendReceiptConfirm: 'إرسال الإيصال',
                 sendReceiptCancel: 'إلغاء',
                 receiptSentSuccess: 'تم إرسال الإيصال إلى {{email}}.',
@@ -4154,7 +4419,8 @@ const appAr: MessageTree = {
                 deactivateConfirmBody: 'ستحتفظ المعاملات الحالية بهذه الفئة.',
                 deactivateConfirmButton: 'إلغاء تفعيل',
                 keepActiveButton: 'إبقاء نشطة',
-                deleteDefaultError: 'لا يمكن حذف الفئات الافتراضية؛ يمكنك إلغاء تفعيلها بدلاً من ذلك.',
+                deleteDefaultError:
+                    'لا يمكن حذف الفئات الافتراضية؛ يمكنك إلغاء تفعيلها بدلاً من ذلك.',
             },
         },
         serviceRequests: {
@@ -4163,7 +4429,8 @@ const appAr: MessageTree = {
             description: 'تتبع حالة طلبات الخدمة التي قدمتها.',
             newRequest: 'طلب جديد',
             noRequestsYet: 'لم تقدم أي طلبات حتى الآن.',
-            statusNotConfigured: 'حالة طلب الخدمة غير مكوَّنة. يرجى التواصل مع الدعم.',
+            statusNotConfigured:
+                'حالة طلب الخدمة غير مكوَّنة. يرجى التواصل مع الدعم.',
             createPageTitle: 'طلب خدمة جديد',
             createHeading: 'تقديم طلب خدمة',
             createDescription: 'صف مشكلتك حتى نتمكن من مساعدتك بسرعة.',
@@ -4195,7 +4462,8 @@ const appAr: MessageTree = {
             selectUnit: 'اختر وحدة',
             selectRoom: 'اختر الغرفة / الموقع',
             confirmedHeading: 'تم تقديم الطلب بنجاح',
-            confirmedDescription: 'ستتلقى إشعاراً عند تعيين فني وعند اكتمال العمل.',
+            confirmedDescription:
+                'ستتلقى إشعاراً عند تعيين فني وعند اكتمال العمل.',
             referenceLabel: 'رقم الطلب الخاص بك',
             copyButton: 'نسخ',
             expectedResponseLabel: 'الرد المتوقع بحلول',
@@ -4213,7 +4481,8 @@ const appAr: MessageTree = {
             // Admin triage
             triagePageTitle: 'طلبات الخدمة',
             triageHeading: 'طلبات الخدمة',
-            triageDescription: 'مراجعة الطلبات الواردة، تعيين الفنيين وتحديد الأولوية.',
+            triageDescription:
+                'مراجعة الطلبات الواردة، تعيين الفنيين وتحديد الأولوية.',
             tabAll: 'جميع الطلبات',
             tabUnassigned: 'غير معيّنة',
             tabOverdue: 'متأخرة',
@@ -4269,7 +4538,8 @@ const appAr: MessageTree = {
         serviceCategories: {
             pageTitle: 'فئات الخدمة',
             heading: 'فئات الخدمة',
-            description: 'تكوين الفئات والفئات الفرعية وأهداف مستوى الخدمة لطلبات الخدمة.',
+            description:
+                'تكوين الفئات والفئات الفرعية وأهداف مستوى الخدمة لطلبات الخدمة.',
             newCategory: '+ فئة جديدة',
             newSubcategory: '+ إضافة فئة فرعية',
             labelNameEn: 'الاسم (إنجليزي)',
@@ -4315,11 +4585,13 @@ const appAr: MessageTree = {
             import: 'استيراد',
             importComingSoon: 'استيراد العملاء قريباً',
             noLeadsYet: 'لا يوجد عملاء محتملون بعد',
-            noLeadsDescription: 'ابدأ بتتبع قائمتك بإضافة أول عميل محتمل أو استيراد قائمة موجودة من Excel.',
+            noLeadsDescription:
+                'ابدأ بتتبع قائمتك بإضافة أول عميل محتمل أو استيراد قائمة موجودة من Excel.',
             importFromExcel: 'استيراد من Excel',
             downloadTemplate: 'تنزيل القالب',
             importLeads: 'استيراد العملاء',
-            showingSummary: 'عرض {{from}} إلى {{to}} من أصل {{total}} عميل محتمل',
+            showingSummary:
+                'عرض {{from}} إلى {{to}} من أصل {{total}} عميل محتمل',
             importSheet: {
                 heading: 'استيراد العملاء من Excel',
                 fileHint: 'الصيغ المقبولة: ‏.xlsx‏، ‏.xls',
@@ -4328,17 +4600,20 @@ const appAr: MessageTree = {
                 templateLink: 'تنزيل قالب الاستيراد',
                 uploadCta: 'رفع ومعاينة',
                 uploading: 'جارٍ الرفع…',
-                formatError: 'تعذّر قراءة هذا الملف. يرجى رفع ملف Excel بصيغة ‏.xlsx أو ‏.xls باستخدام القالب المُرفَق.',
+                formatError:
+                    'تعذّر قراءة هذا الملف. يرجى رفع ملف Excel بصيغة ‏.xlsx أو ‏.xls باستخدام القالب المُرفَق.',
                 cancel: 'إلغاء',
             },
             review: {
                 pageTitle: 'مراجعة الاستيراد: {{filename}}',
                 heading: 'نتائج التحقق',
-                description: 'راجع الأخطاء أدناه. لا يزال بإمكانك استيراد الصفوف الصحيحة.',
+                description:
+                    'راجع الأخطاء أدناه. لا يزال بإمكانك استيراد الصفوف الصحيحة.',
                 totalRows: 'إجمالي الصفوف',
                 validRows: 'الصفوف الصحيحة',
                 errorRows: 'الصفوف الخاطئة',
-                allValidAlert: 'اجتاز جميع {{n}} صف عملية التحقق. جاهز للاستيراد.',
+                allValidAlert:
+                    'اجتاز جميع {{n}} صف عملية التحقق. جاهز للاستيراد.',
                 allInvalidAlert: 'لا توجد صفوف صحيحة. أصلح الأخطاء وأعد الرفع.',
                 downloadErrorReport: 'تنزيل تقرير الأخطاء',
                 tableRowNum: 'الصف',
@@ -4349,7 +4624,8 @@ const appAr: MessageTree = {
                 importDisabledTooltip: 'لا توجد صفوف صحيحة للاستيراد',
                 cancelLink: 'إلغاء — العودة إلى العملاء المحتملين',
                 confirmTitle: 'هل تريد استيراد الصفوف الصحيحة فقط؟',
-                confirmBody: 'أنت على وشك استيراد {{n}} عميل محتمل صحيح. سيتم تخطي {{m}} صفًا تحتوي على أخطاء دون حفظها. يمكنك إعادة استيرادها بعد تصحيح الأخطاء.',
+                confirmBody:
+                    'أنت على وشك استيراد {{n}} عميل محتمل صحيح. سيتم تخطي {{m}} صفًا تحتوي على أخطاء دون حفظها. يمكنك إعادة استيرادها بعد تصحيح الأخطاء.',
                 confirmCta: 'استيراد {{n}} عميل',
                 successToast: 'تم استيراد {{n}} عميل محتمل بنجاح.',
             },
@@ -4423,7 +4699,8 @@ const appAr: MessageTree = {
                 sheetTitle: 'تعيين العميل المحتمل',
                 sheetSearch: 'البحث عن أعضاء الفريق…',
                 sheetEmptyDefault: 'ابدأ الكتابة للبحث عن أعضاء الفريق',
-                sheetEmptyNoResults: 'لا يوجد أعضاء فريق يتطابقون مع "{{query}}"',
+                sheetEmptyNoResults:
+                    'لا يوجد أعضاء فريق يتطابقون مع "{{query}}"',
                 sheetCancel: 'إلغاء',
                 sheetConfirm: 'تعيين',
                 currentlyAssigned: 'معيَّن حالياً',
@@ -4439,7 +4716,8 @@ const appAr: MessageTree = {
                 composeCancel: 'إلغاء',
                 composeSave: 'حفظ الملاحظة',
                 emptyActivityHeading: 'لا يوجد نشاط بعد',
-                emptyActivityBody: 'ستظهر هنا الأحداث مثل تغييرات الحالة وتحديثات التعيين والملاحظات.',
+                emptyActivityBody:
+                    'ستظهر هنا الأحداث مثل تغييرات الحالة وتحديثات التعيين والملاحظات.',
                 emptyActivityCta: 'أضف أول ملاحظة',
                 activityAssigned: 'تم التعيين إلى {{name}}',
                 activityUnassigned: 'تم إلغاء التعيين من {{name}}',
@@ -4447,7 +4725,8 @@ const appAr: MessageTree = {
                 activityNote: 'ملاحظة',
                 activityActor: 'بقلم: {{name}} · {{time}}',
                 deleteTitle: 'حذف العميل المحتمل',
-                deleteBody: 'هل أنت متأكد من حذف هذا العميل المحتمل؟ لا يمكن التراجع عن هذا الإجراء.',
+                deleteBody:
+                    'هل أنت متأكد من حذف هذا العميل المحتمل؟ لا يمكن التراجع عن هذا الإجراء.',
                 deleteConfirm: 'حذف العميل المحتمل',
                 moreActions: 'المزيد من الإجراءات',
                 editLead: 'تعديل العميل المحتمل',
@@ -4475,7 +4754,8 @@ const appAr: MessageTree = {
                 convertCtaLoading: 'جارٍ التحويل…',
                 cancel: 'إلغاء',
                 dedupTitle: 'تحذير: احتمال وجود تكرار',
-                dedupBody: 'يوجد بالفعل جهة اتصال بنفس الهاتف أو البريد الإلكتروني.',
+                dedupBody:
+                    'يوجد بالفعل جهة اتصال بنفس الهاتف أو البريد الإلكتروني.',
                 dedupLinkOption: 'ربط العميل بجهة الاتصال الحالية (موصى به)',
                 dedupCreateOption: 'إنشاء سجل جهة اتصال جديد على أي حال',
                 dedupCta: 'متابعة',
@@ -4483,12 +4763,14 @@ const appAr: MessageTree = {
                 linkConfirmBody: 'لن يتم إنشاء سجل جهة اتصال جديد.',
                 linkConfirmCta: 'تأكيد الربط',
                 createAnywayTitle: 'إنشاء جهة اتصال جديدة؟',
-                createAnywayWarning: 'قد يؤدي إنشاء سجل جديد إلى تكرار جهات الاتصال في النظام.',
+                createAnywayWarning:
+                    'قد يؤدي إنشاء سجل جديد إلى تكرار جهات الاتصال في النظام.',
                 createAnywayCta: 'إنشاء على أي حال',
                 successCreated: 'تم التحويل — تم إنشاء جهة الاتصال.',
                 successLinked: 'تم ربط العميل بجهة الاتصال الموجودة.',
                 errorFailed: 'فشل التحويل. يرجى المحاولة مرة أخرى.',
-                errorDedupCheck: 'تعذّر التحقق من التكرار. يرجى المحاولة مرة أخرى.',
+                errorDedupCheck:
+                    'تعذّر التحقق من التكرار. يرجى المحاولة مرة أخرى.',
                 convertedCardTitle: 'جهة الاتصال المحولة',
                 convertedDateLabel: 'تاريخ التحويل',
                 convertedViewLink: 'عرض جهة الاتصال: {{name}} ({{type}})',
@@ -4536,7 +4818,8 @@ const appAr: MessageTree = {
             settingsLink: 'الإعدادات',
             settings: {
                 title: 'إعدادات تنبيهات العقود',
-                description: 'تكوين موعد استلام الإشعارات داخل التطبيق ورسائل البريد الإلكتروني حول انتهاء العقود القادمة.',
+                description:
+                    'تكوين موعد استلام الإشعارات داخل التطبيق ورسائل البريد الإلكتروني حول انتهاء العقود القادمة.',
                 alertThresholds: 'حدود التنبيه',
                 dayBefore: '{{n}} يوم قبل الانتهاء',
                 inApp: 'إشعار داخل التطبيق',
@@ -4643,7 +4926,8 @@ const appAr: MessageTree = {
                 description: 'جميع جهات الاتصال للمقيمين في مجتمعك.',
                 newResident: 'مقيم جديد',
                 createTitle: 'مقيم جديد',
-                createDescription: 'أدخل التفاصيل أدناه لإنشاء جهة اتصال مقيم جديدة.',
+                createDescription:
+                    'أدخل التفاصيل أدناه لإنشاء جهة اتصال مقيم جديدة.',
                 createButton: 'إنشاء مقيم',
                 cancel: 'إلغاء',
                 emptyMessage: 'لا يوجد مقيمون.',
@@ -4657,7 +4941,8 @@ const appAr: MessageTree = {
                 idNumber: 'رقم الهوية',
                 duplicateHeading: 'يوجد مقيم مسجل بهذا الرقم بالفعل.',
                 duplicateGoToExisting: 'الانتقال إلى السجل الموجود',
-                duplicateConfirmCheckbox: 'أؤكد أن هذا شخص مختلف وأريد إنشاء سجل جديد.',
+                duplicateConfirmCheckbox:
+                    'أؤكد أن هذا شخص مختلف وأريد إنشاء سجل جديد.',
                 createdToast: 'تم إنشاء المقيم بنجاح.',
                 dependents: 'المستخدمون الإضافيون',
                 idTypes: {
@@ -4725,7 +5010,8 @@ const appAr: MessageTree = {
                 enabled: 'مفعل',
                 requirePreApproval: 'يتطلب موافقة مسبقة',
                 maxVisitorsPerRequest: 'الحد الأقصى للزوار لكل طلب',
-                allowedVisitDurationMinutes: 'المدة المسموحة للزيارة (بالدقائق)',
+                allowedVisitDurationMinutes:
+                    'المدة المسموحة للزيارة (بالدقائق)',
                 saveVisitorRequestSettings: 'حفظ إعدادات طلب الزوار',
                 allDayVisits: 'زيارات طوال اليوم',
                 availableDays: 'الأيام المتاحة',
@@ -4770,7 +5056,8 @@ const appAr: MessageTree = {
                 endTime: 'وقت النهاية',
                 addSubcategorySubmit: 'إضافة الفئة الفرعية',
                 serviceSettingsTitle: 'صلاحيات إعدادات الخدمة',
-                serviceSettingsDescription: 'إعداد صلاحيات معالجة الطلبات لهذه الفئة.',
+                serviceSettingsDescription:
+                    'إعداد صلاحيات معالجة الطلبات لهذه الفئة.',
                 managerCloseRequest: 'يمكن للمدير إغلاق الطلب',
                 attachmentsRequired: 'المرفقات مطلوبة',
                 allowProfessionalReschedule: 'السماح للمختص بإعادة الجدولة',
@@ -4863,7 +5150,8 @@ const appAr: MessageTree = {
             general: {
                 pageTitle: 'الإعدادات العامة',
                 heading: 'الإعدادات العامة',
-                description: 'إدارة جداول القيم لأنواع العقود وجداول السداد وفئات المعاملات.',
+                description:
+                    'إدارة جداول القيم لأنواع العقود وجداول السداد وفئات المعاملات.',
                 addSetting: 'إضافة إعداد',
                 cancelAdd: 'إلغاء',
                 nameEn: 'الاسم (بالإنجليزية)',
@@ -4899,16 +5187,20 @@ const appAr: MessageTree = {
             preview: 'معاينة',
             empty: 'لا توجد قوالب نماذج.',
             editTemplate: 'تعديل القالب',
-            createDescription: 'أعد النموذج في ثلاث خطوات سريعة: التفاصيل، النطاق، والأسئلة.',
-            simpleFlowHint: 'نصيحة: اجعل النموذج مختصرًا وأضف فقط الأسئلة الضرورية.',
+            createDescription:
+                'أعد النموذج في ثلاث خطوات سريعة: التفاصيل، النطاق، والأسئلة.',
+            simpleFlowHint:
+                'نصيحة: اجعل النموذج مختصرًا وأضف فقط الأسئلة الضرورية.',
             selectCommunity: 'اختر المشروع',
             selectBuilding: 'اختر المبنى',
             updateTemplate: 'تحديث القالب',
             newTemplate: 'قالب جديد',
             basicDetails: '1. التفاصيل الأساسية',
-            basicDetailsDescription: 'أدخل اسمًا واضحًا للنموذج ووصفًا مختصرًا.',
+            basicDetailsDescription:
+                'أدخل اسمًا واضحًا للنموذج ووصفًا مختصرًا.',
             whereUsed: '2. مكان استخدام النموذج (اختياري)',
-            whereUsedDescription: 'اختر الفئة والمشروع والمبنى فقط إذا أردت تقييد مكان ظهور النموذج.',
+            whereUsedDescription:
+                'اختر الفئة والمشروع والمبنى فقط إذا أردت تقييد مكان ظهور النموذج.',
             templateName: 'اسم النموذج',
             descriptionLabel: 'وصف مختصر',
             requestCategory: 'فئة الطلب',
@@ -4926,7 +5218,8 @@ const appAr: MessageTree = {
             fieldKey: 'مفتاح الحقل',
             fieldType: 'نوع الإجابة',
             fieldPlaceholder: 'مثال للإجابة (اختياري)',
-            fieldKeyAutoGenerated: 'لا تحتاج لأي إعداد تقني. يتم إنشاء معرفات الحقول تلقائيًا.',
+            fieldKeyAutoGenerated:
+                'لا تحتاج لأي إعداد تقني. يتم إنشاء معرفات الحقول تلقائيًا.',
             moveFieldUp: 'نقل لأعلى',
             moveFieldDown: 'نقل لأسفل',
             removeField: 'حذف السؤال',
@@ -4953,7 +5246,8 @@ const appAr: MessageTree = {
             communities: 'المشاريع',
             select: 'اختيار',
             noCommunities: 'لا توجد مشاريع.',
-            selectBuildingDescription: 'اختر مشروعًا ومبنى ثم أكمل إعداد النموذج.',
+            selectBuildingDescription:
+                'اختر مشروعًا ومبنى ثم أكمل إعداد النموذج.',
             buildingScope: 'نطاق المبنى',
             useInTemplate: 'استخدم هذا المبنى',
             noBuildingsForCommunity: 'لا توجد مبانٍ لهذا المشروع.',
@@ -4961,7 +5255,8 @@ const appAr: MessageTree = {
         companyProfile: {
             pageTitle: 'ملف الشركة',
             heading: 'ملف الشركة',
-            description: 'اضبط هوية شركتك وشعارها وإعدادات علامتها التجارية التي تظهر على جميع العقود والفواتير وصفحة تسجيل الدخول.',
+            description:
+                'اضبط هوية شركتك وشعارها وإعدادات علامتها التجارية التي تظهر على جميع العقود والفواتير وصفحة تسجيل الدخول.',
             sectionIdentity: 'الهوية',
             sectionLogos: 'الشعار والعلامة التجارية',
             sectionRegional: 'الإعدادات الإقليمية',
@@ -4971,7 +5266,8 @@ const appAr: MessageTree = {
             nameAr: 'اسم الشركة (بالعربية)',
             nameArPlaceholder: 'أدخل اسم الشركة بالعربية',
             vatNumber: 'رقم تسجيل ضريبة القيمة المضافة',
-            vatNumberPlaceholder: 'أدخل رقم ضريبة القيمة المضافة المكون من 15 رقمًا',
+            vatNumberPlaceholder:
+                'أدخل رقم ضريبة القيمة المضافة المكون من 15 رقمًا',
             vatHelper: 'يظهر على جميع الفواتير الصادرة.',
             crNumber: 'رقم السجل التجاري (اختياري)',
             crNumberPlaceholder: 'أدخل رقم السجل التجاري',
@@ -4982,15 +5278,19 @@ const appAr: MessageTree = {
             removeLogo: 'إزالة',
             uploadHelper: 'صيغة PNG أو SVG، الحجم الأقصى 2 ميغابايت',
             logoArVariant: 'نسخة الشعار العربية (اختياري)',
-            logoArHint: 'يُستخدم في المستندات العربية. إذا لم يُرفع، يُستخدم الشعار الأساسي.',
+            logoArHint:
+                'يُستخدم في المستندات العربية. إذا لم يُرفع، يُستخدم الشعار الأساسي.',
             timezone: 'المنطقة الزمنية',
-            timezoneHelper: 'يؤثر على جميع الطوابع الزمنية: تواريخ العقود ومواعيد استحقاق الفواتير وفتحات الحجز. الافتراضي هو UTC.',
+            timezoneHelper:
+                'يؤثر على جميع الطوابع الزمنية: تواريخ العقود ومواعيد استحقاق الفواتير وفتحات الحجز. الافتراضي هو UTC.',
             timezoneSearch: 'ابحث عن المنطقة الزمنية…',
             timezoneGroupGulf: 'الخليج',
             primaryColor: 'لون العلامة التجارية الأساسي',
-            colorHint: 'يُطبَّق على رأس رسائل الإشعارات البريدية وزخارف قوالب المستندات. لا يؤثر على لون الشريط الجانبي للمنصة.',
+            colorHint:
+                'يُطبَّق على رأس رسائل الإشعارات البريدية وزخارف قوالب المستندات. لا يؤثر على لون الشريط الجانبي للمنصة.',
             hexLabel: 'رمز اللون',
-            emptyState: 'أعدّ ملف شركتك للبدء. سيظهر اسم شركتك وشعارها ورقم ضريبة القيمة المضافة على جميع المستندات الصادرة.',
+            emptyState:
+                'أعدّ ملف شركتك للبدء. سيظهر اسم شركتك وشعارها ورقم ضريبة القيمة المضافة على جميع المستندات الصادرة.',
             noLogo: 'لم يتم رفع شعار',
             unsavedChanges: 'تغييرات غير محفوظة',
             discard: 'تجاهل',
@@ -5001,7 +5301,8 @@ const appAr: MessageTree = {
             retryMessage: 'حاول مرة أخرى، أو تواصل مع الدعم إذا استمر الخطأ.',
             validationNameEnRequired: 'اسم الشركة (بالإنجليزية) مطلوب.',
             validationNameArRequired: 'اسم الشركة (بالعربية) مطلوب.',
-            validationVatFormat: 'رقم ضريبة القيمة المضافة يجب أن يتكوّن من 15 رقمًا.',
+            validationVatFormat:
+                'رقم ضريبة القيمة المضافة يجب أن يتكوّن من 15 رقمًا.',
             validationLogoType: 'الملف يجب أن يكون بصيغة PNG أو SVG.',
             validationLogoSize: 'يجب ألا يتجاوز حجم الملف 2 ميغابايت.',
         },
@@ -5009,6 +5310,12 @@ const appAr: MessageTree = {
 };
 
 export const messages = {
-    en: deepMerge(deepMerge(enBaseMessages as MessageTree, appEn), appEnFallback),
-    ar: deepMerge(deepMerge(arBaseMessages as MessageTree, appAr), appArFallback),
+    en: deepMerge(
+        deepMerge(enBaseMessages as MessageTree, appEn),
+        appEnFallback,
+    ),
+    ar: deepMerge(
+        deepMerge(arBaseMessages as MessageTree, appAr),
+        appArFallback,
+    ),
 };

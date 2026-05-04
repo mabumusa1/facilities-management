@@ -132,3 +132,14 @@ _(append as you find them; common places: listing endpoints that touch Community
 
 ## Past review index (continued)
 - PR #389 — comment/LGTM (Round 2, self-authored — GitHub blocked formal approve) — all 4 blockers resolved in a370b97: (1) Wayfinder regen — all 7 exports present in admin/users + set-password; (2) cross-tenant 403 guard on all 5 mutation methods + test asserting 403 + status unchanged; (3) store.url → show.url fixed at both call sites; (4) alertdialog confirm in both Index.vue and Show.vue, 3 i18n keys in EN+AR. 3 of 4 nice-to-haves addressed. 79 tests green. Open nice-to-have: lang attr hardcodes locale. Ready for docs chain.
+
+- PR #403 — comment/request-changes (Round 1, self-authored — GitHub blocked formal review) — 2 blockers:
+  (1) MoveOutPolicy::finalize() missing `$moveOut->status_id !== MoveOutStatus::COMPLETED` guard — allows re-finalizing completed move-outs creating duplicate transactions. QA test `test_finalize_returns_403_for_already_settled_move_out` explicitly documents this with assertStatus(302) instead of 403.
+  (2) Transaction `assignee_id` set to `account_tenant_id` (spatie tenant) instead of `$lease->tenant_id` (Resident FK). Variable `$tenantId` misleadingly holds account_tenant_id. Existing tests don't assert assignee_id. Fix: use `$lease->tenant_id`.
+  3 nice-to-haves: voiding uses `is_paid = true` instead of status transition per Tech Lead design; float precision inconsistent between settlement() and finalize() (round() used in one but not the other); Wayfinder files gitignored — verify build pipeline runs wayfinder:generate.
+  51 tests green, Pint clean. Wayfinder exports present on local disk (auto-regen by Vite plugin) but not committed (gitignored). Route ordering correct: move-out sub-routes declared before `leases/{lease}` wildcard.
+
+- PR #403 — comment/request-changes (Round 2, self-authored — GitHub blocked formal review) — 1 of 2 blockers fixed:
+  ✅ Blocker 2 (assignee_id): `$lease->tenant_id` correct at MoveOutController.php:445.
+  ❌ Blocker 1 (MoveOutPolicy guard): PARTIALLY fixed — guard added but `use App\Support\MoveOutStatus;` import MISSING at MoveOutPolicy.php:52 → fatal Error on every finalize call, 12 tests fail. Sub-issue: test_finalize_returns_403_for_already_settled_move_out still asserts 302 (must be 403) + stale comment must be removed.
+  10 tests pass (GET endpoints), 12 fail (all finalize POSTs — same root cause). 3 Round 1 nice-to-haves still open: voiding is_paid pattern, float precision, Wayfinder gitignored.

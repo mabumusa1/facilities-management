@@ -7,6 +7,7 @@ use App\Models\Lease;
 use App\Models\MoveOut;
 use App\Models\User;
 use App\Support\ManagerScopeHelper;
+use App\Support\MoveOutStatus;
 
 class MoveOutPolicy
 {
@@ -40,5 +41,15 @@ class MoveOutPolicy
     {
         return $user->can('leases.UPDATE')
             && $this->belongsToCurrentTenant($moveOut);
+    }
+
+    /**
+     * Finalize the move-out settlement.
+     */
+    public function finalize(User $user, MoveOut $moveOut): bool
+    {
+        return $user->can('leases.UPDATE')
+            && $this->belongsToCurrentTenant($moveOut)
+            && $moveOut->status_id !== MoveOutStatus::COMPLETED;
     }
 }

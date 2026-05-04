@@ -71,9 +71,21 @@ Property Managers can now record a full move-out directly from the lease detail 
 - **Deposit deductions.** On the Deposit Deductions page, click **+ Add Deduction** (+ إضافة خصم) to record each charge with a bilingual label (English and Arabic), an amount, and a reason (Damage, Cleaning, Unpaid Rent, Utility, or Other). The summary card updates instantly to show the running **Refund Amount** (مبلغ الاسترداد) or, if deductions exceed the deposit, the **Outstanding Charge** (المبلغ المستحق). Deductions exceeding the deposit are allowed after acknowledging the amber warning.
 - **One move-out per lease.** You cannot start a second move-out while one is already in progress — the system redirects you to the existing record.
 
-The settlement step (finalising the refund payment to the tenant) will be added in an upcoming release.
-
 Learn more: [Process a move-out — inspection and deposit deductions](./guides/leasing/lease-move-out.md) ([العربية](./ar/guides/leasing/lease-move-out.md)).
+
+### Finalize a move-out — settlement, refund, and unit release (Leasing) — May 4, 2026
+
+The move-out workflow is now complete — Property Managers can finalize a move-out from the **Finalize Settlement** (إنهاء التسوية) page. One click processes the refund or charge, closes the lease, and releases every unit back to Available status.
+
+- **Proceed to Settlement.** After saving deductions on the Deposit Deductions page, click **Proceed to Settlement** (الانتقال للتسوية). The **Finalize Settlement** page opens with a full financial summary: security deposit, every deduction, and the net result — **Refund to Tenant** (استرداد للمستأجر) when the deposit exceeds deductions, or **Outstanding Charge** (المبلغ المستحق) in red when deductions exceed the deposit.
+- **Checklist before you confirm.** An **Actions on Finalize** card previews everything that will happen: the exact refund or charge amount, voiding of remaining payment schedules, lease termination, and unit release by name. Nothing is committed yet — you can still back out.
+- **Confirm and finalize.** Click **Finalize Move-Out** (إنهاء الإخلاء), then **Confirm & Finalize** (تأكيد وإنهاء) in the confirmation dialog. Tick **Generate settlement statement** (إنشاء بيان تسوية) if you want a detailed statement after finalization. The entire action runs inside a single database transaction — if anything fails, nothing is saved.
+- **What changes after finalization.** The lease transitions to **Terminated**, all units are released to **Available** in Properties with a status history record, a refund (Money-Out) or charge (Money-In) transaction is created in Accounting and linked to the resident, and any unpaid future schedules on the lease are voided. An already-settled move-out cannot be finalized again.
+- **Bilingual settlement statement.** The **Settlement Statement** (بيان التسوية) page shows the full financial breakdown in both English and Arabic, including lease info, every deduction with its amount, and the net result. Click **Download PDF** (تحميل PDF) to save or print the statement.
+
+On the lease detail page after finalization you see a **Move-Out Completed** (تم الإخلاء) badge and a **View Settlement Statement** (عرض بيان التسوية) button to revisit the statement.
+
+Learn more: [Finalize a move-out — settlement, refund, and unit release](./guides/leasing/lease-move-out-settlement.md) ([العربية](./ar/guides/leasing/lease-move-out-settlement.md)).
 
 ### Send notices to tenants directly from the lease record (Leasing) — April 29, 2026
 

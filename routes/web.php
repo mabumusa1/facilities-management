@@ -482,6 +482,9 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
         Route::delete('leases/{lease}/move-out/{moveOut}/rooms/{room}/photos/{photoId}', [MoveOutController::class, 'deleteRoomPhoto'])->name('leases.move-out.rooms.photos.destroy');
         Route::get('leases/{lease}/move-out/{moveOut}/deductions', [MoveOutController::class, 'deductions'])->name('leases.move-out.deductions');
         Route::post('leases/{lease}/move-out/{moveOut}/deductions', [MoveOutController::class, 'saveDeductions'])->name('leases.move-out.deductions.save');
+        Route::get('leases/{lease}/move-out/{moveOut}/settlement', [MoveOutController::class, 'settlement'])->name('leases.move-out.settlement');
+        Route::post('leases/{lease}/move-out/{moveOut}/finalize', [MoveOutController::class, 'finalize'])->name('leases.move-out.finalize');
+        Route::get('leases/{lease}/move-out/{moveOut}/statement', [MoveOutController::class, 'statement'])->name('leases.move-out.statement');
 
         Route::get('leases/{lease}', [LeaseController::class, 'show'])->name('leases.show');
         Route::get('sub-leases', [LeaseController::class, 'subLeases'])->name('sub-leases.index');

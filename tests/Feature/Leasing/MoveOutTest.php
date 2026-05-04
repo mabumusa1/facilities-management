@@ -11,10 +11,13 @@ use App\Models\Lease;
 use App\Models\MoveOut;
 use App\Models\MoveOutDeduction;
 use App\Models\MoveOutRoom;
+use App\Models\Status;
 use App\Models\Tenant;
+use App\Models\Transaction;
 use App\Models\Unit;
 use App\Models\User;
 use App\Support\MoveOutStatus;
+use Carbon\Carbon;
 use Database\Seeders\RbacSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +56,11 @@ class MoveOutTest extends TestCase
             ['id' => MoveOutStatus::LEASE_MOVE_OUT_IN_PROGRESS, 'name' => 'Move-Out In Progress', 'name_en' => 'move_out_in_progress', 'name_ar' => 'إخلاء جاري', 'priority' => 5, 'type' => 'lease'],
             ['id' => MoveOutStatus::IN_PROGRESS, 'name' => 'In Progress', 'name_en' => 'in_progress', 'name_ar' => 'جاري', 'priority' => 1, 'type' => 'move_out'],
             ['id' => MoveOutStatus::COMPLETED, 'name' => 'Completed', 'name_en' => 'completed', 'name_ar' => 'مكتمل', 'priority' => 2, 'type' => 'move_out'],
+        ]);
+
+        // Ensure a "terminated" lease status exists for finalize to transition to.
+        DB::table('rf_statuses')->insertOrIgnore([
+            ['id' => 99, 'name' => 'Terminated', 'name_en' => 'terminated', 'name_ar' => 'منتهي', 'priority' => 99, 'type' => 'lease'],
         ]);
 
         $this->lease = Lease::factory()->create([
@@ -724,8 +732,8 @@ class MoveOutTest extends TestCase
             'account_tenant_id' => $this->tenant->id,
             'role' => 'account_admins',
         ]);
-        // Assign a role that does not carry leases.UPDATE (viewers).
-        $viewOnlyUser->assignRole('viewers');
+        // Assign a role that does not carry leases.UPDATE (dependents).
+        $viewOnlyUser->assignRole('dependents');
 
         $response = $this->actingAs($viewOnlyUser)
             ->withSession($this->withTenant())
@@ -753,7 +761,7 @@ class MoveOutTest extends TestCase
             'account_tenant_id' => $this->tenant->id,
             'role' => 'account_admins',
         ]);
-        $viewOnlyUser->assignRole('viewers');
+        $viewOnlyUser->assignRole('dependents');
 
         $response = $this->actingAs($viewOnlyUser)
             ->withSession($this->withTenant())
@@ -806,7 +814,7 @@ class MoveOutTest extends TestCase
         $response->assertOk();
         $response->assertInertia(fn ($page) => $page
             ->where('moveOut.summary.exceeds_deposit', true)
-            ->where('moveOut.summary.refund_amount', -500.0)
+            ->where('moveOut.summary.refund_amount', -500)
         );
     }
 
@@ -842,5 +850,564 @@ class MoveOutTest extends TestCase
             'label_ar' => 'تنظيف عميق جداً مع مواد خاصة',
             'amount' => 750.00,
         ]);
+    }
+    // ══════════════════════════════════════════════════════════════════════════
+    // Settlement, Finalize, Statement — PR #403 / Issue #182
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Helper: create a move-out with deductions and attached unit.
+     */
+    private function createMoveOutWithDeductions(array $deductionAmounts = [350.00, 1200.00, 500.00]): array
+    {
+        $unit = Unit::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'status' => UnitStatus::UnderMaintenance->value,
+        ]);
+        $this->lease->units()->attach($unit);
+
+        $moveOut = MoveOut::factory()->create([
+            'lease_id' => $this->lease->id,
+            'account_tenant_id' => $this->tenant->id,
+            'status_id' => MoveOutStatus::IN_PROGRESS,
+            'initiated_by' => $this->user->id,
+            'move_out_date' => '2027-05-31',
+        ]);
+
+        foreach ($deductionAmounts as $i => $amount) {
+            MoveOutDeduction::factory()->create([
+                'move_out_id' => $moveOut->id,
+                'label_en' => "Deduction {$i}",
+                'label_ar' => "خصم {$i}",
+                'amount' => $amount,
+                'reason' => DeductionReason::Damage,
+            ]);
+        }
+
+        return ['moveOut' => $moveOut, 'unit' => $unit];
+    }
+
+    // ── Settlement page (GET) ────────────────────────────────────────────────
+
+    public function test_settlement_page_renders_with_financial_summary(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([1200.00]);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.settlement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->component('leasing/move-outs/Settlement')
+            ->where('lease.id', $this->lease->id)
+            ->where('moveOut.summary.security_deposit', 8500)
+            ->where('moveOut.summary.total_deductions', 1200)
+            ->where('moveOut.summary.net_amount', 7300)
+            ->where('moveOut.summary.is_refund', true)
+            ->where('moveOut.summary.is_charge', false)
+            ->where('moveOut.summary.is_zero', false)
+        );
+    }
+
+    public function test_settlement_page_flags_charge_when_deductions_exceed_deposit(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([9000.00]);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.settlement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->where('moveOut.summary.is_refund', false)
+            ->where('moveOut.summary.is_charge', true)
+            ->where('moveOut.summary.net_amount', -500)
+        );
+    }
+
+    public function test_settlement_page_returns_403_for_user_without_view_permission(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions();
+
+        $viewOnlyUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $viewOnlyUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
+        ]);
+        $viewOnlyUser->assignRole('dependents');
+
+        $response = $this->actingAs($viewOnlyUser)
+            ->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.settlement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertStatus(403);
+    }
+
+    public function test_settlement_page_returns_403_for_cross_tenant_user(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions();
+
+        $otherTenant = Tenant::create(['name' => 'Other Settlement Tenant']);
+        $otherUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $otherUser->id,
+            'account_tenant_id' => $otherTenant->id,
+            'role' => 'account_admins',
+        ]);
+        $otherUser->assignRole('admins');
+
+        $response = $this->actingAs($otherUser)
+            ->withSession(['tenant_id' => $otherTenant->id])
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.settlement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertStatus(403);
+    }
+
+    // ── Finalize (POST) — refund scenario (AC1) ──────────────────────────────
+
+    public function test_finalize_creates_refund_transaction_when_net_positive(): void
+    {
+        ['moveOut' => $moveOut, 'unit' => $unit] = $this->createMoveOutWithDeductions([1200.00, 500.00]);
+        // deposit=8500, deductions=1700, net=6800
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertRedirectToRoute('rf.leases.show', ['lease' => $this->lease->id]);
+
+        $this->assertDatabaseHas('rf_transactions', [
+            'lease_id' => $this->lease->id,
+            'direction' => 'money_out',
+            'amount' => 6800.00,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+    }
+
+    public function test_finalize_transitions_lease_to_terminated(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $this->lease->refresh();
+        $this->assertEquals(99, $this->lease->status_id, 'Lease status should transition to terminated (ID 99).');
+    }
+
+    public function test_finalize_releases_unit_to_available(): void
+    {
+        ['moveOut' => $moveOut, 'unit' => $unit] = $this->createMoveOutWithDeductions([350.00]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $unit->refresh();
+        $this->assertEquals(UnitStatus::Available->value, $unit->status, 'Unit should be released to Available.');
+    }
+
+    public function test_finalize_records_unit_status_history(): void
+    {
+        ['moveOut' => $moveOut, 'unit' => $unit] = $this->createMoveOutWithDeductions([350.00]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $this->assertDatabaseHas('rf_unit_status_history', [
+            'unit_id' => $unit->id,
+            'from_status' => UnitStatus::UnderMaintenance->value,
+            'to_status' => UnitStatus::Available->value,
+            'changed_by' => $this->user->id,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+    }
+
+    public function test_finalize_marks_move_out_as_completed(): void
+    {
+        Carbon::setTestNow('2027-06-10 09:00:00');
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $this->assertDatabaseHas('move_outs', [
+            'id' => $moveOut->id,
+            'status_id' => MoveOutStatus::COMPLETED,
+            'settled_at' => '2027-06-10 09:00:00',
+        ]);
+
+        Carbon::setTestNow();
+    }
+
+    public function test_finalize_sets_actual_end_at_on_lease(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $this->lease->refresh();
+        $this->assertEquals('2027-05-31', $this->lease->actual_end_at->toDateString());
+    }
+
+    public function test_finalize_with_generate_statement_redirects_to_statement(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+                'generate_statement' => true,
+            ]));
+
+        $response->assertRedirectToRoute('rf.leases.move-out.statement', [
+            'lease' => $this->lease->id,
+            'moveOut' => $moveOut->id,
+        ]);
+    }
+
+    // ── Finalize (POST) — charge scenario (AC2) ──────────────────────────────
+
+    public function test_finalize_creates_charge_transaction_when_net_negative(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([9000.00]);
+        // deposit=8500, deductions=9000, net=-500
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $this->assertDatabaseHas('rf_transactions', [
+            'lease_id' => $this->lease->id,
+            'direction' => 'money_in',
+            'amount' => 500.00,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+    }
+
+    // ── Finalize — edge cases ────────────────────────────────────────────────
+
+    public function test_finalize_handles_zero_net_amount(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([8500.00]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $this->assertDatabaseCount('rf_transactions', 0);
+
+        $this->assertDatabaseHas('move_outs', [
+            'id' => $moveOut->id,
+            'status_id' => MoveOutStatus::COMPLETED,
+        ]);
+        $this->lease->refresh();
+        $this->assertEquals(99, $this->lease->status_id);
+    }
+
+    public function test_finalize_releases_all_lease_units(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        $unit2 = Unit::factory()->create([
+            'account_tenant_id' => $this->tenant->id,
+            'status' => UnitStatus::UnderMaintenance->value,
+        ]);
+        $this->lease->units()->attach($unit2);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $unit2->refresh();
+        $this->assertEquals(UnitStatus::Available->value, $unit2->status);
+
+        $this->assertDatabaseHas('rf_unit_status_history', [
+            'unit_id' => $unit2->id,
+            'to_status' => UnitStatus::Available->value,
+        ]);
+    }
+
+    public function test_finalize_voids_future_unpaid_transactions(): void
+    {
+        Carbon::setTestNow('2027-06-10 09:00:00');
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        Transaction::create([
+            'lease_id' => $this->lease->id,
+            'amount' => 3000.00,
+            'direction' => 'money_in',
+            'due_on' => '2027-07-01',
+            'is_paid' => false,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        Transaction::create([
+            'lease_id' => $this->lease->id,
+            'amount' => 500.00,
+            'direction' => 'money_in',
+            'due_on' => '2027-05-15',
+            'is_paid' => false,
+            'account_tenant_id' => $this->tenant->id,
+        ]);
+
+        $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $this->assertDatabaseHas('rf_transactions', [
+            'lease_id' => $this->lease->id,
+            'amount' => 3000.00,
+            'is_paid' => true,
+        ]);
+
+        $this->assertDatabaseHas('rf_transactions', [
+            'lease_id' => $this->lease->id,
+            'amount' => 500.00,
+            'is_paid' => false,
+        ]);
+
+        Carbon::setTestNow();
+    }
+
+    // ── Finalize — failure paths ─────────────────────────────────────────────
+
+    public function test_finalize_returns_403_for_user_without_update_permission(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions();
+
+        $viewOnlyUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $viewOnlyUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
+        ]);
+        $viewOnlyUser->assignRole('dependents');
+
+        $response = $this->actingAs($viewOnlyUser)
+            ->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertStatus(403);
+    }
+
+    public function test_finalize_returns_403_for_cross_tenant_user(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions();
+
+        $otherTenant = Tenant::create(['name' => 'Other Finalize Tenant']);
+        $otherUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $otherUser->id,
+            'account_tenant_id' => $otherTenant->id,
+            'role' => 'account_admins',
+        ]);
+        $otherUser->assignRole('admins');
+
+        $response = $this->actingAs($otherUser)
+            ->withSession(['tenant_id' => $otherTenant->id])
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertStatus(403);
+    }
+
+    public function test_finalize_returns_403_for_already_settled_move_out(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        $moveOut->update([
+            'status_id' => MoveOutStatus::COMPLETED,
+            'settled_at' => now(),
+        ]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        // The finalize policy now prevents re-finalizing a completed move-out.
+        $response->assertStatus(403);
+    }
+
+    public function test_finalize_validates_generate_statement_is_boolean(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([350.00]);
+
+        $response = $this->withSession($this->withTenant())
+            ->post(route('rf.leases.move-out.finalize', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+                'generate_statement' => 'not-a-boolean',
+            ]));
+
+        $response->assertSessionHasErrors(['generate_statement']);
+    }
+
+    // ── Statement page (GET) — AC3 ───────────────────────────────────────────
+
+    public function test_statement_page_renders_for_refund_scenario(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([1200.00, 500.00]);
+        // deposit=8500, deductions=1700, net=6800
+
+        $moveOut->update(['status_id' => MoveOutStatus::COMPLETED, 'settled_at' => '2027-06-10']);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.statement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->component('leasing/move-outs/Statement')
+            ->where('moveOut.summary.security_deposit', 8500)
+            ->where('moveOut.summary.total_deductions', 1700)
+            ->where('moveOut.summary.net_amount', 6800)
+            ->where('moveOut.summary.is_refund', true)
+            ->where('moveOut.summary.is_charge', false)
+            ->where('moveOut.summary.abs_net_amount', 6800)
+        );
+    }
+
+    public function test_statement_page_renders_for_charge_scenario(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([9000.00]);
+        // deposit=8500, deductions=9000, net=-500
+
+        $moveOut->update(['status_id' => MoveOutStatus::COMPLETED, 'settled_at' => '2027-06-10']);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.statement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->where('moveOut.summary.net_amount', -500)
+            ->where('moveOut.summary.is_refund', false)
+            ->where('moveOut.summary.is_charge', true)
+            ->where('moveOut.summary.abs_net_amount', 500)
+        );
+    }
+
+    public function test_statement_page_returns_403_for_user_without_view_permission(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions();
+        $moveOut->update(['status_id' => MoveOutStatus::COMPLETED, 'settled_at' => now()]);
+
+        $viewOnlyUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $viewOnlyUser->id,
+            'account_tenant_id' => $this->tenant->id,
+            'role' => 'account_admins',
+        ]);
+        $viewOnlyUser->assignRole('dependents');
+
+        $response = $this->actingAs($viewOnlyUser)
+            ->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.statement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertStatus(403);
+    }
+
+    public function test_statement_page_returns_403_for_cross_tenant_user(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions();
+        $moveOut->update(['status_id' => MoveOutStatus::COMPLETED, 'settled_at' => now()]);
+
+        $otherTenant = Tenant::create(['name' => 'Other Statement Tenant']);
+        $otherUser = User::factory()->create();
+        AccountMembership::create([
+            'user_id' => $otherUser->id,
+            'account_tenant_id' => $otherTenant->id,
+            'role' => 'account_admins',
+        ]);
+        $otherUser->assignRole('admins');
+
+        $response = $this->actingAs($otherUser)
+            ->withSession(['tenant_id' => $otherTenant->id])
+            ->withoutVite()
+            ->get(route('rf.leases.move-out.statement', [
+                'lease' => $this->lease,
+                'moveOut' => $moveOut,
+            ]));
+
+        $response->assertStatus(403);
+    }
+
+    // ── Lease Show — completed move-out info (AC6) ───────────────────────────
+
+    public function test_lease_show_exposes_completed_move_out_with_settlement_info(): void
+    {
+        ['moveOut' => $moveOut] = $this->createMoveOutWithDeductions([1200.00, 500.00]);
+        $moveOut->update(['status_id' => MoveOutStatus::COMPLETED, 'settled_at' => '2027-06-10']);
+
+        $response = $this->withSession($this->withTenant())
+            ->withoutVite()
+            ->get(route('leases.show', $this->lease));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->where('activeMoveOut.id', $moveOut->id)
+            ->where('activeMoveOut.settled_at', '2027-06-10')
+            ->where('activeMoveOut.is_completed', true)
+        );
     }
 }
