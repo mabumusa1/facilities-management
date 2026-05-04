@@ -442,7 +442,7 @@ class MoveOutController extends Controller
 
         DB::transaction(function () use ($lease, $moveOut, $netAmount, $unitIds, $request): void {
             $userId = $request->user()->id;
-            $tenantId = $lease->account_tenant_id;
+            $tenantId = $lease->tenant_id;
             $settlementDate = now();
 
             // Create refund or charge transaction.

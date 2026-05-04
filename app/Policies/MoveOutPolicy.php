@@ -48,6 +48,7 @@ class MoveOutPolicy
     public function finalize(User $user, MoveOut $moveOut): bool
     {
         return $user->can('leases.UPDATE')
-            && $this->belongsToCurrentTenant($moveOut);
+            && $this->belongsToCurrentTenant($moveOut)
+            && $moveOut->status_id !== MoveOutStatus::COMPLETED;
     }
 }
