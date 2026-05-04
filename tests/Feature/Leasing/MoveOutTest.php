@@ -1274,9 +1274,8 @@ class MoveOutTest extends TestCase
                 'moveOut' => $moveOut,
             ]));
 
-        // The finalize policy does not currently prevent re-finalizing a
-        // completed move-out. This allows double processing — flag for reviewer.
-        $response->assertStatus(302);
+        // The finalize policy now prevents re-finalizing a completed move-out.
+        $response->assertStatus(403);
     }
 
     public function test_finalize_validates_generate_statement_is_boolean(): void

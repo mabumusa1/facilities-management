@@ -138,3 +138,8 @@ _(append as you find them; common places: listing endpoints that touch Community
   (2) Transaction `assignee_id` set to `account_tenant_id` (spatie tenant) instead of `$lease->tenant_id` (Resident FK). Variable `$tenantId` misleadingly holds account_tenant_id. Existing tests don't assert assignee_id. Fix: use `$lease->tenant_id`.
   3 nice-to-haves: voiding uses `is_paid = true` instead of status transition per Tech Lead design; float precision inconsistent between settlement() and finalize() (round() used in one but not the other); Wayfinder files gitignored — verify build pipeline runs wayfinder:generate.
   51 tests green, Pint clean. Wayfinder exports present on local disk (auto-regen by Vite plugin) but not committed (gitignored). Route ordering correct: move-out sub-routes declared before `leases/{lease}` wildcard.
+
+- PR #403 — comment/request-changes (Round 2, self-authored — GitHub blocked formal review) — 1 of 2 blockers fixed:
+  ✅ Blocker 2 (assignee_id): `$lease->tenant_id` correct at MoveOutController.php:445.
+  ❌ Blocker 1 (MoveOutPolicy guard): PARTIALLY fixed — guard added but `use App\Support\MoveOutStatus;` import MISSING at MoveOutPolicy.php:52 → fatal Error on every finalize call, 12 tests fail. Sub-issue: test_finalize_returns_403_for_already_settled_move_out still asserts 302 (must be 403) + stale comment must be removed.
+  10 tests pass (GET endpoints), 12 fail (all finalize POSTs — same root cause). 3 Round 1 nice-to-haves still open: voiding is_paid pattern, float precision, Wayfinder gitignored.

@@ -7,6 +7,7 @@ use App\Models\Lease;
 use App\Models\MoveOut;
 use App\Models\User;
 use App\Support\ManagerScopeHelper;
+use App\Support\MoveOutStatus;
 
 class MoveOutPolicy
 {
